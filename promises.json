@@ -13,65 +13,934 @@
         {
           "date": "02/04/2024",
           "text": "Nomination d'un Premier Ministre pour la transition."
-        },
-        {
-          "date": "15/05/2024",
-          "text": "Projet de loi déposé à l'Assemblée nationale."
         }
       ]
     },
     {
       "id": "promise_2",
-      "domaine": "Justice",
-      "engagement": "Instituer un Juge des Libertés et de la Détention (JLD)",
-      "resultat": "Protection contre la détention arbitraire",
-      "delai": "2 premières années",
-      "status": "realise",
-      "mises_a_jour": [
-        {
-          "date": "01/06/2024",
-          "text": "Loi adoptée par le Parlement."
-        },
-        {
-          "date": "15/08/2024",
-          "text": "Premiers juges des libertés nommés."
-        }
-      ]
+      "domaine": "Institutions",
+      "engagement": "Responsabilité politique du Président (révocabilité)",
+      "resultat": "Fin de l'hyperprésidentialisme",
+      "delai": "6 premiers mois",
+      "status": "non-lance",
+      "mises_a_jour": []
     },
     {
       "id": "promise_3",
-      "domaine": "Économie",
-      "engagement": "Banque Publique d'Investissement Unique",
-      "resultat": "Fusion FONGIP/FONSIS/BNDE",
-      "delai": "Mandat",
-      "status": "encours",
-      "mises_a_jour": [
-        {
-          "date": "10/07/2024",
-          "text": "Audit des institutions en cours."
-        }
-      ]
+      "domaine": "Institutions",
+      "engagement": "Transformer le Conseil Constitutionnel en Cour Constitutionnelle",
+      "resultat": "Organe au sommet de l'organisation judiciaire",
+      "delai": "12 premiers mois",
+      "status": "non-lance",
+      "mises_a_jour": []
     },
     {
       "id": "promise_4",
-      "domaine": "Santé",
-      "engagement": "Couverture Sanitaire Universelle (CSU)",
-      "resultat": "Soins pour tous",
-      "delai": "2 ans",
+      "domaine": "Institutions",
+      "engagement": "Réforme du Conseil Supérieur de la Magistrature (CSM)",
+      "resultat": "Indépendance statutaire des juges",
+      "delai": "12 premiers mois",
       "status": "non-lance",
       "mises_a_jour": []
     },
     {
       "id": "promise_5",
+      "domaine": "Justice",
+      "engagement": "Instituer un Juge des Libertés et de la Détention (JLD)",
+      "resultat": "Protection contre la détention arbitraire",
+      "delai": "2 premières années",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_6",
+      "domaine": "Justice",
+      "engagement": "Limiter la détention provisoire à 3 ans max (criminel)",
+      "resultat": "Respect des droits humains",
+      "delai": "12 premiers mois",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_7",
+      "domaine": "Justice",
+      "engagement": "Supprimer la pratique du retour de parquet",
+      "resultat": "Respect de la garde à vue légale",
+      "delai": "Immédiat",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_8",
+      "domaine": "Justice",
+      "engagement": "Indépendance du Parquet vis-à-vis du Ministre",
+      "resultat": "Fin des instructions politiques",
+      "delai": "12 premiers mois",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_9",
+      "domaine": "Justice",
+      "engagement": "Supprimer la procédure de contumace",
+      "resultat": "Droit à un procès équitable",
+      "delai": "12 premiers mois",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_10",
+      "domaine": "Justice",
+      "engagement": "Peines alternatives (Bracelet électronique)",
+      "resultat": "Désengorgement prisons",
+      "delai": "2 premières années",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_11",
+      "domaine": "Justice",
+      "engagement": "Augmenter substantiellement le budget Justice",
+      "resultat": "Modernisation et digitalisation",
+      "delai": "Quinquennat",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_12",
+      "domaine": "Justice",
+      "engagement": "Réhabiliter/construire des prisons aux normes",
+      "resultat": "Humanisation carcérale",
+      "delai": "Quinquennat",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_13",
+      "domaine": "Justice",
+      "engagement": "Renforcer l'aide juridictionnelle",
+      "resultat": "Égalité devant la justice",
+      "delai": "2 premières années",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_14",
+      "domaine": "Justice",
+      "engagement": "Développer les maisons de justice (Règlement alternatif)",
+      "resultat": "Justice de proximité",
+      "delai": "2 premières années",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_15",
+      "domaine": "Gouvernance",
+      "engagement": "Remplacer la CENA par une CENI",
+      "resultat": "Processus électoral indépendant",
+      "delai": "Avant 1ère élection",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_16",
+      "domaine": "Gouvernance",
+      "engagement": "Inscription automatique listes électorales (CNI)",
+      "resultat": "Fichier fiable",
+      "delai": "Avant 1ère élection",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_17",
+      "domaine": "Lutte Corruption",
+      "engagement": "Créer un Parquet National Financier (PNF)",
+      "resultat": "Traque délinquance financière",
+      "delai": "1ère année",
+      "status": "encours",
+      "mises_a_jour": [
+        {
+          "date": "25/04/2024",
+          "text": "Annonce de l'audit général des finances publiques."
+        }
+      ]
+    },
+    {
+      "id": "promise_18",
+      "domaine": "Lutte Corruption",
+      "engagement": "Réformer l'OFNAC (auto-saisine)",
+      "resultat": "Fin de l'impunité",
+      "delai": "1ère année",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_19",
+      "domaine": "Lutte Corruption",
+      "engagement": "Loi de protection des lanceurs d'alerte",
+      "resultat": "Encouragement dénonciation civique",
+      "delai": "3 premières années",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_20",
+      "domaine": "Économie",
+      "engagement": "Banque Publique d'Investissement Unique",
+      "resultat": "Fusion FONGIP/FONSIS/BNDE",
+      "delai": "Mandat",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_21",
+      "domaine": "Économie",
+      "engagement": "Bureau d'Intelligence Économique (BIE) à la Présidence",
+      "resultat": "Prospective souveraine",
+      "delai": "Immédiat",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_22",
+      "domaine": "Monnaie",
+      "engagement": "Réforme pour une monnaie nationale",
+      "resultat": "Souveraineté monétaire",
+      "delai": "Mandat",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_23",
+      "domaine": "Finances",
+      "engagement": "Banque Postale",
+      "resultat": "Bancarisation massive",
+      "delai": "2 à 3 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_24",
+      "domaine": "Finances",
+      "engagement": "Filiales Banque Publique (Diaspora)",
+      "resultat": "Captation épargne diaspora",
+      "delai": "2 à 3 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_25",
+      "domaine": "Finances",
+      "engagement": "Dématérialisation totale fiscalité",
+      "resultat": "Optimisation recettes",
+      "delai": "2 à 3 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_26",
+      "domaine": "Finances",
+      "engagement": "Conseil des Finances Publiques",
+      "resultat": "Contrôle sincérité budgétaire",
+      "delai": "1ère année",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_27",
+      "domaine": "Finances",
+      "engagement": "Réserve nationale d'or",
+      "resultat": "Garantie monétaire",
+      "delai": "Mandat",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_28",
+      "domaine": "Finances",
+      "engagement": "Indexer l'IR sur l'inflation",
+      "resultat": "Protection pouvoir d'achat",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_29",
+      "domaine": "Finances",
+      "engagement": "Caisse d'amortissement dette publique",
+      "resultat": "Gestion dette saine",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_30",
+      "domaine": "Finances Locales",
+      "engagement": "TVA aux collectivités (15%)",
+      "resultat": "Autonomie territoires",
+      "delai": "3 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_31",
+      "domaine": "Entrepreneuriat",
+      "engagement": "Maison de l'Entrepreneur (Fusion DER/ADEPME)",
+      "resultat": "Guichet unique PME",
+      "delai": "1ère année",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_32",
+      "domaine": "Commerce",
+      "engagement": "Préférence nationale commande publique",
+      "resultat": "Soutien secteur privé",
+      "delai": "Immédiat",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_33",
+      "domaine": "Secteur Informel",
+      "engagement": "Pacte Régularisation (PRI)",
+      "resultat": "Formalisation progressive",
+      "delai": "5 à 10 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_34",
+      "domaine": "Industrie",
+      "engagement": "Plan d'Accélération Industrielle (PAIS)",
+      "resultat": "Substitution importations",
+      "delai": "12 premiers mois",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_35",
+      "domaine": "Agriculture",
+      "engagement": "Réforme foncière et baux ruraux",
+      "resultat": "Sécurisation paysans",
+      "delai": "12 premiers mois",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_36",
+      "domaine": "Agriculture",
+      "engagement": "Budget agricole à 10%",
+      "resultat": "Accords Maputo",
+      "delai": "Horizon 2027",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_37",
+      "domaine": "Agriculture",
+      "engagement": "Observatoire du Monde Rural",
+      "resultat": "Alerte sécurité alimentaire",
+      "delai": "12 premiers mois",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_38",
+      "domaine": "Agriculture",
+      "engagement": "Fonds Recherche & Vulgarisation (FARVAR)",
+      "resultat": "Innovation agricole",
+      "delai": "12 premiers mois",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_39",
+      "domaine": "Agriculture",
+      "engagement": "Restructuration SAED",
+      "resultat": "Efficacité vallée fleuve",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_40",
+      "domaine": "Pêche",
+      "engagement": "Zone 12 milles réservée pêche artisanale",
+      "resultat": "Protection artisans",
+      "delai": "Immédiat",
+      "status": "realise",
+      "mises_a_jour": [
+        {
+          "date": "06/05/2024",
+          "text": "Publication de la liste des navires autorisés."
+        },
+        {
+          "date": "15/06/2024",
+          "text": "Décret signé et publié au Journal Officiel."
+        }
+      ]
+    },
+    {
+      "id": "promise_41",
+      "domaine": "Pêche",
+      "engagement": "Audit accords de pêche étrangers",
+      "resultat": "Souveraineté halieutique",
+      "delai": "Immédiat",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_42",
+      "domaine": "Pêche",
+      "engagement": "Plan Récifs Artificiels",
+      "resultat": "Repopulation fonds marins",
+      "delai": "3 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_43",
+      "domaine": "Pêche",
+      "engagement": "Institut Océanographique (ISROHA)",
+      "resultat": "Recherche marine",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_44",
+      "domaine": "Élevage",
+      "engagement": "Traçabilité numérique bétail",
+      "resultat": "Anti-vol",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_45",
+      "domaine": "Élevage",
+      "engagement": "Cultures fourragères",
+      "resultat": "Autonomie aliment bétail",
+      "delai": "3 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_46",
+      "domaine": "Élevage",
+      "engagement": "Agence Sécurité Sanitaire Aliments",
+      "resultat": "Qualité sanitaire",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_47",
+      "domaine": "Agro-industrie",
+      "engagement": "Territorialisation agropoles",
+      "resultat": "Transformation 50% production",
+      "delai": "2029",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_48",
+      "domaine": "Hydraulique",
+      "engagement": "Barrages anti-sel (Casamance)",
+      "resultat": "Récupération terres",
+      "delai": "3 à 4 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_49",
+      "domaine": "Hydraulique",
+      "engagement": "Canaux Cayor et Baol",
+      "resultat": "Irrigation",
+      "delai": "Quinquennat",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_50",
+      "domaine": "Santé",
+      "engagement": "Couverture Sanitaire Universelle (CSU)",
+      "resultat": "Soins pour tous",
+      "delai": "2 ans",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_51",
+      "domaine": "Santé",
+      "engagement": "Département Santé Sociale (Numéros verts)",
+      "resultat": "Urgences sociales",
+      "delai": "1ère année",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_52",
+      "domaine": "Santé",
+      "engagement": "Haute Autorité Santé (HAS)",
+      "resultat": "Régulation qualité",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_53",
+      "domaine": "Santé",
+      "engagement": "Programme « Xaleey tay » (Soins 0-15 ans)",
+      "resultat": "Prévention infantile",
+      "delai": "Immédiat",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_54",
+      "domaine": "Santé",
+      "engagement": "Plan « Képpaaru mag ñi » (3e âge)",
+      "resultat": "Gériatrie",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_55",
+      "domaine": "Santé",
+      "engagement": "Numéro NIS biométrique",
+      "resultat": "Dossier médical partagé",
+      "delai": "3 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_56",
+      "domaine": "Santé",
+      "engagement": "Hôpitaux universitaires interrégionaux",
+      "resultat": "Fin évacuations",
+      "delai": "Quinquennat",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_57",
+      "domaine": "Santé",
+      "engagement": "Industrie pharmaceutique locale",
+      "resultat": "Souveraineté médicamenteuse",
+      "delai": "3 à 5 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_58",
+      "domaine": "Social",
+      "engagement": "Fonds National de Solidarité",
+      "resultat": "Lutte pauvreté",
+      "delai": "1 à 2 ans",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_59",
+      "domaine": "Handicap",
+      "engagement": "Allocation Compensation Handicap (ACH)",
+      "resultat": "Revenu digne",
+      "delai": "1ère année",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_60",
+      "domaine": "Handicap",
+      "engagement": "Carte d'Égalité des Chances effective",
+      "resultat": "Gratuité ciblée",
+      "delai": "1ère année",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_61",
+      "domaine": "Femmes",
+      "engagement": "Accès foncier femmes",
+      "resultat": "Autonomisation rurale",
+      "delai": "Mandat",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_62",
+      "domaine": "Femmes",
+      "engagement": "Crèches/Garderies",
+      "resultat": "Conciliation vie pro/famille",
+      "delai": "3 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_63",
+      "domaine": "Santé",
+      "engagement": "Médecine traditionnelle",
+      "resultat": "Intégration système",
+      "delai": "3 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_64",
       "domaine": "Éducation",
       "engagement": "Zéro abri provisoire",
       "resultat": "Infrastructures dignes",
       "delai": "2029",
       "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_65",
+      "domaine": "Éducation",
+      "engagement": "Généralisation Anglais élémentaire",
+      "resultat": "Bilinguisme",
+      "delai": "3 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_66",
+      "domaine": "Éducation",
+      "engagement": "Recrutement massif enseignants",
+      "resultat": "Résorption déficit",
+      "delai": "12 premiers mois",
+      "status": "realise",
       "mises_a_jour": [
         {
-          "date": "20/09/2024",
-          "text": "Plan de construction de 100 nouvelles écoles lancé."
+          "date": "15/09/2024",
+          "text": "Recrutement de 5 000 nouveaux enseignants."
+        },
+        {
+          "date": "30/10/2024",
+          "text": "Formation pédagogique en cours."
+        }
+      ]
+    },
+    {
+      "id": "promise_67",
+      "domaine": "Éducation",
+      "engagement": "Intégration Daaras",
+      "resultat": "Modernisation",
+      "delai": "3 ans",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_68",
+      "domaine": "Éducation",
+      "engagement": "Statut maître coranique",
+      "resultat": "Reconnaissance",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_69",
+      "domaine": "Supérieur",
+      "engagement": "Universités technologiques (8 pôles)",
+      "resultat": "Adéquation emploi",
+      "delai": "Quinquennat",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_70",
+      "domaine": "Supérieur",
+      "engagement": "Taux encadrement 1/30",
+      "resultat": "Qualité enseignement",
+      "delai": "Horizon 2029",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_71",
+      "domaine": "Formation Pro",
+      "engagement": "Lycées pros (46 départements)",
+      "resultat": "Employabilité locale",
+      "delai": "4 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_72",
+      "domaine": "Science",
+      "engagement": "Budget Recherche 1% PIB",
+      "resultat": "Souveraineté scientifique",
+      "delai": "2027",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_73",
+      "domaine": "Science",
+      "engagement": "Fonds National Recherche (FNDRI)",
+      "resultat": "Financement autonome",
+      "delai": "1ère année",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_74",
+      "domaine": "Éducation",
+      "engagement": "Éducation inclusive (Handicap)",
+      "resultat": "Égalité des chances",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_75",
+      "domaine": "Énergie",
+      "engagement": "Accès universel électricité",
+      "resultat": "100% couverture",
+      "delai": "2030",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_76",
+      "domaine": "Énergie",
+      "engagement": "Nucléaire civil",
+      "resultat": "Mix énergétique futur",
+      "delai": "5 à 10 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_77",
+      "domaine": "Énergie",
+      "engagement": "Conversion centrales Senelec Gaz",
+      "resultat": "Baisse coût électricité",
+      "delai": "Court terme",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_78",
+      "domaine": "Hydrocarbures",
+      "engagement": "Renégociation contrats pétroliers",
+      "resultat": "Revenus optimisés",
+      "delai": "Immédiat",
+      "status": "realise",
+      "mises_a_jour": [
+        {
+          "date": "20/05/2024",
+          "text": "Accords renégociés avec 3 compagnies pétrolières."
+        },
+        {
+          "date": "10/07/2024",
+          "text": "Augmentation de 15% des royalties."
+        }
+      ]
+    },
+    {
+      "id": "promise_79",
+      "domaine": "Hydrocarbures",
+      "engagement": "2e raffinerie (Foundiougne)",
+      "resultat": "Indépendance raffinage",
+      "delai": "Quinquennat",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_80",
+      "domaine": "Transport",
+      "engagement": "Réseau ferroviaire (7 lignes)",
+      "resultat": "Maillage national",
+      "delai": "5 à 10 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_81",
+      "domaine": "Transport",
+      "engagement": "Air Sénégal Express",
+      "resultat": "Désenclavement aérien",
+      "delai": "3 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_82",
+      "domaine": "Transport",
+      "engagement": "Nationalisation manutention port",
+      "resultat": "Souveraineté logistique",
+      "delai": "4 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_83",
+      "domaine": "Transport",
+      "engagement": "Bateaux-Taxis",
+      "resultat": "Mobilité Dakar",
+      "delai": "3 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_84",
+      "domaine": "Transport",
+      "engagement": "Autorité Aviation Civile (2AC)",
+      "resultat": "Supervision aérienne",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_85",
+      "domaine": "Infrastructures",
+      "engagement": "Aéropôles régionaux",
+      "resultat": "Zones économiques",
+      "delai": "4 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_86",
+      "domaine": "Transport",
+      "engagement": "Suppression receveurs Dakar Dem Dikk",
+      "resultat": "Digitalisation",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_87",
+      "domaine": "BTP",
+      "engagement": "Création CTI-BTP",
+      "resultat": "Normes qualité",
+      "delai": "1ère année",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_88",
+      "domaine": "BTP",
+      "engagement": "Interdiction informel BTP",
+      "resultat": "Sécurité chantiers",
+      "delai": "1ère année",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_89",
+      "domaine": "Habitat",
+      "engagement": "Logements sociaux massifs",
+      "resultat": "Accès logement",
+      "delai": "3 à 5 ans",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_90",
+      "domaine": "Sécurité",
+      "engagement": "Maillage territorial (Police/Gendarmerie)",
+      "resultat": "Sécurité proximité",
+      "delai": "2 ans",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_91",
+      "domaine": "Sécurité",
+      "engagement": "Autorité contrôle FDS",
+      "resultat": "Lutte bavures",
+      "delai": "1ère année",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_92",
+      "domaine": "Défense",
+      "engagement": "Complexe militaro-industriel",
+      "resultat": "Autonomie armement",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_93",
+      "domaine": "Défense",
+      "engagement": "Centre spatial / Nanosatellites",
+      "resultat": "Surveillance technologique",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_94",
+      "domaine": "Environnement",
+      "engagement": "Fonds Économie Verte (FNPEV)",
+      "resultat": "Transition écologique",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_95",
+      "domaine": "Environnement",
+      "engagement": "Réhabilitation Mbeubeuss",
+      "resultat": "Gestion déchets",
+      "delai": "2 ans",
+      "status": "encours",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_96",
+      "domaine": "Urbanisme",
+      "engagement": "Permis de louer / Encadrement loyers",
+      "resultat": "Baisse spéculation",
+      "delai": "1ère année",
+      "status": "realise",
+      "mises_a_jour": [
+        {
+          "date": "15/05/2024",
+          "text": "Annonce de la baisse des prix du loyer."
+        },
+        {
+          "date": "01/07/2024",
+          "text": "Loi sur l'encadrement des loyers votée."
+        }
+      ]
+    },
+    {
+      "id": "promise_97",
+      "domaine": "Numérique",
+      "engagement": "Droit internet Constitution",
+      "resultat": "Inclusion numérique",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_98",
+      "domaine": "Numérique",
+      "engagement": "Instance régulation données",
+      "resultat": "Souveraineté numérique",
+      "delai": "2 ans",
+      "status": "non-lance",
+      "mises_a_jour": []
+    },
+    {
+      "id": "promise_99",
+      "domaine": "Sport",
+      "engagement": "Fusion Sports et Jeunesse",
+      "resultat": "Rationalisation",
+      "delai": "Immédiat",
+      "status": "realise",
+      "mises_a_jour": [
+        {
+          "date": "05/04/2024",
+          "text": "Fusion effective Gouvernement Sonko 1"
         }
       ]
     }
