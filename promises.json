@@ -1,0 +1,30 @@
+{
+  "start_date": "2024-04-02",
+  "last_updated": "2024-01-05",
+  "promises": [
+    {
+      "id": "promise_1",
+      "domaine": "Institutions",
+      "engagement": "Supprimer le poste de Premier Ministre et instaurer un poste de Vice-Président",
+      "resultat": "Exécutif resserré et équilibre des pouvoirs",
+      "delai": "6 premiers mois",
+      "status": "encours",
+      "mises_a_jour": [
+        {
+          "date": "02/04/2024",
+          "text": "Nomination d'un Premier Ministre pour la transition."
+        }
+      ]
+    },
+    {
+      "id": "promise_2",
+      "domaine": "Justice",
+      "engagement": "Instituer un Juge des Libertés et de la Détention (JLD)",
+      "resultat": "Protection contre la détention arbitraire",
+      "delai": "2 premières années",
+      "status": "encours",
+      "mises_a_jour": []
+    }
+    // ... autres promesses
+  ]
+}
