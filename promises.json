@@ -1,6 +1,6 @@
 {
   "start_date": "2024-04-02",
-  "last_updated": "2024-01-05",
+  "last_updated": "2024-12-15",
   "promises": [
     {
       "id": "promise_1",
@@ -13,6 +13,10 @@
         {
           "date": "02/04/2024",
           "text": "Nomination d'un Premier Ministre pour la transition."
+        },
+        {
+          "date": "15/05/2024",
+          "text": "Projet de loi déposé à l'Assemblée nationale."
         }
       ]
     },
@@ -22,8 +26,54 @@
       "engagement": "Instituer un Juge des Libertés et de la Détention (JLD)",
       "resultat": "Protection contre la détention arbitraire",
       "delai": "2 premières années",
+      "status": "realise",
+      "mises_a_jour": [
+        {
+          "date": "01/06/2024",
+          "text": "Loi adoptée par le Parlement."
+        },
+        {
+          "date": "15/08/2024",
+          "text": "Premiers juges des libertés nommés."
+        }
+      ]
+    },
+    {
+      "id": "promise_3",
+      "domaine": "Économie",
+      "engagement": "Banque Publique d'Investissement Unique",
+      "resultat": "Fusion FONGIP/FONSIS/BNDE",
+      "delai": "Mandat",
       "status": "encours",
+      "mises_a_jour": [
+        {
+          "date": "10/07/2024",
+          "text": "Audit des institutions en cours."
+        }
+      ]
+    },
+    {
+      "id": "promise_4",
+      "domaine": "Santé",
+      "engagement": "Couverture Sanitaire Universelle (CSU)",
+      "resultat": "Soins pour tous",
+      "delai": "2 ans",
+      "status": "non-lance",
       "mises_a_jour": []
+    },
+    {
+      "id": "promise_5",
+      "domaine": "Éducation",
+      "engagement": "Zéro abri provisoire",
+      "resultat": "Infrastructures dignes",
+      "delai": "2029",
+      "status": "encours",
+      "mises_a_jour": [
+        {
+          "date": "20/09/2024",
+          "text": "Plan de construction de 100 nouvelles écoles lancé."
+        }
+      ]
     }
   ]
 }
