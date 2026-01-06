@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Styles -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="bg-pattern"></div>
@@ -99,9 +99,9 @@
     <footer class="footer">
       <p>Plateforme citoyenne de suivi des engagements • Données à jour au <span id="current-date"></span></p>
       <div class="footer-links">
-        <a href="update-guide.html" class="update-link">
+        <button onclick="showUpdateGuide()" class="update-link">
           <i class="fas fa-sync-alt"></i> Comment mettre à jour
-        </a>
+        </button>
       </div>
       <p class="footer-note">
         Développé avec <i class="fas fa-heart" style="color: #e76f51;"></i> pour la transparence démocratique
@@ -110,8 +110,14 @@
   </div>
 
   <!-- JavaScript -->
-  <script src="js/app.js" defer></script>
-  <script src="js/render.js" defer></script>
-  <script src="js/utils.js" defer></script>
+  <script src="app.js" defer></script>
+  <script src="render.js" defer></script>
+  <script src="utils.js" defer></script>
+  
+  <script>
+  function showUpdateGuide() {
+    alert("Pour mettre à jour :\n1. Modifiez le fichier promises.json\n2. Changez le 'status' des promesses\n3. Ajoutez des mises à jour dans 'mises_a_jour'\n4. Les changements seront visibles après rechargement de la page.");
+  }
+  </script>
 </body>
 </html>
