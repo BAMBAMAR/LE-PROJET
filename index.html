@@ -16,9 +16,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Styles -->
   <style>
-    /* VARIABLES COULEURS DOUCES */
+    /* TOUT LE CSS (identique à avant) */
     :root {
       --primary: #2a6d5d;
       --primary-light: #3a9d84;
@@ -35,7 +34,6 @@
       --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     }
 
-    /* RESET ET BASE */
     * {
       margin: 0;
       padding: 0;
@@ -50,7 +48,6 @@
       min-height: 100vh;
     }
 
-    /* PATTERN DE FOND */
     .bg-pattern {
       position: fixed;
       top: 0;
@@ -64,7 +61,6 @@
       z-index: -1;
     }
 
-    /* CONTAINER PRINCIPAL */
     .container {
       max-width: 1400px;
       margin: 0 auto;
@@ -72,7 +68,6 @@
       position: relative;
     }
 
-    /* HEADER */
     .header {
       text-align: center;
       margin-bottom: 2.5rem;
@@ -130,7 +125,6 @@
       font-size: 0.95rem;
     }
 
-    /* BOUTONS PARTAGE HEADER */
     .share-dashboard {
       position: absolute;
       top: 1.5rem;
@@ -161,7 +155,6 @@
     .share-whatsapp { background: #25d366; }
     .share-linkedin { background: #0077b5; }
 
-    /* STATISTIQUES */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -220,7 +213,6 @@
       font-weight: 600;
     }
 
-    /* FILTRES */
     .filters {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -265,7 +257,6 @@
       box-shadow: 0 0 0 3px rgba(42, 109, 93, 0.1);
     }
 
-    /* GRILLE DES PROMESSES */
     .promises-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
@@ -273,7 +264,6 @@
       margin-bottom: 3rem;
     }
 
-    /* CARTE DE PROMESSE */
     .promise-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -351,7 +341,6 @@
       color: var(--text-secondary);
     }
 
-    /* BADGES DE STATUT */
     .status-badge {
       padding: 0.5rem 1rem;
       border-radius: 8px;
@@ -379,7 +368,6 @@
       border: 1px solid rgba(108, 117, 125, 0.3);
     }
 
-    /* BADGES DE DÉLAI */
     .delay-badge {
       padding: 0.5rem 1rem;
       border-radius: 8px;
@@ -402,7 +390,6 @@
       border: 1px solid rgba(231, 111, 81, 0.3);
     }
 
-    /* BOUTON DÉTAILS */
     .details-btn {
       background: rgba(42, 109, 93, 0.1);
       border: 1px solid rgba(42, 109, 93, 0.3);
@@ -426,7 +413,6 @@
       transform: translateY(-2px);
     }
 
-    /* MISES À JOUR */
     .updates-container {
       display: none;
       background: rgba(233, 196, 106, 0.05);
@@ -479,7 +465,6 @@
       line-height: 1.5;
     }
 
-    /* NOTATION */
     .rating-section {
       background: rgba(233, 196, 106, 0.05);
       padding: 1rem;
@@ -514,7 +499,6 @@
       font-weight: 500;
     }
 
-    /* PARTAGE DANS LES CARTES */
     .share-section {
       display: flex;
       justify-content: center;
@@ -540,7 +524,6 @@
       transform: translateY(-3px) scale(1.1);
     }
 
-    /* CHARGEMENT */
     .loading {
       text-align: center;
       padding: 3rem;
@@ -562,7 +545,6 @@
       to { transform: rotate(360deg); }
     }
 
-    /* FOOTER */
     .footer {
       text-align: center;
       padding: 2.5rem 2rem;
@@ -614,7 +596,6 @@
       color: var(--text-secondary);
     }
 
-    /* NOTIFICATION */
     .notification {
       position: fixed;
       top: 20px;
@@ -642,7 +623,6 @@
       to { transform: translateX(100px); opacity: 0; }
     }
 
-    /* RESPONSIVE */
     @media (max-width: 1024px) {
       .filters {
         grid-template-columns: repeat(2, 1fr);
@@ -794,11 +774,10 @@
     </footer>
   </div>
 
-  <!-- JavaScript UNIFIÉ -->
   <script>
-    // CONFIGURATION
+    // CONFIGURATION - CHEMIN CORRECT
     const CONFIG = {
-      DATA_URL: 'promises.json',
+      DATA_URL: 'promises.json',  // IMPORTANT : même dossier
       START_DATE: null,
       CURRENT_DATE: new Date(),
       promises: []
@@ -925,7 +904,7 @@
       }
       
       container.innerHTML = promises.map(promise => {
-        const isLate = promise.isLate;
+        const isLate = checkIfLate(promise.status, promise.deadline);
         let statusClass, statusText;
         
         switch(promise.status) {
@@ -976,17 +955,6 @@
           `;
         }
         
-        // Charger les votes
-        const votes = promise.votes || [];
-        const avgRating = votes.length ? (votes.reduce((a, b) => a + b, 0) / votes.length).toFixed(1) : 0;
-        
-        // Créer les étoiles
-        let starsHTML = '';
-        for (let i = 1; i <= 5; i++) {
-          const filled = i <= Math.round(avgRating);
-          starsHTML += `<i class="${filled ? 'fas' : 'far'} fa-star" data-value="${i}" onclick="ratePromise('${promise.id}', ${i})"></i>`;
-        }
-        
         // Partager cette promesse
         const shareButtons = createShareButtons(promise);
         
@@ -1000,4 +968,226 @@
               <strong>Résultat attendu :</strong> ${promise.resultat}
             </div>
             
-           
+            <div class="promise-meta">
+              <div class="meta-row">
+                <span><i class="fas fa-clock"></i> Délai : <strong>${promise.delai}</strong></span>
+                ${delayBadge}
+              </div>
+              <div class="meta-row">
+                <span>Statut :</span>
+                <span class="status-badge ${statusClass}">${statusText}</span>
+              </div>
+            </div>
+            
+            ${updatesHTML}
+            
+            <div class="rating-section">
+              <div class="stars">
+                <i class="far fa-star" data-value="1" onclick="ratePromise('${promise.id}', 1)"></i>
+                <i class="far fa-star" data-value="2" onclick="ratePromise('${promise.id}', 2)"></i>
+                <i class="far fa-star" data-value="3" onclick="ratePromise('${promise.id}', 3)"></i>
+                <i class="far fa-star" data-value="4" onclick="ratePromise('${promise.id}', 4)"></i>
+                <i class="far fa-star" data-value="5" onclick="ratePromise('${promise.id}', 5)"></i>
+              </div>
+              <span class="rating-label" id="rating-label-${promise.id}">
+                Noter cet engagement
+              </span>
+            </div>
+            
+            ${shareButtons}
+          </div>
+        `;
+      }).join('');
+    }
+
+    // GESTION DES MISES À JOUR
+    window.toggleUpdates = function(promiseId) {
+      const updatesEl = document.getElementById(`updates-${promiseId}`);
+      const btn = updatesEl.previousElementSibling;
+      
+      if (updatesEl.classList.contains('show')) {
+        updatesEl.classList.remove('show');
+        btn.innerHTML = '<i class="fas fa-history"></i> Voir les mises à jour';
+      } else {
+        updatesEl.classList.add('show');
+        btn.innerHTML = '<i class="fas fa-times-circle"></i> Masquer les mises à jour';
+      }
+    };
+
+    // NOTATION
+    window.ratePromise = function(promiseId, rating) {
+      const promise = CONFIG.promises.find(p => p.id === promiseId);
+      if (promise) {
+        if (!promise.votes) promise.votes = [];
+        promise.votes.push(rating);
+        localStorage.setItem(`vote_${promiseId}`, JSON.stringify(promise.votes));
+        
+        // Mettre à jour les étoiles
+        const stars = document.querySelectorAll(`#${promiseId} .stars i`);
+        stars.forEach((star, index) => {
+          if (index < rating) {
+            star.classList.remove('far');
+            star.classList.add('fas', 'filled');
+          } else {
+            star.classList.remove('fas', 'filled');
+            star.classList.add('far');
+          }
+        });
+        
+        // Mettre à jour le label
+        const avg = promise.votes.reduce((a, b) => a + b, 0) / promise.votes.length;
+        document.getElementById(`rating-label-${promiseId}`).textContent = 
+          `Note : ${avg.toFixed(1)}/5 (${promise.votes.length} vote${promise.votes.length > 1 ? 's' : ''})`;
+        
+        showNotification(`Merci ! Vous avez noté ${rating}/5 cette promesse.`);
+      }
+    };
+
+    // FILTRAGE
+    function setupEventListeners() {
+      document.getElementById('search').addEventListener('input', updateDisplay);
+      document.getElementById('domaine').addEventListener('change', updateDisplay);
+      document.getElementById('status').addEventListener('change', updateDisplay);
+    }
+
+    function updateDisplay() {
+      const search = document.getElementById('search').value.toLowerCase();
+      const domaine = document.getElementById('domaine').value;
+      const status = document.getElementById('status').value;
+      
+      const filtered = CONFIG.promises.filter(p => {
+        const matchSearch = p.engagement.toLowerCase().includes(search) || 
+                           p.resultat.toLowerCase().includes(search) ||
+                           p.domaine.toLowerCase().includes(search);
+        const matchDomaine = !domaine || p.domaine === domaine;
+        
+        let matchStatus = true;
+        if (status === 'realise') {
+          matchStatus = p.status === 'realise';
+        } else if (status === 'en-retard') {
+          matchStatus = p.isLate;
+        } else if (status === 'dans-les-temps') {
+          matchStatus = !p.isLate && p.status !== 'realise';
+        } else if (status === 'non-lance') {
+          matchStatus = p.status === 'non-lance';
+        }
+        
+        return matchSearch && matchDomaine && matchStatus;
+      });
+      
+      renderStats();
+      renderPromises(filtered);
+    }
+
+    // PARTAGE DU DASHBOARD
+    function setupShareButtons() {
+      const currentUrl = window.location.href;
+      const shareText = encodeURIComponent('🇸🇳 Suivi transparent des engagements du Président Diomaye Faye - Tableau de bord citoyen');
+      
+      document.getElementById('share-twitter-dash').href = 
+        `https://twitter.com/intent/tweet?text=${shareText}&url=${encodeURIComponent(currentUrl)}`;
+      
+      document.getElementById('share-facebook-dash').href = 
+        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
+      
+      document.getElementById('share-whatsapp-dash').href = 
+        `https://wa.me/?text=${shareText}%20${encodeURIComponent(currentUrl)}`;
+      
+      document.getElementById('share-linkedin-dash').href = 
+        `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
+    }
+
+    // NOTIFICATION
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.className = 'notification';
+      notification.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span>${message}</span>
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+      }, 3000);
+    }
+
+    // EXPORT DES DONNÉES
+    window.exportData = function() {
+      const dataStr = JSON.stringify(CONFIG.promises, null, 2);
+      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+      const exportFileDefaultName = `promesses-diomaye-${new Date().toISOString().split('T')[0]}.json`;
+      
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+      
+      showNotification('Données exportées avec succès !');
+    };
+
+    // GUIDE DE MISE À JOUR
+    window.showUpdateGuide = function() {
+      alert("POUR METTRE À JOUR LE SITE :\n\n1. Modifiez le fichier 'promises.json' sur GitHub\n2. Changez les 'status' : 'realise', 'encours', ou 'non-lance'\n3. Ajoutez des mises à jour dans 'mises_a_jour'\n4. Sauvegardez (Commit changes)\n5. Attendez 1-2 minutes pour le déploiement\n6. Rechargez la page pour voir les changements");
+    };
+
+    // INITIALISATION
+    async function init() {
+      try {
+        // Charger le fichier JSON
+        const response = await fetch(CONFIG.DATA_URL);
+        
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        console.log('Données chargées:', data);
+        
+        CONFIG.START_DATE = new Date(data.start_date);
+        
+        // Traiter les promesses
+        CONFIG.promises = data.promises.map(p => {
+          const deadline = calculateDeadline(p.delai);
+          const votes = JSON.parse(localStorage.getItem(`vote_${p.id}`)) || [];
+          return {
+            ...p,
+            deadline: deadline,
+            isLate: checkIfLate(p.status, deadline),
+            votes: votes
+          };
+        });
+        
+        updateCurrentDate();
+        renderStats();
+        renderFilters();
+        renderPromises(CONFIG.promises);
+        setupEventListeners();
+        setupShareButtons();
+        
+        console.log(`✅ ${CONFIG.promises.length} promesses chargées avec succès`);
+        
+      } catch (error) {
+        console.error('Erreur de chargement:', error);
+        document.getElementById('promises-container').innerHTML = `
+          <div style="text-align:center; padding:3rem; color:#e76f51; grid-column:1/-1;">
+            <i class="fas fa-exclamation-triangle fa-3x"></i>
+            <h3>Erreur de chargement</h3>
+            <p>Impossible de charger le fichier promises.json</p>
+            <p><small>${error.message}</small></p>
+            <p><small>Vérifiez que le fichier existe dans le même dossier</small></p>
+            <button onclick="location.reload()" style="margin-top:1rem; padding:0.5rem 1rem; background:#2a6d5d; color:white; border:none; border-radius:5px; cursor:pointer;">
+              <i class="fas fa-redo"></i> Réessayer
+            </button>
+          </div>
+        `;
+      }
+    }
+
+    // DÉMARRER
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
