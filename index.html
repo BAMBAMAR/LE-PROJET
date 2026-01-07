@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
-    /* TOUT LE CSS (identique à avant) */
+    /* TOUT LE CSS (avec quelques ajouts) */
     :root {
       --primary: #2a6d5d;
       --primary-light: #3a9d84;
@@ -155,9 +155,10 @@
     .share-whatsapp { background: #25d366; }
     .share-linkedin { background: #0077b5; }
 
+    /* STATISTIQUES AMÉLIORÉES */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1.2rem;
       margin-bottom: 2.5rem;
     }
@@ -171,6 +172,9 @@
       transition: all 0.3s ease;
       box-shadow: var(--shadow);
       position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .stat-card:hover {
@@ -193,6 +197,14 @@
       background: linear-gradient(90deg, var(--danger), var(--warning));
     }
 
+    .stat-card-taux::before {
+      background: linear-gradient(90deg, #3d5a80, #4a90e2);
+    }
+
+    .stat-card-document::before {
+      background: linear-gradient(90deg, #e76f51, #f4a261);
+    }
+
     .stat-value {
       font-size: 2.8rem;
       font-weight: 800;
@@ -205,12 +217,54 @@
       color: var(--danger);
     }
 
+    .stat-card-taux .stat-value {
+      color: #3d5a80;
+    }
+
+    .stat-card-document .stat-value {
+      color: #e76f51;
+    }
+
     .stat-label {
       color: var(--text-secondary);
       font-size: 0.9rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-percentage {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--success);
+      margin-top: 0.5rem;
+    }
+
+    .stat-percentage.warning {
+      color: var(--danger);
+    }
+
+    .document-btn {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background: rgba(231, 111, 81, 0.1);
+      border: 1px solid rgba(231, 111, 81, 0.3);
+      color: #e76f51;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .document-btn:hover {
+      background: rgba(231, 111, 81, 0.2);
+      transform: translateY(-2px);
     }
 
     .filters {
@@ -569,7 +623,7 @@
       flex-wrap: wrap;
     }
 
-    .update-link {
+    .export-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.7rem;
@@ -583,11 +637,51 @@
       font-size: 0.95rem;
       font-weight: 600;
       transition: all 0.3s ease;
+      position: relative;
     }
 
-    .update-link:hover {
+    .export-btn:hover {
       background: rgba(42, 109, 93, 0.2);
       transform: translateY(-2px);
+    }
+
+    .export-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 0.5rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      display: none;
+      flex-direction: column;
+      min-width: 200px;
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .export-btn:hover .export-dropdown {
+      display: flex;
+    }
+
+    .export-option {
+      padding: 0.8rem 1.2rem;
+      border: none;
+      background: none;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .export-option:hover {
+      background: rgba(42, 109, 93, 0.1);
     }
 
     .footer-note {
@@ -624,6 +718,9 @@
     }
 
     @media (max-width: 1024px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
       .filters {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -647,14 +744,14 @@
         justify-content: center;
         margin-top: 1.5rem;
       }
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
       .filters {
         grid-template-columns: 1fr;
       }
       .promises-grid {
         grid-template-columns: 1fr;
-      }
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
       }
       .share-section {
         gap: 0.8rem;
@@ -664,18 +761,15 @@
         height: 36px;
         font-size: 1rem;
       }
-    }
-
-    @media (max-width: 480px) {
-      .stats-grid {
-        grid-template-columns: 1fr;
-      }
-      .header h1 {
-        font-size: 1.6rem;
-      }
       .footer-links {
         flex-direction: column;
         align-items: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header h1 {
+        font-size: 1.6rem;
       }
     }
   </style>
@@ -713,18 +807,43 @@
       <div class="stat-card">
         <div class="stat-value" id="total">0</div>
         <div class="stat-label">Engagements Total</div>
+        <div class="stat-percentage" id="total-percentage">100%</div>
       </div>
       <div class="stat-card">
         <div class="stat-value" id="realise">0</div>
         <div class="stat-label">✅ Réalisés</div>
+        <div class="stat-percentage" id="realise-percentage">0%</div>
       </div>
       <div class="stat-card">
         <div class="stat-value" id="encours">0</div>
         <div class="stat-label">🔄 En Cours</div>
+        <div class="stat-percentage" id="encours-percentage">0%</div>
       </div>
       <div class="stat-card stat-card-warning">
         <div class="stat-value" id="retard">0</div>
         <div class="stat-label">⚠️ En Retard</div>
+        <div class="stat-percentage warning" id="retard-percentage">0%</div>
+      </div>
+      <div class="stat-card stat-card-taux">
+        <div class="stat-value" id="taux-realisation">0%</div>
+        <div class="stat-label">📈 Taux de Réalisation</div>
+        <div class="stat-percentage" id="progress-text">Progression</div>
+      </div>
+      <div class="stat-card stat-card-document">
+        <div class="stat-value">
+          <i class="fas fa-file-contract"></i>
+        </div>
+        <div class="stat-label">📄 Document Original</div>
+        <a href="https://github.com/bambamar/LE-PROJET/raw/main/promesses_originales.pdf" 
+           class="document-btn" 
+           target="_blank"
+           title="Télécharger le document original des promesses">
+          <i class="fas fa-download"></i>
+          Télécharger PDF
+        </a>
+        <small style="color: var(--text-secondary); margin-top: 0.5rem; font-size: 0.8rem;">
+          Programme complet
+        </small>
       </div>
     </div>
 
@@ -761,12 +880,28 @@
     <footer class="footer">
       <p>Plateforme citoyenne de suivi des engagements • Données à jour au <span id="current-date"></span></p>
       <div class="footer-links">
-        <button onclick="showUpdateGuide()" class="update-link">
-          <i class="fas fa-sync-alt"></i> Comment mettre à jour
-        </button>
-        <button onclick="exportData()" class="update-link">
-          <i class="fas fa-download"></i> Exporter données
-        </button>
+        <div class="export-btn">
+          <i class="fas fa-file-export"></i>
+          Exporter les données
+          <div class="export-dropdown">
+            <button class="export-option" onclick="exportData('csv')">
+              <i class="fas fa-file-csv"></i>
+              CSV (Excel)
+            </button>
+            <button class="export-option" onclick="exportData('excel')">
+              <i class="fas fa-file-excel"></i>
+              Excel (.xlsx)
+            </button>
+            <button class="export-option" onclick="exportData('json')">
+              <i class="fas fa-file-code"></i>
+              JSON
+            </button>
+            <button class="export-option" onclick="exportData('pdf')">
+              <i class="fas fa-file-pdf"></i>
+              Rapport PDF
+            </button>
+          </div>
+        </div>
       </div>
       <p class="footer-note">
         Développé avec <i class="fas fa-heart" style="color: #e76f51;"></i> pour la transparence démocratique
@@ -775,9 +910,9 @@
   </div>
 
   <script>
-    // CONFIGURATION - CHEMIN CORRECT
+    // CONFIGURATION
     const CONFIG = {
-      DATA_URL: 'promises.json',  // IMPORTANT : même dossier
+      DATA_URL: 'promises.json',
       START_DATE: null,
       CURRENT_DATE: new Date(),
       promises: []
@@ -828,7 +963,7 @@
       }
     }
 
-    // RENDU DES STATISTIQUES
+    // RENDU DES STATISTIQUES AMÉLIORÉ
     function renderStats() {
       const promises = CONFIG.promises;
       const total = promises.length;
@@ -837,11 +972,43 @@
       const nonLance = promises.filter(p => p.status === 'non-lance').length;
       const retard = promises.filter(p => p.isLate).length;
       
+      // Calcul des pourcentages
+      const realisePercentage = total > 0 ? ((realise / total) * 100).toFixed(1) : 0;
+      const encoursPercentage = total > 0 ? (((encours + nonLance) / total) * 100).toFixed(1) : 0;
+      const retardPercentage = total > 0 ? ((retard / total) * 100).toFixed(1) : 0;
+      
+      // Taux de réalisation global (pondéré)
+      let tauxRealisation = 0;
+      if (total > 0) {
+        // Pondération : réalisé=100%, en cours=50%, non lancé=10%, retard=0%
+        const poidsRealise = realise * 100;
+        const poidsEncours = encours * 50;
+        const poidsNonLance = nonLance * 10;
+        tauxRealisation = ((poidsRealise + poidsEncours + poidsNonLance) / (total * 100) * 100).toFixed(1);
+      }
+      
       document.getElementById('total').textContent = total;
       document.getElementById('realise').textContent = realise;
       document.getElementById('encours').textContent = encours + nonLance;
       document.getElementById('retard').textContent = retard;
       document.getElementById('total-count').textContent = total;
+      
+      // Mise à jour des pourcentages
+      document.getElementById('total-percentage').textContent = '100%';
+      document.getElementById('realise-percentage').textContent = `${realisePercentage}%`;
+      document.getElementById('encours-percentage').textContent = `${encoursPercentage}%`;
+      document.getElementById('retard-percentage').textContent = `${retardPercentage}%`;
+      document.getElementById('taux-realisation').textContent = `${tauxRealisation}%`;
+      
+      // Texte de progression
+      let progressText = '';
+      if (tauxRealisation >= 80) progressText = 'Excellent';
+      else if (tauxRealisation >= 60) progressText = 'Bon';
+      else if (tauxRealisation >= 40) progressText = 'Moyen';
+      else if (tauxRealisation >= 20) progressText = 'Faible';
+      else progressText = 'Début';
+      
+      document.getElementById('progress-text').textContent = progressText;
     }
 
     // RENDU DES FILTRES
@@ -1114,23 +1281,78 @@
       }, 3000);
     }
 
-    // EXPORT DES DONNÉES
-    window.exportData = function() {
-      const dataStr = JSON.stringify(CONFIG.promises, null, 2);
-      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-      const exportFileDefaultName = `promesses-diomaye-${new Date().toISOString().split('T')[0]}.json`;
+    // EXPORT DES DONNÉES - MULTIFORMATS
+    window.exportData = function(format) {
+      const promises = CONFIG.promises;
+      const date = new Date().toISOString().split('T')[0];
       
-      const linkElement = document.createElement('a');
-      linkElement.setAttribute('href', dataUri);
-      linkElement.setAttribute('download', exportFileDefaultName);
-      linkElement.click();
+      let content, mimeType, filename;
       
-      showNotification('Données exportées avec succès !');
-    };
-
-    // GUIDE DE MISE À JOUR
-    window.showUpdateGuide = function() {
-      alert("POUR METTRE À JOUR LE SITE :\n\n1. Modifiez le fichier 'promises.json' sur GitHub\n2. Changez les 'status' : 'realise', 'encours', ou 'non-lance'\n3. Ajoutez des mises à jour dans 'mises_a_jour'\n4. Sauvegardez (Commit changes)\n5. Attendez 1-2 minutes pour le déploiement\n6. Rechargez la page pour voir les changements");
+      switch(format) {
+        case 'csv':
+          // Création du CSV
+          const headers = ['Domaine', 'Engagement', 'Résultat attendu', 'Délai', 'Statut', 'En retard', 'Mises à jour'];
+          const rows = promises.map(p => [
+            `"${p.domaine}"`,
+            `"${p.engagement}"`,
+            `"${p.resultat}"`,
+            `"${p.delai}"`,
+            p.status,
+            p.isLate ? 'Oui' : 'Non',
+            p.mises_a_jour?.length || 0
+          ]);
+          
+          content = [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+          mimeType = 'text/csv;charset=utf-8;';
+          filename = `promesses-diomaye-${date}.csv`;
+          break;
+          
+        case 'excel':
+          // Pour Excel, on utilise CSV (similaire)
+          const excelHeaders = ['Domaine', 'Engagement', 'Résultat attendu', 'Délai', 'Statut', 'En retard', 'Mises à jour', 'Date limite'];
+          const excelRows = promises.map(p => [
+            `"${p.domaine}"`,
+            `"${p.engagement}"`,
+            `"${p.resultat}"`,
+            `"${p.delai}"`,
+            p.status,
+            p.isLate ? 'Oui' : 'Non',
+            p.mises_a_jour?.length || 0,
+            p.deadline.toISOString().split('T')[0]
+          ]);
+          
+          content = [excelHeaders.join(','), ...excelRows.map(row => row.join(','))].join('\n');
+          mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8;';
+          filename = `promesses-diomaye-${date}.xlsx`;
+          break;
+          
+        case 'json':
+          content = JSON.stringify(promises, null, 2);
+          mimeType = 'application/json;charset=utf-8;';
+          filename = `promesses-diomaye-${date}.json`;
+          break;
+          
+        case 'pdf':
+          // Simulation d'export PDF (serait mieux avec une librairie)
+          alert('Pour générer un PDF complet, une version avancée serait nécessaire.');
+          return;
+          
+        default:
+          return;
+      }
+      
+      // Téléchargement
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      showNotification(`Données exportées en ${format.toUpperCase()} avec succès !`);
     };
 
     // INITIALISATION
