@@ -11,13 +11,694 @@
   <title>Suivi Promesses • Diomaye Président 2024</title>
   
   <!-- Fonts & Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Styles -->
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* VARIABLES COULEURS DOUCES */
+    :root {
+      --primary: #2a6d5d;
+      --primary-light: #3a9d84;
+      --secondary: #3d5a80;
+      --accent: #e76f51;
+      --success: #2a9d8f;
+      --warning: #e9c46a;
+      --danger: #e76f51;
+      --bg-main: #f8f9fa;
+      --bg-card: #ffffff;
+      --text-primary: #212529;
+      --text-secondary: #495057;
+      --border: #dee2e6;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    /* RESET ET BASE */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-main);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* PATTERN DE FOND */
+    .bg-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(42, 109, 93, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(61, 90, 128, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* CONTAINER PRINCIPAL */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    /* HEADER */
+    .header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      padding: 2.5rem 2rem;
+      background: var(--bg-card);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.8rem;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+    }
+
+    .ref-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: rgba(74, 144, 226, 0.1);
+      border: 1px solid rgba(74, 144, 226, 0.2);
+      color: #4a90e2;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* BOUTONS PARTAGE HEADER */
+    .share-dashboard {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      display: flex;
+      gap: 0.7rem;
+    }
+
+    .share-dashboard-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+    }
+
+    .share-dashboard-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .share-twitter { background: #000000; }
+    .share-facebook { background: #1877f2; }
+    .share-whatsapp { background: #25d366; }
+    .share-linkedin { background: #0077b5; }
+
+    /* STATISTIQUES */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      border-radius: 16px 16px 0 0;
+    }
+
+    .stat-card-warning::before {
+      background: linear-gradient(90deg, var(--danger), var(--warning));
+    }
+
+    .stat-value {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-card-warning .stat-value {
+      color: var(--danger);
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    /* FILTRES */
+    .filters {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      margin-bottom: 2.5rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 1.2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.9rem 0.9rem 0.9rem 3rem;
+      background: var(--bg-main);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(42, 109, 93, 0.1);
+    }
+
+    /* GRILLE DES PROMESSES */
+    .promises-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 1.8rem;
+      margin-bottom: 3rem;
+    }
+
+    /* CARTE DE PROMESSE */
+    .promise-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .promise-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      border-color: var(--primary-light);
+    }
+
+    .domain-badge {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      background: rgba(42, 109, 93, 0.1);
+      border: 1px solid rgba(42, 109, 93, 0.2);
+      color: var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .promise-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 2.2rem 0 1rem 0;
+      line-height: 1.4;
+      padding-right: 4rem;
+    }
+
+    .result-box {
+      background: rgba(42, 109, 93, 0.05);
+      border-left: 4px solid var(--primary);
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1.2rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .result-box i {
+      color: var(--primary);
+      margin-right: 0.5rem;
+    }
+
+    .promise-meta {
+      margin-top: auto;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .meta-row i {
+      margin-right: 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    /* BADGES DE STATUT */
+    .status-badge {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .status-realise {
+      background: rgba(42, 157, 143, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(42, 157, 143, 0.3);
+    }
+
+    .status-encours {
+      background: rgba(74, 144, 226, 0.15);
+      color: #4a90e2;
+      border: 1px solid rgba(74, 144, 226, 0.3);
+    }
+
+    .status-nonlance {
+      background: rgba(108, 117, 125, 0.15);
+      color: #6c757d;
+      border: 1px solid rgba(108, 117, 125, 0.3);
+    }
+
+    /* BADGES DE DÉLAI */
+    .delay-badge {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .delay-success {
+      background: rgba(42, 157, 143, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(42, 157, 143, 0.3);
+    }
+
+    .delay-danger {
+      background: rgba(231, 111, 81, 0.15);
+      color: var(--danger);
+      border: 1px solid rgba(231, 111, 81, 0.3);
+    }
+
+    /* BOUTON DÉTAILS */
+    .details-btn {
+      background: rgba(42, 109, 93, 0.1);
+      border: 1px solid rgba(42, 109, 93, 0.3);
+      color: var(--primary);
+      padding: 0.8rem 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      width: 100%;
+      font-size: 0.95rem;
+    }
+
+    .details-btn:hover {
+      background: rgba(42, 109, 93, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* MISES À JOUR */
+    .updates-container {
+      display: none;
+      background: rgba(233, 196, 106, 0.05);
+      border: 1px solid rgba(233, 196, 106, 0.2);
+      border-radius: 10px;
+      padding: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .updates-container.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .update-item {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(233, 196, 106, 0.1);
+    }
+
+    .update-item:last-child {
+      border-bottom: none;
+    }
+
+    .update-date {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 0.35rem;
+      display: block;
+    }
+
+    .update-date i {
+      margin-right: 0.5rem;
+    }
+
+    .update-text {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    /* NOTATION */
+    .rating-section {
+      background: rgba(233, 196, 106, 0.05);
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      margin-top: 1.2rem;
+      border: 1px solid rgba(233, 196, 106, 0.1);
+    }
+
+    .stars {
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: var(--border);
+      margin-bottom: 0.5rem;
+      display: inline-flex;
+      gap: 0.3rem;
+    }
+
+    .stars i.filled {
+      color: var(--warning);
+    }
+
+    .stars i:hover,
+    .stars i:hover ~ i {
+      color: var(--warning);
+    }
+
+    .rating-label {
+      display: block;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    /* PARTAGE DANS LES CARTES */
+    .share-section {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .share-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .share-btn:hover {
+      transform: translateY(-3px) scale(1.1);
+    }
+
+    /* CHARGEMENT */
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-secondary);
+      grid-column: 1 / -1;
+    }
+
+    .spinner {
+      border: 3px solid var(--border);
+      border-top: 3px solid var(--primary);
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      margin-top: 3rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      background: var(--bg-card);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .footer p {
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .footer-links {
+      margin: 1.2rem 0;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .update-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: rgba(42, 109, 93, 0.1);
+      color: var(--primary);
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .update-link:hover {
+      background: rgba(42, 109, 93, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .footer-note {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    /* NOTIFICATION */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #2a9d8f, #21867a);
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      z-index: 9999;
+      animation: slideIn 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 500;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(100px); opacity: 0; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .filters {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .promises-grid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      .header {
+        padding: 2rem 1.5rem;
+      }
+      .header h1 {
+        font-size: 2rem;
+      }
+      .share-dashboard {
+        position: static;
+        justify-content: center;
+        margin-top: 1.5rem;
+      }
+      .filters {
+        grid-template-columns: 1fr;
+      }
+      .promises-grid {
+        grid-template-columns: 1fr;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .share-section {
+        gap: 0.8rem;
+      }
+      .share-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      .header h1 {
+        font-size: 1.6rem;
+      }
+      .footer-links {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="bg-pattern"></div>
@@ -25,16 +706,16 @@
   <div class="container">
     <header class="header">
       <div class="share-dashboard">
-        <a href="#" id="share-twitter-dash" class="share-dashboard-btn share-twitter" title="Partager sur X" target="_blank">
+        <a href="#" id="share-twitter-dash" class="share-dashboard-btn share-twitter" title="Partager sur X">
           <i class="fab fa-x-twitter"></i>
         </a>
-        <a href="#" id="share-facebook-dash" class="share-dashboard-btn share-facebook" title="Partager sur Facebook" target="_blank">
+        <a href="#" id="share-facebook-dash" class="share-dashboard-btn share-facebook" title="Partager sur Facebook">
           <i class="fab fa-facebook-f"></i>
         </a>
-        <a href="#" id="share-whatsapp-dash" class="share-dashboard-btn share-whatsapp" title="Partager sur WhatsApp" target="_blank">
+        <a href="#" id="share-whatsapp-dash" class="share-dashboard-btn share-whatsapp" title="Partager sur WhatsApp">
           <i class="fab fa-whatsapp"></i>
         </a>
-        <a href="#" id="share-linkedin-dash" class="share-dashboard-btn share-linkedin" title="Partager sur LinkedIn" target="_blank">
+        <a href="#" id="share-linkedin-dash" class="share-dashboard-btn share-linkedin" title="Partager sur LinkedIn">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </div>
@@ -103,7 +784,7 @@
         <button onclick="showUpdateGuide()" class="update-link">
           <i class="fas fa-sync-alt"></i> Comment mettre à jour
         </button>
-        <button onclick="exportData()" class="update-link" style="margin-left: 1rem;">
+        <button onclick="exportData()" class="update-link">
           <i class="fas fa-download"></i> Exporter données
         </button>
       </div>
@@ -113,17 +794,17 @@
     </footer>
   </div>
 
-  <!-- JavaScript en UN SEUL fichier -->
+  <!-- JavaScript UNIFIÉ -->
   <script>
-    // Configuration globale
-    window.CONFIG = {
+    // CONFIGURATION
+    const CONFIG = {
       DATA_URL: 'promises.json',
       START_DATE: null,
       CURRENT_DATE: new Date(),
       promises: []
     };
 
-    // Fonctions utilitaires
+    // FONCTIONS UTILITAIRES
     function calculateDeadline(delaiText) {
       if (!CONFIG.START_DATE) return new Date();
       const text = delaiText.toLowerCase();
@@ -168,7 +849,7 @@
       }
     }
 
-    // Rendu des statistiques
+    // RENDU DES STATISTIQUES
     function renderStats() {
       const promises = CONFIG.promises;
       const total = promises.length;
@@ -179,12 +860,12 @@
       
       document.getElementById('total').textContent = total;
       document.getElementById('realise').textContent = realise;
-      document.getElementById('encours').textContent = encours + nonLance; // On combine pour l'affichage
+      document.getElementById('encours').textContent = encours + nonLance;
       document.getElementById('retard').textContent = retard;
       document.getElementById('total-count').textContent = total;
     }
 
-    // Rendu des filtres
+    // RENDU DES FILTRES
     function renderFilters() {
       const domainFilter = document.getElementById('domaine');
       const domains = [...new Set(CONFIG.promises.map(p => p.domaine))].sort();
@@ -199,10 +880,10 @@
       });
     }
 
-    // Créer les boutons de partage pour une promesse
+    // BOUTONS DE PARTAGE
     function createShareButtons(promise) {
-      const url = encodeURIComponent(window.location.href + '#' + promise.id);
-      const text = encodeURIComponent(`📊 ${promise.engagement.substring(0, 100)}... - Suivi sur Diomaye Président`);
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent(`📊 ${promise.engagement.substring(0, 80)}... - Suivi sur Diomaye Président`);
       
       return `
         <div class="share-section">
@@ -228,7 +909,7 @@
       `;
     }
 
-    // Rendu des promesses
+    // RENDU DES PROMESSES
     function renderPromises(promises) {
       const container = document.getElementById('promises-container');
       
@@ -272,16 +953,16 @@
         } else if (isLate) {
           delayBadge = '<span class="delay-badge delay-danger"><i class="fas fa-exclamation-triangle"></i> En Retard</span>';
         } else {
-          delayBadge = '<span class="delay-badge" style="background:#e3f2fd; color:#3d5a80; padding:0.3rem 0.8rem; border-radius:20px; font-size:0.8rem;"><i class="fas fa-hourglass-half"></i> Dans les délais</span>';
+          delayBadge = '<span class="delay-badge" style="background:#e3f2fd; color:#3d5a80; padding:0.5rem 1rem; border-radius:8px;"><i class="fas fa-hourglass-half"></i> Dans les délais</span>';
         }
         
         // Mises à jour
         let updatesHTML = '';
         if (promise.mises_a_jour && promise.mises_a_jour.length > 0) {
           const updates = promise.mises_a_jour.map(update => `
-            <div style="margin-top:0.5rem; padding:0.5rem 0; border-bottom:1px solid #eee;">
-              <small style="color:#2a6d5d; font-weight:bold;"><i class="fas fa-calendar-alt"></i> ${update.date}</small>
-              <p style="margin:0.2rem 0; color:#555;">${update.text}</p>
+            <div class="update-item">
+              <span class="update-date"><i class="fas fa-calendar-alt"></i> ${update.date}</span>
+              <span class="update-text">${update.text}</span>
             </div>
           `).join('');
           
@@ -290,10 +971,20 @@
               <i class="fas fa-history"></i> Voir les mises à jour (${promise.mises_a_jour.length})
             </button>
             <div id="updates-${promise.id}" class="updates-container">
-              <strong><i class="fas fa-newspaper"></i> Historique des mises à jour</strong>
               ${updates}
             </div>
           `;
+        }
+        
+        // Charger les votes
+        const votes = promise.votes || [];
+        const avgRating = votes.length ? (votes.reduce((a, b) => a + b, 0) / votes.length).toFixed(1) : 0;
+        
+        // Créer les étoiles
+        let starsHTML = '';
+        for (let i = 1; i <= 5; i++) {
+          const filled = i <= Math.round(avgRating);
+          starsHTML += `<i class="${filled ? 'fas' : 'far'} fa-star" data-value="${i}" onclick="ratePromise('${promise.id}', ${i})"></i>`;
         }
         
         // Partager cette promesse
@@ -309,224 +1000,4 @@
               <strong>Résultat attendu :</strong> ${promise.resultat}
             </div>
             
-            <div class="promise-meta">
-              <div class="meta-row">
-                <span><i class="fas fa-clock"></i> Délai : <strong>${promise.delai}</strong></span>
-                ${delayBadge}
-              </div>
-              <div class="meta-row">
-                <span>Statut :</span>
-                <span class="status-badge ${statusClass}">${statusText}</span>
-              </div>
-            </div>
-            
-            ${updatesHTML}
-            
-            <div class="rating-section">
-              <div class="stars" onclick="ratePromise('${promise.id}', event)">
-                <i class="far fa-star" data-value="1"></i>
-                <i class="far fa-star" data-value="2"></i>
-                <i class="far fa-star" data-value="3"></i>
-                <i class="far fa-star" data-value="4"></i>
-                <i class="far fa-star" data-value="5"></i>
-              </div>
-              <span class="rating-label" id="rating-label-${promise.id}">
-                Noter cet engagement
-              </span>
-            </div>
-            
-            ${shareButtons}
-          </div>
-        `;
-      }).join('');
-    }
-
-    // Basculer l'affichage des mises à jour
-    window.toggleUpdates = function(promiseId) {
-      const updatesEl = document.getElementById(`updates-${promiseId}`);
-      const btn = updatesEl.previousElementSibling;
-      
-      if (updatesEl.classList.contains('show')) {
-        updatesEl.classList.remove('show');
-        btn.innerHTML = '<i class="fas fa-history"></i> Voir les mises à jour';
-      } else {
-        updatesEl.classList.add('show');
-        btn.innerHTML = '<i class="fas fa-times-circle"></i> Masquer les mises à jour';
-      }
-    };
-
-    // Noter une promesse
-    window.ratePromise = function(promiseId, event) {
-      if (event.target.classList.contains('fa-star')) {
-        const rating = parseInt(event.target.getAttribute('data-value'));
-        const stars = event.target.parentElement.querySelectorAll('.fa-star');
-        
-        // Mettre à jour l'affichage des étoiles
-        stars.forEach((star, index) => {
-          if (index < rating) {
-            star.classList.remove('far');
-            star.classList.add('fas', 'filled');
-          } else {
-            star.classList.remove('fas', 'filled');
-            star.classList.add('far');
-          }
-        });
-        
-        // Sauvegarder en localStorage
-        const promise = CONFIG.promises.find(p => p.id === promiseId);
-        if (promise) {
-          if (!promise.votes) promise.votes = [];
-          promise.votes.push(rating);
-          localStorage.setItem(`vote_${promiseId}`, JSON.stringify(promise.votes));
-          
-          // Mettre à jour le label
-          const avg = promise.votes.reduce((a, b) => a + b, 0) / promise.votes.length;
-          document.getElementById(`rating-label-${promiseId}`).textContent = 
-            `Note : ${avg.toFixed(1)}/5 (${promise.votes.length} vote${promise.votes.length > 1 ? 's' : ''})`;
-          
-          showNotification(`Merci ! Vous avez noté ${rating}/5 cette promesse.`);
-        }
-      }
-    };
-
-    // Filtrage
-    function setupEventListeners() {
-      document.getElementById('search').addEventListener('input', updateDisplay);
-      document.getElementById('domaine').addEventListener('change', updateDisplay);
-      document.getElementById('status').addEventListener('change', updateDisplay);
-    }
-
-    function updateDisplay() {
-      const search = document.getElementById('search').value.toLowerCase();
-      const domaine = document.getElementById('domaine').value;
-      const status = document.getElementById('status').value;
-      
-      const filtered = CONFIG.promises.filter(p => {
-        const matchSearch = p.engagement.toLowerCase().includes(search) || 
-                           p.resultat.toLowerCase().includes(search) ||
-                           p.domaine.toLowerCase().includes(search);
-        const matchDomaine = !domaine || p.domaine === domaine;
-        
-        let matchStatus = true;
-        if (status === 'realise') {
-          matchStatus = p.status === 'realise';
-        } else if (status === 'en-retard') {
-          matchStatus = p.isLate;
-        } else if (status === 'dans-les-temps') {
-          matchStatus = !p.isLate && p.status !== 'realise';
-        } else if (status === 'non-lance') {
-          matchStatus = p.status === 'non-lance';
-        }
-        
-        return matchSearch && matchDomaine && matchStatus;
-      });
-      
-      renderStats();
-      renderPromises(filtered);
-    }
-
-    // Configuration des boutons de partage du dashboard
-    function setupShareButtons() {
-      const currentUrl = window.location.href;
-      const shareText = encodeURIComponent('🇸🇳 Suivi transparent des 99 engagements du Président Diomaye Faye - Tableau de bord citoyen');
-      
-      // Twitter/X
-      document.getElementById('share-twitter-dash').href = 
-        `https://twitter.com/intent/tweet?text=${shareText}&url=${encodeURIComponent(currentUrl)}`;
-      
-      // Facebook
-      document.getElementById('share-facebook-dash').href = 
-        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
-      
-      // WhatsApp
-      document.getElementById('share-whatsapp-dash').href = 
-        `https://wa.me/?text=${shareText}%20${encodeURIComponent(currentUrl)}`;
-      
-      // LinkedIn
-      document.getElementById('share-linkedin-dash').href = 
-        `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
-    }
-
-    // Notification
-    function showNotification(message) {
-      const notification = document.createElement('div');
-      notification.className = 'notification';
-      notification.innerHTML = `
-        <i class="fas fa-check-circle"></i>
-        <span>${message}</span>
-      `;
-      
-      document.body.appendChild(notification);
-      
-      setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
-      }, 3000);
-    }
-
-    // Exporter les données
-    window.exportData = function() {
-      const dataStr = JSON.stringify(CONFIG.promises, null, 2);
-      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-      const exportFileDefaultName = `promesses-diomaye-${new Date().toISOString().split('T')[0]}.json`;
-      
-      const linkElement = document.createElement('a');
-      linkElement.setAttribute('href', dataUri);
-      linkElement.setAttribute('download', exportFileDefaultName);
-      linkElement.click();
-      
-      showNotification('Données exportées avec succès !');
-    };
-
-    // Guide de mise à jour
-    window.showUpdateGuide = function() {
-      alert("POUR METTRE À JOUR LE SITE :\n\n1. Modifiez le fichier 'promises.json' sur GitHub\n2. Changez les 'status' : 'realise', 'encours', ou 'non-lance'\n3. Ajoutez des mises à jour dans 'mises_a_jour'\n4. Sauvegardez (Commit changes)\n5. Attendez 1-2 minutes pour le déploiement\n6. Rechargez la page pour voir les changements\n\n📊 Actuellement : 99 engagements dont 5 réalisés, 31 en cours, 63 non lancés");
-    };
-
-    // Initialisation
-    async function init() {
-      try {
-        const response = await fetch(CONFIG.DATA_URL);
-        const data = await response.json();
-        CONFIG.START_DATE = new Date(data.start_date);
-        
-        // Traiter toutes les promesses
-        CONFIG.promises = data.promises.map(p => {
-          const deadline = calculateDeadline(p.delai);
-          return {
-            ...p,
-            deadline: deadline,
-            isLate: checkIfLate(p.status, deadline),
-            votes: JSON.parse(localStorage.getItem(`vote_${p.id}`)) || []
-          };
-        });
-        
-        updateCurrentDate();
-        renderStats();
-        renderFilters();
-        renderPromises(CONFIG.promises); // Afficher TOUTES les promesses initialement
-        setupEventListeners();
-        setupShareButtons();
-        
-        console.log(`✅ ${CONFIG.promises.length} promesses chargées`);
-        
-      } catch (error) {
-        console.error('Erreur:', error);
-        document.getElementById('promises-container').innerHTML = `
-          <div style="text-align:center; padding:3rem; color:#e76f51; grid-column:1/-1;">
-            <i class="fas fa-exclamation-triangle fa-3x"></i>
-            <h3>Erreur de chargement</h3>
-            <p>Impossible de charger les données promises.json</p>
-            <button onclick="location.reload()" style="margin-top:1rem; padding:0.5rem 1rem; background:#2a6d5d; color:white; border:none; border-radius:5px; cursor:pointer;">
-              <i class="fas fa-redo"></i> Réessayer
-            </button>
-          </div>
-        `;
-      }
-    }
-
-    // Démarrer l'application
-    document.addEventListener('DOMContentLoaded', init);
-  </script>
-</body>
-</html>
+           
