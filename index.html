@@ -50,6 +50,7 @@
       color: var(--text-primary);
       line-height: 1.6;
       min-height: 100vh;
+      padding-top: 70px; /* Pour la navbar fixe */
     }
 
     .bg-pattern {
@@ -63,6 +64,137 @@
         radial-gradient(circle at 80% 70%, rgba(61, 90, 128, 0.03) 0%, transparent 50%);
       pointer-events: none;
       z-index: -1;
+    }
+
+    /* ========== NAVIGATION FIXE ========== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      z-index: 1000;
+      padding: 0.8rem 1.5rem;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .nav-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 0.5rem 0.8rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+      background: rgba(42, 109, 93, 0.05);
+    }
+
+    .nav-link.active {
+      color: var(--primary);
+      background: rgba(42, 109, 93, 0.1);
+      font-weight: 600;
+    }
+
+    .nav-link i {
+      font-size: 1rem;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    /* ========== BOUTON RETOUR EN HAUT ========== */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(42, 109, 93, 0.3);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background: var(--primary-light);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(42, 109, 93, 0.4);
+    }
+
+    /* ========== INDICATEUR DE PROGRESSION ========== */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      z-index: 1001;
+      transition: width 0.2s ease;
     }
 
     .container {
@@ -296,18 +428,7 @@
       margin-top: 0.5rem;
     }
 
-    .stat-card:nth-child(1) .stat-percentage { color: var(--primary); }
-    .stat-card:nth-child(2) .stat-percentage { color: var(--success); }
-    .stat-card:nth-child(3) .stat-percentage { color: #4a90e2; }
-    .stat-card:nth-child(4) .stat-percentage { color: var(--warning); }
-    .stat-card:nth-child(5) .stat-percentage { color: var(--danger); }
-    .stat-card:nth-child(6) .stat-percentage { color: #8a4baf; }
-    .stat-card:nth-child(7) .stat-percentage { color: #20c997; }
-    .stat-card:nth-child(8) .stat-percentage { color: #e83e8c; }
-    .stat-card:nth-child(9) .stat-percentage { color: #fd7e14; }
-    .stat-card:nth-child(10) .stat-percentage { color: #3498db; }
-
-    /* FILTRES */
+    /* FILTRES AMÉLIORÉS */
     .filters {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -315,7 +436,7 @@
       padding: 1.8rem;
       margin-bottom: 2.5rem;
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
       gap: 1.2rem;
       box-shadow: var(--shadow);
     }
@@ -344,12 +465,49 @@
       font-family: 'Inter', sans-serif;
       transition: all 0.3s ease;
       outline: none;
+      cursor: pointer;
     }
 
     input:focus, select:focus {
       border-color: var(--primary);
       background: white;
       box-shadow: 0 0 0 3px rgba(42, 109, 93, 0.1);
+    }
+
+    .quick-filters {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .quick-filter-btn {
+      padding: 0.6rem 1.2rem;
+      background: var(--bg-main);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .quick-filter-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .quick-filter-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
     }
 
     /* GRILLE DES PROMESSES */
@@ -736,7 +894,7 @@
 
     .notification {
       position: fixed;
-      top: 20px;
+      top: 80px; /* Au-dessous de la navbar */
       right: 20px;
       background: linear-gradient(135deg, #2a9d8f, #21867a);
       color: white;
@@ -784,6 +942,31 @@
       .container {
         padding: 1rem;
       }
+      
+      .navbar {
+        padding: 0.8rem 1rem;
+      }
+      
+      .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: var(--bg-card);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        display: none;
+      }
+      
+      .nav-menu.show {
+        display: flex;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
       .header {
         padding: 2rem 1.5rem;
       }
@@ -837,10 +1020,52 @@
   </style>
 </head>
 <body>
+  <!-- Indicateur de progression du scroll -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+  
+  <!-- Navigation fixe -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#header" class="nav-logo">
+        <div class="nav-logo-icon">
+          <i class="fas fa-flag"></i>
+        </div>
+        <span>Diomaye Président</span>
+      </a>
+      
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <div class="nav-menu" id="navMenu">
+        <a href="#header" class="nav-link active">
+          <i class="fas fa-home"></i>
+          Accueil
+        </a>
+        <a href="#stats" class="nav-link">
+          <i class="fas fa-chart-line"></i>
+          Tableau de bord
+        </a>
+        <a href="#promises" class="nav-link">
+          <i class="fas fa-bullseye"></i>
+          Engagements
+        </a>
+        <a href="#filters" class="nav-link">
+          <i class="fas fa-filter"></i>
+          Filtres
+        </a>
+        <a href="#footer" class="nav-link">
+          <i class="fas fa-info-circle"></i>
+          À propos
+        </a>
+      </div>
+    </div>
+  </nav>
+  
   <div class="bg-pattern"></div>
   
   <div class="container">
-    <header class="header">
+    <header class="header" id="header">
       <div class="share-dashboard">
         <a href="#" id="share-twitter-dash" class="share-dashboard-btn share-twitter" title="Partager sur X">
           <i class="fab fa-x-twitter"></i>
@@ -876,142 +1101,182 @@
     </header>
 
     <!-- 10 KPI -->
-    <div class="stats-grid">
-      <!-- KPI 1: Total Engagements -->
-      <div class="stat-card">
-        <div class="stat-icon">
-          <i class="fas fa-bullseye"></i>
+    <section id="stats">
+      <div class="stats-grid">
+        <!-- KPI 1: Total Engagements -->
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-bullseye"></i>
+          </div>
+          <div class="stat-value" id="total">0</div>
+          <div class="stat-label">Engagements Total</div>
+          <div class="stat-percentage" id="total-percentage">100%</div>
         </div>
-        <div class="stat-value" id="total">0</div>
-        <div class="stat-label">Engagements Total</div>
-        <div class="stat-percentage" id="total-percentage">100%</div>
-      </div>
 
-      <!-- KPI 2: Réalisés -->
-      <div class="stat-card">
-        <div class="stat-icon">
+        <!-- KPI 2: Réalisés -->
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stat-value" id="realise">0</div>
+          <div class="stat-label">✅ Réalisés</div>
+          <div class="stat-percentage" id="realise-percentage">0%</div>
+        </div>
+
+        <!-- KPI 3: En Cours -->
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-sync-alt"></i>
+          </div>
+          <div class="stat-value" id="encours">0</div>
+          <div class="stat-label">🔄 En Cours</div>
+          <div class="stat-percentage" id="encours-percentage">0%</div>
+        </div>
+
+        <!-- KPI 4: Non Lancés -->
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-hourglass-start"></i>
+          </div>
+          <div class="stat-value" id="non-lance">0</div>
+          <div class="stat-label">⏳ Non Lancés</div>
+          <div class="stat-percentage" id="non-lance-percentage">0%</div>
+        </div>
+
+        <!-- KPI 5: En Retard -->
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <div class="stat-value" id="retard">0</div>
+          <div class="stat-label">⚠️ En Retard</div>
+          <div class="stat-percentage" id="retard-percentage">0%</div>
+        </div>
+
+        <!-- KPI 6: Taux de Réalisation -->
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="stat-value" id="taux-realisation">0%</div>
+          <div class="stat-label">📈 Taux de Réalisation</div>
+          <div class="stat-subvalue" id="progress-text">Progression</div>
+        </div>
+
+        <!-- KPI 7: Moyenne des Notes -->
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="stat-value" id="moyenne-notes">0.0</div>
+          <div class="stat-label">⭐ Note Moyenne</div>
+          <div class="stat-subvalue" id="votes-total">0 votes</div>
+        </div>
+
+        <!-- KPI 8: Engagements avec Mises à Jour -->
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-history"></i>
+          </div>
+          <div class="stat-value" id="avec-maj">0</div>
+          <div class="stat-label">📋 Avec Mises à Jour</div>
+          <div class="stat-percentage" id="avec-maj-percentage">0%</div>
+        </div>
+
+        <!-- KPI 9: Délai Moyen Restant -->
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="stat-value" id="delai-moyen">0j</div>
+          <div class="stat-label">⏱️ Délai Moyen Restant</div>
+          <div class="stat-subvalue" id="jours-restants">En cours</div>
+        </div>
+
+        <!-- KPI 10: Domaine Principal -->
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-layer-group"></i>
+          </div>
+          <div class="stat-value" id="domaine-principal">-</div>
+          <div class="stat-label">🏛️ Domaine Principal</div>
+          <div class="stat-subvalue" id="domaine-count">0 engagements</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILTRES AMÉLIORÉS -->
+    <section id="filters">
+      <div class="filters">
+        <div class="input-group">
+          <i class="fas fa-search"></i>
+          <input type="text" id="search" placeholder="Rechercher un engagement...">
+        </div>
+        <div class="input-group">
+          <i class="fas fa-filter"></i>
+          <select id="domaine">
+            <option value="">Tous les secteurs</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-chart-bar"></i>
+          <select id="status">
+            <option value="">Tous les statuts</option>
+            <option value="realise">✅ Réalisé</option>
+            <option value="en-retard">⚠️ En Retard</option>
+            <option value="dans-les-temps">⏱️ Dans les délais</option>
+            <option value="non-lance">⏳ Non lancé</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-sort-amount-down"></i>
+          <select id="sort">
+            <option value="">Trier par</option>
+            <option value="recent">🕐 Plus récent</option>
+            <option value="ancien">🕐 Plus ancien</option>
+            <option value="note">⭐ Meilleures notes</option>
+            <option value="retard">⚠️ En retard</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- Filtres rapides -->
+      <div class="quick-filters">
+        <button class="quick-filter-btn" data-filter="realise">
           <i class="fas fa-check-circle"></i>
-        </div>
-        <div class="stat-value" id="realise">0</div>
-        <div class="stat-label">✅ Réalisés</div>
-        <div class="stat-percentage" id="realise-percentage">0%</div>
-      </div>
-
-      <!-- KPI 3: En Cours -->
-      <div class="stat-card">
-        <div class="stat-icon">
+          Réalisés
+        </button>
+        <button class="quick-filter-btn" data-filter="encours">
           <i class="fas fa-sync-alt"></i>
-        </div>
-        <div class="stat-value" id="encours">0</div>
-        <div class="stat-label">🔄 En Cours</div>
-        <div class="stat-percentage" id="encours-percentage">0%</div>
-      </div>
-
-      <!-- KPI 4: Non Lancés -->
-      <div class="stat-card">
-        <div class="stat-icon">
-          <i class="fas fa-hourglass-start"></i>
-        </div>
-        <div class="stat-value" id="non-lance">0</div>
-        <div class="stat-label">⏳ Non Lancés</div>
-        <div class="stat-percentage" id="non-lance-percentage">0%</div>
-      </div>
-
-      <!-- KPI 5: En Retard -->
-      <div class="stat-card">
-        <div class="stat-icon">
+          En cours
+        </button>
+        <button class="quick-filter-btn" data-filter="retard">
           <i class="fas fa-exclamation-triangle"></i>
-        </div>
-        <div class="stat-value" id="retard">0</div>
-        <div class="stat-label">⚠️ En Retard</div>
-        <div class="stat-percentage" id="retard-percentage">0%</div>
-      </div>
-
-      <!-- KPI 6: Taux de Réalisation -->
-      <div class="stat-card">
-        <div class="stat-icon">
-          <i class="fas fa-chart-line"></i>
-        </div>
-        <div class="stat-value" id="taux-realisation">0%</div>
-        <div class="stat-label">📈 Taux de Réalisation</div>
-        <div class="stat-subvalue" id="progress-text">Progression</div>
-      </div>
-
-      <!-- KPI 7: Moyenne des Notes -->
-      <div class="stat-card">
-        <div class="stat-icon">
-          <i class="fas fa-star"></i>
-        </div>
-        <div class="stat-value" id="moyenne-notes">0.0</div>
-        <div class="stat-label">⭐ Note Moyenne</div>
-        <div class="stat-subvalue" id="votes-total">0 votes</div>
-      </div>
-
-      <!-- KPI 8: Engagements avec Mises à Jour -->
-      <div class="stat-card">
-        <div class="stat-icon">
+          En retard
+        </button>
+        <button class="quick-filter-btn" data-filter="maj">
           <i class="fas fa-history"></i>
-        </div>
-        <div class="stat-value" id="avec-maj">0</div>
-        <div class="stat-label">📋 Avec Mises à Jour</div>
-        <div class="stat-percentage" id="avec-maj-percentage">0%</div>
+          Avec mises à jour
+        </button>
+        <button class="quick-filter-btn" onclick="resetFilters()">
+          <i class="fas fa-redo"></i>
+          Réinitialiser
+        </button>
       </div>
-
-      <!-- KPI 9: Délai Moyen Restant -->
-      <div class="stat-card">
-        <div class="stat-icon">
-          <i class="fas fa-clock"></i>
-        </div>
-        <div class="stat-value" id="delai-moyen">0j</div>
-        <div class="stat-label">⏱️ Délai Moyen Restant</div>
-        <div class="stat-subvalue" id="jours-restants">En cours</div>
-      </div>
-
-      <!-- KPI 10: Domaine Principal -->
-      <div class="stat-card">
-        <div class="stat-icon">
-          <i class="fas fa-layer-group"></i>
-        </div>
-        <div class="stat-value" id="domaine-principal">-</div>
-        <div class="stat-label">🏛️ Domaine Principal</div>
-        <div class="stat-subvalue" id="domaine-count">0 engagements</div>
-      </div>
-    </div>
-
-    <!-- FILTRES -->
-    <div class="filters">
-      <div class="input-group">
-        <i class="fas fa-search"></i>
-        <input type="text" id="search" placeholder="Rechercher un engagement...">
-      </div>
-      <div class="input-group">
-        <i class="fas fa-filter"></i>
-        <select id="domaine">
-          <option value="">Tous les secteurs</option>
-        </select>
-      </div>
-      <div class="input-group">
-        <i class="fas fa-chart-bar"></i>
-        <select id="status">
-          <option value="">Tous les statuts</option>
-          <option value="realise">✅ Réalisé</option>
-          <option value="en-retard">⚠️ En Retard</option>
-          <option value="dans-les-temps">⏱️ Dans les délais</option>
-          <option value="non-lance">⏳ Non lancé</option>
-        </select>
-      </div>
-    </div>
+    </section>
 
     <!-- PROMESSES -->
-    <div class="promises-grid" id="promises-container">
-      <div class="loading">
-        <div class="spinner"></div>
-        <p>Chargement des données...</p>
+    <section id="promises">
+      <div class="promises-grid" id="promises-container">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>Chargement des données...</p>
+        </div>
       </div>
-    </div>
+    </section>
 
     <!-- FOOTER -->
-    <footer class="footer">
+    <footer class="footer" id="footer">
       <p>Plateforme citoyenne de suivi des engagements • Données à jour au <span id="current-date"></span></p>
       <div class="footer-links">
         <div class="export-btn">
@@ -1036,12 +1301,21 @@
             </button>
           </div>
         </div>
+        <a href="#header" class="nav-link">
+          <i class="fas fa-arrow-up"></i>
+          Retour en haut
+        </a>
       </div>
       <p class="footer-note">
         Développé avec <i class="fas fa-heart" style="color: #e76f51;"></i> pour la transparence démocratique
       </p>
     </footer>
   </div>
+
+  <!-- Bouton retour en haut -->
+  <a href="#header" class="back-to-top" id="backToTop">
+    <i class="fas fa-chevron-up"></i>
+  </a>
 
   <script>
     // CONFIGURATION
@@ -1051,6 +1325,93 @@
       CURRENT_DATE: new Date(),
       promises: []
     };
+
+    // ========== GESTION DE LA NAVIGATION ==========
+    function setupNavigation() {
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const navMenu = document.getElementById('navMenu');
+      const navLinks = document.querySelectorAll('.nav-link');
+      const backToTop = document.getElementById('backToTop');
+      const scrollProgress = document.getElementById('scrollProgress');
+      
+      // Menu mobile
+      mobileMenuBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('show');
+        mobileMenuBtn.innerHTML = navMenu.classList.contains('show') 
+          ? '<i class="fas fa-times"></i>' 
+          : '<i class="fas fa-bars"></i>';
+      });
+      
+      // Fermer menu mobile au clic sur un lien
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('show');
+          mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        });
+      });
+      
+      // Navigation fluide
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            const headerHeight = document.querySelector('.navbar').offsetHeight;
+            const targetPosition = targetElement.offsetTop - headerHeight;
+            
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+            
+            // Mettre à jour l'état actif
+            navLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+          }
+        });
+      });
+      
+      // Bouton retour en haut
+      window.addEventListener('scroll', () => {
+        // Afficher/masquer le bouton
+        if (window.scrollY > 300) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+        
+        // Mettre à jour l'indicateur de progression
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        scrollProgress.style.width = scrolled + "%";
+        
+        // Mettre à jour l'état actif de la navigation
+        const sections = ['header', 'stats', 'filters', 'promises', 'footer'];
+        const scrollPosition = window.scrollY + 100;
+        
+        sections.forEach(section => {
+          const element = document.getElementById(section);
+          if (element) {
+            const offsetTop = element.offsetTop;
+            const offsetBottom = offsetTop + element.offsetHeight;
+            
+            if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+              navLinks.forEach(link => link.classList.remove('active'));
+              const correspondingLink = document.querySelector(`.nav-link[href="#${section}"]`);
+              if (correspondingLink) {
+                correspondingLink.classList.add('active');
+              }
+            }
+          }
+        });
+      });
+      
+      // Scroll progress au chargement
+      window.dispatchEvent(new Event('scroll'));
+    }
 
     // FONCTIONS UTILITAIRES
     function calculateDeadline(delaiText) {
@@ -1413,19 +1774,68 @@
       }
     };
 
-    // FILTRAGE
+    // FILTRAGE AMÉLIORÉ
     function setupEventListeners() {
       document.getElementById('search').addEventListener('input', updateDisplay);
       document.getElementById('domaine').addEventListener('change', updateDisplay);
       document.getElementById('status').addEventListener('change', updateDisplay);
+      document.getElementById('sort').addEventListener('change', updateDisplay);
+      
+      // Filtres rapides
+      document.querySelectorAll('.quick-filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          if (this.dataset.filter === 'reset') return;
+          
+          // Mettre à jour l'état actif
+          document.querySelectorAll('.quick-filter-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Appliquer le filtre
+          applyQuickFilter(this.dataset.filter);
+        });
+      });
     }
+
+    function applyQuickFilter(filterType) {
+      switch(filterType) {
+        case 'realise':
+          document.getElementById('status').value = 'realise';
+          break;
+        case 'encours':
+          document.getElementById('status').value = '';
+          break;
+        case 'retard':
+          document.getElementById('status').value = 'en-retard';
+          break;
+        case 'maj':
+          // Filtre spécial pour les engagements avec mises à jour
+          const filtered = CONFIG.promises.filter(p => p.mises_a_jour && p.mises_a_jour.length > 0);
+          renderPromises(filtered);
+          return;
+      }
+      updateDisplay();
+    }
+
+    window.resetFilters = function() {
+      document.getElementById('search').value = '';
+      document.getElementById('domaine').value = '';
+      document.getElementById('status').value = '';
+      document.getElementById('sort').value = '';
+      
+      document.querySelectorAll('.quick-filter-btn').forEach(b => b.classList.remove('active'));
+      
+      renderPromises(CONFIG.promises);
+      calculateAllStats();
+      showNotification('Filtres réinitialisés');
+    };
 
     function updateDisplay() {
       const search = document.getElementById('search').value.toLowerCase();
       const domaine = document.getElementById('domaine').value;
       const status = document.getElementById('status').value;
+      const sort = document.getElementById('sort').value;
       
-      const filtered = CONFIG.promises.filter(p => {
+      let filtered = CONFIG.promises.filter(p => {
         const matchSearch = p.engagement.toLowerCase().includes(search) || 
                            p.resultat.toLowerCase().includes(search) ||
                            p.domaine.toLowerCase().includes(search);
@@ -1444,6 +1854,25 @@
         
         return matchSearch && matchDomaine && matchStatus;
       });
+      
+      // Tri
+      if (sort === 'recent') {
+        filtered.sort((a, b) => b.deadline - a.deadline);
+      } else if (sort === 'ancien') {
+        filtered.sort((a, b) => a.deadline - b.deadline);
+      } else if (sort === 'note') {
+        filtered.sort((a, b) => {
+          const avgA = a.votes && a.votes.length > 0 ? a.votes.reduce((s, v) => s + v, 0) / a.votes.length : 0;
+          const avgB = b.votes && b.votes.length > 0 ? b.votes.reduce((s, v) => s + v, 0) / b.votes.length : 0;
+          return avgB - avgA;
+        });
+      } else if (sort === 'retard') {
+        filtered.sort((a, b) => {
+          if (a.isLate && !b.isLate) return -1;
+          if (!a.isLate && b.isLate) return 1;
+          return 0;
+        });
+      }
       
       calculateAllStats();
       renderPromises(filtered);
@@ -1588,6 +2017,7 @@
         renderPromises(CONFIG.promises);
         setupEventListeners();
         setupShareButtons();
+        setupNavigation();
         
         console.log(`✅ ${CONFIG.promises.length} promesses chargées avec succès`);
         
