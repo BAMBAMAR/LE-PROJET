@@ -341,7 +341,7 @@
       "engagement": "Budget agricole à 10%",
       "resultat": "Accords Maputo",
       "delai": "Horizon 2027",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -377,7 +377,7 @@
       "engagement": "Zone 12 milles réservée pêche artisanale",
       "resultat": "Protection artisans",
       "delai": "Immédiat",
-      "status": "realise",
+      "status": "encours",
       "mises_a_jour": [
         {
           "date": "06/05/2024",
@@ -395,7 +395,7 @@
       "engagement": "Audit accords de pêche étrangers",
       "resultat": "Souveraineté halieutique",
       "delai": "Immédiat",
-      "status": "encours",
+      "status": "realise",
       "mises_a_jour": []
     },
     {
@@ -404,7 +404,7 @@
       "engagement": "Plan Récifs Artificiels",
       "resultat": "Repopulation fonds marins",
       "delai": "3 ans",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -431,7 +431,7 @@
       "engagement": "Cultures fourragères",
       "resultat": "Autonomie aliment bétail",
       "delai": "3 ans",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -449,7 +449,7 @@
       "engagement": "Territorialisation agropoles",
       "resultat": "Transformation 50% production",
       "delai": "2029",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -467,8 +467,12 @@
       "engagement": "Canaux Cayor et Baol",
       "resultat": "Irrigation",
       "delai": "Quinquennat",
-      "status": "non-lance",
-      "mises_a_jour": []
+      "status": "encours",
+      "mises_a_jour": [
+         "date": "31/12/2025",
+          "text": "Budget 2026 : Le projet est officiellement inscrit dans la Loi de Finances Initiale (LFI) 2026 avec une enveloppe de 137 milliards FCFA pour cette année
+     ."
+         ]
     },
     {
       "id": "promise_50",
