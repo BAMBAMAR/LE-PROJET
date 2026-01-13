@@ -396,7 +396,12 @@
       "resultat": "Souveraineté halieutique",
       "delai": "Immédiat",
       "status": "realise",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+           "date": "31/12/2024",
+          "text": " Les navires de l'UE (principalement espagnols et français) n'ont plus l'autorisation de pêcher dans la Zone Économique Exclusive (ZEE) du Sénégal depuis la fin de l'année 2024"
+        }
+      ]
     },
     {
       "id": "promise_42",
