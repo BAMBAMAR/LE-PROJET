@@ -8,13 +8,8 @@
       "engagement": "Supprimer le poste de Premier Ministre et instaurer un poste de Vice-Président",
       "resultat": "Exécutif resserré et équilibre des pouvoirs",
       "delai": "6 premiers mois",
-      "status": "encours",
-      "mises_a_jour": [
-        {
-          "date": "02/04/2024",
-          "text": "Nomination d'un Premier Ministre pour la transition."
-        }
-      ]
+      "status": "non-lance",
+      "mises_a_jour": [ ]
     },
     {
       "id": "promise_2",
@@ -31,7 +26,7 @@
       "engagement": "Transformer le Conseil Constitutionnel en Cour Constitutionnelle",
       "resultat": "Organe au sommet de l'organisation judiciaire",
       "delai": "12 premiers mois",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -40,7 +35,7 @@
       "engagement": "Réforme du Conseil Supérieur de la Magistrature (CSM)",
       "resultat": "Indépendance statutaire des juges",
       "delai": "12 premiers mois",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -58,7 +53,7 @@
       "engagement": "Limiter la détention provisoire à 3 ans max (criminel)",
       "resultat": "Respect des droits humains",
       "delai": "12 premiers mois",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -76,7 +71,7 @@
       "engagement": "Indépendance du Parquet vis-à-vis du Ministre",
       "resultat": "Fin des instructions politiques",
       "delai": "12 premiers mois",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -94,7 +89,7 @@
       "engagement": "Peines alternatives (Bracelet électronique)",
       "resultat": "Désengorgement prisons",
       "delai": "2 premières années",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -103,7 +98,7 @@
       "engagement": "Augmenter substantiellement le budget Justice",
       "resultat": "Modernisation et digitalisation",
       "delai": "Quinquennat",
-      "status": "encours",
+      "status": "non-lance",
       "mises_a_jour": []
     },
     {
@@ -112,7 +107,7 @@
       "engagement": "Réhabiliter/construire des prisons aux normes",
       "resultat": "Humanisation carcérale",
       "delai": "Quinquennat",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -130,7 +125,7 @@
       "engagement": "Développer les maisons de justice (Règlement alternatif)",
       "resultat": "Justice de proximité",
       "delai": "2 premières années",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -139,7 +134,7 @@
       "engagement": "Remplacer la CENA par une CENI",
       "resultat": "Processus électoral indépendant",
       "delai": "Avant 1ère élection",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -148,7 +143,7 @@
       "engagement": "Inscription automatique listes électorales (CNI)",
       "resultat": "Fichier fiable",
       "delai": "Avant 1ère élection",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -157,11 +152,11 @@
       "engagement": "Créer un Parquet National Financier (PNF)",
       "resultat": "Traque délinquance financière",
       "delai": "1ère année",
-      "status": "encours",
+      "status": "realise",
       "mises_a_jour": [
         {
-          "date": "25/04/2024",
-          "text": "Annonce de l'audit général des finances publiques."
+          "date": "17/09/2024",
+          "text": "Installation du pole judiciaire financier."
         }
       ]
     },
@@ -171,8 +166,11 @@
       "engagement": "Réformer l'OFNAC (auto-saisine)",
       "resultat": "Fin de l'impunité",
       "delai": "1ère année",
-      "status": "non-lance",
-      "mises_a_jour": []
+      "status": "realise",
+      "mises_a_jour": [  {
+          "date": "22/12/2025",
+          "text": " prestation de serment le 22 décembre 2025 devant le Premier Président de la Cour d'appel de Dakar."
+        }]
     },
     {
       "id": "promise_19",
@@ -180,8 +178,13 @@
       "engagement": "Loi de protection des lanceurs d'alerte",
       "resultat": "Encouragement dénonciation civique",
       "delai": "3 premières années",
-      "status": "non-lance",
-      "mises_a_jour": []
+      "status": "realise",
+      "mises_a_jour": [
+        {
+         "date": "26/08/2025",
+          "text": " Au Sénégal, la protection des lanceurs d'alerte est désormais régie par la Loi n° 2025-14, adoptée par l'Assemblée nationale le 26 août 2025 et promulguée en septembre 2025."
+        }
+      ]
     },
     {
       "id": "promise_20",
@@ -189,7 +192,7 @@
       "engagement": "Banque Publique d'Investissement Unique",
       "resultat": "Fusion FONGIP/FONSIS/BNDE",
       "delai": "Mandat",
-      "status": "encours",
+      "status": "non-lance",
       "mises_a_jour": []
     },
     {
@@ -198,7 +201,7 @@
       "engagement": "Bureau d'Intelligence Économique (BIE) à la Présidence",
       "resultat": "Prospective souveraine",
       "delai": "Immédiat",
-      "status": "encours",
+      "status": "non-lance",
       "mises_a_jour": []
     },
     {
@@ -234,7 +237,7 @@
       "engagement": "Dématérialisation totale fiscalité",
       "resultat": "Optimisation recettes",
       "delai": "2 à 3 ans",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -325,7 +328,13 @@
       "resultat": "Sécurisation paysans",
       "delai": "12 premiers mois",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+         "date": "23/10/2025",
+          "text": " Adoption imminente : En janvier 2026, le Chef de l'État a exigé l'adoption de la version révisée de la loi avant la fin du mois.
+Conseil Supérieur d'Orientation : La première session du Conseil Supérieur d’Orientation Agro-Sylvo-Pastorale (CSOASP) s'est tenue le 23 octobre 2025 sous la présidence de Bassirou Diomaye Faye, marquant le lancement opérationnel de cette instance prévue depuis 20 ans."
+        }
+      ]
     },
     {
       "id": "promise_36",
