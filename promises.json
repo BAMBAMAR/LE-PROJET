@@ -9,7 +9,7 @@
       "resultat": "Exécutif resserré et équilibre des pouvoirs",
       "delai": "6 premiers mois",
       "status": "non-lance",
-      "mises_a_jour": [ ]
+      "mises_a_jour": []
     },
     {
       "id": "promise_2",
@@ -167,10 +167,12 @@
       "resultat": "Fin de l'impunité",
       "delai": "1ère année",
       "status": "realise",
-      "mises_a_jour": [  {
+      "mises_a_jour": [
+        {
           "date": "22/12/2025",
           "text": " prestation de serment le 22 décembre 2025 devant le Premier Président de la Cour d'appel de Dakar."
-        }]
+        }
+      ]
     },
     {
       "id": "promise_19",
@@ -181,8 +183,8 @@
       "status": "realise",
       "mises_a_jour": [
         {
-         "date": "26/08/2025",
-          "text": "Au Sénégal, la protection des lanceurs d'alerte est désormais régie par la Loi n° 2025-14, adoptée par l'Assemblée nationale le 26 août 2025 et promulguée en septembre 2025."
+          "date": "26/08/2025",
+          "text": "Au Sénégal, la protection des lanceurs d'alerte est désormais régie par la Loi n° 2025-14, adoptée par l'Assemblée nationale le 26 août 2025 et promulguée en septembre 2025[...]"
         }
       ]
     },
@@ -330,7 +332,7 @@
       "status": "encours",
       "mises_a_jour": [
         {
-         "date": "23/10/2025",
+          "date": "23/10/2025",
           "text": " Adoption imminente : En janvier 2026, le Chef de l'État a exigé l'adoption de la version révisée de la loi avant la fin du mois."
         }
       ]
@@ -398,8 +400,8 @@
       "status": "realise",
       "mises_a_jour": [
         {
-           "date": "31/12/2024",
-          "text": " Les navires de l'UE (principalement espagnols et français) n'ont plus l'autorisation de pêcher dans la Zone Économique Exclusive (ZEE) du Sénégal depuis la fin de l'année 2024"
+          "date": "31/12/2024",
+          "text": " Les navires de l'UE (principalement espagnols et français) n'ont plus l'autorisation de pêcher dans la Zone Économique Exclusive (ZEE) du Sénégal depuis la fin de l'année 202[...]"
         }
       ]
     },
@@ -475,9 +477,10 @@
       "status": "encours",
       "mises_a_jour": [
         {
-         "date": "31/12/2025",
+          "date": "31/12/2025",
           "text": "Le projet est officiellement inscrit dans la LFI 2026 avec une enveloppe de 137 milliards FCFA pour cette année."
-        }]
+        }
+      ]
     },
     {
       "id": "promise_50",
@@ -634,14 +637,14 @@
         {
           "date": "15/11/2024",
           "text": "Recrutement de 2 000 nouveaux enseignants."
-        }
-        
+        },
+        {
           "date": "30/08/2025",
           "text": "Août 2025 : Le gouvernement valide le recrutement de 500 enseignants-chercheurs pour les universités publiques afin de renforcer l'enseignement supérieur."
-        }
-    {
+        },
+        {
           "date": "31/07/2025",
-          "text": "Juillet 2025 : Le gouvernement sénégalais annonce officiellement un recrutement exceptionnel de 200 formateurs pour l'enseignement technique et la formation professionnelle (ETFP)."
+          "text": "Juillet 2025 : Le gouvernement sénégalais annonce officiellement un recrutement exceptionnel de 200 formateurs pour l'enseignement technique et la formation professionnelle (ETFP)[...]"
         }
       ]
     },
@@ -922,7 +925,7 @@
       "resultat": "Baisse spéculation",
       "delai": "1ère année",
       "status": "encours",
-      "mises_a_jour": [ ]
+      "mises_a_jour": []
     },
     {
       "id": "promise_97",
