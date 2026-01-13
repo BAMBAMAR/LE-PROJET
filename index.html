@@ -1104,6 +1104,7 @@
       
       // KPI de base
       const realise = promises.filter(p => p.status === 'realise').length;
+      const encours = promises.filter(p => p.status === 'encours').length;
       const nonLance = promises.filter(p => p.status === 'non-lance').length;
       const retard = promises.filter(p => p.isLate).length;
       
@@ -1186,7 +1187,7 @@
       document.getElementById('realise').textContent = realise;
       document.getElementById('realise-percentage').textContent = `${realisePercentage}%`;
       
-      document.getElementById('encours').textContent = encours + nonLance;
+      document.getElementById('encours').textContent = encours;
       document.getElementById('encours-percentage').textContent = `${encoursPercentage}%`;
       
       document.getElementById('non-lance').textContent = nonLance;
