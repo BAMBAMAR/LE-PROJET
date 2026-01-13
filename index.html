@@ -1118,9 +1118,8 @@
       let tauxRealisation = 0;
       if (total > 0) {
         const poidsRealise = realise * 100;
-        const poidsEncours = encours * 50;
-        const poidsNonLance = nonLance * 10;
-        tauxRealisation = ((poidsRealise + poidsEncours + poidsNonLance) / (total * 100) * 100).toFixed(1);
+        
+        tauxRealisation = ((poidsRealise ) / (total * 100) * 100).toFixed(1);
       }
       
       // KPI 7: Moyenne des notes
