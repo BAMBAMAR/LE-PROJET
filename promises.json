@@ -632,12 +632,16 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "15/09/2024",
-          "text": "Recrutement de 5 000 nouveaux enseignants."
+          "date": "15/11/2024",
+          "text": "Recrutement de 2 000 nouveaux enseignants."
         },
         {
-          "date": "30/10/2024",
-          "text": "Formation pédagogique en cours."
+          "date": "30/08/2025",
+          "text": "Août 2025 : Le gouvernement valide le recrutement de 500 enseignants-chercheurs pour les universités publiques afin de renforcer l'enseignement supérieur."
+        }
+        {
+          "date": "31/07/2025",
+          "text": "Juillet 2025 : Le gouvernement sénégalais annonce officiellement un recrutement exceptionnel de 200 formateurs pour l'enseignement technique et la formation professionnelle (ETFP).."
         }
       ]
     },
@@ -917,17 +921,8 @@
       "engagement": "Permis de louer / Encadrement loyers",
       "resultat": "Baisse spéculation",
       "delai": "1ère année",
-      "status": "realise",
-      "mises_a_jour": [
-        {
-          "date": "15/05/2024",
-          "text": "Annonce de la baisse des prix du loyer."
-        },
-        {
-          "date": "01/07/2024",
-          "text": "Loi sur l'encadrement des loyers votée."
-        }
-      ]
+      "status": "encours",
+      "mises_a_jour": [ ]
     },
     {
       "id": "promise_97",
