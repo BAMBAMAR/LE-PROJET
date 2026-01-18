@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <meta name="description" content="Suivi transparent des promesses électorales du Président Bassirou Diomaye Faye">
   <meta name="theme-color" content="#2a6d5d">
   <meta property="og:title" content="Suivi Promesses du projet PASTEF: POUR UN SÉNÉGAL SOUVERAIN,JUSTE ET PROSPÈRE">
@@ -15,6 +15,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bibliothèque pour capture HTML -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   
   <style>
     :root {
@@ -36,12 +39,20 @@
       --text-secondary: #495057;
       --border: #dee2e6;
       --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      --safe-area-inset-top: env(safe-area-inset-top);
+      --safe-area-inset-bottom: env(safe-area-inset-bottom);
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
     }
 
     body {
@@ -51,6 +62,10 @@
       line-height: 1.6;
       min-height: 100vh;
       padding-top: 70px; /* Pour la navbar fixe */
+      padding-bottom: env(safe-area-inset-bottom);
+      -webkit-text-size-adjust: 100%;
+      -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
     }
 
     .bg-pattern {
@@ -66,7 +81,7 @@
       z-index: -1;
     }
 
-    /* ========== NAVIGATION FIXE ========== */
+    /* ========== NAVIGATION FIXE OPTIMISÉE MOBILE ========== */
     .navbar {
       position: fixed;
       top: 0;
@@ -76,7 +91,9 @@
       border-bottom: 1px solid var(--border);
       box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
       z-index: 1000;
-      padding: 0.8rem 1.5rem;
+      padding: 0.8rem 1rem;
+      padding-top: calc(0.8rem + var(--safe-area-inset-top));
+      transition: all 0.3s ease;
     }
 
     .nav-container {
@@ -90,28 +107,29 @@
     .nav-logo {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 0.5rem;
       text-decoration: none;
       color: var(--primary);
       font-weight: 700;
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
 
     .nav-logo-icon {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       background: linear-gradient(135deg, var(--primary), var(--primary-light));
-      border-radius: 10px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 1.2rem;
+      font-size: 1rem;
+      flex-shrink: 0;
     }
 
     .nav-menu {
       display: flex;
-      gap: 1.5rem;
+      gap: 0.8rem;
       align-items: center;
     }
 
@@ -119,13 +137,14 @@
       text-decoration: none;
       color: var(--text-secondary);
       font-weight: 500;
-      font-size: 0.95rem;
-      padding: 0.5rem 0.8rem;
-      border-radius: 8px;
+      font-size: 0.85rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.3rem;
+      white-space: nowrap;
     }
 
     .nav-link:hover {
@@ -140,7 +159,7 @@
     }
 
     .nav-link i {
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
 
     .mobile-menu-btn {
@@ -148,18 +167,27 @@
       background: none;
       border: none;
       color: var(--text-primary);
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       cursor: pointer;
-      padding: 0.5rem;
+      padding: 0.3rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* ========== BOUTON RETOUR EN HAUT ========== */
+    .mobile-menu-btn:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    /* ========== BOUTON RETOUR EN HAUT OPTIMISÉ MOBILE ========== */
     .back-to-top {
       position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      width: 50px;
-      height: 50px;
+      bottom: calc(2rem + var(--safe-area-inset-bottom));
+      right: 1rem;
+      width: 44px;
+      height: 44px;
       background: var(--primary);
       color: white;
       border-radius: 50%;
@@ -172,6 +200,8 @@
       visibility: hidden;
       transition: all 0.3s ease;
       z-index: 999;
+      font-size: 1.2rem;
+      touch-action: manipulation;
     }
 
     .back-to-top.visible {
@@ -179,7 +209,7 @@
       visibility: visible;
     }
 
-    .back-to-top:hover {
+    .back-to-top:hover, .back-to-top:active {
       background: var(--primary-light);
       transform: translateY(-3px);
       box-shadow: 0 6px 20px rgba(42, 109, 93, 0.4);
@@ -200,17 +230,17 @@
     .container {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 1.5rem;
+      padding: 1rem;
       position: relative;
     }
 
-    /* HEADER AVEC DOCUMENT */
+    /* HEADER AVEC DOCUMENT OPTIMISÉ MOBILE */
     .header {
       text-align: center;
-      margin-bottom: 2.5rem;
-      padding: 2.5rem 2rem;
+      margin-bottom: 1.5rem;
+      padding: 1.5rem 1rem;
       background: var(--bg-card);
-      border-radius: 20px;
+      border-radius: 16px;
       border: 1px solid var(--border);
       box-shadow: var(--shadow);
       position: relative;
@@ -223,7 +253,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 5px;
+      height: 4px;
       background: linear-gradient(90deg, var(--primary), var(--primary-light));
     }
 
@@ -233,57 +263,64 @@
     }
 
     .header h1 {
-      font-size: 2.5rem;
+      font-size: 1.5rem;
       font-weight: 700;
       background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 0.8rem;
-      line-height: 1.2;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+      padding: 0 0.5rem;
     }
 
     .subtitle {
       color: var(--text-secondary);
-      font-size: 1.1rem;
-      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
       font-weight: 400;
+      padding: 0 0.5rem;
     }
 
     .header-actions {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-top: 1rem;
       align-items: center;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-      flex-wrap: wrap;
     }
 
     .ref-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.7rem;
+      gap: 0.5rem;
       background: rgba(74, 144, 226, 0.1);
       border: 1px solid rgba(74, 144, 226, 0.2);
       color: #4a90e2;
-      padding: 0.8rem 1.5rem;
-      border-radius: 50px;
+      padding: 0.6rem 1rem;
+      border-radius: 25px;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
     }
 
     .document-btn-header {
       display: inline-flex;
       align-items: center;
-      gap: 0.7rem;
+      gap: 0.5rem;
       background: rgba(231, 111, 81, 0.1);
       border: 1px solid rgba(231, 111, 81, 0.2);
       color: #e76f51;
-      padding: 0.8rem 1.5rem;
-      border-radius: 50px;
+      padding: 0.6rem 1rem;
+      border-radius: 25px;
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       transition: all 0.3s ease;
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
     }
 
     .document-btn-header:hover {
@@ -292,24 +329,26 @@
     }
 
     .share-dashboard {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
       display: flex;
-      gap: 0.7rem;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
     }
 
     .share-dashboard-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
       text-decoration: none;
       transition: all 0.3s ease;
-      font-size: 1.1rem;
+      font-size: 1rem;
+      touch-action: manipulation;
     }
 
     .share-dashboard-btn:hover {
@@ -321,19 +360,19 @@
     .share-whatsapp { background: #25d366; }
     .share-linkedin { background: #0077b5; }
 
-    /* STATISTIQUES - 10 KPI */
+    /* STATISTIQUES - 10 KPI OPTIMISÉS MOBILE */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.2rem;
-      margin-bottom: 2.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
     }
 
     .stat-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.5rem;
+      border-radius: 12px;
+      padding: 1rem;
       text-align: center;
       transition: all 0.3s ease;
       box-shadow: var(--shadow);
@@ -341,12 +380,12 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      min-height: 180px;
+      min-height: 140px;
+      touch-action: manipulation;
     }
 
-    .stat-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    .stat-card:active {
+      transform: scale(0.98);
     }
 
     .stat-card::before {
@@ -355,8 +394,8 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 4px;
-      border-radius: 16px 16px 0 0;
+      height: 3px;
+      border-radius: 12px 12px 0 0;
     }
 
     /* Couleurs pour chaque KPI */
@@ -372,8 +411,8 @@
     .stat-card:nth-child(10)::before { background: linear-gradient(90deg, #3498db, #2980b9); }
 
     .stat-icon {
-      font-size: 2.2rem;
-      margin-bottom: 0.8rem;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
       opacity: 0.9;
     }
 
@@ -389,55 +428,45 @@
     .stat-card:nth-child(10) .stat-icon { color: #3498db; }
 
     .stat-value {
-      font-size: 2.2rem;
+      font-size: 1.5rem;
       font-weight: 800;
       line-height: 1;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.2rem;
     }
-
-    .stat-card:nth-child(1) .stat-value { color: var(--primary); }
-    .stat-card:nth-child(2) .stat-value { color: var(--success); }
-    .stat-card:nth-child(3) .stat-value { color: #4a90e2; }
-    .stat-card:nth-child(4) .stat-value { color: var(--warning); }
-    .stat-card:nth-child(5) .stat-value { color: var(--danger); }
-    .stat-card:nth-child(6) .stat-value { color: #8a4baf; }
-    .stat-card:nth-child(7) .stat-value { color: #20c997; }
-    .stat-card:nth-child(8) .stat-value { color: #e83e8c; }
-    .stat-card:nth-child(9) .stat-value { color: #fd7e14; }
-    .stat-card:nth-child(10) .stat-value { color: #3498db; }
 
     .stat-label {
       color: var(--text-secondary);
-      font-size: 0.85rem;
+      font-size: 0.7rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.5rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.3rem;
+      line-height: 1.2;
     }
 
     .stat-subvalue {
-      font-size: 1rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: var(--text-primary);
-      margin-top: 0.3rem;
+      margin-top: 0.2rem;
     }
 
     .stat-percentage {
-      font-size: 1.2rem;
+      font-size: 0.9rem;
       font-weight: 700;
-      margin-top: 0.5rem;
+      margin-top: 0.3rem;
     }
 
-    /* FILTRES AMÉLIORÉS */
+    /* FILTRES AMÉLIORÉS OPTIMISÉS MOBILE */
     .filters {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.8rem;
-      margin-bottom: 2.5rem;
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 1.2rem;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
       box-shadow: var(--shadow);
     }
 
@@ -447,25 +476,38 @@
 
     .input-group i {
       position: absolute;
-      left: 1rem;
+      left: 0.8rem;
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-secondary);
-      font-size: 1rem;
+      font-size: 0.9rem;
+      z-index: 1;
     }
 
     input, select {
       width: 100%;
-      padding: 0.9rem 0.9rem 0.9rem 3rem;
+      padding: 0.8rem 0.8rem 0.8rem 2.5rem;
       background: var(--bg-main);
       border: 2px solid var(--border);
-      border-radius: 12px;
+      border-radius: 8px;
       color: var(--text-primary);
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-family: 'Inter', sans-serif;
       transition: all 0.3s ease;
       outline: none;
       cursor: pointer;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      touch-action: manipulation;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23495057' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.8rem center;
+      background-size: 1rem;
+      padding-right: 2.5rem;
     }
 
     input:focus, select:focus {
@@ -476,32 +518,47 @@
 
     .quick-filters {
       display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .quick-filters::-webkit-scrollbar {
+      display: none;
     }
 
     .quick-filter-btn {
-      padding: 0.6rem 1.2rem;
+      padding: 0.5rem 0.8rem;
       background: var(--bg-main);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 6px;
       color: var(--text-secondary);
       font-weight: 500;
       cursor: pointer;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.9rem;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      touch-action: manipulation;
+    }
+
+    .quick-filter-btn:active {
+      transform: scale(0.95);
     }
 
     .quick-filter-btn:hover {
       background: var(--primary);
       color: white;
       border-color: var(--primary);
-      transform: translateY(-2px);
     }
 
     .quick-filter-btn.active {
@@ -510,76 +567,80 @@
       border-color: var(--primary);
     }
 
-    /* GRILLE DES PROMESSES */
+    /* GRILLE DES PROMESSES OPTIMISÉE MOBILE */
     .promises-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-      gap: 1.8rem;
-      margin-bottom: 3rem;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
 
-    /* CARTE DE PROMESSE */
+    /* CARTE DE PROMESSE OPTIMISÉE MOBILE */
     .promise-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.8rem;
+      border-radius: 12px;
+      padding: 1.2rem;
       position: relative;
       transition: all 0.3s ease;
       box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
+      touch-action: manipulation;
     }
 
-    .promise-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-      border-color: var(--primary-light);
+    .promise-card:active {
+      transform: scale(0.995);
     }
 
     .domain-badge {
       position: absolute;
-      top: 1.2rem;
-      right: 1.2rem;
+      top: 1rem;
+      right: 1rem;
       background: rgba(42, 109, 93, 0.1);
       border: 1px solid rgba(42, 109, 93, 0.2);
       color: var(--primary);
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      font-size: 0.75rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 25px;
+      font-size: 0.65rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.03em;
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .promise-title {
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       font-weight: 600;
       color: var(--text-primary);
-      margin: 2.2rem 0 1rem 0;
+      margin: 1.8rem 0 0.8rem 0;
       line-height: 1.4;
       padding-right: 4rem;
     }
 
     .result-box {
       background: rgba(42, 109, 93, 0.05);
-      border-left: 4px solid var(--primary);
-      padding: 1rem;
-      border-radius: 10px;
-      margin-bottom: 1.2rem;
+      border-left: 3px solid var(--primary);
+      padding: 0.8rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
       color: var(--text-secondary);
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       line-height: 1.5;
     }
 
     .result-box i {
       color: var(--primary);
-      margin-right: 0.5rem;
+      margin-right: 0.3rem;
+      font-size: 0.8rem;
     }
 
     .promise-meta {
       margin-top: auto;
-      padding-top: 1.2rem;
+      padding-top: 1rem;
       border-top: 1px solid var(--border);
     }
 
@@ -587,22 +648,24 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.8rem;
-      font-size: 0.9rem;
+      margin-bottom: 0.6rem;
+      font-size: 0.8rem;
     }
 
     .meta-row i {
-      margin-right: 0.5rem;
+      margin-right: 0.3rem;
       color: var(--text-secondary);
+      font-size: 0.8rem;
     }
 
     .status-badge {
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
       font-weight: 700;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
     }
 
     .status-realise {
@@ -624,13 +687,14 @@
     }
 
     .delay-badge {
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
       font-weight: 700;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.3rem;
+      white-space: nowrap;
     }
 
     .delay-success {
@@ -649,32 +713,36 @@
       background: rgba(42, 109, 93, 0.1);
       border: 1px solid rgba(42, 109, 93, 0.3);
       color: var(--primary);
-      padding: 0.8rem 1.2rem;
-      border-radius: 10px;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
       cursor: pointer;
-      margin-top: 1rem;
+      margin-top: 0.8rem;
       font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
+      gap: 0.3rem;
       transition: all 0.3s ease;
       width: 100%;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
+      touch-action: manipulation;
+    }
+
+    .details-btn:active {
+      transform: scale(0.98);
     }
 
     .details-btn:hover {
       background: rgba(42, 109, 93, 0.2);
-      transform: translateY(-2px);
     }
 
     .updates-container {
       display: none;
       background: rgba(233, 196, 106, 0.05);
       border: 1px solid rgba(233, 196, 106, 0.2);
-      border-radius: 10px;
-      padding: 1.2rem;
-      margin-top: 1rem;
+      border-radius: 8px;
+      padding: 0.8rem;
+      margin-top: 0.8rem;
     }
 
     .updates-container.show {
@@ -694,7 +762,7 @@
     }
 
     .update-item {
-      padding: 0.85rem 0;
+      padding: 0.6rem 0;
       border-bottom: 1px solid rgba(233, 196, 106, 0.1);
     }
 
@@ -705,37 +773,39 @@
     .update-date {
       color: var(--accent);
       font-weight: 700;
-      font-size: 0.85rem;
-      margin-bottom: 0.35rem;
+      font-size: 0.75rem;
+      margin-bottom: 0.2rem;
       display: block;
     }
 
     .update-date i {
-      margin-right: 0.5rem;
+      margin-right: 0.3rem;
+      font-size: 0.7rem;
     }
 
     .update-text {
       color: var(--text-secondary);
-      font-size: 0.9rem;
-      line-height: 1.5;
+      font-size: 0.8rem;
+      line-height: 1.4;
     }
 
     .rating-section {
       background: rgba(233, 196, 106, 0.05);
-      padding: 1rem;
-      border-radius: 10px;
+      padding: 0.8rem;
+      border-radius: 8px;
       text-align: center;
-      margin-top: 1.2rem;
+      margin-top: 1rem;
       border: 1px solid rgba(233, 196, 106, 0.1);
     }
 
     .stars {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       cursor: pointer;
       color: var(--border);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.3rem;
       display: inline-flex;
-      gap: 0.3rem;
+      gap: 0.2rem;
+      touch-action: manipulation;
     }
 
     .stars i.filled {
@@ -750,22 +820,23 @@
     .rating-label {
       display: block;
       color: var(--text-secondary);
-      font-size: 0.85rem;
+      font-size: 0.75rem;
       font-weight: 500;
     }
 
     .share-section {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin-top: 1.5rem;
-      padding-top: 1.5rem;
+      gap: 0.8rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
       border-top: 1px solid var(--border);
+      flex-wrap: wrap;
     }
 
     .share-btn {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -773,15 +844,48 @@
       color: white;
       transition: all 0.3s ease;
       text-decoration: none;
+      font-size: 0.9rem;
+      touch-action: manipulation;
+    }
+
+    .share-btn:active {
+      transform: scale(0.95);
     }
 
     .share-btn:hover {
       transform: translateY(-3px) scale(1.1);
     }
 
+    /* Nouveau bouton de capture d'écran */
+    .screenshot-btn {
+      background: #8a4baf;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      touch-action: manipulation;
+    }
+
+    .screenshot-btn:active {
+      transform: scale(0.95);
+    }
+
+    .screenshot-btn:hover {
+      background: #9b59b6;
+      transform: translateY(-3px) scale(1.1);
+    }
+
     .loading {
       text-align: center;
-      padding: 3rem;
+      padding: 2rem;
       color: var(--text-secondary);
       grid-column: 1 / -1;
     }
@@ -790,8 +894,8 @@
       border: 3px solid var(--border);
       border-top: 3px solid var(--primary);
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       animation: spin 1s linear infinite;
       margin: 0 auto 1rem;
     }
@@ -800,65 +904,158 @@
       to { transform: rotate(360deg); }
     }
 
-    /* FOOTER */
-    .footer {
-      text-align: center;
-      padding: 2.5rem 2rem;
-      margin-top: 3rem;
-      border-top: 1px solid var(--border);
-      color: var(--text-secondary);
-      background: var(--bg-card);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
+    /* MODAL POUR VISUALISATION CAPTURE */
+    .capture-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      padding-top: calc(1rem + var(--safe-area-inset-top));
+      padding-bottom: calc(1rem + var(--safe-area-inset-bottom));
     }
 
-    .footer p {
-      margin-bottom: 1rem;
-      font-size: 0.95rem;
+    .capture-modal.show {
+      display: flex;
+      animation: fadeIn 0.3s ease;
     }
 
-    .footer-links {
-      margin: 1.2rem 0;
+    .capture-content {
+      background: white;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .capture-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .capture-actions {
+      position: absolute;
+      bottom: 1rem;
+      left: 0;
+      width: 100%;
       display: flex;
       justify-content: center;
       gap: 1rem;
-      flex-wrap: wrap;
+      padding: 0 1rem;
+    }
+
+    .capture-action-btn {
+      padding: 0.6rem 1.2rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      touch-action: manipulation;
+    }
+
+    .capture-action-btn:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    .close-capture {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      z-index: 2;
+    }
+
+    /* FOOTER OPTIMISÉ MOBILE */
+    .footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      margin-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      background: var(--bg-card);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding-bottom: calc(1.5rem + var(--safe-area-inset-bottom));
+    }
+
+    .footer p {
+      margin-bottom: 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .footer-links {
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      align-items: center;
     }
 
     .export-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.7rem;
+      gap: 0.5rem;
       background: rgba(42, 109, 93, 0.1);
       color: var(--primary);
-      padding: 0.8rem 1.5rem;
-      border-radius: 50px;
+      padding: 0.6rem 1rem;
+      border-radius: 25px;
       border: none;
       cursor: pointer;
       font-family: inherit;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-weight: 600;
       transition: all 0.3s ease;
       position: relative;
+      touch-action: manipulation;
+    }
+
+    .export-btn:active {
+      transform: scale(0.98);
     }
 
     .export-btn:hover {
       background: rgba(42, 109, 93, 0.2);
-      transform: translateY(-2px);
     }
 
     .export-dropdown {
       position: absolute;
       top: 100%;
       left: 0;
-      margin-top: 0.5rem;
+      margin-top: 0.3rem;
       background: white;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 8px;
       box-shadow: var(--shadow);
       display: none;
       flex-direction: column;
-      min-width: 200px;
+      min-width: 180px;
       z-index: 100;
       overflow: hidden;
     }
@@ -868,18 +1065,19 @@
     }
 
     .export-option {
-      padding: 0.8rem 1.2rem;
+      padding: 0.6rem 0.8rem;
       border: none;
       background: none;
       text-align: left;
       cursor: pointer;
       font-family: inherit;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: var(--text-primary);
       transition: all 0.2s ease;
       display: flex;
       align-items: center;
-      gap: 0.7rem;
+      gap: 0.5rem;
+      touch-action: manipulation;
     }
 
     .export-option:hover {
@@ -887,26 +1085,28 @@
     }
 
     .footer-note {
-      margin-top: 1.5rem;
-      font-size: 0.9rem;
+      margin-top: 1rem;
+      font-size: 0.8rem;
       color: var(--text-secondary);
     }
 
     .notification {
       position: fixed;
-      top: 80px; /* Au-dessous de la navbar */
-      right: 20px;
+      top: 90px;
+      right: 1rem;
+      left: 1rem;
       background: linear-gradient(135deg, #2a9d8f, #21867a);
       color: white;
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       z-index: 9999;
       animation: slideIn 0.3s ease;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.5rem;
       font-weight: 500;
+      font-size: 0.9rem;
     }
 
     @keyframes slideIn {
@@ -919,34 +1119,145 @@
       to { transform: translateX(100px); opacity: 0; }
     }
 
-    /* RESPONSIVE */
-    @media (max-width: 1200px) {
-      .stats-grid {
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    /* RESPONSIVE POUR TABLETTES */
+    @media (min-width: 768px) {
+      html {
+        font-size: 17px;
       }
-    }
-
-    @media (max-width: 1024px) {
-      .stats-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      .filters {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .promises-grid {
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      }
-    }
-
-    @media (max-width: 768px) {
+      
       .container {
-        padding: 1rem;
+        padding: 1.5rem;
       }
       
       .navbar {
-        padding: 0.8rem 1rem;
+        padding: 0.8rem 1.5rem;
+        padding-top: calc(0.8rem + var(--safe-area-inset-top));
       }
       
+      .nav-logo {
+        font-size: 1.1rem;
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+      }
+      
+      .stat-card {
+        min-height: 160px;
+        padding: 1.2rem;
+      }
+      
+      .stat-icon {
+        font-size: 1.8rem;
+      }
+      
+      .stat-value {
+        font-size: 1.8rem;
+      }
+      
+      .filters {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      
+      .promises-grid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+      }
+      
+      .promise-card {
+        padding: 1.5rem;
+      }
+      
+      .share-section {
+        gap: 1rem;
+      }
+      
+      .share-btn, .screenshot-btn {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .back-to-top {
+        width: 50px;
+        height: 50px;
+        right: 2rem;
+        bottom: calc(2rem + var(--safe-area-inset-bottom));
+      }
+    }
+
+    /* RESPONSIVE POUR DESKTOP */
+    @media (min-width: 1024px) {
+      html {
+        font-size: 18px;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+      
+      .filters {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+      }
+      
+      .quick-filters {
+        justify-content: center;
+      }
+      
+      .header-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      
+      .nav-link {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.8rem;
+      }
+    }
+
+    /* OPTIMISATIONS TOUCH */
+    @media (hover: none) and (pointer: coarse) {
+      .stat-card:hover {
+        transform: none;
+      }
+      
+      .promise-card:hover {
+        transform: none;
+      }
+      
+      .details-btn:hover {
+        transform: none;
+      }
+      
+      .share-btn:hover {
+        transform: none;
+      }
+      
+      .screenshot-btn:hover {
+        transform: none;
+      }
+      
+      .back-to-top:hover {
+        transform: none;
+      }
+      
+      .export-btn:hover .export-dropdown {
+        display: none;
+      }
+      
+      .export-btn:focus .export-dropdown,
+      .export-btn:active .export-dropdown {
+        display: flex;
+      }
+    }
+
+    /* MASQUER LE MENU NAVIGATION SUR MOBILE PAR DÉFAUT */
+    @media (max-width: 767px) {
       .nav-menu {
         position: fixed;
         top: 70px;
@@ -957,6 +1268,9 @@
         padding: 1rem;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         display: none;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
       
       .nav-menu.show {
@@ -964,57 +1278,79 @@
       }
       
       .mobile-menu-btn {
-        display: block;
+        display: flex;
       }
       
       .header {
-        padding: 2rem 1.5rem;
+        padding: 1.5rem;
       }
+      
       .header h1 {
-        font-size: 2rem;
+        font-size: 1.4rem;
       }
-      .share-dashboard {
-        position: static;
-        justify-content: center;
-        margin-top: 1.5rem;
-        margin-bottom: 1rem;
-      }
-      .header-actions {
-        flex-direction: column;
-        gap: 1rem;
-      }
+      
       .stats-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+      
       .filters {
         grid-template-columns: 1fr;
       }
-      .promises-grid {
-        grid-template-columns: 1fr;
-      }
-      .share-section {
-        gap: 0.8rem;
-      }
-      .share-btn {
-        width: 36px;
-        height: 36px;
-        font-size: 1rem;
-      }
-      .footer-links {
-        flex-direction: column;
-        align-items: center;
+      
+      .share-dashboard {
+        position: static;
+        justify-content: center;
       }
     }
 
-    @media (max-width: 480px) {
+    /* TRÈS PETITS ÉCRANS */
+    @media (max-width: 360px) {
       .stats-grid {
         grid-template-columns: 1fr;
       }
+      
       .header h1 {
-        font-size: 1.6rem;
+        font-size: 1.2rem;
       }
+      
       .stat-card {
-        padding: 1.2rem;
+        padding: 0.8rem;
+        min-height: 130px;
+      }
+      
+      .promise-title {
+        font-size: 1rem;
+      }
+      
+      .result-box {
+        font-size: 0.8rem;
+      }
+    }
+
+    /* ORIENTATION PAYSAGE */
+    @media (max-width: 767px) and (orientation: landscape) {
+      .nav-menu {
+        max-height: 60vh;
+      }
+      
+      .header {
+        padding: 1rem;
+      }
+      
+      .header h1 {
+        font-size: 1.2rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .stat-card {
+        min-height: 120px;
+      }
+      
+      .promise-title {
+        font-size: 0.95rem;
       }
     }
   </style>
@@ -1033,7 +1369,7 @@
         <span>PROJETBI</span>
       </a>
       
-      <button class="mobile-menu-btn" id="mobileMenuBtn">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu mobile">
         <i class="fas fa-bars"></i>
       </button>
       
@@ -1067,21 +1403,21 @@
   <div class="container">
     <header class="header" id="header">
       <div class="share-dashboard">
-        <a href="#" id="share-twitter-dash" class="share-dashboard-btn share-twitter" title="Partager sur X">
+        <a href="#" id="share-twitter-dash" class="share-dashboard-btn share-twitter" title="Partager sur X" aria-label="Partager sur Twitter">
           <i class="fab fa-x-twitter"></i>
         </a>
-        <a href="#" id="share-facebook-dash" class="share-dashboard-btn share-facebook" title="Partager sur Facebook">
+        <a href="#" id="share-facebook-dash" class="share-dashboard-btn share-facebook" title="Partager sur Facebook" aria-label="Partager sur Facebook">
           <i class="fab fa-facebook-f"></i>
         </a>
-        <a href="#" id="share-whatsapp-dash" class="share-dashboard-btn share-whatsapp" title="Partager sur WhatsApp">
+        <a href="#" id="share-whatsapp-dash" class="share-dashboard-btn share-whatsapp" title="Partager sur WhatsApp" aria-label="Partager sur WhatsApp">
           <i class="fab fa-whatsapp"></i>
         </a>
-        <a href="#" id="share-linkedin-dash" class="share-dashboard-btn share-linkedin" title="Partager sur LinkedIn">
+        <a href="#" id="share-linkedin-dash" class="share-dashboard-btn share-linkedin" title="Partager sur LinkedIn" aria-label="Partager sur LinkedIn">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </div>
       <div class="header-content">
-        <h1>LE PROJET POUR UN SÉNÉGAL SOUVERAIN, JUSTE ET PROSPÈRE </h1>
+        <h1>LE PROJET POUR UN SÉNÉGAL SOUVERAIN, JUSTE ET PROSPÈRE</h1>
         <p class="subtitle">Tableau de Bord Transparent du Suivi des <span id="total-count">99</span> Engagements</p>
         
         <div class="header-actions">
@@ -1279,7 +1615,7 @@
     <footer class="footer" id="footer">
       <p>Plateforme citoyenne de suivi des engagements • Données à jour au <span id="current-date"></span></p>
       <div class="footer-links">
-        <div class="export-btn">
+        <div class="export-btn" id="exportButton">
           <i class="fas fa-file-export"></i>
           Exporter les données
           <div class="export-dropdown">
@@ -1313,9 +1649,29 @@
   </div>
 
   <!-- Bouton retour en haut -->
-  <a href="#header" class="back-to-top" id="backToTop">
+  <a href="#header" class="back-to-top" id="backToTop" aria-label="Retour en haut">
     <i class="fas fa-chevron-up"></i>
   </a>
+
+  <!-- Modal pour visualiser la capture -->
+  <div class="capture-modal" id="captureModal">
+    <div class="capture-content">
+      <button class="close-capture" id="closeCapture" aria-label="Fermer">
+        <i class="fas fa-times"></i>
+      </button>
+      <img id="captureImage" class="capture-image" alt="Capture de la promesse">
+      <div class="capture-actions">
+        <button class="capture-action-btn" id="downloadCapture">
+          <i class="fas fa-download"></i>
+          Télécharger
+        </button>
+        <button class="capture-action-btn" id="shareCapture">
+          <i class="fas fa-share-alt"></i>
+          Partager
+        </button>
+      </div>
+    </div>
+  </div>
 
   <script>
     // CONFIGURATION
@@ -1323,10 +1679,11 @@
       DATA_URL: 'promises.json',
       START_DATE: null,
       CURRENT_DATE: new Date(),
-      promises: []
+      promises: [],
+      currentCapture: null
     };
 
-    // ========== GESTION DE LA NAVIGATION ==========
+    // ========== GESTION DE LA NAVIGATION MOBILE ==========
     function setupNavigation() {
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const navMenu = document.getElementById('navMenu');
@@ -1340,6 +1697,7 @@
         mobileMenuBtn.innerHTML = navMenu.classList.contains('show') 
           ? '<i class="fas fa-times"></i>' 
           : '<i class="fas fa-bars"></i>';
+        document.body.style.overflow = navMenu.classList.contains('show') ? 'hidden' : '';
       });
       
       // Fermer menu mobile au clic sur un lien
@@ -1347,7 +1705,17 @@
         link.addEventListener('click', () => {
           navMenu.classList.remove('show');
           mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+          document.body.style.overflow = '';
         });
+      });
+      
+      // Fermer menu mobile en cliquant en dehors
+      document.addEventListener('click', (e) => {
+        if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && navMenu.classList.contains('show')) {
+          navMenu.classList.remove('show');
+          mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+          document.body.style.overflow = '';
+        }
       });
       
       // Navigation fluide
@@ -1374,6 +1742,15 @@
       });
       
       // Bouton retour en haut
+      backToTop.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+      
+      // Scroll events
       window.addEventListener('scroll', () => {
         // Afficher/masquer le bouton
         if (window.scrollY > 300) {
@@ -1409,11 +1786,19 @@
         });
       });
       
+      // Gestion du clavier pour le menu mobile
+      mobileMenuBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          mobileMenuBtn.click();
+        }
+      });
+      
       // Scroll progress au chargement
       window.dispatchEvent(new Event('scroll'));
     }
 
-    // FONCTIONS UTILITAIRES
+    // ========== FONCTIONS UTILITAIRES ==========
     function calculateDeadline(delaiText) {
       if (!CONFIG.START_DATE) return new Date();
       const text = delaiText.toLowerCase();
@@ -1458,7 +1843,284 @@
       }
     }
 
-    // CALCULS POUR LES 10 KPI
+    // ========== FONCTION POUR CORRIGER LES CARACTÈRES SPÉCIAUX DANS L'EXPORT ==========
+    function sanitizeForExport(text) {
+      if (!text) return '';
+      
+      // Remplacer les caractères problématiques pour CSV/Excel
+      return text
+        .replace(/"/g, '""') // Échapper les guillemets doubles
+        .replace(/\r?\n/g, ' ') // Remplacer les retours à la ligne par des espaces
+        .replace(/\t/g, ' ')   // Remplacer les tabulations par des espaces
+        .trim();
+    }
+
+    // ========== CAPTURE D'ÉCRAN POUR LE PARTAGE ==========
+    async function capturePromise(promiseId) {
+      const promiseElement = document.getElementById(promiseId);
+      if (!promiseElement) return null;
+      
+      try {
+        // Créer un clone de l'élément pour la capture
+        const clone = promiseElement.cloneNode(true);
+        clone.style.position = 'fixed';
+        clone.style.top = '-9999px';
+        clone.style.left = '-9999px';
+        clone.style.width = '400px';
+        clone.style.maxWidth = '90vw';
+        clone.style.margin = '0 auto';
+        clone.style.boxShadow = '0 10px 40px rgba(0,0,0,0.2)';
+        clone.style.transform = 'scale(1)';
+        clone.id = 'temp-capture-element';
+        
+        // Ajouter un en-tête personnalisé pour la capture
+        const header = document.createElement('div');
+        header.innerHTML = `
+          <div style="background: linear-gradient(135deg, #2a6d5d, #3a9d84); color: white; padding: 1rem; border-radius: 12px 12px 0 0; text-align: center;">
+            <h3 style="margin: 0; font-size: 1.2rem; font-weight: 700;">PROJET POUR UN SÉNÉGAL SOUVERAIN, JUSTE ET PROSPÈRE</h3>
+            <p style="margin: 0.5rem 0 0; font-size: 0.9rem; opacity: 0.9;">Suivi des engagements - ${new Date().toLocaleDateString('fr-FR')}</p>
+          </div>
+        `;
+        clone.insertBefore(header, clone.firstChild);
+        
+        // Ajouter un pied de page
+        const footer = document.createElement('div');
+        footer.innerHTML = `
+          <div style="background: #f8f9fa; padding: 1rem; text-align: center; border-top: 1px solid #dee2e6; border-radius: 0 0 12px 12px; color: #495057; font-size: 0.8rem;">
+            <p style="margin: 0;">Suivez tous les engagements sur: ${window.location.hostname}</p>
+            <p style="margin: 0.3rem 0 0; font-weight: 600;">#ProjetBI #Transparence #Sénégal</p>
+          </div>
+        `;
+        clone.appendChild(footer);
+        
+        document.body.appendChild(clone);
+        
+        // Capturer avec html2canvas
+        const canvas = await html2canvas(clone, {
+          scale: 2,
+          backgroundColor: '#ffffff',
+          useCORS: true,
+          allowTaint: true,
+          logging: false,
+          onclone: (clonedDoc) => {
+            // Ajuster les styles pour la capture
+            const tempElement = clonedDoc.getElementById('temp-capture-element');
+            if (tempElement) {
+              tempElement.style.boxShadow = '0 10px 40px rgba(0,0,0,0.2)';
+              tempElement.style.borderRadius = '12px';
+              tempElement.style.overflow = 'hidden';
+            }
+          }
+        });
+        
+        // Nettoyer
+        document.body.removeChild(clone);
+        
+        return canvas.toDataURL('image/png');
+      } catch (error) {
+        console.error('Erreur lors de la capture:', error);
+        return null;
+      }
+    }
+
+    // ========== GESTION DE LA MODAL DE CAPTURE ==========
+    function setupCaptureModal() {
+      const captureModal = document.getElementById('captureModal');
+      const closeCapture = document.getElementById('closeCapture');
+      const downloadCapture = document.getElementById('downloadCapture');
+      const shareCapture = document.getElementById('shareCapture');
+      const captureImage = document.getElementById('captureImage');
+      
+      // Fermer la modal
+      closeCapture.addEventListener('click', () => {
+        captureModal.classList.remove('show');
+        document.body.style.overflow = '';
+      });
+      
+      // Fermer en cliquant en dehors
+      captureModal.addEventListener('click', (e) => {
+        if (e.target === captureModal) {
+          captureModal.classList.remove('show');
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Télécharger la capture
+      downloadCapture.addEventListener('click', () => {
+        if (CONFIG.currentCapture) {
+          const link = document.createElement('a');
+          link.href = CONFIG.currentCapture;
+          link.download = `promesse-${new Date().getTime()}.png`;
+          link.click();
+          showNotification('Capture téléchargée avec succès!');
+        }
+      });
+      
+      // Partager la capture
+      shareCapture.addEventListener('click', async () => {
+        if (CONFIG.currentCapture && navigator.share) {
+          try {
+            // Convertir data URL en blob
+            const response = await fetch(CONFIG.currentCapture);
+            const blob = await response.blob();
+            
+            const file = new File([blob], `promesse-${new Date().getTime()}.png`, {
+              type: 'image/png'
+            });
+            
+            await navigator.share({
+              files: [file],
+              title: 'Promesse du Projet BI',
+              text: 'Découvrez cette promesse du projet Pour un Sénégal Souverain, Juste et Prospère'
+            });
+          } catch (error) {
+            console.error('Erreur de partage:', error);
+            // Fallback: ouvrir dans un nouvel onglet
+            window.open(CONFIG.currentCapture, '_blank');
+          }
+        } else if (CONFIG.currentCapture) {
+          // Fallback pour les navigateurs sans Web Share API
+          window.open(CONFIG.currentCapture, '_blank');
+        }
+      });
+      
+      // Gestion des touches
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && captureModal.classList.contains('show')) {
+          captureModal.classList.remove('show');
+          document.body.style.overflow = '';
+        }
+      });
+    }
+
+    // ========== PARTAGE AVEC CAPTURE ==========
+    async function shareWithCapture(promiseId, platform) {
+      const promise = CONFIG.promises.find(p => p.id === promiseId);
+      if (!promise) return;
+      
+      showNotification('Préparation de la capture...');
+      
+      const captureDataUrl = await capturePromise(promiseId);
+      if (!captureDataUrl) {
+        showNotification('Erreur lors de la capture');
+        return;
+      }
+      
+      const url = encodeURIComponent(window.location.href);
+      const text = encodeURIComponent(`📊 "${promise.engagement.substring(0, 80)}..." - Suivi des engagements du Projet pour un Sénégal Souverain, Juste et Prospère`);
+      
+      let shareUrl = '';
+      switch(platform) {
+        case 'twitter':
+          shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+          break;
+        case 'facebook':
+          shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+          break;
+        case 'whatsapp':
+          shareUrl = `https://wa.me/?text=${text}%20${url}`;
+          break;
+        case 'linkedin':
+          shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+          break;
+      }
+      
+      if (platform === 'screenshot') {
+        // Afficher la modal de capture
+        CONFIG.currentCapture = captureDataUrl;
+        const captureImage = document.getElementById('captureImage');
+        captureImage.src = captureDataUrl;
+        const captureModal = document.getElementById('captureModal');
+        captureModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        showNotification('Capture générée!');
+      } else if (shareUrl) {
+        // Ouvrir le lien de partage
+        window.open(shareUrl, '_blank');
+      }
+    }
+
+    // ========== EXPORT CORRIGÉ POUR CARACTÈRES SPÉCIAUX ==========
+    window.exportData = function(format) {
+      const promises = CONFIG.promises;
+      const date = new Date().toISOString().split('T')[0];
+      
+      let content, mimeType, filename;
+      
+      switch(format) {
+        case 'csv':
+          // En-têtes avec UTF-8 BOM pour Excel
+          const bom = '\uFEFF';
+          const headers = ['Domaine', 'Engagement', 'Résultat attendu', 'Délai', 'Statut', 'En retard', 'Mises à jour', 'Date limite'];
+          const rows = promises.map(p => [
+            `"${sanitizeForExport(p.domaine)}"`,
+            `"${sanitizeForExport(p.engagement)}"`,
+            `"${sanitizeForExport(p.resultat)}"`,
+            `"${sanitizeForExport(p.delai)}"`,
+            p.status,
+            p.isLate ? 'Oui' : 'Non',
+            p.mises_a_jour?.length || 0,
+            p.deadline.toISOString().split('T')[0]
+          ]);
+          
+          content = bom + [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
+          mimeType = 'text/csv;charset=utf-8;';
+          filename = `promesses-projet-bi-${date}.csv`;
+          break;
+          
+        case 'excel':
+          // Format TSV avec BOM UTF-8
+          const excelBom = '\uFEFF';
+          const excelHeaders = ['ID', 'Domaine', 'Engagement', 'Résultat attendu', 'Délai', 'Statut', 'En retard', 'Mises à jour', 'Date limite', 'Dernière mise à jour'];
+          const excelRows = promises.map(p => [
+            p.id,
+            `"${sanitizeForExport(p.domaine)}"`,
+            `"${sanitizeForExport(p.engagement)}"`,
+            `"${sanitizeForExport(p.resultat)}"`,
+            `"${sanitizeForExport(p.delai)}"`,
+            p.status,
+            p.isLate ? 'Oui' : 'Non',
+            p.mises_a_jour?.length || 0,
+            p.deadline.toISOString().split('T')[0],
+            p.mises_a_jour?.[0]?.date || '-'
+          ]);
+          
+          content = excelBom + [excelHeaders.join('\t'), ...excelRows.map(row => row.join('\t'))].join('\n');
+          mimeType = 'application/vnd.ms-excel;charset=utf-8;';
+          filename = `promesses-projet-bi-${date}.xls`;
+          break;
+          
+        case 'json':
+          content = JSON.stringify(promises, null, 2);
+          mimeType = 'application/json;charset=utf-8;';
+          filename = `promesses-projet-bi-${date}.json`;
+          break;
+          
+        case 'pdf':
+          alert('Export PDF - À implémenter avec une librairie externe comme jsPDF');
+          return;
+          
+        default:
+          return;
+      }
+      
+      // Téléchargement
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 100);
+      
+      showNotification(`Données exportées en ${format.toUpperCase()} avec succès !`);
+    };
+
+    // ========== CALCULS POUR LES 10 KPI ==========
     function calculateAllStats() {
       const promises = CONFIG.promises;
       const total = promises.length;
@@ -1482,7 +2144,7 @@
         const poidsEncours = encours * 50;
         const poidsNonLance = nonLance * 10;
         tauxRealisation = ((poidsRealise + poidsEncours + poidsNonLance) / (total * 100) * 100).toFixed(1);
-            }
+      }
       
       // KPI 7: Moyenne des notes
       let moyenneNotes = 0;
@@ -1573,7 +2235,7 @@
       document.getElementById('domaine-count').textContent = `${domaineCount} engagements`;
     }
 
-    // RENDU DES FILTRES
+    // ========== RENDU DES FILTRES ==========
     function renderFilters() {
       const domainFilter = document.getElementById('domaine');
       const domains = [...new Set(CONFIG.promises.map(p => p.domaine))].sort();
@@ -1588,28 +2250,25 @@
       });
     }
 
-    // BOUTONS DE PARTAGE
+    // ========== BOUTONS DE PARTAGE AVEC CAPTURE ==========
     function createShareButtons(promise) {
-      const url = encodeURIComponent(window.location.href);
-      const text = encodeURIComponent(`📊 ${promise.engagement.substring(0, 80)}... - Suivi sur Diomaye Président`);
-      
       return `
         <div class="share-section">
-          <a href="https://twitter.com/intent/tweet?text=${text}&url=${url}" 
+          <button class="screenshot-btn" onclick="shareWithCapture('${promise.id}', 'screenshot')" title="Capturer et partager">
+            <i class="fas fa-camera"></i>
+          </button>
+          <a href="#" onclick="shareWithCapture('${promise.id}', 'twitter'); return false;" 
              class="share-btn share-twitter" 
-             target="_blank" 
              title="Partager sur X">
             <i class="fab fa-x-twitter"></i>
           </a>
-          <a href="https://www.facebook.com/sharer/sharer.php?u=${url}" 
+          <a href="#" onclick="shareWithCapture('${promise.id}', 'facebook'); return false;" 
              class="share-btn share-facebook" 
-             target="_blank" 
              title="Partager sur Facebook">
             <i class="fab fa-facebook-f"></i>
           </a>
-          <a href="https://wa.me/?text=${text}%20${url}" 
+          <a href="#" onclick="shareWithCapture('${promise.id}', 'whatsapp'); return false;" 
              class="share-btn share-whatsapp" 
-             target="_blank" 
              title="Partager sur WhatsApp">
             <i class="fab fa-whatsapp"></i>
           </a>
@@ -1617,16 +2276,16 @@
       `;
     }
 
-    // RENDU DES PROMESSES
+    // ========== RENDU DES PROMESSES ==========
     function renderPromises(promises) {
       const container = document.getElementById('promises-container');
       
       if (promises.length === 0) {
         container.innerHTML = `
-          <div class="no-results" style="text-align:center; padding:3rem; color:#666; grid-column:1/-1;">
+          <div class="no-results" style="text-align:center; padding:2rem; color:#666; grid-column:1/-1;">
             <i class="fas fa-search fa-3x" style="margin-bottom:1rem;"></i>
-            <h3>Aucun résultat trouvé</h3>
-            <p>Essayez de modifier vos critères de recherche</p>
+            <h3 style="margin-bottom:0.5rem;">Aucun résultat trouvé</h3>
+            <p style="color:var(--text-secondary);">Essayez de modifier vos critères de recherche</p>
           </div>
         `;
         return;
@@ -1661,7 +2320,7 @@
         } else if (isLate) {
           delayBadge = '<span class="delay-badge delay-danger"><i class="fas fa-exclamation-triangle"></i> En Retard</span>';
         } else {
-          delayBadge = '<span class="delay-badge" style="background:#e3f2fd; color:#3d5a80; padding:0.5rem 1rem; border-radius:8px;"><i class="fas fa-hourglass-half"></i> Dans les délais</span>';
+          delayBadge = '<span class="delay-badge" style="background:#e3f2fd; color:#3d5a80; padding:0.3rem 0.6rem; border-radius:6px;"><i class="fas fa-hourglass-half"></i> Dans les délais</span>';
         }
         
         // Mises à jour
@@ -1675,7 +2334,7 @@
           `).join('');
           
           updatesHTML = `
-            <button class="details-btn" onclick="toggleUpdates('${promise.id}')">
+            <button class="details-btn" onclick="toggleUpdates('${promise.id}')" aria-expanded="false">
               <i class="fas fa-history"></i> Voir les mises à jour (${promise.mises_a_jour.length})
             </button>
             <div id="updates-${promise.id}" class="updates-container">
@@ -1684,7 +2343,7 @@
           `;
         }
         
-        // Partager cette promesse
+        // Partager cette promesse avec capture
         const shareButtons = createShareButtons(promise);
         
         return `
@@ -1712,11 +2371,11 @@
             
             <div class="rating-section">
               <div class="stars">
-                <i class="far fa-star" data-value="1" onclick="ratePromise('${promise.id}', 1)"></i>
-                <i class="far fa-star" data-value="2" onclick="ratePromise('${promise.id}', 2)"></i>
-                <i class="far fa-star" data-value="3" onclick="ratePromise('${promise.id}', 3)"></i>
-                <i class="far fa-star" data-value="4" onclick="ratePromise('${promise.id}', 4)"></i>
-                <i class="far fa-star" data-value="5" onclick="ratePromise('${promise.id}', 5)"></i>
+                <i class="far fa-star" data-value="1" onclick="ratePromise('${promise.id}', 1)" role="button" tabindex="0" aria-label="Noter 1 étoile"></i>
+                <i class="far fa-star" data-value="2" onclick="ratePromise('${promise.id}', 2)" role="button" tabindex="0" aria-label="Noter 2 étoiles"></i>
+                <i class="far fa-star" data-value="3" onclick="ratePromise('${promise.id}', 3)" role="button" tabindex="0" aria-label="Noter 3 étoiles"></i>
+                <i class="far fa-star" data-value="4" onclick="ratePromise('${promise.id}', 4)" role="button" tabindex="0" aria-label="Noter 4 étoiles"></i>
+                <i class="far fa-star" data-value="5" onclick="ratePromise('${promise.id}', 5)" role="button" tabindex="0" aria-label="Noter 5 étoiles"></i>
               </div>
               <span class="rating-label" id="rating-label-${promise.id}">
                 Noter cet engagement
@@ -1729,7 +2388,7 @@
       }).join('');
     }
 
-    // GESTION DES MISES À JOUR
+    // ========== GESTION DES MISES À JOUR ==========
     window.toggleUpdates = function(promiseId) {
       const updatesEl = document.getElementById(`updates-${promiseId}`);
       const btn = updatesEl.previousElementSibling;
@@ -1737,13 +2396,15 @@
       if (updatesEl.classList.contains('show')) {
         updatesEl.classList.remove('show');
         btn.innerHTML = '<i class="fas fa-history"></i> Voir les mises à jour';
+        btn.setAttribute('aria-expanded', 'false');
       } else {
         updatesEl.classList.add('show');
         btn.innerHTML = '<i class="fas fa-times-circle"></i> Masquer les mises à jour';
+        btn.setAttribute('aria-expanded', 'true');
       }
     };
 
-    // NOTATION
+    // ========== NOTATION ==========
     window.ratePromise = function(promiseId, rating) {
       const promise = CONFIG.promises.find(p => p.id === promiseId);
       if (promise) {
@@ -1774,7 +2435,7 @@
       }
     };
 
-    // FILTRAGE AMÉLIORÉ
+    // ========== FILTRAGE AMÉLIORÉ ==========
     function setupEventListeners() {
       document.getElementById('search').addEventListener('input', updateDisplay);
       document.getElementById('domaine').addEventListener('change', updateDisplay);
@@ -1878,10 +2539,10 @@
       renderPromises(filtered);
     }
 
-    // PARTAGE DU DASHBOARD
+    // ========== PARTAGE DU DASHBOARD ==========
     function setupShareButtons() {
       const currentUrl = window.location.href;
-      const shareText = encodeURIComponent('🇸🇳 Suivi transparent des engagements du Président Diomaye Faye - Tableau de bord citoyen');
+      const shareText = encodeURIComponent('🇸🇳 Suivi transparent des engagements du Projet pour un Sénégal Souverain, Juste et Prospère - Tableau de bord citoyen');
       
       document.getElementById('share-twitter-dash').href = 
         `https://twitter.com/intent/tweet?text=${shareText}&url=${encodeURIComponent(currentUrl)}`;
@@ -1896,7 +2557,7 @@
         `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
     }
 
-    // NOTIFICATION
+    // ========== NOTIFICATION ==========
     function showNotification(message) {
       const notification = document.createElement('div');
       notification.className = 'notification';
@@ -1913,81 +2574,7 @@
       }, 3000);
     }
 
-    // EXPORT DES DONNÉES - MULTIFORMATS
-    window.exportData = function(format) {
-      const promises = CONFIG.promises;
-      const date = new Date().toISOString().split('T')[0];
-      
-      let content, mimeType, filename;
-      
-      switch(format) {
-        case 'csv':
-          const headers = ['Domaine', 'Engagement', 'Résultat attendu', 'Délai', 'Statut', 'En retard', 'Mises à jour', 'Date limite'];
-          const rows = promises.map(p => [
-            `"${p.domaine}"`,
-            `"${p.engagement}"`,
-            `"${p.resultat}"`,
-            `"${p.delai}"`,
-            p.status,
-            p.isLate ? 'Oui' : 'Non',
-            p.mises_a_jour?.length || 0,
-            p.deadline.toISOString().split('T')[0]
-          ]);
-          
-          content = [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
-          mimeType = 'text/csv;charset=utf-8;';
-          filename = `promesses-diomaye-${date}.csv`;
-          break;
-          
-        case 'excel':
-          const excelHeaders = ['ID', 'Domaine', 'Engagement', 'Résultat attendu', 'Délai', 'Statut', 'En retard', 'Mises à jour', 'Date limite', 'Dernière mise à jour'];
-          const excelRows = promises.map(p => [
-            p.id,
-            `"${p.domaine}"`,
-            `"${p.engagement}"`,
-            `"${p.resultat}"`,
-            `"${p.delai}"`,
-            p.status,
-            p.isLate ? 'Oui' : 'Non',
-            p.mises_a_jour?.length || 0,
-            p.deadline.toISOString().split('T')[0],
-            p.mises_a_jour?.[0]?.date || '-'
-          ]);
-          
-          content = [excelHeaders.join('\t'), ...excelRows.map(row => row.join('\t'))].join('\n');
-          mimeType = 'application/vnd.ms-excel;charset=utf-8;';
-          filename = `promesses-diomaye-${date}.xls`;
-          break;
-          
-        case 'json':
-          content = JSON.stringify(promises, null, 2);
-          mimeType = 'application/json;charset=utf-8;';
-          filename = `promesses-diomaye-${date}.json`;
-          break;
-          
-        case 'pdf':
-          alert('Fonctionnalité PDF avancée - À implémenter avec une librairie externe');
-          return;
-          
-        default:
-          return;
-      }
-      
-      // Téléchargement
-      const blob = new Blob([content], { type: mimeType });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      
-      showNotification(`Données exportées en ${format.toUpperCase()} avec succès !`);
-    };
-
-    // INITIALISATION
+    // ========== INITIALISATION ==========
     async function init() {
       try {
         const response = await fetch(CONFIG.DATA_URL);
@@ -2018,17 +2605,29 @@
         setupEventListeners();
         setupShareButtons();
         setupNavigation();
+        setupCaptureModal();
+        
+        // Optimisation pour mobile: précharger html2canvas
+        if (typeof html2canvas !== 'undefined') {
+          console.log('✅ html2canvas chargé');
+        }
         
         console.log(`✅ ${CONFIG.promises.length} promesses chargées avec succès`);
+        
+        // Détecter et optimiser pour mobile
+        if ('ontouchstart' in window || navigator.maxTouchPoints) {
+          console.log('📱 Mode mobile détecté');
+          document.body.classList.add('touch-device');
+        }
         
       } catch (error) {
         console.error('Erreur de chargement:', error);
         document.getElementById('promises-container').innerHTML = `
-          <div style="text-align:center; padding:3rem; color:#e76f51; grid-column:1/-1;">
-            <i class="fas fa-exclamation-triangle fa-3x"></i>
-            <h3>Erreur de chargement</h3>
-            <p>Impossible de charger le fichier promises.json</p>
-            <p><small>${error.message}</small></p>
+          <div style="text-align:center; padding:2rem; color:#e76f51; grid-column:1/-1;">
+            <i class="fas fa-exclamation-triangle fa-3x" style="margin-bottom:1rem;"></i>
+            <h3 style="margin-bottom:0.5rem;">Erreur de chargement</h3>
+            <p style="margin-bottom:0.5rem;">Impossible de charger le fichier promises.json</p>
+            <p style="font-size:0.8rem; color:#666;"><small>${error.message}</small></p>
             <button onclick="location.reload()" style="margin-top:1rem; padding:0.5rem 1rem; background:#2a6d5d; color:white; border:none; border-radius:5px; cursor:pointer;">
               <i class="fas fa-redo"></i> Réessayer
             </button>
@@ -2037,8 +2636,11 @@
       }
     }
 
-    // DÉMARRER
+    // ========== DÉMARRER ==========
     document.addEventListener('DOMContentLoaded', init);
+    
+    // Gestion des événements tactiles pour améliorer l'expérience mobile
+    document.addEventListener('touchstart', function() {}, {passive: true});
   </script>
 </body>
 </html>
