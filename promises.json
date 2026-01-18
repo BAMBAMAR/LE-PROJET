@@ -624,7 +624,14 @@
       "resultat": "Bilinguisme",
       "delai": "3 ans",
       "status": "non-lance",
-      "mises_a_jour": []
+      "mises_a_jour": [
+          {  "date": "13/12/2024",
+          "text": "Lancement institutionnel : La réforme a été officiellement lancée le 13 décembre 2024 par le ministère de l'Éducation nationale."
+        },
+         {  "date": "14/01/2025",
+          "text": "Début effectif des cours : L'enseignement de l'anglais a commencé concrètement dans les classes du préscolaire et de l'élémentaire le mardi 14 janvier 2025."
+        }
+      ]
     },
     {
       "id": "promise_66",
