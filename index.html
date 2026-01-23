@@ -5,10 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <meta name="description" content="Suivi transparent des promesses électorales du Président Bassirou Diomaye Faye">
   <meta name="theme-color" content="#2a6d5d">
+  
+  <!-- ========== META TAGS OPEN GRAPH ========== -->
   <meta property="og:title" content="Suivi Promesses du projet PASTEF: POUR UN SÉNÉGAL SOUVERAIN,JUSTE ET PROSPÈRE">
   <meta property="og:description" content="Tableau de bord transparent de suivi de 99 engagements du projet PASTEF">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://suivipromesses.sn">
+  <!-- Image simple pour partage social (120x120px version base64) -->
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%232a6d5d;stop-opacity:1'/%3E%3Cstop offset='100%25' style='stop-color:%233a9d84;stop-opacity:1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='630' fill='url(%23grad)'/%3E%3Ctext x='100' y='200' font-family='Arial' font-size='60' fill='white' font-weight='bold'%3E🇸🇳 PROJET BI%3C/text%3E%3Ctext x='100' y='280' font-family='Arial' font-size='40' fill='white'%3EPour un Sénégal Souverain, Juste et Prospère%3C/text%3E%3Ctext x='100' y='400' font-family='Arial' font-size='50' fill='white' font-weight='bold'%3ESuivi des 99 engagements%3C/text%3E%3Ctext x='100' y='550' font-family='Arial' font-size='25' fill='rgba(255,255,255,0.8)'%3Esuivipromesses.sn • #ProjetBI%3C/text%3E%3C/svg%3E">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Suivi Promesses Projet BI">
+  <meta property="og:locale" content="fr_FR">
+  
+  <!-- ========== META TAGS TWITTER ========== -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@ProjetBI_SN">
+  <meta name="twitter:creator" content="@ProjetBI_SN">
+  <meta name="twitter:title" content="Suivi Promesses du projet PASTEF: POUR UN SÉNÉGAL SOUVERAIN,JUSTE ET PROSPÈRE">
+  <meta name="twitter:description" content="Tableau de bord transparent de suivi de 99 engagements du projet PASTEF">
+  <meta name="twitter:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='628' viewBox='0 0 1200 628'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231a3d32;stop-opacity:1'/%3E%3Cstop offset='100%25' style='stop-color:%232a6d5d;stop-opacity:1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1200' height='628' fill='url(%23grad)'/%3E%3Ctext x='100' y='200' font-family='Arial' font-size='70' fill='white' font-weight='bold'%3E📊 Tableau de bord citoyen%3C/text%3E%3Ctext x='100' y='300' font-family='Arial' font-size='60' fill='%23e9c46a' font-weight='bold'%3E99 engagements suivis%3C/text%3E%3Ctext x='100' y='400' font-family='Arial' font-size='40' fill='white'%3ETransparence démocratique en temps réel%3C/text%3E%3Ctext x='100' y='550' font-family='Arial' font-size='25' fill='rgba(255,255,255,0.8)'%3Esuivipromesses.sn • #Transparence #ProjetBI%3C/text%3E%3C/svg%3E">
+  <meta name="twitter:image:alt" content="Tableau de bord de suivi des engagements">
+  
   <title>Suivi Promesses du projet PASTEF: POUR UN SÉNÉGAL SOUVERAIN,JUSTE ET PROSPÈRE</title>
+  
+  <!-- Favicon SVG simple -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%232a6d5d%22/%3E<text x=%2250%25%22 y=%2255%25%22 text-anchor=%22middle%22 font-size=%2270%22 fill=%22white%22%3E🇸🇳</text></svg>">
   
   <!-- Fonts & Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -61,7 +83,7 @@
       color: var(--text-primary);
       line-height: 1.6;
       min-height: 100vh;
-      padding-top: 70px; /* Pour la navbar fixe */
+      padding-top: 70px;
       padding-bottom: env(safe-area-inset-bottom);
       -webkit-text-size-adjust: 100%;
       -moz-text-size-adjust: 100%;
@@ -81,7 +103,7 @@
       z-index: -1;
     }
 
-    /* ========== NAVIGATION FIXE OPTIMISÉE MOBILE ========== */
+    /* ========== NAVIGATION ========== */
     .navbar {
       position: fixed;
       top: 0;
@@ -158,10 +180,6 @@
       font-weight: 600;
     }
 
-    .nav-link i {
-      font-size: 0.9rem;
-    }
-
     .mobile-menu-btn {
       display: none;
       background: none;
@@ -177,11 +195,7 @@
       justify-content: center;
     }
 
-    .mobile-menu-btn:hover {
-      background: rgba(0, 0, 0, 0.05);
-    }
-
-    /* ========== BOUTON RETOUR EN HAUT OPTIMISÉ MOBILE ========== */
+    /* ========== BOUTON RETOUR EN HAUT ========== */
     .back-to-top {
       position: fixed;
       bottom: calc(2rem + var(--safe-area-inset-bottom));
@@ -201,7 +215,6 @@
       transition: all 0.3s ease;
       z-index: 999;
       font-size: 1.2rem;
-      touch-action: manipulation;
     }
 
     .back-to-top.visible {
@@ -209,13 +222,6 @@
       visibility: visible;
     }
 
-    .back-to-top:hover, .back-to-top:active {
-      background: var(--primary-light);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(42, 109, 93, 0.4);
-    }
-
-    /* ========== INDICATEUR DE PROGRESSION ========== */
     .scroll-progress {
       position: fixed;
       top: 0;
@@ -234,7 +240,7 @@
       position: relative;
     }
 
-    /* HEADER AVEC DOCUMENT OPTIMISÉ MOBILE */
+    /* HEADER */
     .header {
       text-align: center;
       margin-bottom: 1.5rem;
@@ -257,11 +263,6 @@
       background: linear-gradient(90deg, var(--primary), var(--primary-light));
     }
 
-    .header-content {
-      position: relative;
-      z-index: 1;
-    }
-
     .header h1 {
       font-size: 1.5rem;
       font-weight: 700;
@@ -270,15 +271,12 @@
       -webkit-text-fill-color: transparent;
       margin-bottom: 0.5rem;
       line-height: 1.3;
-      padding: 0 0.5rem;
     }
 
     .subtitle {
       color: var(--text-secondary);
       font-size: 0.95rem;
       margin-bottom: 1rem;
-      font-weight: 400;
-      padding: 0 0.5rem;
     }
 
     .header-actions {
@@ -323,11 +321,6 @@
       justify-content: center;
     }
 
-    .document-btn-header:hover {
-      background: rgba(231, 111, 81, 0.2);
-      transform: translateY(-2px);
-    }
-
     .share-dashboard {
       display: flex;
       justify-content: center;
@@ -348,11 +341,6 @@
       text-decoration: none;
       transition: all 0.3s ease;
       font-size: 1rem;
-      touch-action: manipulation;
-    }
-
-    .share-dashboard-btn:hover {
-      transform: translateY(-3px);
     }
 
     .share-twitter { background: #000000; }
@@ -360,7 +348,7 @@
     .share-whatsapp { background: #25d366; }
     .share-linkedin { background: #0077b5; }
 
-    /* STATISTIQUES - 10 KPI OPTIMISÉS MOBILE */
+    /* STATISTIQUES */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -381,11 +369,6 @@
       flex-direction: column;
       justify-content: space-between;
       min-height: 140px;
-      touch-action: manipulation;
-    }
-
-    .stat-card:active {
-      transform: scale(0.98);
     }
 
     .stat-card::before {
@@ -398,7 +381,6 @@
       border-radius: 12px 12px 0 0;
     }
 
-    /* Couleurs pour chaque KPI */
     .stat-card:nth-child(1)::before { background: linear-gradient(90deg, var(--primary), var(--primary-light)); }
     .stat-card:nth-child(2)::before { background: linear-gradient(90deg, var(--success), #20c997); }
     .stat-card:nth-child(3)::before { background: linear-gradient(90deg, #4a90e2, #2d9cdb); }
@@ -416,21 +398,9 @@
       opacity: 0.9;
     }
 
-    .stat-card:nth-child(1) .stat-icon { color: var(--primary); }
-    .stat-card:nth-child(2) .stat-icon { color: var(--success); }
-    .stat-card:nth-child(3) .stat-icon { color: #4a90e2; }
-    .stat-card:nth-child(4) .stat-icon { color: var(--warning); }
-    .stat-card:nth-child(5) .stat-icon { color: var(--danger); }
-    .stat-card:nth-child(6) .stat-icon { color: #8a4baf; }
-    .stat-card:nth-child(7) .stat-icon { color: #20c997; }
-    .stat-card:nth-child(8) .stat-icon { color: #e83e8c; }
-    .stat-card:nth-child(9) .stat-icon { color: #fd7e14; }
-    .stat-card:nth-child(10) .stat-icon { color: #3498db; }
-
     .stat-value {
       font-size: 1.5rem;
       font-weight: 800;
-      line-height: 1;
       margin-bottom: 0.2rem;
     }
 
@@ -439,25 +409,10 @@
       font-size: 0.7rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
       margin-bottom: 0.3rem;
-      line-height: 1.2;
     }
 
-    .stat-subvalue {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-top: 0.2rem;
-    }
-
-    .stat-percentage {
-      font-size: 0.9rem;
-      font-weight: 700;
-      margin-top: 0.3rem;
-    }
-
-    /* FILTRES AMÉLIORÉS OPTIMISÉS MOBILE */
+    /* FILTRES */
     .filters {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -495,25 +450,6 @@
       font-family: 'Inter', sans-serif;
       transition: all 0.3s ease;
       outline: none;
-      cursor: pointer;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      touch-action: manipulation;
-    }
-
-    select {
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23495057' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-      background-repeat: no-repeat;
-      background-position: right 0.8rem center;
-      background-size: 1rem;
-      padding-right: 2.5rem;
-    }
-
-    input:focus, select:focus {
-      border-color: var(--primary);
-      background: white;
-      box-shadow: 0 0 0 3px rgba(42, 109, 93, 0.1);
     }
 
     .quick-filters {
@@ -525,8 +461,6 @@
       overflow-x: auto;
       padding-bottom: 0.5rem;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
     }
 
     .quick-filters::-webkit-scrollbar {
@@ -548,17 +482,6 @@
       font-size: 0.8rem;
       white-space: nowrap;
       flex-shrink: 0;
-      touch-action: manipulation;
-    }
-
-    .quick-filter-btn:active {
-      transform: scale(0.95);
-    }
-
-    .quick-filter-btn:hover {
-      background: var(--primary);
-      color: white;
-      border-color: var(--primary);
     }
 
     .quick-filter-btn.active {
@@ -567,7 +490,7 @@
       border-color: var(--primary);
     }
 
-    /* GRILLE DES PROMESSES OPTIMISÉE MOBILE */
+    /* PROMESSES */
     .promises-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -575,7 +498,6 @@
       margin-bottom: 2rem;
     }
 
-    /* CARTE DE PROMESSE OPTIMISÉE MOBILE */
     .promise-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -586,11 +508,6 @@
       box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
-      touch-action: manipulation;
-    }
-
-    .promise-card:active {
-      transform: scale(0.995);
     }
 
     .domain-badge {
@@ -605,7 +522,6 @@
       font-size: 0.65rem;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
       max-width: 120px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -632,12 +548,6 @@
       line-height: 1.5;
     }
 
-    .result-box i {
-      color: var(--primary);
-      margin-right: 0.3rem;
-      font-size: 0.8rem;
-    }
-
     .promise-meta {
       margin-top: auto;
       padding-top: 1rem;
@@ -652,19 +562,12 @@
       font-size: 0.8rem;
     }
 
-    .meta-row i {
-      margin-right: 0.3rem;
-      color: var(--text-secondary);
-      font-size: 0.8rem;
-    }
-
     .status-badge {
       padding: 0.3rem 0.6rem;
       border-radius: 6px;
       font-weight: 700;
       font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.03em;
       white-space: nowrap;
     }
 
@@ -725,15 +628,6 @@
       transition: all 0.3s ease;
       width: 100%;
       font-size: 0.85rem;
-      touch-action: manipulation;
-    }
-
-    .details-btn:active {
-      transform: scale(0.98);
-    }
-
-    .details-btn:hover {
-      background: rgba(42, 109, 93, 0.2);
     }
 
     .updates-container {
@@ -751,14 +645,8 @@
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .update-item {
@@ -776,11 +664,6 @@
       font-size: 0.75rem;
       margin-bottom: 0.2rem;
       display: block;
-    }
-
-    .update-date i {
-      margin-right: 0.3rem;
-      font-size: 0.7rem;
     }
 
     .update-text {
@@ -805,15 +688,9 @@
       margin-bottom: 0.3rem;
       display: inline-flex;
       gap: 0.2rem;
-      touch-action: manipulation;
     }
 
     .stars i.filled {
-      color: var(--warning);
-    }
-
-    .stars i:hover,
-    .stars i:hover ~ i {
       color: var(--warning);
     }
 
@@ -845,18 +722,8 @@
       transition: all 0.3s ease;
       text-decoration: none;
       font-size: 0.9rem;
-      touch-action: manipulation;
     }
 
-    .share-btn:active {
-      transform: scale(0.95);
-    }
-
-    .share-btn:hover {
-      transform: translateY(-3px) scale(1.1);
-    }
-
-    /* Nouveau bouton de capture d'écran */
     .screenshot-btn {
       background: #8a4baf;
       width: 36px;
@@ -871,16 +738,6 @@
       font-size: 0.9rem;
       cursor: pointer;
       border: none;
-      touch-action: manipulation;
-    }
-
-    .screenshot-btn:active {
-      transform: scale(0.95);
-    }
-
-    .screenshot-btn:hover {
-      background: #9b59b6;
-      transform: translateY(-3px) scale(1.1);
     }
 
     .loading {
@@ -904,7 +761,7 @@
       to { transform: rotate(360deg); }
     }
 
-    /* MODAL POUR VISUALISATION CAPTURE */
+    /* MODAL CAPTURE */
     .capture-modal {
       display: none;
       position: fixed;
@@ -966,12 +823,6 @@
       gap: 0.5rem;
       font-size: 0.9rem;
       transition: all 0.3s ease;
-      touch-action: manipulation;
-    }
-
-    .capture-action-btn:hover {
-      background: var(--primary-light);
-      transform: translateY(-2px);
     }
 
     .close-capture {
@@ -992,7 +843,7 @@
       z-index: 2;
     }
 
-    /* FOOTER OPTIMISÉ MOBILE */
+    /* FOOTER */
     .footer {
       text-align: center;
       padding: 1.5rem 1rem;
@@ -1003,11 +854,6 @@
       border-radius: 12px;
       box-shadow: var(--shadow);
       padding-bottom: calc(1.5rem + var(--safe-area-inset-bottom));
-    }
-
-    .footer p {
-      margin-bottom: 0.8rem;
-      font-size: 0.85rem;
     }
 
     .footer-links {
@@ -1033,15 +879,6 @@
       font-weight: 600;
       transition: all 0.3s ease;
       position: relative;
-      touch-action: manipulation;
-    }
-
-    .export-btn:active {
-      transform: scale(0.98);
-    }
-
-    .export-btn:hover {
-      background: rgba(42, 109, 93, 0.2);
     }
 
     .export-dropdown {
@@ -1077,17 +914,6 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      touch-action: manipulation;
-    }
-
-    .export-option:hover {
-      background: rgba(42, 109, 93, 0.1);
-    }
-
-    .footer-note {
-      margin-top: 1rem;
-      font-size: 0.8rem;
-      color: var(--text-secondary);
     }
 
     .notification {
@@ -1114,28 +940,10 @@
       to { transform: translateX(0); opacity: 1; }
     }
 
-    @keyframes slideOut {
-      from { transform: translateX(0); opacity: 1; }
-      to { transform: translateX(100px); opacity: 0; }
-    }
-
-    /* RESPONSIVE POUR TABLETTES */
+    /* RESPONSIVE */
     @media (min-width: 768px) {
-      html {
-        font-size: 17px;
-      }
-      
       .container {
         padding: 1.5rem;
-      }
-      
-      .navbar {
-        padding: 0.8rem 1.5rem;
-        padding-top: calc(0.8rem + var(--safe-area-inset-top));
-      }
-      
-      .nav-logo {
-        font-size: 1.1rem;
       }
       
       .header h1 {
@@ -1147,19 +955,6 @@
         gap: 1rem;
       }
       
-      .stat-card {
-        min-height: 160px;
-        padding: 1.2rem;
-      }
-      
-      .stat-icon {
-        font-size: 1.8rem;
-      }
-      
-      .stat-value {
-        font-size: 1.8rem;
-      }
-      
       .filters {
         grid-template-columns: repeat(2, 1fr);
         gap: 1rem;
@@ -1169,94 +964,19 @@
         grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
         gap: 1.5rem;
       }
-      
-      .promise-card {
-        padding: 1.5rem;
-      }
-      
-      .share-section {
-        gap: 1rem;
-      }
-      
-      .share-btn, .screenshot-btn {
-        width: 40px;
-        height: 40px;
-      }
-      
-      .back-to-top {
-        width: 50px;
-        height: 50px;
-        right: 2rem;
-        bottom: calc(2rem + var(--safe-area-inset-bottom));
-      }
     }
 
-    /* RESPONSIVE POUR DESKTOP */
     @media (min-width: 1024px) {
-      html {
-        font-size: 18px;
-      }
-      
-      .stats-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      }
-      
       .filters {
         grid-template-columns: 2fr 1fr 1fr 1fr;
-      }
-      
-      .quick-filters {
-        justify-content: center;
       }
       
       .header-actions {
         flex-direction: row;
         flex-wrap: wrap;
       }
-      
-      .nav-link {
-        font-size: 0.9rem;
-        padding: 0.5rem 0.8rem;
-      }
     }
 
-    /* OPTIMISATIONS TOUCH */
-    @media (hover: none) and (pointer: coarse) {
-      .stat-card:hover {
-        transform: none;
-      }
-      
-      .promise-card:hover {
-        transform: none;
-      }
-      
-      .details-btn:hover {
-        transform: none;
-      }
-      
-      .share-btn:hover {
-        transform: none;
-      }
-      
-      .screenshot-btn:hover {
-        transform: none;
-      }
-      
-      .back-to-top:hover {
-        transform: none;
-      }
-      
-      .export-btn:hover .export-dropdown {
-        display: none;
-      }
-      
-      .export-btn:focus .export-dropdown,
-      .export-btn:active .export-dropdown {
-        display: flex;
-      }
-    }
-
-    /* MASQUER LE MENU NAVIGATION SUR MOBILE PAR DÉFAUT */
     @media (max-width: 767px) {
       .nav-menu {
         position: fixed;
@@ -1270,7 +990,6 @@
         display: none;
         max-height: calc(100vh - 70px);
         overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
       }
       
       .nav-menu.show {
@@ -1281,14 +1000,6 @@
         display: flex;
       }
       
-      .header {
-        padding: 1.5rem;
-      }
-      
-      .header h1 {
-        font-size: 1.4rem;
-      }
-      
       .stats-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -1296,14 +1007,8 @@
       .filters {
         grid-template-columns: 1fr;
       }
-      
-      .share-dashboard {
-        position: static;
-        justify-content: center;
-      }
     }
 
-    /* TRÈS PETITS ÉCRANS */
     @media (max-width: 360px) {
       .stats-grid {
         grid-template-columns: 1fr;
@@ -1312,54 +1017,12 @@
       .header h1 {
         font-size: 1.2rem;
       }
-      
-      .stat-card {
-        padding: 0.8rem;
-        min-height: 130px;
-      }
-      
-      .promise-title {
-        font-size: 1rem;
-      }
-      
-      .result-box {
-        font-size: 0.8rem;
-      }
-    }
-
-    /* ORIENTATION PAYSAGE */
-    @media (max-width: 767px) and (orientation: landscape) {
-      .nav-menu {
-        max-height: 60vh;
-      }
-      
-      .header {
-        padding: 1rem;
-      }
-      
-      .header h1 {
-        font-size: 1.2rem;
-      }
-      
-      .stats-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      
-      .stat-card {
-        min-height: 120px;
-      }
-      
-      .promise-title {
-        font-size: 0.95rem;
-      }
     }
   </style>
 </head>
 <body>
-  <!-- Indicateur de progression du scroll -->
   <div class="scroll-progress" id="scrollProgress"></div>
   
-  <!-- Navigation fixe -->
   <nav class="navbar">
     <div class="nav-container">
       <a href="#header" class="nav-logo">
@@ -1403,16 +1066,16 @@
   <div class="container">
     <header class="header" id="header">
       <div class="share-dashboard">
-        <a href="#" id="share-twitter-dash" class="share-dashboard-btn share-twitter" title="Partager sur X" aria-label="Partager sur Twitter">
+        <a href="#" id="share-twitter-dash" class="share-dashboard-btn share-twitter" title="Partager sur X">
           <i class="fab fa-x-twitter"></i>
         </a>
-        <a href="#" id="share-facebook-dash" class="share-dashboard-btn share-facebook" title="Partager sur Facebook" aria-label="Partager sur Facebook">
+        <a href="#" id="share-facebook-dash" class="share-dashboard-btn share-facebook" title="Partager sur Facebook">
           <i class="fab fa-facebook-f"></i>
         </a>
-        <a href="#" id="share-whatsapp-dash" class="share-dashboard-btn share-whatsapp" title="Partager sur WhatsApp" aria-label="Partager sur WhatsApp">
+        <a href="#" id="share-whatsapp-dash" class="share-dashboard-btn share-whatsapp" title="Partager sur WhatsApp">
           <i class="fab fa-whatsapp"></i>
         </a>
-        <a href="#" id="share-linkedin-dash" class="share-dashboard-btn share-linkedin" title="Partager sur LinkedIn" aria-label="Partager sur LinkedIn">
+        <a href="#" id="share-linkedin-dash" class="share-dashboard-btn share-linkedin" title="Partager sur LinkedIn">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </div>
@@ -1439,101 +1102,71 @@
     <!-- 10 KPI -->
     <section id="stats">
       <div class="stats-grid">
-        <!-- KPI 1: Total Engagements -->
         <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-bullseye"></i>
-          </div>
+          <div class="stat-icon"><i class="fas fa-bullseye"></i></div>
           <div class="stat-value" id="total">0</div>
           <div class="stat-label">Engagements Total</div>
           <div class="stat-percentage" id="total-percentage">100%</div>
         </div>
 
-        <!-- KPI 2: Réalisés -->
         <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-check-circle"></i>
-          </div>
+          <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
           <div class="stat-value" id="realise">0</div>
           <div class="stat-label">✅ Réalisés</div>
           <div class="stat-percentage" id="realise-percentage">0%</div>
         </div>
 
-        <!-- KPI 3: En Cours -->
         <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-sync-alt"></i>
-          </div>
+          <div class="stat-icon"><i class="fas fa-sync-alt"></i></div>
           <div class="stat-value" id="encours">0</div>
           <div class="stat-label">🔄 En Cours</div>
           <div class="stat-percentage" id="encours-percentage">0%</div>
         </div>
 
-        <!-- KPI 4: Non Lancés -->
         <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-hourglass-start"></i>
-          </div>
+          <div class="stat-icon"><i class="fas fa-hourglass-start"></i></div>
           <div class="stat-value" id="non-lance">0</div>
           <div class="stat-label">⏳ Non Lancés</div>
           <div class="stat-percentage" id="non-lance-percentage">0%</div>
         </div>
 
-        <!-- KPI 5: En Retard -->
         <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-exclamation-triangle"></i>
-          </div>
+          <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
           <div class="stat-value" id="retard">0</div>
           <div class="stat-label">⚠️ En Retard</div>
           <div class="stat-percentage" id="retard-percentage">0%</div>
         </div>
 
-        <!-- KPI 6: Taux de Réalisation -->
         <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-chart-line"></i>
-          </div>
+          <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
           <div class="stat-value" id="taux-realisation">0%</div>
           <div class="stat-label">📈 Taux de Réalisation</div>
           <div class="stat-subvalue" id="progress-text">Progression</div>
         </div>
 
-        <!-- KPI 7: Moyenne des Notes -->
         <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-star"></i>
-          </div>
+          <div class="stat-icon"><i class="fas fa-star"></i></div>
           <div class="stat-value" id="moyenne-notes">0.0</div>
           <div class="stat-label">⭐ Note Moyenne</div>
           <div class="stat-subvalue" id="votes-total">0 votes</div>
         </div>
 
-        <!-- KPI 8: Engagements avec Mises à Jour -->
         <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-history"></i>
-          </div>
+          <div class="stat-icon"><i class="fas fa-history"></i></div>
           <div class="stat-value" id="avec-maj">0</div>
           <div class="stat-label">📋 Avec Mises à Jour</div>
           <div class="stat-percentage" id="avec-maj-percentage">0%</div>
         </div>
 
-        <!-- KPI 9: Délai Moyen Restant -->
         <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-clock"></i>
-          </div>
+          <div class="stat-icon"><i class="fas fa-clock"></i></div>
           <div class="stat-value" id="delai-moyen">0j</div>
           <div class="stat-label">⏱️ Délai Moyen Restant</div>
           <div class="stat-subvalue" id="jours-restants">En cours</div>
         </div>
 
-        <!-- KPI 10: Domaine Principal -->
         <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-layer-group"></i>
-          </div>
+          <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
           <div class="stat-value" id="domaine-principal">-</div>
           <div class="stat-label">🏛️ Domaine Principal</div>
           <div class="stat-subvalue" id="domaine-count">0 engagements</div>
@@ -1541,7 +1174,7 @@
       </div>
     </section>
 
-    <!-- FILTRES AMÉLIORÉS -->
+    <!-- FILTRES -->
     <section id="filters">
       <div class="filters">
         <div class="input-group">
@@ -1576,7 +1209,6 @@
         </div>
       </div>
       
-      <!-- Filtres rapides -->
       <div class="quick-filters">
         <button class="quick-filter-btn" data-filter="realise">
           <i class="fas fa-check-circle"></i>
@@ -1653,7 +1285,7 @@
     <i class="fas fa-chevron-up"></i>
   </a>
 
-  <!-- Modal pour visualiser la capture -->
+  <!-- Modal capture -->
   <div class="capture-modal" id="captureModal">
     <div class="capture-content">
       <button class="close-capture" id="closeCapture" aria-label="Fermer">
@@ -1674,7 +1306,6 @@
   </div>
 
   <script>
-    // CONFIGURATION
     const CONFIG = {
       DATA_URL: 'promises.json',
       START_DATE: null,
@@ -1683,7 +1314,7 @@
       currentCapture: null
     };
 
-    // ========== GESTION DE LA NAVIGATION MOBILE ==========
+    // ========== NAVIGATION ==========
     function setupNavigation() {
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const navMenu = document.getElementById('navMenu');
@@ -1691,7 +1322,6 @@
       const backToTop = document.getElementById('backToTop');
       const scrollProgress = document.getElementById('scrollProgress');
       
-      // Menu mobile
       mobileMenuBtn.addEventListener('click', () => {
         navMenu.classList.toggle('show');
         mobileMenuBtn.innerHTML = navMenu.classList.contains('show') 
@@ -1700,7 +1330,6 @@
         document.body.style.overflow = navMenu.classList.contains('show') ? 'hidden' : '';
       });
       
-      // Fermer menu mobile au clic sur un lien
       navLinks.forEach(link => {
         link.addEventListener('click', () => {
           navMenu.classList.remove('show');
@@ -1709,96 +1338,21 @@
         });
       });
       
-      // Fermer menu mobile en cliquant en dehors
-      document.addEventListener('click', (e) => {
-        if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && navMenu.classList.contains('show')) {
-          navMenu.classList.remove('show');
-          mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-          document.body.style.overflow = '';
-        }
-      });
-      
-      // Navigation fluide
-      navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const targetId = this.getAttribute('href').substring(1);
-          const targetElement = document.getElementById(targetId);
-          
-          if (targetElement) {
-            const headerHeight = document.querySelector('.navbar').offsetHeight;
-            const targetPosition = targetElement.offsetTop - headerHeight;
-            
-            window.scrollTo({
-              top: targetPosition,
-              behavior: 'smooth'
-            });
-            
-            // Mettre à jour l'état actif
-            navLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-          }
-        });
-      });
-      
-      // Bouton retour en haut
-      backToTop.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      });
-      
-      // Scroll events
       window.addEventListener('scroll', () => {
-        // Afficher/masquer le bouton
         if (window.scrollY > 300) {
           backToTop.classList.add('visible');
         } else {
           backToTop.classList.remove('visible');
         }
         
-        // Mettre à jour l'indicateur de progression
         const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         const scrolled = (winScroll / height) * 100;
         scrollProgress.style.width = scrolled + "%";
-        
-        // Mettre à jour l'état actif de la navigation
-        const sections = ['header', 'stats', 'filters', 'promises', 'footer'];
-        const scrollPosition = window.scrollY + 100;
-        
-        sections.forEach(section => {
-          const element = document.getElementById(section);
-          if (element) {
-            const offsetTop = element.offsetTop;
-            const offsetBottom = offsetTop + element.offsetHeight;
-            
-            if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-              navLinks.forEach(link => link.classList.remove('active'));
-              const correspondingLink = document.querySelector(`.nav-link[href="#${section}"]`);
-              if (correspondingLink) {
-                correspondingLink.classList.add('active');
-              }
-            }
-          }
-        });
       });
-      
-      // Gestion du clavier pour le menu mobile
-      mobileMenuBtn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          mobileMenuBtn.click();
-        }
-      });
-      
-      // Scroll progress au chargement
-      window.dispatchEvent(new Event('scroll'));
     }
 
-    // ========== FONCTIONS UTILITAIRES ==========
+    // ========== UTILITAIRES ==========
     function calculateDeadline(delaiText) {
       if (!CONFIG.START_DATE) return new Date();
       const text = delaiText.toLowerCase();
@@ -1810,20 +1364,14 @@
         result.setMonth(result.getMonth() + 6);
       } else if (text.includes("12 premiers mois") || text.includes("1ère année") || text.includes("1 an")) {
         result.setFullYear(result.getFullYear() + 1);
-      } else if (text.includes("2 premières années") || text.includes("2 ans") || text.includes("1 à 2 ans")) {
+      } else if (text.includes("2 premières années") || text.includes("2 ans")) {
         result.setFullYear(result.getFullYear() + 2);
       } else if (text.includes("3 ans") || text.includes("2 à 3 ans")) {
         result.setFullYear(result.getFullYear() + 3);
       } else if (text.includes("4 ans") || text.includes("3 à 4 ans")) {
         result.setFullYear(result.getFullYear() + 4);
-      } else if (text.includes("5 ans") || text.includes("quinquennat") || text.includes("mandat") || text.includes("3 à 5 ans") || text.includes("5 à 10 ans")) {
+      } else if (text.includes("5 ans") || text.includes("quinquennat")) {
         result.setFullYear(result.getFullYear() + 5);
-      } else if (text.includes("2027")) {
-        return new Date('2027-01-01');
-      } else if (text.includes("2029")) {
-        return new Date('2029-01-01');
-      } else if (text.includes("2030")) {
-        return new Date('2030-01-01');
       } else {
         result.setFullYear(result.getFullYear() + 5);
       }
@@ -1843,25 +1391,53 @@
       }
     }
 
-    // ========== FONCTION POUR CORRIGER LES CARACTÈRES SPÉCIAUX DANS L'EXPORT ==========
-    function sanitizeForExport(text) {
-      if (!text) return '';
+    // ========== PARTAGE AVEC IMAGE ==========
+    async function shareWithCapture(promiseId, platform) {
+      const promise = CONFIG.promises.find(p => p.id === promiseId);
+      if (!promise) return;
       
-      // Remplacer les caractères problématiques pour CSV/Excel
-      return text
-        .replace(/"/g, '""') // Échapper les guillemets doubles
-        .replace(/\r?\n/g, ' ') // Remplacer les retours à la ligne par des espaces
-        .replace(/\t/g, ' ')   // Remplacer les tabulations par des espaces
-        .trim();
+      showNotification('Génération de l\'image...');
+      
+      const captureDataUrl = await capturePromise(promiseId);
+      if (!captureDataUrl) {
+        showNotification('Erreur lors de la génération de l\'image');
+        return;
+      }
+      
+      if (platform === 'screenshot') {
+        CONFIG.currentCapture = captureDataUrl;
+        document.getElementById('captureImage').src = captureDataUrl;
+        document.getElementById('captureModal').classList.add('show');
+        document.body.style.overflow = 'hidden';
+        showNotification('Image générée!');
+      } else {
+        const url = encodeURIComponent(window.location.href);
+        const text = encodeURIComponent(`📊 "${promise.engagement.substring(0, 80)}..." - Suivi des engagements du Projet pour un Sénégal Souverain, Juste et Prospère`);
+        
+        let shareUrl = '';
+        switch(platform) {
+          case 'twitter':
+            shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+            break;
+          case 'facebook':
+            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            break;
+          case 'whatsapp':
+            shareUrl = `https://wa.me/?text=${text}%20${url}`;
+            break;
+        }
+        
+        if (shareUrl) {
+          window.open(shareUrl, '_blank');
+        }
+      }
     }
 
-    // ========== CAPTURE D'ÉCRAN POUR LE PARTAGE ==========
     async function capturePromise(promiseId) {
       const promiseElement = document.getElementById(promiseId);
       if (!promiseElement) return null;
       
       try {
-        // Créer un clone de l'élément pour la capture
         const clone = promiseElement.cloneNode(true);
         clone.style.position = 'fixed';
         clone.style.top = '-9999px';
@@ -1869,11 +1445,8 @@
         clone.style.width = '400px';
         clone.style.maxWidth = '90vw';
         clone.style.margin = '0 auto';
-        clone.style.boxShadow = '0 10px 40px rgba(0,0,0,0.2)';
-        clone.style.transform = 'scale(1)';
         clone.id = 'temp-capture-element';
         
-        // Ajouter un en-tête personnalisé pour la capture
         const header = document.createElement('div');
         header.innerHTML = `
           <div style="background: linear-gradient(135deg, #2a6d5d, #3a9d84); color: white; padding: 1rem; border-radius: 12px 12px 0 0; text-align: center;">
@@ -1883,61 +1456,33 @@
         `;
         clone.insertBefore(header, clone.firstChild);
         
-        // Ajouter un pied de page
-        const footer = document.createElement('div');
-        footer.innerHTML = `
-          <div style="background: #f8f9fa; padding: 1rem; text-align: center; border-top: 1px solid #dee2e6; border-radius: 0 0 12px 12px; color: #495057; font-size: 0.8rem;">
-            <p style="margin: 0;">Suivez tous les engagements sur: ${window.location.hostname}</p>
-            <p style="margin: 0.3rem 0 0; font-weight: 600;">#ProjetBI #Transparence #Sénégal</p>
-          </div>
-        `;
-        clone.appendChild(footer);
-        
         document.body.appendChild(clone);
         
-        // Capturer avec html2canvas
         const canvas = await html2canvas(clone, {
           scale: 2,
           backgroundColor: '#ffffff',
           useCORS: true,
-          allowTaint: true,
-          logging: false,
-          onclone: (clonedDoc) => {
-            // Ajuster les styles pour la capture
-            const tempElement = clonedDoc.getElementById('temp-capture-element');
-            if (tempElement) {
-              tempElement.style.boxShadow = '0 10px 40px rgba(0,0,0,0.2)';
-              tempElement.style.borderRadius = '12px';
-              tempElement.style.overflow = 'hidden';
-            }
-          }
+          logging: false
         });
         
-        // Nettoyer
         document.body.removeChild(clone);
-        
         return canvas.toDataURL('image/png');
       } catch (error) {
-        console.error('Erreur lors de la capture:', error);
+        console.error('Erreur:', error);
         return null;
       }
     }
 
-    // ========== GESTION DE LA MODAL DE CAPTURE ==========
     function setupCaptureModal() {
       const captureModal = document.getElementById('captureModal');
       const closeCapture = document.getElementById('closeCapture');
       const downloadCapture = document.getElementById('downloadCapture');
-      const shareCapture = document.getElementById('shareCapture');
-      const captureImage = document.getElementById('captureImage');
       
-      // Fermer la modal
       closeCapture.addEventListener('click', () => {
         captureModal.classList.remove('show');
         document.body.style.overflow = '';
       });
       
-      // Fermer en cliquant en dehors
       captureModal.addEventListener('click', (e) => {
         if (e.target === captureModal) {
           captureModal.classList.remove('show');
@@ -1945,46 +1490,16 @@
         }
       });
       
-      // Télécharger la capture
       downloadCapture.addEventListener('click', () => {
         if (CONFIG.currentCapture) {
           const link = document.createElement('a');
           link.href = CONFIG.currentCapture;
           link.download = `promesse-${new Date().getTime()}.png`;
           link.click();
-          showNotification('Capture téléchargée avec succès!');
+          showNotification('Image téléchargée!');
         }
       });
       
-      // Partager la capture
-      shareCapture.addEventListener('click', async () => {
-        if (CONFIG.currentCapture && navigator.share) {
-          try {
-            // Convertir data URL en blob
-            const response = await fetch(CONFIG.currentCapture);
-            const blob = await response.blob();
-            
-            const file = new File([blob], `promesse-${new Date().getTime()}.png`, {
-              type: 'image/png'
-            });
-            
-            await navigator.share({
-              files: [file],
-              title: 'Promesse du Projet BI',
-              text: 'Découvrez cette promesse du projet Pour un Sénégal Souverain, Juste et Prospère'
-            });
-          } catch (error) {
-            console.error('Erreur de partage:', error);
-            // Fallback: ouvrir dans un nouvel onglet
-            window.open(CONFIG.currentCapture, '_blank');
-          }
-        } else if (CONFIG.currentCapture) {
-          // Fallback pour les navigateurs sans Web Share API
-          window.open(CONFIG.currentCapture, '_blank');
-        }
-      });
-      
-      // Gestion des touches
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && captureModal.classList.contains('show')) {
           captureModal.classList.remove('show');
@@ -1993,287 +1508,27 @@
       });
     }
 
-    // ========== PARTAGE AVEC CAPTURE ==========
-    async function shareWithCapture(promiseId, platform) {
-      const promise = CONFIG.promises.find(p => p.id === promiseId);
-      if (!promise) return;
-      
-      showNotification('Préparation de la capture...');
-      
-      const captureDataUrl = await capturePromise(promiseId);
-      if (!captureDataUrl) {
-        showNotification('Erreur lors de la capture');
-        return;
-      }
-      
-      const url = encodeURIComponent(window.location.href);
-      const text = encodeURIComponent(`📊 "${promise.engagement.substring(0, 80)}..." - Suivi des engagements du Projet pour un Sénégal Souverain, Juste et Prospère`);
-      
-      let shareUrl = '';
-      switch(platform) {
-        case 'twitter':
-          shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-          break;
-        case 'facebook':
-          shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-          break;
-        case 'whatsapp':
-          shareUrl = `https://wa.me/?text=${text}%20${url}`;
-          break;
-        case 'linkedin':
-          shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-          break;
-      }
-      
-      if (platform === 'screenshot') {
-        // Afficher la modal de capture
-        CONFIG.currentCapture = captureDataUrl;
-        const captureImage = document.getElementById('captureImage');
-        captureImage.src = captureDataUrl;
-        const captureModal = document.getElementById('captureModal');
-        captureModal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-        showNotification('Capture générée!');
-      } else if (shareUrl) {
-        // Ouvrir le lien de partage
-        window.open(shareUrl, '_blank');
-      }
-    }
-
-    // ========== EXPORT CORRIGÉ POUR CARACTÈRES SPÉCIAUX ==========
-    window.exportData = function(format) {
-      const promises = CONFIG.promises;
-      const date = new Date().toISOString().split('T')[0];
-      
-      let content, mimeType, filename;
-      
-      switch(format) {
-        case 'csv':
-          // En-têtes avec UTF-8 BOM pour Excel
-          const bom = '\uFEFF';
-          const headers = ['Domaine', 'Engagement', 'Résultat attendu', 'Délai', 'Statut', 'En retard', 'Mises à jour', 'Date limite'];
-          const rows = promises.map(p => [
-            `"${sanitizeForExport(p.domaine)}"`,
-            `"${sanitizeForExport(p.engagement)}"`,
-            `"${sanitizeForExport(p.resultat)}"`,
-            `"${sanitizeForExport(p.delai)}"`,
-            p.status,
-            p.isLate ? 'Oui' : 'Non',
-            p.mises_a_jour?.length || 0,
-            p.deadline.toISOString().split('T')[0]
-          ]);
-          
-          content = bom + [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
-          mimeType = 'text/csv;charset=utf-8;';
-          filename = `promesses-projet-bi-${date}.csv`;
-          break;
-          
-        case 'excel':
-          // Format TSV avec BOM UTF-8
-          const excelBom = '\uFEFF';
-          const excelHeaders = ['ID', 'Domaine', 'Engagement', 'Résultat attendu', 'Délai', 'Statut', 'En retard', 'Mises à jour', 'Date limite', 'Dernière mise à jour'];
-          const excelRows = promises.map(p => [
-            p.id,
-            `"${sanitizeForExport(p.domaine)}"`,
-            `"${sanitizeForExport(p.engagement)}"`,
-            `"${sanitizeForExport(p.resultat)}"`,
-            `"${sanitizeForExport(p.delai)}"`,
-            p.status,
-            p.isLate ? 'Oui' : 'Non',
-            p.mises_a_jour?.length || 0,
-            p.deadline.toISOString().split('T')[0],
-            p.mises_a_jour?.[0]?.date || '-'
-          ]);
-          
-          content = excelBom + [excelHeaders.join('\t'), ...excelRows.map(row => row.join('\t'))].join('\n');
-          mimeType = 'application/vnd.ms-excel;charset=utf-8;';
-          filename = `promesses-projet-bi-${date}.xls`;
-          break;
-          
-        case 'json':
-          content = JSON.stringify(promises, null, 2);
-          mimeType = 'application/json;charset=utf-8;';
-          filename = `promesses-projet-bi-${date}.json`;
-          break;
-          
-        case 'pdf':
-          alert('Export PDF - À implémenter avec une librairie externe comme jsPDF');
-          return;
-          
-        default:
-          return;
-      }
-      
-      // Téléchargement
-      const blob = new Blob([content], { type: mimeType });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => {
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }, 100);
-      
-      showNotification(`Données exportées en ${format.toUpperCase()} avec succès !`);
-    };
-
-    // ========== CALCULS POUR LES 10 KPI ==========
+    // ========== STATISTIQUES ==========
     function calculateAllStats() {
       const promises = CONFIG.promises;
       const total = promises.length;
       
-      // KPI de base
       const realise = promises.filter(p => p.status === 'realise').length;
       const encours = promises.filter(p => p.status === 'encours').length;
       const nonLance = promises.filter(p => p.status === 'non-lance').length;
       const retard = promises.filter(p => p.isLate).length;
       
-      // Pourcentages
-      const realisePercentage = total > 0 ? ((realise / total) * 100).toFixed(1) : 0;
-      const encoursPercentage = total > 0 ? ((encours / total) * 100).toFixed(1) : 0;
-      const nonLancePercentage = total > 0 ? ((nonLance / total) * 100).toFixed(1) : 0;
-      const retardPercentage = total > 0 ? ((retard / total) * 100).toFixed(1) : 0;
-      
-      // KPI 6: Taux de réalisation (pondéré)
-      let tauxRealisation = 0;
-      if (total > 0) {
-        const poidsRealise = realise * 100;
-        const poidsEncours = encours * 50;
-        const poidsNonLance = nonLance * 10;
-        tauxRealisation = ((poidsRealise + poidsEncours + poidsNonLance) / (total * 100) * 100).toFixed(1);
-      }
-      
-      // KPI 7: Moyenne des notes
-      let moyenneNotes = 0;
-      let totalVotes = 0;
-      let totalNotes = 0;
-      promises.forEach(p => {
-        if (p.votes && p.votes.length > 0) {
-          totalVotes += p.votes.length;
-          totalNotes += p.votes.reduce((a, b) => a + b, 0);
-        }
-      });
-      moyenneNotes = totalVotes > 0 ? (totalNotes / totalVotes).toFixed(1) : 0;
-      
-      // KPI 8: Engagements avec mises à jour
-      const avecMaj = promises.filter(p => p.mises_a_jour && p.mises_a_jour.length > 0).length;
-      const avecMajPercentage = total > 0 ? ((avecMaj / total) * 100).toFixed(1) : 0;
-      
-      // KPI 9: Délai moyen restant
-      let delaiMoyenJours = 0;
-      let delaiMoyenText = '0j';
-      const promessesEnCours = promises.filter(p => p.status !== 'realise' && !p.isLate);
-      if (promessesEnCours.length > 0) {
-        const maintenant = CONFIG.CURRENT_DATE.getTime();
-        const totalJours = promessesEnCours.reduce((sum, p) => {
-          const diffJours = Math.max(0, Math.ceil((p.deadline - maintenant) / (1000 * 60 * 60 * 24)));
-          return sum + diffJours;
-        }, 0);
-        delaiMoyenJours = Math.round(totalJours / promessesEnCours.length);
-        delaiMoyenText = delaiMoyenJours > 365 ? `${Math.round(delaiMoyenJours/365)}a` : 
-                        delaiMoyenJours > 30 ? `${Math.round(delaiMoyenJours/30)}m` : 
-                        `${delaiMoyenJours}j`;
-      }
-      
-      // KPI 10: Domaine principal
-      let domainePrincipal = '-';
-      let domaineCount = 0;
-      if (promises.length > 0) {
-        const domaines = {};
-        promises.forEach(p => {
-          domaines[p.domaine] = (domaines[p.domaine] || 0) + 1;
-        });
-        const entries = Object.entries(domaines);
-        if (entries.length > 0) {
-          const [domaine, count] = entries.reduce((a, b) => a[1] > b[1] ? a : b);
-          domainePrincipal = domaine.substring(0, 12) + (domaine.length > 12 ? '...' : '');
-          domaineCount = count;
-        }
-      }
-      
-      // Texte de progression pour le taux
-      let progressText = '';
-      if (tauxRealisation >= 80) progressText = 'Excellent';
-      else if (tauxRealisation >= 60) progressText = 'Bon';
-      else if (tauxRealisation >= 40) progressText = 'Moyen';
-      else if (tauxRealisation >= 20) progressText = 'Faible';
-      else progressText = 'Début';
-      
-      // Mise à jour des KPI
       document.getElementById('total').textContent = total;
       document.getElementById('total-count').textContent = total;
-      document.getElementById('total-percentage').textContent = '100%';
-      
       document.getElementById('realise').textContent = realise;
-      document.getElementById('realise-percentage').textContent = `${realisePercentage}%`;
-      
       document.getElementById('encours').textContent = encours;
-      document.getElementById('encours-percentage').textContent = `${encoursPercentage}%`;
-      
       document.getElementById('non-lance').textContent = nonLance;
-      document.getElementById('non-lance-percentage').textContent = `${nonLancePercentage}%`;
-      
       document.getElementById('retard').textContent = retard;
-      document.getElementById('retard-percentage').textContent = `${retardPercentage}%`;
       
-      document.getElementById('taux-realisation').textContent = `${tauxRealisation}%`;
-      document.getElementById('progress-text').textContent = progressText;
-      
-      document.getElementById('moyenne-notes').textContent = moyenneNotes;
-      document.getElementById('votes-total').textContent = `${totalVotes} votes`;
-      
-      document.getElementById('avec-maj').textContent = avecMaj;
-      document.getElementById('avec-maj-percentage').textContent = `${avecMajPercentage}%`;
-      
-      document.getElementById('delai-moyen').textContent = delaiMoyenText;
-      document.getElementById('jours-restants').textContent = promessesEnCours.length > 0 ? `${promessesEnCours.length} engagements` : 'Aucun';
-      
-      document.getElementById('domaine-principal').textContent = domainePrincipal;
-      document.getElementById('domaine-count').textContent = `${domaineCount} engagements`;
-    }
-
-    // ========== RENDU DES FILTRES ==========
-    function renderFilters() {
-      const domainFilter = document.getElementById('domaine');
-      const domains = [...new Set(CONFIG.promises.map(p => p.domaine))].sort();
-      
-      domainFilter.innerHTML = '<option value="">Tous les secteurs</option>';
-      
-      domains.forEach(domain => {
-        const option = document.createElement('option');
-        option.value = domain;
-        option.textContent = domain;
-        domainFilter.appendChild(option);
-      });
-    }
-
-    // ========== BOUTONS DE PARTAGE AVEC CAPTURE ==========
-    function createShareButtons(promise) {
-      return `
-        <div class="share-section">
-          <button class="screenshot-btn" onclick="shareWithCapture('${promise.id}', 'screenshot')" title="Capturer et partager">
-            <i class="fas fa-camera"></i>
-          </button>
-          <a href="#" onclick="shareWithCapture('${promise.id}', 'twitter'); return false;" 
-             class="share-btn share-twitter" 
-             title="Partager sur X">
-            <i class="fab fa-x-twitter"></i>
-          </a>
-          <a href="#" onclick="shareWithCapture('${promise.id}', 'facebook'); return false;" 
-             class="share-btn share-facebook" 
-             title="Partager sur Facebook">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" onclick="shareWithCapture('${promise.id}', 'whatsapp'); return false;" 
-             class="share-btn share-whatsapp" 
-             title="Partager sur WhatsApp">
-            <i class="fab fa-whatsapp"></i>
-          </a>
-        </div>
-      `;
+      document.getElementById('realise-percentage').textContent = total > 0 ? ((realise / total) * 100).toFixed(1) + '%' : '0%';
+      document.getElementById('encours-percentage').textContent = total > 0 ? ((encours / total) * 100).toFixed(1) + '%' : '0%';
+      document.getElementById('non-lance-percentage').textContent = total > 0 ? ((nonLance / total) * 100).toFixed(1) + '%' : '0%';
+      document.getElementById('retard-percentage').textContent = total > 0 ? ((retard / total) * 100).toFixed(1) + '%' : '0%';
     }
 
     // ========== RENDU DES PROMESSES ==========
@@ -2282,7 +1537,7 @@
       
       if (promises.length === 0) {
         container.innerHTML = `
-          <div class="no-results" style="text-align:center; padding:2rem; color:#666; grid-column:1/-1;">
+          <div style="text-align:center; padding:2rem; color:#666; grid-column:1/-1;">
             <i class="fas fa-search fa-3x" style="margin-bottom:1rem;"></i>
             <h3 style="margin-bottom:0.5rem;">Aucun résultat trouvé</h3>
             <p style="color:var(--text-secondary);">Essayez de modifier vos critères de recherche</p>
@@ -2313,7 +1568,6 @@
             statusText = '🔄 En Cours';
         }
         
-        // Badge de délai
         let delayBadge = '';
         if (promise.status === 'realise') {
           delayBadge = '<span class="delay-badge delay-success"><i class="fas fa-check-circle"></i> Terminé</span>';
@@ -2322,29 +1576,6 @@
         } else {
           delayBadge = '<span class="delay-badge" style="background:#e3f2fd; color:#3d5a80; padding:0.3rem 0.6rem; border-radius:6px;"><i class="fas fa-hourglass-half"></i> Dans les délais</span>';
         }
-        
-        // Mises à jour
-        let updatesHTML = '';
-        if (promise.mises_a_jour && promise.mises_a_jour.length > 0) {
-          const updates = promise.mises_a_jour.map(update => `
-            <div class="update-item">
-              <span class="update-date"><i class="fas fa-calendar-alt"></i> ${update.date}</span>
-              <span class="update-text">${update.text}</span>
-            </div>
-          `).join('');
-          
-          updatesHTML = `
-            <button class="details-btn" onclick="toggleUpdates('${promise.id}')" aria-expanded="false">
-              <i class="fas fa-history"></i> Voir les mises à jour (${promise.mises_a_jour.length})
-            </button>
-            <div id="updates-${promise.id}" class="updates-container">
-              ${updates}
-            </div>
-          `;
-        }
-        
-        // Partager cette promesse avec capture
-        const shareButtons = createShareButtons(promise);
         
         return `
           <div class="promise-card" id="${promise.id}">
@@ -2367,176 +1598,100 @@
               </div>
             </div>
             
-            ${updatesHTML}
-            
             <div class="rating-section">
               <div class="stars">
-                <i class="far fa-star" data-value="1" onclick="ratePromise('${promise.id}', 1)" role="button" tabindex="0" aria-label="Noter 1 étoile"></i>
-                <i class="far fa-star" data-value="2" onclick="ratePromise('${promise.id}', 2)" role="button" tabindex="0" aria-label="Noter 2 étoiles"></i>
-                <i class="far fa-star" data-value="3" onclick="ratePromise('${promise.id}', 3)" role="button" tabindex="0" aria-label="Noter 3 étoiles"></i>
-                <i class="far fa-star" data-value="4" onclick="ratePromise('${promise.id}', 4)" role="button" tabindex="0" aria-label="Noter 4 étoiles"></i>
-                <i class="far fa-star" data-value="5" onclick="ratePromise('${promise.id}', 5)" role="button" tabindex="0" aria-label="Noter 5 étoiles"></i>
+                <i class="far fa-star" data-value="1" onclick="ratePromise('${promise.id}', 1)" role="button" tabindex="0"></i>
+                <i class="far fa-star" data-value="2" onclick="ratePromise('${promise.id}', 2)"></i>
+                <i class="far fa-star" data-value="3" onclick="ratePromise('${promise.id}', 3)"></i>
+                <i class="far fa-star" data-value="4" onclick="ratePromise('${promise.id}', 4)"></i>
+                <i class="far fa-star" data-value="5" onclick="ratePromise('${promise.id}', 5)"></i>
               </div>
               <span class="rating-label" id="rating-label-${promise.id}">
                 Noter cet engagement
               </span>
             </div>
             
-            ${shareButtons}
+            <div class="share-section">
+              <button class="screenshot-btn" onclick="shareWithCapture('${promise.id}', 'screenshot')" title="Capturer et partager">
+                <i class="fas fa-camera"></i>
+              </button>
+              <a href="#" onclick="shareWithCapture('${promise.id}', 'twitter'); return false;" 
+                 class="share-btn share-twitter" 
+                 title="Partager sur X">
+                <i class="fab fa-x-twitter"></i>
+              </a>
+              <a href="#" onclick="shareWithCapture('${promise.id}', 'facebook'); return false;" 
+                 class="share-btn share-facebook" 
+                 title="Partager sur Facebook">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" onclick="shareWithCapture('${promise.id}', 'whatsapp'); return false;" 
+                 class="share-btn share-whatsapp" 
+                 title="Partager sur WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+            </div>
           </div>
         `;
       }).join('');
     }
 
-    // ========== GESTION DES MISES À JOUR ==========
-    window.toggleUpdates = function(promiseId) {
-      const updatesEl = document.getElementById(`updates-${promiseId}`);
-      const btn = updatesEl.previousElementSibling;
-      
-      if (updatesEl.classList.contains('show')) {
-        updatesEl.classList.remove('show');
-        btn.innerHTML = '<i class="fas fa-history"></i> Voir les mises à jour';
-        btn.setAttribute('aria-expanded', 'false');
-      } else {
-        updatesEl.classList.add('show');
-        btn.innerHTML = '<i class="fas fa-times-circle"></i> Masquer les mises à jour';
-        btn.setAttribute('aria-expanded', 'true');
-      }
-    };
-
-    // ========== NOTATION ==========
-    window.ratePromise = function(promiseId, rating) {
-      const promise = CONFIG.promises.find(p => p.id === promiseId);
-      if (promise) {
-        if (!promise.votes) promise.votes = [];
-        promise.votes.push(rating);
-        localStorage.setItem(`vote_${promiseId}`, JSON.stringify(promise.votes));
+    // ========== INITIALISATION ==========
+    async function init() {
+      try {
+        const response = await fetch(CONFIG.DATA_URL);
+        const data = await response.json();
+        CONFIG.START_DATE = new Date(data.start_date);
         
-        // Mettre à jour les étoiles
-        const stars = document.querySelectorAll(`#${promiseId} .stars i`);
-        stars.forEach((star, index) => {
-          if (index < rating) {
-            star.classList.remove('far');
-            star.classList.add('fas', 'filled');
-          } else {
-            star.classList.remove('fas', 'filled');
-            star.classList.add('far');
-          }
+        CONFIG.promises = data.promises.map(p => {
+          const deadline = calculateDeadline(p.delai);
+          const votes = JSON.parse(localStorage.getItem(`vote_${p.id}`)) || [];
+          return {
+            ...p,
+            deadline: deadline,
+            isLate: checkIfLate(p.status, deadline),
+            votes: votes
+          };
         });
         
-        // Mettre à jour le label
-        const avg = promise.votes.reduce((a, b) => a + b, 0) / promise.votes.length;
-        document.getElementById(`rating-label-${promiseId}`).textContent = 
-          `Note : ${avg.toFixed(1)}/5 (${promise.votes.length} vote${promise.votes.length > 1 ? 's' : ''})`;
-        
-        // Recalculer les stats
+        updateCurrentDate();
         calculateAllStats();
-        showNotification(`Merci ! Vous avez noté ${rating}/5 cette promesse.`);
+        renderPromises(CONFIG.promises);
+        setupNavigation();
+        setupCaptureModal();
+        
+        console.log(`✅ ${CONFIG.promises.length} promesses chargées`);
+        
+      } catch (error) {
+        console.error('Erreur:', error);
+        document.getElementById('promises-container').innerHTML = `
+          <div style="text-align:center; padding:2rem; color:#e76f51; grid-column:1/-1;">
+            <i class="fas fa-exclamation-triangle fa-3x" style="margin-bottom:1rem;"></i>
+            <h3 style="margin-bottom:0.5rem;">Erreur de chargement</h3>
+            <p>Impossible de charger les données</p>
+            <button onclick="location.reload()" style="margin-top:1rem; padding:0.5rem 1rem; background:#2a6d5d; color:white; border:none; border-radius:5px; cursor:pointer;">
+              <i class="fas fa-redo"></i> Réessayer
+            </button>
+          </div>
+        `;
       }
-    };
-
-    // ========== FILTRAGE AMÉLIORÉ ==========
-    function setupEventListeners() {
-      document.getElementById('search').addEventListener('input', updateDisplay);
-      document.getElementById('domaine').addEventListener('change', updateDisplay);
-      document.getElementById('status').addEventListener('change', updateDisplay);
-      document.getElementById('sort').addEventListener('change', updateDisplay);
-      
-      // Filtres rapides
-      document.querySelectorAll('.quick-filter-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          if (this.dataset.filter === 'reset') return;
-          
-          // Mettre à jour l'état actif
-          document.querySelectorAll('.quick-filter-btn').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-          
-          // Appliquer le filtre
-          applyQuickFilter(this.dataset.filter);
-        });
-      });
     }
 
-    function applyQuickFilter(filterType) {
-      switch(filterType) {
-        case 'realise':
-          document.getElementById('status').value = 'realise';
-          break;
-        case 'encours':
-          document.getElementById('status').value = '';
-          break;
-        case 'retard':
-          document.getElementById('status').value = 'en-retard';
-          break;
-        case 'maj':
-          // Filtre spécial pour les engagements avec mises à jour
-          const filtered = CONFIG.promises.filter(p => p.mises_a_jour && p.mises_a_jour.length > 0);
-          renderPromises(filtered);
-          return;
-      }
-      updateDisplay();
-    }
-
-    window.resetFilters = function() {
-      document.getElementById('search').value = '';
-      document.getElementById('domaine').value = '';
-      document.getElementById('status').value = '';
-      document.getElementById('sort').value = '';
+    // ========== NOTIFICATION ==========
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.className = 'notification';
+      notification.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span>${message}</span>
+      `;
       
-      document.querySelectorAll('.quick-filter-btn').forEach(b => b.classList.remove('active'));
+      document.body.appendChild(notification);
       
-      renderPromises(CONFIG.promises);
-      calculateAllStats();
-      showNotification('Filtres réinitialisés');
-    };
-
-    function updateDisplay() {
-      const search = document.getElementById('search').value.toLowerCase();
-      const domaine = document.getElementById('domaine').value;
-      const status = document.getElementById('status').value;
-      const sort = document.getElementById('sort').value;
-      
-      let filtered = CONFIG.promises.filter(p => {
-        const matchSearch = p.engagement.toLowerCase().includes(search) || 
-                           p.resultat.toLowerCase().includes(search) ||
-                           p.domaine.toLowerCase().includes(search);
-        const matchDomaine = !domaine || p.domaine === domaine;
-        
-        let matchStatus = true;
-        if (status === 'realise') {
-          matchStatus = p.status === 'realise';
-        } else if (status === 'en-retard') {
-          matchStatus = p.isLate;
-        } else if (status === 'dans-les-temps') {
-          matchStatus = !p.isLate && p.status !== 'realise';
-        } else if (status === 'non-lance') {
-          matchStatus = p.status === 'non-lance';
-        }
-        
-        return matchSearch && matchDomaine && matchStatus;
-      });
-      
-      // Tri
-      if (sort === 'recent') {
-        filtered.sort((a, b) => b.deadline - a.deadline);
-      } else if (sort === 'ancien') {
-        filtered.sort((a, b) => a.deadline - b.deadline);
-      } else if (sort === 'note') {
-        filtered.sort((a, b) => {
-          const avgA = a.votes && a.votes.length > 0 ? a.votes.reduce((s, v) => s + v, 0) / a.votes.length : 0;
-          const avgB = b.votes && b.votes.length > 0 ? b.votes.reduce((s, v) => s + v, 0) / b.votes.length : 0;
-          return avgB - avgA;
-        });
-      } else if (sort === 'retard') {
-        filtered.sort((a, b) => {
-          if (a.isLate && !b.isLate) return -1;
-          if (!a.isLate && b.isLate) return 1;
-          return 0;
-        });
-      }
-      
-      calculateAllStats();
-      renderPromises(filtered);
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+      }, 3000);
     }
 
     // ========== PARTAGE DU DASHBOARD ==========
@@ -2557,90 +1712,11 @@
         `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
     }
 
-    // ========== NOTIFICATION ==========
-    function showNotification(message) {
-      const notification = document.createElement('div');
-      notification.className = 'notification';
-      notification.innerHTML = `
-        <i class="fas fa-check-circle"></i>
-        <span>${message}</span>
-      `;
-      
-      document.body.appendChild(notification);
-      
-      setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
-      }, 3000);
-    }
-
-    // ========== INITIALISATION ==========
-    async function init() {
-      try {
-        const response = await fetch(CONFIG.DATA_URL);
-        
-        if (!response.ok) {
-          throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
-        }
-        
-        const data = await response.json();
-        CONFIG.START_DATE = new Date(data.start_date);
-        
-        // Traiter les promesses
-        CONFIG.promises = data.promises.map(p => {
-          const deadline = calculateDeadline(p.delai);
-          const votes = JSON.parse(localStorage.getItem(`vote_${p.id}`)) || [];
-          return {
-            ...p,
-            deadline: deadline,
-            isLate: checkIfLate(p.status, deadline),
-            votes: votes
-          };
-        });
-        
-        updateCurrentDate();
-        calculateAllStats();
-        renderFilters();
-        renderPromises(CONFIG.promises);
-        setupEventListeners();
-        setupShareButtons();
-        setupNavigation();
-        setupCaptureModal();
-        
-        // Optimisation pour mobile: précharger html2canvas
-        if (typeof html2canvas !== 'undefined') {
-          console.log('✅ html2canvas chargé');
-        }
-        
-        console.log(`✅ ${CONFIG.promises.length} promesses chargées avec succès`);
-        
-        // Détecter et optimiser pour mobile
-        if ('ontouchstart' in window || navigator.maxTouchPoints) {
-          console.log('📱 Mode mobile détecté');
-          document.body.classList.add('touch-device');
-        }
-        
-      } catch (error) {
-        console.error('Erreur de chargement:', error);
-        document.getElementById('promises-container').innerHTML = `
-          <div style="text-align:center; padding:2rem; color:#e76f51; grid-column:1/-1;">
-            <i class="fas fa-exclamation-triangle fa-3x" style="margin-bottom:1rem;"></i>
-            <h3 style="margin-bottom:0.5rem;">Erreur de chargement</h3>
-            <p style="margin-bottom:0.5rem;">Impossible de charger le fichier promises.json</p>
-            <p style="font-size:0.8rem; color:#666;"><small>${error.message}</small></p>
-            <button onclick="location.reload()" style="margin-top:1rem; padding:0.5rem 1rem; background:#2a6d5d; color:white; border:none; border-radius:5px; cursor:pointer;">
-              <i class="fas fa-redo"></i> Réessayer
-            </button>
-          </div>
-        `;
-      }
-    }
-
-    // ========== DÉMARRER ==========
-    document.addEventListener('DOMContentLoaded', init);
-    
-    // Gestion des événements tactiles pour améliorer l'expérience mobile
-    document.addEventListener('touchstart', function() {}, {passive: true});
+    // ========== DÉMARRAGE ==========
+    document.addEventListener('DOMContentLoaded', () => {
+      init();
+      setupShareButtons();
+    });
   </script>
 </body>
 </html>
