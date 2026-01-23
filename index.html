@@ -9,18 +9,27 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
 
+  <!-- OPEN GRAPH METADATA COMPLÈTE -->
   <meta property="og:title" content="Suivi Promesses : POUR UN SÉNÉGAL SOUVERAIN, JUSTE ET PROSPÈRE">
   <meta property="og:description" content="Tableau de bord transparent de suivi de 99 engagements du projet.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bambamar.github.io/LE-PROJET">
-  <meta property="og:image" content="https://bambamar.github.io/LE-PROJET/facebook-banner.jpg">
+  <!-- IMPORTANT: Créez cette image et uploadez-la sur GitHub -->
+  <meta property="og:image" content="https://bambamar.github.io/LE-PROJET/og-image.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Suivi des engagements du Projet Sénégal">
+  <meta property="og:site_name" content="LE PROJET - Suivi des Promesses">
+  <meta property="og:locale" content="fr_FR">
 
+  <!-- TWITTER CARD METADATA -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Suivi Promesses : PROJET SÉNÉGAL">
   <meta name="twitter:description" content="Découvrez l'avancement des engagements pour le Sénégal.">
+  <!-- IMPORTANT: Créez cette image et uploadez-la sur GitHub -->
   <meta name="twitter:image" content="https://bambamar.github.io/LE-PROJET/twitter-card.jpg">
+  <meta name="twitter:image:alt" content="Tableau de bord de suivi des promesses">
+  <meta name="twitter:site" content="@ProjetSenegal">
 
   <title>Suivi Promesses : POUR UN SÉNÉGAL SOUVERAIN, JUSTE ET PROSPÈRE</title>
   
@@ -1982,31 +1991,10 @@
         }
       });
       
-      // Partager la capture
+      // Partager la capture avec Web Share API
       shareCapture.addEventListener('click', async () => {
-        if (CONFIG.currentCapture && navigator.share) {
-          try {
-            // Convertir data URL en blob
-            const response = await fetch(CONFIG.currentCapture);
-            const blob = await response.blob();
-            
-            const file = new File([blob], `promesse-${new Date().getTime()}.png`, {
-              type: 'image/png'
-            });
-            
-            await navigator.share({
-              files: [file],
-              title: 'Promesse du Projet BI',
-              text: 'Découvrez cette promesse du projet Pour un Sénégal Souverain, Juste et Prospère'
-            });
-          } catch (error) {
-            console.error('Erreur de partage:', error);
-            // Fallback: ouvrir dans un nouvel onglet
-            window.open(CONFIG.currentCapture, '_blank');
-          }
-        } else if (CONFIG.currentCapture) {
-          // Fallback pour les navigateurs sans Web Share API
-          window.open(CONFIG.currentCapture, '_blank');
+        if (CONFIG.currentCapture) {
+          await shareImageWithWebShare(CONFIG.currentCapture, 'Promesse du Projet Sénégal');
         }
       });
       
@@ -2017,6 +2005,45 @@
           document.body.style.overflow = '';
         }
       });
+    }
+
+    // ========== FONCTION AMÉLIORÉE POUR PARTAGER DES IMAGES ==========
+    async function shareImageWithWebShare(imageDataUrl, title = '') {
+      try {
+        // Convertir Data URL en blob
+        const response = await fetch(imageDataUrl);
+        const blob = await response.blob();
+        
+        const file = new File([blob], `promesse-senegal-${Date.now()}.png`, {
+          type: 'image/png'
+        });
+        
+        // Vérifier si le navigateur supporte le partage de fichiers
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            files: [file],
+            title: title || 'Promesse du Projet Sénégal',
+            text: 'Découvrez cette promesse du projet Pour un Sénégal Souverain, Juste et Prospère',
+            url: window.location.href
+          });
+          showNotification('Image partagée avec succès!');
+        } else {
+          // Fallback: télécharger l'image
+          const link = document.createElement('a');
+          link.href = imageDataUrl;
+          link.download = `promesse-${Date.now()}.png`;
+          link.click();
+          showNotification('Image téléchargée (partage non supporté)');
+        }
+      } catch (error) {
+        console.error('Erreur de partage:', error);
+        
+        // Fallback ultime: ouvrir l'image dans un nouvel onglet
+        if (imageDataUrl) {
+          const newWindow = window.open();
+          newWindow.document.write(`<img src="${imageDataUrl}" style="max-width:100%;">`);
+        }
+      }
     }
 
     // ========== PARTAGE AVEC CAPTURE ==========
@@ -2035,22 +2062,6 @@
       const url = encodeURIComponent(window.location.href);
       const text = encodeURIComponent(`📊 "${promise.engagement.substring(0, 80)}..." - Suivi des engagements du Projet pour un Sénégal Souverain, Juste et Prospère`);
       
-      let shareUrl = '';
-      switch(platform) {
-        case 'twitter':
-          shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-          break;
-        case 'facebook':
-          shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-          break;
-        case 'whatsapp':
-          shareUrl = `https://wa.me/?text=${text}%20${url}`;
-          break;
-        case 'linkedin':
-          shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-          break;
-      }
-      
       if (platform === 'screenshot') {
         // Afficher la modal de capture
         CONFIG.currentCapture = captureDataUrl;
@@ -2060,9 +2071,27 @@
         captureModal.classList.add('show');
         document.body.style.overflow = 'hidden';
         showNotification('Capture générée!');
-      } else if (shareUrl) {
-        // Ouvrir le lien de partage
-        window.open(shareUrl, '_blank');
+      } else {
+        // Pour les réseaux sociaux, utiliser les métadonnées Open Graph
+        let shareUrl = '';
+        switch(platform) {
+          case 'twitter':
+            shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+            break;
+          case 'facebook':
+            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            break;
+          case 'whatsapp':
+            shareUrl = `https://wa.me/?text=${text}%20${url}`;
+            break;
+          case 'linkedin':
+            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            break;
+        }
+        
+        if (shareUrl) {
+          window.open(shareUrl, '_blank', 'noopener,noreferrer');
+        }
       }
     }
 
