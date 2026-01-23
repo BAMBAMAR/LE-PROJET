@@ -47,8 +47,7 @@
       font-weight: 700;
       font-size: 1rem;
     }
-  <style>
-    :root {
+      :root {
       --primary: #2a6d5d;
       --primary-light: #3a9d84;
       --secondary: #3d5a80;
@@ -1388,43 +1387,41 @@
   <div class="scroll-progress" id="scrollProgress"></div>
   
   <!-- Navigation fixe -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <a href="#header" class="nav-logo">
-        <div class="nav-logo-icon">
-          <i class="fas fa-flag"></i>
-        </div>
-        <span>PROJETBI</span>
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="#header" class="nav-logo" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <img src="favicon.png" alt="Logo JJJ" style="height: 38px; width: auto; border-radius: 5px;">
+      <span style="color: #2a6d5d; font-weight: 700; font-size: 1rem; letter-spacing: -0.5px;">LE PROJET : SUIVI DES PROMESSES</span>
+    </a>
+    
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu mobile">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="nav-menu" id="navMenu">
+      <a href="#header" class="nav-link active">
+        <i class="fas fa-home"></i>
+        Accueil
       </a>
-      
-      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu mobile">
-        <i class="fas fa-bars"></i>
-      </button>
-      
-      <div class="nav-menu" id="navMenu">
-        <a href="#header" class="nav-link active">
-          <i class="fas fa-home"></i>
-          Accueil
-        </a>
-        <a href="#stats" class="nav-link">
-          <i class="fas fa-chart-line"></i>
-          Tableau de bord
-        </a>
-        <a href="#promises" class="nav-link">
-          <i class="fas fa-bullseye"></i>
-          Engagements
-        </a>
-        <a href="#filters" class="nav-link">
-          <i class="fas fa-filter"></i>
-          Filtres
-        </a>
-        <a href="#footer" class="nav-link">
-          <i class="fas fa-info-circle"></i>
-          À propos
-        </a>
-      </div>
+      <a href="#stats" class="nav-link">
+        <i class="fas fa-chart-line"></i>
+        Tableau de bord
+      </a>
+      <a href="#promises" class="nav-link">
+        <i class="fas fa-bullseye"></i>
+        Engagements
+      </a>
+      <a href="#filters" class="nav-link">
+        <i class="fas fa-filter"></i>
+        Filtres
+      </a>
+      <a href="#footer" class="nav-link">
+        <i class="fas fa-info-circle"></i>
+        À propos
+      </a>
     </div>
-  </nav>
+  </div>
+</nav>
   
   <div class="bg-pattern"></div>
   
