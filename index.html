@@ -1704,33 +1704,27 @@
 
   <script>
     // ========== CONFIGURATION SUPABASE ==========
-    const SUPABASE_URL = "https://jwsdxttjjbfnoufiidkd.supabase.co"; 
-    const SUPABASE_KEY = "sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap"; // Clé anon publique
+const SUPABASE_URL = "https://jwsdxttjjbfnoufiidkd.supabase.co"; 
+const SUPABASE_KEY = "sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap";
 
-    // ========== CONFIGURATION GLOBALE ==========
-    const CONFIG = {
-      START_DATE: null,
-      CURRENT_DATE: new Date(),
-      promises: [],
-      // Utilisez directement l'URL du bucket public
-DATA_URL: "promises.json",
-      currentCapture: null
-    };
+// ========== CONFIGURATION GLOBALE ==========
+const CONFIG = {
+  START_DATE: null,
+  CURRENT_DATE: new Date(),
+  promises: [],
+  // ✅ CHANGEZ ICI : promises.json depuis GitHub
+  DATA_URL: "promises.json", // ou "https://projetbi.org/promises.json"
+  currentCapture: null
+};
 
-    // Initialisation unique et sécurisée
-    window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-      auth: {
-        persistSession: false,
-        autoRefreshToken: false,
-        detectSessionInUrl: false
-      },
-      global: {
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Content-Type': 'application/json'
-        }
-      }
-    });
+// Initialisation Supabase (pour les votes uniquement)
+window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth: {
+    persistSession: false,
+    autoRefreshToken: false,
+    detectSessionInUrl: false
+  }
+});
 
     // ========== GESTION DES ÉVÉNEMENTS ==========
     document.addEventListener('DOMContentLoaded', () => {
