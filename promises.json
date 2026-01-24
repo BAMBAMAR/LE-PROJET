@@ -672,7 +672,7 @@
       "engagement": "Statut maître coranique",
       "resultat": "Reconnaissance",
       "delai": "2 ans",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -700,7 +700,10 @@
       "resultat": "Employabilité locale",
       "delai": "4 ans",
       "status": "non-lance",
-      "mises_a_jour": []
+      "mises_a_jour": [{
+          "date": "05/01/2026",
+          "text": "le Premier ministre, Ousmane Sonko, a procédé à la pose de la première pierre du lycée moderne de Passy, marquant le démarrage d’un projet éducatif majeur d’un coût global de 3 537 267 820 FCFA."
+        }]
     },
     {
       "id": "promise_72",
@@ -735,7 +738,7 @@
       "engagement": "Accès universel électricité",
       "resultat": "100% couverture",
       "delai": "2030",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": []
     },
     {
@@ -754,7 +757,9 @@
       "resultat": "Baisse coût électricité",
       "delai": "Court terme",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [ "date": "06/08/2025",
+          "text": "Le Gazoduc de 85 KM du Segment Nord, reliant le Hub de GTA à la Centrale électrique de Gandon de 250 MW lancé officiellement en août 2025 par le Réseau Gazier du Sénégal.
+."]
     },
     {
       "id": "promise_78",
@@ -789,8 +794,11 @@
       "engagement": "Réseau ferroviaire (7 lignes)",
       "resultat": "Maillage national",
       "delai": "5 à 10 ans",
-      "status": "non-lance",
-      "mises_a_jour": []
+      "status": "encours",
+      "mises_a_jour": [ {
+          "date": "31/12/2025",
+          "text": "Fin de la phase préparatoire : Le gouvernement a confirmé que les études et travaux préparatoires pour la nouvelle ligne à écartement standard (SGR) seront bouclés au cours de l'année 2026"
+        }]
     },
     {
       "id": "promise_81",
@@ -871,7 +879,10 @@
       "resultat": "Accès logement",
       "delai": "3 à 5 ans",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [ {
+          "date": "31/12/2025",
+          "text": "En 2026, le montant de 30 milliards FCFA est une enveloppe clé mobilisée par l'État du Sénégal pour accélérer le programme des 100 000 logements, désormais intégré dans la vision de souveraineté résidentielle du nouveau."
+        }]
     },
     {
       "id": "promise_90",
