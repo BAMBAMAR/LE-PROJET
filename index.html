@@ -1703,26 +1703,18 @@
   </div>
 
   <script>
-    // CONFIGURATION
-    const CONFIG = {
-      DATA_URL: 'promises.json',
-      START_DATE: null,
-      CURRENT_DATE: new Date(),
-      promises: [],
-      currentCapture: null
-    };
+   
 // ========== CONFIGURATION SUPABASE ==========
-const SUPABASE_URL = 'postgresql://postgres:[Ndieme@131215]@db.jwsdxttjjbfnoufiidkd.supabase.co:5432/postgres'; // À récupérer sur votre dashboard Supabase
-const SUPABASE_KEY = 'sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap'; 
-// Initialisation unique
-const supabaseClient = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);    // ========== GESTION DE LA NAVIGATION MOBILE ==========
-    function setupNavigation() {
-      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-      const navMenu = document.getElementById('navMenu');
-      const navLinks = document.querySelectorAll('.nav-link');
-      const backToTop = document.getElementById('backToTop');
-      const scrollProgress = document.getElementById('scrollProgress');
-      
+const SUPABASE_URL = "https://jwsdxttjjbfnoufiidkd.supabase.co"; 
+// ⚠️ IMPORTANT : ici c’est l’URL HTTPs du projet (PAS l’URL postgresql://)
+
+const SUPABASE_KEY = "sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap"; 
+// ⚠️ Mets ici la clé publique "anon" / "publishable" (pas une clé secrète)
+
+// ========== INITIALISATION UNIQUE (anti double init) ==========
+window.supabaseClient ??= supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabaseClient = window.supabaseClient;
+
       // Menu mobile
       mobileMenuBtn.addEventListener('click', () => {
         navMenu.classList.toggle('show');
