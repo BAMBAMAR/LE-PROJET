@@ -2672,69 +2672,88 @@ async function fetchAndDisplayPublicVotes() {
     }
 
     // ========== INITIALISATION ==========
-    async function init() {
-      try {
-        const response = await fetch(CONFIG.DATA_URL);
-        
-        if (!response.ok) {
-          throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
-        }
-        
-        const data = await response.json();
-        CONFIG.START_DATE = new Date(data.start_date);
-        
-        // Traiter les promesses
-        CONFIG.promises = data.promises.map(p => {
-          const deadline = calculateDeadline(p.delai);
-          const votes = JSON.parse(localStorage.getItem(`vote_${p.id}`)) || [];
-          return {
-            ...p,
-            deadline: deadline,
-            isLate: checkIfLate(p.status, deadline),
-            votes: votes
-          };
-        });
-        
-        updateCurrentDate();
-        calculateAllStats();
-        renderFilters();
-        renderPromises(CONFIG.promises);
-        setupEventListeners();
-        setupShareButtons();
-        setupNavigation();
-        setupCaptureModal();
-        
-        // Vérifier s'il y a un lien direct vers une promesse
-        checkDeepLink();
-        
-        // Optimisation pour mobile: précharger html2canvas
-        if (typeof html2canvas !== 'undefined') {
-          console.log('✅ html2canvas chargé');
-        }
-        
-        console.log(`✅ ${CONFIG.promises.length} promesses chargées avec succès`);
-        
-        // Détecter et optimiser pour mobile
-        if ('ontouchstart' in window || navigator.maxTouchPoints) {
-          console.log('📱 Mode mobile détecté');
-          document.body.classList.add('touch-device');
-        }
-        
-      } catch (error) {
-        console.error('Erreur de chargement:', error);
-        document.getElementById('promises-container').innerHTML = `
-          <div style="text-align:center; padding:2rem; color:#e76f51; grid-column:1/-1;">
-            <i class="fas fa-exclamation-triangle fa-3x" style="margin-bottom:1rem;"></i>
-            <h3 style="margin-bottom:0.5rem;">Erreur de chargement</h3>
-            <p style="margin-bottom:0.5rem;">Impossible de charger le fichier promises.json</p>
-            <p style="font-size:0.8rem; color:#666;"><small>${error.message}</small></p>
-            <button onclick="location.reload()" style="margin-top:1rem; padding:0.5rem 1rem; background:#2a6d5d; color:white; border:none; border-radius:5px; cursor:pointer;">
-              <i class="fas fa-redo"></i> Réessayer
-            </button>
-          </div>
-        `;
-      }
+   async function init() {
+  try {
+    const response = await fetch(CONFIG.DATA_URL);
+    
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
     }
+    
+    const data = await response.json();
+    CONFIG.START_DATE = new Date(data.start_date);
+    
+    // 1. Charger les moyennes de votes depuis Supabase AVANT de traiter les promesses
+    let publicVotesStats = {};
+    try {
+      const { data: votes, error } = await supabase
+        .from('votes')
+        .select('promise_id, rating');
+      
+      if (!error && votes) {
+        votes.forEach(v => {
+          if (!publicVotesStats[v.promise_id]) publicVotesStats[v.promise_id] = { sum: 0, count: 0 };
+          publicVotesStats[v.promise_id].sum += v.rating;
+          publicVotesStats[v.promise_id].count += 1;
+        });
+      }
+    } catch (e) {
+      console.warn("Supabase non disponible, repli sur données locales", e);
+    }
+
+    // 2. Traiter les promesses avec les données publiques
+    CONFIG.promises = data.promises.map(p => {
+      const deadline = calculateDeadline(p.delai);
+      
+      // On récupère la statistique publique de Supabase
+      const stats = publicVotesStats[p.id] || { sum: 0, count: 0 };
+      const avg = stats.count > 0 ? (stats.sum / stats.count).toFixed(1) : 0;
+
+      return {
+        ...p,
+        deadline: deadline,
+        isLate: checkIfLate(p.status, deadline),
+        publicAvg: avg,        // Nouvelle propriété
+        publicCount: stats.count // Nouvelle propriété
+      };
+    });
+    
+    // 3. Suite classique du rendu
+    updateCurrentDate();
+    calculateAllStats();
+    renderFilters();
+    renderPromises(CONFIG.promises);
+    setupEventListeners();
+    setupShareButtons();
+    setupNavigation();
+    setupCaptureModal();
+    
+    checkDeepLink();
+    
+    if (typeof html2canvas !== 'undefined') {
+      console.log('✅ html2canvas chargé');
+    }
+    
+    console.log(`✅ ${CONFIG.promises.length} promesses chargées (Votes synchronisés)`);
+    
+    if ('ontouchstart' in window || navigator.maxTouchPoints) {
+      document.body.classList.add('touch-device');
+    }
+    
+  } catch (error) {
+    console.error('Erreur de chargement:', error);
+    document.getElementById('promises-container').innerHTML = `
+      <div style="text-align:center; padding:2rem; color:#e76f51; grid-column:1/-1;">
+        <i class="fas fa-exclamation-triangle fa-3x" style="margin-bottom:1rem;"></i>
+        <h3 style="margin-bottom:0.5rem;">Erreur de chargement</h3>
+        <p style="margin-bottom:0.5rem;">${error.message}</p>
+        <button onclick="location.reload()" style="margin-top:1rem; padding:0.5rem 1rem; background:#2a6d5d; color:white; border:none; border-radius:5px; cursor:pointer;">
+          <i class="fas fa-redo"></i> Réessayer
+        </button>
+      </div>
+    `;
+  }
+}
 
     // ========== DÉMARRER ==========
     document.addEventListener('DOMContentLoaded', init);
