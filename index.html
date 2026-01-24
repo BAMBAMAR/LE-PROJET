@@ -30,12 +30,12 @@
 <meta name="twitter:image" content="https://projetbi.org/twitter-card.jpg"> <meta name="twitter:image:alt" content="Tableau de bord de suivi des promesses">
 
 <title>Suivi Promesses : POUR UN SÉNÉGAL SOUVERAIN, JUSTE ET PROSPÈRE</title>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   
   <style>
     /* CSS POUR LE LOGO JJJ DANS LA NAVBAR */
@@ -114,6 +114,20 @@
         radial-gradient(circle at 80% 70%, rgba(61, 90, 128, 0.03) 0%, transparent 50%);
       pointer-events: none;
       z-index: -1;
+    }
+
+    /* ========== EFFET DE SURBRILLANCE POUR LE PARTAGE ========== */
+    @keyframes highlightPulse {
+      0% { box-shadow: 0 0 0 0 rgba(42, 109, 93, 0.7); border-color: var(--primary); }
+      70% { box-shadow: 0 0 0 10px rgba(42, 109, 93, 0); border-color: var(--primary); }
+      100% { box-shadow: 0 0 0 0 rgba(42, 109, 93, 0); }
+    }
+
+    .highlight-effect {
+      animation: highlightPulse 1.5s ease-in-out 3;
+      border: 2px solid var(--primary) !important;
+      transform: scale(1.02);
+      z-index: 10;
     }
 
     /* ========== NAVIGATION FIXE OPTIMISÉE MOBILE ========== */
@@ -622,6 +636,7 @@
       display: flex;
       flex-direction: column;
       touch-action: manipulation;
+      scroll-margin-top: 100px; /* Important pour le deep linking */
     }
 
     .promise-card:active {
@@ -1391,11 +1406,9 @@
   </style>
 </head>
 <body>
-  <!-- Indicateur de progression du scroll -->
   <div class="scroll-progress" id="scrollProgress"></div>
   
-  <!-- Navigation fixe -->
-<nav class="navbar">
+  <nav class="navbar">
   <div class="nav-container">
     <a href="#header" class="nav-logo" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
       <img src="favicon.png" alt="Logo JJJ" style="height: 38px; width: auto; border-radius: 5px;">
@@ -1469,10 +1482,8 @@
       </div>
     </header>
 
-    <!-- 10 KPI -->
     <section id="stats">
       <div class="stats-grid">
-        <!-- KPI 1: Total Engagements -->
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-bullseye"></i>
@@ -1482,7 +1493,6 @@
           <div class="stat-percentage" id="total-percentage">100%</div>
         </div>
 
-        <!-- KPI 2: Réalisés -->
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-check-circle"></i>
@@ -1492,7 +1502,6 @@
           <div class="stat-percentage" id="realise-percentage">0%</div>
         </div>
 
-        <!-- KPI 3: En Cours -->
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-sync-alt"></i>
@@ -1502,7 +1511,6 @@
           <div class="stat-percentage" id="encours-percentage">0%</div>
         </div>
 
-        <!-- KPI 4: Non Lancés -->
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-hourglass-start"></i>
@@ -1512,7 +1520,6 @@
           <div class="stat-percentage" id="non-lance-percentage">0%</div>
         </div>
 
-        <!-- KPI 5: En Retard -->
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-exclamation-triangle"></i>
@@ -1522,7 +1529,6 @@
           <div class="stat-percentage" id="retard-percentage">0%</div>
         </div>
 
-        <!-- KPI 6: Taux de Réalisation -->
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-chart-line"></i>
@@ -1532,7 +1538,6 @@
           <div class="stat-subvalue" id="progress-text">Progression</div>
         </div>
 
-        <!-- KPI 7: Moyenne des Notes -->
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-star"></i>
@@ -1542,7 +1547,6 @@
           <div class="stat-subvalue" id="votes-total">0 votes</div>
         </div>
 
-        <!-- KPI 8: Engagements avec Mises à Jour -->
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-history"></i>
@@ -1552,7 +1556,6 @@
           <div class="stat-percentage" id="avec-maj-percentage">0%</div>
         </div>
 
-        <!-- KPI 9: Délai Moyen Restant -->
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-clock"></i>
@@ -1562,7 +1565,6 @@
           <div class="stat-subvalue" id="jours-restants">En cours</div>
         </div>
 
-        <!-- KPI 10: Domaine Principal -->
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-layer-group"></i>
@@ -1574,7 +1576,6 @@
       </div>
     </section>
 
-    <!-- FILTRES AMÉLIORÉS -->
     <section id="filters">
       <div class="filters">
         <div class="input-group">
@@ -1609,7 +1610,6 @@
         </div>
       </div>
       
-      <!-- Filtres rapides -->
       <div class="quick-filters">
         <button class="quick-filter-btn" data-filter="realise">
           <i class="fas fa-check-circle"></i>
@@ -1634,7 +1634,6 @@
       </div>
     </section>
 
-    <!-- PROMESSES -->
     <section id="promises">
       <div class="promises-grid" id="promises-container">
         <div class="loading">
@@ -1644,7 +1643,6 @@
       </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="footer" id="footer">
       <p>Plateforme citoyenne de suivi des engagements • Données à jour au <span id="current-date"></span></p>
       <div class="footer-links">
@@ -1681,12 +1679,10 @@
     </footer>
   </div>
 
-  <!-- Bouton retour en haut -->
   <a href="#header" class="back-to-top" id="backToTop" aria-label="Retour en haut">
     <i class="fas fa-chevron-up"></i>
   </a>
 
-  <!-- Modal pour visualiser la capture -->
   <div class="capture-modal" id="captureModal">
     <div class="capture-content">
       <button class="close-capture" id="closeCapture" aria-label="Fermer">
@@ -2044,23 +2040,24 @@
       }
     }
 
-    // ========== PARTAGE AVEC CAPTURE ==========
+    // ========== PARTAGE AVEC CAPTURE ET DEEP LINKING ==========
     async function shareWithCapture(promiseId, platform) {
       const promise = CONFIG.promises.find(p => p.id === promiseId);
       if (!promise) return;
       
-      showNotification('Préparation de la capture...');
-      
-      const captureDataUrl = await capturePromise(promiseId);
-      if (!captureDataUrl) {
-        showNotification('Erreur lors de la capture');
-        return;
-      }
-      
-      const url = encodeURIComponent(window.location.href);
+      // Construction de l'URL spécifique avec Ancre
+      const baseUrl = window.location.href.split('#')[0];
+      const targetUrl = `${baseUrl}#${promise.id}`;
+      const url = encodeURIComponent(targetUrl);
       const text = encodeURIComponent(`📊 "${promise.engagement.substring(0, 80)}..." - Suivi des engagements du Projet pour un Sénégal Souverain, Juste et Prospère`);
       
       if (platform === 'screenshot') {
+        showNotification('Préparation de la capture...');
+        const captureDataUrl = await capturePromise(promiseId);
+        if (!captureDataUrl) {
+          showNotification('Erreur lors de la capture');
+          return;
+        }
         // Afficher la modal de capture
         CONFIG.currentCapture = captureDataUrl;
         const captureImage = document.getElementById('captureImage');
@@ -2070,7 +2067,7 @@
         document.body.style.overflow = 'hidden';
         showNotification('Capture générée!');
       } else {
-        // Pour les réseaux sociaux, utiliser les métadonnées Open Graph
+        // Pour les réseaux sociaux
         let shareUrl = '';
         switch(platform) {
           case 'twitter':
@@ -2592,9 +2589,28 @@
       renderPromises(filtered);
     }
 
+    // ========== GESTION DES LIENS PROFONDS (Deep Linking) ==========
+    function checkDeepLink() {
+      const hash = window.location.hash;
+      if (hash && hash.length > 1) {
+        // Enlever le # du début
+        const id = hash.substring(1);
+        const element = document.getElementById(id);
+        
+        if (element) {
+          // Attendre un peu que le rendu soit stable
+          setTimeout(() => {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            element.classList.add('highlight-effect');
+            showNotification('Navigation vers la promesse sélectionnée');
+          }, 500);
+        }
+      }
+    }
+
     // ========== PARTAGE DU DASHBOARD ==========
     function setupShareButtons() {
-      const currentUrl = window.location.href;
+      const currentUrl = window.location.href.split('#')[0]; // On garde l'URL propre pour le dashboard global
       const shareText = encodeURIComponent('🇸🇳 Suivi transparent des engagements du Projet pour un Sénégal Souverain, Juste et Prospère - Tableau de bord citoyen');
       
       document.getElementById('share-twitter-dash').href = 
@@ -2659,6 +2675,9 @@
         setupShareButtons();
         setupNavigation();
         setupCaptureModal();
+        
+        // Vérifier s'il y a un lien direct vers une promesse
+        checkDeepLink();
         
         // Optimisation pour mobile: précharger html2canvas
         if (typeof html2canvas !== 'undefined') {
