@@ -1712,17 +1712,23 @@ const CONFIG = {
   START_DATE: null,
   CURRENT_DATE: new Date(),
   promises: [],
-  // ✅ CHANGEZ ICI : promises.json depuis GitHub
-  DATA_URL: "promises.json", // ou "https://projetbi.org/promises.json"
+  // ✅ Fichier promises.json depuis GitHub
+  DATA_URL: "promises.json",
   currentCapture: null
 };
 
-// Initialisation Supabase (pour les votes uniquement)
+// Initialisation Supabase (uniquement pour les votes)
 window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
   auth: {
     persistSession: false,
     autoRefreshToken: false,
     detectSessionInUrl: false
+  },
+  global: {
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Content-Type': 'application/json'
+    }
   }
 });
 
