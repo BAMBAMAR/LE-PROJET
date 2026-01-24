@@ -2229,126 +2229,140 @@ window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
     };
 
     // ========== CALCULS POUR LES 10 KPI ==========
-    function calculateAllStats() {
-      const promises = CONFIG.promises;
-      const total = promises.length;
-      
-      // KPI de base
-      const realise = promises.filter(p => p.status === 'realise').length;
-      const encours = promises.filter(p => p.status === 'encours').length;
-      const nonLance = promises.filter(p => p.status === 'non-lance').length;
-      const retard = promises.filter(p => p.isLate).length;
-      
-      // Pourcentages
-      const realisePercentage = total > 0 ? ((realise / total) * 100).toFixed(1) : 0;
-      const encoursPercentage = total > 0 ? ((encours / total) * 100).toFixed(1) : 0;
-      const nonLancePercentage = total > 0 ? ((nonLance / total) * 100).toFixed(1) : 0;
-      const retardPercentage = total > 0 ? ((retard / total) * 100).toFixed(1) : 0;
-      
-      // KPI 6: Taux de réalisation (pondéré)
-      let tauxRealisation = 0;
-      if (total > 0) {
-        const poidsRealise = realise * 100;
-        const poidsEncours = encours * 50;
-        const poidsNonLance = nonLance * 10;
-        tauxRealisation = ((poidsRealise + poidsEncours + poidsNonLance) / (total * 100) * 100).toFixed(1);
-      }
-      
-      // KPI 7: Moyenne des notes
-     // Moyenne pondérée (donne plus de poids aux promesses avec plus de votes)
-let moyennePonderee = 0;
-let totalVotesPond = 0;
-let totalNotesPond = 0;
-
-promises.forEach(p => {
-  const votesCount = p.publicCount || (p.votes ? p.votes.length : 0);
-  if (votesCount > 0) {
-    const noteMoyenne = p.publicAvg || 
-                       (p.votes ? (p.votes.reduce((a, b) => a + b, 0) / p.votes.length) : 0);
-    totalVotesPond += votesCount;
-    totalNotesPond += noteMoyenne * votesCount;
+    // ========== CALCULS POUR LES 10 KPI ==========
+function calculateAllStats() {
+  const promises = CONFIG.promises;
+  const total = promises.length;
+  
+  // KPI de base
+  const realise = promises.filter(p => p.status === 'realise').length;
+  const encours = promises.filter(p => p.status === 'encours').length;
+  const nonLance = promises.filter(p => p.status === 'non-lance').length;
+  const retard = promises.filter(p => p.isLate).length;
+  
+  // Pourcentages
+  const realisePercentage = total > 0 ? ((realise / total) * 100).toFixed(1) : 0;
+  const encoursPercentage = total > 0 ? ((encours / total) * 100).toFixed(1) : 0;
+  const nonLancePercentage = total > 0 ? ((nonLance / total) * 100).toFixed(1) : 0;
+  const retardPercentage = total > 0 ? ((retard / total) * 100).toFixed(1) : 0;
+  
+  // KPI 6: Taux de réalisation (pondéré)
+  let tauxRealisation = 0;
+  if (total > 0) {
+    const poidsRealise = realise * 100;
+    const poidsEncours = encours * 50;
+    const poidsNonLance = nonLance * 10;
+    tauxRealisation = ((poidsRealise + poidsEncours + poidsNonLance) / (total * 100) * 100).toFixed(1);
   }
-});
-
-moyenneNotes = totalVotesPond > 0 ? (totalNotesPond / totalVotesPond).toFixed(1) : 0;
-      
-      // KPI 8: Engagements avec mises à jour
-      const avecMaj = promises.filter(p => p.mises_a_jour && p.mises_a_jour.length > 0).length;
-      const avecMajPercentage = total > 0 ? ((avecMaj / total) * 100).toFixed(1) : 0;
-      
-      // KPI 9: Délai moyen restant
-      let delaiMoyenJours = 0;
-      let delaiMoyenText = '0j';
-      const promessesEnCours = promises.filter(p => p.status !== 'realise' && !p.isLate);
-      if (promessesEnCours.length > 0) {
-        const maintenant = CONFIG.CURRENT_DATE.getTime();
-        const totalJours = promessesEnCours.reduce((sum, p) => {
-          const diffJours = Math.max(0, Math.ceil((p.deadline - maintenant) / (1000 * 60 * 60 * 24)));
-          return sum + diffJours;
-        }, 0);
-        delaiMoyenJours = Math.round(totalJours / promessesEnCours.length);
-        delaiMoyenText = delaiMoyenJours > 365 ? `${Math.round(delaiMoyenJours/365)}a` : 
-                        delaiMoyenJours > 30 ? `${Math.round(delaiMoyenJours/30)}m` : 
-                        `${delaiMoyenJours}j`;
-      }
-      
-      // KPI 10: Domaine principal
-      let domainePrincipal = '-';
-      let domaineCount = 0;
-      if (promises.length > 0) {
-        const domaines = {};
-        promises.forEach(p => {
-          domaines[p.domaine] = (domaines[p.domaine] || 0) + 1;
-        });
-        const entries = Object.entries(domaines);
-        if (entries.length > 0) {
-          const [domaine, count] = entries.reduce((a, b) => a[1] > b[1] ? a : b);
-          domainePrincipal = domaine.substring(0, 12) + (domaine.length > 12 ? '...' : '');
-          domaineCount = count;
-        }
-      }
-      
-      // Texte de progression pour le taux
-      let progressText = '';
-      if (tauxRealisation >= 80) progressText = 'Excellent';
-      else if (tauxRealisation >= 60) progressText = 'Bon';
-      else if (tauxRealisation >= 40) progressText = 'Moyen';
-      else if (tauxRealisation >= 20) progressText = 'Faible';
-      else progressText = 'Début';
-      
-      // Mise à jour des KPI
-      document.getElementById('total').textContent = total;
-      document.getElementById('total-count').textContent = total;
-      document.getElementById('total-percentage').textContent = '100%';
-      
-      document.getElementById('realise').textContent = realise;
-      document.getElementById('realise-percentage').textContent = `${realisePercentage}%`;
-      
-      document.getElementById('encours').textContent = encours;
-      document.getElementById('encours-percentage').textContent = `${encoursPercentage}%`;
-      
-      document.getElementById('non-lance').textContent = nonLance;
-      document.getElementById('non-lance-percentage').textContent = `${nonLancePercentage}%`;
-      
-      document.getElementById('retard').textContent = retard;
-      document.getElementById('retard-percentage').textContent = `${retardPercentage}%`;
-      
-      document.getElementById('taux-realisation').textContent = `${tauxRealisation}%`;
-      document.getElementById('progress-text').textContent = progressText;
-      
-      document.getElementById('moyenne-notes').textContent = moyenneNotes;
-      document.getElementById('votes-total').textContent = `${totalVotes} votes`;
-      
-      document.getElementById('avec-maj').textContent = avecMaj;
-      document.getElementById('avec-maj-percentage').textContent = `${avecMajPercentage}%`;
-      
-      document.getElementById('delai-moyen').textContent = delaiMoyenText;
-      document.getElementById('jours-restants').textContent = promessesEnCours.length > 0 ? `${promessesEnCours.length} engagements` : 'Aucun';
-      
-      document.getElementById('domaine-principal').textContent = domainePrincipal;
-      document.getElementById('domaine-count').textContent = `${domaineCount} engagements`;
+  
+  // ========== CALCUL DE LA MOYENNE DES NOTES BASÉ SUR SUPABASE ==========
+  // KPI 7: Moyenne des notes depuis Supabase
+  let moyenneNotes = 0;
+  let totalVotes = 0;
+  let totalNotes = 0;
+  let promessesNotees = 0;
+  
+  // Utiliser les données de Supabase (publicAvg et publicCount)
+  promises.forEach(p => {
+    if (p.publicCount && p.publicCount > 0) {
+      // Données provenant de Supabase via fetchAndDisplayPublicVotes()
+      totalVotes += p.publicCount;
+      totalNotes += p.publicAvg * p.publicCount;
+      promessesNotees++;
     }
-
+    // Fallback: utiliser les votes locaux si Supabase n'a pas de données
+    else if (p.votes && p.votes.length > 0) {
+      totalVotes += p.votes.length;
+      totalNotes += p.votes.reduce((a, b) => a + b, 0);
+      promessesNotees++;
+    }
+  });
+  
+  // Calcul de la moyenne (moyenne globale de tous les votes)
+  if (totalVotes > 0) {
+    moyenneNotes = (totalNotes / totalVotes).toFixed(1);
+  }
+  
+  // ========== FIN DU CALCUL ==========
+  
+  // KPI 8: Engagements avec mises à jour
+  const avecMaj = promises.filter(p => p.mises_a_jour && p.mises_a_jour.length > 0).length;
+  const avecMajPercentage = total > 0 ? ((avecMaj / total) * 100).toFixed(1) : 0;
+  
+  // KPI 9: Délai moyen restant
+  let delaiMoyenJours = 0;
+  let delaiMoyenText = '0j';
+  const promessesEnCours = promises.filter(p => p.status !== 'realise' && !p.isLate);
+  if (promessesEnCours.length > 0) {
+    const maintenant = CONFIG.CURRENT_DATE.getTime();
+    const totalJours = promessesEnCours.reduce((sum, p) => {
+      const diffJours = Math.max(0, Math.ceil((p.deadline - maintenant) / (1000 * 60 * 60 * 24)));
+      return sum + diffJours;
+    }, 0);
+    delaiMoyenJours = Math.round(totalJours / promessesEnCours.length);
+    delaiMoyenText = delaiMoyenJours > 365 ? `${Math.round(delaiMoyenJours/365)}a` : 
+                    delaiMoyenJours > 30 ? `${Math.round(delaiMoyenJours/30)}m` : 
+                    `${delaiMoyenJours}j`;
+  }
+  
+  // KPI 10: Domaine principal
+  let domainePrincipal = '-';
+  let domaineCount = 0;
+  if (promises.length > 0) {
+    const domaines = {};
+    promises.forEach(p => {
+      domaines[p.domaine] = (domaines[p.domaine] || 0) + 1;
+    });
+    const entries = Object.entries(domaines);
+    if (entries.length > 0) {
+      const [domaine, count] = entries.reduce((a, b) => a[1] > b[1] ? a : b);
+      domainePrincipal = domaine.substring(0, 12) + (domaine.length > 12 ? '...' : '');
+      domaineCount = count;
+    }
+  }
+  
+  // Texte de progression pour le taux
+  let progressText = '';
+  if (tauxRealisation >= 80) progressText = 'Excellent';
+  else if (tauxRealisation >= 60) progressText = 'Bon';
+  else if (tauxRealisation >= 40) progressText = 'Moyen';
+  else if (tauxRealisation >= 20) progressText = 'Faible';
+  else progressText = 'Début';
+  
+  // Mise à jour des KPI
+  document.getElementById('total').textContent = total;
+  document.getElementById('total-count').textContent = total;
+  document.getElementById('total-percentage').textContent = '100%';
+  
+  document.getElementById('realise').textContent = realise;
+  document.getElementById('realise-percentage').textContent = `${realisePercentage}%`;
+  
+  document.getElementById('encours').textContent = encours;
+  document.getElementById('encours-percentage').textContent = `${encoursPercentage}%`;
+  
+  document.getElementById('non-lance').textContent = nonLance;
+  document.getElementById('non-lance-percentage').textContent = `${nonLancePercentage}%`;
+  
+  document.getElementById('retard').textContent = retard;
+  document.getElementById('retard-percentage').textContent = `${retardPercentage}%`;
+  
+  document.getElementById('taux-realisation').textContent = `${tauxRealisation}%`;
+  document.getElementById('progress-text').textContent = progressText;
+  
+  document.getElementById('moyenne-notes').textContent = moyenneNotes;
+  document.getElementById('votes-total').textContent = promessesNotees > 0 ? 
+    `${promessesNotees}/${total} promesses notées` : 
+    'Aucun vote';
+  
+  document.getElementById('avec-maj').textContent = avecMaj;
+  document.getElementById('avec-maj-percentage').textContent = `${avecMajPercentage}%`;
+  
+  document.getElementById('delai-moyen').textContent = delaiMoyenText;
+  document.getElementById('jours-restants').textContent = promessesEnCours.length > 0 ? `${promessesEnCours.length} engagements` : 'Aucun';
+  
+  document.getElementById('domaine-principal').textContent = domainePrincipal;
+  document.getElementById('domaine-count').textContent = `${domaineCount} engagements`;
+}
     // ========== RENDU DES FILTRES ==========
     function renderFilters() {
       const domainFilter = document.getElementById('domaine');
