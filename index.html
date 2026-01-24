@@ -1923,7 +1923,7 @@
       </div>
       <div class="contact-item">
         <i class="fas fa-phone"></i>
-        <span>+221 33 800 00 00</span>
+        <span>+221769455253</span>
       </div>
       <div class="contact-item">
         <i class="fas fa-map-marker-alt"></i>
@@ -3199,7 +3199,7 @@ function setupContactLinks() {
   const emailItems = document.querySelectorAll('.contact-item:nth-child(1)');
   emailItems.forEach(item => {
     item.addEventListener('click', function() {
-      window.location.href = 'mailto:contact@projetbi.org';
+      window.location.href = 'mailto:pastefprojetbi@gmail.com';
     });
     item.style.cursor = 'pointer';
     item.setAttribute('title', 'Envoyer un email');
@@ -3209,7 +3209,7 @@ function setupContactLinks() {
   const phoneItems = document.querySelectorAll('.contact-item:nth-child(2)');
   phoneItems.forEach(item => {
     item.addEventListener('click', function() {
-      window.location.href = 'tel:+221338000000';
+      window.location.href = 'tel:+221769455253';
     });
     item.style.cursor = 'pointer';
     item.setAttribute('title', 'Appeler');
@@ -3263,7 +3263,7 @@ function setupContactModal() {
       
       // Ici, vous pouvez envoyer le formulaire à votre backend
       // Pour l'instant, on simule l'envoi
-      const mailtoLink = `mailto:contact@projetbi.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+      const mailtoLink = `mailto:pastefprojetbi@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
       window.location.href = mailtoLink;
       
       showNotification('Formulaire soumis avec succès !');
