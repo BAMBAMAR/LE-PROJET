@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<meta charset="UTF-8">
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script><meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
 <meta name="description" content="Suivi transparent des promesses électorales du Président Bassirou Diomaye Faye">
 <meta name="theme-color" content="#2a6d5d">
@@ -1715,8 +1714,8 @@
 // ========== CONFIGURATION SUPABASE ==========
 const SUPABASE_URL = 'postgresql://postgres:[Ndieme@131215]@db.jwsdxttjjbfnoufiidkd.supabase.co:5432/postgres'; // À récupérer sur votre dashboard Supabase
 const SUPABASE_KEY = 'sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap'; 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    // ========== GESTION DE LA NAVIGATION MOBILE ==========
+// Initialisation unique
+const supabaseClient = supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_KEY);    // ========== GESTION DE LA NAVIGATION MOBILE ==========
     function setupNavigation() {
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const navMenu = document.getElementById('navMenu');
@@ -2675,18 +2674,16 @@ async function fetchAndDisplayPublicVotes() {
    async function init() {
   try {
     const response = await fetch(CONFIG.DATA_URL);
-    
-    if (!response.ok) {
-      throw new Error(`Erreur HTTP ${response.status}: ${response.statusText}`);
-    }
+    if (!response.ok) throw new Error(`Erreur HTTP ${response.status}`);
     
     const data = await response.json();
     CONFIG.START_DATE = new Date(data.start_date);
     
-    // 1. Charger les moyennes de votes depuis Supabase AVANT de traiter les promesses
+    // 1. Récupération des votes sur Supabase
     let publicVotesStats = {};
     try {
-      const { data: votes, error } = await supabase
+      // Utilisation du nom corrigé 'supabaseClient'
+      const { data: votes, error } = await supabaseClient
         .from('votes')
         .select('promise_id, rating');
       
@@ -2698,14 +2695,12 @@ async function fetchAndDisplayPublicVotes() {
         });
       }
     } catch (e) {
-      console.warn("Supabase non disponible, repli sur données locales", e);
+      console.warn("Le navigateur bloque peut-être l'accès à la base de données.");
     }
 
-    // 2. Traiter les promesses avec les données publiques
+    // 2. Traitement des promesses
     CONFIG.promises = data.promises.map(p => {
       const deadline = calculateDeadline(p.delai);
-      
-      // On récupère la statistique publique de Supabase
       const stats = publicVotesStats[p.id] || { sum: 0, count: 0 };
       const avg = stats.count > 0 ? (stats.sum / stats.count).toFixed(1) : 0;
 
@@ -2713,12 +2708,12 @@ async function fetchAndDisplayPublicVotes() {
         ...p,
         deadline: deadline,
         isLate: checkIfLate(p.status, deadline),
-        publicAvg: avg,        // Nouvelle propriété
-        publicCount: stats.count // Nouvelle propriété
+        publicAvg: avg,
+        publicCount: stats.count
       };
     });
     
-    // 3. Suite classique du rendu
+    // 3. Rendu de l'interface
     updateCurrentDate();
     calculateAllStats();
     renderFilters();
@@ -2728,30 +2723,14 @@ async function fetchAndDisplayPublicVotes() {
     setupNavigation();
     setupCaptureModal();
     
-    checkDeepLink();
-    
-    if (typeof html2canvas !== 'undefined') {
-      console.log('✅ html2canvas chargé');
-    }
-    
-    console.log(`✅ ${CONFIG.promises.length} promesses chargées (Votes synchronisés)`);
-    
     if ('ontouchstart' in window || navigator.maxTouchPoints) {
       document.body.classList.add('touch-device');
     }
     
+    console.log("✅ Initialisation terminée avec les votes publics");
+    
   } catch (error) {
-    console.error('Erreur de chargement:', error);
-    document.getElementById('promises-container').innerHTML = `
-      <div style="text-align:center; padding:2rem; color:#e76f51; grid-column:1/-1;">
-        <i class="fas fa-exclamation-triangle fa-3x" style="margin-bottom:1rem;"></i>
-        <h3 style="margin-bottom:0.5rem;">Erreur de chargement</h3>
-        <p style="margin-bottom:0.5rem;">${error.message}</p>
-        <button onclick="location.reload()" style="margin-top:1rem; padding:0.5rem 1rem; background:#2a6d5d; color:white; border:none; border-radius:5px; cursor:pointer;">
-          <i class="fas fa-redo"></i> Réessayer
-        </button>
-      </div>
-    `;
+    console.error('Erreur majeure:', error);
   }
 }
 
