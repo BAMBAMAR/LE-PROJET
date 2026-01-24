@@ -615,7 +615,9 @@
       "resultat": "Infrastructures dignes",
       "delai": "2029",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [ {  "date": "31/12/2025",
+          "text": "Budget et constructions 2026 : Dans son message à la Nation du 31 décembre 2025, le Président Bassirou Diomaye Faye a annoncé une enveloppe de 29 milliards FCFA pour l'année 2026 dédiée spécifiquement à l'accélération de l'éradication de ces abris."
+        }]
     },
     {
       "id": "promise_65",
