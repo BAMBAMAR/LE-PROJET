@@ -23,7 +23,7 @@
 <meta property="og:locale" content="fr_FR">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@ProjetSenegal">
+<meta name="twitter:site" content="https://projetbi.org/#header">
 <meta name="twitter:creator" content="@ProjetSenegal">
 <meta name="twitter:title" content="Suivi Promesses : PROJET SÉNÉGAL">
 <meta name="twitter:description" content="Découvrez l'avancement des engagements pour le Sénégal.">
@@ -2699,7 +2699,7 @@ window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
 
     // ========== PARTAGE DU DASHBOARD ==========
     function setupShareButtons() {
-      const currentUrl = window.location.href.split('#')[0]; // On garde l'URL propre pour le dashboard global
+      const currentUrl = 'https://projetbi.org/#header'; // On garde l'URL propre pour le dashboard global
       const shareText = encodeURIComponent('🇸🇳 Suivi transparent des engagements du Projet pour un Sénégal Souverain, Juste et Prospère - Tableau de bord citoyen');
       
       document.getElementById('share-twitter-dash').href = 
