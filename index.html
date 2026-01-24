@@ -1712,7 +1712,10 @@
       promises: [],
       currentCapture: null
     };
-
+// ========== CONFIGURATION SUPABASE ==========
+const SUPABASE_URL = 'postgresql://postgres:[Ndieme@131215]@db.jwsdxttjjbfnoufiidkd.supabase.co:5432/postgres'; // À récupérer sur votre dashboard Supabase
+const SUPABASE_KEY = 'sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap'; 
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     // ========== GESTION DE LA NAVIGATION MOBILE ==========
     function setupNavigation() {
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -2456,36 +2459,60 @@
     };
 
     // ========== NOTATION ==========
-    window.ratePromise = function(promiseId, rating) {
-      const promise = CONFIG.promises.find(p => p.id === promiseId);
-      if (promise) {
-        if (!promise.votes) promise.votes = [];
-        promise.votes.push(rating);
-        localStorage.setItem(`vote_${promiseId}`, JSON.stringify(promise.votes));
-        
-        // Mettre à jour les étoiles
-        const stars = document.querySelectorAll(`#${promiseId} .stars i`);
-        stars.forEach((star, index) => {
-          if (index < rating) {
-            star.classList.remove('far');
-            star.classList.add('fas', 'filled');
-          } else {
-            star.classList.remove('fas', 'filled');
-            star.classList.add('far');
-          }
-        });
-        
-        // Mettre à jour le label
-        const avg = promise.votes.reduce((a, b) => a + b, 0) / promise.votes.length;
-        document.getElementById(`rating-label-${promiseId}`).textContent = 
-          `Note : ${avg.toFixed(1)}/5 (${promise.votes.length} vote${promise.votes.length > 1 ? 's' : ''})`;
-        
-        // Recalculer les stats
-        calculateAllStats();
-        showNotification(`Merci ! Vous avez noté ${rating}/5 cette promesse.`);
-      }
-    };
+    // ========== NOUVELLE LOGIQUE DE VOTE SUPABASE ==========
 
+// 1. Fonction pour envoyer un vote
+window.ratePromise = async function(promiseId, rating) {
+    try {
+        // Envoi à Supabase
+        const { error } = await supabase
+            .from('votes')
+            .insert([{ promise_id: promiseId, rating: rating }]);
+
+        if (error) throw error;
+
+        // Message de succès
+        showNotification(`Merci ! Vote de ${rating}/5 enregistré.`);
+        
+        // Rafraîchir les données localement
+        fetchAndDisplayPublicVotes();
+    } catch (error) {
+        console.error("Erreur vote:", error);
+        showNotification("Erreur lors de l'enregistrement du vote.");
+    }
+};
+
+// 2. Fonction pour récupérer les moyennes de tout le monde
+async function fetchAndDisplayPublicVotes() {
+    try {
+        // On récupère tous les votes
+        const { data: votes, error } = await supabase
+            .from('votes')
+            .select('promise_id, rating');
+
+        if (error) throw error;
+
+        // On calcule les moyennes par promesse
+        const stats = {};
+        votes.forEach(v => {
+            if (!stats[v.promise_id]) stats[v.promise_id] = { sum: 0, count: 0 };
+            stats[v.promise_id].sum += v.rating;
+            stats[v.promise_id].count += 1;
+        });
+
+        // On met à jour l'affichage
+        Object.keys(stats).forEach(id => {
+            const avg = (stats[id].sum / stats[id].count).toFixed(1);
+            const label = document.getElementById(`rating-label-${id}`);
+            if (label) {
+                label.innerText = `Note : ${avg}/5 (${stats[id].count} votes)`;
+                // Ici vous pourriez aussi colorier les étoiles dynamiquement
+            }
+        });
+    } catch (error) {
+        console.error("Erreur chargement scores:", error);
+    }
+}
     // ========== FILTRAGE AMÉLIORÉ ==========
     function setupEventListeners() {
       document.getElementById('search').addEventListener('input', updateDisplay);
