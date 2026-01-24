@@ -1703,45 +1703,34 @@
   </div>
 
   <script>
-   
-// ========== CONFIGURATION SUPABASE ==========
+   // ========== CONFIGURATION SUPABASE ==========
 const SUPABASE_URL = "https://jwsdxttjjbfnoufiidkd.supabase.co"; 
-// ⚠️ IMPORTANT : ici c’est l’URL HTTPs du projet (PAS l’URL postgresql://)
+const SUPABASE_KEY = sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap"; // <--- N'oubliez pas de mettre votre clé ici
 
-const SUPABASE_KEY = "sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap"; 
-// ⚠️ Mets ici la clé publique "anon" / "publishable" (pas une clé secrète)
+// Initialisation unique et sécurisée
+window.supabaseClient ??= supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth: {
+    persistSession: false // Cela évite que Supabase essaie d'écrire dans les cookies/storage
+  }
+});
 
-// ========== INITIALISATION UNIQUE (anti double init) ==========
-window.supabaseClient ??= supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-const supabaseClient = window.supabaseClient;
-    {
-      // Menu mobile
-      mobileMenuBtn.addEventListener('click', () => {
+// ========== GESTION DES ÉVÉNEMENTS (S'assurer que le DOM est chargé) ==========
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const backToTop = document.querySelector('.back-to-top');
+    const scrollProgress = document.querySelector('.scroll-progress');
+
+    // Menu mobile
+    mobileMenuBtn.addEventListener('click', () => {
         navMenu.classList.toggle('show');
         mobileMenuBtn.innerHTML = navMenu.classList.contains('show') 
-          ? '<i class="fas fa-times"></i>' 
-          : '<i class="fas fa-bars"></i>';
+            ? '<i class="fas fa-times"></i>' 
+            : '<i class="fas fa-bars"></i>';
         document.body.style.overflow = navMenu.classList.contains('show') ? 'hidden' : '';
-      });
-      
-      // Fermer menu mobile au clic sur un lien
-      navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          navMenu.classList.remove('show');
-          mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-          document.body.style.overflow = '';
-        });
-      });
-      
-      // Fermer menu mobile en cliquant en dehors
-      document.addEventListener('click', (e) => {
-        if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && navMenu.classList.contains('show')) {
-          navMenu.classList.remove('show');
-          mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-          document.body.style.overflow = '';
-        }
-      });
-      
+    });
+
       // Navigation fluide
       navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
