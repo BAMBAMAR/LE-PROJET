@@ -38,6 +38,275 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   
   <style>
+    /* Styles pour la modale de contact */
+.contact-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 10001;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.contact-modal.show {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
+
+.contact-modal-content {
+  background: white;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  position: relative;
+}
+
+.contact-modal-content h3 {
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.close-contact-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-contact-modal:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(42, 109, 93, 0.1);
+}
+
+.submit-contact-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.submit-contact-btn:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+}
+    /* ========== SECTION CONTACT AMÉLIORÉE ========== */
+.footer-contact {
+  background: rgba(42, 109, 93, 0.05);
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin: 1.5rem 0;
+  border: 1px solid rgba(42, 109, 93, 0.1);
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .contact-info {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.contact-item:active {
+  transform: scale(0.98);
+}
+
+.contact-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: var(--primary);
+  color: white;
+}
+
+.contact-item:hover i {
+  color: white;
+}
+
+.contact-item i {
+  color: var(--primary);
+  font-size: 1rem;
+  width: 20px;
+  text-align: center;
+}
+
+.contact-item span {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.contact-item:hover span {
+  color: white;
+}
+
+/* Liens sociaux */
+.footer-social {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  touch-action: manipulation;
+}
+
+.social-link:active {
+  transform: scale(0.95);
+}
+
+.social-link:hover {
+  transform: translateY(-3px);
+  color: white;
+}
+
+.social-link:nth-child(1):hover { background: #000000; } /* Twitter */
+.social-link:nth-child(2):hover { background: #1877f2; } /* Facebook */
+.social-link:nth-child(3):hover { background: #25d366; } /* WhatsApp */
+.social-link:nth-child(4):hover { background: var(--primary); } /* Email */
+
+/* Section À propos */
+.footer-about {
+  margin: 1.5rem 0;
+  padding: 1.2rem;
+  background: rgba(233, 196, 106, 0.05);
+  border-radius: 10px;
+  border-left: 3px solid var(--warning);
+}
+
+.footer-about h4 {
+  color: var(--text-primary);
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-about h4:before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 3px;
+  background: var(--warning);
+}
+
+.footer-about p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+}
+
+.disclaimer {
+  background: rgba(231, 111, 81, 0.05);
+  border-left: 3px solid var(--danger);
+  padding: 0.8rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+.disclaimer p {
+  font-size: 0.8rem;
+  color: var(--danger);
+  margin: 0;
+}
+
+.disclaimer strong {
+  color: var(--danger);
+}
     /* CSS POUR LE LOGO JJJ DANS LA NAVBAR */
     .nav-logo {
       display: flex;
@@ -1643,40 +1912,86 @@
       </div>
     </section>
 
-    <footer class="footer" id="footer">
-      <p>Plateforme citoyenne de suivi des engagements • Données à jour au <span id="current-date"></span></p>
-      <div class="footer-links">
-        <div class="export-btn" id="exportButton">
-          <i class="fas fa-file-export"></i>
-          Exporter les données
-          <div class="export-dropdown">
-            <button class="export-option" onclick="exportData('csv')">
-              <i class="fas fa-file-csv"></i>
-              CSV (Excel)
-            </button>
-            <button class="export-option" onclick="exportData('excel')">
-              <i class="fas fa-file-excel"></i>
-              Excel (.xlsx)
-            </button>
-            <button class="export-option" onclick="exportData('json')">
-              <i class="fas fa-file-code"></i>
-              JSON
-            </button>
-            <button class="export-option" onclick="exportData('pdf')">
-              <i class="fas fa-file-pdf"></i>
-              Rapport PDF
-            </button>
-          </div>
-        </div>
-        <a href="#header" class="nav-link">
-          <i class="fas fa-arrow-up"></i>
-          Retour en haut
-        </a>
+  <footer class="footer" id="footer">
+  <p>Plateforme citoyenne de suivi des engagements • Données à jour au <span id="current-date"></span></p>
+  
+  <div class="footer-contact">
+    <div class="contact-info">
+      <div class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <span>contact@projetbi.org</span>
       </div>
-      <p class="footer-note">
-        Développé avec <i class="fas fa-heart" style="color: #e76f51;"></i> pour la transparence démocratique
-      </p>
-    </footer>
+      <div class="contact-item">
+        <i class="fas fa-phone"></i>
+        <span>+221 33 800 00 00</span>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Dakar, Sénégal</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer-links">
+    <div class="export-btn" id="exportButton">
+      <i class="fas fa-file-export"></i>
+      Exporter les données
+      <div class="export-dropdown">
+        <button class="export-option" onclick="exportData('csv')">
+          <i class="fas fa-file-csv"></i>
+          CSV (Excel)
+        </button>
+        <button class="export-option" onclick="exportData('excel')">
+          <i class="fas fa-file-excel"></i>
+          Excel (.xlsx)
+        </button>
+        <button class="export-option" onclick="exportData('json')">
+          <i class="fas fa-file-code"></i>
+          JSON
+        </button>
+        <button class="export-option" onclick="exportData('pdf')">
+          <i class="fas fa-file-pdf"></i>
+          Rapport PDF
+        </button>
+      </div>
+    </div>
+    
+    <div class="footer-social">
+      <a href="https://twitter.com/ProjetSenegal" class="social-link" target="_blank" title="Twitter">
+        <i class="fab fa-x-twitter"></i>
+      </a>
+      <a href="https://facebook.com/ProjetSenegal" class="social-link" target="_blank" title="Facebook">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://wa.me/221338000000" class="social-link" target="_blank" title="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <a href="mailto:contact@projetbi.org" class="social-link" title="Email">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
+    
+    <a href="#header" class="nav-link">
+      <i class="fas fa-arrow-up"></i>
+      Retour en haut
+    </a>
+  </div>
+  
+  <div class="footer-about">
+    <h4>À propos de cette plateforme</h4>
+    <p>Cette plateforme de suivi citoyen a pour objectif de garantir la transparence et le suivi des engagements du Projet pour un Sénégal Souverain, Juste et Prospère. Les données sont mises à jour régulièrement sur la base des informations officielles disponibles.</p>
+    
+    <div class="disclaimer">
+      <p><strong>Disclaimer :</strong> Cette plateforme est indépendante et à but informatif. Les évaluations sont basées sur des données publiques vérifiables.</p>
+    </div>
+  </div>
+  
+  <p class="footer-note">
+    Développé avec <i class="fas fa-heart" style="color: #e76f51;"></i> pour la transparence démocratique
+    <br>
+    <span style="font-size: 0.7rem; opacity: 0.8;">© 2024 LE PROJET - Tous droits réservés</span>
+  </p>
+</footer>
   </div>
 
   <a href="#header" class="back-to-top" id="backToTop" aria-label="Retour en haut">
@@ -2834,7 +3149,8 @@ function calculateAllStats() {
         setupShareButtons();
         setupNavigation();
         setupCaptureModal();
-        
+        setupContactLinks();
+        setupContactModal();
         // Charger les votes publics
         fetchAndDisplayPublicVotes();
         
@@ -2877,6 +3193,124 @@ function calculateAllStats() {
     
     // Gestion des événements tactiles pour améliorer l'expérience mobile
     document.addEventListener('touchstart', function() {}, {passive: true});
+    // ========== FONCTION POUR RENDRE LES CONTACTS CLIQUABLES ==========
+function setupContactLinks() {
+  // Email cliquable
+  const emailItems = document.querySelectorAll('.contact-item:nth-child(1)');
+  emailItems.forEach(item => {
+    item.addEventListener('click', function() {
+      window.location.href = 'mailto:contact@projetbi.org';
+    });
+    item.style.cursor = 'pointer';
+    item.setAttribute('title', 'Envoyer un email');
+  });
+  
+  // Téléphone cliquable
+  const phoneItems = document.querySelectorAll('.contact-item:nth-child(2)');
+  phoneItems.forEach(item => {
+    item.addEventListener('click', function() {
+      window.location.href = 'tel:+221338000000';
+    });
+    item.style.cursor = 'pointer';
+    item.setAttribute('title', 'Appeler');
+  });
+  
+  // Localisation cliquable (ouvre Google Maps)
+  const locationItems = document.querySelectorAll('.contact-item:nth-child(3)');
+  locationItems.forEach(item => {
+    item.addEventListener('click', function() {
+      window.open('https://maps.google.com/?q=Dakar,Senegal', '_blank');
+    });
+    item.style.cursor = 'pointer';
+    item.setAttribute('title', 'Voir sur la carte');
+  });
+}
+    // Fonction pour gérer la modale de contact
+function setupContactModal() {
+  const contactModal = document.getElementById('contactModal');
+  const closeContactModal = document.getElementById('closeContactModal');
+  const contactForm = document.getElementById('contactForm');
+  
+  // Ouvrir la modale (vous pouvez lier ça à un bouton)
+  // document.getElementById('openContactModal').addEventListener('click', () => {
+  //   contactModal.classList.add('show');
+  //   document.body.style.overflow = 'hidden';
+  // });
+  
+  // Fermer la modale
+  closeContactModal.addEventListener('click', () => {
+    contactModal.classList.remove('show');
+    document.body.style.overflow = '';
+  });
+  
+  // Fermer en cliquant en dehors
+  contactModal.addEventListener('click', (e) => {
+    if (e.target === contactModal) {
+      contactModal.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  });
+  
+  // Gérer la soumission du formulaire
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('contactName').value;
+      const email = document.getElementById('contactEmail').value;
+      const subject = document.getElementById('contactSubject').value;
+      const message = document.getElementById('contactMessage').value;
+      
+      // Ici, vous pouvez envoyer le formulaire à votre backend
+      // Pour l'instant, on simule l'envoi
+      const mailtoLink = `mailto:contact@projetbi.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+      window.location.href = mailtoLink;
+      
+      showNotification('Formulaire soumis avec succès !');
+      contactForm.reset();
+      contactModal.classList.remove('show');
+      document.body.style.overflow = '';
+    });
+  }
+}
+
+// N'oubliez pas d'appeler setupContactModal() dans init()
   </script>
+  <!-- Ajoutez cette modale avant la fermeture du body -->
+<div class="contact-modal" id="contactModal">
+  <div class="contact-modal-content">
+    <button class="close-contact-modal" id="closeContactModal">
+      <i class="fas fa-times"></i>
+    </button>
+    
+    <h3><i class="fas fa-envelope"></i> Contactez-nous</h3>
+    
+    <form id="contactForm">
+      <div class="form-group">
+        <label for="contactName">Votre nom</label>
+        <input type="text" id="contactName" placeholder="Votre nom complet" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="contactEmail">Votre email</label>
+        <input type="email" id="contactEmail" placeholder="votre@email.com" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="contactSubject">Sujet</label>
+        <input type="text" id="contactSubject" placeholder="Sujet de votre message" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="contactMessage">Message</label>
+        <textarea id="contactMessage" rows="5" placeholder="Votre message..." required></textarea>
+      </div>
+      
+      <button type="submit" class="submit-contact-btn">
+        <i class="fas fa-paper-plane"></i> Envoyer le message
+      </button>
+    </form>
+  </div>
+</div>
 </body>
 </html>
