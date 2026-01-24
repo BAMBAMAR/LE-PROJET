@@ -2255,16 +2255,22 @@ window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
       }
       
       // KPI 7: Moyenne des notes
-      let moyenneNotes = 0;
-      let totalVotes = 0;
-      let totalNotes = 0;
-      promises.forEach(p => {
-        if (p.votes && p.votes.length > 0) {
-          totalVotes += p.votes.length;
-          totalNotes += p.votes.reduce((a, b) => a + b, 0);
-        }
-      });
-      moyenneNotes = totalVotes > 0 ? (totalNotes / totalVotes).toFixed(1) : 0;
+     // Moyenne pondérée (donne plus de poids aux promesses avec plus de votes)
+let moyennePonderee = 0;
+let totalVotesPond = 0;
+let totalNotesPond = 0;
+
+promises.forEach(p => {
+  const votesCount = p.publicCount || (p.votes ? p.votes.length : 0);
+  if (votesCount > 0) {
+    const noteMoyenne = p.publicAvg || 
+                       (p.votes ? (p.votes.reduce((a, b) => a + b, 0) / p.votes.length) : 0);
+    totalVotesPond += votesCount;
+    totalNotesPond += noteMoyenne * votesCount;
+  }
+});
+
+moyenneNotes = totalVotesPond > 0 ? (totalNotesPond / totalVotesPond).toFixed(1) : 0;
       
       // KPI 8: Engagements avec mises à jour
       const avecMaj = promises.filter(p => p.mises_a_jour && p.mises_a_jour.length > 0).length;
