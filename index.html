@@ -2843,7 +2843,7 @@ function calculateAllStats() {
         }
         
         console.log("✅ Initialisation terminée avec", CONFIG.promises.length, "promesses");
-        
+        await fetchAndDisplayPublicVotes();
       } catch (error) {
         console.error('Erreur majeure:', error);
         // En cas d'erreur totale, utiliser les données de démo
