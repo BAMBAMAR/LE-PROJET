@@ -1,39 +1,14 @@
-# Robots.txt pour ProjetBI.org
+# robots.txt pour ProjetBI.org
 # Suivi transparent des promesses électorales
 
 # Autoriser tous les robots de recherche
 User-agent: *
 Allow: /
 
-# Fichiers et dossiers à ne pas indexer (si vous en avez)
-# Décommentez si nécessaire :
-# Disallow: /admin/
-# Disallow: /private/
-# Disallow: /.git/
+# Sitemap XML (très important pour le SEO)
+Sitemap: https://projetbi.org/sitemap.xml
 
-# Autoriser explicitement les principaux moteurs de recherche
-User-agent: Googlebot
-Allow: /
-
-User-agent: Googlebot-Image
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Slurp
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
-
-User-agent: YandexBot
-Allow: /
-
-# Bloquer les scrapers agressifs (optionnel)
+# Délai d'exploration pour certains robots (optionnel)
 User-agent: AhrefsBot
 Crawl-delay: 10
 
@@ -42,12 +17,3 @@ Crawl-delay: 10
 
 User-agent: MJ12bot
 Crawl-delay: 10
-
-# Sitemap XML (très important pour le SEO)
-Sitemap: https://projetbi.org/sitemap.xml
-
-# Informations additionnelles
-# Site: https://projetbi.org
-# Contact: contact@projetbi.org (si vous avez un email)
-# Description: Plateforme citoyenne de suivi transparent des 99 engagements
-#              du Projet pour un Sénégal Souverain, Juste et Prospère
