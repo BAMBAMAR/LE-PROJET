@@ -2,109 +2,1742 @@
 <html lang="fr">
 <head>
   <!-- SEO Enhanced -->
-  <meta name="keywords" content="Sénégal, promesses électorales, Bassirou Diomaye Faye, transparence, gouvernance, démocratie, suivi engagements, projet sénégal">
-  <meta name="author" content="ProjetBI">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://projetbi.org/">
+<meta name="keywords" content="Sénégal, promesses électorales, Bassirou Diomaye Faye, transparence, gouvernance, démocratie, suivi engagements, projet sénégal">
+<meta name="author" content="ProjetBI">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://projetbi.org/">
 
-  <!-- Schema.org pour Google -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "ProjetBI - Suivi des Promesses",
-    "url": "https://projetbi.org",
-    "description": "Plateforme citoyenne de suivi transparent des 99 engagements du Projet pour un Sénégal Souverain, Juste et Prospère",
-    "publisher": {
-      "@type": "Organization",
-      "name": "ProjetBI",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://projetbi.org/favicon.png"
-      }
+<!-- Schema.org pour Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ProjetBI - Suivi des Promesses",
+  "url": "https://projetbi.org",
+  "description": "Plateforme citoyenne de suivi transparent des 99 engagements du Projet pour un Sénégal Souverain, Juste et Prospère",
+  "publisher": {
+    "@type": "Organization",
+    "name": "ProjetBI",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://projetbi.org/favicon.png"
     }
   }
-  </script>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <meta name="description" content="Plateforme citoyenne indépendante pour suivre en temps réel l'avancement des 99 engagements du Président Bassirou Diomaye Faye. Votez et analysez les résultats du Projet.">
+}
+</script>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<meta name="description" content="Plateforme citoyenne indépendante pour suivre en temps réel l'avancement des 99 engagements du Président Bassirou Diomaye Faye. Votez et analysez les résultats du Projet.">
   <meta name="theme-color" content="#2a6d5d">
-  <link rel="icon" type="image/png" href="https://projetbi.org/favicon.png">
-  <link rel="apple-touch-icon" href="https://projetbi.org/favicon.png">
 
-  <!-- Open Graph / Twitter Cards -->
-  <meta property="og:title" content="Suivi des 99 Promesses du Projet | Sénégal Souverain">
-  <meta property="og:description" content="Découvrez l'état d'avancement des engagements présidentiels. Donnez votre avis et suivez la transparence.">
+<link rel="icon" type="image/png" href="https://projetbi.org/favicon.png">
+<link rel="apple-touch-icon" href="https://projetbi.org/favicon.png">
+
+<meta property="og:title" content="Suivi des 99 Promesses du Projet | Sénégal Souverain">
+<meta property="og:description" content="Découvrez l'état d'avancement des engagements présidentiels. Donnez votre avis et suivez la transparence.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://projetbi.org/">
-  <meta property="og:image" content="https://projetbi.org/og-image.jpg">
-  <meta property="og:image:secure_url" content="https://projetbi.org/og-image.jpg">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Suivi des engagements du Projet Sénégal">
-  <meta property="og:site_name" content="LE PROJET - Suivi des Promesses">
-  <meta property="og:locale" content="fr_FR">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="https://projetbi.org/">
-  <meta name="twitter:creator" content="@ProjetSenegal">
-  <meta name="twitter:title" content="Suivi Promesses : PROJET SÉNÉGAL">
-  <meta name="twitter:description" content="Découvrez l'avancement des engagements pour le Sénégal.">
-  <meta name="twitter:image" content="https://projetbi.org/twitter-card.jpg">
-  <meta name="twitter:image:alt" content="Tableau de bord de suivi des promesses">
+<meta property="og:url" content="https://projetbi.org/">
+<meta property="og:image" content="https://projetbi.org/og-image.jpg">
+<meta property="og:image:secure_url" content="https://projetbi.org/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Suivi des engagements du Projet Sénégal">
+<meta property="og:site_name" content="LE PROJET - Suivi des Promesses">
+<meta property="og:locale" content="fr_FR">
 
-  <title>Suivi des Promesses de Bassirou Diomaye Faye | Le Projet Sénégal</title>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="https://projetbi.org/">
+<meta name="twitter:creator" content="@ProjetSenegal">
+<meta name="twitter:title" content="Suivi Promesses : PROJET SÉNÉGAL">
+<meta name="twitter:description" content="Découvrez l'avancement des engagements pour le Sénégal.">
+<meta name="twitter:image" content="https://projetbi.org/twitter-card.jpg"> <meta name="twitter:image:alt" content="Tableau de bord de suivi des promesses">
 
-  <!-- Fonts & Icons -->
+<title>Suivi des Promesses de Bassirou Diomaye Faye | Le Projet Sénégal</title>  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Lien vers le fichier CSS externe -->
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Librairies externes -->
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  
+  <style>
+    /* Styles pour la modale de contact */
+.contact-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 10001;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.contact-modal.show {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
+
+.contact-modal-content {
+  background: white;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  position: relative;
+}
+
+.contact-modal-content h3 {
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.close-contact-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-contact-modal:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(42, 109, 93, 0.1);
+}
+
+.submit-contact-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.submit-contact-btn:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+}
+    /* ========== SECTION CONTACT AMÉLIORÉE ========== */
+.footer-contact {
+  background: rgba(42, 109, 93, 0.05);
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin: 1.5rem 0;
+  border: 1px solid rgba(42, 109, 93, 0.1);
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .contact-info {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.contact-item:active {
+  transform: scale(0.98);
+}
+
+.contact-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: var(--primary);
+  color: white;
+}
+
+.contact-item:hover i {
+  color: white;
+}
+
+.contact-item i {
+  color: var(--primary);
+  font-size: 1rem;
+  width: 20px;
+  text-align: center;
+}
+
+.contact-item span {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.contact-item:hover span {
+  color: white;
+}
+
+/* Liens sociaux */
+.footer-social {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  touch-action: manipulation;
+}
+
+.social-link:active {
+  transform: scale(0.95);
+}
+
+.social-link:hover {
+  transform: translateY(-3px);
+  color: white;
+}
+
+.social-link:nth-child(1):hover { background: #000000; } /* Twitter */
+.social-link:nth-child(2):hover { background: #1877f2; } /* Facebook */
+.social-link:nth-child(3):hover { background: #25d366; } /* WhatsApp */
+.social-link:nth-child(4):hover { background: var(--primary); } /* Email */
+
+/* Section À propos */
+.footer-about {
+  margin: 1.5rem 0;
+  padding: 1.2rem;
+  background: rgba(233, 196, 106, 0.05);
+  border-radius: 10px;
+  border-left: 3px solid var(--warning);
+}
+
+.footer-about h4 {
+  color: var(--text-primary);
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-about h4:before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 3px;
+  background: var(--warning);
+}
+
+.footer-about p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin-bottom: 0.8rem;
+}
+
+.disclaimer {
+  background: rgba(231, 111, 81, 0.05);
+  border-left: 3px solid var(--danger);
+  padding: 0.8rem;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
+
+.disclaimer p {
+  font-size: 0.8rem;
+  color: var(--danger);
+  margin: 0;
+}
+
+.disclaimer strong {
+  color: var(--danger);
+}
+    /* CSS POUR LE LOGO JJJ DANS LA NAVBAR */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      gap: 10px;
+    }
+    .nav-logo-img {
+      height: 38px;
+      width: auto;
+      border-radius: 5px;
+    }
+    .logo-text {
+      color: #2a6d5d;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+      :root {
+      --primary: #2a6d5d;
+      --primary-light: #3a9d84;
+      --secondary: #3d5a80;
+      --accent: #e76f51;
+      --success: #2a9d8f;
+      --warning: #e9c46a;
+      --danger: #e76f51;
+      --info: #4a90e2;
+      --purple: #8a4baf;
+      --teal: #20c997;
+      --pink: #e83e8c;
+      --orange: #fd7e14;
+      --bg-main: #f8f9fa;
+      --bg-card: #ffffff;
+      --text-primary: #212529;
+      --text-secondary: #495057;
+      --border: #dee2e6;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      --safe-area-inset-top: env(safe-area-inset-top);
+      --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-main);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding-top: 70px; /* Pour la navbar fixe */
+      padding-bottom: env(safe-area-inset-bottom);
+      -webkit-text-size-adjust: 100%;
+      -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+    }
+
+    .bg-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(42, 109, 93, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(61, 90, 128, 0.03) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* ========== EFFET DE SURBRILLANCE POUR LE PARTAGE ========== */
+    @keyframes highlightPulse {
+      0% { box-shadow: 0 0 0 0 rgba(42, 109, 93, 0.7); border-color: var(--primary); }
+      70% { box-shadow: 0 0 0 10px rgba(42, 109, 93, 0); border-color: var(--primary); }
+      100% { box-shadow: 0 0 0 0 rgba(42, 109, 93, 0); }
+    }
+
+    .highlight-effect {
+      animation: highlightPulse 1.5s ease-in-out 3;
+      border: 2px solid var(--primary) !important;
+      transform: scale(1.02);
+      z-index: 10;
+    }
+
+    /* ========== NAVIGATION FIXE OPTIMISÉE MOBILE ========== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      z-index: 1000;
+      padding: 0.8rem 1rem;
+      padding-top: calc(0.8rem + var(--safe-area-inset-top));
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .nav-logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.85rem;
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      white-space: nowrap;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+      background: rgba(42, 109, 93, 0.05);
+    }
+
+    .nav-link.active {
+      color: var(--primary);
+      background: rgba(42, 109, 93, 0.1);
+      font-weight: 600;
+    }
+
+    .nav-link i {
+      font-size: 0.9rem;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 0.3rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mobile-menu-btn:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    /* ========== BOUTON RETOUR EN HAUT OPTIMISÉ MOBILE ========== */
+    .back-to-top {
+      position: fixed;
+      bottom: calc(2rem + var(--safe-area-inset-bottom));
+      right: 1rem;
+      width: 44px;
+      height: 44px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(42, 109, 93, 0.3);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+      font-size: 1.2rem;
+      touch-action: manipulation;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover, .back-to-top:active {
+      background: var(--primary-light);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(42, 109, 93, 0.4);
+    }
+
+    /* ========== INDICATEUR DE PROGRESSION ========== */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      z-index: 1001;
+      transition: width 0.2s ease;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem;
+      position: relative;
+    }
+
+    /* HEADER AVEC DOCUMENT OPTIMISÉ MOBILE */
+    .header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      padding: 1.5rem 1rem;
+      background: var(--bg-card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+      padding: 0 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      font-weight: 400;
+      padding: 0 0.5rem;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-top: 1rem;
+      align-items: center;
+    }
+
+    .ref-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(74, 144, 226, 0.1);
+      border: 1px solid rgba(74, 144, 226, 0.2);
+      color: #4a90e2;
+      padding: 0.6rem 1rem;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
+    }
+
+    .document-btn-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(231, 111, 81, 0.1);
+      border: 1px solid rgba(231, 111, 81, 0.2);
+      color: #e76f51;
+      padding: 0.6rem 1rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
+    }
+
+    .document-btn-header:hover {
+      background: rgba(231, 111, 81, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .share-dashboard {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .share-dashboard-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      touch-action: manipulation;
+    }
+
+    .share-dashboard-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .share-twitter { background: #000000; }
+    .share-facebook { background: #1877f2; }
+    .share-whatsapp { background: #25d366; }
+    .share-linkedin { background: #0077b5; }
+
+    /* STATISTIQUES - 10 KPI OPTIMISÉS MOBILE */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 140px;
+      touch-action: manipulation;
+    }
+
+    .stat-card:active {
+      transform: scale(0.98);
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      border-radius: 12px 12px 0 0;
+    }
+
+    /* Couleurs pour chaque KPI */
+    .stat-card:nth-child(1)::before { background: linear-gradient(90deg, var(--primary), var(--primary-light)); }
+    .stat-card:nth-child(2)::before { background: linear-gradient(90deg, var(--success), #20c997); }
+    .stat-card:nth-child(3)::before { background: linear-gradient(90deg, #4a90e2, #2d9cdb); }
+    .stat-card:nth-child(4)::before { background: linear-gradient(90deg, var(--warning), #f4a261); }
+    .stat-card:nth-child(5)::before { background: linear-gradient(90deg, var(--danger), #ff6b6b); }
+    .stat-card:nth-child(6)::before { background: linear-gradient(90deg, #8a4baf, #9b59b6); }
+    .stat-card:nth-child(7)::before { background: linear-gradient(90deg, #20c997, #1abc9c); }
+    .stat-card:nth-child(8)::before { background: linear-gradient(90deg, #e83e8c, #fd79a8); }
+    .stat-card:nth-child(9)::before { background: linear-gradient(90deg, #fd7e14, #f39c12); }
+    .stat-card:nth-child(10)::before { background: linear-gradient(90deg, #3498db, #2980b9); }
+
+    .stat-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      opacity: 0.9;
+    }
+
+    .stat-card:nth-child(1) .stat-icon { color: var(--primary); }
+    .stat-card:nth-child(2) .stat-icon { color: var(--success); }
+    .stat-card:nth-child(3) .stat-icon { color: #4a90e2; }
+    .stat-card:nth-child(4) .stat-icon { color: var(--warning); }
+    .stat-card:nth-child(5) .stat-icon { color: var(--danger); }
+    .stat-card:nth-child(6) .stat-icon { color: #8a4baf; }
+    .stat-card:nth-child(7) .stat-icon { color: #20c997; }
+    .stat-card:nth-child(8) .stat-icon { color: #e83e8c; }
+    .stat-card:nth-child(9) .stat-icon { color: #fd7e14; }
+    .stat-card:nth-child(10) .stat-icon { color: #3498db; }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.3rem;
+      line-height: 1.2;
+    }
+
+    .stat-subvalue {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-top: 0.2rem;
+    }
+
+    .stat-percentage {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-top: 0.3rem;
+    }
+
+    /* FILTRES AMÉLIORÉS OPTIMISÉS MOBILE */
+    .filters {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+      box-shadow: var(--shadow);
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 0.8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      z-index: 1;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+      background: var(--bg-main);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.3s ease;
+      outline: none;
+      cursor: pointer;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      touch-action: manipulation;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23495057' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.8rem center;
+      background-size: 1rem;
+      padding-right: 2.5rem;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(42, 109, 93, 0.1);
+    }
+
+    .quick-filters {
+      display: flex;
+      justify-content: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .quick-filters::-webkit-scrollbar {
+      display: none;
+    }
+
+    .quick-filter-btn {
+      padding: 0.5rem 0.8rem;
+      background: var(--bg-main);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      touch-action: manipulation;
+    }
+
+    .quick-filter-btn:active {
+      transform: scale(0.95);
+    }
+
+    .quick-filter-btn:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .quick-filter-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    /* GRILLE DES PROMESSES OPTIMISÉE MOBILE */
+    .promises-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    /* CARTE DE PROMESSE OPTIMISÉE MOBILE */
+    .promise-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem;
+      position: relative;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      touch-action: manipulation;
+      scroll-margin-top: 100px; /* Important pour le deep linking */
+    }
+
+    .promise-card:active {
+      transform: scale(0.995);
+    }
+
+    .domain-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(42, 109, 93, 0.1);
+      border: 1px solid rgba(42, 109, 93, 0.2);
+      color: var(--primary);
+      padding: 0.3rem 0.6rem;
+      border-radius: 25px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .promise-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 1.8rem 0 0.8rem 0;
+      line-height: 1.4;
+      padding-right: 4rem;
+    }
+
+    .result-box {
+      background: rgba(42, 109, 93, 0.05);
+      border-left: 3px solid var(--primary);
+      padding: 0.8rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .result-box i {
+      color: var(--primary);
+      margin-right: 0.3rem;
+      font-size: 0.8rem;
+    }
+
+    .promise-meta {
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+      font-size: 0.8rem;
+    }
+
+    .meta-row i {
+      margin-right: 0.3rem;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+    }
+
+    .status-badge {
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .status-realise {
+      background: rgba(42, 157, 143, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(42, 157, 143, 0.3);
+    }
+
+    .status-encours {
+      background: rgba(74, 144, 226, 0.15);
+      color: #4a90e2;
+      border: 1px solid rgba(74, 144, 226, 0.3);
+    }
+
+    .status-nonlance {
+      background: rgba(108, 117, 125, 0.15);
+      color: #6c757d;
+      border: 1px solid rgba(108, 117, 125, 0.3);
+    }
+
+    .delay-badge {
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.7rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      white-space: nowrap;
+    }
+
+    .delay-success {
+      background: rgba(42, 157, 143, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(42, 157, 143, 0.3);
+    }
+
+    .delay-danger {
+      background: rgba(231, 111, 81, 0.15);
+      color: var(--danger);
+      border: 1px solid rgba(231, 111, 81, 0.3);
+    }
+
+    .details-btn {
+      background: rgba(42, 109, 93, 0.1);
+      border: 1px solid rgba(42, 109, 93, 0.3);
+      color: var(--primary);
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 0.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      transition: all 0.3s ease;
+      width: 100%;
+      font-size: 0.85rem;
+      touch-action: manipulation;
+    }
+
+    .details-btn:active {
+      transform: scale(0.98);
+    }
+
+    .details-btn:hover {
+      background: rgba(42, 109, 93, 0.2);
+    }
+
+    .updates-container {
+      display: none;
+      background: rgba(233, 196, 106, 0.05);
+      border: 1px solid rgba(233, 196, 106, 0.2);
+      border-radius: 8px;
+      padding: 0.8rem;
+      margin-top: 0.8rem;
+    }
+
+    .updates-container.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .update-item {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(233, 196, 106, 0.1);
+    }
+
+    .update-item:last-child {
+      border-bottom: none;
+    }
+
+    .update-date {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.75rem;
+      margin-bottom: 0.2rem;
+      display: block;
+    }
+
+    .update-date i {
+      margin-right: 0.3rem;
+      font-size: 0.7rem;
+    }
+
+    .update-text {
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .rating-section {
+      background: rgba(233, 196, 106, 0.05);
+      padding: 0.8rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-top: 1rem;
+      border: 1px solid rgba(233, 196, 106, 0.1);
+    }
+
+    .stars {
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--border);
+      margin-bottom: 0.3rem;
+      display: inline-flex;
+      gap: 0.2rem;
+      touch-action: manipulation;
+    }
+
+    .stars i.filled {
+      color: var(--warning);
+    }
+
+    .stars i:hover,
+    .stars i:hover ~ i {
+      color: var(--warning);
+    }
+
+    .rating-label {
+      display: block;
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .share-section {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .share-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      font-size: 0.9rem;
+      touch-action: manipulation;
+    }
+
+    .share-btn:active {
+      transform: scale(0.95);
+    }
+
+    .share-btn:hover {
+      transform: translateY(-3px) scale(1.1);
+    }
+
+    /* Nouveau bouton de capture d'écran */
+    .screenshot-btn {
+      background: #8a4baf;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      touch-action: manipulation;
+    }
+
+    .screenshot-btn:active {
+      transform: scale(0.95);
+    }
+
+    .screenshot-btn:hover {
+      background: #9b59b6;
+      transform: translateY(-3px) scale(1.1);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-secondary);
+      grid-column: 1 / -1;
+    }
+
+    .spinner {
+      border: 3px solid var(--border);
+      border-top: 3px solid var(--primary);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* MODAL POUR VISUALISATION CAPTURE */
+    .capture-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      padding-top: calc(1rem + var(--safe-area-inset-top));
+      padding-bottom: calc(1rem + var(--safe-area-inset-bottom));
+    }
+
+    .capture-modal.show {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .capture-content {
+      background: white;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .capture-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .capture-actions {
+      position: absolute;
+      bottom: 1rem;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 0 1rem;
+    }
+
+    .capture-action-btn {
+      padding: 0.6rem 1.2rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      touch-action: manipulation;
+    }
+
+    .capture-action-btn:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    .close-capture {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      z-index: 2;
+    }
+
+    /* FOOTER OPTIMISÉ MOBILE */
+    .footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      margin-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      background: var(--bg-card);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      padding-bottom: calc(1.5rem + var(--safe-area-inset-bottom));
+    }
+
+    .footer p {
+      margin-bottom: 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    .footer-links {
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    .export-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(42, 109, 93, 0.1);
+      color: var(--primary);
+      padding: 0.6rem 1rem;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+      touch-action: manipulation;
+    }
+
+    .export-btn:active {
+      transform: scale(0.98);
+    }
+
+    .export-btn:hover {
+      background: rgba(42, 109, 93, 0.2);
+    }
+
+    .export-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 0.3rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      display: none;
+      flex-direction: column;
+      min-width: 180px;
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .export-btn:hover .export-dropdown {
+      display: flex;
+    }
+
+    .export-option {
+      padding: 0.6rem 0.8rem;
+      border: none;
+      background: none;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      touch-action: manipulation;
+    }
+
+    .export-option:hover {
+      background: rgba(42, 109, 93, 0.1);
+    }
+
+    .footer-note {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .notification {
+      position: fixed;
+      top: 90px;
+      right: 1rem;
+      left: 1rem;
+      background: linear-gradient(135deg, #2a9d8f, #21867a);
+      color: white;
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      z-index: 9999;
+      animation: slideIn 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideOut {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(100px); opacity: 0; }
+    }
+
+    /* RESPONSIVE POUR TABLETTES */
+    @media (min-width: 768px) {
+      html {
+        font-size: 17px;
+      }
+      
+      .container {
+        padding: 1.5rem;
+      }
+      
+      .navbar {
+        padding: 0.8rem 1.5rem;
+        padding-top: calc(0.8rem + var(--safe-area-inset-top));
+      }
+      
+      .nav-logo {
+        font-size: 1.1rem;
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+      }
+      
+      .stat-card {
+        min-height: 160px;
+        padding: 1.2rem;
+      }
+      
+      .stat-icon {
+        font-size: 1.8rem;
+      }
+      
+      .stat-value {
+        font-size: 1.8rem;
+      }
+      
+      .filters {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+      
+      .promises-grid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+      }
+      
+      .promise-card {
+        padding: 1.5rem;
+      }
+      
+      .share-section {
+        gap: 1rem;
+      }
+      
+      .share-btn, .screenshot-btn {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .back-to-top {
+        width: 50px;
+        height: 50px;
+        right: 2rem;
+        bottom: calc(2rem + var(--safe-area-inset-bottom));
+      }
+    }
+
+    /* RESPONSIVE POUR DESKTOP */
+    @media (min-width: 1024px) {
+      html {
+        font-size: 18px;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+      
+      .filters {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+      }
+      
+      .quick-filters {
+        justify-content: center;
+      }
+      
+      .header-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      
+      .nav-link {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.8rem;
+      }
+    }
+
+    /* OPTIMISATIONS TOUCH */
+    @media (hover: none) and (pointer: coarse) {
+      .stat-card:hover {
+        transform: none;
+      }
+      
+      .promise-card:hover {
+        transform: none;
+      }
+      
+      .details-btn:hover {
+        transform: none;
+      }
+      
+      .share-btn:hover {
+        transform: none;
+      }
+      
+      .screenshot-btn:hover {
+        transform: none;
+      }
+      
+      .back-to-top:hover {
+        transform: none;
+      }
+      
+      .export-btn:hover .export-dropdown {
+        display: none;
+      }
+      
+      .export-btn:focus .export-dropdown,
+      .export-btn:active .export-dropdown {
+        display: flex;
+      }
+    }
+
+    /* MASQUER LE MENU NAVIGATION SUR MOBILE PAR DÉFAUT */
+    @media (max-width: 767px) {
+      .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: var(--bg-card);
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        display: none;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      .nav-menu.show {
+        display: flex;
+      }
+      
+      .mobile-menu-btn {
+        display: flex;
+      }
+      
+      .header {
+        padding: 1.5rem;
+      }
+      
+      .header h1 {
+        font-size: 1.4rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .filters {
+        grid-template-columns: 1fr;
+      }
+      
+      .share-dashboard {
+        position: static;
+        justify-content: center;
+      }
+    }
+
+    /* TRÈS PETITS ÉCRANS */
+    @media (max-width: 360px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .header h1 {
+        font-size: 1.2rem;
+      }
+      
+      .stat-card {
+        padding: 0.8rem;
+        min-height: 130px;
+      }
+      
+      .promise-title {
+        font-size: 1rem;
+      }
+      
+      .result-box {
+        font-size: 0.8rem;
+      }
+    }
+
+    /* ORIENTATION PAYSAGE */
+    @media (max-width: 767px) and (orientation: landscape) {
+      .nav-menu {
+        max-height: 60vh;
+      }
+      
+      .header {
+        padding: 1rem;
+      }
+      
+      .header h1 {
+        font-size: 1.2rem;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .stat-card {
+        min-height: 120px;
+      }
+      
+      .promise-title {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="scroll-progress" id="scrollProgress"></div>
+  
   <nav class="navbar">
-    <div class="nav-container">
-      <a href="#header" class="nav-logo" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
-        <img src="https://projetbi.org/favicon.png" alt="Logo JJJ" style="height: 38px; width: auto; border-radius: 5px;">
-        <span style="color: #2a6d5d; font-weight: 700; font-size: 1rem; letter-spacing: -0.5px;">LE PROJET : SUIVI DES PROMESSES</span>
+  <div class="nav-container">
+    <a href="#header" class="nav-logo" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <img src="https://projetbi.org/favicon.png" alt="Logo JJJ" style="height: 38px; width: auto; border-radius: 5px;">
+      <span style="color: #2a6d5d; font-weight: 700; font-size: 1rem; letter-spacing: -0.5px;">LE PROJET : SUIVI DES PROMESSES</span>
+    </a>
+    
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu mobile">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="nav-menu" id="navMenu">
+      <a href="#header" class="nav-link active">
+        <i class="fas fa-home"></i>
+        Accueil
       </a>
-      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu mobile">
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="nav-menu" id="navMenu">
-        <a href="#header" class="nav-link active">
-          <i class="fas fa-home"></i>
-          Accueil
-        </a>
-        <a href="#stats" class="nav-link">
-          <i class="fas fa-chart-line"></i>
-          Tableau de bord
-        </a>
-        <a href="#promises" class="nav-link">
-          <i class="fas fa-bullseye"></i>
-          Engagements
-        </a>
-        <a href="#filters" class="nav-link">
-          <i class="fas fa-filter"></i>
-          Filtres
-        </a>
-        <a href="#footer" class="nav-link">
-          <i class="fas fa-info-circle"></i>
-          À propos
-        </a>
-      </div>
+      <a href="#stats" class="nav-link">
+        <i class="fas fa-chart-line"></i>
+        Tableau de bord
+      </a>
+      <a href="#promises" class="nav-link">
+        <i class="fas fa-bullseye"></i>
+        Engagements
+      </a>
+      <a href="#filters" class="nav-link">
+        <i class="fas fa-filter"></i>
+        Filtres
+      </a>
+      <a href="#footer" class="nav-link">
+        <i class="fas fa-info-circle"></i>
+        À propos
+      </a>
     </div>
-  </nav>
+  </div>
+</nav>
+  
   <div class="bg-pattern"></div>
+  
   <div class="container">
     <header class="header" id="header">
       <div class="share-dashboard">
@@ -124,13 +1757,14 @@
       <div class="header-content">
         <h1>LE PROJET POUR UN SÉNÉGAL SOUVERAIN, JUSTE ET PROSPÈRE</h1>
         <p class="subtitle">Tableau de Bord Transparent du Suivi des <span id="total-count"></span> Engagements</p>
+        
         <div class="header-actions">
           <span class="ref-badge">
             <i class="fas fa-calendar-check"></i>
             Date de référence : 2 AVRIL 2024
           </span>
-          <a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf"
-             class="document-btn-header"
+          <a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf" 
+             class="document-btn-header" 
              target="_blank"
              title="Télécharger le document original des promesses">
             <i class="fas fa-file-pdf"></i>
@@ -139,6 +1773,7 @@
         </div>
       </div>
     </header>
+
     <section id="stats">
       <div class="stats-grid">
         <div class="stat-card">
@@ -149,6 +1784,7 @@
           <div class="stat-label">Engagements</div>
           <div class="stat-percentage" id="total-percentage">100%</div>
         </div>
+
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-check-circle"></i>
@@ -157,6 +1793,7 @@
           <div class="stat-label">✅ Réalisés</div>
           <div class="stat-percentage" id="realise-percentage">0%</div>
         </div>
+
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-sync-alt"></i>
@@ -165,6 +1802,7 @@
           <div class="stat-label">🔄 En Cours</div>
           <div class="stat-percentage" id="encours-percentage">0%</div>
         </div>
+
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-hourglass-start"></i>
@@ -173,6 +1811,7 @@
           <div class="stat-label">⏳ Non Lancés</div>
           <div class="stat-percentage" id="non-lance-percentage">0%</div>
         </div>
+
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-exclamation-triangle"></i>
@@ -181,6 +1820,7 @@
           <div class="stat-label">⚠️ En Retard</div>
           <div class="stat-percentage" id="retard-percentage">0%</div>
         </div>
+
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-chart-line"></i>
@@ -189,6 +1829,7 @@
           <div class="stat-label">📈 Taux de Réalisation</div>
           <div class="stat-subvalue" id="progress-text">Progression</div>
         </div>
+
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-star"></i>
@@ -197,6 +1838,7 @@
           <div class="stat-label">⭐ Note Moyenne</div>
           <div class="stat-subvalue" id="votes-total">0 votes</div>
         </div>
+
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-history"></i>
@@ -205,6 +1847,7 @@
           <div class="stat-label">📋 Avec Mises à Jour</div>
           <div class="stat-percentage" id="avec-maj-percentage">0%</div>
         </div>
+
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-clock"></i>
@@ -213,6 +1856,7 @@
           <div class="stat-label">⏱️ Délai Moyen Restant</div>
           <div class="stat-subvalue" id="jours-restants">En cours</div>
         </div>
+
         <div class="stat-card">
           <div class="stat-icon">
             <i class="fas fa-layer-group"></i>
@@ -223,6 +1867,7 @@
         </div>
       </div>
     </section>
+
     <section id="filters">
       <div class="filters">
         <div class="input-group">
@@ -256,6 +1901,7 @@
           </select>
         </div>
       </div>
+      
       <div class="quick-filters">
         <button class="quick-filter-btn" data-filter="realise">
           <i class="fas fa-check-circle"></i>
@@ -279,6 +1925,7 @@
         </button>
       </div>
     </section>
+
     <section id="promises">
       <div class="promises-grid" id="promises-container">
         <div class="loading">
@@ -287,83 +1934,93 @@
         </div>
       </div>
     </section>
-    <footer class="footer" id="footer">
-      <p>Plateforme citoyenne de suivi des engagements • Données à jour au <span id="current-date"></span></p>
-      <div class="footer-contact">
-        <div class="contact-info">
-          <div class="contact-item">
-            <i class="fas fa-envelope"></i>
-            <span>pastefprojetbi@gmail.com</span>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-phone"></i>
-            <span>+221769455253</span>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>Dakar, Sénégal</span>
-          </div>
-        </div>
+
+  <footer class="footer" id="footer">
+  <p>Plateforme citoyenne de suivi des engagements • Données à jour au <span id="current-date"></span></p>
+  
+  <div class="footer-contact">
+    <div class="contact-info">
+      <div class="contact-item">
+        <i class="fas fa-envelope"></i>
+        <span>pastefprojetbi@gmail.com</span>
       </div>
-      <div class="footer-links">
-        <div class="export-btn" id="exportButton">
-          <i class="fas fa-file-export"></i>
-          Exporter les données
-          <div class="export-dropdown">
-            <button class="export-option" onclick="exportData('csv')">
-              <i class="fas fa-file-csv"></i>
-              CSV (Excel)
-            </button>
-            <button class="export-option" onclick="exportData('excel')">
-              <i class="fas fa-file-excel"></i>
-              Excel (.xlsx)
-            </button>
-            <button class="export-option" onclick="exportData('json')">
-              <i class="fas fa-file-code"></i>
-              JSON
-            </button>
-            <button class="export-option" onclick="exportData('pdf')">
-              <i class="fas fa-file-pdf"></i>
-              Rapport PDF
-            </button>
-          </div>
-        </div>
-        <div class="footer-social">
-          <a href="https://twitter.com/ProjetSenegal" class="social-link" target="_blank" title="Twitter">
-            <i class="fab fa-x-twitter"></i>
-          </a>
-          <a href="https://facebook.com/ProjetSenegal" class="social-link" target="_blank" title="Facebook">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="https://wa.me/221338000000" class="social-link" target="_blank" title="WhatsApp">
-            <i class="fab fa-whatsapp"></i>
-          </a>
-          <a href="mailto:pastefprojetbi@gmail.com" class="social-link" title="Email">
-            <i class="fas fa-envelope"></i>
-          </a>
-        </div>
-        <a href="#header" class="nav-link">
-          <i class="fas fa-arrow-up"></i>
-          Retour en haut
-        </a>
+      <div class="contact-item">
+        <i class="fas fa-phone"></i>
+        <span>+221769455253</span>
       </div>
-      <div class="footer-about">
-        <h4>À propos de cette plateforme</h4>
-        <p>Cette plateforme de suivi citoyen a pour objectif de garantir la transparence et le suivi des engagements du Projet pour un Sénégal Souverain, Juste et Prospère. Les données sont mises à jour régulièrement sur la base des informations officielles disponibles.</p>
-        <div class="disclaimer">
-          <p><strong>Disclaimer :</strong> Cette plateforme est indépendante et à but informatif. Les évaluations sont basées sur des données publiques vérifiables.</p>
-        </div>
+      <div class="contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Dakar, Sénégal</span>
       </div>
-      <p class="footer-note">
-        Développé avec <i class="fas fa-heart" style="color: #e76f51;"></i> pour la transparence démocratique
-        <br>
-        <span style="font-size: 0.7rem; opacity: 0.8;">© 2026 LE PROJET - Tous droits réservés</span>
-      </p>
-    </footer>
+    </div>
   </div>
+  
+  <div class="footer-links">
+    <div class="export-btn" id="exportButton">
+      <i class="fas fa-file-export"></i>
+      Exporter les données
+      <div class="export-dropdown">
+        <button class="export-option" onclick="exportData('csv')">
+          <i class="fas fa-file-csv"></i>
+          CSV (Excel)
+        </button>
+        <button class="export-option" onclick="exportData('excel')">
+          <i class="fas fa-file-excel"></i>
+          Excel (.xlsx)
+        </button>
+        <button class="export-option" onclick="exportData('json')">
+          <i class="fas fa-file-code"></i>
+          JSON
+        </button>
+        <button class="export-option" onclick="exportData('pdf')">
+          <i class="fas fa-file-pdf"></i>
+          Rapport PDF
+        </button>
+      </div>
+    </div>
+    
+    <div class="footer-social">
+      <a href="https://twitter.com/ProjetSenegal" class="social-link" target="_blank" title="Twitter">
+        <i class="fab fa-x-twitter"></i>
+      </a>
+      <a href="https://facebook.com/ProjetSenegal" class="social-link" target="_blank" title="Facebook">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="https://wa.me/221338000000" class="social-link" target="_blank" title="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <a href="mailto:pastefprojetbi@gmail.com" class="social-link" title="Email">
+        <i class="fas fa-envelope"></i>
+      </a>
+    </div>
+    
+    <a href="#header" class="nav-link">
+      <i class="fas fa-arrow-up"></i>
+      Retour en haut
+    </a>
+  </div>
+  
+  <div class="footer-about">
+    <h4>À propos de cette plateforme</h4>
+    <p>Cette plateforme de suivi citoyen a pour objectif de garantir la transparence et le suivi des engagements du Projet pour un Sénégal Souverain, Juste et Prospère. Les données sont mises à jour régulièrement sur la base des informations officielles disponibles.</p>
+    
+    <div class="disclaimer">
+      <p><strong>Disclaimer :</strong> Cette plateforme est indépendante et à but informatif. Les évaluations sont basées sur des données publiques vérifiables.</p>
+    </div>
+  </div>
+  
+  <p class="footer-note">
+    Développé avec <i class="fas fa-heart" style="color: #e76f51;"></i> pour la transparence démocratique
+    <br>
+    <span style="font-size: 0.7rem; opacity: 0.8;">© 2026 LE PROJET - Tous droits réservés</span>
+  </p>
+</footer>
+  </div>
+
   <a href="#header" class="back-to-top" id="backToTop" aria-label="Retour en haut">
     <i class="fas fa-chevron-up"></i>
   </a>
+
   <div class="capture-modal" id="captureModal">
     <div class="capture-content">
       <button class="close-capture" id="closeCapture" aria-label="Fermer">
@@ -382,141 +2039,140 @@
       </div>
     </div>
   </div>
-  <!-- Modale de contact -->
-  <div class="contact-modal" id="contactModal">
-    <div class="contact-modal-content">
-      <button class="close-contact-modal" id="closeContactModal">
-        <i class="fas fa-times"></i>
-      </button>
-      <h3><i class="fas fa-envelope"></i> Contactez-nous</h3>
-      <form id="contactForm">
-        <div class="form-group">
-          <label for="contactName">Votre nom</label>
-          <input type="text" id="contactName" placeholder="Votre nom complet" required>
-        </div>
-        <div class="form-group">
-          <label for="contactEmail">Votre email</label>
-          <input type="email" id="contactEmail" placeholder="votre@email.com" required>
-        </div>
-        <div class="form-group">
-          <label for="contactSubject">Sujet</label>
-          <input type="text" id="contactSubject" placeholder="Sujet de votre message" required>
-        </div>
-        <div class="form-group">
-          <label for="contactMessage">Message</label>
-          <textarea id="contactMessage" rows="5" placeholder="Votre message..." required></textarea>
-        </div>
-        <button type="submit" class="submit-contact-btn">
-          <i class="fas fa-paper-plane"></i> Envoyer le message
-        </button>
-      </form>
-    </div>
-  </div>
 
-  <!-- JavaScript principal -->
   <script>
     // ========== CONFIGURATION SUPABASE ==========
-    const SUPABASE_URL = "https://jwsdxttjjbfnoufiidkd.supabase.co";
-    const SUPABASE_KEY = "";
-    // ========== CONFIGURATION GLOBALE ==========
-    const CONFIG = {
-      START_DATE: null,
-      CURRENT_DATE: new Date(),
-      promises: [],
-      DATA_URL: "promises.json",
-      currentCapture: null
-    };
+const SUPABASE_URL = "https://jwsdxttjjbfnoufiidkd.supabase.co"; 
+const SUPABASE_KEY = "";
 
-    window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-      auth: {
-        persistSession: false,
-        autoRefreshToken: false,
-        detectSessionInUrl: false
-      },
-      global: {
-        headers: {
-          'apikey': SUPABASE_KEY,
-          'Content-Type': 'application/json'
-        }
-      }
-    });
+// ========== CONFIGURATION GLOBALE ==========
+const CONFIG = {
+  START_DATE: null,
+  CURRENT_DATE: new Date(),
+  promises: [],
+  // ✅ Fichier promises.json depuis GitHub
+  DATA_URL: "promises.json",
+  currentCapture: null
+};
 
-    // ========== ÉVÉNEMENTS & FONCTIONS ==========
+// Initialisation Supabase (uniquement pour les votes)
+window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth: {
+    persistSession: false,
+    autoRefreshToken: false,
+    detectSessionInUrl: false
+  },
+  global: {
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Content-Type': 'application/json'
+    }
+  }
+});
+
+    // ========== GESTION DES ÉVÉNEMENTS ==========
     document.addEventListener('DOMContentLoaded', () => {
-      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-      const navMenu = document.querySelector('.nav-menu');
-      const navLinks = document.querySelectorAll('.nav-link');
-      const backToTop = document.querySelector('.back-to-top');
-      const scrollProgress = document.querySelector('.scroll-progress');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const backToTop = document.querySelector('.back-to-top');
+        const scrollProgress = document.querySelector('.scroll-progress');
 
-      mobileMenuBtn.addEventListener('click', () => {
-        navMenu.classList.toggle('show');
-        mobileMenuBtn.innerHTML = navMenu.classList.contains('show')
-          ? '<i class="fas fa-times"></i>'
-          : '<i class="fas fa-bars"></i>';
-        document.body.style.overflow = navMenu.classList.contains('show') ? 'hidden' : '';
-      });
-
-      navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const targetId = this.getAttribute('href').substring(1);
-          const targetElement = document.getElementById(targetId);
-          if (targetElement) {
-            const headerHeight = document.querySelector('.navbar').offsetHeight;
-            const targetPosition = targetElement.offsetTop - headerHeight;
-            window.scrollTo({
-              top: targetPosition,
-              behavior: 'smooth'
-            });
-            navLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-          }
+        // Menu mobile
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('show') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+            document.body.style.overflow = navMenu.classList.contains('show') ? 'hidden' : '';
         });
-      });
 
-      backToTop.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-          backToTop.classList.add('visible');
-        } else {
-          backToTop.classList.remove('visible');
-        }
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
-        scrollProgress.style.width = scrolled + "%";
-
-        const sections = ['header', 'stats', 'filters', 'promises', 'footer'];
-        const scrollPosition = window.scrollY + 100;
-        sections.forEach(section => {
-          const element = document.getElementById(section);
-          if (element) {
-            const offsetTop = element.offsetTop;
-            const offsetBottom = offsetTop + element.offsetHeight;
-            if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+        // Navigation fluide
+        navLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+              const headerHeight = document.querySelector('.navbar').offsetHeight;
+              const targetPosition = targetElement.offsetTop - headerHeight;
+              
+              window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+              });
+              
+              // Mettre à jour l'état actif
               navLinks.forEach(l => l.classList.remove('active'));
-              const correspondingLink = document.querySelector(`.nav-link[href="#${section}"]`);
-              if (correspondingLink) {
-                correspondingLink.classList.add('active');
+              this.classList.add('active');
+            }
+          });
+        });
+        
+        // Bouton retour en haut
+        backToTop.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+        
+        // Scroll events
+        window.addEventListener('scroll', () => {
+          // Afficher/masquer le bouton
+          if (window.scrollY > 300) {
+            backToTop.classList.add('visible');
+          } else {
+            backToTop.classList.remove('visible');
+          }
+          
+          // Mettre à jour l'indicateur de progression
+          const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+          const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          const scrolled = (winScroll / height) * 100;
+          scrollProgress.style.width = scrolled + "%";
+          
+          // Mettre à jour l'état actif de la navigation
+          const sections = ['header', 'stats', 'filters', 'promises', 'footer'];
+          const scrollPosition = window.scrollY + 100;
+          
+          sections.forEach(section => {
+            const element = document.getElementById(section);
+            if (element) {
+              const offsetTop = element.offsetTop;
+              const offsetBottom = offsetTop + element.offsetHeight;
+              
+              if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                const correspondingLink = document.querySelector(`.nav-link[href="#${section}"]`);
+                if (correspondingLink) {
+                  correspondingLink.classList.add('active');
+                }
               }
             }
+          });
+        });
+        
+        // Gestion du clavier pour le menu mobile
+        mobileMenuBtn.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            mobileMenuBtn.click();
           }
         });
-      });
-
-      window.dispatchEvent(new Event('scroll'));
+        
+        // Scroll progress au chargement
+        window.dispatchEvent(new Event('scroll'));
     });
 
-    // ========== UTILITAIRES ==========
+    // ========== FONCTIONS UTILITAIRES ==========
     function calculateDeadline(delaiText) {
       if (!CONFIG.START_DATE) return new Date();
       const text = delaiText.toLowerCase();
       const result = new Date(CONFIG.START_DATE);
+      
       if (text.includes("immédiat") || text.includes("3 mois") || text.includes("court terme")) {
         result.setMonth(result.getMonth() + 3);
       } else if (text.includes("6 premiers mois") || text.includes("6 mois")) {
@@ -540,6 +2196,7 @@
       } else {
         result.setFullYear(result.getFullYear() + 5);
       }
+      
       return result;
     }
 
@@ -555,15 +2212,19 @@
       }
     }
 
+    // ========== FONCTION POUR CORRIGER LES CARACTÈRES SPÉCIAUX DANS L'EXPORT ==========
     function sanitizeForExport(text) {
       if (!text) return '';
+      
+      // Remplacer les caractères problématiques pour CSV/Excel
       return text
-        .replace(/"/g, '""')
-        .replace(/\r?\n/g, ' ')
-        .replace(/\t/g, ' ')
+        .replace(/"/g, '""') // Échapper les guillemets doubles
+        .replace(/\r?\n/g, ' ') // Remplacer les retours à la ligne par des espaces
+        .replace(/\t/g, ' ')   // Remplacer les tabulations par des espaces
         .trim();
     }
 
+    // ========== DONNÉES DE DÉMO (fallback) ==========
     const DEMO_DATA = {
       start_date: "2024-04-02",
       promises: [
@@ -574,7 +2235,12 @@
           resultat: "Réduction du taux de chômage à 15%",
           delai: "5 ans",
           status: "encours",
-          mises_a_jour: [{ date: "2024-06-15", text: "Lancement du programme d'incubation de startups" }],
+          mises_a_jour: [
+            {
+              date: "2024-06-15",
+              text: "Lancement du programme d'incubation de startups"
+            }
+          ],
           votes: [4, 5, 3]
         },
         {
@@ -584,7 +2250,12 @@
           resultat: "100% des élèves accèdent à l'éducation gratuite",
           delai: "Immédiat",
           status: "realise",
-          mises_a_jour: [{ date: "2024-05-20", text: "Décret signé pour la gratuité des frais scolaires" }],
+          mises_a_jour: [
+            {
+              date: "2024-05-20",
+              text: "Décret signé pour la gratuité des frais scolaires"
+            }
+          ],
           votes: [5, 5, 4, 5]
         },
         {
@@ -610,20 +2281,28 @@
       ]
     };
 
-    // ========== CAPTURE D'ÉCRAN ==========
+   // ========== CAPTURE D'ÉCRAN AMÉLIORÉE POUR LE PARTAGE ==========
     async function capturePromise(promiseId) {
       const promise = CONFIG.promises.find(p => p.id === promiseId);
       if (!promise) return null;
+      
       try {
+        // Créer un canvas personnalisé au lieu de cloner l'élément
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
+        
+        // Dimensions optimales pour les réseaux sociaux
         canvas.width = 1200;
         canvas.height = 630;
+        
+        // Fond dégradé
         const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
         gradient.addColorStop(0, '#2a6d5d');
         gradient.addColorStop(1, '#3a9d84');
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Motifs décoratifs (cercles)
         ctx.globalAlpha = 0.1;
         ctx.fillStyle = '#ffffff';
         ctx.beginPath();
@@ -633,9 +2312,12 @@
         ctx.arc(1000, 500, 220, 0, Math.PI * 2);
         ctx.fill();
         ctx.globalAlpha = 1;
+        
+        // Container blanc central
         const padding = 50;
         const boxWidth = canvas.width - (padding * 2);
         const boxHeight = canvas.height - (padding * 2);
+        
         ctx.fillStyle = 'rgba(255, 255, 255, 0.98)';
         ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
         ctx.shadowBlur = 30;
@@ -644,70 +2326,109 @@
         ctx.fill();
         ctx.shadowBlur = 0;
         ctx.shadowOffsetY = 0;
+        
+        // Barre de couleur en haut
         ctx.fillStyle = '#2a6d5d';
         roundRect(ctx, padding, padding, boxWidth, 10, 20);
         ctx.fill();
+        
+        // Logo drapeau
         ctx.font = 'bold 60px Arial';
         ctx.fillText('🇸🇳', padding + 30, padding + 90);
+        
+        // Titre principal
         ctx.fillStyle = '#2a6d5d';
         ctx.font = 'bold 42px Inter, Arial, sans-serif';
         ctx.textAlign = 'left';
         wrapText(ctx, 'LE PROJET', padding + 120, padding + 70, boxWidth - 150, 50);
+        
+        // Sous-titre
         ctx.fillStyle = '#495057';
         ctx.font = '24px Inter, Arial, sans-serif';
         wrapText(ctx, 'Pour un Sénégal Souverain, Juste et Prospère', padding + 120, padding + 110, boxWidth - 150, 32);
+        
+        // Ligne de séparation
         ctx.strokeStyle = '#dee2e6';
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(padding + 30, padding + 155);
         ctx.lineTo(canvas.width - padding - 30, padding + 155);
         ctx.stroke();
+        
+        // Badge du domaine
         ctx.fillStyle = 'rgba(42, 109, 93, 0.15)';
         ctx.fillRect(padding + 30, padding + 175, 200, 35);
         ctx.fillStyle = '#2a6d5d';
         ctx.font = 'bold 16px Inter, Arial, sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText(promise.domaine.toUpperCase(), padding + 130, padding + 198);
+        
+        // Engagement (titre principal)
         ctx.fillStyle = '#212529';
         ctx.font = 'bold 36px Inter, Arial, sans-serif';
         ctx.textAlign = 'left';
         const engagementLines = wrapText(ctx, promise.engagement, padding + 30, padding + 240, boxWidth - 60, 48);
+        
+        // Résultat attendu
         const resultY = padding + 240 + (engagementLines * 48) + 20;
         ctx.fillStyle = 'rgba(42, 109, 93, 0.1)';
         ctx.fillRect(padding + 30, resultY, boxWidth - 60, 80);
+        
         ctx.fillStyle = '#2a6d5d';
         ctx.font = 'bold 18px Inter, Arial, sans-serif';
         ctx.fillText('🎯 RÉSULTAT ATTENDU', padding + 45, resultY + 25);
+        
         ctx.fillStyle = '#495057';
         ctx.font = '20px Inter, Arial, sans-serif';
         wrapText(ctx, promise.resultat, padding + 45, resultY + 55, boxWidth - 90, 28);
+        
+        // Statut badge
         const statusY = canvas.height - padding - 100;
-        let statusText = '', statusColor = '';
+        let statusText = '';
+        let statusColor = '';
+        
         switch(promise.status) {
-          case 'realise': statusText = '✅ RÉALISÉ'; statusColor = '#2a9d8f'; break;
-          case 'encours': statusText = '🔄 EN COURS'; statusColor = '#4a90e2'; break;
-          case 'non-lance': statusText = '⏳ NON LANCÉ'; statusColor = '#6c757d'; break;
+          case 'realise':
+            statusText = '✅ RÉALISÉ';
+            statusColor = '#2a9d8f';
+            break;
+          case 'encours':
+            statusText = '🔄 EN COURS';
+            statusColor = '#4a90e2';
+            break;
+          case 'non-lance':
+            statusText = '⏳ NON LANCÉ';
+            statusColor = '#6c757d';
+            break;
         }
+        
         ctx.fillStyle = statusColor;
         ctx.font = 'bold 22px Inter, Arial, sans-serif';
         ctx.fillText(statusText, padding + 30, statusY);
+        
+        // Délai
         ctx.fillStyle = '#495057';
         ctx.font = '20px Inter, Arial, sans-serif';
         ctx.fillText(`⏱️ Délai : ${promise.delai}`, padding + 30, statusY + 35);
+        
+        // Footer
         ctx.fillStyle = '#2a6d5d';
         ctx.font = 'bold 24px Inter, Arial, sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText('projetbi.org', canvas.width / 2, canvas.height - padding - 35);
+        
         ctx.fillStyle = '#495057';
         ctx.font = '18px Inter, Arial, sans-serif';
         ctx.fillText('#ProjetBI #Transparence #Sénégal', canvas.width / 2, canvas.height - padding - 10);
+        
         return canvas.toDataURL('image/png');
       } catch (error) {
         console.error('Erreur lors de la capture:', error);
         return null;
       }
     }
-
+    
+    // Fonction helper pour dessiner des rectangles arrondis
     function roundRect(ctx, x, y, width, height, radius) {
       ctx.beginPath();
       ctx.moveTo(x + radius, y);
@@ -721,15 +2442,18 @@
       ctx.quadraticCurveTo(x, y, x + radius, y);
       ctx.closePath();
     }
-
+    
+    // Fonction helper pour retour à la ligne automatique
     function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
       const words = text.split(' ');
       let line = '';
       let lineCount = 0;
+      
       for (let n = 0; n < words.length; n++) {
         const testLine = line + words[n] + ' ';
         const metrics = ctx.measureText(testLine);
         const testWidth = metrics.width;
+        
         if (testWidth > maxWidth && n > 0) {
           ctx.fillText(line, x, y);
           line = words[n] + ' ';
@@ -741,29 +2465,32 @@
       }
       ctx.fillText(line, x, y);
       lineCount++;
+      
       return lineCount;
     }
-
-    // ========== MODALE CAPTURE ==========
+    // ========== GESTION DE LA MODAL DE CAPTURE ==========
     function setupCaptureModal() {
       const captureModal = document.getElementById('captureModal');
       const closeCapture = document.getElementById('closeCapture');
       const downloadCapture = document.getElementById('downloadCapture');
       const shareCapture = document.getElementById('shareCapture');
       const captureImage = document.getElementById('captureImage');
-
+      
+      // Fermer la modal
       closeCapture.addEventListener('click', () => {
         captureModal.classList.remove('show');
         document.body.style.overflow = '';
       });
-
+      
+      // Fermer en cliquant en dehors
       captureModal.addEventListener('click', (e) => {
         if (e.target === captureModal) {
           captureModal.classList.remove('show');
           document.body.style.overflow = '';
         }
       });
-
+      
+      // Télécharger la capture
       downloadCapture.addEventListener('click', () => {
         if (CONFIG.currentCapture) {
           const link = document.createElement('a');
@@ -773,13 +2500,15 @@
           showNotification('Capture téléchargée avec succès!');
         }
       });
-
+      
+      // Partager la capture avec Web Share API
       shareCapture.addEventListener('click', async () => {
         if (CONFIG.currentCapture) {
           await shareImageWithWebShare(CONFIG.currentCapture, 'Promesse du Projet Sénégal');
         }
       });
-
+      
+      // Gestion des touches
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && captureModal.classList.contains('show')) {
           captureModal.classList.remove('show');
@@ -788,11 +2517,18 @@
       });
     }
 
+    // ========== FONCTION AMÉLIORÉE POUR PARTAGER DES IMAGES ==========
     async function shareImageWithWebShare(imageDataUrl, title = '') {
       try {
+        // Convertir Data URL en blob
         const response = await fetch(imageDataUrl);
         const blob = await response.blob();
-        const file = new File([blob], `promesse-senegal-${Date.now()}.png`, { type: 'image/png' });
+        
+        const file = new File([blob], `promesse-senegal-${Date.now()}.png`, {
+          type: 'image/png'
+        });
+        
+        // Vérifier si le navigateur supporte le partage de fichiers
         if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
           await navigator.share({
             files: [file],
@@ -802,6 +2538,7 @@
           });
           showNotification('Image partagée avec succès!');
         } else {
+          // Fallback: télécharger l'image
           const link = document.createElement('a');
           link.href = imageDataUrl;
           link.download = `promesse-${Date.now()}.png`;
@@ -810,6 +2547,8 @@
         }
       } catch (error) {
         console.error('Erreur de partage:', error);
+        
+        // Fallback ultime: ouvrir l'image dans un nouvel onglet
         if (imageDataUrl) {
           const newWindow = window.open();
           newWindow.document.write(`<img src="${imageDataUrl}" style="max-width:100%;">`);
@@ -817,13 +2556,17 @@
       }
     }
 
+    // ========== PARTAGE AVEC CAPTURE ET DEEP LINKING ==========
     async function shareWithCapture(promiseId, platform) {
       const promise = CONFIG.promises.find(p => p.id === promiseId);
       if (!promise) return;
+      
+      // Construction de l'URL spécifique avec Ancre
       const baseUrl = window.location.href.split('#')[0];
       const targetUrl = `${baseUrl}#${promise.id}`;
       const url = encodeURIComponent(targetUrl);
       const text = encodeURIComponent(`📊 "${promise.engagement.substring(0, 80)}..." - Suivi des engagements du Projet pour un Sénégal Souverain, Juste et Prospère`);
+      
       if (platform === 'screenshot') {
         showNotification('Préparation de la capture...');
         const captureDataUrl = await capturePromise(promiseId);
@@ -831,30 +2574,48 @@
           showNotification('Erreur lors de la capture');
           return;
         }
+        // Afficher la modal de capture
         CONFIG.currentCapture = captureDataUrl;
-        document.getElementById('captureImage').src = captureDataUrl;
-        document.getElementById('captureModal').classList.add('show');
+        const captureImage = document.getElementById('captureImage');
+        captureImage.src = captureDataUrl;
+        const captureModal = document.getElementById('captureModal');
+        captureModal.classList.add('show');
         document.body.style.overflow = 'hidden';
         showNotification('Capture générée!');
       } else {
+        // Pour les réseaux sociaux
         let shareUrl = '';
         switch(platform) {
-          case 'twitter': shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`; break;
-          case 'facebook': shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`; break;
-          case 'whatsapp': shareUrl = `https://wa.me/?text=${text}%20${url}`; break;
-          case 'linkedin': shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`; break;
+          case 'twitter':
+            shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+            break;
+          case 'facebook':
+            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+            break;
+          case 'whatsapp':
+            shareUrl = `https://wa.me/?text=${text}%20${url}`;
+            break;
+          case 'linkedin':
+            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
+            break;
         }
-        if (shareUrl) window.open(shareUrl, '_blank', 'noopener,noreferrer');
+        
+        if (shareUrl) {
+          window.open(shareUrl, '_blank', 'noopener,noreferrer');
+        }
       }
     }
 
-    // ========== EXPORT ==========
+    // ========== EXPORT CORRIGÉ POUR CARACTÈRES SPÉCIAUX ==========
     window.exportData = function(format) {
       const promises = CONFIG.promises;
       const date = new Date().toISOString().split('T')[0];
+      
       let content, mimeType, filename;
+      
       switch(format) {
         case 'csv':
+          // En-têtes avec UTF-8 BOM pour Excel
           const bom = '\uFEFF';
           const headers = ['Domaine', 'Engagement', 'Résultat attendu', 'Délai', 'Statut', 'En retard', 'Mises à jour', 'Date limite'];
           const rows = promises.map(p => [
@@ -867,11 +2628,14 @@
             p.mises_a_jour?.length || 0,
             p.deadline.toISOString().split('T')[0]
           ]);
+          
           content = bom + [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
           mimeType = 'text/csv;charset=utf-8;';
           filename = `promesses-projet-bi-${date}.csv`;
           break;
+          
         case 'excel':
+          // Format TSV avec BOM UTF-8
           const excelBom = '\uFEFF';
           const excelHeaders = ['ID', 'Domaine', 'Engagement', 'Résultat attendu', 'Délai', 'Statut', 'En retard', 'Mises à jour', 'Date limite', 'Dernière mise à jour'];
           const excelRows = promises.map(p => [
@@ -886,21 +2650,27 @@
             p.deadline.toISOString().split('T')[0],
             p.mises_a_jour?.[0]?.date || '-'
           ]);
+          
           content = excelBom + [excelHeaders.join('\t'), ...excelRows.map(row => row.join('\t'))].join('\n');
           mimeType = 'application/vnd.ms-excel;charset=utf-8;';
           filename = `promesses-projet-bi-${date}.xls`;
           break;
+          
         case 'json':
           content = JSON.stringify(promises, null, 2);
           mimeType = 'application/json;charset=utf-8;';
           filename = `promesses-projet-bi-${date}.json`;
           break;
+          
         case 'pdf':
           alert('Export PDF - À implémenter avec une librairie externe comme jsPDF');
           return;
+          
         default:
           return;
       }
+      
+      // Téléchargement
       const blob = new Blob([content], { type: mimeType });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -912,111 +2682,152 @@
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
       }, 100);
+      
       showNotification(`Données exportées en ${format.toUpperCase()} avec succès !`);
     };
 
-    // ========== STATISTIQUES ==========
-    function calculateAllStats() {
-      const promises = CONFIG.promises;
-      const total = promises.length;
-      const realise = promises.filter(p => p.status === 'realise').length;
-      const encours = promises.filter(p => p.status === 'encours').length;
-      const nonLance = promises.filter(p => p.status === 'non-lance').length;
-      const retard = promises.filter(p => p.isLate).length;
-      const realisePercentage = total > 0 ? ((realise / total) * 100).toFixed(1) : 0;
-      const encoursPercentage = total > 0 ? ((encours / total) * 100).toFixed(1) : 0;
-      const nonLancePercentage = total > 0 ? ((nonLance / total) * 100).toFixed(1) : 0;
-      const retardPercentage = total > 0 ? ((retard / total) * 100).toFixed(1) : 0;
-      let tauxRealisation = 0;
-      if (total > 0) {
-        const poidsRealise = realise * 100;
-        const poidsEncours = encours * 50;
-        const poidsNonLance = nonLance * 10;
-        tauxRealisation = ((poidsRealise + poidsEncours + poidsNonLance) / (total * 100) * 100).toFixed(1);
-      }
-      let moyenneNotes = 0;
-      let totalVotes = 0;
-      let totalNotes = 0;
-      let promessesNotees = 0;
-      promises.forEach(p => {
-        if (p.publicCount && p.publicCount > 0) {
-          totalVotes += p.publicCount;
-          totalNotes += p.publicAvg * p.publicCount;
-          promessesNotees++;
-        } else if (p.votes && p.votes.length > 0) {
-          totalVotes += p.votes.length;
-          totalNotes += p.votes.reduce((a, b) => a + b, 0);
-          promessesNotees++;
-        }
-      });
-      if (totalVotes > 0) {
-        moyenneNotes = (totalNotes / totalVotes).toFixed(1);
-      }
-      const avecMaj = promises.filter(p => p.mises_a_jour && p.mises_a_jour.length > 0).length;
-      const avecMajPercentage = total > 0 ? ((avecMaj / total) * 100).toFixed(1) : 0;
-      let delaiMoyenJours = 0;
-      let delaiMoyenText = '0j';
-      const promessesEnCours = promises.filter(p => p.status !== 'realise' && !p.isLate);
-      if (promessesEnCours.length > 0) {
-        const maintenant = CONFIG.CURRENT_DATE.getTime();
-        const totalJours = promessesEnCours.reduce((sum, p) => {
-          const diffJours = Math.max(0, Math.ceil((p.deadline - maintenant) / (1000 * 60 * 60 * 24)));
-          return sum + diffJours;
-        }, 0);
-        delaiMoyenJours = Math.round(totalJours / promessesEnCours.length);
-        delaiMoyenText = delaiMoyenJours > 365 ? `${Math.round(delaiMoyenJours/365)}a` :
-                         delaiMoyenJours > 30 ? `${Math.round(delaiMoyenJours/30)}m` :
-                         `${delaiMoyenJours}j`;
-      }
-      let domainePrincipal = '-';
-      let domaineCount = 0;
-      if (promises.length > 0) {
-        const domaines = {};
-        promises.forEach(p => { domaines[p.domaine] = (domaines[p.domaine] || 0) + 1; });
-        const entries = Object.entries(domaines);
-        if (entries.length > 0) {
-          const [domaine, count] = entries.reduce((a, b) => a[1] > b[1] ? a : b);
-          domainePrincipal = domaine.substring(0, 12) + (domaine.length > 12 ? '...' : '');
-          domaineCount = count;
-        }
-      }
-      let progressText = '';
-      if (tauxRealisation >= 80) progressText = 'Excellent';
-      else if (tauxRealisation >= 60) progressText = 'Bon';
-      else if (tauxRealisation >= 40) progressText = 'Moyen';
-      else if (tauxRealisation >= 20) progressText = 'Faible';
-      else progressText = 'Début';
-
-      document.getElementById('total').textContent = total;
-      document.getElementById('total-count').textContent = total;
-      document.getElementById('total-percentage').textContent = '100%';
-      document.getElementById('realise').textContent = realise;
-      document.getElementById('realise-percentage').textContent = `${realisePercentage}%`;
-      document.getElementById('encours').textContent = encours;
-      document.getElementById('encours-percentage').textContent = `${encoursPercentage}%`;
-      document.getElementById('non-lance').textContent = nonLance;
-      document.getElementById('non-lance-percentage').textContent = `${nonLancePercentage}%`;
-      document.getElementById('retard').textContent = retard;
-      document.getElementById('retard-percentage').textContent = `${retardPercentage}%`;
-      document.getElementById('taux-realisation').textContent = `${tauxRealisation}%`;
-      document.getElementById('progress-text').textContent = progressText;
-      document.getElementById('moyenne-notes').textContent = moyenneNotes;
-      document.getElementById('votes-total').textContent = promessesNotees > 0 ?
-        `${promessesNotees}/${total} promesses notées` :
-        'Aucun vote';
-      document.getElementById('avec-maj').textContent = avecMaj;
-      document.getElementById('avec-maj-percentage').textContent = `${avecMajPercentage}%`;
-      document.getElementById('delai-moyen').textContent = delaiMoyenText;
-      document.getElementById('jours-restants').textContent = promessesEnCours.length > 0 ? `${promessesEnCours.length} engagements` : 'Aucun';
-      document.getElementById('domaine-principal').textContent = domainePrincipal;
-      document.getElementById('domaine-count').textContent = `${domaineCount} engagements`;
+    // ========== CALCULS POUR LES 10 KPI ==========
+    // ========== CALCULS POUR LES 10 KPI ==========
+function calculateAllStats() {
+  const promises = CONFIG.promises;
+  const total = promises.length;
+  
+  // KPI de base
+  const realise = promises.filter(p => p.status === 'realise').length;
+  const encours = promises.filter(p => p.status === 'encours').length;
+  const nonLance = promises.filter(p => p.status === 'non-lance').length;
+  const retard = promises.filter(p => p.isLate).length;
+  
+  // Pourcentages
+  const realisePercentage = total > 0 ? ((realise / total) * 100).toFixed(1) : 0;
+  const encoursPercentage = total > 0 ? ((encours / total) * 100).toFixed(1) : 0;
+  const nonLancePercentage = total > 0 ? ((nonLance / total) * 100).toFixed(1) : 0;
+  const retardPercentage = total > 0 ? ((retard / total) * 100).toFixed(1) : 0;
+  
+  // KPI 6: Taux de réalisation (pondéré)
+  let tauxRealisation = 0;
+  if (total > 0) {
+    const poidsRealise = realise * 100;
+    const poidsEncours = encours * 50;
+    const poidsNonLance = nonLance * 10;
+    tauxRealisation = ((poidsRealise + poidsEncours + poidsNonLance) / (total * 100) * 100).toFixed(1);
+  }
+  
+  // ========== CALCUL DE LA MOYENNE DES NOTES BASÉ SUR SUPABASE ==========
+  // KPI 7: Moyenne des notes depuis Supabase
+  let moyenneNotes = 0;
+  let totalVotes = 0;
+  let totalNotes = 0;
+  let promessesNotees = 0;
+  
+  // Utiliser les données de Supabase (publicAvg et publicCount)
+  promises.forEach(p => {
+    if (p.publicCount && p.publicCount > 0) {
+      // Données provenant de Supabase via fetchAndDisplayPublicVotes()
+      totalVotes += p.publicCount;
+      totalNotes += p.publicAvg * p.publicCount;
+      promessesNotees++;
     }
-
-    // ========== FILTRES & AFFICHAGE ==========
+    // Fallback: utiliser les votes locaux si Supabase n'a pas de données
+    else if (p.votes && p.votes.length > 0) {
+      totalVotes += p.votes.length;
+      totalNotes += p.votes.reduce((a, b) => a + b, 0);
+      promessesNotees++;
+    }
+  });
+  
+  // Calcul de la moyenne (moyenne globale de tous les votes)
+  if (totalVotes > 0) {
+    moyenneNotes = (totalNotes / totalVotes).toFixed(1);
+  }
+  
+  // ========== FIN DU CALCUL ==========
+  
+  // KPI 8: Engagements avec mises à jour
+  const avecMaj = promises.filter(p => p.mises_a_jour && p.mises_a_jour.length > 0).length;
+  const avecMajPercentage = total > 0 ? ((avecMaj / total) * 100).toFixed(1) : 0;
+  
+  // KPI 9: Délai moyen restant
+  let delaiMoyenJours = 0;
+  let delaiMoyenText = '0j';
+  const promessesEnCours = promises.filter(p => p.status !== 'realise' && !p.isLate);
+  if (promessesEnCours.length > 0) {
+    const maintenant = CONFIG.CURRENT_DATE.getTime();
+    const totalJours = promessesEnCours.reduce((sum, p) => {
+      const diffJours = Math.max(0, Math.ceil((p.deadline - maintenant) / (1000 * 60 * 60 * 24)));
+      return sum + diffJours;
+    }, 0);
+    delaiMoyenJours = Math.round(totalJours / promessesEnCours.length);
+    delaiMoyenText = delaiMoyenJours > 365 ? `${Math.round(delaiMoyenJours/365)}a` : 
+                    delaiMoyenJours > 30 ? `${Math.round(delaiMoyenJours/30)}m` : 
+                    `${delaiMoyenJours}j`;
+  }
+  
+  // KPI 10: Domaine principal
+  let domainePrincipal = '-';
+  let domaineCount = 0;
+  if (promises.length > 0) {
+    const domaines = {};
+    promises.forEach(p => {
+      domaines[p.domaine] = (domaines[p.domaine] || 0) + 1;
+    });
+    const entries = Object.entries(domaines);
+    if (entries.length > 0) {
+      const [domaine, count] = entries.reduce((a, b) => a[1] > b[1] ? a : b);
+      domainePrincipal = domaine.substring(0, 12) + (domaine.length > 12 ? '...' : '');
+      domaineCount = count;
+    }
+  }
+  
+  // Texte de progression pour le taux
+  let progressText = '';
+  if (tauxRealisation >= 80) progressText = 'Excellent';
+  else if (tauxRealisation >= 60) progressText = 'Bon';
+  else if (tauxRealisation >= 40) progressText = 'Moyen';
+  else if (tauxRealisation >= 20) progressText = 'Faible';
+  else progressText = 'Début';
+  
+  // Mise à jour des KPI
+  document.getElementById('total').textContent = total;
+  document.getElementById('total-count').textContent = total;
+  document.getElementById('total-percentage').textContent = '100%';
+  
+  document.getElementById('realise').textContent = realise;
+  document.getElementById('realise-percentage').textContent = `${realisePercentage}%`;
+  
+  document.getElementById('encours').textContent = encours;
+  document.getElementById('encours-percentage').textContent = `${encoursPercentage}%`;
+  
+  document.getElementById('non-lance').textContent = nonLance;
+  document.getElementById('non-lance-percentage').textContent = `${nonLancePercentage}%`;
+  
+  document.getElementById('retard').textContent = retard;
+  document.getElementById('retard-percentage').textContent = `${retardPercentage}%`;
+  
+  document.getElementById('taux-realisation').textContent = `${tauxRealisation}%`;
+  document.getElementById('progress-text').textContent = progressText;
+  
+  document.getElementById('moyenne-notes').textContent = moyenneNotes;
+  document.getElementById('votes-total').textContent = promessesNotees > 0 ? 
+    `${promessesNotees}/${total} promesses notées` : 
+    'Aucun vote';
+  
+  document.getElementById('avec-maj').textContent = avecMaj;
+  document.getElementById('avec-maj-percentage').textContent = `${avecMajPercentage}%`;
+  
+  document.getElementById('delai-moyen').textContent = delaiMoyenText;
+  document.getElementById('jours-restants').textContent = promessesEnCours.length > 0 ? `${promessesEnCours.length} engagements` : 'Aucun';
+  
+  document.getElementById('domaine-principal').textContent = domainePrincipal;
+  document.getElementById('domaine-count').textContent = `${domaineCount} engagements`;
+}
+    // ========== RENDU DES FILTRES ==========
     function renderFilters() {
       const domainFilter = document.getElementById('domaine');
       const domains = [...new Set(CONFIG.promises.map(p => p.domaine))].sort();
+      
       domainFilter.innerHTML = '<option value="">Tous les secteurs</option>';
+      
       domains.forEach(domain => {
         const option = document.createElement('option');
         option.value = domain;
@@ -1025,30 +2836,36 @@
       });
     }
 
+    // ========== BOUTONS DE PARTAGE AVEC CAPTURE ==========
     function createShareButtons(promise) {
       return `
         <div class="share-section">
           <button class="screenshot-btn" onclick="shareWithCapture('${promise.id}', 'screenshot')" title="Capturer et partager">
             <i class="fas fa-camera"></i>
           </button>
-          <a href="#" onclick="shareWithCapture('${promise.id}', 'twitter'); return false;"
-             class="share-btn share-twitter" title="Partager sur X">
+          <a href="#" onclick="shareWithCapture('${promise.id}', 'twitter'); return false;" 
+             class="share-btn share-twitter" 
+             title="Partager sur X">
             <i class="fab fa-x-twitter"></i>
           </a>
-          <a href="#" onclick="shareWithCapture('${promise.id}', 'facebook'); return false;"
-             class="share-btn share-facebook" title="Partager sur Facebook">
+          <a href="#" onclick="shareWithCapture('${promise.id}', 'facebook'); return false;" 
+             class="share-btn share-facebook" 
+             title="Partager sur Facebook">
             <i class="fab fa-facebook-f"></i>
           </a>
-          <a href="#" onclick="shareWithCapture('${promise.id}', 'whatsapp'); return false;"
-             class="share-btn share-whatsapp" title="Partager sur WhatsApp">
+          <a href="#" onclick="shareWithCapture('${promise.id}', 'whatsapp'); return false;" 
+             class="share-btn share-whatsapp" 
+             title="Partager sur WhatsApp">
             <i class="fab fa-whatsapp"></i>
           </a>
         </div>
       `;
     }
 
+    // ========== RENDU DES PROMESSES ==========
     function renderPromises(promises) {
       const container = document.getElementById('promises-container');
+      
       if (promises.length === 0) {
         container.innerHTML = `
           <div class="no-results" style="text-align:center; padding:2rem; color:#666; grid-column:1/-1;">
@@ -1059,15 +2876,30 @@
         `;
         return;
       }
+      
       container.innerHTML = promises.map(promise => {
         const isLate = checkIfLate(promise.status, promise.deadline);
         let statusClass, statusText;
+        
         switch(promise.status) {
-          case 'realise': statusClass = 'status-realise'; statusText = '✅ Réalisé'; break;
-          case 'encours': statusClass = 'status-encours'; statusText = '🔄 En Cours'; break;
-          case 'non-lance': statusClass = 'status-nonlance'; statusText = '⏳ Non lancé'; break;
-          default: statusClass = 'status-encours'; statusText = '🔄 En Cours';
+          case 'realise':
+            statusClass = 'status-realise';
+            statusText = '✅ Réalisé';
+            break;
+          case 'encours':
+            statusClass = 'status-encours';
+            statusText = '🔄 En Cours';
+            break;
+          case 'non-lance':
+            statusClass = 'status-nonlance';
+            statusText = '⏳ Non lancé';
+            break;
+          default:
+            statusClass = 'status-encours';
+            statusText = '🔄 En Cours';
         }
+        
+        // Badge de délai
         let delayBadge = '';
         if (promise.status === 'realise') {
           delayBadge = '<span class="delay-badge delay-success"><i class="fas fa-check-circle"></i> Terminé</span>';
@@ -1076,6 +2908,8 @@
         } else {
           delayBadge = '<span class="delay-badge" style="background:#e3f2fd; color:#3d5a80; padding:0.3rem 0.6rem; border-radius:6px;"><i class="fas fa-hourglass-half"></i> Dans les délais</span>';
         }
+        
+        // Mises à jour
         let updatesHTML = '';
         if (promise.mises_a_jour && promise.mises_a_jour.length > 0) {
           const updates = promise.mises_a_jour.map(update => `
@@ -1084,6 +2918,7 @@
               <span class="update-text">${update.text}</span>
             </div>
           `).join('');
+          
           updatesHTML = `
             <button class="details-btn" onclick="toggleUpdates('${promise.id}')" aria-expanded="false">
               <i class="fas fa-history"></i> Voir les mises à jour (${promise.mises_a_jour.length})
@@ -1093,15 +2928,20 @@
             </div>
           `;
         }
+        
+        // Partager cette promesse avec capture
         const shareButtons = createShareButtons(promise);
+        
         return `
           <div class="promise-card" id="${promise.id}">
             <span class="domain-badge">${promise.domaine}</span>
             <h3 class="promise-title">${promise.engagement}</h3>
+            
             <div class="result-box">
-              <i class="fas fa-bullseye"></i>
+              <i class="fas fa-bullseye"></i> 
               <strong>Résultat attendu :</strong> ${promise.resultat}
             </div>
+            
             <div class="promise-meta">
               <div class="meta-row">
                 <span><i class="fas fa-clock"></i> Délai : <strong>${promise.delai}</strong></span>
@@ -1112,7 +2952,9 @@
                 <span class="status-badge ${statusClass}">${statusText}</span>
               </div>
             </div>
+            
             ${updatesHTML}
+            
             <div class="rating-section">
               <div class="stars">
                 <i class="far fa-star" data-value="1" onclick="ratePromise('${promise.id}', 1)" role="button" tabindex="0" aria-label="Noter 1 étoile"></i>
@@ -1125,15 +2967,18 @@
                 Noter cet engagement
               </span>
             </div>
+            
             ${shareButtons}
           </div>
         `;
       }).join('');
     }
 
+    // ========== GESTION DES MISES À JOUR ==========
     window.toggleUpdates = function(promiseId) {
       const updatesEl = document.getElementById(`updates-${promiseId}`);
       const btn = updatesEl.previousElementSibling;
+      
       if (updatesEl.classList.contains('show')) {
         updatesEl.classList.remove('show');
         btn.innerHTML = '<i class="fas fa-history"></i> Voir les mises à jour';
@@ -1145,62 +2990,85 @@
       }
     };
 
-    // ========== VOTES ==========
+    // ========== NOTATION ==========
+    // ========== NOUVELLE LOGIQUE DE VOTE SUPABASE ==========
+
+    // 1. Fonction pour envoyer un vote
     window.ratePromise = async function(promiseId, rating) {
-      try {
-        const { error } = await supabaseClient
-          .from('votes')
-          .insert([{ promise_id: promiseId, rating: rating }]);
-        if (error) throw error;
-        showNotification(`Merci ! Vote de ${rating}/5 enregistré.`);
-        fetchAndDisplayPublicVotes();
-      } catch (error) {
-        console.error("Erreur vote:", error);
-        const promise = CONFIG.promises.find(p => p.id === promiseId);
-        if (promise) {
-          if (!promise.votes) promise.votes = [];
-          promise.votes.push(rating);
-          calculateAllStats();
-          showNotification(`Merci ! Vote de ${rating}/5 enregistré localement.`);
+        try {
+            // Envoi à Supabase
+            const { error } = await supabaseClient
+                .from('votes')
+                .insert([{ promise_id: promiseId, rating: rating }]);
+
+            if (error) throw error;
+
+            // Message de succès
+            showNotification(`Merci ! Vote de ${rating}/5 enregistré.`);
+            
+            // Rafraîchir les données localement
+            fetchAndDisplayPublicVotes();
+        } catch (error) {
+            console.error("Erreur vote:", error);
+            // Fallback: stockage local si Supabase échoue
+            const promise = CONFIG.promises.find(p => p.id === promiseId);
+            if (promise) {
+              if (!promise.votes) promise.votes = [];
+              promise.votes.push(rating);
+              calculateAllStats();
+              showNotification(`Merci ! Vote de ${rating}/5 enregistré localement.`);
+            }
         }
-      }
     };
 
+    // 2. Fonction pour récupérer les moyennes de tout le monde
     async function fetchAndDisplayPublicVotes() {
-      try {
-        const { data: votes, error } = await supabaseClient
-          .from('votes')
-          .select('promise_id, rating');
-        if (error) throw error;
-        const stats = {};
-        votes.forEach(v => {
-          if (!stats[v.promise_id]) stats[v.promise_id] = { sum: 0, count: 0 };
-          stats[v.promise_id].sum += v.rating;
-          stats[v.promise_id].count += 1;
-        });
-        Object.keys(stats).forEach(id => {
-          const avg = (stats[id].sum / stats[id].count).toFixed(1);
-          const label = document.getElementById(`rating-label-${id}`);
-          if (label) {
-            label.innerText = `Note : ${avg}/5 (${stats[id].count} votes)`;
-          }
-        });
-      } catch (error) {
-        console.error("Erreur chargement scores:", error);
-      }
+        try {
+            // On récupère tous les votes
+            const { data: votes, error } = await supabaseClient
+                .from('votes')
+                .select('promise_id, rating');
+
+            if (error) throw error;
+
+            // On calcule les moyennes par promesse
+            const stats = {};
+            votes.forEach(v => {
+                if (!stats[v.promise_id]) stats[v.promise_id] = { sum: 0, count: 0 };
+                stats[v.promise_id].sum += v.rating;
+                stats[v.promise_id].count += 1;
+            });
+
+            // On met à jour l'affichage
+            Object.keys(stats).forEach(id => {
+                const avg = (stats[id].sum / stats[id].count).toFixed(1);
+                const label = document.getElementById(`rating-label-${id}`);
+                if (label) {
+                    label.innerText = `Note : ${avg}/5 (${stats[id].count} votes)`;
+                }
+            });
+        } catch (error) {
+            console.error("Erreur chargement scores:", error);
+        }
     }
 
-    // ========== FILTRAGE ==========
+    // ========== FILTRAGE AMÉLIORÉ ==========
     function setupEventListeners() {
       document.getElementById('search').addEventListener('input', updateDisplay);
       document.getElementById('domaine').addEventListener('change', updateDisplay);
       document.getElementById('status').addEventListener('change', updateDisplay);
       document.getElementById('sort').addEventListener('change', updateDisplay);
+      
+      // Filtres rapides
       document.querySelectorAll('.quick-filter-btn').forEach(btn => {
         btn.addEventListener('click', function() {
           if (this.dataset.filter === 'reset') return;
+          
+          // Mettre à jour l'état actif
           document.querySelectorAll('.quick-filter-btn').forEach(b => b.classList.remove('active'));
           this.classList.add('active');
+          
+          // Appliquer le filtre
           applyQuickFilter(this.dataset.filter);
         });
       });
@@ -1218,6 +3086,7 @@
           document.getElementById('status').value = 'en-retard';
           break;
         case 'maj':
+          // Filtre spécial pour les engagements avec mises à jour
           const filtered = CONFIG.promises.filter(p => p.mises_a_jour && p.mises_a_jour.length > 0);
           renderPromises(filtered);
           return;
@@ -1230,7 +3099,9 @@
       document.getElementById('domaine').value = '';
       document.getElementById('status').value = '';
       document.getElementById('sort').value = '';
+      
       document.querySelectorAll('.quick-filter-btn').forEach(b => b.classList.remove('active'));
+      
       renderPromises(CONFIG.promises);
       calculateAllStats();
       showNotification('Filtres réinitialisés');
@@ -1241,11 +3112,13 @@
       const domaine = document.getElementById('domaine').value;
       const status = document.getElementById('status').value;
       const sort = document.getElementById('sort').value;
+      
       let filtered = CONFIG.promises.filter(p => {
-        const matchSearch = p.engagement.toLowerCase().includes(search) ||
-                            p.resultat.toLowerCase().includes(search) ||
-                            p.domaine.toLowerCase().includes(search);
+        const matchSearch = p.engagement.toLowerCase().includes(search) || 
+                           p.resultat.toLowerCase().includes(search) ||
+                           p.domaine.toLowerCase().includes(search);
         const matchDomaine = !domaine || p.domaine === domaine;
+        
         let matchStatus = true;
         if (status === 'realise') {
           matchStatus = p.status === 'realise';
@@ -1256,8 +3129,11 @@
         } else if (status === 'non-lance') {
           matchStatus = p.status === 'non-lance';
         }
+        
         return matchSearch && matchDomaine && matchStatus;
       });
+      
+      // Tri
       if (sort === 'recent') {
         filtered.sort((a, b) => b.deadline - a.deadline);
       } else if (sort === 'ancien') {
@@ -1275,17 +3151,21 @@
           return 0;
         });
       }
+      
       calculateAllStats();
       renderPromises(filtered);
     }
 
-    // ========== NAVIGATION & PARTAGE ==========
+    // ========== GESTION DES LIENS PROFONDS (Deep Linking) ==========
     function checkDeepLink() {
       const hash = window.location.hash;
       if (hash && hash.length > 1) {
+        // Enlever le # du début
         const id = hash.substring(1);
         const element = document.getElementById(id);
+        
         if (element) {
+          // Attendre un peu que le rendu soit stable
           setTimeout(() => {
             element.scrollIntoView({ behavior: 'smooth', block: 'center' });
             element.classList.add('highlight-effect');
@@ -1294,110 +3174,87 @@
       }
     }
 
+    // ========== PARTAGE DU DASHBOARD ==========
     function setupShareButtons() {
-      const currentUrl = 'https://projetbi.org/#header';
+      const currentUrl = 'https://projetbi.org/#header'; // On garde l'URL propre pour le dashboard global
       const shareText = encodeURIComponent('🇸🇳 Suivi transparent des engagements du Projet pour un Sénégal Souverain, Juste et Prospère - Tableau de bord citoyen');
-      document.getElementById('share-twitter-dash').href =
+      
+      document.getElementById('share-twitter-dash').href = 
         `https://twitter.com/intent/tweet?text=${shareText}&url=${encodeURIComponent(currentUrl)}`;
-      document.getElementById('share-facebook-dash').href =
+      
+      document.getElementById('share-facebook-dash').href = 
         `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
-      document.getElementById('share-whatsapp-dash').href =
+      
+      document.getElementById('share-whatsapp-dash').href = 
         `https://wa.me/?text=${shareText}%20${encodeURIComponent(currentUrl)}`;
-      document.getElementById('share-linkedin-dash').href =
+      
+      document.getElementById('share-linkedin-dash').href = 
         `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
     }
 
+    // ========== NOTIFICATION ==========
     function showNotification(message) {
       const notification = document.createElement('div');
       notification.className = 'notification';
-      notification.innerHTML = `<i class="fas fa-check-circle"></i> <span>${message}</span>`;
+      notification.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        <span>${message}</span>
+      `;
+      
       document.body.appendChild(notification);
+      
       setTimeout(() => {
         notification.style.animation = 'slideOut 0.3s ease';
         setTimeout(() => notification.remove(), 300);
       }, 3000);
     }
 
-    // ========== CONTACT ==========
-    function setupContactLinks() {
-      const emailItems = document.querySelectorAll('.contact-item:nth-child(1)');
-      emailItems.forEach(item => {
-        item.addEventListener('click', () => window.location.href = 'mailto:pastefprojetbi@gmail.com');
-        item.style.cursor = 'pointer';
-        item.setAttribute('title', 'Envoyer un email');
-      });
-      const phoneItems = document.querySelectorAll('.contact-item:nth-child(2)');
-      phoneItems.forEach(item => {
-        item.addEventListener('click', () => window.location.href = 'tel:+221769455253');
-        item.style.cursor = 'pointer';
-        item.setAttribute('title', 'Appeler');
-      });
-      const locationItems = document.querySelectorAll('.contact-item:nth-child(3)');
-      locationItems.forEach(item => {
-        item.addEventListener('click', () => window.open('https://maps.google.com/?q=Dakar,Senegal', '_blank'));
-        item.style.cursor = 'pointer';
-        item.setAttribute('title', 'Voir sur la carte');
-      });
-    }
-
-    function setupContactModal() {
-      const contactModal = document.getElementById('contactModal');
-      const closeContactModal = document.getElementById('closeContactModal');
-      const contactForm = document.getElementById('contactForm');
-
-      closeContactModal.addEventListener('click', () => {
-        contactModal.classList.remove('show');
-        document.body.style.overflow = '';
-      });
-
-      contactModal.addEventListener('click', (e) => {
-        if (e.target === contactModal) {
-          contactModal.classList.remove('show');
-          document.body.style.overflow = '';
-        }
-      });
-
-      if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-          e.preventDefault();
-          const name = document.getElementById('contactName').value;
-          const email = document.getElementById('contactEmail').value;
-          const subject = document.getElementById('contactSubject').value;
-          const message = document.getElementById('contactMessage').value;
-          const mailtoLink = `mailto:pastefprojetbi@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Nom: ${name}\nEmail: ${email}\nMessage:\n${message}`)}`;
-          window.location.href = mailtoLink;
-          showNotification('Formulaire soumis avec succès !');
-          contactForm.reset();
-          contactModal.classList.remove('show');
-          document.body.style.overflow = '';
-        });
-      }
+    // ========== FONCTION SETUP NAVIGATION ==========
+    function setupNavigation() {
+      // Cette fonction est déjà implémentée dans le gestionnaire d'événements DOMContentLoaded
+      console.log('Navigation configurée');
+      checkDeepLink();
     }
 
     // ========== INITIALISATION ==========
     async function init() {
       try {
         console.log("Tentative de chargement des données depuis:", CONFIG.DATA_URL);
+        
+        // Essayer de charger depuis Supabase Storage
         const response = await fetch(CONFIG.DATA_URL, {
           method: 'GET',
-          headers: { 'Accept': 'application/json', 'Cache-Control': 'no-cache' }
+          headers: {
+            'Accept': 'application/json',
+            'Cache-Control': 'no-cache'
+          }
         });
+        
         if (!response.ok) {
           console.warn("Impossible de charger depuis Supabase, utilisation des données de démo");
+          // Utiliser les données de démo
           const data = DEMO_DATA;
           CONFIG.START_DATE = new Date(data.start_date);
           CONFIG.promises = data.promises.map(p => {
             const deadline = calculateDeadline(p.delai);
-            return { ...p, deadline: deadline, isLate: checkIfLate(p.status, deadline) };
+            return {
+              ...p,
+              deadline: deadline,
+              isLate: checkIfLate(p.status, deadline)
+            };
           });
         } else {
+          // Charger les données réelles
           const data = await response.json();
           CONFIG.START_DATE = new Date(data.start_date);
+          
+          // Récupération des votes sur Supabase
           let publicVotesStats = {};
           try {
             const { data: votes, error } = await supabaseClient
               .from('votes')
               .select('promise_id, rating');
+            
             if (!error && votes) {
               votes.forEach(v => {
                 if (!publicVotesStats[v.promise_id]) publicVotesStats[v.promise_id] = { sum: 0, count: 0 };
@@ -1408,10 +3265,13 @@
           } catch (e) {
             console.warn("Impossible de charger les votes:", e);
           }
+
+          // Traitement des promesses
           CONFIG.promises = data.promises.map(p => {
             const deadline = calculateDeadline(p.delai);
             const stats = publicVotesStats[p.id] || { sum: 0, count: 0 };
             const avg = stats.count > 0 ? (stats.sum / stats.count).toFixed(1) : 0;
+
             return {
               ...p,
               deadline: deadline,
@@ -1421,43 +3281,178 @@
             };
           });
         }
+        
+        // Rendu de l'interface
         updateCurrentDate();
         calculateAllStats();
         renderFilters();
         renderPromises(CONFIG.promises);
         setupEventListeners();
         setupShareButtons();
-        checkDeepLink();
+        setupNavigation();
         setupCaptureModal();
         setupContactLinks();
         setupContactModal();
+        // Charger les votes publics
         fetchAndDisplayPublicVotes();
+        
         if ('ontouchstart' in window || navigator.maxTouchPoints) {
           document.body.classList.add('touch-device');
         }
+        
         console.log("✅ Initialisation terminée avec", CONFIG.promises.length, "promesses");
+        await fetchAndDisplayPublicVotes();
       } catch (error) {
         console.error('Erreur majeure:', error);
+        // En cas d'erreur totale, utiliser les données de démo
         const data = DEMO_DATA;
         CONFIG.START_DATE = new Date(data.start_date);
         CONFIG.promises = data.promises.map(p => {
           const deadline = calculateDeadline(p.delai);
-          return { ...p, deadline: deadline, isLate: checkIfLate(p.status, deadline) };
+          return {
+            ...p,
+            deadline: deadline,
+            isLate: checkIfLate(p.status, deadline)
+          };
         });
+        
+        // Rendu avec données de démo
         updateCurrentDate();
         calculateAllStats();
         renderFilters();
         renderPromises(CONFIG.promises);
         setupEventListeners();
         setupShareButtons();
-        checkDeepLink();
+        setupNavigation();
         setupCaptureModal();
+        
         showNotification("Mode démo activé - Données locales");
       }
     }
 
+    // ========== DÉMARRER ==========
     document.addEventListener('DOMContentLoaded', init);
-    document.addEventListener('touchstart', () => {}, { passive: true });
+    
+    // Gestion des événements tactiles pour améliorer l'expérience mobile
+    document.addEventListener('touchstart', function() {}, {passive: true});
+    // ========== FONCTION POUR RENDRE LES CONTACTS CLIQUABLES ==========
+function setupContactLinks() {
+  // Email cliquable
+  const emailItems = document.querySelectorAll('.contact-item:nth-child(1)');
+  emailItems.forEach(item => {
+    item.addEventListener('click', function() {
+      window.location.href = 'mailto:pastefprojetbi@gmail.com';
+    });
+    item.style.cursor = 'pointer';
+    item.setAttribute('title', 'Envoyer un email');
+  });
+  
+  // Téléphone cliquable
+  const phoneItems = document.querySelectorAll('.contact-item:nth-child(2)');
+  phoneItems.forEach(item => {
+    item.addEventListener('click', function() {
+      window.location.href = 'tel:+221769455253';
+    });
+    item.style.cursor = 'pointer';
+    item.setAttribute('title', 'Appeler');
+  });
+  
+  // Localisation cliquable (ouvre Google Maps)
+  const locationItems = document.querySelectorAll('.contact-item:nth-child(3)');
+  locationItems.forEach(item => {
+    item.addEventListener('click', function() {
+      window.open('https://maps.google.com/?q=Dakar,Senegal', '_blank');
+    });
+    item.style.cursor = 'pointer';
+    item.setAttribute('title', 'Voir sur la carte');
+  });
+}
+    // Fonction pour gérer la modale de contact
+function setupContactModal() {
+  const contactModal = document.getElementById('contactModal');
+  const closeContactModal = document.getElementById('closeContactModal');
+  const contactForm = document.getElementById('contactForm');
+  
+  // Ouvrir la modale (vous pouvez lier ça à un bouton)
+  // document.getElementById('openContactModal').addEventListener('click', () => {
+  //   contactModal.classList.add('show');
+  //   document.body.style.overflow = 'hidden';
+  // });
+  
+  // Fermer la modale
+  closeContactModal.addEventListener('click', () => {
+    contactModal.classList.remove('show');
+    document.body.style.overflow = '';
+  });
+  
+  // Fermer en cliquant en dehors
+  contactModal.addEventListener('click', (e) => {
+    if (e.target === contactModal) {
+      contactModal.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+  });
+  
+  // Gérer la soumission du formulaire
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('contactName').value;
+      const email = document.getElementById('contactEmail').value;
+      const subject = document.getElementById('contactSubject').value;
+      const message = document.getElementById('contactMessage').value;
+      
+      // Ici, vous pouvez envoyer le formulaire à votre backend
+      // Pour l'instant, on simule l'envoi
+      const mailtoLink = `mailto:pastefprojetbi@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+      window.location.href = mailtoLink;
+      
+      showNotification('Formulaire soumis avec succès !');
+      contactForm.reset();
+      contactModal.classList.remove('show');
+      document.body.style.overflow = '';
+    });
+  }
+}
+
+// N'oubliez pas d'appeler setupContactModal() dans init()
   </script>
+  <!-- Ajoutez cette modale avant la fermeture du body -->
+<div class="contact-modal" id="contactModal">
+  <div class="contact-modal-content">
+    <button class="close-contact-modal" id="closeContactModal">
+      <i class="fas fa-times"></i>
+    </button>
+    
+    <h3><i class="fas fa-envelope"></i> Contactez-nous</h3>
+    
+    <form id="contactForm">
+      <div class="form-group">
+        <label for="contactName">Votre nom</label>
+        <input type="text" id="contactName" placeholder="Votre nom complet" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="contactEmail">Votre email</label>
+        <input type="email" id="contactEmail" placeholder="votre@email.com" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="contactSubject">Sujet</label>
+        <input type="text" id="contactSubject" placeholder="Sujet de votre message" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="contactMessage">Message</label>
+        <textarea id="contactMessage" rows="5" placeholder="Votre message..." required></textarea>
+      </div>
+      
+      <button type="submit" class="submit-contact-btn">
+        <i class="fas fa-paper-plane"></i> Envoyer le message
+      </button>
+    </form>
+  </div>
+</div>
 </body>
 </html>
