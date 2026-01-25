@@ -757,9 +757,8 @@
       "resultat": "Baisse coût électricité",
       "delai": "Court terme",
       "status": "encours",
-      "mises_a_jour": [ "date": "06/08/2025",
-          "text": "Le Gazoduc de 85 KM du Segment Nord, reliant le Hub de GTA à la Centrale électrique de Gandon de 250 MW lancé officiellement en août 2025 par le Réseau Gazier du Sénégal.
-."]
+      "mises_a_jour": [{ "date": "06/08/2025",
+          "text": "Le Gazoduc de 85 KM du Segment Nord, reliant le Hub de GTA à la Centrale électrique de Gandon de 250 MW lancé officiellement en août 2025 par le Réseau Gazier du Sénégal."}]
     },
     {
       "id": "promise_78",
