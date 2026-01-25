@@ -2258,65 +2258,145 @@ window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
       ]
     };
 
-    // ========== CAPTURE D'ÉCRAN POUR LE PARTAGE ==========
+   // ========== CAPTURE D'ÉCRAN AMÉLIORÉE POUR LE PARTAGE ==========
     async function capturePromise(promiseId) {
-      const promiseElement = document.getElementById(promiseId);
-      if (!promiseElement) return null;
+      const promise = CONFIG.promises.find(p => p.id === promiseId);
+      if (!promise) return null;
       
       try {
-        // Créer un clone de l'élément pour la capture
-        const clone = promiseElement.cloneNode(true);
-        clone.style.position = 'fixed';
-        clone.style.top = '-9999px';
-        clone.style.left = '-9999px';
-        clone.style.width = '400px';
-        clone.style.maxWidth = '90vw';
-        clone.style.margin = '0 auto';
-        clone.style.boxShadow = '0 10px 40px rgba(0,0,0,0.2)';
-        clone.style.transform = 'scale(1)';
-        clone.id = 'temp-capture-element';
+        // Créer un canvas personnalisé au lieu de cloner l'élément
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
         
-        // Ajouter un en-tête personnalisé pour la capture
-        const header = document.createElement('div');
-        header.innerHTML = `
-          <div style="background: linear-gradient(135deg, #2a6d5d, #3a9d84); color: white; padding: 1rem; border-radius: 12px 12px 0 0; text-align: center;">
-            <h3 style="margin: 0; font-size: 1.2rem; font-weight: 700;">PROJET POUR UN SÉNÉGAL SOUVERAIN, JUSTE ET PROSPÈRE</h3>
-            <p style="margin: 0.5rem 0 0; font-size: 0.9rem; opacity: 0.9;">Suivi des engagements - ${new Date().toLocaleDateString('fr-FR')}</p>
-          </div>
-        `;
-        clone.insertBefore(header, clone.firstChild);
+        // Dimensions optimales pour les réseaux sociaux
+        canvas.width = 1200;
+        canvas.height = 630;
         
-        // Ajouter un pied de page
-        const footer = document.createElement('div');
-        footer.innerHTML = `
-          <div style="background: #f8f9fa; padding: 1rem; text-align: center; border-top: 1px solid #dee2e6; border-radius: 0 0 12px 12px; color: #495057; font-size: 0.8rem;">
-            <p style="margin: 0;">Suivez tous les engagements sur: ${window.location.hostname}</p>
-            <p style="margin: 0.3rem 0 0; font-weight: 600;">#ProjetBI #Transparence #Sénégal</p>
-          </div>
-        `;
-        clone.appendChild(footer);
+        // Fond dégradé
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        gradient.addColorStop(0, '#2a6d5d');
+        gradient.addColorStop(1, '#3a9d84');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        document.body.appendChild(clone);
+        // Motifs décoratifs (cercles)
+        ctx.globalAlpha = 0.1;
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(200, 150, 180, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(1000, 500, 220, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalAlpha = 1;
         
-        // Capturer avec html2canvas
-        const canvas = await html2canvas(clone, {
-          scale: 2,
-          backgroundColor: '#ffffff',
-          useCORS: true,
-          allowTaint: true,
-          logging: false,
-          onclone: (clonedDoc) => {
-            const tempElement = clonedDoc.getElementById('temp-capture-element');
-            if (tempElement) {
-              tempElement.style.boxShadow = '0 10px 40px rgba(0,0,0,0.2)';
-              tempElement.style.borderRadius = '12px';
-              tempElement.style.overflow = 'hidden';
-            }
-          }
-        });
+        // Container blanc central
+        const padding = 50;
+        const boxWidth = canvas.width - (padding * 2);
+        const boxHeight = canvas.height - (padding * 2);
         
-        // Nettoyer
-        document.body.removeChild(clone);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.98)';
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+        ctx.shadowBlur = 30;
+        ctx.shadowOffsetY = 15;
+        roundRect(ctx, padding, padding, boxWidth, boxHeight, 20);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetY = 0;
+        
+        // Barre de couleur en haut
+        ctx.fillStyle = '#2a6d5d';
+        roundRect(ctx, padding, padding, boxWidth, 10, 20);
+        ctx.fill();
+        
+        // Logo drapeau
+        ctx.font = 'bold 60px Arial';
+        ctx.fillText('🇸🇳', padding + 30, padding + 90);
+        
+        // Titre principal
+        ctx.fillStyle = '#2a6d5d';
+        ctx.font = 'bold 42px Inter, Arial, sans-serif';
+        ctx.textAlign = 'left';
+        wrapText(ctx, 'LE PROJET', padding + 120, padding + 70, boxWidth - 150, 50);
+        
+        // Sous-titre
+        ctx.fillStyle = '#495057';
+        ctx.font = '24px Inter, Arial, sans-serif';
+        wrapText(ctx, 'Pour un Sénégal Souverain, Juste et Prospère', padding + 120, padding + 110, boxWidth - 150, 32);
+        
+        // Ligne de séparation
+        ctx.strokeStyle = '#dee2e6';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(padding + 30, padding + 155);
+        ctx.lineTo(canvas.width - padding - 30, padding + 155);
+        ctx.stroke();
+        
+        // Badge du domaine
+        ctx.fillStyle = 'rgba(42, 109, 93, 0.15)';
+        ctx.fillRect(padding + 30, padding + 175, 200, 35);
+        ctx.fillStyle = '#2a6d5d';
+        ctx.font = 'bold 16px Inter, Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(promise.domaine.toUpperCase(), padding + 130, padding + 198);
+        
+        // Engagement (titre principal)
+        ctx.fillStyle = '#212529';
+        ctx.font = 'bold 36px Inter, Arial, sans-serif';
+        ctx.textAlign = 'left';
+        const engagementLines = wrapText(ctx, promise.engagement, padding + 30, padding + 240, boxWidth - 60, 48);
+        
+        // Résultat attendu
+        const resultY = padding + 240 + (engagementLines * 48) + 20;
+        ctx.fillStyle = 'rgba(42, 109, 93, 0.1)';
+        ctx.fillRect(padding + 30, resultY, boxWidth - 60, 80);
+        
+        ctx.fillStyle = '#2a6d5d';
+        ctx.font = 'bold 18px Inter, Arial, sans-serif';
+        ctx.fillText('🎯 RÉSULTAT ATTENDU', padding + 45, resultY + 25);
+        
+        ctx.fillStyle = '#495057';
+        ctx.font = '20px Inter, Arial, sans-serif';
+        wrapText(ctx, promise.resultat, padding + 45, resultY + 55, boxWidth - 90, 28);
+        
+        // Statut badge
+        const statusY = canvas.height - padding - 100;
+        let statusText = '';
+        let statusColor = '';
+        
+        switch(promise.status) {
+          case 'realise':
+            statusText = '✅ RÉALISÉ';
+            statusColor = '#2a9d8f';
+            break;
+          case 'encours':
+            statusText = '🔄 EN COURS';
+            statusColor = '#4a90e2';
+            break;
+          case 'non-lance':
+            statusText = '⏳ NON LANCÉ';
+            statusColor = '#6c757d';
+            break;
+        }
+        
+        ctx.fillStyle = statusColor;
+        ctx.font = 'bold 22px Inter, Arial, sans-serif';
+        ctx.fillText(statusText, padding + 30, statusY);
+        
+        // Délai
+        ctx.fillStyle = '#495057';
+        ctx.font = '20px Inter, Arial, sans-serif';
+        ctx.fillText(`⏱️ Délai : ${promise.delai}`, padding + 30, statusY + 35);
+        
+        // Footer
+        ctx.fillStyle = '#2a6d5d';
+        ctx.font = 'bold 24px Inter, Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('projetbi.org', canvas.width / 2, canvas.height - padding - 35);
+        
+        ctx.fillStyle = '#495057';
+        ctx.font = '18px Inter, Arial, sans-serif';
+        ctx.fillText('#ProjetBI #Transparence #Sénégal', canvas.width / 2, canvas.height - padding - 10);
         
         return canvas.toDataURL('image/png');
       } catch (error) {
@@ -2324,7 +2404,47 @@ window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
         return null;
       }
     }
-
+    
+    // Fonction helper pour dessiner des rectangles arrondis
+    function roundRect(ctx, x, y, width, height, radius) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+    }
+    
+    // Fonction helper pour retour à la ligne automatique
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+      let lineCount = 0;
+      
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = ctx.measureText(testLine);
+        const testWidth = metrics.width;
+        
+        if (testWidth > maxWidth && n > 0) {
+          ctx.fillText(line, x, y);
+          line = words[n] + ' ';
+          y += lineHeight;
+          lineCount++;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, x, y);
+      lineCount++;
+      
+      return lineCount;
+    }
     // ========== GESTION DE LA MODAL DE CAPTURE ==========
     function setupCaptureModal() {
       const captureModal = document.getElementById('captureModal');
