@@ -975,7 +975,35 @@
         {
           "date": "05/04/2024",
           "text": "Fusion effective Gouvernement Sonko 1"
-        }
+        },
+        {
+  "id": "promise_100",
+  "domaine": "Gouvernance et Administration Publique",
+  "engagement": "Élaboration des standards et application des normes de qualité dans tous les secteurs",
+  "resultat": "Amélioration de la transparence dans le recrutement, meilleur encadrement des secteurs d'activité, application des contrats de performance, publication annuelle des rapports d'activités",
+  "delai": "2024-2029 (étalement sur le quinquennat)",
+  "status": "encours",
+  "mises_a_jour": [
+    {
+      "date": "2024-06-15",
+      "text": "Lancement des consultations pour la réforme des normes administratives"
+    },
+    {
+      "date": "2024-05-30",
+      "text": "Création d'un comité de pilotage pour l'élaboration des standards"
+    }
+  ],
+  "mesures_detaillees": [
+    "Consacrer l'appel à candidature pour certains emplois de la haute fonction publique et normaliser les recrutements par concours",
+    "Consacrer l'incompatibilité des responsabilités techniques avec l'implication politique",
+    "Renforcer l'Association Sénégalaise de Normalisation (ASN) et créer des laboratoires d'utilité publique",
+    "Rendre systématique le suivi de l'exécution des projets et renforcer l'évaluation des politiques publiques",
+    "Institutionnaliser la mise en place de contrats de performance",
+    "Renforcer la neutralité de l'administration publique en interdisant le militantisme politique",
+    "Mettre en place une loi d'accès à l'information publique",
+    "Instaurer la publication annuelle des rapports d'activités"
+  ]
+}
       ]
     }
   ]
