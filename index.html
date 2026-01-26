@@ -379,5 +379,40 @@
       });
     });
   </script>
+  <!-- Bouton retour en haut -->
+<a href="#hero" class="back-to-top" id="backToTop" aria-label="Retour en haut">
+  <i class="fas fa-chevron-up"></i>
+</a>
+
+<!-- Ajoutez ce style dans style.css -->
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--gradient-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(42, 109, 93, 0.4);
+}
 </body>
 </html>
