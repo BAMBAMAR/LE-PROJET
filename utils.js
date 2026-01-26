@@ -1,3 +1,36 @@
+// utils.js - Fonctions pour Chart.js
+
+// Exporter un graphique en image
+export function exportChart(chartId, filename = 'chart.png') {
+  const chartCanvas = document.getElementById(chartId);
+  if (!chartCanvas) return;
+  
+  const link = document.createElement('a');
+  link.download = filename;
+  link.href = chartCanvas.toDataURL('image/png');
+  link.click();
+}
+
+// Basculer le type de graphique
+export function toggleChartType(chartId) {
+  const chart = Chart.getChart(chartId);
+  if (!chart) return;
+  
+  const newType = chart.config.type === 'bar' ? 'horizontalBar' : 'bar';
+  chart.config.type = newType;
+  chart.update();
+  
+  showNotification(`Graphique basculé en ${newType}`, 'info');
+}
+
+// Mettre à jour les données d'un graphique
+export function updateChartData(chartId, newData) {
+  const chart = Chart.getChart(chartId);
+  if (!chart) return;
+  
+  chart.data = newData;
+  chart.update('active');
+}
 // utils.js - Fonctions utilitaires
 
 // Créer des particules animées
