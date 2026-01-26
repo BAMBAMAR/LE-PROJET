@@ -146,6 +146,56 @@
     </section>
     
     <!-- Section Graphiques -->
+    <!-- Dans la section des graphiques -->
+<div class="charts-grid">
+  <!-- Graphique 1: Doughnut -->
+  <div class="chart-container">
+    <div class="chart-header">
+      <h3 class="chart-title">
+        <i class="fas fa-chart-pie"></i>
+        Répartition des statuts
+      </h3>
+      <div class="chart-actions">
+        <button class="chart-btn" onclick="exportChart('chartStatus', 'statuts.png')">
+          <i class="fas fa-download"></i>
+        </button>
+      </div>
+    </div>
+    <canvas id="chartStatus" class="chart-canvas"></canvas>
+  </div>
+  
+  <!-- Graphique 2: Timeline -->
+  <div class="chart-container">
+    <div class="chart-header">
+      <h3 class="chart-title">
+        <i class="fas fa-timeline"></i>
+        Évolution mensuelle
+      </h3>
+      <div class="chart-actions">
+        <button class="chart-btn" data-year="2024">2024</button>
+        <button class="chart-btn active" data-year="2025">2025</button>
+        <button class="chart-btn" data-year="all">Total</button>
+      </div>
+    </div>
+    <canvas id="chartTimeline" class="chart-canvas"></canvas>
+  </div>
+  
+  <!-- Graphique 3: Domaines -->
+  <div class="chart-container">
+    <div class="chart-header">
+      <h3 class="chart-title">
+        <i class="fas fa-layer-group"></i>
+        Distribution par domaine
+      </h3>
+      <div class="chart-actions">
+        <button class="chart-btn" onclick="toggleChartType('chartDomains')">
+          <i class="fas fa-exchange-alt"></i>
+        </button>
+      </div>
+    </div>
+    <canvas id="chartDomains" class="chart-canvas"></canvas>
+  </div>
+</div>
     <section class="charts-section" id="statistiques">
       <h2 class="section-title">
         <i class="fas fa-chart-line"></i>
