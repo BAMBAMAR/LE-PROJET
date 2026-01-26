@@ -291,3 +291,14 @@ document.addEventListener('DOMContentLoaded', () => {
     showNotification('Filtres réinitialisés', 'info');
   };
 });
+// app.js - Ajoutez en haut du fichier
+
+// Configuration Supabase
+const SUPABASE_CONFIG = {
+  URL: "https://jwsdxttjjbfnoufiidkd.supabase.co",
+  KEY: "sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap",
+  TABLE: "votes"
+};
+
+// Initialiser Supabase
+const supabase = window.supabase ? window.supabase.createClient(SUPABASE_CONFIG.URL, SUPABASE_CONFIG.KEY) : null;
