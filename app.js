@@ -1,304 +1,436 @@
-// app.js - Version simplifiée et corrigée
-import { createParticles, showNotification } from './utils.js';
-import { renderStats, renderCharts, renderTimeline, renderPromises } from './render.js';
+// ==========================================
+// APP.JS - PROJET SÉNÉGAL MODERNISÉ
+// ==========================================
 
-class App {
-  constructor() {
-    this.config = {
-      START_DATE: new Date('2024-04-02'),
-      CURRENT_DATE: new Date(),
-      promises: [],
-      theme: localStorage.getItem('theme') || 'light'
-    };
+// Configuration globale
+const CONFIG = {
+  START_DATE: new Date('2024-04-02'),
+  CURRENT_DATE: new Date(),
+  promises: [],
+  charts: {}
+};
+
+// ==========================================
+// INITIALISATION
+// ==========================================
+document.addEventListener('DOMContentLoaded', async () => {
+  initAnimations();
+  await loadData();
+  setupEventListeners();
+  createCharts();
+  updateScrollProgress();
+  console.log('✅ Application initialisée');
+});
+
+// ==========================================
+// ANIMATIONS D'ARRIÈRE-PLAN
+// ==========================================
+function initAnimations() {
+  createParticles();
+  setupCardHoverEffects();
+}
+
+function createParticles() {
+  const container = document.createElement('div');
+  container.className = 'animated-bg';
+  container.id = 'particles';
+  
+  for (let i = 0; i < 30; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.width = Math.random() * 100 + 50 + 'px';
+    particle.style.height = particle.style.width;
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.top = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 20 + 's';
+    particle.style.animationDuration = Math.random() * 20 + 10 + 's';
+    container.appendChild(particle);
+  }
+  
+  document.body.insertBefore(container, document.body.firstChild);
+}
+
+// ==========================================
+// CHARGEMENT DES DONNÉES
+// ==========================================
+async function loadData() {
+  try {
+    const response = await fetch('promises.json');
+    const data = await response.json();
     
-    this.init();
-  }
-  
-  async init() {
-    try {
-      console.log('🚀 Initialisation de l\'application...');
-      
-      // Initialisation basique
-      this.setupTheme();
-      this.createBackground();
-      this.setupEventListeners();
-      
-      // Charger les données
-      await this.loadData();
-      
-      // Rendu initial
-      this.render();
-      
-      console.log('✅ Application initialisée avec succès');
-      showNotification('Tableau de bord chargé', 'success');
-      
-    } catch (error) {
-      console.error('❌ Erreur lors de l\'initialisation:', error);
-      showNotification('Erreur lors du chargement', 'error');
-      
-      // Mode démo en cas d'erreur
-      await this.loadDemoData();
-      this.render();
-    }
-  }
-  
-  setupTheme() {
-    const themeToggle = document.createElement('button');
-    themeToggle.className = 'theme-toggle';
-    themeToggle.innerHTML = this.config.theme === 'dark' ? '🌞' : '🌙';
-    themeToggle.title = 'Changer de thème';
-    themeToggle.addEventListener('click', () => this.toggleTheme());
-    
-    const navMenu = document.querySelector('.nav-menu');
-    if (navMenu) {
-      navMenu.appendChild(themeToggle);
-    }
-  }
-  
-  toggleTheme() {
-    this.config.theme = this.config.theme === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', this.config.theme);
-    localStorage.setItem('theme', this.config.theme);
-    
-    const themeToggle = document.querySelector('.theme-toggle');
-    if (themeToggle) {
-      themeToggle.innerHTML = this.config.theme === 'dark' ? '🌞' : '🌙';
-    }
-  }
-  
-  createBackground() {
-    createParticles();
-  }
-  
-  async loadData() {
-    try {
-      // Essayer de charger depuis le fichier local
-      const response = await fetch('promises.json');
-      
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-      
-      const data = await response.json();
-      this.config.START_DATE = new Date(data.start_date);
-      this.config.promises = data.promises.map(p => this.processPromise(p));
-      
-      console.log(`📊 ${this.config.promises.length} engagements chargés`);
-      
-    } catch (error) {
-      console.warn('Chargement local échoué, utilisation des données de démo');
-      await this.loadDemoData();
-    }
-  }
-  
-  processPromise(p) {
-    const deadline = this.calculateDeadline(p.delai);
-    
-    return {
+    CONFIG.START_DATE = new Date(data.start_date);
+    CONFIG.promises = data.promises.map(p => ({
       ...p,
-      id: p.id || `promesse-${Math.random().toString(36).substr(2, 9)}`,
-      deadline: deadline,
-      isLate: this.checkIfLate(p.status, deadline),
-      progress: this.calculateProgress(p.status),
-      createdAt: p.createdAt ? new Date(p.createdAt) : new Date(this.config.START_DATE),
-      rating: p.rating || Math.random() * 2 + 3,
-      votes: p.votes || Math.floor(Math.random() * 100),
-      domaine: p.domaine || 'Non spécifié',
-      engagement: p.engagement || 'Engagement sans titre',
-      resultat: p.resultat || 'Résultat non spécifié',
-      delai: p.delai || 'Non spécifié',
-      status: p.status || 'non-lance'
-    };
-  }
-  
-  async loadDemoData() {
-    const demoData = {
-      start_date: "2024-04-02",
-      promises: Array.from({ length: 10 }, (_, i) => ({
-        id: `promesse-${i + 1}`,
-        domaine: ['Économie', 'Éducation', 'Santé', 'Infrastructure', 'Agriculture'][i % 5],
-        engagement: `Engagement démo ${i + 1}: Créer des opportunités dans le secteur`,
-        resultat: `Résultat attendu ${i + 1}: Amélioration des conditions`,
-        delai: i % 3 === 0 ? 'Immédiat' : i % 3 === 1 ? '1 an' : '3 ans',
-        status: i % 4 === 0 ? 'realise' : i % 4 === 1 ? 'encours' : 'non-lance',
-        mises_a_jour: i % 2 === 0 ? [{
-          date: "2024-06-15",
-          text: "Mise à jour de démonstration"
-        }] : [],
-        tags: ["démo", "test"]
-      }))
-    };
+      deadline: calculateDeadline(p.delai),
+      isLate: checkIfLate(p.status, calculateDeadline(p.delai))
+    }));
     
-    this.config.START_DATE = new Date(demoData.start_date);
-    this.config.promises = demoData.promises.map(p => this.processPromise(p));
-    
-    showNotification('Mode démo activé', 'warning');
-  }
-  
-  calculateDeadline(delaiText) {
-    const result = new Date(this.config.START_DATE);
-    
-    if (delaiText?.includes('Immédiat') || delaiText?.includes('3 mois')) {
-      result.setMonth(result.getMonth() + 3);
-    } else if (delaiText?.includes('6 mois')) {
-      result.setMonth(result.getMonth() + 6);
-    } else if (delaiText?.includes('1 an')) {
-      result.setFullYear(result.getFullYear() + 1);
-    } else if (delaiText?.includes('2 ans')) {
-      result.setFullYear(result.getFullYear() + 2);
-    } else if (delaiText?.includes('3 ans')) {
-      result.setFullYear(result.getFullYear() + 3);
-    } else if (delaiText?.includes('5 ans')) {
-      result.setFullYear(result.getFullYear() + 5);
-    } else {
-      result.setFullYear(result.getFullYear() + 5);
-    }
-    
-    return result;
-  }
-  
-  checkIfLate(status, deadline) {
-    return status !== 'realise' && this.config.CURRENT_DATE > deadline;
-  }
-  
-  calculateProgress(status) {
-    switch(status) {
-      case 'realise': return 100;
-      case 'encours': return Math.floor(Math.random() * 50) + 50;
-      case 'non-lance': return Math.floor(Math.random() * 30);
-      default: return 0;
-    }
-  }
-  
-  setupEventListeners() {
-    // Recherche
-    const searchInput = document.getElementById('search');
-    if (searchInput) {
-      let timeout;
-      searchInput.addEventListener('input', () => {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => this.filterPromises(), 300);
-      });
-    }
-    
-    // Filtres
-    ['domaine', 'status', 'sort'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.addEventListener('change', () => this.filterPromises());
-    });
-    
-    // Menu mobile
-    const menuBtn = document.getElementById('mobileMenuBtn');
-    const navMenu = document.getElementById('navMenu');
-    
-    if (menuBtn && navMenu) {
-      menuBtn.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        menuBtn.innerHTML = navMenu.classList.contains('active') 
-          ? '<i class="fas fa-times"></i>' 
-          : '<i class="fas fa-bars"></i>';
-      });
-    }
-    
-    // Fermer le menu en cliquant ailleurs
-    document.addEventListener('click', (e) => {
-      if (navMenu?.classList.contains('active') && 
-          !navMenu.contains(e.target) && 
-          !menuBtn.contains(e.target)) {
-        navMenu.classList.remove('active');
-        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-      }
-    });
-  }
-  
-  filterPromises() {
-    const search = document.getElementById('search')?.value.toLowerCase() || '';
-    const domaine = document.getElementById('domaine')?.value || '';
-    const status = document.getElementById('status')?.value || '';
-    
-    const filtered = this.config.promises.filter(p => {
-      const matchSearch = !search || 
-        p.engagement.toLowerCase().includes(search) ||
-        p.resultat.toLowerCase().includes(search) ||
-        p.domaine.toLowerCase().includes(search);
-      
-      const matchDomaine = !domaine || p.domaine === domaine;
-      
-      const matchStatus = !status || 
-        (status === 'realise' && p.status === 'realise') ||
-        (status === 'en-retard' && p.isLate) ||
-        (status === 'dans-les-temps' && !p.isLate && p.status !== 'realise') ||
-        (status === 'non-lance' && p.status === 'non-lance');
-      
-      return matchSearch && matchDomaine && matchStatus;
-    });
-    
-    renderPromises(filtered);
-  }
-  
-  calculateStats() {
-    const promises = this.config.promises;
-    const total = promises.length;
-    const realise = promises.filter(p => p.status === 'realise').length;
-    const encours = promises.filter(p => p.status === 'encours').length;
-    const nonLance = promises.filter(p => p.status === 'non-lance').length;
-    const retard = promises.filter(p => p.isLate).length;
-    
-    return {
-      total,
-      realise,
-      encours,
-      nonLance,
-      retard,
-      realisationRate: total > 0 ? ((realise * 100 + encours * 50) / (total * 100) * 100).toFixed(1) : 0
-    };
-  }
-  
-  render() {
-    const stats = this.calculateStats();
-    renderStats(stats);
-    renderCharts(this.config.promises);
-    renderTimeline(this.config.promises);
-    renderPromises(this.config.promises);
-    this.updateDomainFilter();
-  }
-  
-  updateDomainFilter() {
-    const select = document.getElementById('domaine');
-    if (!select) return;
-    
-    const domaines = [...new Set(this.config.promises.map(p => p.domaine))].sort();
-    const current = select.value;
-    
-    select.innerHTML = `
-      <option value="">Tous les domaines</option>
-      ${domaines.map(d => `<option value="${d}" ${d === current ? 'selected' : ''}>${d}</option>`).join('')}
-    `;
+    renderAll();
+  } catch (error) {
+    console.error('Erreur chargement:', error);
+    showNotification('Erreur de chargement des données', 'error');
   }
 }
 
-// Initialiser
-document.addEventListener('DOMContentLoaded', () => {
-  window.app = new App();
+// ==========================================
+// CALCULS
+// ==========================================
+function calculateDeadline(delaiText) {
+  const text = delaiText.toLowerCase();
+  const result = new Date(CONFIG.START_DATE);
   
-  // Exposer des méthodes globales
-  window.resetFilters = () => {
-    document.getElementById('search').value = '';
-    document.getElementById('domaine').value = '';
-    document.getElementById('status').value = '';
-    document.getElementById('sort').value = '';
-    window.app.filterPromises();
-    showNotification('Filtres réinitialisés', 'info');
-  };
-});
-// app.js - Ajoutez en haut du fichier
+  if (text.includes('immédiat') || text.includes('3 mois')) {
+    result.setMonth(result.getMonth() + 3);
+  } else if (text.includes('6 mois')) {
+    result.setMonth(result.getMonth() + 6);
+  } else if (text.includes('1 an') || text.includes('12 mois')) {
+    result.setFullYear(result.getFullYear() + 1);
+  } else if (text.includes('2 ans')) {
+    result.setFullYear(result.getFullYear() + 2);
+  } else if (text.includes('3 ans')) {
+    result.setFullYear(result.getFullYear() + 3);
+  } else if (text.includes('5 ans') || text.includes('quinquennat')) {
+    result.setFullYear(result.getFullYear() + 5);
+  } else {
+    result.setFullYear(result.getFullYear() + 5);
+  }
+  
+  return result;
+}
 
-// Configuration Supabase
-const SUPABASE_CONFIG = {
-  URL: "https://jwsdxttjjbfnoufiidkd.supabase.co",
-  KEY: "sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap",
-  TABLE: "votes"
+function checkIfLate(status, deadline) {
+  return status !== 'realise' && CONFIG.CURRENT_DATE > deadline;
+}
+
+function calculateStats() {
+  const total = CONFIG.promises.length;
+  const realise = CONFIG.promises.filter(p => p.status === 'realise').length;
+  const encours = CONFIG.promises.filter(p => p.status === 'encours').length;
+  const nonLance = CONFIG.promises.filter(p => p.status === 'non-lance').length;
+  const retard = CONFIG.promises.filter(p => p.isLate).length;
+  
+  return {
+    total,
+    realise,
+    encours,
+    nonLance,
+    retard,
+    realisePercentage: total > 0 ? ((realise / total) * 100).toFixed(1) : 0,
+    encoursPercentage: total > 0 ? ((encours / total) * 100).toFixed(1) : 0,
+    tauxRealisation: total > 0 ? (((realise * 100 + encours * 50) / (total * 100)) * 100).toFixed(1) : 0
+  };
+}
+
+// ==========================================
+// RENDU
+// ==========================================
+function renderAll() {
+  const stats = calculateStats();
+  renderStats(stats);
+  renderPromises(CONFIG.promises);
+  updateCharts(stats);
+}
+
+function renderStats(stats) {
+  const elements = {
+    total: document.getElementById('total-promises'),
+    realise: document.getElementById('realized'),
+    encours: document.getElementById('inProgress'),
+    retard: document.getElementById('delayed'),
+    taux: document.getElementById('globalProgress')
+  };
+  
+  if (elements.total) animateValue(elements.total, 0, stats.total, 1000);
+  if (elements.realise) animateValue(elements.realise, 0, stats.realise, 1000);
+  if (elements.encours) animateValue(elements.encours, 0, stats.encours, 1000);
+  if (elements.retard) animateValue(elements.retard, 0, stats.retard, 1000);
+  if (elements.taux) elements.taux.textContent = stats.tauxRealisation + '%';
+  
+  // Animer la barre de progression
+  const progressBar = document.getElementById('progressBarFill');
+  if (progressBar) {
+    setTimeout(() => {
+      progressBar.style.width = stats.tauxRealisation + '%';
+    }, 100);
+  }
+}
+
+function renderPromises(promises) {
+  const container = document.getElementById('promisesContainer');
+  if (!container) return;
+  
+  if (promises.length === 0) {
+    container.innerHTML = `
+      <div class="no-results">
+        <i class="fas fa-search fa-3x"></i>
+        <h3>Aucun résultat trouvé</h3>
+        <p>Essayez de modifier vos critères de recherche</p>
+      </div>
+    `;
+    return;
+  }
+  
+  container.innerHTML = promises.map(promise => createPromiseCard(promise)).join('');
+  setupCardHoverEffects();
+}
+
+function createPromiseCard(promise) {
+  const statusClass = promise.status === 'realise' ? 'status-realise' :
+                     promise.status === 'encours' ? 'status-encours' : 'status-nonlance';
+  const statusText = promise.status === 'realise' ? '✅ Réalisé' :
+                    promise.status === 'encours' ? '🔄 En cours' : '⏳ Non lancé';
+  
+  const progress = promise.status === 'realise' ? 100 :
+                  promise.status === 'encours' ? 50 : 10;
+  
+  return `
+    <div class="promise-card" data-id="${promise.id}" onmousemove="handleCardHover(event, this)">
+      <div class="domain-badge">${promise.domaine}</div>
+      <h3 class="promise-title">${promise.engagement}</h3>
+      
+      <div class="result-box">
+        <i class="fas fa-bullseye"></i>
+        <strong>Résultat attendu :</strong> ${promise.resultat}
+      </div>
+      
+      <div class="promise-meta">
+        <div class="status-badge ${statusClass}">${statusText}</div>
+        <div class="delay-badge">
+          <i class="fas fa-clock"></i>
+          ${promise.delai}
+        </div>
+      </div>
+      
+      <div class="progress-container">
+        <div class="progress-label">
+          <span>Progression</span>
+          <span>${progress}%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" style="width: ${progress}%"></div>
+        </div>
+      </div>
+      
+      ${promise.mises_a_jour && promise.mises_a_jour.length > 0 ? `
+        <button class="details-btn" onclick="toggleDetails('${promise.id}')">
+          <i class="fas fa-history"></i>
+          Voir les mises à jour (${promise.mises_a_jour.length})
+        </button>
+      ` : ''}
+    </div>
+  `;
+}
+
+// ==========================================
+// GRAPHIQUES (Chart.js)
+// ==========================================
+function createCharts() {
+  // Chart.js doit être chargé dans index.html
+  if (typeof Chart === 'undefined') {
+    console.warn('Chart.js non chargé');
+    return;
+  }
+  
+  const stats = calculateStats();
+  
+  // Graphique de statut (Donut)
+  const statusCtx = document.getElementById('statusChart');
+  if (statusCtx) {
+    CONFIG.charts.status = new Chart(statusCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Réalisés', 'En Cours', 'En Retard', 'Non Lancés'],
+        datasets: [{
+          data: [stats.realise, stats.encours, stats.retard, stats.nonLance],
+          backgroundColor: [
+            'rgba(42, 157, 143, 0.8)',
+            'rgba(74, 144, 226, 0.8)',
+            'rgba(231, 111, 81, 0.8)',
+            'rgba(108, 117, 125, 0.8)'
+          ],
+          borderWidth: 2,
+          borderColor: '#141b2d'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            labels: {
+              color: '#b8c1ec',
+              font: { family: 'Inter', size: 12 }
+            }
+          }
+        }
+      }
+    });
+  }
+  
+  // Graphique mensuel (Barres)
+  const monthlyCtx = document.getElementById('monthlyChart');
+  if (monthlyCtx) {
+    CONFIG.charts.monthly = new Chart(monthlyCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
+        datasets: [{
+          label: 'Engagements Réalisés',
+          data: [3, 5, 4, 6, 4, 3],
+          backgroundColor: 'rgba(42, 157, 143, 0.8)',
+          borderRadius: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            labels: {
+              color: '#b8c1ec',
+              font: { family: 'Inter' }
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { color: '#b8c1ec' },
+            grid: { color: 'rgba(184, 193, 236, 0.1)' }
+          },
+          y: {
+            ticks: { color: '#b8c1ec' },
+            grid: { color: 'rgba(184, 193, 236, 0.1)' }
+          }
+        }
+      }
+    });
+  }
+}
+
+function updateCharts(stats) {
+  if (CONFIG.charts.status) {
+    CONFIG.charts.status.data.datasets[0].data = [
+      stats.realise, stats.encours, stats.retard, stats.nonLance
+    ];
+    CONFIG.charts.status.update();
+  }
+}
+
+// ==========================================
+// INTERACTIONS
+// ==========================================
+function setupEventListeners() {
+  // Filtres
+  const searchInput = document.getElementById('searchInput');
+  const sectorFilter = document.getElementById('sectorFilter');
+  const statusFilter = document.getElementById('statusFilter');
+  
+  if (searchInput) searchInput.addEventListener('input', applyFilters);
+  if (sectorFilter) sectorFilter.addEventListener('change', applyFilters);
+  if (statusFilter) statusFilter.addEventListener('change', applyFilters);
+  
+  // Bouton scroll to top
+  const scrollBtn = document.getElementById('scrollToTop');
+  if (scrollBtn) {
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+  
+  // Scroll progress
+  window.addEventListener('scroll', updateScrollProgress);
+}
+
+function applyFilters() {
+  const search = document.getElementById('searchInput')?.value.toLowerCase() || '';
+  const sector = document.getElementById('sectorFilter')?.value || '';
+  const status = document.getElementById('statusFilter')?.value || '';
+  
+  let filtered = CONFIG.promises.filter(p => {
+    const matchSearch = p.engagement.toLowerCase().includes(search) ||
+                       p.resultat.toLowerCase().includes(search);
+    const matchSector = !sector || p.domaine === sector;
+    const matchStatus = !status || p.status === status;
+    
+    return matchSearch && matchSector && matchStatus;
+  });
+  
+  renderPromises(filtered);
+}
+
+function setupCardHoverEffects() {
+  document.querySelectorAll('.promise-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mouse-x', x + '%');
+      card.style.setProperty('--mouse-y', y + '%');
+    });
+  });
+}
+
+window.handleCardHover = function(e, card) {
+  const rect = card.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
+  card.style.setProperty('--mouse-x', x + '%');
+  card.style.setProperty('--mouse-y', y + '%');
 };
 
-// Initialiser Supabase
-const supabase = window.supabase ? window.supabase.createClient(SUPABASE_CONFIG.URL, SUPABASE_CONFIG.KEY) : null;
+window.toggleDetails = function(promiseId) {
+  const card = document.querySelector(`[data-id="${promiseId}"]`);
+  if (card) {
+    // Toggle details logic
+    console.log('Toggle details for:', promiseId);
+  }
+};
+
+// ==========================================
+// UTILITAIRES
+// ==========================================
+function animateValue(element, start, end, duration) {
+  const range = end - start;
+  const increment = end > start ? 1 : -1;
+  const stepTime = Math.abs(Math.floor(duration / range));
+  let current = start;
+  
+  const timer = setInterval(() => {
+    current += increment;
+    element.textContent = current;
+    if (current === end) clearInterval(timer);
+  }, stepTime);
+}
+
+function updateScrollProgress() {
+  const scrollProgress = document.querySelector('.scroll-progress');
+  if (!scrollProgress) return;
+  
+  const winScroll = document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  scrollProgress.style.width = scrolled + '%';
+}
+
+function showNotification(message, type = 'success') {
+  const notification = document.createElement('div');
+  notification.className = `notification ${type}`;
+  notification.innerHTML = `
+    <i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i>
+    <span>${message}</span>
+  `;
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.style.animation = 'slideOut 0.3s ease';
+    setTimeout(() => notification.remove(), 300);
+  }, 3000);
+}
+
+// Export pour utilisation globale
+window.APP = {
+  CONFIG,
+  renderAll,
+  applyFilters
+};
