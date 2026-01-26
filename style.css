@@ -952,3 +952,28 @@ body {
   animation: shimmer 1.5s infinite;
   border-radius: 8px;
 }
+/* Ajoutez à la fin de style.css */
+body {
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Désactiver le smooth scroll pour certains éléments */
+a[href^="#"]:not(.nav-link) {
+  scroll-behavior: smooth;
+}
+
+/* Prévenir les animations indésirables */
+.promises-grid {
+  will-change: transform;
+}
+
+/* Fixer la navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transform: translateZ(0);
+}
