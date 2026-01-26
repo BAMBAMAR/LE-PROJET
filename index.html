@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  
   <!-- SEO Enhanced -->
 <meta name="keywords" content="Sénégal, promesses électorales, Bassirou Diomaye Faye, transparence, gouvernance, démocratie, suivi engagements, projet sénégal">
 <meta name="author" content="ProjetBI">
@@ -25,7 +26,9 @@
   }
 }
 </script>
+  
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script><meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
 <meta name="description" content="Plateforme citoyenne indépendante pour suivre en temps réel l'avancement des 99 engagements du Président Bassirou Diomaye Faye. Votez et analysez les résultats du Projet.">
   <meta name="theme-color" content="#2a6d5d">
@@ -700,7 +703,14 @@
     .share-facebook { background: #1877f2; }
     .share-whatsapp { background: #25d366; }
     .share-linkedin { background: #0077b5; }
-
+<section class="dashboard-visuals container">
+    <div class="chart-container" style="background: white; padding: 2rem; border-radius: 24px; box-shadow: var(--shadow-dashboard); margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <h3>Répartition des Engagements</h3>
+        <div style="max-width: 300px; width: 100%;">
+            <canvas id="promisesChart"></canvas>
+        </div>
+    </div>
+</section>
     /* STATISTIQUES - 10 KPI OPTIMISÉS MOBILE */
     .stats-grid {
       display: grid;
@@ -2685,141 +2695,135 @@ window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
       
       showNotification(`Données exportées en ${format.toUpperCase()} avec succès !`);
     };
-
+<div class="dashboard-visual-wrapper" style="display: flex; justify-content: center; margin-bottom: 2rem;">
+    <div style="position: relative; width: 250px;">
+        <canvas id="promisesChart"></canvas>
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+            <span style="font-size: 0.8rem; color: #666; display: block;">BILAN</span>
+            <strong id="progress-text" style="font-size: 1.2rem; color: var(--primary);">Chargement...</strong>
+        </div>
+    </div>
+</div>
     // ========== CALCULS POUR LES 10 KPI ==========
     // ========== CALCULS POUR LES 10 KPI ==========
 function calculateAllStats() {
   const promises = CONFIG.promises;
   const total = promises.length;
-  
-  // KPI de base
+  if (total === 0) return;
+
+  // --- LOGIQUE DE CALCUL (CONSERVÉE) ---
   const realise = promises.filter(p => p.status === 'realise').length;
   const encours = promises.filter(p => p.status === 'encours').length;
   const nonLance = promises.filter(p => p.status === 'non-lance').length;
   const retard = promises.filter(p => p.isLate).length;
-  
-  // Pourcentages
-  const realisePercentage = total > 0 ? ((realise / total) * 100).toFixed(1) : 0;
-  const encoursPercentage = total > 0 ? ((encours / total) * 100).toFixed(1) : 0;
-  const nonLancePercentage = total > 0 ? ((nonLance / total) * 100).toFixed(1) : 0;
-  const retardPercentage = total > 0 ? ((retard / total) * 100).toFixed(1) : 0;
-  
-  // KPI 6: Taux de réalisation (pondéré)
-  let tauxRealisation = 0;
-  if (total > 0) {
-    const poidsRealise = realise * 100;
-    const poidsEncours = encours * 50;
-    const poidsNonLance = nonLance * 10;
-    tauxRealisation = ((poidsRealise + poidsEncours + poidsNonLance) / (total * 100) * 100).toFixed(1);
-  }
-  
-  // ========== CALCUL DE LA MOYENNE DES NOTES BASÉ SUR SUPABASE ==========
-  // KPI 7: Moyenne des notes depuis Supabase
-  let moyenneNotes = 0;
+
+  const realisePercentage = ((realise / total) * 100).toFixed(1);
+  const encoursPercentage = ((encours / total) * 100).toFixed(1);
+  const nonLancePercentage = ((nonLance / total) * 100).toFixed(1);
+  const retardPercentage = ((retard / total) * 100).toFixed(1);
+
+  // Taux de réalisation pondéré
+  const poidsRealise = realise * 100;
+  const poidsEncours = encours * 50;
+  const poidsNonLance = nonLance * 10;
+  const tauxRealisation = ((poidsRealise + poidsEncours + poidsNonLance) / (total * 100) * 100).toFixed(1);
+
+  // Moyenne des notes (Supabase + Local)
   let totalVotes = 0;
   let totalNotes = 0;
   let promessesNotees = 0;
-  
-  // Utiliser les données de Supabase (publicAvg et publicCount)
+
   promises.forEach(p => {
     if (p.publicCount && p.publicCount > 0) {
-      // Données provenant de Supabase via fetchAndDisplayPublicVotes()
       totalVotes += p.publicCount;
-      totalNotes += p.publicAvg * p.publicCount;
+      totalNotes += parseFloat(p.publicAvg) * p.publicCount;
       promessesNotees++;
-    }
-    // Fallback: utiliser les votes locaux si Supabase n'a pas de données
-    else if (p.votes && p.votes.length > 0) {
+    } else if (p.votes && p.votes.length > 0) {
       totalVotes += p.votes.length;
       totalNotes += p.votes.reduce((a, b) => a + b, 0);
       promessesNotees++;
     }
   });
+
+  const moyenneNotes = totalVotes > 0 ? (totalNotes / totalVotes).toFixed(1) : 0;
+
+  // --- MISE À JOUR DE L'INTERFACE AVEC ANIMATIONS ---
   
-  // Calcul de la moyenne (moyenne globale de tous les votes)
-  if (totalVotes > 0) {
-    moyenneNotes = (totalNotes / totalVotes).toFixed(1);
-  }
+  // Animation des chiffres (IDs de vos éléments)
+  animateCounter("total", total);
+  animateCounter("realise", realise);
+  animateCounter("encours", encours);
+  animateCounter("non-lance", nonLance);
+  animateCounter("retard", retard);
+  animateCounter("taux-realisation", tauxRealisation, "%");
+  animateCounter("moyenne-notes", moyenneNotes);
+
+  // Mise à jour des pourcentages (statiques)
+  setText('realise-percentage', `${realisePercentage}%`);
+  setText('encours-percentage', `${encoursPercentage}%`);
+  setText('non-lance-percentage', `${nonLancePercentage}%`);
+  setText('retard-percentage', `${retardPercentage}%`);
+
+  // --- GÉNÉRATION DU GRAPHIQUE INTERACTIF ---
+  updateDashboardChart(realise, encours, nonLance);
+}
+
+/**
+ * Fonction utilitaire pour animer les compteurs
+ */
+function animateCounter(id, target, suffix = "") {
+  const el = document.getElementById(id);
+  if (!el) return;
   
-  // ========== FIN DU CALCUL ==========
-  
-  // KPI 8: Engagements avec mises à jour
-  const avecMaj = promises.filter(p => p.mises_a_jour && p.mises_a_jour.length > 0).length;
-  const avecMajPercentage = total > 0 ? ((avecMaj / total) * 100).toFixed(1) : 0;
-  
-  // KPI 9: Délai moyen restant
-  let delaiMoyenJours = 0;
-  let delaiMoyenText = '0j';
-  const promessesEnCours = promises.filter(p => p.status !== 'realise' && !p.isLate);
-  if (promessesEnCours.length > 0) {
-    const maintenant = CONFIG.CURRENT_DATE.getTime();
-    const totalJours = promessesEnCours.reduce((sum, p) => {
-      const diffJours = Math.max(0, Math.ceil((p.deadline - maintenant) / (1000 * 60 * 60 * 24)));
-      return sum + diffJours;
-    }, 0);
-    delaiMoyenJours = Math.round(totalJours / promessesEnCours.length);
-    delaiMoyenText = delaiMoyenJours > 365 ? `${Math.round(delaiMoyenJours/365)}a` : 
-                    delaiMoyenJours > 30 ? `${Math.round(delaiMoyenJours/30)}m` : 
-                    `${delaiMoyenJours}j`;
-  }
-  
-  // KPI 10: Domaine principal
-  let domainePrincipal = '-';
-  let domaineCount = 0;
-  if (promises.length > 0) {
-    const domaines = {};
-    promises.forEach(p => {
-      domaines[p.domaine] = (domaines[p.domaine] || 0) + 1;
-    });
-    const entries = Object.entries(domaines);
-    if (entries.length > 0) {
-      const [domaine, count] = entries.reduce((a, b) => a[1] > b[1] ? a : b);
-      domainePrincipal = domaine.substring(0, 12) + (domaine.length > 12 ? '...' : '');
-      domaineCount = count;
+  const targetValue = parseFloat(target);
+  let current = 0;
+  const duration = 1500; // 1.5 secondes
+  const stepTime = 20;
+  const increment = targetValue / (duration / stepTime);
+
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= targetValue) {
+      el.innerText = target + suffix;
+      clearInterval(timer);
+    } else {
+      el.innerText = (targetValue % 1 === 0 ? Math.floor(current) : current.toFixed(1)) + suffix;
     }
-  }
-  
-  // Texte de progression pour le taux
-  let progressText = '';
-  if (tauxRealisation >= 80) progressText = 'Excellent';
-  else if (tauxRealisation >= 60) progressText = 'Bon';
-  else if (tauxRealisation >= 40) progressText = 'Moyen';
-  else if (tauxRealisation >= 20) progressText = 'Faible';
-  else progressText = 'Début';
-  
-  // Mise à jour des KPI
-  document.getElementById('total').textContent = total;
-  document.getElementById('total-count').textContent = total;
-  document.getElementById('total-percentage').textContent = '100%';
-  
-  document.getElementById('realise').textContent = realise;
-  document.getElementById('realise-percentage').textContent = `${realisePercentage}%`;
-  
-  document.getElementById('encours').textContent = encours;
-  document.getElementById('encours-percentage').textContent = `${encoursPercentage}%`;
-  
-  document.getElementById('non-lance').textContent = nonLance;
-  document.getElementById('non-lance-percentage').textContent = `${nonLancePercentage}%`;
-  
-  document.getElementById('retard').textContent = retard;
-  document.getElementById('retard-percentage').textContent = `${retardPercentage}%`;
-  
-  document.getElementById('taux-realisation').textContent = `${tauxRealisation}%`;
-  document.getElementById('progress-text').textContent = progressText;
-  
-  document.getElementById('moyenne-notes').textContent = moyenneNotes;
-  document.getElementById('votes-total').textContent = promessesNotees > 0 ? 
-    `${promessesNotees}/${total} promesses notées` : 
-    'Aucun vote';
-  
-  document.getElementById('avec-maj').textContent = avecMaj;
-  document.getElementById('avec-maj-percentage').textContent = `${avecMajPercentage}%`;
-  
-  document.getElementById('delai-moyen').textContent = delaiMoyenText;
-  document.getElementById('jours-restants').textContent = promessesEnCours.length > 0 ? `${promessesEnCours.length} engagements` : 'Aucun';
-  
-  document.getElementById('domaine-principal').textContent = domainePrincipal;
-  document.getElementById('domaine-count').textContent = `${domaineCount} engagements`;
+  }, stepTime);
+}
+
+/**
+ * Génère ou met à jour le graphique Chart.js
+ */
+function updateDashboardChart(r, e, n) {
+  const canvas = document.getElementById('promisesChart');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  if (window.myDashboardChart) window.myDashboardChart.destroy();
+
+  window.myDashboardChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Réalisé', 'En cours', 'Non lancé'],
+      datasets: [{
+        data: [r, e, n],
+        backgroundColor: ['#2a6d5d', '#e9c46a', '#e76f51'],
+        hoverOffset: 10,
+        borderWidth: 0
+      }]
+    },
+    options: {
+      cutout: '80%',
+      plugins: { legend: { display: false } },
+      animation: { animateRotate: true }
+    }
+  });
+}
+
+function setText(id, txt) {
+  const el = document.getElementById(id);
+  if (el) el.innerText = txt;
 }
     // ========== RENDU DES FILTRES ==========
     function renderFilters() {
@@ -3415,7 +3419,31 @@ function setupContactModal() {
     });
   }
 }
+function initDashboardChart(stats) {
+    const ctx = document.getElementById('promisesChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Réalisé', 'En cours', 'Non lancé'],
+            datasets: [{
+                data: [stats.realise, stats.enCours, stats.nonLance],
+                backgroundColor: ['#2a6d5d', '#e9c46a', '#e76f51'],
+                borderWidth: 0,
+                hoverOffset: 10
+            }]
+        },
+        options: {
+            plugins: {
+                legend: { position: 'bottom' }
+            },
+            cutout: '70%'
+        }
+    });
+}
 
+// Dans votre fonction calculateAllStats(), ajoutez l'appel :
+// const stats = { realise: ..., enCours: ..., nonLance: ... };
+// initDashboardChart(stats);
 // N'oubliez pas d'appeler setupContactModal() dans init()
   </script>
   <!-- Ajoutez cette modale avant la fermeture du body -->
