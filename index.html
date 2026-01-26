@@ -302,7 +302,7 @@
   <div class="notification-center"></div>
   
   <!-- Footer -->
-  <footer class="footer" id="a-propos">
+    <footer class="footer" id="a-propos">
     <div class="footer-content">
       <div class="footer-section">
         <h3>Projet Sénégal</h3>
@@ -334,7 +334,14 @@
           <a href="#" class="footer-link">Contribuer</a>
         </div>
       </div>
-      
+       <div class="footer-section">
+      <h3>Mise à jour</h3>
+      <p>Données à jour au <span id="current-date"></span></p>
+      <p class="footer-status">
+        <i class="fas fa-circle ${this.config.isOnline ? 'online' : 'offline'}"></i>
+        <span id="connection-status">${this.config.isOnline ? 'En ligne' : 'Hors ligne'}</span>
+      </p>
+    </div>
       <div class="footer-section">
         <h3>Contact</h3>
         <div class="footer-links">
