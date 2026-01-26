@@ -1046,6 +1046,11 @@ window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
     // ========== CALCULS POUR LES 10 KPI ==========
     // ========== CALCULS POUR LES 10 KPI ==========
 function calculateAllStats() {
+
+  if (!document.getElementById('total-count')) {
+    console.warn("Élément #total-count introuvable – stats non mises à jour");
+    return;
+  }
   const promises = CONFIG.promises;
   const total = promises.length;
   
@@ -1811,8 +1816,5 @@ function setupContactModal() {
     </form>
   </div>
 </div>
-  <script src="js/utils.js" defer></script>
-<script src="js/render.js" defer></script>
-<script src="js/app.js" defer></script>
 </body>
 </html>
