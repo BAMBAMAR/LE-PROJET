@@ -1,4 +1,52 @@
+/* style.css */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #2a6d5d;
+  --primary-light: #3a9d84;
+  --secondary: #3d5a80;
+  --accent: #e76f51;
+  --success: #2a9d8f;
+  --warning: #e9c46a;
+  --danger: #e76f51;
+  --info: #4a90e2;
+  --bg-main: #f8f9fa;
+  --bg-card: #ffffff;
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --border: #dee2e6;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --safe-area-inset-top: env(safe-area-inset-top);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom);
+}
+
+/* Reset de base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding-top: 70px;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ... colle ici TOUT le reste de ton ancien <style> ... */
+
+/* Exemples : .navbar, .promise-card, .stat-card, media queries, etc. */
 
   <style>
     /* Styles pour la modale de contact */
