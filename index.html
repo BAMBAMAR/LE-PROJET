@@ -106,30 +106,40 @@
   <div class="bg-pattern"></div>
   
   <div class="container">
-    <header class="relative bg-gradient-to-br from-[#00853e] via-[#2a6d5d] to-[#e31b23] text-white py-16 md:py-24 px-6 overflow-hidden">
-  <div class="absolute inset-0 opacity-10 pointer-events-none">
-    <!-- motif subtil Sénégal si tu veux -->
-  </div>
-
-  <div class="relative max-w-6xl mx-auto text-center">
-    <div class="text-7xl mb-6 animate-pulse">🇸🇳</div>
-    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight drop-shadow-lg">
-      Suivi Citoyen des 99 Engagements
-    </h1>
-    <p class="text-xl md:text-2xl mt-4 opacity-90">
-      Pour un Sénégal Souverain, Juste et Prospère
-    </p>
-
-    <div class="mt-10 flex flex-wrap justify-center gap-6">
-      <a href="#stats" class="bg-white text-[#2a6d5d] px-8 py-4 rounded-full font-bold shadow-xl hover:shadow-2xl hover:-translate-y-1 transition">
-        Voir le tableau de bord →
-      </a>
-      <a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf" target="_blank" class="border-2 border-white px-8 py-4 rounded-full font-bold hover:bg-white/20 transition">
-        Programme complet (PDF)
-      </a>
-    </div>
-  </div>
-</header>
+    <header class="header" id="header">
+      <div class="share-dashboard">
+        <a href="#" id="share-twitter-dash" class="share-dashboard-btn share-twitter" title="Partager sur X" aria-label="Partager sur Twitter">
+          <i class="fab fa-x-twitter"></i>
+        </a>
+        <a href="#" id="share-facebook-dash" class="share-dashboard-btn share-facebook" title="Partager sur Facebook" aria-label="Partager sur Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" id="share-whatsapp-dash" class="share-dashboard-btn share-whatsapp" title="Partager sur WhatsApp" aria-label="Partager sur WhatsApp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="#" id="share-linkedin-dash" class="share-dashboard-btn share-linkedin" title="Partager sur LinkedIn" aria-label="Partager sur LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div>
+      <div class="header-content">
+        <h1>LE PROJET POUR UN SÉNÉGAL SOUVERAIN, JUSTE ET PROSPÈRE</h1>
+        <p class="subtitle">Tableau de Bord Transparent du Suivi des <span id="total-count"></span> Engagements</p>
+        
+        <div class="header-actions">
+          <span class="ref-badge">
+            <i class="fas fa-calendar-check"></i>
+            Date de référence : 2 AVRIL 2024
+          </span>
+          <a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf" 
+             class="document-btn-header" 
+             target="_blank"
+             title="Télécharger le document original des promesses">
+            <i class="fas fa-file-pdf"></i>
+            Programme Complet (PDF)
+          </a>
+        </div>
+      </div>
+    </header>
 
     <section id="stats">
       <div class="stats-grid">
@@ -1046,11 +1056,6 @@ window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
     // ========== CALCULS POUR LES 10 KPI ==========
     // ========== CALCULS POUR LES 10 KPI ==========
 function calculateAllStats() {
-
-  if (!document.getElementById('total-count')) {
-    console.warn("Élément #total-count introuvable – stats non mises à jour");
-    return;
-  }
   const promises = CONFIG.promises;
   const total = promises.length;
   
@@ -1816,5 +1821,8 @@ function setupContactModal() {
     </form>
   </div>
 </div>
+  <script src="js/utils.js" defer></script>
+<script src="js/render.js" defer></script>
+<script src="js/app.js" defer></script>
 </body>
 </html>
