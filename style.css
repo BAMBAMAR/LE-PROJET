@@ -9,17 +9,12 @@
     --danger: #e76f51;
     --info: #4a90e2;
     --purple: #8a4baf;
-    --teal: #20c997;
-    --pink: #e83e8c;
-    --orange: #fd7e14;
     --bg-main: #f8f9fa;
     --bg-card: #ffffff;
     --text-primary: #212529;
     --text-secondary: #495057;
     --border: #dee2e6;
     --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    --safe-area-inset-top: env(safe-area-inset-top);
-    --safe-area-inset-bottom: env(safe-area-inset-bottom);
 }
 
 /* ===== RESET & BASE ===== */
@@ -42,7 +37,6 @@ body {
     line-height: 1.6;
     min-height: 100vh;
     padding-top: 70px;
-    padding-bottom: env(safe-area-inset-bottom);
 }
 
 .container {
@@ -62,7 +56,6 @@ body {
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
     z-index: 1000;
     padding: 0.8rem 1rem;
-    padding-top: calc(0.8rem + var(--safe-area-inset-top));
 }
 
 .nav-container {
@@ -127,9 +120,6 @@ body {
     font-size: 1.5rem;
     cursor: pointer;
     padding: 0.5rem;
-    width: 44px;
-    height: 44px;
-    border-radius: 8px;
 }
 
 /* ===== HEADER ===== */
@@ -317,7 +307,7 @@ body {
     margin-top: 0.3rem;
 }
 
-/* ===== FILTRES COMPLETS COMME L'ORIGINAL ===== */
+/* ===== FILTRES COMPLETS ===== */
 .filters-section {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -618,7 +608,90 @@ body {
 .share-whatsapp { background: #25d366; }
 .share-linkedin { background: #0077b5; }
 
-/* ===== REVUE DE PRESSE - CAROUSEL ===== */
+/* ===== ACTUALITÉS ===== */
+.news-section {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.news-card {
+    background: var(--bg-main);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.news-image {
+    height: 180px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+}
+
+.news-content {
+    padding: 1.2rem;
+}
+
+.news-date {
+    display: inline-block;
+    background: rgba(42, 109, 93, 0.1);
+    color: var(--primary);
+    padding: 0.3rem 0.8rem;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.news-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+}
+
+.news-excerpt {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.news-source {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.news-source i {
+    color: var(--primary);
+}
+
+/* ===== REVUE DE PRESSE - CAROUSEL EBOOK ===== */
 .press-section {
     background: var(--bg-card);
     border-radius: 20px;
@@ -1133,7 +1206,7 @@ body {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-    .promises-grid {
+    .promises-grid, .news-grid {
         grid-template-columns: 1fr;
     }
     
