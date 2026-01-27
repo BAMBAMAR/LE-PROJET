@@ -1509,7 +1509,6 @@ function showNotification(message, type = 'success') {
 // Exposer les fonctions globales
 window.shareOnSocial = shareOnSocial;
 // Initialiser Supabase UNE SEULE FOIS
-let supabaseClient = null;
 
 try {
     if (window.supabase && typeof window.supabase.create === 'function') {
