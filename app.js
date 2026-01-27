@@ -1,34 +1,125 @@
 // ==========================================
-// APP.JS - PROJET SÉNÉGAL - VERSION PRODUCTION
+// APP.JS - PROJET SÉNÉGAL - VERSION PRODUCTION CORRIGÉE
 // ==========================================
 
-// Configuration Supabase
+// ==========================================
+// CONFIGURATION SUPABASE - UNIQUEMENT ICI
+// ==========================================
 const SUPABASE_URL = 'https://your-project.supabase.co';
 const SUPABASE_KEY = 'your-anon-key';
-const supabase = window.supabase.create({
-    url: SUPABASE_URL,
-    key: SUPABASE_KEY
-});
 
-// Configuration globale
+// Initialiser Supabase UNE SEULE FOIS
+let supabaseClient = null;
+
+try {
+    if (window.supabase && typeof window.supabase.create === 'function') {
+        supabaseClient = window.supabase.create({
+            url: SUPABASE_URL,
+            key: SUPABASE_KEY
+        });
+        console.log('✅ Supabase initialisé');
+    } else {
+        console.warn('⚠️ Supabase SDK non disponible');
+    }
+} catch (error) {
+    console.error('❌ Erreur d\'initialisation Supabase:', error);
+}
+
+// ==========================================
+// CONFIGURATION GLOBALE
+// ==========================================
 const CONFIG = {
     START_DATE: new Date('2024-04-02'),
     CURRENT_DATE: new Date(),
     promises: [],
     news: [],
     press: [],
-    subscribers: JSON.parse(localStorage.getItem('subscribers') || '[]'),
-    ratings: JSON.parse(localStorage.getItem('ratings') || '[]'),
+    subscribers: [],
+    ratings: [],
     albumScale: 1,
     albumMaxScale: 3,
     albumMinScale: 0.5
 };
 
 // ==========================================
+// GESTION SÉCURISÉE DU LOCAL STORAGE
+// ==========================================
+const safeStorage = {
+    getItem: function(key) {
+        try {
+            if (typeof localStorage !== 'undefined') {
+                return localStorage.getItem(key);
+            }
+            return null;
+        } catch (error) {
+            console.warn('⚠️ LocalStorage bloqué:', error);
+            return null;
+        }
+    },
+    
+    setItem: function(key, value) {
+        try {
+            if (typeof localStorage !== 'undefined') {
+                localStorage.setItem(key, value);
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.warn('⚠️ Impossible d\'écrire dans LocalStorage:', error);
+            return false;
+        }
+    },
+    
+    removeItem: function(key) {
+        try {
+            if (typeof localStorage !== 'undefined') {
+                localStorage.removeItem(key);
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.warn('⚠️ Impossible de supprimer de LocalStorage:', error);
+            return false;
+        }
+    }
+};
+
+// Charger les données depuis le stockage sécurisé
+function loadStoredData() {
+    try {
+        const subscribers = safeStorage.getItem('subscribers');
+        const ratings = safeStorage.getItem('ratings');
+        
+        CONFIG.subscribers = subscribers ? JSON.parse(subscribers) : [];
+        CONFIG.ratings = ratings ? JSON.parse(ratings) : [];
+        
+        console.log('✅ Données chargées depuis le stockage');
+    } catch (error) {
+        console.warn('⚠️ Erreur lors du chargement des données:', error);
+        CONFIG.subscribers = [];
+        CONFIG.ratings = [];
+    }
+}
+
+// Sauvegarder les données dans le stockage sécurisé
+function saveStoredData() {
+    try {
+        safeStorage.setItem('subscribers', JSON.stringify(CONFIG.subscribers));
+        safeStorage.setItem('ratings', JSON.stringify(CONFIG.ratings));
+        console.log('✅ Données sauvegardées');
+    } catch (error) {
+        console.warn('⚠️ Erreur lors de la sauvegarde:', error);
+    }
+}
+
+// ==========================================
 // INITIALISATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
     console.log('🚀 Application en cours d\'initialisation...');
+    
+    // Charger les données stockées
+    loadStoredData();
     
     // Initialiser les animations
     initAnimations();
@@ -55,28 +146,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 // ANIMATIONS D'ARRIÈRE-PLAN
 // ==========================================
 function initAnimations() {
-    createParticles();
     setupCardHoverEffects();
+    setupScrollListeners();
 }
 
-function createParticles() {
-    const container = document.createElement('div');
-    container.className = 'animated-bg';
-    container.id = 'particles';
-    
-    for (let i = 0; i < 30; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.width = Math.random() * 100 + 50 + 'px';
-        particle.style.height = particle.style.width;
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 20 + 's';
-        particle.style.animationDuration = Math.random() * 20 + 10 + 's';
-        container.appendChild(particle);
-    }
-    
-    document.body.insertBefore(container, document.body.firstChild);
+function setupScrollListeners() {
+    window.addEventListener('scroll', () => {
+        updateScrollProgress();
+        
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+        if (backToTop) {
+            backToTop.classList.toggle('visible', window.scrollY > 300);
+        }
+    });
 }
 
 // ==========================================
@@ -272,10 +355,10 @@ function renderPromises(promises) {
     
     if (promises.length === 0) {
         container.innerHTML = `
-            <div class="no-results">
-                <i class="fas fa-search fa-3x"></i>
-                <h3>Aucun résultat trouvé</h3>
-                <p>Essayez de modifier vos critères de recherche</p>
+            <div class="no-results" style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                <i class="fas fa-search fa-3x" style="color: var(--text-secondary);"></i>
+                <h3 style="margin: 1rem 0; color: var(--text-primary);">Aucun résultat trouvé</h3>
+                <p style="color: var(--text-secondary);">Essayez de modifier vos critères de recherche</p>
             </div>
         `;
         return;
@@ -470,8 +553,10 @@ function setupEventListeners() {
     if (mobileMenuBtn && navMenu) {
         mobileMenuBtn.addEventListener('click', () => {
             navMenu.classList.toggle('show');
-            mobileMenuBtn.querySelector('i').className = 
-                navMenu.classList.contains('show') ? 'fas fa-times' : 'fas fa-bars';
+            const icon = mobileMenuBtn.querySelector('i');
+            if (icon) {
+                icon.className = navMenu.classList.contains('show') ? 'fas fa-times' : 'fas fa-bars';
+            }
         });
     }
     
@@ -527,17 +612,6 @@ function setupEventListeners() {
             exportData(this.dataset.format);
         });
     });
-    
-    // Scroll
-    window.addEventListener('scroll', updateScrollProgress);
-    
-    // Back to top
-    const backToTop = document.getElementById('backToTop');
-    if (backToTop) {
-        window.addEventListener('scroll', () => {
-            backToTop.classList.toggle('visible', window.scrollY > 300);
-        });
-    }
 }
 
 function applyFilters() {
@@ -712,7 +786,9 @@ function setupStarRatings() {
         container.querySelectorAll('.star').forEach(star => {
             star.addEventListener('click', function() {
                 const value = parseInt(this.getAttribute('data-value'));
-                input.value = value;
+                if (input) {
+                    input.value = value;
+                }
                 
                 container.querySelectorAll('.star').forEach(s => {
                     s.classList.toggle('filled', parseInt(s.getAttribute('data-value')) <= value);
@@ -757,7 +833,17 @@ function setupPromiseRatings() {
 
 async function savePromiseRating(promiseId, rating) {
     try {
-        const { data, error } = await supabase
+        if (!supabaseClient) {
+            console.warn('⚠️ Supabase non disponible, sauvegarde locale uniquement');
+            // Sauvegarde locale en attendant
+            const promise = CONFIG.promises.find(p => p.id === promiseId);
+            if (promise) {
+                promise.rating = rating;
+            }
+            return true;
+        }
+        
+        const { data, error } = await supabaseClient
             .from('promise_ratings')
             .insert([
                 {
@@ -773,7 +859,7 @@ async function savePromiseRating(promiseId, rating) {
         // Mettre à jour la note moyenne locale
         const promise = CONFIG.promises.find(p => p.id === promiseId);
         if (promise) {
-            promise.rating = ((promise.rating || 0) + rating) / 2;
+            promise.rating = rating;
         }
         
         return true;
@@ -789,6 +875,7 @@ async function getUserIP() {
         const data = await response.json();
         return data.ip;
     } catch (error) {
+        console.warn('⚠️ Impossible d\'obtenir l\'IP:', error);
         return 'unknown';
     }
 }
@@ -812,15 +899,17 @@ async function handleRating(e) {
     
     try {
         // Enregistrer dans Supabase
-        const { data, error } = await supabase
-            .from('service_ratings')
-            .insert([rating]);
-        
-        if (error) throw error;
+        if (supabaseClient) {
+            const { data, error } = await supabaseClient
+                .from('service_ratings')
+                .insert([rating]);
+            
+            if (error) throw error;
+        }
         
         // Enregistrer localement aussi
         CONFIG.ratings.push(rating);
-        localStorage.setItem('ratings', JSON.stringify(CONFIG.ratings));
+        saveStoredData();
         
         // Réinitialiser le formulaire
         document.getElementById('rating-form').reset();
@@ -1002,22 +1091,59 @@ function updateScrollProgress() {
 }
 
 function showNotification(message, type = 'success') {
+    const container = document.getElementById('notification-container');
+    if (!container) return;
+    
     const toast = document.createElement('div');
     toast.className = `notification ${type}`;
-    toast.style.background = type === 'error' ? 'linear-gradient(135deg, #e76f51, #c1543d)' : 
-                             type === 'info' ? 'linear-gradient(135deg, #4a90e2, #2d7ab5)' : 
-                             'linear-gradient(135deg, #2a9d8f, #21867a)';
+    toast.style.cssText = `
+        position: fixed;
+        top: 90px;
+        right: 1.5rem;
+        left: 1.5rem;
+        background: ${type === 'error' ? 'linear-gradient(135deg, #e76f51, #c1543d)' : 
+                    type === 'info' ? 'linear-gradient(135deg, #4a90e2, #2d7ab5)' : 
+                    'linear-gradient(135deg, #2a9d8f, #21867a)'};
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        z-index: 9999;
+        animation: slideIn 0.3s ease, slideOut 0.3s ease 2.7s forwards;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-weight: 500;
+        font-size: 0.95rem;
+    `;
+    
     toast.innerHTML = `
         <i class="fas fa-${type === 'error' ? 'exclamation-circle' : type === 'info' ? 'info-circle' : 'check-circle'}"></i>
         <span>${message}</span>
     `;
-    document.body.appendChild(toast);
+    
+    container.appendChild(toast);
     
     setTimeout(() => {
         toast.style.animation = 'slideOut 0.3s ease';
         setTimeout(() => toast.remove(), 300);
     }, 3000);
 }
+
+// Ajouter les animations CSS
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100px); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
 
 // ==========================================
 // SETUP CARD HOVER EFFECTS
