@@ -1,13 +1,724 @@
-// ==========================================
-// APP.JS - PROJET SÉNÉGAL - VERSION PRODUCTION CORRIGÉE
+// APP.JS - VERSION COMPLÈTE AVEC TOUS LES FILTRES
 // ==========================================
 
-// ==========================================
-// CONFIGURATION SUPABASE - UNIQUEMENT ICI
-// ==========================================
+// Configuration Supabase
 const SUPABASE_URL = 'https://jwsdxttjjbfnoufiidkd.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap';
+let supabaseClient = null;
 
+try {
+    if (window.supabase) {
+        supabaseClient = window.supabase.create({
+            url: SUPABASE_URL,
+            key: SUPABASE_KEY
+        });
+    }
+} catch (error) {
+    console.warn('⚠️ Supabase non disponible');
+}
+
+// Configuration globale
+const CONFIG = {
+    START_DATE: new Date('2024-04-02'),
+    CURRENT_DATE: new Date(),
+    promises: [],
+    press: [],
+    currentIndex: 0,
+    subscribers: [],
+    ratings: []
+};
+
+// Gestion sécurisée du localStorage
+const safeStorage = {
+    getItem: function(key) {
+        try {
+            return localStorage.getItem(key);
+        } catch (error) {
+            return null;
+        }
+    },
+    setItem: function(key, value) {
+        try {
+            localStorage.setItem(key, value);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }
+};
+
+// Charger les données stockées
+function loadStoredData() {
+    try {
+        const subscribers = safeStorage.getItem('subscribers');
+        const ratings = safeStorage.getItem('ratings');
+        
+        CONFIG.subscribers = subscribers ? JSON.parse(subscribers) : [];
+        CONFIG.ratings = ratings ? JSON.parse(ratings) : [];
+    } catch (error) {
+        CONFIG.subscribers = [];
+        CONFIG.ratings = [];
+    }
+}
+
+// Sauvegarder les données
+function saveStoredData() {
+    try {
+        safeStorage.setItem('subscribers', JSON.stringify(CONFIG.subscribers));
+        safeStorage.setItem('ratings', JSON.stringify(CONFIG.ratings));
+    } catch (error) {
+        console.warn('⚠️ Erreur sauvegarde');
+    }
+}
+
+// ==========================================
+// INITIALISATION
+// ==========================================
+document.addEventListener('DOMContentLoaded', async () => {
+    console.log('🚀 Initialisation...');
+    
+    loadStoredData();
+    await loadData();
+    setupEventListeners();
+    setupCarousel();
+    setupStarRatings();
+    
+    console.log('✅ Initialisation terminée');
+});
+
+// ==========================================
+// CHARGEMENT DES DONNÉES
+// ==========================================
+async function loadData() {
+    try {
+        const response = await fetch('promises.json');
+        const data = await response.json();
+        
+        CONFIG.START_DATE = new Date(data.start_date);
+        CONFIG.promises = data.promises.map(p => ({
+            ...p,
+            deadline: calculateDeadline(p.delai),
+            isLate: checkIfLate(p.status, calculateDeadline(p.delai))
+        }));
+        
+        CONFIG.press = getDemoPress();
+        
+        renderAll();
+        renderPressCarousel();
+        
+    } catch (error) {
+        console.error('❌ Erreur chargement:', error);
+        showNotification('Erreur de chargement', 'error');
+    }
+}
+
+function getDemoPress() {
+    return [
+        { id: '1', title: 'Le Soleil', date: '28/01/2026', image: '🇸🇱' },
+        { id: '2', title: 'Sud Quotidien', date: '28/01/2026', image: '🇸🇶' },
+        { id: '3', title: 'WalFadjri', date: '28/01/2026', image: '🇼🇫' },
+        { id: '4', title: 'L\'Observateur', date: '28/01/2026', image: '🇱🇴' },
+        { id: '5', title: 'Le Quotidien', date: '28/01/2026', image: '🇱🇶' }
+    ];
+}
+
+// ==========================================
+// CALCULS ORIGINAUX
+// ==========================================
+function calculateDeadline(delaiText) {
+    const text = delaiText.toLowerCase();
+    const result = new Date(CONFIG.START_DATE);
+    
+    if (text.includes('immédiat') || text.includes('3 mois')) {
+        result.setMonth(result.getMonth() + 3);
+    } else if (text.includes('6 mois')) {
+        result.setMonth(result.getMonth() + 6);
+    } else if (text.includes('1 an') || text.includes('12 mois')) {
+        result.setFullYear(result.getFullYear() + 1);
+    } else if (text.includes('2 ans')) {
+        result.setFullYear(result.getFullYear() + 2);
+    } else if (text.includes('3 ans')) {
+        result.setFullYear(result.getFullYear() + 3);
+    } else if (text.includes('5 ans') || text.includes('quinquennat')) {
+        result.setFullYear(result.getFullYear() + 5);
+    } else {
+        result.setFullYear(result.getFullYear() + 5);
+    }
+    
+    return result;
+}
+
+function checkIfLate(status, deadline) {
+    return status !== 'realise' && CONFIG.CURRENT_DATE > deadline;
+}
+
+function calculateStats() {
+    const total = CONFIG.promises.length;
+    const realise = CONFIG.promises.filter(p => p.status === 'realise').length;
+    const encours = CONFIG.promises.filter(p => p.status === 'encours').length;
+    const nonLance = CONFIG.promises.filter(p => p.status === 'non-lance').length;
+    const retard = CONFIG.promises.filter(p => p.isLate).length;
+    const avecMaj = CONFIG.promises.filter(p => p.mises_a_jour && p.mises_a_jour.length > 0).length;
+    
+    // Calculs originaux
+    const tauxRealisation = total > 0 ? (((realise * 100 + encours * 50) / (total * 100)) * 100).toFixed(1) : 0;
+    const progression = tauxRealisation;
+    
+    const avgRating = CONFIG.promises.reduce((sum, p) => sum + (p.rating || 0), 0) / total;
+    
+    return {
+        total,
+        realise,
+        encours,
+        nonLance,
+        retard,
+        realisePercentage: total > 0 ? ((realise / total) * 100).toFixed(1) : 0,
+        encoursPercentage: total > 0 ? ((encours / total) * 100).toFixed(1) : 0,
+        tauxRealisation: tauxRealisation,
+        progression: progression,
+        avgRating: avgRating.toFixed(1),
+        ratingCount: CONFIG.ratings.length,
+        avecMaj: avecMaj,
+        avecMajPercentage: total > 0 ? ((avecMaj / total) * 100).toFixed(1) : 0,
+        avgDelay: calculateAvgDelay()
+    };
+}
+
+function calculateAvgDelay() {
+    const encours = CONFIG.promises.filter(p => p.status === 'encours');
+    if (encours.length === 0) return '0j';
+    
+    const totalDays = encours.reduce((sum, p) => {
+        const diffTime = p.deadline - CONFIG.CURRENT_DATE;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return sum + Math.max(0, diffDays);
+    }, 0);
+    
+    return Math.round(totalDays / encours.length) + 'j';
+}
+
+// ==========================================
+// RENDU
+// ==========================================
+function renderAll() {
+    const stats = calculateStats();
+    renderStats(stats);
+    renderPromises(CONFIG.promises);
+}
+
+function renderStats(stats) {
+    const elements = {
+        total: document.getElementById('total-promises'),
+        realise: document.getElementById('realized'),
+        encours: document.getElementById('inProgress'),
+        notStarted: document.getElementById('notStarted'),
+        retard: document.getElementById('delayed'),
+        taux: document.getElementById('globalProgress'),
+        progression: document.getElementById('progression'),
+        avgRating: document.getElementById('avgRating'),
+        ratingCount: document.getElementById('ratingCount'),
+        withUpdates: document.getElementById('withUpdates'),
+        avgDelay: document.getElementById('avgDelay')
+    };
+    
+    if (elements.total) animateValue(elements.total, 0, stats.total, 1000);
+    if (elements.realise) animateValue(elements.realise, 0, stats.realise, 1000);
+    if (elements.encours) animateValue(elements.encours, 0, stats.encours, 1000);
+    if (elements.notStarted) animateValue(elements.notStarted, 0, stats.nonLance, 1000);
+    if (elements.retard) animateValue(elements.retard, 0, stats.retard, 1000);
+    
+    if (elements.taux) elements.taux.textContent = stats.tauxRealisation + '%';
+    if (elements.progression) elements.progression.textContent = stats.progression + '%';
+    if (elements.avgRating) elements.avgRating.textContent = stats.avgRating;
+    if (elements.ratingCount) elements.ratingCount.textContent = stats.ratingCount + ' votes';
+    if (elements.withUpdates) elements.withUpdates.textContent = stats.avecMaj;
+    if (elements.avgDelay) elements.avgDelay.textContent = stats.avgDelay;
+}
+
+function renderPromises(promises) {
+    const container = document.getElementById('promisesContainer');
+    
+    if (!container) return;
+    
+    if (promises.length === 0) {
+        container.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                <i class="fas fa-search fa-3x" style="color: var(--text-secondary);"></i>
+                <h3 style="margin: 1rem 0; color: var(--text-primary);">Aucun résultat trouvé</h3>
+                <p style="color: var(--text-secondary);">Essayez de modifier vos critères de recherche</p>
+            </div>
+        `;
+        return;
+    }
+    
+    container.innerHTML = promises.map(promise => createPromiseCard(promise)).join('');
+    
+    // Configurer les écouteurs pour les étoiles
+    setupPromiseRatings();
+}
+
+function createPromiseCard(promise) {
+    const statusClass = promise.status === 'realise' ? 'status-realise' :
+        promise.status === 'encours' ? 'status-encours' : 'status-nonlance';
+    
+    const statusText = promise.status === 'realise' ? '✅ Réalisé' :
+        promise.status === 'encours' ? '🔄 En cours' : '⏳ Non lancé';
+    
+    const isLate = promise.isLate;
+    const delayClass = isLate ? 'delay-danger' : 'delay-success';
+    const delayText = isLate ? '⚠️ En retard' : '⏱️ Dans les délais';
+    
+    const hasUpdates = promise.mises_a_jour && promise.mises_a_jour.length > 0;
+    
+    return `
+        <div class="promise-card" data-id="${promise.id}">
+            <span class="domain-badge">${promise.domaine}</span>
+            <h3 class="promise-title">${promise.engagement}</h3>
+            
+            <div class="result-box">
+                <i class="fas fa-bullseye"></i>
+                <strong>Résultat attendu :</strong> ${promise.resultat}
+            </div>
+            
+            <div class="promise-meta">
+                <div class="status-badge ${statusClass}">${statusText}</div>
+                <div class="delay-badge ${delayClass}">
+                    <i class="fas fa-clock"></i>
+                    ${delayText}
+                </div>
+            </div>
+            
+            ${hasUpdates ? `
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                    <small style="color: var(--text-secondary);">
+                        <i class="fas fa-history"></i> 
+                        ${promise.mises_a_jour.length} mise${promise.mises_a_jour.length > 1 ? 's' : ''} à jour
+                    </small>
+                </div>
+            ` : ''}
+            
+            <!-- NOTATION PAR ÉTOILES -->
+            <div class="rating-section-promise">
+                <div class="stars" id="stars-${promise.id}">
+                    ${[1, 2, 3, 4, 5].map(i => `
+                        <i class="fas fa-star ${i <= Math.round(promise.rating || 0) ? 'filled' : ''}" 
+                           data-value="${i}" 
+                           data-promise-id="${promise.id}"></i>
+                    `).join('')}
+                </div>
+                <span class="rating-label">
+                    ${promise.rating ? promise.rating.toFixed(1) + '/5' : 'Pas encore noté'}
+                </span>
+            </div>
+            
+            <!-- PARTAGE -->
+            <div class="share-section">
+                <a href="#" class="share-btn share-twitter" onclick="shareOnSocial('twitter', '${promise.id}')" title="Partager sur Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="share-btn share-facebook" onclick="shareOnSocial('facebook', '${promise.id}')" title="Partager sur Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="share-btn share-whatsapp" onclick="shareOnSocial('whatsapp', '${promise.id}')" title="Partager sur WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="#" class="share-btn share-linkedin" onclick="shareOnSocial('linkedin', '${promise.id}')" title="Partager sur LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+        </div>
+    `;
+}
+
+// ==========================================
+// FILTRES COMPLETS COMME L'ORIGINAL
+// ==========================================
+function applyFilters() {
+    const search = document.getElementById('searchInput')?.value.toLowerCase() || '';
+    const sector = document.getElementById('sectorFilter')?.value || '';
+    const status = document.getElementById('statusFilter')?.value || '';
+    const sort = document.getElementById('sortFilter')?.value || 'recent';
+    
+    let filtered = CONFIG.promises.filter(p => {
+        const matchSearch = p.engagement.toLowerCase().includes(search) ||
+            p.resultat.toLowerCase().includes(search) ||
+            p.domaine.toLowerCase().includes(search);
+        
+        const matchSector = !sector || p.domaine === sector;
+        const matchStatus = !status || p.status === status;
+        
+        return matchSearch && matchSector && matchStatus;
+    });
+    
+    // Appliquer le tri
+    filtered = sortPromises(filtered, sort);
+    
+    renderPromises(filtered);
+}
+
+function sortPromises(promises, sortType) {
+    return [...promises].sort((a, b) => {
+        switch(sortType) {
+            case 'recent':
+                return b.id - a.id;
+            case 'ancient':
+                return a.id - b.id;
+            case 'rating':
+                return (b.rating || 0) - (a.rating || 0);
+            case 'delay':
+                if (a.isLate && !b.isLate) return -1;
+                if (!a.isLate && b.isLate) return 1;
+                return 0;
+            default:
+                return 0;
+        }
+    });
+}
+
+function applyQuickFilter(filter) {
+    let filtered = CONFIG.promises;
+    
+    switch(filter) {
+        case 'realise':
+            filtered = filtered.filter(p => p.status === 'realise');
+            break;
+        case 'encours':
+            filtered = filtered.filter(p => p.status === 'encours');
+            break;
+        case 'retard':
+            filtered = filtered.filter(p => p.isLate);
+            break;
+        case 'updates':
+            filtered = filtered.filter(p => p.mises_a_jour && p.mises_a_jour.length > 0);
+            break;
+        case 'reset':
+            document.getElementById('searchInput').value = '';
+            document.getElementById('sectorFilter').value = '';
+            document.getElementById('statusFilter').value = '';
+            document.getElementById('sortFilter').value = 'recent';
+            break;
+    }
+    
+    renderPromises(filtered);
+}
+
+// ==========================================
+// CAROUSEL REVUE DE PRESSE
+// ==========================================
+function renderPressCarousel() {
+    const carousel = document.getElementById('pressCarousel');
+    const indicators = document.getElementById('carouselIndicators');
+    
+    if (!carousel || !indicators) return;
+    
+    // Rendre les items
+    carousel.innerHTML = CONFIG.press.map((item, index) => `
+        <div class="carousel-item ${index === 0 ? 'active' : ''}" data-index="${index}">
+            <div style="font-size: 8rem; text-align: center; padding: 2rem;">
+                ${item.image}
+            </div>
+            <div class="carousel-info">
+                <div class="carousel-title">${item.title}</div>
+                <div class="carousel-date">${item.date}</div>
+            </div>
+        </div>
+    `).join('');
+    
+    // Rendre les indicateurs
+    indicators.innerHTML = CONFIG.press.map((_, index) => `
+        <div class="indicator ${index === 0 ? 'active' : ''}" data-index="${index}"></div>
+    `).join('');
+    
+    CONFIG.currentIndex = 0;
+}
+
+function setupCarousel() {
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(CONFIG.currentIndex - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(CONFIG.currentIndex + 1));
+    
+    // Indicateurs cliquables
+    document.querySelectorAll('.indicator').forEach(indicator => {
+        indicator.addEventListener('click', () => {
+            const index = parseInt(indicator.dataset.index);
+            goToSlide(index);
+        });
+    });
+    
+    // Auto-rotation
+    setInterval(() => {
+        goToSlide(CONFIG.currentIndex + 1);
+    }, 5000);
+}
+
+function goToSlide(index) {
+    const total = CONFIG.press.length;
+    
+    // Gérer le bouclage
+    if (index < 0) index = total - 1;
+    if (index >= total) index = 0;
+    
+    // Mettre à jour les classes
+    document.querySelectorAll('.carousel-item').forEach((item, i) => {
+        item.classList.remove('active', 'next', 'prev');
+        
+        if (i === index) {
+            item.classList.add('active');
+        } else if (i === (index + 1) % total) {
+            item.classList.add('next');
+        } else if (i === (index - 1 + total) % total) {
+            item.classList.add('prev');
+        }
+    });
+    
+    // Mettre à jour les indicateurs
+    document.querySelectorAll('.indicator').forEach((indicator, i) => {
+        indicator.classList.toggle('active', i === index);
+    });
+    
+    CONFIG.currentIndex = index;
+}
+
+// ==========================================
+// NOTATION PAR ÉTOILES
+// ==========================================
+function setupStarRatings() {
+    // Étoiles pour les services
+    document.querySelectorAll('.stars-container').forEach(container => {
+        const inputId = container.id.replace('-stars', '');
+        const input = document.getElementById(inputId);
+        
+        container.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+                if (input) {
+                    input.value = value;
+                }
+                
+                container.querySelectorAll('.star').forEach(s => {
+                    s.classList.toggle('filled', parseInt(s.getAttribute('data-value')) <= value);
+                });
+            });
+            
+            star.addEventListener('mouseover', function() {
+                const hoverValue = parseInt(this.getAttribute('data-value'));
+                container.querySelectorAll('.star').forEach(s => {
+                    s.classList.toggle('hover', parseInt(s.getAttribute('data-value')) <= hoverValue);
+                });
+            });
+            
+            star.addEventListener('mouseout', function() {
+                container.querySelectorAll('.star').forEach(s => {
+                    s.classList.remove('hover');
+                });
+            });
+        });
+    });
+    
+    // Étoiles pour les promesses
+    document.querySelectorAll('.stars i').forEach(star => {
+        star.addEventListener('click', async function() {
+            const value = parseInt(this.getAttribute('data-value'));
+            const promiseId = this.getAttribute('data-promise-id');
+            
+            // Mettre à jour visuellement
+            const stars = document.querySelectorAll(`#stars-${promiseId} i`);
+            stars.forEach(s => {
+                s.classList.toggle('filled', parseInt(s.getAttribute('data-value')) <= value);
+            });
+            
+            // Enregistrer
+            await savePromiseRating(promiseId, value);
+            
+            showNotification(`⭐ Note enregistrée : ${value}/5`, 'success');
+            
+            // Mettre à jour les stats
+            renderAll();
+        });
+    });
+}
+
+async function savePromiseRating(promiseId, rating) {
+    try {
+        if (supabaseClient) {
+            const { data, error } = await supabaseClient
+                .from('promise_ratings')
+                .insert([{
+                    promise_id: promiseId,
+                    rating: rating,
+                    timestamp: new Date().toISOString()
+                }]);
+            
+            if (error) throw error;
+        }
+        
+        // Mettre à jour locale
+        const promise = CONFIG.promises.find(p => p.id === promiseId);
+        if (promise) {
+            promise.rating = rating;
+        }
+        
+        return true;
+    } catch (error) {
+        console.error('Erreur notation:', error);
+        return false;
+    }
+}
+
+// ==========================================
+// PARTAGE SUR RÉSEAUX SOCIAUX
+// ==========================================
+function shareOnSocial(platform, promiseId) {
+    const promise = CONFIG.promises.find(p => p.id === promiseId);
+    if (!promise) return;
+    
+    const text = `Suivi de l'engagement : "${promise.engagement.substring(0, 50)}..." | LE PROJET SÉNÉGAL`;
+    const url = window.location.href;
+    
+    let shareUrl = '';
+    
+    switch(platform) {
+        case 'twitter':
+            shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+            break;
+        case 'facebook':
+            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            break;
+        case 'whatsapp':
+            shareUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`;
+            break;
+        case 'linkedin':
+            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+            break;
+    }
+    
+    window.open(shareUrl, '_blank', 'width=600,height=400');
+    showNotification(` Publié sur ${platform} !`, 'success');
+}
+
+// ==========================================
+// ÉVÉNEMENTS
+// ==========================================
+function setupEventListeners() {
+    const searchInput = document.getElementById('searchInput');
+    const sectorFilter = document.getElementById('sectorFilter');
+    const statusFilter = document.getElementById('statusFilter');
+    const sortFilter = document.getElementById('sortFilter');
+    
+    if (searchInput) searchInput.addEventListener('input', applyFilters);
+    if (sectorFilter) sectorFilter.addEventListener('change', applyFilters);
+    if (statusFilter) statusFilter.addEventListener('change', applyFilters);
+    if (sortFilter) sortFilter.addEventListener('change', applyFilters);
+    
+    // Filtres rapides
+    document.querySelectorAll('.quick-filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.quick-filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const filter = this.dataset.filter;
+            applyQuickFilter(filter);
+        });
+    });
+    
+    // Formulaire de notation services
+    const ratingForm = document.getElementById('rating-form');
+    if (ratingForm) ratingForm.addEventListener('submit', handleServiceRating);
+}
+
+async function handleServiceRating(e) {
+    e.preventDefault();
+    
+    const rating = {
+        service: document.getElementById('service').value,
+        accessibility: parseInt(document.getElementById('accessibility').value),
+        welcome: parseInt(document.getElementById('welcome').value),
+        efficiency: parseInt(document.getElementById('efficiency').value),
+        transparency: parseInt(document.getElementById('transparency').value),
+        comment: document.getElementById('comment').value.trim(),
+        date: new Date().toISOString(),
+        id: Date.now()
+    };
+    
+    try {
+        // Enregistrer dans Supabase
+        if (supabaseClient) {
+            const { data, error } = await supabaseClient
+                .from('service_ratings')
+                .insert([rating]);
+            
+            if (error) throw error;
+        }
+        
+        // Enregistrer localement aussi
+        CONFIG.ratings.push(rating);
+        saveStoredData();
+        
+        // Réinitialiser le formulaire
+        document.getElementById('rating-form').reset();
+        
+        // Réinitialiser les étoiles
+        document.querySelectorAll('.stars-container').forEach(container => {
+            container.querySelectorAll('.star').forEach(star => {
+                star.classList.remove('filled');
+            });
+        });
+        
+        showNotification('⭐ Merci pour votre notation !', 'success');
+        
+        // Mettre à jour les stats
+        renderAll();
+        
+    } catch (error) {
+        console.error('Erreur lors de l\'enregistrement:', error);
+        showNotification('Erreur lors de l\'enregistrement', 'error');
+    }
+}
+
+// ==========================================
+// UTILITAIRES
+// ==========================================
+function animateValue(element, start, end, duration) {
+    if (!element) return;
+    
+    const range = end - start;
+    const increment = end > start ? 1 : -1;
+    const stepTime = Math.abs(Math.floor(duration / range));
+    let current = start;
+    
+    const timer = setInterval(() => {
+        current += increment;
+        element.textContent = current;
+        if (current === end) clearInterval(timer);
+    }, stepTime);
+}
+
+function showNotification(message, type = 'success') {
+    const container = document.getElementById('notification-container');
+    if (!container) return;
+    
+    const toast = document.createElement('div');
+    toast.className = 'notification';
+    toast.style.background = type === 'error' ? 'linear-gradient(135deg, #e76f51, #c1543d)' : 
+                             type === 'info' ? 'linear-gradient(135deg, #4a90e2, #2d7ab5)' : 
+                             'linear-gradient(135deg, #2a9d8f, #21867a)';
+    toast.innerHTML = `
+        <i class="fas fa-${type === 'error' ? 'exclamation-circle' : type === 'info' ? 'info-circle' : 'check-circle'}"></i>
+        <span>${message}</span>
+    `;
+    
+    container.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+// Exposer les fonctions globales
+window.shareOnSocial = shareOnSocial;
 // Initialiser Supabase UNE SEULE FOIS
 let supabaseClient = null;
 
