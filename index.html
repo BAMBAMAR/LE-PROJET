@@ -1,395 +1,519 @@
 <!DOCTYPE html>
-<html lang="fr" class="light-theme">
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <meta name="description" content="Tableau de bord interactif pour suivre en temps réel l'avancement des engagements du Projet Sénégal">
-  
-  <!-- Empêcher le tracking prevention de bloquer le localStorage -->
-  <meta http-equiv="origin-trial" content="Aj8...VrQ">
-  <meta name="referrer" content="no-referrer-when-downgrade">
-  
-  <!-- SEO Enhanced -->
-  <meta name="keywords" content="Sénégal, promesses, Diomaye Faye, transparence, gouvernance, démocratie, tableau de bord, visualisation">
-  <meta name="author" content="ProjetBI">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://projetbi.org/">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Tableau de Bord Interactif | Projet Sénégal">
-  <meta property="og:description" content="Visualisez et suivez en temps réel l'avancement des engagements présidentiels">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://projetbi.org/">
-  <meta property="og:image" content="https://projetbi.org/og-image.jpg">
-  <meta property="og:image:alt" content="Tableau de bord interactif Projet Sénégal">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Suivi des Engagements | Projet Sénégal">
-  <meta name="twitter:description" content="Visualisez et interagissez avec les données en temps réel">
-  <meta name="twitter:image" content="https://projetbi.org/twitter-card.jpg">
-
-  <title>Tableau de Bord Interactif | Projet Sénégal</title>
-
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
-  
-  <!-- AOS (Animate On Scroll) -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="https://projetbi.org/favicon.png">
-  <link rel="apple-touch-icon" href="https://projetbi.org/favicon.png">
-
-  <!-- Scripts externes -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  
-  <!-- Styles personnalisés -->
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi des Promesses | Le Projet Sénégal</title>
+    <link rel="icon" href="https://projetbi.org/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Plateforme citoyenne de suivi transparent des engagements du Président Bassirou Diomaye Faye">
 </head>
 <body>
-  <!-- Barre de progression du scroll -->
-  <div class="scroll-progress" id="scrollProgress"></div>
+    <!-- Scroll Progress -->
+    <div class="scroll-progress"></div>
 
-  <!-- Navigation moderne -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-container">
-      <a href="#hero" class="nav-logo" data-parallax="0.3">
-        <img src="https://projetbi.org/favicon.png" alt="Logo ProjetBI" class="nav-logo-img">
-        <div>
-          <span class="logo-text">PROJET BI</span>
-          <span class="logo-subtext">Tableau de bord interactif</span>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#header" class="nav-logo">
+                <img src="https://projetbi.org/favicon.png" alt="Logo" class="nav-logo-img">
+                <span class="logo-text">LE PROJET SÉNÉGAL</span>
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-menu" id="navMenu">
+                <a href="#header" class="nav-link active">
+                    <i class="fas fa-home"></i> Accueil
+                </a>
+                <a href="#dashboard" class="nav-link">
+                    <i class="fas fa-chart-line"></i> Tableau de bord
+                </a>
+                <a href="#promises" class="nav-link">
+                    <i class="fas fa-tasks"></i> Engagements
+                </a>
+                <a href="#news" class="nav-link">
+                    <i class="fas fa-newspaper"></i> Actualités
+                </a>
+                <a href="#spotlight" class="nav-link">
+                    <i class="fas fa-star"></i> Promesse du jour
+                </a>
+                <a href="#filters" class="nav-link">
+                    <i class="fas fa-filter"></i> Filtres
+                </a>
+                <a href="#footer" class="nav-link">
+                    <i class="fas fa-info-circle"></i> À propos
+                </a>
+            </div>
         </div>
-      </a>
+    </nav>
 
-      <div class="nav-menu" id="navMenu">
-        <a href="#dashboard" class="nav-link active">
-          <i class="fas fa-chart-line"></i>
-          <span>Dashboard</span>
-        </a>
-        <a href="#analytics" class="nav-link">
-          <i class="fas fa-chart-pie"></i>
-          <span>Analytics</span>
-        </a>
-        <a href="#engagement" class="nav-link">
-          <i class="fas fa-handshake"></i>
-          <span>Engagements</span>
-        </a>
-        <button class="interactive-btn" id="exportDashboard">
-          <i class="fas fa-download"></i>
-          <span>Exporter</span>
-        </button>
-      </div>
+    <!-- Back to Top -->
+    <a href="#header" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 
-      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu mobile">
-        <i class="fas fa-bars"></i>
-      </button>
-    </div>
-  </nav>
-
-  <!-- Section Hero -->
-  <section class="hero-section" id="hero">
-    <div class="hero-content">
-      <h1 class="hero-title" data-parallax="0.5">
-        Tableau de Bord Interactif
-        <br>
-        <span style="font-size: 1.8rem; display: block; margin-top: 0.5rem;">
-          Suivi des Engagements du Projet Sénégal
-        </span>
-      </h1>
-      
-      <p class="hero-subtitle">
-        Visualisez, analysez et interagissez avec les données en temps réel. 
-        Découvrez l'avancement des engagements et leur impact.
-      </p>
-
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="hero-stat-value" id="hero-total">99</div>
-          <div class="hero-stat-label">Engagements totaux</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-value" id="hero-progress">74%</div>
-          <div class="hero-stat-label">Progression globale</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-value" id="hero-active">42</div>
-          <div class="hero-stat-label">En cours actif</div>
-        </div>
-      </div>
-
-      <div class="hero-actions">
-        <button class="interactive-btn" onclick="APP.showTour()">
-          <i class="fas fa-play-circle"></i>
-          <span>Démarrer le tour</span>
-        </button>
-        <button class="interactive-btn" onclick="APP.refreshData()">
-          <i class="fas fa-sync-alt"></i>
-          <span>Actualiser les données</span>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Dashboard Principal -->
-  <div class="container">
-    <!-- Section des KPI -->
-    <section id="dashboard" class="dashboard-section">
-      <div class="section-header">
-        <h2 class="section-title">
-          <i class="fas fa-tachometer-alt"></i>
-          Indicateurs Clés de Performance
-        </h2>
-      </div>
-
-      <div class="stats-grid" id="kpiGrid">
-        <!-- Les KPI seront injectés ici par JavaScript -->
-      </div>
-    </section>
-
-    <!-- Section Analytics -->
-    <section id="analytics" class="analytics-section">
-      <div class="section-header">
-        <h2 class="section-title">
-          <i class="fas fa-chart-bar"></i>
-          Analytics & Visualisations
-        </h2>
-      </div>
-
-      <div class="analytics-grid">
-        <div class="dashboard-card">
-          <div class="card-header">
-            <h3 class="card-title">
-              <i class="fas fa-radar"></i>
-              Progression par Domaine
-            </h3>
-          </div>
-          <div class="card-content">
-            <canvas id="radarChart" height="300"></canvas>
-          </div>
-        </div>
-
-        <div class="dashboard-card">
-          <div class="card-header">
-            <h3 class="card-title">
-              <i class="fas fa-timeline"></i>
-              Échéances Temporelles
-            </h3>
-          </div>
-          <div class="card-content">
-            <canvas id="timelineChart" height="300"></canvas>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Engagements avec filtres -->
-    <section id="engagement" class="engagement-section">
-      <div class="section-header">
-        <h2 class="section-title">
-          <i class="fas fa-handshake"></i>
-          Engagements Détailés
-        </h2>
-        
-        <div class="advanced-filters" id="advancedFilters">
-          <div class="filter-group">
-            <input type="text" 
-                   id="searchInput" 
-                   placeholder="Rechercher un engagement..."
-                   class="filter-input">
-          </div>
-          
-          <div class="filter-group">
-            <select id="domainFilter" class="filter-select">
-              <option value="">Tous les domaines</option>
-            </select>
-          </div>
-          
-          <div class="filter-group">
-            <select id="statusFilter" class="filter-select">
-              <option value="">Statut</option>
-              <option value="realise">Réalisé</option>
-              <option value="encours">En cours</option>
-              <option value="non-lance">Non lancé</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="promises-grid" id="promisesContainer">
-        <!-- Les cartes d'engagement seront injectées ici -->
-      </div>
-    </section>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>Projet BI</h4>
-        <p>Tableau de bord interactif pour le suivi transparent des engagements du Projet Sénégal.</p>
-        <div class="footer-social">
-          <a href="https://twitter.com/ProjetSenegal" class="social-link" target="_blank">
-            <i class="fab fa-x-twitter"></i>
-          </a>
-          <a href="mailto:pastefprojetbi@gmail.com" class="social-link">
-            <i class="fas fa-envelope"></i>
-          </a>
-        </div>
-      </div>
-
-      <div class="footer-section">
-        <h4>Navigation</h4>
-        <ul class="footer-links">
-          <li><a href="#dashboard">Dashboard</a></li>
-          <li><a href="#analytics">Analytics</a></li>
-          <li><a href="#engagement">Engagements</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-section">
-        <h4>Contact</h4>
-        <div class="contact-info">
-          <p><i class="fas fa-envelope"></i> pastefprojetbi@gmail.com</p>
-          <p><i class="fas fa-phone"></i> +221 76 945 5253</p>
-          <p><i class="fas fa-map-marker-alt"></i> Dakar, Sénégal</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <p>© 2026 Projet BI - Tableau de Bord Interactif.</p>
-      <p class="footer-version">Version 2.0.0</p>
-    </div>
-  </footer>
-
-  <!-- Bouton retour en haut -->
-  <a href="#hero" class="back-to-top" id="backToTop">
-    <i class="fas fa-chevron-up"></i>
-  </a>
-
-  <!-- Scripts dans le bon ordre -->
-  <!-- 1. Correction du Tracking Prevention -->
-  <script>
-    // Solution pour Tracking Prevention
-    (function() {
-      // Utiliser sessionStorage comme fallback pour localStorage
-      const storage = {
-        setItem: function(key, value) {
-          try {
-            localStorage.setItem(key, value);
-          } catch (e) {
-            sessionStorage.setItem(key, value);
-            console.warn('LocalStorage bloqué, utilisation de sessionStorage');
-          }
-        },
-        getItem: function(key) {
-          try {
-            return localStorage.getItem(key) || sessionStorage.getItem(key);
-          } catch (e) {
-            return sessionStorage.getItem(key);
-          }
-        },
-        removeItem: function(key) {
-          try {
-            localStorage.removeItem(key);
-          } catch (e) {}
-          sessionStorage.removeItem(key);
-        }
-      };
-      
-      // Remplacer localStorage par notre wrapper
-      window.safeStorage = storage;
-      
-      // Patch pour applyStyles
-      if (typeof window.applyStyles === 'undefined') {
-        window.applyStyles = function() {
-          console.log('applyStyles: Applying safe styles');
-          return true;
-        };
-      }
-    })();
-  </script>
-  
-  <!-- 2. Scripts de base -->
-  <script src="corrections.js"></script>
-  <script src="createSingleton.js"></script>
-  <script src="utils.js"></script>
-  <script src="render.js"></script>
-  <script src="app.js"></script>
-  
-  <!-- 3. Initialisation finale -->
-  <script>
-    // Initialiser AOS
-    if (typeof AOS !== 'undefined') {
-      AOS.init({
-        duration: 800,
-        once: true,
-        offset: 100,
-        easing: 'ease-out-cubic'
-      });
-    } else {
-      console.warn('AOS non disponible, continuation sans animations');
-    }
-    
-    // Initialiser les événements
-    document.addEventListener('DOMContentLoaded', function() {
-      // Menu mobile
-      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-      const navMenu = document.getElementById('navMenu');
-      
-      if (mobileMenuBtn && navMenu) {
-        mobileMenuBtn.addEventListener('click', () => {
-          navMenu.classList.toggle('show');
-          mobileMenuBtn.innerHTML = navMenu.classList.contains('show') 
-            ? '<i class="fas fa-times"></i>' 
-            : '<i class="fas fa-bars"></i>';
-        });
-      }
-      
-      // Bouton retour en haut
-      const backToTop = document.getElementById('backToTop');
-      if (backToTop) {
-        window.addEventListener('scroll', () => {
-          backToTop.style.opacity = window.scrollY > 500 ? '1' : '0';
-        });
-        
-        backToTop.addEventListener('click', (e) => {
-          e.preventDefault();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      }
-      
-      // Navigation fluide
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          const href = this.getAttribute('href');
-          if (href === '#') return;
-          
-          e.preventDefault();
-          const targetId = href.substring(1);
-          const targetElement = document.getElementById(targetId);
-          
-          if (targetElement) {
-            window.scrollTo({
-              top: targetElement.offsetTop - 80,
-              behavior: 'smooth'
-            });
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="header-content">
+            <h1>📊 LE PROJET POUR UN SÉNÉGAL SOUVERAIN, JUSTE ET PROSPÈRE</h1>
+            <p class="subtitle">Tableau de Bord Transparent du Suivi des Engagements Présidentiels</p>
             
-            // Fermer le menu mobile si ouvert
-            if (navMenu && navMenu.classList.contains('show')) {
-              navMenu.classList.remove('show');
-              mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-          }
-        });
-      });
-      
-      console.log('✅ Interface initialisée');
-    });
-  </script>
+            <div class="ref-badge">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Date de référence : 2 AVRIL 2024</span>
+            </div>
+
+            <div class="header-actions">
+                <a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf" class="document-btn-header" target="_blank">
+                    <i class="fas fa-book"></i>
+                    <span>Programme Complet (PDF)</span>
+                </a>
+                
+                <div class="share-dashboard">
+                    <a href="#" class="share-dashboard-btn share-twitter" id="share-twitter-dash" title="Partager sur Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="share-dashboard-btn share-facebook" id="share-facebook-dash" title="Partager sur Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="share-dashboard-btn share-whatsapp" id="share-whatsapp-dash" title="Partager sur WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="share-dashboard-btn share-linkedin" id="share-linkedin-dash" title="Partager sur LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- PROMESSE DU JOUR -->
+        <section id="spotlight" class="spotlight-section">
+            <div class="section-title">
+                <i class="fas fa-star"></i>
+                <h2>Promesse du Jour</h2>
+            </div>
+            <div class="spotlight-card" id="spotlightCard">
+                <div class="spotlight-loader">
+                    <div class="spinner"></div>
+                    <p>Chargement de la promesse du jour...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATISTIQUES PRINCIPALES -->
+        <section id="dashboard" class="stats-section">
+            <div class="section-title">
+                <i class="fas fa-chart-line"></i>
+                <h2>Tableau de Bord Global</h2>
+            </div>
+
+            <div class="stats-grid">
+                <!-- Engagement Total -->
+                <div class="stat-card stat-total">
+                    <div class="stat-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="stat-value" id="total-promises">0</div>
+                    <div class="stat-label">Engagements</div>
+                    <div class="stat-subvalue">Total du programme</div>
+                </div>
+
+                <!-- Réalisés -->
+                <div class="stat-card stat-success">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-value" id="realized">0</div>
+                    <div class="stat-label">Réalisés</div>
+                    <div class="stat-percentage" id="realized-percentage">0%</div>
+                </div>
+
+                <!-- En Cours -->
+                <div class="stat-card stat-info">
+                    <div class="stat-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="stat-value" id="inProgress">0</div>
+                    <div class="stat-label">En Cours</div>
+                    <div class="stat-percentage" id="inprogress-percentage">0%</div>
+                </div>
+
+                <!-- En Retard -->
+                <div class="stat-card stat-warning">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-value" id="delayed">0</div>
+                    <div class="stat-label">En Retard</div>
+                    <div class="stat-percentage" id="delayed-percentage">0%</div>
+                </div>
+
+                <!-- Taux de Réalisation -->
+                <div class="stat-card stat-primary">
+                    <div class="stat-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="stat-value" id="globalProgress">0.0%</div>
+                    <div class="stat-label">Taux de Réalisation</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="progressBarFill"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Note Moyenne -->
+                <div class="stat-card stat-rating">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-value" id="averageRating">0.0</div>
+                    <div class="stat-label">Note Moyenne</div>
+                    <div class="stat-subvalue" id="votesCount">0 votes</div>
+                </div>
+
+                <!-- Avec Mises à Jour -->
+                <div class="stat-card stat-update">
+                    <div class="stat-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div class="stat-value" id="withUpdates">0</div>
+                    <div class="stat-label">Avec Mises à Jour</div>
+                    <div class="stat-percentage" id="updates-percentage">0%</div>
+                </div>
+
+                <!-- Délai Moyen Restant -->
+                <div class="stat-card stat-time">
+                    <div class="stat-icon">
+                        <i class="fas fa-hourglass-half"></i>
+                    </div>
+                    <div class="stat-value" id="avgDelay">0j</div>
+                    <div class="stat-label">Délai Moyen</div>
+                    <div class="stat-subvalue">Restant estimé</div>
+                </div>
+
+                <!-- Domaine Principal -->
+                <div class="stat-card stat-domain">
+                    <div class="stat-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="stat-value" id="mainDomain">-</div>
+                    <div class="stat-label">Domaine Principal</div>
+                    <div class="stat-subvalue" id="domainCount">0 engagements</div>
+                </div>
+
+                <!-- Prochaines Échéances -->
+                <div class="stat-card stat-calendar">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-value" id="nextDeadlines">0</div>
+                    <div class="stat-label">Prochaines Échéances</div>
+                    <div class="stat-subvalue">30 prochains jours</div>
+                </div>
+            </div>
+
+            <!-- GRAPHIQUES -->
+            <div class="charts-section">
+                <div class="chart-container">
+                    <h3><i class="fas fa-chart-pie"></i> Répartition par Statut</h3>
+                    <canvas id="statusChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3><i class="fas fa-chart-bar"></i> Réalisations Mensuelles</h3>
+                    <canvas id="monthlyChart"></canvas>
+                </div>
+                <div class="chart-container full-width">
+                    <h3><i class="fas fa-chart-area"></i> Évolution du Taux de Réalisation</h3>
+                    <canvas id="timelineChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACTUALITÉS -->
+        <section id="news" class="news-section">
+            <div class="section-title">
+                <i class="fas fa-newspaper"></i>
+                <h2>Actualités & Revue de Presse</h2>
+            </div>
+
+            <div class="news-tabs">
+                <button class="news-tab-btn active" data-tab="latest">
+                    <i class="fas fa-bolt"></i> Dernières Mises à Jour
+                </button>
+                <button class="news-tab-btn" data-tab="press">
+                    <i class="fas fa-newspaper"></i> Revue de Presse
+                </button>
+                <button class="news-tab-btn" data-tab="media">
+                    <i class="fas fa-tv"></i> Médias
+                </button>
+            </div>
+
+            <div class="news-content" id="newsContent">
+                <div class="news-loader">
+                    <div class="spinner"></div>
+                    <p>Chargement des actualités...</p>
+                </div>
+            </div>
+
+            <div class="view-all-news">
+                <a href="#" class="btn-primary">
+                    <i class="fas fa-eye"></i> Voir toutes les actualités
+                </a>
+            </div>
+        </section>
+
+        <!-- FILTRES -->
+        <section id="filters" class="filters-section">
+            <div class="section-title">
+                <i class="fas fa-filter"></i>
+                <h2>Filtres & Recherche</h2>
+            </div>
+
+            <div class="filters">
+                <div class="input-group">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Rechercher un engagement...">
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-building"></i>
+                    <select id="sectorFilter">
+                        <option value="">Tous les secteurs</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-tasks"></i>
+                    <select id="statusFilter">
+                        <option value="">Tous les statuts</option>
+                        <option value="realise">✅ Réalisé</option>
+                        <option value="encours">🔄 En Cours</option>
+                        <option value="non-lance">⏳ Non lancé</option>
+                        <option value="en-retard">⚠️ En retard</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <i class="fas fa-sort"></i>
+                    <select id="sortFilter">
+                        <option value="recent">🕐 Plus récent</option>
+                        <option value="oldest">🕐 Plus ancien</option>
+                        <option value="rating">⭐ Meilleures notes</option>
+                        <option value="delay">⚠️ En retard</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="quick-filters">
+                <button class="quick-filter-btn active" data-filter="all">
+                    <i class="fas fa-list"></i> Tous
+                </button>
+                <button class="quick-filter-btn" data-filter="realise">
+                    <i class="fas fa-check"></i> Réalisés
+                </button>
+                <button class="quick-filter-btn" data-filter="encours">
+                    <i class="fas fa-sync"></i> En cours
+                </button>
+                <button class="quick-filter-btn" data-filter="retard">
+                    <i class="fas fa-exclamation-triangle"></i> En retard
+                </button>
+                <button class="quick-filter-btn" data-filter="updates">
+                    <i class="fas fa-history"></i> Avec mises à jour
+                </button>
+                <button class="quick-filter-btn" data-filter="reset">
+                    <i class="fas fa-redo"></i> Réinitialiser
+                </button>
+            </div>
+        </section>
+
+        <!-- ENGAGEMENTS -->
+        <section id="promises" class="promises-section">
+            <div class="section-title">
+                <i class="fas fa-tasks"></i>
+                <h2>Liste des Engagements</h2>
+                <p class="section-subtitle">Détails et suivi de chaque engagement présidentiel</p>
+            </div>
+
+            <div class="promises-grid" id="promisesContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Chargement des engagements...</p>
+                </div>
+            </div>
+
+            <div class="pagination" id="pagination">
+                <!-- Pagination générée dynamiquement -->
+            </div>
+        </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="footer" class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h4><i class="fas fa-info-circle"></i> À propos de cette plateforme</h4>
+                <p>
+                    Cette plateforme de suivi citoyen a pour objectif de garantir la transparence et le suivi des engagements du Projet pour un Sénégal Souverain, Juste et Prospère. Les données sont mises à jour régulièrement sur la base des informations officielles disponibles.
+                </p>
+                <div class="disclaimer">
+                    <p><strong>Disclaimer :</strong> Cette plateforme est indépendante et à but informatif. Les évaluations sont basées sur des données publiques vérifiables.</p>
+                </div>
+            </div>
+
+            <div class="footer-contact">
+                <h4><i class="fas fa-envelope"></i> Contactez-nous</h4>
+                <div class="contact-info">
+                    <a href="mailto:pastefprojetbi@gmail.com" class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>pastefprojetbi@gmail.com</span>
+                    </a>
+                    <a href="tel:+221769455253" class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+221 76 945 52 53</span>
+                    </a>
+                    <a href="#" class="contact-item" id="openContactModal">
+                        <i class="fas fa-comment-dots"></i>
+                        <span>Formulaire de contact</span>
+                    </a>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Dakar, Sénégal</span>
+                    </div>
+                </div>
+
+                <div class="footer-social">
+                    <a href="#" class="social-link" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-link" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="mailto:pastefprojetbi@gmail.com" class="social-link" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-actions">
+                <button class="export-btn">
+                    <i class="fas fa-download"></i>
+                    <span>Exporter les données</span>
+                    <i class="fas fa-chevron-down"></i>
+                    <div class="export-dropdown">
+                        <button class="export-option" onclick="exportData('csv')">
+                            <i class="fas fa-file-csv"></i>
+                            <span>CSV (Excel)</span>
+                        </button>
+                        <button class="export-option" onclick="exportData('xlsx')">
+                            <i class="fas fa-file-excel"></i>
+                            <span>Excel (.xlsx)</span>
+                        </button>
+                        <button class="export-option" onclick="exportData('json')">
+                            <i class="fas fa-file-code"></i>
+                            <span>JSON</span>
+                        </button>
+                        <button class="export-option" onclick="exportData('pdf')">
+                            <i class="fas fa-file-pdf"></i>
+                            <span>Rapport PDF</span>
+                        </button>
+                    </div>
+                </button>
+            </div>
+
+            <div class="footer-bottom">
+                <p>
+                    <i class="fas fa-heart"></i> Développé avec ❤️ pour la transparence démocratique
+                </p>
+                <p class="copyright">
+                    © 2026 LE PROJET - Tous droits réservés
+                </p>
+                <div class="footer-links">
+                    <a href="#" class="share-btn share-twitter" id="share-twitter-foot" title="Partager">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="share-btn share-facebook" id="share-facebook-foot" title="Partager">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="share-btn share-whatsapp" id="share-whatsapp-foot" title="Partager">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DE CONTACT -->
+    <div class="contact-modal" id="contactModal">
+        <div class="contact-modal-content">
+            <button class="close-contact-modal" id="closeContactModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3><i class="fas fa-envelope"></i> Contactez-nous</h3>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="contactName">Votre nom</label>
+                    <input type="text" id="contactName" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactEmail">Votre email</label>
+                    <input type="email" id="contactEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactSubject">Sujet</label>
+                    <input type="text" id="contactSubject" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactMessage">Message</label>
+                    <textarea id="contactMessage" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-contact-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Envoyer le message</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CAPTURE D'ÉCRAN -->
+    <div class="capture-modal" id="captureModal">
+        <button class="close-capture" id="closeCapture">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="capture-content">
+            <img src="" alt="Capture d'écran" class="capture-image" id="captureImage">
+            <div class="capture-actions">
+                <button class="capture-action-btn" id="downloadCapture">
+                    <i class="fas fa-download"></i>
+                    <span>Télécharger</span>
+                </button>
+                <button class="capture-action-btn" id="shareCapture">
+                    <i class="fas fa-share"></i>
+                    <span>Partager</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationMessage">Message de notification</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="utils.js"></script>
+    <script src="render.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
