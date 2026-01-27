@@ -1,18 +1,23 @@
 // ==========================================
-// RENDER.JS - Fonctions de rendu
+// RENDER.JS - Fonctions de rendu corrigées
 // ==========================================
 
 function renderStats() {
-    const promises = CONFIG.promises;
+    const promises = window.CONFIG.promises;
     const total = promises.length;
     const realise = promises.filter(p => p.status === 'realise').length;
     const encours = promises.filter(p => p.status === 'encours').length;
     const retard = promises.filter(p => p.isLate).length;
     
-    document.getElementById('total-promises').textContent = total;
-    document.getElementById('realized').textContent = realise;
-    document.getElementById('inProgress').textContent = encours;
-    document.getElementById('delayed').textContent = retard;
+    const totalEl = document.getElementById('total-promises');
+    const realisedEl = document.getElementById('realized');
+    const inProgressEl = document.getElementById('inProgress');
+    const delayedEl = document.getElementById('delayed');
+    
+    if (totalEl) totalEl.textContent = total;
+    if (realisedEl) realisedEl.textContent = realise;
+    if (inProgressEl) inProgressEl.textContent = encours;
+    if (delayedEl) delayedEl.textContent = retard;
 }
 
 function renderFilters() {
@@ -24,7 +29,7 @@ function renderFilters() {
         domainFilter.remove(1);
     }
     
-    const domains = [...new Set(CONFIG.promises.map(p => p.domaine))].sort();
+    const domains = [...new Set(window.CONFIG.promises.map(p => p.domaine))].sort();
     
     domains.forEach(domain => {
         const option = document.createElement('option');
@@ -80,16 +85,6 @@ function createPromiseCard(promise) {
                 </div>
             </div>
             
-            <div class="progress-container">
-                <div class="progress-label">
-                    <span>Progression</span>
-                    <span>${progress}%</span>
-                </div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: ${progress}%"></div>
-                </div>
-            </div>
-            
             ${promise.mises_a_jour && promise.mises_a_jour.length > 0 ? `
                 <button class="details-btn" onclick="toggleDetails('${promise.id}')">
                     <i class="fas fa-history"></i>
@@ -101,7 +96,9 @@ function createPromiseCard(promise) {
 }
 
 // Exporter les fonctions
-window.renderStats = renderStats;
-window.renderFilters = renderFilters;
-window.renderPromises = renderPromises;
-window.createPromiseCard = createPromiseCard;
+if (typeof window !== 'undefined') {
+    window.renderStats = renderStats;
+    window.renderFilters = renderFilters;
+    window.renderPromises = renderPromises;
+    window.createPromiseCard = createPromiseCard;
+}
