@@ -2,6 +2,9 @@
 // RENDER.JS - Rendu des composants
 // ==========================================
 
+// Supprimer la référence à AOS qui n'est pas chargée
+// AOS n'est plus nécessaire, nous utilisons nos propres animations
+
 function renderPromises(promises) {
     const container = document.getElementById('promisesContainer');
     if (!container) return;
@@ -72,7 +75,7 @@ function createPromiseCard(promise) {
             </div>
             
             ${promise.mises_a_jour && promise.mises_a_jour.length > 0 ? `
-            <button class="details-btn" onclick="toggleDetails('${promise.id}')">
+            <button class="details-btn" onclick="window.toggleDetails('${promise.id}')">
                 <i class="fas fa-history"></i>
                 Voir les mises à jour (${promise.mises_a_jour.length})
             </button>
@@ -90,16 +93,16 @@ function createPromiseCard(promise) {
             ` : ''}
             
             <div class="share-section">
-                <a href="#" class="share-btn share-twitter" onclick="sharePromise('${promise.id}', 'twitter')" title="Partager sur Twitter">
+                <a href="#" class="share-btn share-twitter" onclick="window.sharePromise('${promise.id}', 'twitter'); return false;" title="Partager sur Twitter">
                     <i class="fab fa-twitter"></i>
                 </a>
-                <a href="#" class="share-btn share-facebook" onclick="sharePromise('${promise.id}', 'facebook')" title="Partager sur Facebook">
+                <a href="#" class="share-btn share-facebook" onclick="window.sharePromise('${promise.id}', 'facebook'); return false;" title="Partager sur Facebook">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-                <a href="#" class="share-btn share-whatsapp" onclick="sharePromise('${promise.id}', 'whatsapp')" title="Partager sur WhatsApp">
+                <a href="#" class="share-btn share-whatsapp" onclick="window.sharePromise('${promise.id}', 'whatsapp'); return false;" title="Partager sur WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                 </a>
-                <button class="screenshot-btn" onclick="capturePromise('${promise.id}')" title="Capturer">
+                <button class="screenshot-btn" onclick="window.capturePromise('${promise.id}')" title="Capturer">
                     <i class="fas fa-camera"></i>
                 </button>
             </div>
@@ -127,8 +130,8 @@ function setupCardInteractions() {
             const status = badge.className.includes('realise') ? 'realise' :
                           badge.className.includes('encours') ? 'encours' : 'non-lance';
             document.getElementById('statusFilter').value = status;
-            applyFilters();
-            showNotification(`Filtré par statut: ${status === 'realise' ? 'Réalisé' : status === 'encours' ? 'En cours' : 'Non lancé'}`, 'info');
+            window.applyFilters();
+            window.showNotification(`Filtré par statut: ${status === 'realise' ? 'Réalisé' : status === 'encours' ? 'En cours' : 'Non lancé'}`, 'info');
         });
     });
 }
@@ -167,14 +170,14 @@ function sharePromise(promiseId, platform) {
     }
     
     window.open(shareUrl, '_blank', 'width=600,height=400');
-    showNotification(`Engagement partagé sur ${platform.charAt(0).toUpperCase() + platform.slice(1)} !`, 'success');
+    window.showNotification(`Engagement partagé sur ${platform.charAt(0).toUpperCase() + platform.slice(1)} !`, 'success');
 }
 
 function capturePromise(promiseId) {
     const card = document.querySelector(`.promise-card[data-id="${promiseId}"]`);
     if (!card) return;
     
-    showNotification('Capture en cours...', 'info');
+    window.showNotification('Capture en cours...', 'info');
     
     html2canvas(card, {
         scale: 2,
@@ -195,11 +198,11 @@ function capturePromise(promiseId) {
             captureImage.src = imgData;
             captureModal.classList.add('show');
             
-            showNotification('Capture effectuée avec succès !', 'success');
+            window.showNotification('Capture effectuée avec succès !', 'success');
         }
     }).catch(error => {
         console.error('Erreur capture:', error);
-        showNotification('Erreur lors de la capture', 'error');
+        window.showNotification('Erreur lors de la capture', 'error');
     });
 }
 
@@ -248,13 +251,13 @@ function applyFilters() {
     
     // Mettre à jour les statistiques
     const stats = calculateStatsFromFiltered(filtered);
-    animateStats(stats);
+    window.animateStats(stats);
     
     // Message de feedback
     if (filtered.length === 0) {
-        showNotification('Aucun engagement ne correspond aux critères de recherche', 'warning');
+        window.showNotification('Aucun engagement ne correspond aux critères de recherche', 'warning');
     } else if (filtered.length < CONFIG.promises.length) {
-        showNotification(`${filtered.length} engagements trouvés`, 'info');
+        window.showNotification(`${filtered.length} engagements trouvés`, 'info');
     }
 }
 
@@ -324,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     break;
             }
             
-            applyFilters();
+            window.applyFilters();
         });
     });
     
@@ -333,12 +336,14 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             document.querySelectorAll('.news-tab-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            renderNews(btn.dataset.tab);
+            window.renderNews(btn.dataset.tab);
         });
     });
+    
+    console.log('🎨 Moteur de rendu chargé avec succès');
 });
 
-// Export des fonctions nécessaires
+// Exporter toutes les fonctions nécessaires dans l'objet window
 window.renderPromises = renderPromises;
 window.renderPromisesPaginated = renderPromisesPaginated;
 window.applyFilters = applyFilters;
