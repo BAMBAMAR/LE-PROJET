@@ -514,5 +514,43 @@
         <i class="fas fa-check-circle"></i>
         <span id="notificationMessage">Message de notification</span>
     </div>
+    <!-- MODAL DE NOTATION -->
+<div class="rating-modal" id="ratingModal">
+    <div class="rating-modal-content">
+        <button class="close-rating-modal" id="closeRatingModal">
+            <i class="fas fa-times"></i>
+        </button>
+        <h3><i class="fas fa-star"></i> Notez cet engagement</h3>
+        
+        <div class="current-promise-info" id="currentPromiseInfo">
+            <!-- Rempli dynamiquement -->
+        </div>
+        
+        <div class="rating-input">
+            <div class="stars-large" id="ratingStars">
+                <i class="fas fa-star star-large" data-value="1"></i>
+                <i class="fas fa-star star-large" data-value="2"></i>
+                <i class="fas fa-star star-large" data-value="3"></i>
+                <i class="fas fa-star star-large" data-value="4"></i>
+                <i class="fas fa-star star-large" data-value="5"></i>
+            </div>
+            <div class="rating-label" id="ratingLabel">Sélectionnez une note</div>
+        </div>
+        
+        <div class="comment-section">
+            <textarea id="ratingComment" placeholder="Ajoutez un commentaire (optionnel)..."></textarea>
+        </div>
+        
+        <button class="submit-rating-btn" id="submitRatingBtn">
+            <i class="fas fa-paper-plane"></i>
+            <span>Envoyer ma notation</span>
+        </button>
+        
+        <div class="rating-notice">
+            <i class="fas fa-shield-alt"></i>
+            Votre notation est anonyme et contribue à la transparence citoyenne
+        </div>
+    </div>
+</div>
 </body>
 </html>
