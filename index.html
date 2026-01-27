@@ -2,199 +2,643 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="description" content="Suivi des engagements présidentiels - Le Projet Sénégal">
-    <meta name="keywords" content="Sénégal, engagements, président, suivi, transparence">
-    <meta property="og:title" content="LE PROJET SÉNÉGAL | Suivi des Engagements">
-    <meta property="og:description" content="Plateforme citoyenne de suivi des engagements présidentiels">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://projetbi.org">
-    <title>LE PROJET SÉNÉGAL | Suivi des Engagements Présidentiels</title>
-    <link rel="icon" href="https://projetbi.org/favicon.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LE PROJET SÉNÉGAL | Suivi des Engagements</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --primary: #2a6d5d;
+            --primary-light: #3a9d84;
+            --secondary: #3d5a80;
+            --accent: #e76f51;
+            --success: #2a9d8f;
+            --warning: #e9c46a;
+            --danger: #e76f51;
+            --info: #4a90e2;
+            --bg-main: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #212529;
+            --text-secondary: #495057;
+            --border: #dee2e6;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-top: 70px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            padding: 0.8rem 1rem;
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .nav-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+            background: rgba(42, 109, 93, 0.08);
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(255, 255, 255, 0.95) 100%);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .ref-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(74, 144, 226, 0.1);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            color: #4a90e2;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+        }
+
+        /* ===== STATS GRID ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+        }
+
+        .stat-card:nth-child(2)::before { background: linear-gradient(90deg, var(--success), #20c997); }
+        .stat-card:nth-child(3)::before { background: linear-gradient(90deg, #4a90e2, #2d9cdb); }
+        .stat-card:nth-child(4)::before { background: linear-gradient(90deg, var(--warning), #f4a261); }
+        .stat-card:nth-child(5)::before { background: linear-gradient(90deg, var(--danger), #ff6b6b); }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .stat-percentage {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-top: 0.5rem;
+            color: var(--primary);
+        }
+
+        /* ===== FILTRES ===== */
+        .filters {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 1rem;
+            z-index: 1;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.9rem 0.9rem 0.9rem 2.8rem;
+            background: var(--bg-main);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: var(--transition);
+            outline: none;
+            cursor: pointer;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(42, 109, 93, 0.1);
+        }
+
+        /* ===== PROMISES GRID ===== */
+        .promises-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 3rem;
+        }
+
+        .promise-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.8rem;
+            position: relative;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            cursor: pointer;
+        }
+
+        .promise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .domain-badge {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            background: rgba(42, 109, 93, 0.1);
+            border: 1px solid rgba(42, 109, 93, 0.2);
+            color: var(--primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 25px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .promise-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 2rem 0 1rem 0;
+            line-height: 1.5;
+        }
+
+        .result-box {
+            background: rgba(42, 109, 93, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .promise-meta {
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .status-realise {
+            background: rgba(42, 157, 143, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(42, 157, 143, 0.3);
+        }
+
+        .status-encours {
+            background: rgba(74, 144, 226, 0.15);
+            color: #4a90e2;
+            border: 1px solid rgba(74, 144, 226, 0.3);
+        }
+
+        .status-nonlance {
+            background: rgba(108, 117, 125, 0.15);
+            color: #6c757d;
+            border: 1px solid rgba(108, 117, 125, 0.3);
+        }
+
+        .delay-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .delay-success {
+            background: rgba(42, 157, 143, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(42, 157, 143, 0.3);
+        }
+
+        .delay-danger {
+            background: rgba(231, 111, 81, 0.15);
+            color: var(--danger);
+            border: 1px solid rgba(231, 111, 81, 0.3);
+        }
+
+        /* ===== CHARTS ===== */
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .chart-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .chart-card h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+        }
+
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            background: var(--bg-card);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .footer-links {
+            margin: 1.5rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+        }
+
+        /* ===== NOTIFICATIONS ===== */
+        .notification {
+            position: fixed;
+            top: 90px;
+            right: 1.5rem;
+            background: linear-gradient(135deg, var(--success), #21867a);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 9999;
+            animation: slideIn 0.3s ease, slideOut 0.3s ease 2.7s forwards;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100px); opacity: 0; }
+        }
+
+        /* ===== LOADING ===== */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+            grid-column: 1 / -1;
+        }
+
+        .spinner {
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .promises-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .filters {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .promise-card {
+                padding: 1.2rem;
+            }
+            
+            .header {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- ===== INDICATEUR DE PROGRESSION ===== -->
-    <div class="scroll-progress"></div>
-
     <!-- ===== NAVBAR ===== -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="nav-logo">
                 <div class="nav-logo-icon">🇸🇳</div>
-                <span class="logo-text">LE PROJET SÉNÉGAL</span>
+                <span>LE PROJET SÉNÉGAL</span>
             </a>
-            <div class="nav-menu" id="navMenu">
-                <a href="#dashboard" class="nav-link active" data-section="dashboard">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Dashboard</span>
+            <div class="nav-menu">
+                <a href="#stats" class="nav-link active">
+                    <i class="fas fa-chart-line"></i> Tableau de bord
                 </a>
-                <a href="#promises" class="nav-link" data-section="promises">
-                    <i class="fas fa-tasks"></i>
-                    <span>Engagements</span>
+                <a href="#promises" class="nav-link">
+                    <i class="fas fa-tasks"></i> Engagements
                 </a>
-                <a href="#news" class="nav-link" data-section="news">
-                    <i class="fas fa-newspaper"></i>
-                    <span>Actualités</span>
+                <a href="#charts" class="nav-link">
+                    <i class="fas fa-chart-pie"></i> Statistiques
                 </a>
-                <a href="#press" class="nav-link" data-section="press">
-                    <i class="fas fa-book"></i>
-                    <span>Revue de Presse</span>
-                </a>
-                <a href="#rating" class="nav-link" data-section="rating">
-                    <i class="fas fa-star"></i>
-                    <span>Noter Services</span>
+                <a href="#about" class="nav-link">
+                    <i class="fas fa-info-circle"></i> À propos
                 </a>
             </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
         </div>
     </nav>
+
+    <!-- ===== NOTIFICATION DÉMO ===== -->
+    <div class="notification">
+        <i class="fas fa-check-circle"></i>
+        <span>✅ Version démo - Données factices pour illustration</span>
+    </div>
 
     <div class="container">
         <!-- ===== HEADER ===== -->
         <header class="header" id="header">
             <div class="header-content">
                 <h1>LE PROJET POUR UN SÉNÉGAL SOUVERAIN, JUSTE ET PROSPÈRE</h1>
-                <p class="subtitle">Plateforme Citoyenne de Suivi des Engagements Présidentiels</p>
-                
-                <div class="header-actions">
-                    <div class="ref-badge">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span>Date de référence : 28 JANVIER 2026</span>
-                    </div>
-                    
-                    <a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf" 
-                       class="document-btn-header" 
-                       target="_blank"
-                       download>
-                        <i class="fas fa-file-pdf"></i>
-                        <span>Programme Complet (PDF)</span>
-                    </a>
+                <p class="subtitle">Tableau de Bord Transparent du Suivi des Engagements Présidentiels</p>
+                <div class="ref-badge">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Date de référence : 2 AVRIL 2024</span>
                 </div>
-                
-                <div class="share-dashboard">
-                    <a href="#" class="share-dashboard-btn share-twitter" id="share-twitter-dash" title="Partager sur Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="share-dashboard-btn share-facebook" id="share-facebook-dash" title="Partager sur Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="share-dashboard-btn share-whatsapp" id="share-whatsapp-dash" title="Partager sur WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="#" class="share-dashboard-btn share-linkedin" id="share-linkedin-dash" title="Partager sur LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                </div>
+                <a href="#" class="document-btn-header">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Programme Complet (PDF)</span>
+                </a>
             </div>
         </header>
 
-        <!-- ===== 10 KPI STATS ===== -->
+        <!-- ===== STATS ===== -->
         <section class="stats-grid" id="stats">
             <div class="stat-card">
                 <i class="fas fa-tasks stat-icon"></i>
-                <div class="stat-value" id="total-promises">0</div>
+                <div class="stat-value" id="total-promises">45</div>
                 <div class="stat-label">Engagements</div>
                 <div class="stat-percentage">100%</div>
             </div>
             
             <div class="stat-card">
-                <i class="fas fa-check-circle stat-icon"></i>
-                <div class="stat-value" id="realized">0</div>
+                <i class="fas fa-check-circle stat-icon" style="color: var(--success);"></i>
+                <div class="stat-value" id="realized">12</div>
                 <div class="stat-label">✅ Réalisés</div>
-                <div class="stat-percentage" style="color: var(--success);">0%</div>
+                <div class="stat-percentage" style="color: var(--success);">26.7%</div>
             </div>
             
             <div class="stat-card">
-                <i class="fas fa-sync-alt stat-icon"></i>
-                <div class="stat-value" id="inProgress">0</div>
+                <i class="fas fa-sync-alt stat-icon" style="color: #4a90e2;"></i>
+                <div class="stat-value" id="inProgress">18</div>
                 <div class="stat-label">🔄 En Cours</div>
-                <div class="stat-percentage" style="color: #4a90e2;">0%</div>
+                <div class="stat-percentage" style="color: #4a90e2;">40.0%</div>
             </div>
             
             <div class="stat-card">
-                <i class="fas fa-pause-circle stat-icon"></i>
-                <div class="stat-value" id="notStarted">0</div>
-                <div class="stat-label">⏳ Non Lancés</div>
-                <div class="stat-percentage" style="color: #6c757d;">0%</div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-clock stat-icon"></i>
-                <div class="stat-value" id="delayed">0</div>
+                <i class="fas fa-clock stat-icon" style="color: var(--warning);"></i>
+                <div class="stat-value" id="delayed">8</div>
                 <div class="stat-label">⚠️ En Retard</div>
-                <div class="stat-percentage" style="color: var(--danger);">0%</div>
+                <div class="stat-percentage" style="color: var(--danger);">17.8%</div>
             </div>
             
             <div class="stat-card">
-                <i class="fas fa-chart-line stat-icon"></i>
-                <div class="stat-value" id="globalProgress">0%</div>
+                <i class="fas fa-chart-line stat-icon" style="color: var(--primary);"></i>
+                <div class="stat-value" id="globalProgress">58.9%</div>
                 <div class="stat-label">📈 Taux de Réalisation</div>
-                <div class="stat-percentage" style="color: var(--primary);">+0.0%</div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-tachometer-alt stat-icon"></i>
-                <div class="stat-value" id="progression">0%</div>
-                <div class="stat-label">🚀 Progression</div>
-                <div class="stat-percentage" style="color: var(--warning);">+0.0%</div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-star stat-icon"></i>
-                <div class="stat-value" id="avgRating">0.0</div>
-                <div class="stat-label">⭐ Note Moyenne</div>
-                <div class="stat-subvalue" id="ratingCount">0 votes</div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-history stat-icon"></i>
-                <div class="stat-value" id="withUpdates">0</div>
-                <div class="stat-label">📋 Avec Mises à Jour</div>
-                <div class="stat-percentage" style="color: #8a4baf;">0%</div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-stopwatch stat-icon"></i>
-                <div class="stat-value" id="avgDelay">0j</div>
-                <div class="stat-label">⏱️ Délai Moyen Restant</div>
-                <div class="stat-subvalue">En cours</div>
+                <div class="stat-percentage" style="color: var(--primary);">+2.3%</div>
             </div>
         </section>
 
-        <!-- ===== FILTRES RAPIDES ===== -->
+        <!-- ===== FILTRES ===== -->
         <section class="filters" id="filters">
-            <div class="quick-filters">
-                <button class="quick-filter-btn active" data-filter="all">
-                    <i class="fas fa-list"></i>
-                    <span>Tous</span>
-                </button>
-                <button class="quick-filter-btn" data-filter="realise">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Réalisés</span>
-                </button>
-                <button class="quick-filter-btn" data-filter="encours">
-                    <i class="fas fa-sync-alt"></i>
-                    <span>En cours</span>
-                </button>
-                <button class="quick-filter-btn" data-filter="retard">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <span>En retard</span>
-                </button>
-                <button class="quick-filter-btn" data-filter="updates">
-                    <i class="fas fa-history"></i>
-                    <span>Avec mises à jour</span>
-                </button>
-                <button class="quick-filter-btn" data-filter="reset">
-                    <i class="fas fa-redo"></i>
-                    <span>Réinitialiser</span>
-                </button>
-            </div>
-            
             <div class="input-group">
                 <i class="fas fa-search"></i>
                 <input type="text" id="searchInput" placeholder="Rechercher un engagement...">
@@ -209,9 +653,6 @@
                     <option value="Économie">Économie</option>
                     <option value="Infrastructure">Infrastructure</option>
                     <option value="Agriculture">Agriculture</option>
-                    <option value="Justice">Justice</option>
-                    <option value="Énergie">Énergie</option>
-                    <option value="Eau">Eau</option>
                 </select>
             </div>
             
@@ -226,166 +667,30 @@
             </div>
         </section>
 
-        <!-- ===== ACTUALITÉS ===== -->
-        <section class="news-section" id="news">
-            <h2 class="section-title">
-                <i class="fas fa-newspaper"></i>
-                <span>Dernières Actualités</span>
-            </h2>
-            <div class="news-grid" id="news-grid">
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <p>Chargement des actualités...</p>
+        <!-- ===== CHARTS ===== -->
+        <section class="charts-section" id="charts">
+            <div class="chart-card">
+                <h3><i class="fas fa-chart-pie"></i> Répartition par Statut</h3>
+                <div class="chart-container">
+                    <canvas id="statusChart"></canvas>
                 </div>
             </div>
-        </section>
-
-        <!-- ===== ALBUM REVUE DE PRESSE ===== -->
-        <section class="press-section" id="press">
-            <h2 class="section-title">
-                <i class="fas fa-book"></i>
-                <span>Revue de Presse - Album des Quotidiens</span>
-            </h2>
-            <div class="album-controls">
-                <button class="album-btn" id="zoomInBtn">
-                    <i class="fas fa-search-plus"></i> Zoom +
-                </button>
-                <button class="album-btn" id="zoomOutBtn">
-                    <i class="fas fa-search-minus"></i> Zoom -
-                </button>
-                <button class="album-btn" id="resetZoomBtn">
-                    <i class="fas fa-expand"></i> Réinitialiser
-                </button>
-                <button class="album-btn" id="fullscreenBtn">
-                    <i class="fas fa-expand-arrows-alt"></i> Plein écran
-                </button>
-            </div>
-            <div class="album-container" id="albumContainer">
-                <div class="album-grid" id="album-grid">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        <p>Chargement de l'album...</p>
-                    </div>
+            
+            <div class="chart-card">
+                <h3><i class="fas fa-chart-bar"></i> Réalisations Mensuelles</h3>
+                <div class="chart-container">
+                    <canvas id="monthlyChart"></canvas>
                 </div>
-            </div>
-        </section>
-
-        <!-- ===== NOTATION SERVICES ===== -->
-        <section class="rating-section" id="rating">
-            <div class="rating-content">
-                <h2>
-                    <i class="fas fa-star-half-alt"></i>
-                    <span>Noter les Services Publics</span>
-                </h2>
-                <p>
-                    Partagez votre expérience avec les services de l'État. Votre avis compte pour améliorer la qualité des services publics.
-                </p>
-                <form class="rating-form" id="rating-form">
-                    <div class="rating-input-group">
-                        <label for="service">Service concerné *</label>
-                        <select class="rating-input" id="service" required>
-                            <option value="">Sélectionnez un service</option>
-                            <option value="administration">Administration Générale</option>
-                            <option value="sante">Santé Publique</option>
-                            <option value="education">Éducation Nationale</option>
-                            <option value="justice">Justice</option>
-                            <option value="interieur">Intérieur & Sécurité</option>
-                            <option value="finance">Finances & Impôts</option>
-                            <option value="transport">Transports</option>
-                            <option value="autre">Autre</option>
-                        </select>
-                    </div>
-                    
-                    <div class="rating-input-group">
-                        <label for="accessibility">Accessibilité *</label>
-                        <div class="stars-container" id="accessibility-stars">
-                            <i class="fas fa-star star" data-value="1"></i>
-                            <i class="fas fa-star star" data-value="2"></i>
-                            <i class="fas fa-star star" data-value="3"></i>
-                            <i class="fas fa-star star" data-value="4"></i>
-                            <i class="fas fa-star star" data-value="5"></i>
-                        </div>
-                        <input type="hidden" id="accessibility" value="3">
-                    </div>
-                    
-                    <div class="rating-input-group">
-                        <label for="welcome">Accueil *</label>
-                        <div class="stars-container" id="welcome-stars">
-                            <i class="fas fa-star star" data-value="1"></i>
-                            <i class="fas fa-star star" data-value="2"></i>
-                            <i class="fas fa-star star" data-value="3"></i>
-                            <i class="fas fa-star star" data-value="4"></i>
-                            <i class="fas fa-star star" data-value="5"></i>
-                        </div>
-                        <input type="hidden" id="welcome" value="3">
-                    </div>
-                    
-                    <div class="rating-input-group">
-                        <label for="efficiency">Efficacité *</label>
-                        <div class="stars-container" id="efficiency-stars">
-                            <i class="fas fa-star star" data-value="1"></i>
-                            <i class="fas fa-star star" data-value="2"></i>
-                            <i class="fas fa-star star" data-value="3"></i>
-                            <i class="fas fa-star star" data-value="4"></i>
-                            <i class="fas fa-star star" data-value="5"></i>
-                        </div>
-                        <input type="hidden" id="efficiency" value="3">
-                    </div>
-                    
-                    <div class="rating-input-group">
-                        <label for="transparency">Transparence *</label>
-                        <div class="stars-container" id="transparency-stars">
-                            <i class="fas fa-star star" data-value="1"></i>
-                            <i class="fas fa-star star" data-value="2"></i>
-                            <i class="fas fa-star star" data-value="3"></i>
-                            <i class="fas fa-star star" data-value="4"></i>
-                            <i class="fas fa-star star" data-value="5"></i>
-                        </div>
-                        <input type="hidden" id="transparency" value="3">
-                    </div>
-                    
-                    <div class="rating-input-group">
-                        <label for="comment">Commentaire (optionnel)</label>
-                        <textarea class="rating-input" id="comment" rows="3" placeholder="Partagez votre expérience..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="rating-btn">
-                        <i class="fas fa-paper-plane"></i>
-                        <span>Soumettre ma notation</span>
-                    </button>
-                </form>
             </div>
         </section>
 
         <!-- ===== PROMESSES ===== -->
         <section id="promises">
-            <div class="section-header">
-                <h2>
-                    <i class="fas fa-list-check"></i>
-                    <span>Liste des Engagements</span>
-                </h2>
-                <div class="section-actions">
-                    <button class="export-btn" id="exportBtn">
-                        <i class="fas fa-download"></i>
-                        <span>Exporter</span>
-                        <div class="export-dropdown">
-                            <button class="export-option" data-format="csv">
-                                <i class="fas fa-file-csv"></i>
-                                <span>CSV (Excel)</span>
-                            </button>
-                            <button class="export-option" data-format="json">
-                                <i class="fas fa-file-code"></i>
-                                <span>JSON</span>
-                            </button>
-                            <button class="export-option" data-format="pdf">
-                                <i class="fas fa-file-pdf"></i>
-                                <span>Rapport PDF</span>
-                            </button>
-                        </div>
-                    </button>
-                </div>
-            </div>
+            <h2 style="margin-bottom: 1.5rem; color: var(--text-primary); font-size: 1.8rem;">
+                <i class="fas fa-list-check"></i> Liste des Engagements
+            </h2>
             <div class="promises-grid" id="promisesContainer">
+                <!-- Chargement... -->
                 <div class="loading">
                     <div class="spinner"></div>
                     <p>Chargement des engagements...</p>
@@ -394,80 +699,21 @@
         </section>
     </div>
 
-    <!-- ===== MODAL ALBUM ZOOM ===== -->
-    <div class="album-modal" id="albumModal">
-        <div class="album-modal-content">
-            <button class="close-album-modal" id="closeAlbumModal">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="album-modal-zoom-controls">
-                <button class="zoom-control-btn" id="modalZoomIn">
-                    <i class="fas fa-search-plus"></i>
-                </button>
-                <button class="zoom-control-btn" id="modalZoomOut">
-                    <i class="fas fa-search-minus"></i>
-                </button>
-                <button class="zoom-control-btn" id="modalResetZoom">
-                    <i class="fas fa-expand"></i>
-                </button>
-            </div>
-            <div class="album-modal-image" id="albumModalImage"></div>
-            <div class="album-modal-info" id="albumModalInfo"></div>
-        </div>
-    </div>
-
     <!-- ===== FOOTER ===== -->
-    <footer class="footer" id="footer">
+    <footer class="footer" id="about">
         <div class="container">
-            <div class="footer-contact">
-                <div class="contact-info">
-                    <a href="mailto:pastefprojetbi@gmail.com" class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>pastefprojetbi@gmail.com</span>
-                    </a>
-                    <a href="tel:+221769455253" class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+221 76 945 52 53</span>
-                    </a>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Dakar, Sénégal</span>
-                    </div>
-                </div>
-                
-                <div class="footer-social">
-                    <a href="#" class="social-link" title="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="social-link" title="Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="social-link" title="WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="mailto:pastefprojetbi@gmail.com" class="social-link" title="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
-            </div>
+            <p><strong>LE PROJET SÉNÉGAL</strong> - Plateforme citoyenne de suivi des engagements</p>
+            <p>Données à jour au : <strong>28 Janvier 2026</strong></p>
             
-            <div class="footer-about">
-                <h4>
-                    <i class="fas fa-info-circle"></i>
-                    <span>À propos de cette plateforme</span>
-                </h4>
-                <p>
-                    Cette plateforme de suivi citoyen a pour objectif de garantir la transparence et le suivi des engagements du Projet pour un Sénégal Souverain, Juste et Prospère. Les données sont mises à jour régulièrement sur la base des informations officielles disponibles.
-                </p>
-                <div class="disclaimer">
-                    <p>
-                        <strong>Disclaimer :</strong> Cette plateforme est indépendante et à but informatif. Les évaluations sont basées sur des données publiques vérifiables.
-                    </p>
-                </div>
+            <div class="footer-links">
+                <a href="#" class="footer-link">À propos</a>
+                <a href="#" class="footer-link">Méthodologie</a>
+                <a href="#" class="footer-link">Contact</a>
+                <a href="#" class="footer-link">Mentions légales</a>
             </div>
             
             <p class="footer-note">
-                <i class="fas fa-heart"></i> 
+                <i class="fas fa-heart" style="color: var(--danger);"></i> 
                 Développé avec passion pour la transparence démocratique
             </p>
             <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
@@ -476,16 +722,344 @@
         </div>
     </footer>
 
-    <!-- ===== BOUTON RETOUR EN HAUT ===== -->
-    <a href="#header" class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </a>
+    <script>
+        // ===== CONFIGURATION DÉMO =====
+        const CONFIG = {
+            START_DATE: new Date('2024-04-02'),
+            CURRENT_DATE: new Date(),
+            promises: [],
+            charts: {}
+        };
 
-    <!-- ===== SCRIPTS ===== -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="app.js"></script>
-    <script src="render.js"></script>
-    <script src="utils.js"></script>
+        // ===== DONNÉES DÉMO =====
+        const DEMO_PROMISES = [
+            {
+                id: '1',
+                domaine: 'Éducation',
+                engagement: 'Construire 100 nouvelles écoles dans les zones rurales',
+                resultat: 'Amélioration de l\'accès à l\'éducation pour 50 000 enfants',
+                delai: '2 ans',
+                status: 'encours',
+                mises_a_jour: [
+                    { date: '15/06/2024', texte: 'Appel d\'offres lancé pour 40 écoles' },
+                    { date: '10/09/2024', texte: 'Construction débutée pour 15 écoles' }
+                ]
+            },
+            {
+                id: '2',
+                domaine: 'Santé',
+                engagement: 'Équiper tous les hôpitaux régionaux en matériel médical moderne',
+                resultat: 'Réduction de 30% des évacuations sanitaires vers Dakar',
+                delai: '3 ans',
+                status: 'encours',
+                mises_a_jour: [
+                    { date: '20/05/2024', texte: 'Diagnostic des besoins terminé' }
+                ]
+            },
+            {
+                id: '3',
+                domaine: 'Économie',
+                engagement: 'Créer 50 000 emplois pour les jeunes',
+                resultat: 'Taux de chômage des jeunes réduit de 15%',
+                delai: '5 ans',
+                status: 'realise',
+                mises_a_jour: [
+                    { date: '01/08/2024', texte: 'Programme de formation lancé' },
+                    { date: '15/11/2024', texte: '25 000 emplois créés' },
+                    { date: '10/01/2025', texte: 'Objectif atteint : 52 000 emplois créés' }
+                ]
+            },
+            {
+                id: '4',
+                domaine: 'Infrastructure',
+                engagement: 'Construire l\'autoroute Dakar-Diamniadio-AIBD',
+                resultat: 'Réduction du temps de trajet de 60%',
+                delai: '3 ans',
+                status: 'encours',
+                mises_a_jour: []
+            },
+            {
+                id: '5',
+                domaine: 'Agriculture',
+                engagement: 'Moderniser l\'irrigation dans la vallée du fleuve Sénégal',
+                resultat: 'Augmentation de 40% de la production agricole',
+                delai: '2 ans',
+                status: 'non-lance',
+                mises_a_jour: []
+            },
+            {
+                id: '6',
+                domaine: 'Énergie',
+                engagement: 'Atteindre 30% d\'énergie renouvelable',
+                resultat: 'Réduction de la dépendance aux énergies fossiles',
+                delai: '5 ans',
+                status: 'encours',
+                mises_a_jour: [
+                    { date: '05/07/2024', texte: 'Parc solaire de 50MW inauguré' }
+                ]
+            },
+            {
+                id: '7',
+                domaine: 'Eau',
+                engagement: 'Fournir l\'eau potable à 100% des ménages',
+                resultat: 'Accès universel à l\'eau potable',
+                delai: '5 ans',
+                status: 'encours',
+                mises_a_jour: []
+            },
+            {
+                id: '8',
+                domaine: 'Justice',
+                engagement: 'Réformer le système judiciaire',
+                resultat: 'Réduction des délais de traitement des affaires de 50%',
+                delai: '3 ans',
+                status: 'realise',
+                mises_a_jour: [
+                    { date: '12/10/2024', texte: 'Loi de réforme adoptée' },
+                    { date: '20/12/2024', texte: 'Nouvelles procédures mises en place' }
+                ]
+            }
+        ];
+
+        // ===== INITIALISATION =====
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Simuler le chargement
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Préparer les données
+            CONFIG.promises = DEMO_PROMISES.map(p => ({
+                ...p,
+                deadline: calculateDeadline(p.delai),
+                isLate: checkIfLate(p.status, calculateDeadline(p.delai))
+            }));
+            
+            // Rendu
+            renderAll();
+            createCharts();
+            setupEventListeners();
+            
+            console.log('✅ Application démo initialisée');
+        });
+
+        // ===== FONCTIONS UTILITAIRES =====
+        function calculateDeadline(delaiText) {
+            const text = delaiText.toLowerCase();
+            const result = new Date(CONFIG.START_DATE);
+            
+            if (text.includes('1 an')) result.setFullYear(result.getFullYear() + 1);
+            else if (text.includes('2 ans')) result.setFullYear(result.getFullYear() + 2);
+            else if (text.includes('3 ans')) result.setFullYear(result.getFullYear() + 3);
+            else if (text.includes('5 ans')) result.setFullYear(result.getFullYear() + 5);
+            
+            return result;
+        }
+
+        function checkIfLate(status, deadline) {
+            return status !== 'realise' && CONFIG.CURRENT_DATE > deadline;
+        }
+
+        function calculateStats() {
+            const total = CONFIG.promises.length;
+            const realise = CONFIG.promises.filter(p => p.status === 'realise').length;
+            const encours = CONFIG.promises.filter(p => p.status === 'encours').length;
+            const nonLance = CONFIG.promises.filter(p => p.status === 'non-lance').length;
+            const retard = CONFIG.promises.filter(p => p.isLate).length;
+            
+            return {
+                total,
+                realise,
+                encours,
+                nonLance,
+                retard,
+                realisePercentage: total > 0 ? ((realise / total) * 100).toFixed(1) : 0,
+                encoursPercentage: total > 0 ? ((encours / total) * 100).toFixed(1) : 0,
+                tauxRealisation: total > 0 ? (((realise * 100 + encours * 50) / (total * 100)) * 100).toFixed(1) : 0
+            };
+        }
+
+        // ===== RENDU =====
+        function renderAll() {
+            const stats = calculateStats();
+            renderStats(stats);
+            renderPromises(CONFIG.promises);
+        }
+
+        function renderStats(stats) {
+            document.getElementById('total-promises').textContent = stats.total;
+            document.getElementById('realized').textContent = stats.realise;
+            document.getElementById('inProgress').textContent = stats.encours;
+            document.getElementById('delayed').textContent = stats.retard;
+            document.getElementById('globalProgress').textContent = stats.tauxRealisation + '%';
+        }
+
+        function renderPromises(promises) {
+            const container = document.getElementById('promisesContainer');
+            
+            if (promises.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                        <i class="fas fa-search fa-3x" style="color: var(--text-secondary);"></i>
+                        <h3 style="margin: 1rem 0; color: var(--text-primary);">Aucun résultat trouvé</h3>
+                        <p style="color: var(--text-secondary);">Essayez de modifier vos critères de recherche</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = promises.map(createPromiseCard).join('');
+        }
+
+        function createPromiseCard(promise) {
+            const statusClass = promise.status === 'realise' ? 'status-realise' :
+                promise.status === 'encours' ? 'status-encours' : 'status-nonlance';
+            
+            const statusText = promise.status === 'realise' ? '✅ Réalisé' :
+                promise.status === 'encours' ? '🔄 En cours' : '⏳ Non lancé';
+            
+            const isLate = promise.isLate;
+            const delayClass = isLate ? 'delay-danger' : 'delay-success';
+            const delayText = isLate ? '⚠️ En retard' : '⏱️ Dans les délais';
+            
+            const progress = promise.status === 'realise' ? 100 :
+                promise.status === 'encours' ? 65 : 10;
+            
+            return `
+                <div class="promise-card" data-id="${promise.id}">
+                    <span class="domain-badge">${promise.domaine}</span>
+                    <h3 class="promise-title">${promise.engagement}</h3>
+                    
+                    <div class="result-box">
+                        <i class="fas fa-bullseye"></i>
+                        <strong>Résultat attendu :</strong> ${promise.resultat}
+                    </div>
+                    
+                    <div class="promise-meta">
+                        <div class="status-badge ${statusClass}">${statusText}</div>
+                        <div class="delay-badge ${delayClass}">
+                            <i class="fas fa-clock"></i>
+                            ${delayText}
+                        </div>
+                    </div>
+                    
+                    ${promise.mises_a_jour && promise.mises_a_jour.length > 0 ? `
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border);">
+                            <small style="color: var(--text-secondary);">
+                                <i class="fas fa-history"></i> 
+                                ${promise.mises_a_jour.length} mise${promise.mises_a_jour.length > 1 ? 's' : ''} à jour
+                            </small>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+
+        // ===== GRAPHIQUES =====
+        function createCharts() {
+            const stats = calculateStats();
+            
+            // Chart de statut
+            const statusCtx = document.getElementById('statusChart');
+            if (statusCtx) {
+                CONFIG.charts.status = new Chart(statusCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Réalisés', 'En Cours', 'Non Lancés', 'En Retard'],
+                        datasets: [{
+                            data: [stats.realise, stats.encours, stats.nonLance, stats.retard],
+                            backgroundColor: [
+                                'rgba(42, 157, 143, 0.85)',
+                                'rgba(74, 144, 226, 0.85)',
+                                'rgba(108, 117, 125, 0.85)',
+                                'rgba(231, 111, 81, 0.85)'
+                            ],
+                            borderWidth: 2,
+                            borderColor: '#ffffff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: var(--text-primary),
+                                    font: { family: 'Inter', size: 12 }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Chart mensuel
+            const monthlyCtx = document.getElementById('monthlyChart');
+            if (monthlyCtx) {
+                CONFIG.charts.monthly = new Chart(monthlyCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep'],
+                        datasets: [{
+                            label: 'Engagements Réalisés',
+                            data: [2, 3, 4, 5, 3, 4],
+                            backgroundColor: 'rgba(42, 157, 143, 0.85)',
+                            borderRadius: 8,
+                            borderSkipped: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            x: {
+                                ticks: { color: var(--text-secondary) },
+                                grid: { color: 'rgba(184, 193, 236, 0.1)' }
+                            },
+                            y: {
+                                ticks: { color: var(--text-secondary) },
+                                grid: { color: 'rgba(184, 193, 236, 0.1)' },
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // ===== ÉVÉNEMENTS =====
+        function setupEventListeners() {
+            const searchInput = document.getElementById('searchInput');
+            const sectorFilter = document.getElementById('sectorFilter');
+            const statusFilter = document.getElementById('statusFilter');
+            
+            if (searchInput) searchInput.addEventListener('input', applyFilters);
+            if (sectorFilter) sectorFilter.addEventListener('change', applyFilters);
+            if (statusFilter) statusFilter.addEventListener('change', applyFilters);
+        }
+
+        function applyFilters() {
+            const search = document.getElementById('searchInput')?.value.toLowerCase() || '';
+            const sector = document.getElementById('sectorFilter')?.value || '';
+            const status = document.getElementById('statusFilter')?.value || '';
+            
+            let filtered = CONFIG.promises.filter(p => {
+                const matchSearch = p.engagement.toLowerCase().includes(search) ||
+                    p.resultat.toLowerCase().includes(search) ||
+                    p.domaine.toLowerCase().includes(search);
+                
+                const matchSector = !sector || p.domaine === sector;
+                const matchStatus = !status || p.status === status;
+                
+                return matchSearch && matchSector && matchStatus;
+            });
+            
+            renderPromises(filtered);
+        }
+    </script>
 </body>
 </html>
