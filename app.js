@@ -5,8 +5,8 @@
 // ==========================================
 // CONFIGURATION SUPABASE - UNIQUEMENT ICI
 // ==========================================
-const SUPABASE_URL = 'https://your-project.supabase.co';
-const SUPABASE_KEY = 'your-anon-key';
+const SUPABASE_URL = 'https://jwsdxttjjbfnoufiidkd.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap';
 
 // Initialiser Supabase UNE SEULE FOIS
 let supabaseClient = null;
