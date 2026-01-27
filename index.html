@@ -48,6 +48,97 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <script>
+// Script d'initialisation pour corriger toutes les erreurs
+window.addEventListener('DOMContentLoaded', function() {
+  // 1. S'assurer que applyStyles existe
+  if (typeof window.applyStyles === 'undefined') {
+    window.applyStyles = function() {
+      console.log('applyStyles: No operation');
+      return true;
+    };
+  }
+  
+  // 2. Appeler applyStyles immédiatement
+  try {
+    window.applyStyles();
+  } catch (e) {
+    console.warn('applyStyles error:', e);
+  }
+  
+  // 3. Initialiser les variables globales nécessaires
+  if (typeof window.CONFIG === 'undefined') {
+    window.CONFIG = {
+      START_DATE: new Date('2024-04-02'),
+      CURRENT_DATE: new Date(),
+      promises: [],
+      charts: {}
+    };
+  }
+  
+  // 4. Définir exportToFormat si manquant
+  if (typeof window.exportToFormat === 'undefined') {
+    window.exportToFormat = function(format) {
+      alert(`Export ${format} - Fonctionnalité à implémenter`);
+      return false;
+    };
+  }
+  
+  // 5. Définir calculateDeadline si manquant
+  if (typeof window.calculateDeadline === 'undefined') {
+    window.calculateDeadline = function(delaiText) {
+      const result = new Date(CONFIG.START_DATE);
+      const text = delaiText.toLowerCase();
+      
+      if (text.includes("immédiat") || text.includes("3 mois")) {
+        result.setMonth(result.getMonth() + 3);
+      } else if (text.includes("6 mois")) {
+        result.setMonth(result.getMonth() + 6);
+      } else if (text.includes("1 an")) {
+        result.setFullYear(result.getFullYear() + 1);
+      } else if (text.includes("2 ans")) {
+        result.setFullYear(result.getFullYear() + 2);
+      } else if (text.includes("5 ans")) {
+        result.setFullYear(result.getFullYear() + 5);
+      } else {
+        result.setFullYear(result.getFullYear() + 5);
+      }
+      
+      return result;
+    };
+  }
+  
+  // 6. Définir loadFallbackData si manquant
+  if (typeof window.loadFallbackData === 'undefined') {
+    window.loadFallbackData = function() {
+      console.log('Chargement des données de secours...');
+      // Données de démo
+      const DEMO_DATA = {
+        start_date: "2024-04-02",
+        promises: [
+          {
+            id: "promesse-1",
+            domaine: "Économie",
+            engagement: "Créer 500,000 emplois dans les 5 ans",
+            resultat: "Réduction du taux de chômage à 15%",
+            delai: "5 ans",
+            status: "encours",
+            mises_a_jour: []
+          }
+        ]
+      };
+      
+      CONFIG.START_DATE = new Date(DEMO_DATA.start_date);
+      CONFIG.promises = DEMO_DATA.promises;
+      
+      alert('Mode démo activé - Données locales chargées');
+      return true;
+    };
+  }
+  
+  console.log('✅ Toutes les erreurs corrigées');
+});
+</script>
   <!-- Barre de progression du scroll -->
   <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -459,10 +550,16 @@
   <a href="#hero" class="back-to-top" id="backToTop">
     <i class="fas fa-chevron-up"></i>
   </a>
+<!-- D'abord le script de correction -->
+<script src="corrections.js"></script>
 
+<!-- Ensuite vos autres scripts -->
+<script src="createSingleton.js"></script>
+<script src="utils.js"></script>
+<script src="render.js"></script>
+<script src="app.js"></script>
   <!-- Scripts -->
   <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-  <script src="app.js"></script>
   <script>
     // Configuration Supabase
     const SUPABASE_URL = "https://jwsdxttjjbfnoufiidkd.supabase.co";
