@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "last_updated": "2024-01-27T12:00:00Z",
+  "data_sources": [
+    "promises.json",
+    "supabase_votes",
+    "official_updates"
+  ],
+  "categories": {
+    "economy": ["Économie", "Finance", "Commerce"],
+    "social": ["Éducation", "Santé", "Logement"],
+    "infrastructure": ["Transport", "Énergie", "Télécommunications"],
+    "governance": ["Administration", "Justice", "Sécurité"]
+  },
+  "impact_weights": {
+    "economy": 1.2,
+    "social": 1.1,
+    "infrastructure": 1.0,
+    "governance": 0.9
+  },
+  "deadline_multipliers": {
+    "court terme": 1.5,
+    "moyen terme": 1.0,
+    "long terme": 0.8
+  }
+}

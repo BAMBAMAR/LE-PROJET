@@ -1,1822 +1,563 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="light-theme">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta name="description" content="Tableau de bord interactif pour suivre en temps réel l'avancement des engagements du Projet pour un Sénégal Souverain, Juste et Prospère">
+  <meta name="theme-color" content="#2563eb">
+
   <!-- SEO Enhanced -->
-<meta name="keywords" content="Sénégal, promesses électorales, Bassirou Diomaye Faye, transparence, gouvernance, démocratie, suivi engagements, projet sénégal">
-<meta name="author" content="ProjetBI">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://projetbi.org/">
+  <meta name="keywords" content="Sénégal, promesses, Diomaye Faye, transparence, gouvernance, démocratie, tableau de bord, visualisation">
+  <meta name="author" content="ProjetBI">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://projetbi.org/">
 
-<!-- Schema.org pour Google -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "ProjetBI - Suivi des Promesses",
-  "url": "https://projetbi.org",
-  "description": "Plateforme citoyenne de suivi transparent des 99 engagements du Projet pour un Sénégal Souverain, Juste et Prospère",
-  "publisher": {
-    "@type": "Organization",
-    "name": "ProjetBI",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://projetbi.org/favicon.png"
-    }
-  }
-}
-</script>
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-<meta name="description" content="Plateforme citoyenne indépendante pour suivre en temps réel l'avancement des 99 engagements du Président Bassirou Diomaye Faye. Votez et analysez les résultats du Projet.">
-  <meta name="theme-color" content="#2a6d5d">
-
-<link rel="icon" type="image/png" href="https://projetbi.org/favicon.png">
-<link rel="apple-touch-icon" href="https://projetbi.org/favicon.png">
-
-<meta property="og:title" content="Suivi des 99 Promesses du Projet | Sénégal Souverain">
-<meta property="og:description" content="Découvrez l'état d'avancement des engagements présidentiels. Donnez votre avis et suivez la transparence.">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Tableau de Bord Interactif | Projet Sénégal">
+  <meta property="og:description" content="Visualisez et suivez en temps réel l'avancement des engagements présidentiels">
   <meta property="og:type" content="website">
-<meta property="og:url" content="https://projetbi.org/">
-<meta property="og:image" content="https://projetbi.org/og-image.jpg">
-<meta property="og:image:secure_url" content="https://projetbi.org/og-image.jpg">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Suivi des engagements du Projet Sénégal">
-<meta property="og:site_name" content="LE PROJET - Suivi des Promesses">
-<meta property="og:locale" content="fr_FR">
+  <meta property="og:url" content="https://projetbi.org/">
+  <meta property="og:image" content="https://projetbi.org/og-image.jpg">
+  <meta property="og:image:alt" content="Tableau de bord interactif Projet Sénégal">
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="https://projetbi.org/">
-<meta name="twitter:creator" content="@ProjetSenegal">
-<meta name="twitter:title" content="Suivi Promesses : PROJET SÉNÉGAL">
-<meta name="twitter:description" content="Découvrez l'avancement des engagements pour le Sénégal.">
-<meta name="twitter:image" content="https://projetbi.org/twitter-card.jpg"> <meta name="twitter:image:alt" content="Tableau de bord de suivi des promesses">
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Suivi des Engagements | Projet Sénégal">
+  <meta name="twitter:description" content="Visualisez et interagissez avec les données en temps réel">
+  <meta name="twitter:image" content="https://projetbi.org/twitter-card.jpg">
 
-<title>Suivi des Promesses de Bassirou Diomaye Faye | Le Projet Sénégal</title>  
+  <title>Tableau de Bord Interactif | Projet Sénégal</title>
+
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://projetbi.org/favicon.png">
+  <link rel="apple-touch-icon" href="https://projetbi.org/favicon.png">
+
+  <!-- Scripts externes -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+  
+  <!-- Styles personnalisés -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Barre de progression du scroll -->
   <div class="scroll-progress" id="scrollProgress"></div>
-  
-  <nav class="navbar">
-  <div class="nav-container">
-    <a href="#header" class="nav-logo" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
-      <img src="https://projetbi.org/favicon.png" alt="Logo JJJ" style="height: 38px; width: auto; border-radius: 5px;">
-      <span style="color: #2a6d5d; font-weight: 700; font-size: 1rem; letter-spacing: -0.5px;">LE PROJET : SUIVI DES PROMESSES</span>
-    </a>
-    
-    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu mobile">
-      <i class="fas fa-bars"></i>
-    </button>
-    
-    <div class="nav-menu" id="navMenu">
-      <a href="#header" class="nav-link active">
-        <i class="fas fa-home"></i>
-        Accueil
+
+  <!-- Navigation moderne -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo" data-parallax="0.3">
+        <img src="https://projetbi.org/favicon.png" alt="Logo ProjetBI" class="nav-logo-img">
+        <div>
+          <span class="logo-text">PROJET BI</span>
+          <span class="logo-subtext">Tableau de bord interactif</span>
+        </div>
       </a>
-      <a href="#stats" class="nav-link">
-        <i class="fas fa-chart-line"></i>
-        Tableau de bord
-      </a>
-      <a href="#promises" class="nav-link">
-        <i class="fas fa-bullseye"></i>
-        Engagements
-      </a>
-      <a href="#filters" class="nav-link">
-        <i class="fas fa-filter"></i>
-        Filtres
-      </a>
-      <a href="#footer" class="nav-link">
-        <i class="fas fa-info-circle"></i>
-        À propos
-      </a>
-    </div>
-  </div>
-</nav>
-  
-  <div class="bg-pattern"></div>
-  
-  <div class="container">
-    <header class="header" id="header">
-      <div class="share-dashboard">
-        <a href="#" id="share-twitter-dash" class="share-dashboard-btn share-twitter" title="Partager sur X" aria-label="Partager sur Twitter">
-          <i class="fab fa-x-twitter"></i>
+
+      <div class="nav-menu" id="navMenu">
+        <a href="#dashboard" class="nav-link active">
+          <i class="fas fa-chart-line"></i>
+          <span>Dashboard</span>
         </a>
-        <a href="#" id="share-facebook-dash" class="share-dashboard-btn share-facebook" title="Partager sur Facebook" aria-label="Partager sur Facebook">
-          <i class="fab fa-facebook-f"></i>
+        <a href="#analytics" class="nav-link">
+          <i class="fas fa-chart-pie"></i>
+          <span>Analytics</span>
         </a>
-        <a href="#" id="share-whatsapp-dash" class="share-dashboard-btn share-whatsapp" title="Partager sur WhatsApp" aria-label="Partager sur WhatsApp">
-          <i class="fab fa-whatsapp"></i>
+        <a href="#timeline" class="nav-link">
+          <i class="fas fa-stream"></i>
+          <span>Timeline</span>
         </a>
-        <a href="#" id="share-linkedin-dash" class="share-dashboard-btn share-linkedin" title="Partager sur LinkedIn" aria-label="Partager sur LinkedIn">
-          <i class="fab fa-linkedin-in"></i>
+        <a href="#engagement" class="nav-link">
+          <i class="fas fa-handshake"></i>
+          <span>Engagements</span>
         </a>
+        <a href="#insights" class="nav-link">
+          <i class="fas fa-lightbulb"></i>
+          <span>Insights</span>
+        </a>
+        <button class="interactive-btn" id="exportDashboard">
+          <i class="fas fa-download"></i>
+          <span>Exporter</span>
+        </button>
       </div>
-      <div class="header-content">
-        <h1>LE PROJET POUR UN SÉNÉGAL SOUVERAIN, JUSTE ET PROSPÈRE</h1>
-        <p class="subtitle">Tableau de Bord Transparent du Suivi des <span id="total-count"></span> Engagements</p>
+
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu mobile">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Section Hero -->
+  <section class="hero-section" id="hero">
+    <div class="hero-content">
+      <h1 class="hero-title" data-parallax="0.5">
+        Tableau de Bord Interactif
+        <br>
+        <span style="font-size: 1.8rem; display: block; margin-top: 0.5rem;">
+          Suivi des Engagements du Projet Sénégal
+        </span>
+      </h1>
+      
+      <p class="hero-subtitle">
+        Visualisez, analysez et interagissez avec les données en temps réel. 
+        Découvrez l'avancement des engagements et leur impact.
+      </p>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-value" id="hero-total">99</div>
+          <div class="hero-stat-label">Engagements totaux</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value" id="hero-progress">74%</div>
+          <div class="hero-stat-label">Progression globale</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value" id="hero-active">42</div>
+          <div class="hero-stat-label">En cours actif</div>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <button class="interactive-btn" onclick="APP.showTour()">
+          <i class="fas fa-play-circle"></i>
+          <span>Démarrer le tour</span>
+        </button>
+        <button class="interactive-btn" onclick="APP.refreshData()">
+          <i class="fas fa-sync-alt"></i>
+          <span>Actualiser les données</span>
+        </button>
+        <button class="interactive-btn" id="shareDashboard">
+          <i class="fas fa-share-alt"></i>
+          <span>Partager le dashboard</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard Principal -->
+  <div class="container">
+    <!-- Section des KPI -->
+    <section id="dashboard" class="dashboard-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          <i class="fas fa-tachometer-alt"></i>
+          Indicateurs Clés de Performance
+        </h2>
+        <div class="section-actions">
+          <button class="interactive-btn" onclick="toggleView('compact')">
+            <i class="fas fa-compress"></i>
+          </button>
+          <button class="interactive-btn" onclick="toggleView('detailed')">
+            <i class="fas fa-expand"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="stats-grid" id="kpiGrid">
+        <!-- Les KPI seront injectés ici par JavaScript -->
+      </div>
+    </section>
+
+    <!-- Section Analytics -->
+    <section id="analytics" class="analytics-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          <i class="fas fa-chart-bar"></i>
+          Analytics & Visualisations
+        </h2>
+        <div class="filter-controls">
+          <select id="chartType" class="filter-select">
+            <option value="radar">Radar</option>
+            <option value="timeline">Timeline</option>
+            <option value="distribution">Distribution</option>
+          </select>
+          <select id="timeRange" class="filter-select">
+            <option value="all">Toute période</option>
+            <option value="month">30 derniers jours</option>
+            <option value="quarter">Trimestre</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="analytics-grid">
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <i class="fas fa-radar"></i>
+              Progression par Domaine
+            </h3>
+            <div class="card-actions">
+              <button class="card-action-btn" title="Plein écran">
+                <i class="fas fa-expand"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-content">
+            <canvas id="radarChart" height="300"></canvas>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <i class="fas fa-timeline"></i>
+              Échéances Temporelles
+            </h3>
+            <div class="card-actions">
+              <button class="card-action-btn" title="Plein écran">
+                <i class="fas fa-expand"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-content">
+            <canvas id="timelineChart" height="300"></canvas>
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3 class="card-title">
+              <i class="fas fa-chart-pie"></i>
+              Distribution des Statuts
+            </h3>
+            <div class="card-actions">
+              <button class="card-action-btn" title="Plein écran">
+                <i class="fas fa-expand"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-content">
+            <canvas id="distributionChart" height="300"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline Interactive -->
+    <section id="timeline" class="timeline-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          <i class="fas fa-stream"></i>
+          Timeline Interactive
+        </h2>
+        <div class="timeline-controls">
+          <button class="interactive-btn" onclick="zoomTimeline('in')">
+            <i class="fas fa-search-plus"></i>
+          </button>
+          <button class="interactive-btn" onclick="zoomTimeline('out')">
+            <i class="fas fa-search-minus"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="timeline-container" id="timelineContainer">
+        <!-- Timeline sera injectée ici -->
+      </div>
+    </section>
+
+    <!-- Engagements avec filtres avancés -->
+    <section id="engagement" class="engagement-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          <i class="fas fa-handshake"></i>
+          Engagements Détailés
+        </h2>
         
-        <div class="header-actions">
-          <span class="ref-badge">
-            <i class="fas fa-calendar-check"></i>
-            Date de référence : 2 AVRIL 2024
-          </span>
-          <a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf" 
-             class="document-btn-header" 
-             target="_blank"
-             title="Télécharger le document original des promesses">
-            <i class="fas fa-file-pdf"></i>
-            Programme Complet (PDF)
+        <div class="advanced-filters" id="advancedFilters">
+          <div class="filter-group">
+            <input type="text" 
+                   id="searchInput" 
+                   placeholder="Rechercher un engagement..."
+                   class="filter-input">
+          </div>
+          
+          <div class="filter-group">
+            <select id="domainFilter" class="filter-select">
+              <option value="">Tous les domaines</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <select id="priorityFilter" class="filter-select">
+              <option value="">Priorité</option>
+              <option value="high">Haute</option>
+              <option value="medium">Moyenne</option>
+              <option value="low">Basse</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <select id="statusFilter" class="filter-select">
+              <option value="">Statut</option>
+              <option value="realise">Réalisé</option>
+              <option value="encours">En cours</option>
+              <option value="non-lance">Non lancé</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="filters-quick" id="quickFilters">
+        <button class="quick-filter-btn active" data-filter="all">
+          <i class="fas fa-layer-group"></i>
+          Tous
+        </button>
+        <button class="quick-filter-btn" data-filter="attention">
+          <i class="fas fa-exclamation-triangle"></i>
+          Nécessite attention
+        </button>
+        <button class="quick-filter-btn" data-filter="recent">
+          <i class="fas fa-clock"></i>
+          Mises à jour récentes
+        </button>
+        <button class="quick-filter-btn" data-filter="impact">
+          <i class="fas fa-bolt"></i>
+          Haut impact
+        </button>
+      </div>
+
+      <div class="promises-grid" id="promisesContainer">
+        <!-- Les cartes d'engagement seront injectées ici -->
+      </div>
+
+      <div class="pagination" id="pagination">
+        <!-- La pagination sera injectée ici -->
+      </div>
+    </section>
+
+    <!-- Insights & Recommendations -->
+    <section id="insights" class="insights-section">
+      <div class="section-header">
+        <h2 class="section-title">
+          <i class="fas fa-lightbulb"></i>
+          Insights & Recommandations
+        </h2>
+      </div>
+
+      <div class="insights-grid">
+        <div class="dashboard-card insight-card">
+          <div class="insight-header insight-warning">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>Attention Requise</h3>
+          </div>
+          <div class="insight-content" id="insightAttention">
+            <!-- Insights sur les engagements nécessitant attention -->
+          </div>
+        </div>
+
+        <div class="dashboard-card insight-card">
+          <div class="insight-header insight-success">
+            <i class="fas fa-trophy"></i>
+            <h3>Succès Récents</h3>
+          </div>
+          <div class="insight-content" id="insightSuccess">
+            <!-- Insights sur les succès récents -->
+          </div>
+        </div>
+
+        <div class="dashboard-card insight-card">
+          <div class="insight-header insight-info">
+            <i class="fas fa-chart-line"></i>
+            <h3>Tendances</h3>
+          </div>
+          <div class="insight-content" id="insightTrends">
+            <!-- Insights sur les tendances -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer Moderne -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Projet BI</h4>
+        <p>Tableau de bord interactif pour le suivi transparent des engagements du Projet Sénégal.</p>
+        <div class="footer-social">
+          <a href="https://twitter.com/ProjetSenegal" class="social-link">
+            <i class="fab fa-x-twitter"></i>
+          </a>
+          <a href="https://facebook.com/ProjetSenegal" class="social-link">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://wa.me/221338000000" class="social-link">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="mailto:pastefprojetbi@gmail.com" class="social-link">
+            <i class="fas fa-envelope"></i>
           </a>
         </div>
       </div>
-    </header>
 
-    <section id="stats">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-bullseye"></i>
-          </div>
-          <div class="stat-value" id="total">0</div>
-          <div class="stat-label">Engagements</div>
-          <div class="stat-percentage" id="total-percentage">100%</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-check-circle"></i>
-          </div>
-          <div class="stat-value" id="realise">0</div>
-          <div class="stat-label">✅ Réalisés</div>
-          <div class="stat-percentage" id="realise-percentage">0%</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-sync-alt"></i>
-          </div>
-          <div class="stat-value" id="encours">0</div>
-          <div class="stat-label">🔄 En Cours</div>
-          <div class="stat-percentage" id="encours-percentage">0%</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-hourglass-start"></i>
-          </div>
-          <div class="stat-value" id="non-lance">0</div>
-          <div class="stat-label">⏳ Non Lancés</div>
-          <div class="stat-percentage" id="non-lance-percentage">0%</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-exclamation-triangle"></i>
-          </div>
-          <div class="stat-value" id="retard">0</div>
-          <div class="stat-label">⚠️ En Retard</div>
-          <div class="stat-percentage" id="retard-percentage">0%</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <div class="stat-value" id="taux-realisation">0%</div>
-          <div class="stat-label">📈 Taux de Réalisation</div>
-          <div class="stat-subvalue" id="progress-text">Progression</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-star"></i>
-          </div>
-          <div class="stat-value" id="moyenne-notes">0.0</div>
-          <div class="stat-label">⭐ Note Moyenne</div>
-          <div class="stat-subvalue" id="votes-total">0 votes</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-history"></i>
-          </div>
-          <div class="stat-value" id="avec-maj">0</div>
-          <div class="stat-label">📋 Avec Mises à Jour</div>
-          <div class="stat-percentage" id="avec-maj-percentage">0%</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-clock"></i>
-          </div>
-          <div class="stat-value" id="delai-moyen">0j</div>
-          <div class="stat-label">⏱️ Délai Moyen Restant</div>
-          <div class="stat-subvalue" id="jours-restants">En cours</div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-layer-group"></i>
-          </div>
-          <div class="stat-value" id="domaine-principal">-</div>
-          <div class="stat-label">🏛️ Domaine Principal</div>
-          <div class="stat-subvalue" id="domaine-count">0 engagements</div>
-        </div>
+      <div class="footer-section">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#analytics">Analytics</a></li>
+          <li><a href="#timeline">Timeline</a></li>
+          <li><a href="#engagement">Engagements</a></li>
+          <li><a href="#insights">Insights</a></li>
+        </ul>
       </div>
-    </section>
 
-    <section id="filters">
-      <div class="filters">
-        <div class="input-group">
-          <i class="fas fa-search"></i>
-          <input type="text" id="search" placeholder="Rechercher un engagement...">
-        </div>
-        <div class="input-group">
-          <i class="fas fa-filter"></i>
-          <select id="domaine">
-            <option value="">Tous les secteurs</option>
-          </select>
-        </div>
-        <div class="input-group">
-          <i class="fas fa-chart-bar"></i>
-          <select id="status">
-            <option value="">Tous les statuts</option>
-            <option value="realise">✅ Réalisé</option>
-            <option value="en-retard">⚠️ En Retard</option>
-            <option value="dans-les-temps">⏱️ Dans les délais</option>
-            <option value="non-lance">⏳ Non lancé</option>
-          </select>
-        </div>
-        <div class="input-group">
-          <i class="fas fa-sort-amount-down"></i>
-          <select id="sort">
-            <option value="">Trier par</option>
-            <option value="recent">🕐 Plus récent</option>
-            <option value="ancien">🕐 Plus ancien</option>
-            <option value="note">⭐ Meilleures notes</option>
-            <option value="retard">⚠️ En retard</option>
-          </select>
-        </div>
+      <div class="footer-section">
+        <h4>Ressources</h4>
+        <ul class="footer-links">
+          <li><a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf" target="_blank">Programme Complet</a></li>
+          <li><a href="#" onclick="APP.exportData('pdf')">Rapport PDF</a></li>
+          <li><a href="#" onclick="APP.exportData('excel')">Données Excel</a></li>
+          <li><a href="#methodologie">Méthodologie</a></li>
+        </ul>
       </div>
-      
-      <div class="quick-filters">
-        <button class="quick-filter-btn" data-filter="realise">
-          <i class="fas fa-check-circle"></i>
-          Réalisés
-        </button>
-        <button class="quick-filter-btn" data-filter="encours">
-          <i class="fas fa-sync-alt"></i>
-          En cours
-        </button>
-        <button class="quick-filter-btn" data-filter="retard">
-          <i class="fas fa-exclamation-triangle"></i>
-          En retard
-        </button>
-        <button class="quick-filter-btn" data-filter="maj">
-          <i class="fas fa-history"></i>
-          Avec mises à jour
-        </button>
-        <button class="quick-filter-btn" onclick="resetFilters()">
-          <i class="fas fa-redo"></i>
-          Réinitialiser
-        </button>
-      </div>
-    </section>
 
-    <section id="promises">
-      <div class="promises-grid" id="promises-container">
-        <div class="loading">
-          <div class="spinner"></div>
-          <p>Chargement des données...</p>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <div class="contact-info">
+          <p><i class="fas fa-envelope"></i> pastefprojetbi@gmail.com</p>
+          <p><i class="fas fa-phone"></i> +221 76 945 5253</p>
+          <p><i class="fas fa-map-marker-alt"></i> Dakar, Sénégal</p>
         </div>
-      </div>
-    </section>
-
-  <footer class="footer" id="footer">
-  <p>Plateforme citoyenne de suivi des engagements • Données à jour au <span id="current-date"></span></p>
-  
-  <div class="footer-contact">
-    <div class="contact-info">
-      <div class="contact-item">
-        <i class="fas fa-envelope"></i>
-        <span>pastefprojetbi@gmail.com</span>
-      </div>
-      <div class="contact-item">
-        <i class="fas fa-phone"></i>
-        <span>+221769455253</span>
-      </div>
-      <div class="contact-item">
-        <i class="fas fa-map-marker-alt"></i>
-        <span>Dakar, Sénégal</span>
       </div>
     </div>
-  </div>
-  
-  <div class="footer-links">
-    <div class="export-btn" id="exportButton">
-      <i class="fas fa-file-export"></i>
-      Exporter les données
-      <div class="export-dropdown">
-        <button class="export-option" onclick="exportData('csv')">
-          <i class="fas fa-file-csv"></i>
-          CSV (Excel)
-        </button>
-        <button class="export-option" onclick="exportData('excel')">
-          <i class="fas fa-file-excel"></i>
-          Excel (.xlsx)
-        </button>
-        <button class="export-option" onclick="exportData('json')">
-          <i class="fas fa-file-code"></i>
-          JSON
-        </button>
-        <button class="export-option" onclick="exportData('pdf')">
-          <i class="fas fa-file-pdf"></i>
-          Rapport PDF
-        </button>
-      </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Projet BI - Tableau de Bord Interactif. Tous droits réservés.</p>
+      <p class="footer-version">Version 2.0.0 | Dernière mise à jour: <span id="lastUpdate"></span></p>
     </div>
-    
-    <div class="footer-social">
-      <a href="https://twitter.com/ProjetSenegal" class="social-link" target="_blank" title="Twitter">
-        <i class="fab fa-x-twitter"></i>
-      </a>
-      <a href="https://facebook.com/ProjetSenegal" class="social-link" target="_blank" title="Facebook">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-      <a href="https://wa.me/221338000000" class="social-link" target="_blank" title="WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-      </a>
-      <a href="mailto:pastefprojetbi@gmail.com" class="social-link" title="Email">
-        <i class="fas fa-envelope"></i>
-      </a>
+  </footer>
+
+  <!-- Modales -->
+  <div class="modal" id="detailModal">
+    <div class="modal-content">
+      <!-- Contenu de la modal de détail -->
     </div>
-    
-    <a href="#header" class="nav-link">
-      <i class="fas fa-arrow-up"></i>
-      Retour en haut
-    </a>
-  </div>
-  
-  <div class="footer-about">
-    <h4>À propos de cette plateforme</h4>
-    <p>Cette plateforme de suivi citoyen a pour objectif de garantir la transparence et le suivi des engagements du Projet pour un Sénégal Souverain, Juste et Prospère. Les données sont mises à jour régulièrement sur la base des informations officielles disponibles.</p>
-    
-    <div class="disclaimer">
-      <p><strong>Disclaimer :</strong> Cette plateforme est indépendante et à but informatif. Les évaluations sont basées sur des données publiques vérifiables.</p>
-    </div>
-  </div>
-  
-  <p class="footer-note">
-    Développé avec <i class="fas fa-heart" style="color: #e76f51;"></i> pour la transparence démocratique
-    <br>
-    <span style="font-size: 0.7rem; opacity: 0.8;">© 2026 LE PROJET - Tous droits réservés</span>
-  </p>
-</footer>
   </div>
 
-  <a href="#header" class="back-to-top" id="backToTop" aria-label="Retour en haut">
+  <div class="modal" id="shareModal">
+    <div class="modal-content">
+      <!-- Contenu de la modal de partage -->
+    </div>
+  </div>
+
+  <div class="modal" id="helpModal">
+    <div class="modal-content">
+      <!-- Contenu de la modal d'aide -->
+    </div>
+  </div>
+
+  <!-- Bouton retour en haut -->
+  <a href="#hero" class="back-to-top" id="backToTop">
     <i class="fas fa-chevron-up"></i>
   </a>
 
-  <div class="capture-modal" id="captureModal">
-    <div class="capture-content">
-      <button class="close-capture" id="closeCapture" aria-label="Fermer">
-        <i class="fas fa-times"></i>
-      </button>
-      <img id="captureImage" class="capture-image" alt="Capture de la promesse">
-      <div class="capture-actions">
-        <button class="capture-action-btn" id="downloadCapture">
-          <i class="fas fa-download"></i>
-          Télécharger
-        </button>
-        <button class="capture-action-btn" id="shareCapture">
-          <i class="fas fa-share-alt"></i>
-          Partager
-        </button>
-      </div>
-    </div>
-  </div>
-
+  <!-- Scripts -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
   <script>
-    // ========== CONFIGURATION SUPABASE ==========
-const SUPABASE_URL = "https://jwsdxttjjbfnoufiidkd.supabase.co"; 
-const SUPABASE_KEY = "sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap";
-
-// ========== CONFIGURATION GLOBALE ==========
-const CONFIG = {
-  START_DATE: null,
-  CURRENT_DATE: new Date(),
-  promises: [],
-  // ✅ Fichier promises.json depuis GitHub
-  DATA_URL: "promises.json",
-  currentCapture: null
-};
-
-// Initialisation Supabase (uniquement pour les votes)
-window.supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
-  auth: {
-    persistSession: false,
-    autoRefreshToken: false,
-    detectSessionInUrl: false
-  },
-  global: {
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Content-Type': 'application/json'
-    }
-  }
-});
-
-    // ========== GESTION DES ÉVÉNEMENTS ==========
-    document.addEventListener('DOMContentLoaded', () => {
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navMenu = document.querySelector('.nav-menu');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const backToTop = document.querySelector('.back-to-top');
-        const scrollProgress = document.querySelector('.scroll-progress');
-
-        // Menu mobile
-        mobileMenuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('show');
-            mobileMenuBtn.innerHTML = navMenu.classList.contains('show') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
-            document.body.style.overflow = navMenu.classList.contains('show') ? 'hidden' : '';
-        });
-
-        // Navigation fluide
-        navLinks.forEach(link => {
-          link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-              const headerHeight = document.querySelector('.navbar').offsetHeight;
-              const targetPosition = targetElement.offsetTop - headerHeight;
-              
-              window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-              });
-              
-              // Mettre à jour l'état actif
-              navLinks.forEach(l => l.classList.remove('active'));
-              this.classList.add('active');
-            }
-          });
-        });
-        
-        // Bouton retour en haut
-        backToTop.addEventListener('click', (e) => {
-          e.preventDefault();
-          window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-          });
-        });
-        
-        // Scroll events
-        window.addEventListener('scroll', () => {
-          // Afficher/masquer le bouton
-          if (window.scrollY > 300) {
-            backToTop.classList.add('visible');
-          } else {
-            backToTop.classList.remove('visible');
-          }
-          
-          // Mettre à jour l'indicateur de progression
-          const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-          const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-          const scrolled = (winScroll / height) * 100;
-          scrollProgress.style.width = scrolled + "%";
-          
-          // Mettre à jour l'état actif de la navigation
-          const sections = ['header', 'stats', 'filters', 'promises', 'footer'];
-          const scrollPosition = window.scrollY + 100;
-          
-          sections.forEach(section => {
-            const element = document.getElementById(section);
-            if (element) {
-              const offsetTop = element.offsetTop;
-              const offsetBottom = offsetTop + element.offsetHeight;
-              
-              if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-                navLinks.forEach(link => link.classList.remove('active'));
-                const correspondingLink = document.querySelector(`.nav-link[href="#${section}"]`);
-                if (correspondingLink) {
-                  correspondingLink.classList.add('active');
-                }
-              }
-            }
-          });
-        });
-        
-        // Gestion du clavier pour le menu mobile
-        mobileMenuBtn.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            mobileMenuBtn.click();
-          }
-        });
-        
-        // Scroll progress au chargement
-        window.dispatchEvent(new Event('scroll'));
+    // Configuration Supabase
+    const SUPABASE_URL = "https://jwsdxttjjbfnoufiidkd.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap";
+    
+    // Initialisation globale
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialisation des composants
+      initComponents();
+      
+      // Configuration des événements
+      setupGlobalEvents();
+      
+      // Mise à jour de la date
+      updateCurrentDate();
     });
-
-    // ========== FONCTIONS UTILITAIRES ==========
-    function calculateDeadline(delaiText) {
-      if (!CONFIG.START_DATE) return new Date();
-      const text = delaiText.toLowerCase();
-      const result = new Date(CONFIG.START_DATE);
+    
+    function initComponents() {
+      // Initialisation du menu mobile
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const navMenu = document.getElementById('navMenu');
       
-      if (text.includes("immédiat") || text.includes("3 mois") || text.includes("court terme")) {
-        result.setMonth(result.getMonth() + 3);
-      } else if (text.includes("6 premiers mois") || text.includes("6 mois")) {
-        result.setMonth(result.getMonth() + 6);
-      } else if (text.includes("12 premiers mois") || text.includes("1ère année") || text.includes("1 an")) {
-        result.setFullYear(result.getFullYear() + 1);
-      } else if (text.includes("2 premières années") || text.includes("2 ans") || text.includes("1 à 2 ans")) {
-        result.setFullYear(result.getFullYear() + 2);
-      } else if (text.includes("3 ans") || text.includes("2 à 3 ans")) {
-        result.setFullYear(result.getFullYear() + 3);
-      } else if (text.includes("4 ans") || text.includes("3 à 4 ans")) {
-        result.setFullYear(result.getFullYear() + 4);
-      } else if (text.includes("5 ans") || text.includes("quinquennat") || text.includes("mandat") || text.includes("3 à 5 ans") || text.includes("5 à 10 ans")) {
-        result.setFullYear(result.getFullYear() + 5);
-      } else if (text.includes("2027")) {
-        return new Date('2027-01-01');
-      } else if (text.includes("2029")) {
-        return new Date('2029-01-01');
-      } else if (text.includes("2030")) {
-        return new Date('2030-01-01');
-      } else {
-        result.setFullYear(result.getFullYear() + 5);
+      mobileMenuBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('show');
+        mobileMenuBtn.innerHTML = navMenu.classList.contains('show') 
+          ? '<i class="fas fa-times"></i>' 
+          : '<i class="fas fa-bars"></i>';
+      });
+      
+      // Initialisation du bouton retour en haut
+      const backToTop = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => {
+        backToTop.style.opacity = window.scrollY > 500 ? '1' : '0';
+      });
+      
+      // Initialisation des tooltips
+      if (typeof tippy !== 'undefined') {
+        tippy('[data-tippy-content]', {
+          theme: 'light-border',
+          animation: 'scale'
+        });
       }
+    }
+    
+    function setupGlobalEvents() {
+      // Partage du dashboard
+      document.getElementById('shareDashboard').addEventListener('click', () => {
+        shareDashboard();
+      });
       
-      return result;
+      // Export du dashboard
+      document.getElementById('exportDashboard').addEventListener('click', () => {
+        exportDashboard();
+      });
     }
-
-    function checkIfLate(status, deadline) {
-      return status !== 'realise' && CONFIG.CURRENT_DATE > deadline;
-    }
-
+    
     function updateCurrentDate() {
-      const dateElement = document.getElementById('current-date');
+      const dateElement = document.getElementById('lastUpdate');
       if (dateElement) {
-        const options = { day: 'numeric', month: 'long', year: 'numeric' };
-        dateElement.textContent = CONFIG.CURRENT_DATE.toLocaleDateString('fr-FR', options);
-      }
-    }
-
-    // ========== FONCTION POUR CORRIGER LES CARACTÈRES SPÉCIAUX DANS L'EXPORT ==========
-    function sanitizeForExport(text) {
-      if (!text) return '';
-      
-      // Remplacer les caractères problématiques pour CSV/Excel
-      return text
-        .replace(/"/g, '""') // Échapper les guillemets doubles
-        .replace(/\r?\n/g, ' ') // Remplacer les retours à la ligne par des espaces
-        .replace(/\t/g, ' ')   // Remplacer les tabulations par des espaces
-        .trim();
-    }
-
-    // ========== DONNÉES DE DÉMO (fallback) ==========
-    const DEMO_DATA = {
-      start_date: "2024-04-02",
-      promises: [
-        {
-          id: "promesse-1",
-          domaine: "Économie",
-          engagement: "Créer 500,000 emplois dans les 5 ans",
-          resultat: "Réduction du taux de chômage à 15%",
-          delai: "5 ans",
-          status: "encours",
-          mises_a_jour: [
-            {
-              date: "2024-06-15",
-              text: "Lancement du programme d'incubation de startups"
-            }
-          ],
-          votes: [4, 5, 3]
-        },
-        {
-          id: "promesse-2",
-          domaine: "Éducation",
-          engagement: "Gratuité de l'éducation jusqu'au baccalauréat",
-          resultat: "100% des élèves accèdent à l'éducation gratuite",
-          delai: "Immédiat",
-          status: "realise",
-          mises_a_jour: [
-            {
-              date: "2024-05-20",
-              text: "Décret signé pour la gratuité des frais scolaires"
-            }
-          ],
-          votes: [5, 5, 4, 5]
-        },
-        {
-          id: "promesse-3",
-          domaine: "Santé",
-          engagement: "Construction de 10 nouveaux hôpitaux régionaux",
-          resultat: "Amélioration de l'accès aux soins de santé",
-          delai: "3 ans",
-          status: "encours",
-          mises_a_jour: [],
-          votes: [3, 4]
-        },
-        {
-          id: "promesse-4",
-          domaine: "Infrastructure",
-          engagement: "Électrification de 100% des villages",
-          resultat: "Accès universel à l'électricité",
-          delai: "4 ans",
-          status: "non-lance",
-          mises_a_jour: [],
-          votes: []
-        }
-      ]
-    };
-
-   // ========== CAPTURE D'ÉCRAN AMÉLIORÉE POUR LE PARTAGE ==========
-    async function capturePromise(promiseId) {
-      const promise = CONFIG.promises.find(p => p.id === promiseId);
-      if (!promise) return null;
-      
-      try {
-        // Créer un canvas personnalisé au lieu de cloner l'élément
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        
-        // Dimensions optimales pour les réseaux sociaux
-        canvas.width = 1200;
-        canvas.height = 630;
-        
-        // Fond dégradé
-        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-        gradient.addColorStop(0, '#2a6d5d');
-        gradient.addColorStop(1, '#3a9d84');
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        // Motifs décoratifs (cercles)
-        ctx.globalAlpha = 0.1;
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.arc(200, 150, 180, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(1000, 500, 220, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.globalAlpha = 1;
-        
-        // Container blanc central
-        const padding = 50;
-        const boxWidth = canvas.width - (padding * 2);
-        const boxHeight = canvas.height - (padding * 2);
-        
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.98)';
-        ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
-        ctx.shadowBlur = 30;
-        ctx.shadowOffsetY = 15;
-        roundRect(ctx, padding, padding, boxWidth, boxHeight, 20);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-        ctx.shadowOffsetY = 0;
-        
-        // Barre de couleur en haut
-        ctx.fillStyle = '#2a6d5d';
-        roundRect(ctx, padding, padding, boxWidth, 10, 20);
-        ctx.fill();
-        
-        // Logo drapeau
-        ctx.font = 'bold 60px Arial';
-        ctx.fillText('🇸🇳', padding + 30, padding + 90);
-        
-        // Titre principal
-        ctx.fillStyle = '#2a6d5d';
-        ctx.font = 'bold 42px Inter, Arial, sans-serif';
-        ctx.textAlign = 'left';
-        wrapText(ctx, 'LE PROJET', padding + 120, padding + 70, boxWidth - 150, 50);
-        
-        // Sous-titre
-        ctx.fillStyle = '#495057';
-        ctx.font = '24px Inter, Arial, sans-serif';
-        wrapText(ctx, 'Pour un Sénégal Souverain, Juste et Prospère', padding + 120, padding + 110, boxWidth - 150, 32);
-        
-        // Ligne de séparation
-        ctx.strokeStyle = '#dee2e6';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(padding + 30, padding + 155);
-        ctx.lineTo(canvas.width - padding - 30, padding + 155);
-        ctx.stroke();
-        
-        // Badge du domaine
-        ctx.fillStyle = 'rgba(42, 109, 93, 0.15)';
-        ctx.fillRect(padding + 30, padding + 175, 200, 35);
-        ctx.fillStyle = '#2a6d5d';
-        ctx.font = 'bold 16px Inter, Arial, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText(promise.domaine.toUpperCase(), padding + 130, padding + 198);
-        
-        // Engagement (titre principal)
-        ctx.fillStyle = '#212529';
-        ctx.font = 'bold 36px Inter, Arial, sans-serif';
-        ctx.textAlign = 'left';
-        const engagementLines = wrapText(ctx, promise.engagement, padding + 30, padding + 240, boxWidth - 60, 48);
-        
-        // Résultat attendu
-        const resultY = padding + 240 + (engagementLines * 48) + 20;
-        ctx.fillStyle = 'rgba(42, 109, 93, 0.1)';
-        ctx.fillRect(padding + 30, resultY, boxWidth - 60, 80);
-        
-        ctx.fillStyle = '#2a6d5d';
-        ctx.font = 'bold 18px Inter, Arial, sans-serif';
-        ctx.fillText('🎯 RÉSULTAT ATTENDU', padding + 45, resultY + 25);
-        
-        ctx.fillStyle = '#495057';
-        ctx.font = '20px Inter, Arial, sans-serif';
-        wrapText(ctx, promise.resultat, padding + 45, resultY + 55, boxWidth - 90, 28);
-        
-        // Statut badge
-        const statusY = canvas.height - padding - 100;
-        let statusText = '';
-        let statusColor = '';
-        
-        switch(promise.status) {
-          case 'realise':
-            statusText = '✅ RÉALISÉ';
-            statusColor = '#2a9d8f';
-            break;
-          case 'encours':
-            statusText = '🔄 EN COURS';
-            statusColor = '#4a90e2';
-            break;
-          case 'non-lance':
-            statusText = '⏳ NON LANCÉ';
-            statusColor = '#6c757d';
-            break;
-        }
-        
-        ctx.fillStyle = statusColor;
-        ctx.font = 'bold 22px Inter, Arial, sans-serif';
-        ctx.fillText(statusText, padding + 30, statusY);
-        
-        // Délai
-        ctx.fillStyle = '#495057';
-        ctx.font = '20px Inter, Arial, sans-serif';
-        ctx.fillText(`⏱️ Délai : ${promise.delai}`, padding + 30, statusY + 35);
-        
-        // Footer
-        ctx.fillStyle = '#2a6d5d';
-        ctx.font = 'bold 24px Inter, Arial, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('projetbi.org', canvas.width / 2, canvas.height - padding - 35);
-        
-        ctx.fillStyle = '#495057';
-        ctx.font = '18px Inter, Arial, sans-serif';
-        ctx.fillText('#ProjetBI #Transparence #Sénégal', canvas.width / 2, canvas.height - padding - 10);
-        
-        return canvas.toDataURL('image/png');
-      } catch (error) {
-        console.error('Erreur lors de la capture:', error);
-        return null;
-      }
-    }
-    
-    // Fonction helper pour dessiner des rectangles arrondis
-    function roundRect(ctx, x, y, width, height, radius) {
-      ctx.beginPath();
-      ctx.moveTo(x + radius, y);
-      ctx.lineTo(x + width - radius, y);
-      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-      ctx.lineTo(x + width, y + height - radius);
-      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-      ctx.lineTo(x + radius, y + height);
-      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-      ctx.lineTo(x, y + radius);
-      ctx.quadraticCurveTo(x, y, x + radius, y);
-      ctx.closePath();
-    }
-    
-    // Fonction helper pour retour à la ligne automatique
-    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
-      const words = text.split(' ');
-      let line = '';
-      let lineCount = 0;
-      
-      for (let n = 0; n < words.length; n++) {
-        const testLine = line + words[n] + ' ';
-        const metrics = ctx.measureText(testLine);
-        const testWidth = metrics.width;
-        
-        if (testWidth > maxWidth && n > 0) {
-          ctx.fillText(line, x, y);
-          line = words[n] + ' ';
-          y += lineHeight;
-          lineCount++;
-        } else {
-          line = testLine;
-        }
-      }
-      ctx.fillText(line, x, y);
-      lineCount++;
-      
-      return lineCount;
-    }
-    // ========== GESTION DE LA MODAL DE CAPTURE ==========
-    function setupCaptureModal() {
-      const captureModal = document.getElementById('captureModal');
-      const closeCapture = document.getElementById('closeCapture');
-      const downloadCapture = document.getElementById('downloadCapture');
-      const shareCapture = document.getElementById('shareCapture');
-      const captureImage = document.getElementById('captureImage');
-      
-      // Fermer la modal
-      closeCapture.addEventListener('click', () => {
-        captureModal.classList.remove('show');
-        document.body.style.overflow = '';
-      });
-      
-      // Fermer en cliquant en dehors
-      captureModal.addEventListener('click', (e) => {
-        if (e.target === captureModal) {
-          captureModal.classList.remove('show');
-          document.body.style.overflow = '';
-        }
-      });
-      
-      // Télécharger la capture
-      downloadCapture.addEventListener('click', () => {
-        if (CONFIG.currentCapture) {
-          const link = document.createElement('a');
-          link.href = CONFIG.currentCapture;
-          link.download = `promesse-${new Date().getTime()}.png`;
-          link.click();
-          showNotification('Capture téléchargée avec succès!');
-        }
-      });
-      
-      // Partager la capture avec Web Share API
-      shareCapture.addEventListener('click', async () => {
-        if (CONFIG.currentCapture) {
-          await shareImageWithWebShare(CONFIG.currentCapture, 'Promesse du Projet Sénégal');
-        }
-      });
-      
-      // Gestion des touches
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && captureModal.classList.contains('show')) {
-          captureModal.classList.remove('show');
-          document.body.style.overflow = '';
-        }
-      });
-    }
-
-    // ========== FONCTION AMÉLIORÉE POUR PARTAGER DES IMAGES ==========
-    async function shareImageWithWebShare(imageDataUrl, title = '') {
-      try {
-        // Convertir Data URL en blob
-        const response = await fetch(imageDataUrl);
-        const blob = await response.blob();
-        
-        const file = new File([blob], `promesse-senegal-${Date.now()}.png`, {
-          type: 'image/png'
+        const now = new Date();
+        dateElement.textContent = now.toLocaleDateString('fr-FR', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
         });
-        
-        // Vérifier si le navigateur supporte le partage de fichiers
-        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            files: [file],
-            title: title || 'Promesse du Projet Sénégal',
-            text: 'Découvrez cette promesse du projet Pour un Sénégal Souverain, Juste et Prospère',
-            url: window.location.href
-          });
-          showNotification('Image partagée avec succès!');
-        } else {
-          // Fallback: télécharger l'image
-          const link = document.createElement('a');
-          link.href = imageDataUrl;
-          link.download = `promesse-${Date.now()}.png`;
-          link.click();
-          showNotification('Image téléchargée (partage non supporté)');
-        }
-      } catch (error) {
-        console.error('Erreur de partage:', error);
-        
-        // Fallback ultime: ouvrir l'image dans un nouvel onglet
-        if (imageDataUrl) {
-          const newWindow = window.open();
-          newWindow.document.write(`<img src="${imageDataUrl}" style="max-width:100%;">`);
-        }
       }
     }
-
-    // ========== PARTAGE AVEC CAPTURE ET DEEP LINKING ==========
-    async function shareWithCapture(promiseId, platform) {
-      const promise = CONFIG.promises.find(p => p.id === promiseId);
-      if (!promise) return;
+    
+    function shareDashboard() {
+      const url = window.location.href;
+      const title = 'Tableau de Bord Projet Sénégal';
+      const text = 'Découvrez ce tableau de bord interactif de suivi des engagements!';
       
-      // Construction de l'URL spécifique avec Ancre
-      const baseUrl = window.location.href.split('#')[0];
-      const targetUrl = `${baseUrl}#${promise.id}`;
-      const url = encodeURIComponent(targetUrl);
-      const text = encodeURIComponent(`📊 "${promise.engagement.substring(0, 80)}..." - Suivi des engagements du Projet pour un Sénégal Souverain, Juste et Prospère`);
-      
-      if (platform === 'screenshot') {
-        showNotification('Préparation de la capture...');
-        const captureDataUrl = await capturePromise(promiseId);
-        if (!captureDataUrl) {
-          showNotification('Erreur lors de la capture');
-          return;
-        }
-        // Afficher la modal de capture
-        CONFIG.currentCapture = captureDataUrl;
-        const captureImage = document.getElementById('captureImage');
-        captureImage.src = captureDataUrl;
-        const captureModal = document.getElementById('captureModal');
-        captureModal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-        showNotification('Capture générée!');
+      if (navigator.share) {
+        navigator.share({
+          title: title,
+          text: text,
+          url: url
+        });
       } else {
-        // Pour les réseaux sociaux
-        let shareUrl = '';
-        switch(platform) {
-          case 'twitter':
-            shareUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-            break;
-          case 'facebook':
-            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-            break;
-          case 'whatsapp':
-            shareUrl = `https://wa.me/?text=${text}%20${url}`;
-            break;
-          case 'linkedin':
-            shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${url}`;
-            break;
-        }
-        
-        if (shareUrl) {
-          window.open(shareUrl, '_blank', 'noopener,noreferrer');
-        }
+        // Fallback pour les navigateurs qui ne supportent pas l'API Share
+        navigator.clipboard.writeText(url);
+        alert('Lien copié dans le presse-papier!');
       }
     }
-
-    // ========== EXPORT CORRIGÉ POUR CARACTÈRES SPÉCIAUX ==========
-    window.exportData = function(format) {
-      const promises = CONFIG.promises;
-      const date = new Date().toISOString().split('T')[0];
-      
-      let content, mimeType, filename;
-      
-      switch(format) {
-        case 'csv':
-          // En-têtes avec UTF-8 BOM pour Excel
-          const bom = '\uFEFF';
-          const headers = ['Domaine', 'Engagement', 'Résultat attendu', 'Délai', 'Statut', 'En retard', 'Mises à jour', 'Date limite'];
-          const rows = promises.map(p => [
-            `"${sanitizeForExport(p.domaine)}"`,
-            `"${sanitizeForExport(p.engagement)}"`,
-            `"${sanitizeForExport(p.resultat)}"`,
-            `"${sanitizeForExport(p.delai)}"`,
-            p.status,
-            p.isLate ? 'Oui' : 'Non',
-            p.mises_a_jour?.length || 0,
-            p.deadline.toISOString().split('T')[0]
-          ]);
-          
-          content = bom + [headers.join(','), ...rows.map(row => row.join(','))].join('\n');
-          mimeType = 'text/csv;charset=utf-8;';
-          filename = `promesses-projet-bi-${date}.csv`;
-          break;
-          
-        case 'excel':
-          // Format TSV avec BOM UTF-8
-          const excelBom = '\uFEFF';
-          const excelHeaders = ['ID', 'Domaine', 'Engagement', 'Résultat attendu', 'Délai', 'Statut', 'En retard', 'Mises à jour', 'Date limite', 'Dernière mise à jour'];
-          const excelRows = promises.map(p => [
-            p.id,
-            `"${sanitizeForExport(p.domaine)}"`,
-            `"${sanitizeForExport(p.engagement)}"`,
-            `"${sanitizeForExport(p.resultat)}"`,
-            `"${sanitizeForExport(p.delai)}"`,
-            p.status,
-            p.isLate ? 'Oui' : 'Non',
-            p.mises_a_jour?.length || 0,
-            p.deadline.toISOString().split('T')[0],
-            p.mises_a_jour?.[0]?.date || '-'
-          ]);
-          
-          content = excelBom + [excelHeaders.join('\t'), ...excelRows.map(row => row.join('\t'))].join('\n');
-          mimeType = 'application/vnd.ms-excel;charset=utf-8;';
-          filename = `promesses-projet-bi-${date}.xls`;
-          break;
-          
-        case 'json':
-          content = JSON.stringify(promises, null, 2);
-          mimeType = 'application/json;charset=utf-8;';
-          filename = `promesses-projet-bi-${date}.json`;
-          break;
-          
-        case 'pdf':
-          alert('Export PDF - À implémenter avec une librairie externe comme jsPDF');
-          return;
-          
-        default:
-          return;
-      }
-      
-      // Téléchargement
-      const blob = new Blob([content], { type: mimeType });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => {
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }, 100);
-      
-      showNotification(`Données exportées en ${format.toUpperCase()} avec succès !`);
-    };
-
-    // ========== CALCULS POUR LES 10 KPI ==========
-    // ========== CALCULS POUR LES 10 KPI ==========
-function calculateAllStats() {
-  const promises = CONFIG.promises;
-  const total = promises.length;
-  
-  // KPI de base
-  const realise = promises.filter(p => p.status === 'realise').length;
-  const encours = promises.filter(p => p.status === 'encours').length;
-  const nonLance = promises.filter(p => p.status === 'non-lance').length;
-  const retard = promises.filter(p => p.isLate).length;
-  
-  // Pourcentages
-  const realisePercentage = total > 0 ? ((realise / total) * 100).toFixed(1) : 0;
-  const encoursPercentage = total > 0 ? ((encours / total) * 100).toFixed(1) : 0;
-  const nonLancePercentage = total > 0 ? ((nonLance / total) * 100).toFixed(1) : 0;
-  const retardPercentage = total > 0 ? ((retard / total) * 100).toFixed(1) : 0;
-  
-  // KPI 6: Taux de réalisation (pondéré)
-  let tauxRealisation = 0;
-  if (total > 0) {
-    const poidsRealise = realise * 100;
-    const poidsEncours = encours * 50;
-    const poidsNonLance = nonLance * 10;
-    tauxRealisation = ((poidsRealise + poidsEncours + poidsNonLance) / (total * 100) * 100).toFixed(1);
-  }
-  
-  // ========== CALCUL DE LA MOYENNE DES NOTES BASÉ SUR SUPABASE ==========
-  // KPI 7: Moyenne des notes depuis Supabase
-  let moyenneNotes = 0;
-  let totalVotes = 0;
-  let totalNotes = 0;
-  let promessesNotees = 0;
-  
-  // Utiliser les données de Supabase (publicAvg et publicCount)
-  promises.forEach(p => {
-    if (p.publicCount && p.publicCount > 0) {
-      // Données provenant de Supabase via fetchAndDisplayPublicVotes()
-      totalVotes += p.publicCount;
-      totalNotes += p.publicAvg * p.publicCount;
-      promessesNotees++;
-    }
-    // Fallback: utiliser les votes locaux si Supabase n'a pas de données
-    else if (p.votes && p.votes.length > 0) {
-      totalVotes += p.votes.length;
-      totalNotes += p.votes.reduce((a, b) => a + b, 0);
-      promessesNotees++;
-    }
-  });
-  
-  // Calcul de la moyenne (moyenne globale de tous les votes)
-  if (totalVotes > 0) {
-    moyenneNotes = (totalNotes / totalVotes).toFixed(1);
-  }
-  
-  // ========== FIN DU CALCUL ==========
-  
-  // KPI 8: Engagements avec mises à jour
-  const avecMaj = promises.filter(p => p.mises_a_jour && p.mises_a_jour.length > 0).length;
-  const avecMajPercentage = total > 0 ? ((avecMaj / total) * 100).toFixed(1) : 0;
-  
-  // KPI 9: Délai moyen restant
-  let delaiMoyenJours = 0;
-  let delaiMoyenText = '0j';
-  const promessesEnCours = promises.filter(p => p.status !== 'realise' && !p.isLate);
-  if (promessesEnCours.length > 0) {
-    const maintenant = CONFIG.CURRENT_DATE.getTime();
-    const totalJours = promessesEnCours.reduce((sum, p) => {
-      const diffJours = Math.max(0, Math.ceil((p.deadline - maintenant) / (1000 * 60 * 60 * 24)));
-      return sum + diffJours;
-    }, 0);
-    delaiMoyenJours = Math.round(totalJours / promessesEnCours.length);
-    delaiMoyenText = delaiMoyenJours > 365 ? `${Math.round(delaiMoyenJours/365)}a` : 
-                    delaiMoyenJours > 30 ? `${Math.round(delaiMoyenJours/30)}m` : 
-                    `${delaiMoyenJours}j`;
-  }
-  
-  // KPI 10: Domaine principal
-  let domainePrincipal = '-';
-  let domaineCount = 0;
-  if (promises.length > 0) {
-    const domaines = {};
-    promises.forEach(p => {
-      domaines[p.domaine] = (domaines[p.domaine] || 0) + 1;
-    });
-    const entries = Object.entries(domaines);
-    if (entries.length > 0) {
-      const [domaine, count] = entries.reduce((a, b) => a[1] > b[1] ? a : b);
-      domainePrincipal = domaine.substring(0, 12) + (domaine.length > 12 ? '...' : '');
-      domaineCount = count;
-    }
-  }
-  
-  // Texte de progression pour le taux
-  let progressText = '';
-  if (tauxRealisation >= 80) progressText = 'Excellent';
-  else if (tauxRealisation >= 60) progressText = 'Bon';
-  else if (tauxRealisation >= 40) progressText = 'Moyen';
-  else if (tauxRealisation >= 20) progressText = 'Faible';
-  else progressText = 'Début';
-  
-  // Mise à jour des KPI
-  document.getElementById('total').textContent = total;
-  document.getElementById('total-count').textContent = total;
-  document.getElementById('total-percentage').textContent = '100%';
-  
-  document.getElementById('realise').textContent = realise;
-  document.getElementById('realise-percentage').textContent = `${realisePercentage}%`;
-  
-  document.getElementById('encours').textContent = encours;
-  document.getElementById('encours-percentage').textContent = `${encoursPercentage}%`;
-  
-  document.getElementById('non-lance').textContent = nonLance;
-  document.getElementById('non-lance-percentage').textContent = `${nonLancePercentage}%`;
-  
-  document.getElementById('retard').textContent = retard;
-  document.getElementById('retard-percentage').textContent = `${retardPercentage}%`;
-  
-  document.getElementById('taux-realisation').textContent = `${tauxRealisation}%`;
-  document.getElementById('progress-text').textContent = progressText;
-  
-  document.getElementById('moyenne-notes').textContent = moyenneNotes;
-  document.getElementById('votes-total').textContent = promessesNotees > 0 ? 
-    `${promessesNotees}/${total} promesses notées` : 
-    'Aucun vote';
-  
-  document.getElementById('avec-maj').textContent = avecMaj;
-  document.getElementById('avec-maj-percentage').textContent = `${avecMajPercentage}%`;
-  
-  document.getElementById('delai-moyen').textContent = delaiMoyenText;
-  document.getElementById('jours-restants').textContent = promessesEnCours.length > 0 ? `${promessesEnCours.length} engagements` : 'Aucun';
-  
-  document.getElementById('domaine-principal').textContent = domainePrincipal;
-  document.getElementById('domaine-count').textContent = `${domaineCount} engagements`;
-}
-    // ========== RENDU DES FILTRES ==========
-    function renderFilters() {
-      const domainFilter = document.getElementById('domaine');
-      const domains = [...new Set(CONFIG.promises.map(p => p.domaine))].sort();
-      
-      domainFilter.innerHTML = '<option value="">Tous les secteurs</option>';
-      
-      domains.forEach(domain => {
-        const option = document.createElement('option');
-        option.value = domain;
-        option.textContent = domain;
-        domainFilter.appendChild(option);
-      });
-    }
-
-    // ========== BOUTONS DE PARTAGE AVEC CAPTURE ==========
-    function createShareButtons(promise) {
-      return `
-        <div class="share-section">
-          <button class="screenshot-btn" onclick="shareWithCapture('${promise.id}', 'screenshot')" title="Capturer et partager">
-            <i class="fas fa-camera"></i>
-          </button>
-          <a href="#" onclick="shareWithCapture('${promise.id}', 'twitter'); return false;" 
-             class="share-btn share-twitter" 
-             title="Partager sur X">
-            <i class="fab fa-x-twitter"></i>
-          </a>
-          <a href="#" onclick="shareWithCapture('${promise.id}', 'facebook'); return false;" 
-             class="share-btn share-facebook" 
-             title="Partager sur Facebook">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="#" onclick="shareWithCapture('${promise.id}', 'whatsapp'); return false;" 
-             class="share-btn share-whatsapp" 
-             title="Partager sur WhatsApp">
-            <i class="fab fa-whatsapp"></i>
-          </a>
-        </div>
-      `;
-    }
-
-    // ========== RENDU DES PROMESSES ==========
-    function renderPromises(promises) {
-      const container = document.getElementById('promises-container');
-      
-      if (promises.length === 0) {
-        container.innerHTML = `
-          <div class="no-results" style="text-align:center; padding:2rem; color:#666; grid-column:1/-1;">
-            <i class="fas fa-search fa-3x" style="margin-bottom:1rem;"></i>
-            <h3 style="margin-bottom:0.5rem;">Aucun résultat trouvé</h3>
-            <p style="color:var(--text-secondary);">Essayez de modifier vos critères de recherche</p>
-          </div>
-        `;
-        return;
-      }
-      
-      container.innerHTML = promises.map(promise => {
-        const isLate = checkIfLate(promise.status, promise.deadline);
-        let statusClass, statusText;
-        
-        switch(promise.status) {
-          case 'realise':
-            statusClass = 'status-realise';
-            statusText = '✅ Réalisé';
-            break;
-          case 'encours':
-            statusClass = 'status-encours';
-            statusText = '🔄 En Cours';
-            break;
-          case 'non-lance':
-            statusClass = 'status-nonlance';
-            statusText = '⏳ Non lancé';
-            break;
-          default:
-            statusClass = 'status-encours';
-            statusText = '🔄 En Cours';
-        }
-        
-        // Badge de délai
-        let delayBadge = '';
-        if (promise.status === 'realise') {
-          delayBadge = '<span class="delay-badge delay-success"><i class="fas fa-check-circle"></i> Terminé</span>';
-        } else if (isLate) {
-          delayBadge = '<span class="delay-badge delay-danger"><i class="fas fa-exclamation-triangle"></i> En Retard</span>';
-        } else {
-          delayBadge = '<span class="delay-badge" style="background:#e3f2fd; color:#3d5a80; padding:0.3rem 0.6rem; border-radius:6px;"><i class="fas fa-hourglass-half"></i> Dans les délais</span>';
-        }
-        
-        // Mises à jour
-        let updatesHTML = '';
-        if (promise.mises_a_jour && promise.mises_a_jour.length > 0) {
-          const updates = promise.mises_a_jour.map(update => `
-            <div class="update-item">
-              <span class="update-date"><i class="fas fa-calendar-alt"></i> ${update.date}</span>
-              <span class="update-text">${update.text}</span>
-            </div>
-          `).join('');
-          
-          updatesHTML = `
-            <button class="details-btn" onclick="toggleUpdates('${promise.id}')" aria-expanded="false">
-              <i class="fas fa-history"></i> Voir les mises à jour (${promise.mises_a_jour.length})
-            </button>
-            <div id="updates-${promise.id}" class="updates-container">
-              ${updates}
-            </div>
-          `;
-        }
-        
-        // Partager cette promesse avec capture
-        const shareButtons = createShareButtons(promise);
-        
-        return `
-          <div class="promise-card" id="${promise.id}">
-            <span class="domain-badge">${promise.domaine}</span>
-            <h3 class="promise-title">${promise.engagement}</h3>
-            
-            <div class="result-box">
-              <i class="fas fa-bullseye"></i> 
-              <strong>Résultat attendu :</strong> ${promise.resultat}
-            </div>
-            
-            <div class="promise-meta">
-              <div class="meta-row">
-                <span><i class="fas fa-clock"></i> Délai : <strong>${promise.delai}</strong></span>
-                ${delayBadge}
-              </div>
-              <div class="meta-row">
-                <span>Statut :</span>
-                <span class="status-badge ${statusClass}">${statusText}</span>
-              </div>
-            </div>
-            
-            ${updatesHTML}
-            
-            <div class="rating-section">
-              <div class="stars">
-                <i class="far fa-star" data-value="1" onclick="ratePromise('${promise.id}', 1)" role="button" tabindex="0" aria-label="Noter 1 étoile"></i>
-                <i class="far fa-star" data-value="2" onclick="ratePromise('${promise.id}', 2)" role="button" tabindex="0" aria-label="Noter 2 étoiles"></i>
-                <i class="far fa-star" data-value="3" onclick="ratePromise('${promise.id}', 3)" role="button" tabindex="0" aria-label="Noter 3 étoiles"></i>
-                <i class="far fa-star" data-value="4" onclick="ratePromise('${promise.id}', 4)" role="button" tabindex="0" aria-label="Noter 4 étoiles"></i>
-                <i class="far fa-star" data-value="5" onclick="ratePromise('${promise.id}', 5)" role="button" tabindex="0" aria-label="Noter 5 étoiles"></i>
-              </div>
-              <span class="rating-label" id="rating-label-${promise.id}">
-                Noter cet engagement
-              </span>
-            </div>
-            
-            ${shareButtons}
-          </div>
-        `;
-      }).join('');
-    }
-
-    // ========== GESTION DES MISES À JOUR ==========
-    window.toggleUpdates = function(promiseId) {
-      const updatesEl = document.getElementById(`updates-${promiseId}`);
-      const btn = updatesEl.previousElementSibling;
-      
-      if (updatesEl.classList.contains('show')) {
-        updatesEl.classList.remove('show');
-        btn.innerHTML = '<i class="fas fa-history"></i> Voir les mises à jour';
-        btn.setAttribute('aria-expanded', 'false');
-      } else {
-        updatesEl.classList.add('show');
-        btn.innerHTML = '<i class="fas fa-times-circle"></i> Masquer les mises à jour';
-        btn.setAttribute('aria-expanded', 'true');
-      }
-    };
-
-    // ========== NOTATION ==========
-    // ========== NOUVELLE LOGIQUE DE VOTE SUPABASE ==========
-
-    // 1. Fonction pour envoyer un vote
-    window.ratePromise = async function(promiseId, rating) {
-        try {
-            // Envoi à Supabase
-            const { error } = await supabaseClient
-                .from('votes')
-                .insert([{ promise_id: promiseId, rating: rating }]);
-
-            if (error) throw error;
-
-            // Message de succès
-            showNotification(`Merci ! Vote de ${rating}/5 enregistré.`);
-            
-            // Rafraîchir les données localement
-            fetchAndDisplayPublicVotes();
-        } catch (error) {
-            console.error("Erreur vote:", error);
-            // Fallback: stockage local si Supabase échoue
-            const promise = CONFIG.promises.find(p => p.id === promiseId);
-            if (promise) {
-              if (!promise.votes) promise.votes = [];
-              promise.votes.push(rating);
-              calculateAllStats();
-              showNotification(`Merci ! Vote de ${rating}/5 enregistré localement.`);
-            }
-        }
-    };
-
-    // 2. Fonction pour récupérer les moyennes de tout le monde
-    async function fetchAndDisplayPublicVotes() {
-        try {
-            // On récupère tous les votes
-            const { data: votes, error } = await supabaseClient
-                .from('votes')
-                .select('promise_id, rating');
-
-            if (error) throw error;
-
-            // On calcule les moyennes par promesse
-            const stats = {};
-            votes.forEach(v => {
-                if (!stats[v.promise_id]) stats[v.promise_id] = { sum: 0, count: 0 };
-                stats[v.promise_id].sum += v.rating;
-                stats[v.promise_id].count += 1;
-            });
-
-            // On met à jour l'affichage
-            Object.keys(stats).forEach(id => {
-                const avg = (stats[id].sum / stats[id].count).toFixed(1);
-                const label = document.getElementById(`rating-label-${id}`);
-                if (label) {
-                    label.innerText = `Note : ${avg}/5 (${stats[id].count} votes)`;
-                }
-            });
-        } catch (error) {
-            console.error("Erreur chargement scores:", error);
-        }
-    }
-
-    // ========== FILTRAGE AMÉLIORÉ ==========
-    function setupEventListeners() {
-      document.getElementById('search').addEventListener('input', updateDisplay);
-      document.getElementById('domaine').addEventListener('change', updateDisplay);
-      document.getElementById('status').addEventListener('change', updateDisplay);
-      document.getElementById('sort').addEventListener('change', updateDisplay);
-      
-      // Filtres rapides
-      document.querySelectorAll('.quick-filter-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-          if (this.dataset.filter === 'reset') return;
-          
-          // Mettre à jour l'état actif
-          document.querySelectorAll('.quick-filter-btn').forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-          
-          // Appliquer le filtre
-          applyQuickFilter(this.dataset.filter);
-        });
-      });
-    }
-
-    function applyQuickFilter(filterType) {
-      switch(filterType) {
-        case 'realise':
-          document.getElementById('status').value = 'realise';
-          break;
-        case 'encours':
-          document.getElementById('status').value = '';
-          break;
-        case 'retard':
-          document.getElementById('status').value = 'en-retard';
-          break;
-        case 'maj':
-          // Filtre spécial pour les engagements avec mises à jour
-          const filtered = CONFIG.promises.filter(p => p.mises_a_jour && p.mises_a_jour.length > 0);
-          renderPromises(filtered);
-          return;
-      }
-      updateDisplay();
-    }
-
-    window.resetFilters = function() {
-      document.getElementById('search').value = '';
-      document.getElementById('domaine').value = '';
-      document.getElementById('status').value = '';
-      document.getElementById('sort').value = '';
-      
-      document.querySelectorAll('.quick-filter-btn').forEach(b => b.classList.remove('active'));
-      
-      renderPromises(CONFIG.promises);
-      calculateAllStats();
-      showNotification('Filtres réinitialisés');
-    };
-
-    function updateDisplay() {
-      const search = document.getElementById('search').value.toLowerCase();
-      const domaine = document.getElementById('domaine').value;
-      const status = document.getElementById('status').value;
-      const sort = document.getElementById('sort').value;
-      
-      let filtered = CONFIG.promises.filter(p => {
-        const matchSearch = p.engagement.toLowerCase().includes(search) || 
-                           p.resultat.toLowerCase().includes(search) ||
-                           p.domaine.toLowerCase().includes(search);
-        const matchDomaine = !domaine || p.domaine === domaine;
-        
-        let matchStatus = true;
-        if (status === 'realise') {
-          matchStatus = p.status === 'realise';
-        } else if (status === 'en-retard') {
-          matchStatus = p.isLate;
-        } else if (status === 'dans-les-temps') {
-          matchStatus = !p.isLate && p.status !== 'realise';
-        } else if (status === 'non-lance') {
-          matchStatus = p.status === 'non-lance';
-        }
-        
-        return matchSearch && matchDomaine && matchStatus;
-      });
-      
-      // Tri
-      if (sort === 'recent') {
-        filtered.sort((a, b) => b.deadline - a.deadline);
-      } else if (sort === 'ancien') {
-        filtered.sort((a, b) => a.deadline - b.deadline);
-      } else if (sort === 'note') {
-        filtered.sort((a, b) => {
-          const avgA = a.votes && a.votes.length > 0 ? a.votes.reduce((s, v) => s + v, 0) / a.votes.length : 0;
-          const avgB = b.votes && b.votes.length > 0 ? b.votes.reduce((s, v) => s + v, 0) / b.votes.length : 0;
-          return avgB - avgA;
-        });
-      } else if (sort === 'retard') {
-        filtered.sort((a, b) => {
-          if (a.isLate && !b.isLate) return -1;
-          if (!a.isLate && b.isLate) return 1;
-          return 0;
-        });
-      }
-      
-      calculateAllStats();
-      renderPromises(filtered);
-    }
-
-    // ========== GESTION DES LIENS PROFONDS (Deep Linking) ==========
-    function checkDeepLink() {
-      const hash = window.location.hash;
-      if (hash && hash.length > 1) {
-        // Enlever le # du début
-        const id = hash.substring(1);
-        const element = document.getElementById(id);
-        
-        if (element) {
-          // Attendre un peu que le rendu soit stable
-          setTimeout(() => {
-            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            element.classList.add('highlight-effect');
-          }, 500);
-        }
-      }
-    }
-
-    // ========== PARTAGE DU DASHBOARD ==========
-    function setupShareButtons() {
-      const currentUrl = 'https://projetbi.org/#header'; // On garde l'URL propre pour le dashboard global
-      const shareText = encodeURIComponent('🇸🇳 Suivi transparent des engagements du Projet pour un Sénégal Souverain, Juste et Prospère - Tableau de bord citoyen');
-      
-      document.getElementById('share-twitter-dash').href = 
-        `https://twitter.com/intent/tweet?text=${shareText}&url=${encodeURIComponent(currentUrl)}`;
-      
-      document.getElementById('share-facebook-dash').href = 
-        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`;
-      
-      document.getElementById('share-whatsapp-dash').href = 
-        `https://wa.me/?text=${shareText}%20${encodeURIComponent(currentUrl)}`;
-      
-      document.getElementById('share-linkedin-dash').href = 
-        `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`;
-    }
-
-    // ========== NOTIFICATION ==========
-    function showNotification(message) {
-      const notification = document.createElement('div');
-      notification.className = 'notification';
-      notification.innerHTML = `
-        <i class="fas fa-check-circle"></i>
-        <span>${message}</span>
-      `;
-      
-      document.body.appendChild(notification);
-      
-      setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => notification.remove(), 300);
-      }, 3000);
-    }
-
-    // ========== FONCTION SETUP NAVIGATION ==========
-    function setupNavigation() {
-      // Cette fonction est déjà implémentée dans le gestionnaire d'événements DOMContentLoaded
-      console.log('Navigation configurée');
-      checkDeepLink();
-    }
-
-    // ========== INITIALISATION ==========
-    async function init() {
-      try {
-        console.log("Tentative de chargement des données depuis:", CONFIG.DATA_URL);
-        
-        // Essayer de charger depuis Supabase Storage
-        const response = await fetch(CONFIG.DATA_URL, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Cache-Control': 'no-cache'
-          }
-        });
-        
-        if (!response.ok) {
-          console.warn("Impossible de charger depuis Supabase, utilisation des données de démo");
-          // Utiliser les données de démo
-          const data = DEMO_DATA;
-          CONFIG.START_DATE = new Date(data.start_date);
-          CONFIG.promises = data.promises.map(p => {
-            const deadline = calculateDeadline(p.delai);
-            return {
-              ...p,
-              deadline: deadline,
-              isLate: checkIfLate(p.status, deadline)
-            };
-          });
-        } else {
-          // Charger les données réelles
-          const data = await response.json();
-          CONFIG.START_DATE = new Date(data.start_date);
-          
-          // Récupération des votes sur Supabase
-          let publicVotesStats = {};
-          try {
-            const { data: votes, error } = await supabaseClient
-              .from('votes')
-              .select('promise_id, rating');
-            
-            if (!error && votes) {
-              votes.forEach(v => {
-                if (!publicVotesStats[v.promise_id]) publicVotesStats[v.promise_id] = { sum: 0, count: 0 };
-                publicVotesStats[v.promise_id].sum += v.rating;
-                publicVotesStats[v.promise_id].count += 1;
-              });
-            }
-          } catch (e) {
-            console.warn("Impossible de charger les votes:", e);
-          }
-
-          // Traitement des promesses
-          CONFIG.promises = data.promises.map(p => {
-            const deadline = calculateDeadline(p.delai);
-            const stats = publicVotesStats[p.id] || { sum: 0, count: 0 };
-            const avg = stats.count > 0 ? (stats.sum / stats.count).toFixed(1) : 0;
-
-            return {
-              ...p,
-              deadline: deadline,
-              isLate: checkIfLate(p.status, deadline),
-              publicAvg: avg,
-              publicCount: stats.count
-            };
-          });
-        }
-        
-        // Rendu de l'interface
-        updateCurrentDate();
-        calculateAllStats();
-        renderFilters();
-        renderPromises(CONFIG.promises);
-        setupEventListeners();
-        setupShareButtons();
-        setupNavigation();
-        setupCaptureModal();
-        setupContactLinks();
-        setupContactModal();
-        // Charger les votes publics
-        fetchAndDisplayPublicVotes();
-        
-        if ('ontouchstart' in window || navigator.maxTouchPoints) {
-          document.body.classList.add('touch-device');
-        }
-        
-        console.log("✅ Initialisation terminée avec", CONFIG.promises.length, "promesses");
-        await fetchAndDisplayPublicVotes();
-      } catch (error) {
-        console.error('Erreur majeure:', error);
-        // En cas d'erreur totale, utiliser les données de démo
-        const data = DEMO_DATA;
-        CONFIG.START_DATE = new Date(data.start_date);
-        CONFIG.promises = data.promises.map(p => {
-          const deadline = calculateDeadline(p.delai);
-          return {
-            ...p,
-            deadline: deadline,
-            isLate: checkIfLate(p.status, deadline)
-          };
-        });
-        
-        // Rendu avec données de démo
-        updateCurrentDate();
-        calculateAllStats();
-        renderFilters();
-        renderPromises(CONFIG.promises);
-        setupEventListeners();
-        setupShareButtons();
-        setupNavigation();
-        setupCaptureModal();
-        
-        showNotification("Mode démo activé - Données locales");
-      }
-    }
-
-    // ========== DÉMARRER ==========
-    document.addEventListener('DOMContentLoaded', init);
     
-    // Gestion des événements tactiles pour améliorer l'expérience mobile
-    document.addEventListener('touchstart', function() {}, {passive: true});
-    // ========== FONCTION POUR RENDRE LES CONTACTS CLIQUABLES ==========
-function setupContactLinks() {
-  // Email cliquable
-  const emailItems = document.querySelectorAll('.contact-item:nth-child(1)');
-  emailItems.forEach(item => {
-    item.addEventListener('click', function() {
-      window.location.href = 'mailto:pastefprojetbi@gmail.com';
-    });
-    item.style.cursor = 'pointer';
-    item.setAttribute('title', 'Envoyer un email');
-  });
-  
-  // Téléphone cliquable
-  const phoneItems = document.querySelectorAll('.contact-item:nth-child(2)');
-  phoneItems.forEach(item => {
-    item.addEventListener('click', function() {
-      window.location.href = 'tel:+221769455253';
-    });
-    item.style.cursor = 'pointer';
-    item.setAttribute('title', 'Appeler');
-  });
-  
-  // Localisation cliquable (ouvre Google Maps)
-  const locationItems = document.querySelectorAll('.contact-item:nth-child(3)');
-  locationItems.forEach(item => {
-    item.addEventListener('click', function() {
-      window.open('https://maps.google.com/?q=Dakar,Senegal', '_blank');
-    });
-    item.style.cursor = 'pointer';
-    item.setAttribute('title', 'Voir sur la carte');
-  });
-}
-    // Fonction pour gérer la modale de contact
-function setupContactModal() {
-  const contactModal = document.getElementById('contactModal');
-  const closeContactModal = document.getElementById('closeContactModal');
-  const contactForm = document.getElementById('contactForm');
-  
-  // Ouvrir la modale (vous pouvez lier ça à un bouton)
-  // document.getElementById('openContactModal').addEventListener('click', () => {
-  //   contactModal.classList.add('show');
-  //   document.body.style.overflow = 'hidden';
-  // });
-  
-  // Fermer la modale
-  closeContactModal.addEventListener('click', () => {
-    contactModal.classList.remove('show');
-    document.body.style.overflow = '';
-  });
-  
-  // Fermer en cliquant en dehors
-  contactModal.addEventListener('click', (e) => {
-    if (e.target === contactModal) {
-      contactModal.classList.remove('show');
-      document.body.style.overflow = '';
+    function exportDashboard() {
+      // Utiliser html2canvas pour capturer le dashboard
+      html2canvas(document.body).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'dashboard-projet-senegal.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
     }
-  });
-  
-  // Gérer la soumission du formulaire
-  if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const name = document.getElementById('contactName').value;
-      const email = document.getElementById('contactEmail').value;
-      const subject = document.getElementById('contactSubject').value;
-      const message = document.getElementById('contactMessage').value;
-      
-      // Ici, vous pouvez envoyer le formulaire à votre backend
-      // Pour l'instant, on simule l'envoi
-      const mailtoLink = `mailto:pastefprojetbi@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
-      window.location.href = mailtoLink;
-      
-      showNotification('Formulaire soumis avec succès !');
-      contactForm.reset();
-      contactModal.classList.remove('show');
-      document.body.style.overflow = '';
-    });
-  }
-}
-
-// N'oubliez pas d'appeler setupContactModal() dans init()
   </script>
-  <!-- Ajoutez cette modale avant la fermeture du body -->
-<div class="contact-modal" id="contactModal">
-  <div class="contact-modal-content">
-    <button class="close-contact-modal" id="closeContactModal">
-      <i class="fas fa-times"></i>
-    </button>
-    
-    <h3><i class="fas fa-envelope"></i> Contactez-nous</h3>
-    
-    <form id="contactForm">
-      <div class="form-group">
-        <label for="contactName">Votre nom</label>
-        <input type="text" id="contactName" placeholder="Votre nom complet" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="contactEmail">Votre email</label>
-        <input type="email" id="contactEmail" placeholder="votre@email.com" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="contactSubject">Sujet</label>
-        <input type="text" id="contactSubject" placeholder="Sujet de votre message" required>
-      </div>
-      
-      <div class="form-group">
-        <label for="contactMessage">Message</label>
-        <textarea id="contactMessage" rows="5" placeholder="Votre message..." required></textarea>
-      </div>
-      
-      <button type="submit" class="submit-contact-btn">
-        <i class="fas fa-paper-plane"></i> Envoyer le message
-      </button>
-    </form>
-  </div>
-</div>
 </body>
 </html>
