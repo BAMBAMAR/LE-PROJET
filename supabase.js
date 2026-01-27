@@ -4,8 +4,8 @@
 
 class SupabaseService {
     constructor() {
-        this.supabaseUrl = 'https://votre-projet.supabase.co'; // Remplacez par votre URL
-        this.supabaseKey = 'votre-clé-anon'; // Remplacez par votre clé anonyme
+        this.supabaseUrl = 'https://jwsdxttjjbfnoufiidkd.supabase.co'; // Remplacez par votre URL
+        this.supabaseKey = 'sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap'; // Remplacez par votre clé anonyme
         
         // Initialisation du client
         this.client = null;
