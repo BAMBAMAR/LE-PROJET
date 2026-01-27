@@ -26,6 +26,10 @@
                     <i class="fas fa-tasks"></i>
                     <span>Engagements</span>
                 </a>
+                <a href="#news" class="nav-link" data-section="news">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Actualités</span>
+                </a>
                 <a href="#press" class="nav-link" data-section="press">
                     <i class="fas fa-book"></i>
                     <span>Revue de Presse</span>
@@ -54,9 +58,8 @@
             </div>
         </header>
 
-        <!-- ===== SECTION DASHBOARD (KPI) ===== -->
+        <!-- ===== SECTION DASHBOARD (10 KPI - 5 SUR 5) ===== -->
         <section id="dashboard">
-            <!-- ===== 10 KPI STATS - 5 SUR 5 ===== -->
             <div class="stats-grid" id="stats">
                 <!-- LIGNE 1 -->
                 <div class="stat-card">
@@ -132,7 +135,7 @@
             </div>
         </section>
 
-        <!-- ===== SECTION ENGAGEMENTS ===== -->
+        <!-- ===== SECTION ENGAGEMENTS (AVEC FILTRES COMPLETS) ===== -->
         <section id="promises">
             <div class="section-header">
                 <h2 class="section-title">
@@ -161,10 +164,9 @@
                 </div>
             </div>
 
-            <!-- ===== FILTRES COMPLETS COMME L'ORIGINAL ===== -->
+            <!-- FILTRES COMPLETS COMME L'ORIGINAL -->
             <section class="filters-section" id="filters">
                 <div class="filters-container">
-                    <!-- Recherche -->
                     <div class="filter-group">
                         <label for="searchInput">
                             <i class="fas fa-search"></i>
@@ -176,7 +178,6 @@
                         </div>
                     </div>
                     
-                    <!-- Secteur/Domaine -->
                     <div class="filter-group">
                         <label for="sectorFilter">
                             <i class="fas fa-filter"></i>
@@ -198,7 +199,6 @@
                         </div>
                     </div>
                     
-                    <!-- Statut -->
                     <div class="filter-group">
                         <label for="statusFilter">
                             <i class="fas fa-flag"></i>
@@ -215,7 +215,6 @@
                         </div>
                     </div>
                     
-                    <!-- Tri -->
                     <div class="filter-group">
                         <label for="sortFilter">
                             <i class="fas fa-sort"></i>
@@ -233,7 +232,7 @@
                     </div>
                 </div>
                 
-                <!-- Filtres rapides COMME L'ORIGINAL -->
+                <!-- FILTRES RAPIDES COMME L'ORIGINAL -->
                 <div class="quick-filters">
                     <button class="quick-filter-btn active" data-filter="all">
                         <i class="fas fa-list"></i>
@@ -262,7 +261,7 @@
                 </div>
             </section>
 
-            <!-- ===== GRILLE DES ENGAGEMENTS ===== -->
+            <!-- GRILLE DES ENGAGEMENTS -->
             <div class="promises-grid" id="promisesContainer">
                 <div class="loading">
                     <div class="spinner"></div>
@@ -271,7 +270,21 @@
             </div>
         </section>
 
-        <!-- ===== REVUE DE PRESSE - CAROUSEL ===== -->
+        <!-- ===== SECTION ACTUALITÉS (RÉTABLIE) ===== -->
+        <section class="news-section" id="news">
+            <h2 class="section-title">
+                <i class="fas fa-newspaper"></i>
+                <span>Dernières Actualités</span>
+            </h2>
+            <div class="news-grid" id="news-grid">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Chargement des actualités...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== REVUE DE PRESSE - CAROUSEL EBOOK (SUPERPOSITION UNIQUE) ===== -->
         <section class="press-section" id="press">
             <h2 class="section-title">
                 <i class="fas fa-book"></i>
@@ -279,7 +292,7 @@
             </h2>
             <div class="press-carousel-container">
                 <div class="press-carousel" id="pressCarousel">
-                    <!-- Les quotidiens seront ajoutés dynamiquement ici -->
+                    <!-- Les quotidiens seront superposés ici comme dans un ebook -->
                 </div>
                 <button class="carousel-btn prev-btn" id="prevBtn">
                     <i class="fas fa-chevron-left"></i>
@@ -291,7 +304,7 @@
             </div>
         </section>
 
-        <!-- ===== NOTATION SERVICES ===== -->
+        <!-- ===== NOTATION DES SERVICES ===== -->
         <section class="rating-section" id="rating">
             <div class="rating-content">
                 <h2>
