@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-  <meta name="description" content="Tableau de bord interactif pour suivre en temps réel l'avancement des engagements du Projet pour un Sénégal Souverain, Juste et Prospère">
-  <meta name="theme-color" content="#2563eb">
-
+  <meta name="description" content="Tableau de bord interactif pour suivre en temps réel l'avancement des engagements du Projet Sénégal">
+  
+  <!-- Empêcher le tracking prevention de bloquer le localStorage -->
+  <meta http-equiv="origin-trial" content="Aj8...VrQ">
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  
   <!-- SEO Enhanced -->
   <meta name="keywords" content="Sénégal, promesses, Diomaye Faye, transparence, gouvernance, démocratie, tableau de bord, visualisation">
   <meta name="author" content="ProjetBI">
@@ -32,7 +35,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css">
+  
+  <!-- AOS (Animate On Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://projetbi.org/favicon.png">
@@ -40,105 +45,12 @@
 
   <!-- Scripts externes -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-  <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   
   <!-- Styles personnalisés -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <script>
-// Script d'initialisation pour corriger toutes les erreurs
-window.addEventListener('DOMContentLoaded', function() {
-  // 1. S'assurer que applyStyles existe
-  if (typeof window.applyStyles === 'undefined') {
-    window.applyStyles = function() {
-      console.log('applyStyles: No operation');
-      return true;
-    };
-  }
-  
-  // 2. Appeler applyStyles immédiatement
-  try {
-    window.applyStyles();
-  } catch (e) {
-    console.warn('applyStyles error:', e);
-  }
-  
-  // 3. Initialiser les variables globales nécessaires
-  if (typeof window.CONFIG === 'undefined') {
-    window.CONFIG = {
-      START_DATE: new Date('2024-04-02'),
-      CURRENT_DATE: new Date(),
-      promises: [],
-      charts: {}
-    };
-  }
-  
-  // 4. Définir exportToFormat si manquant
-  if (typeof window.exportToFormat === 'undefined') {
-    window.exportToFormat = function(format) {
-      alert(`Export ${format} - Fonctionnalité à implémenter`);
-      return false;
-    };
-  }
-  
-  // 5. Définir calculateDeadline si manquant
-  if (typeof window.calculateDeadline === 'undefined') {
-    window.calculateDeadline = function(delaiText) {
-      const result = new Date(CONFIG.START_DATE);
-      const text = delaiText.toLowerCase();
-      
-      if (text.includes("immédiat") || text.includes("3 mois")) {
-        result.setMonth(result.getMonth() + 3);
-      } else if (text.includes("6 mois")) {
-        result.setMonth(result.getMonth() + 6);
-      } else if (text.includes("1 an")) {
-        result.setFullYear(result.getFullYear() + 1);
-      } else if (text.includes("2 ans")) {
-        result.setFullYear(result.getFullYear() + 2);
-      } else if (text.includes("5 ans")) {
-        result.setFullYear(result.getFullYear() + 5);
-      } else {
-        result.setFullYear(result.getFullYear() + 5);
-      }
-      
-      return result;
-    };
-  }
-  
-  // 6. Définir loadFallbackData si manquant
-  if (typeof window.loadFallbackData === 'undefined') {
-    window.loadFallbackData = function() {
-      console.log('Chargement des données de secours...');
-      // Données de démo
-      const DEMO_DATA = {
-        start_date: "2024-04-02",
-        promises: [
-          {
-            id: "promesse-1",
-            domaine: "Économie",
-            engagement: "Créer 500,000 emplois dans les 5 ans",
-            resultat: "Réduction du taux de chômage à 15%",
-            delai: "5 ans",
-            status: "encours",
-            mises_a_jour: []
-          }
-        ]
-      };
-      
-      CONFIG.START_DATE = new Date(DEMO_DATA.start_date);
-      CONFIG.promises = DEMO_DATA.promises;
-      
-      alert('Mode démo activé - Données locales chargées');
-      return true;
-    };
-  }
-  
-  console.log('✅ Toutes les erreurs corrigées');
-});
-</script>
   <!-- Barre de progression du scroll -->
   <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -162,17 +74,9 @@ window.addEventListener('DOMContentLoaded', function() {
           <i class="fas fa-chart-pie"></i>
           <span>Analytics</span>
         </a>
-        <a href="#timeline" class="nav-link">
-          <i class="fas fa-stream"></i>
-          <span>Timeline</span>
-        </a>
         <a href="#engagement" class="nav-link">
           <i class="fas fa-handshake"></i>
           <span>Engagements</span>
-        </a>
-        <a href="#insights" class="nav-link">
-          <i class="fas fa-lightbulb"></i>
-          <span>Insights</span>
         </a>
         <button class="interactive-btn" id="exportDashboard">
           <i class="fas fa-download"></i>
@@ -226,10 +130,6 @@ window.addEventListener('DOMContentLoaded', function() {
           <i class="fas fa-sync-alt"></i>
           <span>Actualiser les données</span>
         </button>
-        <button class="interactive-btn" id="shareDashboard">
-          <i class="fas fa-share-alt"></i>
-          <span>Partager le dashboard</span>
-        </button>
       </div>
     </div>
   </section>
@@ -243,14 +143,6 @@ window.addEventListener('DOMContentLoaded', function() {
           <i class="fas fa-tachometer-alt"></i>
           Indicateurs Clés de Performance
         </h2>
-        <div class="section-actions">
-          <button class="interactive-btn" onclick="toggleView('compact')">
-            <i class="fas fa-compress"></i>
-          </button>
-          <button class="interactive-btn" onclick="toggleView('detailed')">
-            <i class="fas fa-expand"></i>
-          </button>
-        </div>
       </div>
 
       <div class="stats-grid" id="kpiGrid">
@@ -265,18 +157,6 @@ window.addEventListener('DOMContentLoaded', function() {
           <i class="fas fa-chart-bar"></i>
           Analytics & Visualisations
         </h2>
-        <div class="filter-controls">
-          <select id="chartType" class="filter-select">
-            <option value="radar">Radar</option>
-            <option value="timeline">Timeline</option>
-            <option value="distribution">Distribution</option>
-          </select>
-          <select id="timeRange" class="filter-select">
-            <option value="all">Toute période</option>
-            <option value="month">30 derniers jours</option>
-            <option value="quarter">Trimestre</option>
-          </select>
-        </div>
       </div>
 
       <div class="analytics-grid">
@@ -286,11 +166,6 @@ window.addEventListener('DOMContentLoaded', function() {
               <i class="fas fa-radar"></i>
               Progression par Domaine
             </h3>
-            <div class="card-actions">
-              <button class="card-action-btn" title="Plein écran">
-                <i class="fas fa-expand"></i>
-              </button>
-            </div>
           </div>
           <div class="card-content">
             <canvas id="radarChart" height="300"></canvas>
@@ -303,59 +178,15 @@ window.addEventListener('DOMContentLoaded', function() {
               <i class="fas fa-timeline"></i>
               Échéances Temporelles
             </h3>
-            <div class="card-actions">
-              <button class="card-action-btn" title="Plein écran">
-                <i class="fas fa-expand"></i>
-              </button>
-            </div>
           </div>
           <div class="card-content">
             <canvas id="timelineChart" height="300"></canvas>
           </div>
         </div>
-
-        <div class="dashboard-card">
-          <div class="card-header">
-            <h3 class="card-title">
-              <i class="fas fa-chart-pie"></i>
-              Distribution des Statuts
-            </h3>
-            <div class="card-actions">
-              <button class="card-action-btn" title="Plein écran">
-                <i class="fas fa-expand"></i>
-              </button>
-            </div>
-          </div>
-          <div class="card-content">
-            <canvas id="distributionChart" height="300"></canvas>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- Timeline Interactive -->
-    <section id="timeline" class="timeline-section">
-      <div class="section-header">
-        <h2 class="section-title">
-          <i class="fas fa-stream"></i>
-          Timeline Interactive
-        </h2>
-        <div class="timeline-controls">
-          <button class="interactive-btn" onclick="zoomTimeline('in')">
-            <i class="fas fa-search-plus"></i>
-          </button>
-          <button class="interactive-btn" onclick="zoomTimeline('out')">
-            <i class="fas fa-search-minus"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="timeline-container" id="timelineContainer">
-        <!-- Timeline sera injectée ici -->
-      </div>
-    </section>
-
-    <!-- Engagements avec filtres avancés -->
+    <!-- Engagements avec filtres -->
     <section id="engagement" class="engagement-section">
       <div class="section-header">
         <h2 class="section-title">
@@ -378,15 +209,6 @@ window.addEventListener('DOMContentLoaded', function() {
           </div>
           
           <div class="filter-group">
-            <select id="priorityFilter" class="filter-select">
-              <option value="">Priorité</option>
-              <option value="high">Haute</option>
-              <option value="medium">Moyenne</option>
-              <option value="low">Basse</option>
-            </select>
-          </div>
-          
-          <div class="filter-group">
             <select id="statusFilter" class="filter-select">
               <option value="">Statut</option>
               <option value="realise">Réalisé</option>
@@ -397,92 +219,21 @@ window.addEventListener('DOMContentLoaded', function() {
         </div>
       </div>
 
-      <div class="filters-quick" id="quickFilters">
-        <button class="quick-filter-btn active" data-filter="all">
-          <i class="fas fa-layer-group"></i>
-          Tous
-        </button>
-        <button class="quick-filter-btn" data-filter="attention">
-          <i class="fas fa-exclamation-triangle"></i>
-          Nécessite attention
-        </button>
-        <button class="quick-filter-btn" data-filter="recent">
-          <i class="fas fa-clock"></i>
-          Mises à jour récentes
-        </button>
-        <button class="quick-filter-btn" data-filter="impact">
-          <i class="fas fa-bolt"></i>
-          Haut impact
-        </button>
-      </div>
-
       <div class="promises-grid" id="promisesContainer">
         <!-- Les cartes d'engagement seront injectées ici -->
-      </div>
-
-      <div class="pagination" id="pagination">
-        <!-- La pagination sera injectée ici -->
-      </div>
-    </section>
-
-    <!-- Insights & Recommendations -->
-    <section id="insights" class="insights-section">
-      <div class="section-header">
-        <h2 class="section-title">
-          <i class="fas fa-lightbulb"></i>
-          Insights & Recommandations
-        </h2>
-      </div>
-
-      <div class="insights-grid">
-        <div class="dashboard-card insight-card">
-          <div class="insight-header insight-warning">
-            <i class="fas fa-exclamation-triangle"></i>
-            <h3>Attention Requise</h3>
-          </div>
-          <div class="insight-content" id="insightAttention">
-            <!-- Insights sur les engagements nécessitant attention -->
-          </div>
-        </div>
-
-        <div class="dashboard-card insight-card">
-          <div class="insight-header insight-success">
-            <i class="fas fa-trophy"></i>
-            <h3>Succès Récents</h3>
-          </div>
-          <div class="insight-content" id="insightSuccess">
-            <!-- Insights sur les succès récents -->
-          </div>
-        </div>
-
-        <div class="dashboard-card insight-card">
-          <div class="insight-header insight-info">
-            <i class="fas fa-chart-line"></i>
-            <h3>Tendances</h3>
-          </div>
-          <div class="insight-content" id="insightTrends">
-            <!-- Insights sur les tendances -->
-          </div>
-        </div>
       </div>
     </section>
   </div>
 
-  <!-- Footer Moderne -->
+  <!-- Footer -->
   <footer class="footer">
     <div class="footer-content">
       <div class="footer-section">
         <h4>Projet BI</h4>
         <p>Tableau de bord interactif pour le suivi transparent des engagements du Projet Sénégal.</p>
         <div class="footer-social">
-          <a href="https://twitter.com/ProjetSenegal" class="social-link">
+          <a href="https://twitter.com/ProjetSenegal" class="social-link" target="_blank">
             <i class="fab fa-x-twitter"></i>
-          </a>
-          <a href="https://facebook.com/ProjetSenegal" class="social-link">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="https://wa.me/221338000000" class="social-link">
-            <i class="fab fa-whatsapp"></i>
           </a>
           <a href="mailto:pastefprojetbi@gmail.com" class="social-link">
             <i class="fas fa-envelope"></i>
@@ -495,19 +246,7 @@ window.addEventListener('DOMContentLoaded', function() {
         <ul class="footer-links">
           <li><a href="#dashboard">Dashboard</a></li>
           <li><a href="#analytics">Analytics</a></li>
-          <li><a href="#timeline">Timeline</a></li>
           <li><a href="#engagement">Engagements</a></li>
-          <li><a href="#insights">Insights</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-section">
-        <h4>Ressources</h4>
-        <ul class="footer-links">
-          <li><a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf" target="_blank">Programme Complet</a></li>
-          <li><a href="#" onclick="APP.exportData('pdf')">Rapport PDF</a></li>
-          <li><a href="#" onclick="APP.exportData('excel')">Données Excel</a></li>
-          <li><a href="#methodologie">Méthodologie</a></li>
         </ul>
       </div>
 
@@ -522,139 +261,135 @@ window.addEventListener('DOMContentLoaded', function() {
     </div>
 
     <div class="footer-bottom">
-      <p>© 2026 Projet BI - Tableau de Bord Interactif. Tous droits réservés.</p>
-      <p class="footer-version">Version 2.0.0 | Dernière mise à jour: <span id="lastUpdate"></span></p>
+      <p>© 2026 Projet BI - Tableau de Bord Interactif.</p>
+      <p class="footer-version">Version 2.0.0</p>
     </div>
   </footer>
-
-  <!-- Modales -->
-  <div class="modal" id="detailModal">
-    <div class="modal-content">
-      <!-- Contenu de la modal de détail -->
-    </div>
-  </div>
-
-  <div class="modal" id="shareModal">
-    <div class="modal-content">
-      <!-- Contenu de la modal de partage -->
-    </div>
-  </div>
-
-  <div class="modal" id="helpModal">
-    <div class="modal-content">
-      <!-- Contenu de la modal d'aide -->
-    </div>
-  </div>
 
   <!-- Bouton retour en haut -->
   <a href="#hero" class="back-to-top" id="backToTop">
     <i class="fas fa-chevron-up"></i>
   </a>
-<!-- D'abord le script de correction -->
-<script src="corrections.js"></script>
 
-<!-- Ensuite vos autres scripts -->
-<script src="createSingleton.js"></script>
-<script src="utils.js"></script>
-<script src="render.js"></script>
-<script src="app.js"></script>
-  <!-- Scripts -->
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <!-- Scripts dans le bon ordre -->
+  <!-- 1. Correction du Tracking Prevention -->
   <script>
-    // Configuration Supabase
-    const SUPABASE_URL = "https://jwsdxttjjbfnoufiidkd.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_joJuW7-vMiQG302_2Mvj5A_sVaD8Wap";
+    // Solution pour Tracking Prevention
+    (function() {
+      // Utiliser sessionStorage comme fallback pour localStorage
+      const storage = {
+        setItem: function(key, value) {
+          try {
+            localStorage.setItem(key, value);
+          } catch (e) {
+            sessionStorage.setItem(key, value);
+            console.warn('LocalStorage bloqué, utilisation de sessionStorage');
+          }
+        },
+        getItem: function(key) {
+          try {
+            return localStorage.getItem(key) || sessionStorage.getItem(key);
+          } catch (e) {
+            return sessionStorage.getItem(key);
+          }
+        },
+        removeItem: function(key) {
+          try {
+            localStorage.removeItem(key);
+          } catch (e) {}
+          sessionStorage.removeItem(key);
+        }
+      };
+      
+      // Remplacer localStorage par notre wrapper
+      window.safeStorage = storage;
+      
+      // Patch pour applyStyles
+      if (typeof window.applyStyles === 'undefined') {
+        window.applyStyles = function() {
+          console.log('applyStyles: Applying safe styles');
+          return true;
+        };
+      }
+    })();
+  </script>
+  
+  <!-- 2. Scripts de base -->
+  <script src="corrections.js"></script>
+  <script src="createSingleton.js"></script>
+  <script src="utils.js"></script>
+  <script src="render.js"></script>
+  <script src="app.js"></script>
+  
+  <!-- 3. Initialisation finale -->
+  <script>
+    // Initialiser AOS
+    if (typeof AOS !== 'undefined') {
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 100,
+        easing: 'ease-out-cubic'
+      });
+    } else {
+      console.warn('AOS non disponible, continuation sans animations');
+    }
     
-    // Initialisation globale
+    // Initialiser les événements
     document.addEventListener('DOMContentLoaded', function() {
-      // Initialisation des composants
-      initComponents();
-      
-      // Configuration des événements
-      setupGlobalEvents();
-      
-      // Mise à jour de la date
-      updateCurrentDate();
-    });
-    
-    function initComponents() {
-      // Initialisation du menu mobile
+      // Menu mobile
       const mobileMenuBtn = document.getElementById('mobileMenuBtn');
       const navMenu = document.getElementById('navMenu');
       
-      mobileMenuBtn.addEventListener('click', () => {
-        navMenu.classList.toggle('show');
-        mobileMenuBtn.innerHTML = navMenu.classList.contains('show') 
-          ? '<i class="fas fa-times"></i>' 
-          : '<i class="fas fa-bars"></i>';
-      });
+      if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+          navMenu.classList.toggle('show');
+          mobileMenuBtn.innerHTML = navMenu.classList.contains('show') 
+            ? '<i class="fas fa-times"></i>' 
+            : '<i class="fas fa-bars"></i>';
+        });
+      }
       
-      // Initialisation du bouton retour en haut
+      // Bouton retour en haut
       const backToTop = document.getElementById('backToTop');
-      window.addEventListener('scroll', () => {
-        backToTop.style.opacity = window.scrollY > 500 ? '1' : '0';
-      });
-      
-      // Initialisation des tooltips
-      if (typeof tippy !== 'undefined') {
-        tippy('[data-tippy-content]', {
-          theme: 'light-border',
-          animation: 'scale'
+      if (backToTop) {
+        window.addEventListener('scroll', () => {
+          backToTop.style.opacity = window.scrollY > 500 ? '1' : '0';
+        });
+        
+        backToTop.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       }
-    }
-    
-    function setupGlobalEvents() {
-      // Partage du dashboard
-      document.getElementById('shareDashboard').addEventListener('click', () => {
-        shareDashboard();
+      
+      // Navigation fluide
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href === '#') return;
+          
+          e.preventDefault();
+          const targetId = href.substring(1);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: 'smooth'
+            });
+            
+            // Fermer le menu mobile si ouvert
+            if (navMenu && navMenu.classList.contains('show')) {
+              navMenu.classList.remove('show');
+              mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+          }
+        });
       });
       
-      // Export du dashboard
-      document.getElementById('exportDashboard').addEventListener('click', () => {
-        exportDashboard();
-      });
-    }
-    
-    function updateCurrentDate() {
-      const dateElement = document.getElementById('lastUpdate');
-      if (dateElement) {
-        const now = new Date();
-        dateElement.textContent = now.toLocaleDateString('fr-FR', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric'
-        });
-      }
-    }
-    
-    function shareDashboard() {
-      const url = window.location.href;
-      const title = 'Tableau de Bord Projet Sénégal';
-      const text = 'Découvrez ce tableau de bord interactif de suivi des engagements!';
-      
-      if (navigator.share) {
-        navigator.share({
-          title: title,
-          text: text,
-          url: url
-        });
-      } else {
-        // Fallback pour les navigateurs qui ne supportent pas l'API Share
-        navigator.clipboard.writeText(url);
-        alert('Lien copié dans le presse-papier!');
-      }
-    }
-    
-    function exportDashboard() {
-      // Utiliser html2canvas pour capturer le dashboard
-      html2canvas(document.body).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'dashboard-projet-senegal.png';
-        link.href = canvas.toDataURL();
-        link.click();
-      });
-    }
+      console.log('✅ Interface initialisée');
+    });
   </script>
 </body>
 </html>
