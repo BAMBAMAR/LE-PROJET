@@ -290,7 +290,69 @@
         </button>
       </div>
     </section>
+<!-- Section Tableau de bord amélioré -->
+<section class="dashboard-section" id="dashboard">
+  <h2 class="section-title">
+    <i class="fas fa-chart-line"></i> TABLEAU DE BORD EN TEMPS RÉEL
+  </h2>
+  <p class="section-subtitle">
+    Suivez l'avancement des engagements à travers des indicateurs clés et des visualisations interactives
+  </p>
+  
+  <!-- Les statistiques existantes restent ici -->
+  <div class="stats-grid">
+    <!-- ... vos 10 KPI existants ... -->
+  </div>
+</section>
 
+<!-- Promesse du jour -->
+<section id="featured-section">
+  <h2 class="section-title">
+    <i class="fas fa-star"></i> PROMESSE DU JOUR
+  </h2>
+  <div id="featuredPromise">
+    <!-- Rempli dynamiquement par JavaScript -->
+  </div>
+</section>
+
+<!-- Section Actualités & Revue de presse -->
+<section class="news-section" id="news">
+  <h2 class="section-title">
+    <i class="fas fa-newspaper"></i> ACTUALITÉS & REVUE DE PRESSE
+  </h2>
+  <p class="section-subtitle">
+    Les dernières informations, articles et analyses sur la mise en œuvre du Projet
+  </p>
+  
+  <div class="news-grid" id="newsContainer">
+    <!-- Rempli dynamiquement par JavaScript -->
+  </div>
+  
+  <div style="text-align: center; margin-top: 2rem;">
+    <button class="quick-filter-btn" onclick="loadMoreNews()" style="padding: 1rem 2rem;">
+      <i class="fas fa-plus-circle"></i> Charger plus d'actualités
+    </button>
+  </div>
+</section>
+
+<!-- Timeline des mises à jour -->
+<section class="timeline-section" id="updates">
+  <h2 class="section-title">
+    <i class="fas fa-history"></i> DERNIÈRES MISES À JOUR
+  </h2>
+  <p class="section-subtitle">
+    Chronologie des événements et mises à jour récentes
+  </p>
+  
+  <div class="timeline" id="updatesTimeline">
+    <!-- Rempli dynamiquement par JavaScript -->
+  </div>
+</section>
+
+<!-- Bouton Mode Sombre (à ajouter dans la navbar) -->
+<button id="darkModeToggle" class="mobile-menu-btn" style="display: flex; margin-left: auto;">
+  <i class="fas fa-moon"></i>
+</button>
     <section id="promises">
       <div class="promises-grid" id="promises-container">
         <div class="loading">
