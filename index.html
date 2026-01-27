@@ -2,29 +2,14 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="description" content="Suivi des engagements présidentiels - Le Projet Sénégal">
-    <meta name="keywords" content="Sénégal, engagements, président, suivi, transparence">
-    <meta property="og:title" content="LE PROJET SÉNÉGAL | Suivi des Engagements">
-    <meta property="og:description" content="Plateforme citoyenne de suivi des engagements présidentiels">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://projetbi.org">
     <title>LE PROJET SÉNÉGAL | Suivi des Engagements Présidentiels</title>
-    <link rel="icon" href="https://projetbi.org/favicon.png" type="image/png">
-    <!-- Font Awesome CDN avec fallback local -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
-          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
-          crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="style.css">
-    <!-- Pré-charger les polices importantes -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
-    <!-- ===== INDICATEUR DE PROGRESSION ===== -->
-    <div class="scroll-progress"></div>
-
     <!-- ===== NAVBAR ===== -->
     <nav class="navbar">
         <div class="nav-container">
@@ -40,10 +25,6 @@
                 <a href="#promises" class="nav-link" data-section="promises">
                     <i class="fas fa-tasks"></i>
                     <span>Engagements</span>
-                </a>
-                <a href="#news" class="nav-link" data-section="news">
-                    <i class="fas fa-newspaper"></i>
-                    <span>Actualités</span>
                 </a>
                 <a href="#press" class="nav-link" data-section="press">
                     <i class="fas fa-book"></i>
@@ -66,213 +47,247 @@
             <div class="header-content">
                 <h1>LE PROJET POUR UN SÉNÉGAL SOUVERAIN, JUSTE ET PROSPÈRE</h1>
                 <p class="subtitle">Plateforme Citoyenne de Suivi des Engagements Présidentiels</p>
-                
-                <div class="header-actions">
-                    <div class="ref-badge">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span>Date de référence : 28 JANVIER 2026</span>
-                    </div>
-                    
-                    <a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf" 
-                       class="document-btn-header" 
-                       target="_blank"
-                       download>
-                        <i class="fas fa-file-pdf"></i>
-                        <span>Programme Complet (PDF)</span>
-                    </a>
-                </div>
-                
-                <div class="share-dashboard">
-                    <a href="#" class="share-dashboard-btn share-twitter" id="share-twitter-dash" title="Partager sur Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="share-dashboard-btn share-facebook" id="share-facebook-dash" title="Partager sur Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="share-dashboard-btn share-whatsapp" id="share-whatsapp-dash" title="Partager sur WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="#" class="share-dashboard-btn share-linkedin" id="share-linkedin-dash" title="Partager sur LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
+                <div class="ref-badge">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Date de référence : 28 JANVIER 2026</span>
                 </div>
             </div>
         </header>
 
-        <!-- ===== 10 KPI STATS ===== -->
-        <section class="stats-grid" id="stats">
-            <div class="stat-card">
-                <i class="fas fa-tasks stat-icon"></i>
-                <div class="stat-value" id="total-promises">0</div>
-                <div class="stat-label">Engagements</div>
-                <div class="stat-percentage">100%</div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-check-circle stat-icon"></i>
-                <div class="stat-value" id="realized">0</div>
-                <div class="stat-label">✅ Réalisés</div>
-                <div class="stat-percentage" style="color: var(--success);">0%</div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-sync-alt stat-icon"></i>
-                <div class="stat-value" id="inProgress">0</div>
-                <div class="stat-label">🔄 En Cours</div>
-                <div class="stat-percentage" style="color: #4a90e2;">0%</div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-pause-circle stat-icon"></i>
-                <div class="stat-value" id="notStarted">0</div>
-                <div class="stat-label">⏳ Non Lancés</div>
-                <div class="stat-percentage" style="color: #6c757d;">0%</div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-clock stat-icon"></i>
-                <div class="stat-value" id="delayed">0</div>
-                <div class="stat-label">⚠️ En Retard</div>
-                <div class="stat-percentage" style="color: var(--danger);">0%</div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-chart-line stat-icon"></i>
-                <div class="stat-value" id="globalProgress">0%</div>
-                <div class="stat-label">📈 Taux de Réalisation</div>
-                <div class="stat-percentage" style="color: var(--primary);">+0.0%</div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-tachometer-alt stat-icon"></i>
-                <div class="stat-value" id="progression">0%</div>
-                <div class="stat-label">🚀 Progression</div>
-                <div class="stat-percentage" style="color: var(--warning);">+0.0%</div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-star stat-icon"></i>
-                <div class="stat-value" id="avgRating">0.0</div>
-                <div class="stat-label">⭐ Note Moyenne</div>
-                <div class="stat-subvalue" id="ratingCount">0 votes</div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-history stat-icon"></i>
-                <div class="stat-value" id="withUpdates">0</div>
-                <div class="stat-label">📋 Avec Mises à Jour</div>
-                <div class="stat-percentage" style="color: #8a4baf;">0%</div>
-            </div>
-            
-            <div class="stat-card">
-                <i class="fas fa-stopwatch stat-icon"></i>
-                <div class="stat-value" id="avgDelay">0j</div>
-                <div class="stat-label">⏱️ Délai Moyen Restant</div>
-                <div class="stat-subvalue">En cours</div>
-            </div>
-        </section>
-
-        <!-- ===== FILTRES RAPIDES ===== -->
-        <section class="filters" id="filters">
-            <div class="quick-filters">
-                <button class="quick-filter-btn active" data-filter="all">
-                    <i class="fas fa-list"></i>
-                    <span>Tous</span>
-                </button>
-                <button class="quick-filter-btn" data-filter="realise">
-                    <i class="fas fa-check-circle"></i>
-                    <span>Réalisés</span>
-                </button>
-                <button class="quick-filter-btn" data-filter="encours">
-                    <i class="fas fa-sync-alt"></i>
-                    <span>En cours</span>
-                </button>
-                <button class="quick-filter-btn" data-filter="retard">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <span>En retard</span>
-                </button>
-                <button class="quick-filter-btn" data-filter="updates">
-                    <i class="fas fa-history"></i>
-                    <span>Avec mises à jour</span>
-                </button>
-                <button class="quick-filter-btn" data-filter="reset">
-                    <i class="fas fa-redo"></i>
-                    <span>Réinitialiser</span>
-                </button>
-            </div>
-            
-            <div class="input-group">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Rechercher un engagement...">
-            </div>
-            
-            <div class="input-group">
-                <i class="fas fa-filter"></i>
-                <select id="sectorFilter">
-                    <option value="">Tous les secteurs</option>
-                    <option value="Éducation">Éducation</option>
-                    <option value="Santé">Santé</option>
-                    <option value="Économie">Économie</option>
-                    <option value="Infrastructure">Infrastructure</option>
-                    <option value="Agriculture">Agriculture</option>
-                    <option value="Justice">Justice</option>
-                    <option value="Énergie">Énergie</option>
-                    <option value="Eau">Eau</option>
-                </select>
-            </div>
-            
-            <div class="input-group">
-                <i class="fas fa-flag"></i>
-                <select id="statusFilter">
-                    <option value="">Tous les statuts</option>
-                    <option value="realise">✅ Réalisé</option>
-                    <option value="encours">🔄 En Cours</option>
-                    <option value="non-lance">⏳ Non Lancé</option>
-                </select>
-            </div>
-        </section>
-
-        <!-- ===== ACTUALITÉS ===== -->
-        <section class="news-section" id="news">
-            <h2 class="section-title">
-                <i class="fas fa-newspaper"></i>
-                <span>Dernières Actualités</span>
-            </h2>
-            <div class="news-grid" id="news-grid">
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <p>Chargement des actualités...</p>
+        <!-- ===== SECTION DASHBOARD (KPI) ===== -->
+        <section id="dashboard">
+            <!-- ===== 10 KPI STATS - 5 SUR 5 ===== -->
+            <div class="stats-grid" id="stats">
+                <!-- LIGNE 1 -->
+                <div class="stat-card">
+                    <i class="fas fa-tasks stat-icon"></i>
+                    <div class="stat-value" id="total-promises">0</div>
+                    <div class="stat-label">Engagements</div>
+                    <div class="stat-percentage">100%</div>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-check-circle stat-icon"></i>
+                    <div class="stat-value" id="realized">0</div>
+                    <div class="stat-label">✅ Réalisés</div>
+                    <div class="stat-percentage" style="color: var(--success);">0%</div>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-sync-alt stat-icon"></i>
+                    <div class="stat-value" id="inProgress">0</div>
+                    <div class="stat-label">🔄 En Cours</div>
+                    <div class="stat-percentage" style="color: #4a90e2;">0%</div>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-pause-circle stat-icon"></i>
+                    <div class="stat-value" id="notStarted">0</div>
+                    <div class="stat-label">⏳ Non Lancés</div>
+                    <div class="stat-percentage" style="color: #6c757d;">0%</div>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-clock stat-icon"></i>
+                    <div class="stat-value" id="delayed">0</div>
+                    <div class="stat-label">⚠️ En Retard</div>
+                    <div class="stat-percentage" style="color: var(--danger);">0%</div>
+                </div>
+                
+                <!-- LIGNE 2 -->
+                <div class="stat-card">
+                    <i class="fas fa-chart-line stat-icon"></i>
+                    <div class="stat-value" id="globalProgress">0%</div>
+                    <div class="stat-label">📈 Taux de Réalisation</div>
+                    <div class="stat-percentage" style="color: var(--primary);">+0.0%</div>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-tachometer-alt stat-icon"></i>
+                    <div class="stat-value" id="progression">0%</div>
+                    <div class="stat-label">🚀 Progression</div>
+                    <div class="stat-percentage" style="color: var(--warning);">+0.0%</div>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-star stat-icon"></i>
+                    <div class="stat-value" id="avgRating">0.0</div>
+                    <div class="stat-label">⭐ Note Moyenne</div>
+                    <div class="stat-subvalue" id="ratingCount">0 votes</div>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-history stat-icon"></i>
+                    <div class="stat-value" id="withUpdates">0</div>
+                    <div class="stat-label">📋 Avec Mises à Jour</div>
+                    <div class="stat-percentage" style="color: #8a4baf;">0%</div>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-stopwatch stat-icon"></i>
+                    <div class="stat-value" id="avgDelay">0j</div>
+                    <div class="stat-label">⏱️ Délai Moyen Restant</div>
+                    <div class="stat-subvalue">En cours</div>
                 </div>
             </div>
         </section>
 
-        <!-- ===== ALBUM REVUE DE PRESSE ===== -->
+        <!-- ===== SECTION ENGAGEMENTS ===== -->
+        <section id="promises">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-list-check"></i>
+                    <span>Liste des Engagements</span>
+                </h2>
+                <div class="section-actions">
+                    <button class="export-btn" id="exportBtn">
+                        <i class="fas fa-download"></i>
+                        <span>Exporter</span>
+                        <div class="export-dropdown">
+                            <button class="export-option" data-format="csv">
+                                <i class="fas fa-file-csv"></i>
+                                <span>CSV (Excel)</span>
+                            </button>
+                            <button class="export-option" data-format="json">
+                                <i class="fas fa-file-code"></i>
+                                <span>JSON</span>
+                            </button>
+                            <button class="export-option" data-format="pdf">
+                                <i class="fas fa-file-pdf"></i>
+                                <span>Rapport PDF</span>
+                            </button>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ===== FILTRES COMPLETS COMME L'ORIGINAL ===== -->
+            <section class="filters-section" id="filters">
+                <div class="filters-container">
+                    <!-- Recherche -->
+                    <div class="filter-group">
+                        <label for="searchInput">
+                            <i class="fas fa-search"></i>
+                            Rechercher
+                        </label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-search icon-left"></i>
+                            <input type="text" id="searchInput" placeholder="Rechercher un engagement...">
+                        </div>
+                    </div>
+                    
+                    <!-- Secteur/Domaine -->
+                    <div class="filter-group">
+                        <label for="sectorFilter">
+                            <i class="fas fa-filter"></i>
+                            Secteur
+                        </label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-building icon-left"></i>
+                            <select id="sectorFilter">
+                                <option value="">Tous les secteurs</option>
+                                <option value="Éducation">Éducation</option>
+                                <option value="Santé">Santé</option>
+                                <option value="Économie">Économie</option>
+                                <option value="Infrastructure">Infrastructure</option>
+                                <option value="Agriculture">Agriculture</option>
+                                <option value="Justice">Justice</option>
+                                <option value="Énergie">Énergie</option>
+                                <option value="Eau">Eau</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Statut -->
+                    <div class="filter-group">
+                        <label for="statusFilter">
+                            <i class="fas fa-flag"></i>
+                            Statut
+                        </label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-flag-checkered icon-left"></i>
+                            <select id="statusFilter">
+                                <option value="">Tous les statuts</option>
+                                <option value="realise">✅ Réalisé</option>
+                                <option value="encours">🔄 En Cours</option>
+                                <option value="non-lance">⏳ Non Lancé</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Tri -->
+                    <div class="filter-group">
+                        <label for="sortFilter">
+                            <i class="fas fa-sort"></i>
+                            Trier par
+                        </label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-sort-amount-down icon-left"></i>
+                            <select id="sortFilter">
+                                <option value="recent">🕐 Plus récent</option>
+                                <option value="ancient">🕐 Plus ancien</option>
+                                <option value="rating">⭐ Meilleures notes</option>
+                                <option value="delay">⚠️ En retard</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Filtres rapides COMME L'ORIGINAL -->
+                <div class="quick-filters">
+                    <button class="quick-filter-btn active" data-filter="all">
+                        <i class="fas fa-list"></i>
+                        <span>Tous</span>
+                    </button>
+                    <button class="quick-filter-btn" data-filter="realise">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Réalisés</span>
+                    </button>
+                    <button class="quick-filter-btn" data-filter="encours">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>En cours</span>
+                    </button>
+                    <button class="quick-filter-btn" data-filter="retard">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>En retard</span>
+                    </button>
+                    <button class="quick-filter-btn" data-filter="updates">
+                        <i class="fas fa-history"></i>
+                        <span>Avec mises à jour</span>
+                    </button>
+                    <button class="quick-filter-btn" data-filter="reset">
+                        <i class="fas fa-redo"></i>
+                        <span>Réinitialiser</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- ===== GRILLE DES ENGAGEMENTS ===== -->
+            <div class="promises-grid" id="promisesContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Chargement des engagements...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== REVUE DE PRESSE - CAROUSEL ===== -->
         <section class="press-section" id="press">
             <h2 class="section-title">
                 <i class="fas fa-book"></i>
                 <span>Revue de Presse - Album des Quotidiens</span>
             </h2>
-            <div class="album-controls">
-                <button class="album-btn" id="zoomInBtn">
-                    <i class="fas fa-search-plus"></i> Zoom +
-                </button>
-                <button class="album-btn" id="zoomOutBtn">
-                    <i class="fas fa-search-minus"></i> Zoom -
-                </button>
-                <button class="album-btn" id="resetZoomBtn">
-                    <i class="fas fa-expand"></i> Réinitialiser
-                </button>
-                <button class="album-btn" id="fullscreenBtn">
-                    <i class="fas fa-expand-arrows-alt"></i> Plein écran
-                </button>
-            </div>
-            <div class="album-container" id="albumContainer">
-                <div class="album-grid" id="album-grid">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        <p>Chargement de l'album...</p>
-                    </div>
+            <div class="press-carousel-container">
+                <div class="press-carousel" id="pressCarousel">
+                    <!-- Les quotidiens seront ajoutés dynamiquement ici -->
                 </div>
+                <button class="carousel-btn prev-btn" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-btn next-btn" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="carousel-indicators" id="carouselIndicators"></div>
             </div>
         </section>
 
@@ -362,64 +377,6 @@
                 </form>
             </div>
         </section>
-
-        <!-- ===== PROMESSES ===== -->
-        <section id="promises">
-            <div class="section-header">
-                <h2>
-                    <i class="fas fa-list-check"></i>
-                    <span>Liste des Engagements</span>
-                </h2>
-                <div class="section-actions">
-                    <button class="export-btn" id="exportBtn">
-                        <i class="fas fa-download"></i>
-                        <span>Exporter</span>
-                        <div class="export-dropdown">
-                            <button class="export-option" data-format="csv">
-                                <i class="fas fa-file-csv"></i>
-                                <span>CSV (Excel)</span>
-                            </button>
-                            <button class="export-option" data-format="json">
-                                <i class="fas fa-file-code"></i>
-                                <span>JSON</span>
-                            </button>
-                            <button class="export-option" data-format="pdf">
-                                <i class="fas fa-file-pdf"></i>
-                                <span>Rapport PDF</span>
-                            </button>
-                        </div>
-                    </button>
-                </div>
-            </div>
-            <div class="promises-grid" id="promisesContainer">
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <p>Chargement des engagements...</p>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- ===== MODAL ALBUM ZOOM ===== -->
-    <div class="album-modal" id="albumModal">
-        <div class="album-modal-content">
-            <button class="close-album-modal" id="closeAlbumModal">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="album-modal-zoom-controls">
-                <button class="zoom-control-btn" id="modalZoomIn">
-                    <i class="fas fa-search-plus"></i>
-                </button>
-                <button class="zoom-control-btn" id="modalZoomOut">
-                    <i class="fas fa-search-minus"></i>
-                </button>
-                <button class="zoom-control-btn" id="modalResetZoom">
-                    <i class="fas fa-expand"></i>
-                </button>
-            </div>
-            <div class="album-modal-image" id="albumModalImage"></div>
-            <div class="album-modal-info" id="albumModalInfo"></div>
-        </div>
     </div>
 
     <!-- ===== FOOTER ===== -->
@@ -476,18 +433,13 @@
                 <i class="fas fa-heart"></i> 
                 Développé avec passion pour la transparence démocratique
             </p>
-            <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">
                 © 2026 LE PROJET - Tous droits réservés
             </p>
         </div>
     </footer>
 
-    <!-- ===== BOUTON RETOUR EN HAUT ===== -->
-    <a href="#header" class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-
-    <!-- ===== CONTENEUR DE NOTIFICATIONS ===== -->
+    <!-- ===== NOTIFICATION ===== -->
     <div id="notification-container"></div>
 
     <!-- ===== SCRIPTS ===== -->
