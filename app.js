@@ -405,7 +405,7 @@ function renderNews(tabType = 'latest') {
                     <a href="${news.url}" class="news-btn news-btn-read">
                         <i class="fas fa-book-open"></i> Lire plus
                     </a>
-                    <a href="#" class="news-btn news-btn-share" onclick="shareNews(${news.id})">
+                    <a href="#" class="news-btn news-btn-share" onclick="window.shareNews(${news.id})">
                         <i class="fas fa-share-alt"></i> Partager
                     </a>
                 </div>
@@ -460,7 +460,7 @@ function renderPagination(totalPages, currentPage) {
     // Bouton précédent
     html += `
         <button class="pagination-btn ${currentPage === 1 ? 'disabled' : ''}" 
-                onclick="changePage(${currentPage - 1})">
+                onclick="window.changePage(${currentPage - 1})">
             <i class="fas fa-chevron-left"></i>
         </button>
     `;
@@ -470,7 +470,7 @@ function renderPagination(totalPages, currentPage) {
         if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
             html += `
                 <button class="pagination-btn ${i === currentPage ? 'active' : ''}" 
-                        onclick="changePage(${i})">
+                        onclick="window.changePage(${i})">
                     ${i}
                 </button>
             `;
@@ -482,7 +482,7 @@ function renderPagination(totalPages, currentPage) {
     // Bouton suivant
     html += `
         <button class="pagination-btn ${currentPage === totalPages ? 'disabled' : ''}" 
-                onclick="changePage(${currentPage + 1})">
+                onclick="window.changePage(${currentPage + 1})">
             <i class="fas fa-chevron-right"></i>
         </button>
     `;
@@ -533,16 +533,16 @@ function createCharts() {
                     legend: {
                         position: 'bottom',
                         labels: {
-                            color: var(--text-primary),
+                            color: '#495057',
                             font: { family: 'Poppins', size: 11 },
                             padding: 20
                         }
                     },
                     tooltip: {
                         backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                        titleColor: var(--primary),
-                        bodyColor: var(--text-secondary),
-                        borderColor: var(--border),
+                        titleColor: '#2a6d5d',
+                        bodyColor: '#495057',
+                        borderColor: '#dee2e6',
                         borderWidth: 1,
                         padding: 12,
                         displayColors: true
@@ -582,7 +582,7 @@ function createCharts() {
                             display: false
                         },
                         ticks: {
-                            color: var(--text-secondary),
+                            color: '#495057',
                             font: { family: 'Poppins' }
                         }
                     },
@@ -592,7 +592,7 @@ function createCharts() {
                             color: 'rgba(184, 193, 236, 0.1)'
                         },
                         ticks: {
-                            color: var(--text-secondary),
+                            color: '#495057',
                             font: { family: 'Poppins' }
                         }
                     }
@@ -637,7 +637,7 @@ function createCharts() {
                             display: false
                         },
                         ticks: {
-                            color: var(--text-secondary),
+                            color: '#495057',
                             font: { family: 'Poppins' }
                         }
                     },
@@ -649,7 +649,7 @@ function createCharts() {
                             color: 'rgba(184, 193, 236, 0.1)'
                         },
                         ticks: {
-                            color: var(--text-secondary),
+                            color: '#495057',
                             font: { family: 'Poppins' },
                             callback: function(value) {
                                 return value + '%';
@@ -736,12 +736,17 @@ function showNotification(message, type = 'success') {
 }
 
 // Export pour utilisation globale
-window.APP = {
-    CONFIG,
-    renderAll,
-    applyFilters: () => {}, // Sera remplacé par render.js
-    exportData
-};
+window.CONFIG = CONFIG;
+window.renderAll = renderAll;
+window.applyFilters = applyFilters;
+window.changePage = changePage;
+window.renderNews = renderNews;
+window.shareNews = shareNews;
+window.showNotification = showNotification;
+window.animateStats = animateStats;
+window.calculateStats = calculateStats;
+window.renderPromisesPaginated = renderPromisesPaginated;
+window.exportData = exportData;
 
 // Fonction d'export
 function exportData(format) {
@@ -751,3 +756,5 @@ function exportData(format) {
         showNotification(`Données exportées au format ${format.toUpperCase()} avec succès !`, 'success');
     }, 1500);
 }
+
+console.log('📊 Tableau de bord ProjetBI prêt avec corrections');
