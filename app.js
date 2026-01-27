@@ -1,59 +1,113 @@
 // ==========================================
-// APP.JS - PROJET SÉNÉGAL MODERNISÉ
+// APP.JS AMÉLIORÉ - PROJET SÉNÉGAL MODERNISÉ
 // ==========================================
 
-// Configuration globale
-const CONFIG = // ==========================================
-// APP.JS - PROJET SÉNÉGAL MODERNISÉ
-// ==========================================
-
-// Configuration globale
 const CONFIG = {
   START_DATE: new Date('2024-04-02'),
   CURRENT_DATE: new Date(),
   promises: [],
-  charts: {}
+  featuredPromise: null,
+  news: [],
+  updates: []
 };
+
+// ==========================================
+// DONNÉES DE DÉMO POUR LES NOUVELLES SECTIONS
+// ==========================================
+const DEMO_NEWS = [
+  {
+    id: 1,
+    title: "Nouveau rapport économique trimestriel publié",
+    excerpt: "Le ministère de l'Économie dévoile les premiers résultats des réformes engagées depuis avril 2024.",
+    date: "2024-12-15",
+    type: "article",
+    readTime: "5 min"
+  },
+  {
+    id: 2,
+    title: "Interview exclusive sur la chaîne nationale",
+    excerpt: "Le ministre de l'Éducation répond aux questions sur la mise en œuvre de la gratuité scolaire.",
+    date: "2024-12-14",
+    type: "interview",
+    readTime: "8 min"
+  },
+  {
+    id: 3,
+    title: "Infographie : Les 6 premiers mois en chiffres",
+    excerpt: "Visualisez les principales réalisations du projet à travers des données clés et graphiques.",
+    date: "2024-12-10",
+    type: "infographic",
+    readTime: "3 min"
+  },
+  {
+    id: 4,
+    title: "Communiqué : Lancement du programme emploi jeunes",
+    excerpt: "Le gouvernement annonce le démarrage du programme de création de 500,000 emplois.",
+    date: "2024-12-08",
+    type: "article",
+    readTime: "4 min"
+  }
+];
+
+const DEMO_UPDATES = [
+  {
+    id: 1,
+    date: "2024-12-15",
+    time: "14:30",
+    title: "Rapport économique publié",
+    description: "Publication du premier rapport trimestriel sur l'avancement des réformes économiques"
+  },
+  {
+    id: 2,
+    date: "2024-12-14",
+    time: "10:15",
+    title: "Mise à jour promesse Éducation",
+    description: "Déploiement complet de la gratuité scolaire dans 3 nouvelles régions"
+  },
+  {
+    id: 3,
+    date: "2024-12-12",
+    time: "16:45",
+    title: "Article presse ajouté",
+    description: "Nouvel article du journal Le Soleil ajouté à la revue de presse"
+  },
+  {
+    id: 4,
+    date: "2024-12-10",
+    time: "09:00",
+    title: "Données mises à jour",
+    description: "Mise à jour des statistiques avec les dernières informations disponibles"
+  }
+];
 
 // ==========================================
 // INITIALISATION
 // ==========================================
 document.addEventListener('DOMContentLoaded', async () => {
-  initAnimations();
-  await loadData();
-  setupEventListeners();
-  createCharts();
-  updateScrollProgress();
-  console.log('✅ Application initialisée');
-});
-
-// ==========================================
-// ANIMATIONS D'ARRIÈRE-PLAN
-// ==========================================
-function initAnimations() {
-  createParticles();
-  setupCardHoverEffects();
-}
-
-function createParticles() {
-  const container = document.createElement('div');
-  container.className = 'animated-bg';
-  container.id = 'particles';
+  console.log('🚀 Initialisation du site amélioré...');
   
-  for (let i = 0; i < 30; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    particle.style.width = Math.random() * 100 + 50 + 'px';
-    particle.style.height = particle.style.width;
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.top = Math.random() * 100 + '%';
-    particle.style.animationDelay = Math.random() * 20 + 's';
-    particle.style.animationDuration = Math.random() * 20 + 10 + 's';
-    container.appendChild(particle);
+  try {
+    // Charger les données principales
+    await loadData();
+    
+    // Initialiser les nouvelles sections
+    initNewSections();
+    
+    // Configurer les événements
+    setupEventListeners();
+    
+    // Initialiser les animations
+    initAnimations();
+    
+    // Mettre à jour l'affichage
+    updateDisplay();
+    
+    console.log('✅ Site amélioré initialisé avec succès');
+  } catch (error) {
+    console.error('❌ Erreur lors de l\'initialisation:', error);
+    showNotification('Erreur lors du chargement des données', 'error');
   }
-  
-  document.body.insertBefore(container, document.body.firstChild);
-}
+});
 
 // ==========================================
 // CHARGEMENT DES DONNÉES
@@ -67,130 +121,239 @@ async function loadData() {
     CONFIG.promises = data.promises.map(p => ({
       ...p,
       deadline: calculateDeadline(p.delai),
-      isLate: checkIfLate(p.status, calculateDeadline(p.delai))
+      isLate: checkIfLate(p.status, calculateDeadline(p.delai)),
+      // Ajouter des données de démonstration pour les nouvelles fonctionnalités
+      followers: Math.floor(Math.random() * 500) + 50,
+      views: Math.floor(Math.random() * 1000) + 100,
+      priority: Math.floor(Math.random() * 10) + 1
     }));
     
-    renderAll();
+    // Sélectionner une promesse du jour
+    selectFeaturedPromise();
+    
+    // Charger les nouvelles et mises à jour
+    CONFIG.news = DEMO_NEWS;
+    CONFIG.updates = DEMO_UPDATES;
+    
   } catch (error) {
-    console.error('Erreur chargement:', error);
-    showNotification('Erreur de chargement des données', 'error');
+    console.error('Erreur chargement données:', error);
+    throw error;
   }
 }
 
 // ==========================================
-// CALCULS
+// NOUVELLES SECTIONS
 // ==========================================
-function calculateDeadline(delaiText) {
-  const text = delaiText.toLowerCase();
-  const result = new Date(CONFIG.START_DATE);
-  
-  if (text.includes('immédiat') || text.includes('3 mois')) {
-    result.setMonth(result.getMonth() + 3);
-  } else if (text.includes('6 mois')) {
-    result.setMonth(result.getMonth() + 6);
-  } else if (text.includes('1 an') || text.includes('12 mois')) {
-    result.setFullYear(result.getFullYear() + 1);
-  } else if (text.includes('2 ans')) {
-    result.setFullYear(result.getFullYear() + 2);
-  } else if (text.includes('3 ans')) {
-    result.setFullYear(result.getFullYear() + 3);
-  } else if (text.includes('5 ans') || text.includes('quinquennat')) {
-    result.setFullYear(result.getFullYear() + 5);
+function initNewSections() {
+  renderFeaturedPromise();
+  renderNews();
+  renderUpdatesTimeline();
+  setupDashboardInteractions();
+}
+
+function selectFeaturedPromise() {
+  // Sélectionner une promesse aléatoire avec statut "en cours"
+  const ongoingPromises = CONFIG.promises.filter(p => p.status === 'encours');
+  if (ongoingPromises.length > 0) {
+    const randomIndex = Math.floor(Math.random() * ongoingPromises.length);
+    CONFIG.featuredPromise = ongoingPromises[randomIndex];
   } else {
-    result.setFullYear(result.getFullYear() + 5);
-  }
-  
-  return result;
-}
-
-function checkIfLate(status, deadline) {
-  return status !== 'realise' && CONFIG.CURRENT_DATE > deadline;
-}
-
-function calculateStats() {
-  const total = CONFIG.promises.length;
-  const realise = CONFIG.promises.filter(p => p.status === 'realise').length;
-  const encours = CONFIG.promises.filter(p => p.status === 'encours').length;
-  const nonLance = CONFIG.promises.filter(p => p.status === 'non-lance').length;
-  const retard = CONFIG.promises.filter(p => p.isLate).length;
-  
-  return {
-    total,
-    realise,
-    encours,
-    nonLance,
-    retard,
-    realisePercentage: total > 0 ? ((realise / total) * 100).toFixed(1) : 0,
-    encoursPercentage: total > 0 ? ((encours / total) * 100).toFixed(1) : 0,
-    tauxRealisation: total > 0 ? (((realise * 100 + encours * 50) / (total * 100)) * 100).toFixed(1) : 0
-  };
-}
-
-// ==========================================
-// RENDU
-// ==========================================
-function renderAll() {
-  const stats = calculateStats();
-  renderStats(stats);
-  renderPromises(CONFIG.promises);
-  updateCharts(stats);
-}
-
-function renderStats(stats) {
-  const elements = {
-    total: document.getElementById('total-promises'),
-    realise: document.getElementById('realized'),
-    encours: document.getElementById('inProgress'),
-    retard: document.getElementById('delayed'),
-    taux: document.getElementById('globalProgress')
-  };
-  
-  if (elements.total) animateValue(elements.total, 0, stats.total, 1000);
-  if (elements.realise) animateValue(elements.realise, 0, stats.realise, 1000);
-  if (elements.encours) animateValue(elements.encours, 0, stats.encours, 1000);
-  if (elements.retard) animateValue(elements.retard, 0, stats.retard, 1000);
-  if (elements.taux) elements.taux.textContent = stats.tauxRealisation + '%';
-  
-  // Animer la barre de progression
-  const progressBar = document.getElementById('progressBarFill');
-  if (progressBar) {
-    setTimeout(() => {
-      progressBar.style.width = stats.tauxRealisation + '%';
-    }, 100);
+    // Fallback: première promesse
+    CONFIG.featuredPromise = CONFIG.promises[0];
   }
 }
 
+function renderFeaturedPromise() {
+  const featuredContainer = document.getElementById('featuredPromise');
+  if (!featuredContainer || !CONFIG.featuredPromise) return;
+  
+  const promise = CONFIG.featuredPromise;
+  
+  featuredContainer.innerHTML = `
+    <div class="featured-promise">
+      <div class="featured-badge">
+        <i class="fas fa-star"></i> PROMESSE DU JOUR
+      </div>
+      
+      <div class="featured-content">
+        <h3 class="featured-title">${promise.engagement}</h3>
+        
+        <div class="featured-domain">${promise.domaine}</div>
+        
+        <div class="featured-description">
+          <strong>Résultat attendu :</strong> ${promise.resultat}
+        </div>
+        
+        <div class="featured-meta">
+          <div class="meta-item">
+            <i class="fas fa-clock"></i>
+            <span>Délai : ${promise.delai}</span>
+          </div>
+          
+          <div class="meta-item">
+            <i class="fas fa-users"></i>
+            <span>${promise.followers} citoyens suivent</span>
+          </div>
+          
+          <div class="meta-item">
+            <i class="fas fa-eye"></i>
+            <span>${promise.views} vues</span>
+          </div>
+        </div>
+        
+        <div class="featured-actions">
+          <button class="details-btn" onclick="showPromiseDetails('${promise.id}')" style="flex: 1;">
+            <i class="fas fa-search"></i> Voir les détails
+          </button>
+          
+          <button class="details-btn" onclick="shareWithCapture('${promise.id}', 'screenshot')" style="flex: 1; background: var(--purple); border-color: var(--purple);">
+            <i class="fas fa-share-alt"></i> Partager
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderNews() {
+  const newsContainer = document.getElementById('newsContainer');
+  if (!newsContainer) return;
+  
+  newsContainer.innerHTML = CONFIG.news.map(news => `
+    <div class="news-card">
+      <div class="news-header">
+        <div class="news-date">
+          <i class="fas fa-calendar-alt"></i> ${formatDate(news.date)}
+        </div>
+        <div class="news-type ${news.type}">
+          ${getNewsTypeIcon(news.type)} ${news.type.toUpperCase()}
+        </div>
+      </div>
+      
+      <div class="news-content">
+        <h4 class="news-title">${news.title}</h4>
+        <p class="news-excerpt">${news.excerpt}</p>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="color: var(--text-light); font-size: 0.85rem;">
+            <i class="fas fa-clock"></i> ${news.readTime} de lecture
+          </span>
+          <button class="quick-filter-btn" onclick="readNews(${news.id})" style="padding: 0.5rem 1rem;">
+            <i class="fas fa-book-open"></i> Lire
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderUpdatesTimeline() {
+  const timelineContainer = document.getElementById('updatesTimeline');
+  if (!timelineContainer) return;
+  
+  timelineContainer.innerHTML = CONFIG.updates.map(update => `
+    <div class="timeline-item">
+      <div class="timeline-icon">
+        <i class="fas fa-bullhorn"></i>
+      </div>
+      <div class="timeline-content">
+        <div class="timeline-date">
+          <i class="fas fa-calendar-check"></i>
+          ${formatDate(update.date)} • ${update.time}
+        </div>
+        <h5 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text-primary);">
+          ${update.title}
+        </h5>
+        <p class="timeline-text">${update.description}</p>
+      </div>
+    </div>
+  `).join('');
+}
+
+function getNewsTypeIcon(type) {
+  switch(type) {
+    case 'article': return '📄';
+    case 'interview': return '🎤';
+    case 'infographic': return '📊';
+    default: return '📰';
+  }
+}
+
+// ==========================================
+// TABLEAU DE BORD INTERACTIF
+// ==========================================
+function setupDashboardInteractions() {
+  // Animation des cartes de stats au survol
+  document.querySelectorAll('.stat-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-10px) scale(1.02)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) scale(1)';
+    });
+  });
+  
+  // Tooltips pour les KPI
+  const kpiTooltips = {
+    'total': 'Nombre total d\'engagements du Projet',
+    'realise': 'Engagements complètement réalisés',
+    'encours': 'Engagements en cours de réalisation',
+    'non-lance': 'Engagements pas encore démarrés',
+    'retard': 'Engagements en retard sur le calendrier',
+    'taux-realisation': 'Taux global pondéré de réalisation',
+    'moyenne-notes': 'Moyenne des notes données par les citoyens',
+    'avec-maj': 'Engagements avec des mises à jour récentes',
+    'delai-moyen': 'Délai moyen restant pour les engagements en cours',
+    'domaine-principal': 'Domaine avec le plus d\'engagements'
+  };
+  
+  Object.keys(kpiTooltips).forEach(id => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.setAttribute('title', kpiTooltips[id]);
+    }
+  });
+}
+
+// ==========================================
+// GESTION DES PROMESSES (SANS BARRE DE PROGRESSION)
+// ==========================================
 function renderPromises(promises) {
   const container = document.getElementById('promisesContainer');
   if (!container) return;
   
   if (promises.length === 0) {
     container.innerHTML = `
-      <div class="no-results">
-        <i class="fas fa-search fa-3x"></i>
-        <h3>Aucun résultat trouvé</h3>
+      <div class="no-results" style="text-align:center; padding:3rem; color:var(--text-secondary); grid-column:1/-1;">
+        <i class="fas fa-search fa-4x" style="margin-bottom:1.5rem; opacity:0.3;"></i>
+        <h3 style="margin-bottom:0.8rem; color:var(--text-primary);">Aucun résultat trouvé</h3>
         <p>Essayez de modifier vos critères de recherche</p>
+        <button onclick="resetFilters()" class="quick-filter-btn" style="margin-top:1.5rem;">
+          <i class="fas fa-redo"></i> Réinitialiser les filtres
+        </button>
       </div>
     `;
     return;
   }
   
   container.innerHTML = promises.map(promise => createPromiseCard(promise)).join('');
-  setupCardHoverEffects();
+  setupCardInteractions();
 }
 
 function createPromiseCard(promise) {
-  const statusClass = promise.status === 'realise' ? 'status-realise' :
-                     promise.status === 'encours' ? 'status-encours' : 'status-nonlance';
-  const statusText = promise.status === 'realise' ? '✅ Réalisé' :
-                    promise.status === 'encours' ? '🔄 En cours' : '⏳ Non lancé';
+  const statusClass = `status-${promise.status.replace('-', '')}`;
+  const statusText = getStatusText(promise.status);
+  const delayBadge = getDelayBadge(promise);
   
-  const progress = promise.status === 'realise' ? 100 :
-                  promise.status === 'encours' ? 50 : 10;
+  // Calculer la note moyenne
+  const avgRating = promise.votes && promise.votes.length > 0 
+    ? (promise.votes.reduce((a, b) => a + b, 0) / promise.votes.length).toFixed(1)
+    : '0.0';
   
   return `
-    <div class="promise-card" data-id="${promise.id}" onmousemove="handleCardHover(event, this)">
+    <div class="promise-card" id="promise-${promise.id}" data-id="${promise.id}">
       <div class="domain-badge">${promise.domaine}</div>
+      
       <h3 class="promise-title">${promise.engagement}</h3>
       
       <div class="result-box">
@@ -199,673 +362,440 @@ function createPromiseCard(promise) {
       </div>
       
       <div class="promise-meta">
-        <div class="status-badge ${statusClass}">${statusText}</div>
-        <div class="delay-badge">
-          <i class="fas fa-clock"></i>
-          ${promise.delai}
+        <div class="meta-row">
+          <div class="meta-label">
+            <i class="fas fa-clock"></i>
+            <span>Délai</span>
+          </div>
+          <div class="delay-badge ${delayBadge.class}">
+            <i class="${delayBadge.icon}"></i>
+            ${promise.delai}
+          </div>
         </div>
-      </div>
-      
-      <div class="progress-container">
-        <div class="progress-label">
-          <span>Progression</span>
-          <span>${progress}%</span>
+        
+        <div class="meta-row">
+          <div class="meta-label">
+            <i class="fas fa-chart-line"></i>
+            <span>Statut</span>
+          </div>
+          <div class="status-badge ${statusClass}">
+            <i class="${getStatusIcon(promise.status)}"></i>
+            ${statusText}
+          </div>
         </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" style="width: ${progress}%"></div>
+        
+        ${promise.isLate ? `
+        <div class="meta-row">
+          <div class="meta-label">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span>Retard</span>
+          </div>
+          <span style="color: var(--danger); font-weight: 600;">
+            <i class="fas fa-clock"></i> En retard
+          </span>
+        </div>
+        ` : ''}
+        
+        <div class="meta-row">
+          <div class="meta-label">
+            <i class="fas fa-star"></i>
+            <span>Note moyenne</span>
+          </div>
+          <span style="color: var(--warning); font-weight: 700;">
+            ${avgRating}/5
+          </span>
         </div>
       </div>
       
       ${promise.mises_a_jour && promise.mises_a_jour.length > 0 ? `
-        <button class="details-btn" onclick="toggleDetails('${promise.id}')">
-          <i class="fas fa-history"></i>
-          Voir les mises à jour (${promise.mises_a_jour.length})
+        <button class="details-btn" onclick="toggleUpdates('${promise.id}')" aria-expanded="false">
+          <i class="fas fa-history"></i> Voir les mises à jour (${promise.mises_a_jour.length})
         </button>
+        
+        <div id="updates-${promise.id}" class="updates-container">
+          ${promise.mises_a_jour.map(update => `
+            <div class="update-item">
+              <span class="update-date">
+                <i class="fas fa-calendar-alt"></i> ${update.date}
+              </span>
+              <span class="update-text">${update.text}</span>
+            </div>
+          `).join('')}
+        </div>
       ` : ''}
+      
+      <div class="rating-section">
+        <div class="stars" id="stars-${promise.id}">
+          <i class="far fa-star" data-value="1" onclick="ratePromise('${promise.id}', 1)"></i>
+          <i class="far fa-star" data-value="2" onclick="ratePromise('${promise.id}', 2)"></i>
+          <i class="far fa-star" data-value="3" onclick="ratePromise('${promise.id}', 3)"></i>
+          <i class="far fa-star" data-value="4" onclick="ratePromise('${promise.id}', 4)"></i>
+          <i class="far fa-star" data-value="5" onclick="ratePromise('${promise.id}', 5)"></i>
+        </div>
+        <span class="rating-label" id="rating-label-${promise.id}">
+          Noter cet engagement
+        </span>
+        <span class="rating-count" id="rating-count-${promise.id}">
+          ${promise.votes ? `${promise.votes.length} votes` : 'Soyez le premier à noter'}
+        </span>
+      </div>
+      
+      <div class="share-section">
+        <button class="screenshot-btn" onclick="shareWithCapture('${promise.id}', 'screenshot')" title="Capturer et partager">
+          <i class="fas fa-camera"></i>
+        </button>
+        <a href="#" onclick="shareWithCapture('${promise.id}', 'twitter'); return false;" 
+           class="share-btn share-twitter" 
+           title="Partager sur X">
+          <i class="fab fa-x-twitter"></i>
+        </a>
+        <a href="#" onclick="shareWithCapture('${promise.id}', 'facebook'); return false;" 
+           class="share-btn share-facebook" 
+           title="Partager sur Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" onclick="shareWithCapture('${promise.id}', 'whatsapp'); return false;" 
+           class="share-btn share-whatsapp" 
+           title="Partager sur WhatsApp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
     </div>
   `;
 }
 
 // ==========================================
-// GRAPHIQUES (Chart.js)
+// FONCTIONS UTILITAIRES AMÉLIORÉES
 // ==========================================
-function createCharts() {
-  // Chart.js doit être chargé dans index.html
-  if (typeof Chart === 'undefined') {
-    console.warn('Chart.js non chargé');
-    return;
-  }
-  
-  const stats = calculateStats();
-  
-  // Graphique de statut (Donut)
-  const statusCtx = document.getElementById('statusChart');
-  if (statusCtx) {
-    CONFIG.charts.status = new Chart(statusCtx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Réalisés', 'En Cours', 'En Retard', 'Non Lancés'],
-        datasets: [{
-          data: [stats.realise, stats.encours, stats.retard, stats.nonLance],
-          backgroundColor: [
-            'rgba(42, 157, 143, 0.8)',
-            'rgba(74, 144, 226, 0.8)',
-            'rgba(231, 111, 81, 0.8)',
-            'rgba(108, 117, 125, 0.8)'
-          ],
-          borderWidth: 2,
-          borderColor: '#141b2d'
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            labels: {
-              color: '#b8c1ec',
-              font: { family: 'Inter', size: 12 }
-            }
-          }
-        }
-      }
-    });
-  }
-  
-  // Graphique mensuel (Barres)
-  const monthlyCtx = document.getElementById('monthlyChart');
-  if (monthlyCtx) {
-    CONFIG.charts.monthly = new Chart(monthlyCtx, {
-      type: 'bar',
-      data: {
-        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
-        datasets: [{
-          label: 'Engagements Réalisés',
-          data: [3, 5, 4, 6, 4, 3],
-          backgroundColor: 'rgba(42, 157, 143, 0.8)',
-          borderRadius: 8
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            labels: {
-              color: '#b8c1ec',
-              font: { family: 'Inter' }
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: { color: '#b8c1ec' },
-            grid: { color: 'rgba(184, 193, 236, 0.1)' }
-          },
-          y: {
-            ticks: { color: '#b8c1ec' },
-            grid: { color: 'rgba(184, 193, 236, 0.1)' }
-          }
-        }
-      }
-    });
+function getStatusText(status) {
+  switch(status) {
+    case 'realise': return '✅ Réalisé';
+    case 'encours': return '🔄 En cours';
+    case 'non-lance': return '⏳ Non lancé';
+    default: return '🔄 En cours';
   }
 }
 
-function updateCharts(stats) {
-  if (CONFIG.charts.status) {
-    CONFIG.charts.status.data.datasets[0].data = [
-      stats.realise, stats.encours, stats.retard, stats.nonLance
-    ];
-    CONFIG.charts.status.update();
+function getStatusIcon(status) {
+  switch(status) {
+    case 'realise': return 'fas fa-check-circle';
+    case 'encours': return 'fas fa-sync-alt';
+    case 'non-lance': return 'fas fa-hourglass-start';
+    default: return 'fas fa-sync-alt';
   }
 }
 
-// ==========================================
-// INTERACTIONS
-// ==========================================
-function setupEventListeners() {
-  // Filtres
-  const searchInput = document.getElementById('searchInput');
-  const sectorFilter = document.getElementById('sectorFilter');
-  const statusFilter = document.getElementById('statusFilter');
-  
-  if (searchInput) searchInput.addEventListener('input', applyFilters);
-  if (sectorFilter) sectorFilter.addEventListener('change', applyFilters);
-  if (statusFilter) statusFilter.addEventListener('change', applyFilters);
-  
-  // Bouton scroll to top
-  const scrollBtn = document.getElementById('scrollToTop');
-  if (scrollBtn) {
-    scrollBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-  
-  // Scroll progress
-  window.addEventListener('scroll', updateScrollProgress);
-}
-
-function applyFilters() {
-  const search = document.getElementById('searchInput')?.value.toLowerCase() || '';
-  const sector = document.getElementById('sectorFilter')?.value || '';
-  const status = document.getElementById('statusFilter')?.value || '';
-  
-  let filtered = CONFIG.promises.filter(p => {
-    const matchSearch = p.engagement.toLowerCase().includes(search) ||
-                       p.resultat.toLowerCase().includes(search);
-    const matchSector = !sector || p.domaine === sector;
-    const matchStatus = !status || p.status === status;
-    
-    return matchSearch && matchSector && matchStatus;
-  });
-  
-  renderPromises(filtered);
-}
-
-function setupCardHoverEffects() {
-  document.querySelectorAll('.promise-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      card.style.setProperty('--mouse-x', x + '%');
-      card.style.setProperty('--mouse-y', y + '%');
-    });
-  });
-}
-
-window.handleCardHover = function(e, card) {
-  const rect = card.getBoundingClientRect();
-  const x = ((e.clientX - rect.left) / rect.width) * 100;
-  const y = ((e.clientY - rect.top) / rect.height) * 100;
-  card.style.setProperty('--mouse-x', x + '%');
-  card.style.setProperty('--mouse-y', y + '%');
-};
-
-window.toggleDetails = function(promiseId) {
-  const card = document.querySelector(`[data-id="${promiseId}"]`);
-  if (card) {
-    // Toggle details logic
-    console.log('Toggle details for:', promiseId);
-  }
-};
-
-// ==========================================
-// UTILITAIRES
-// ==========================================
-function animateValue(element, start, end, duration) {
-  const range = end - start;
-  const increment = end > start ? 1 : -1;
-  const stepTime = Math.abs(Math.floor(duration / range));
-  let current = start;
-  
-  const timer = setInterval(() => {
-    current += increment;
-    element.textContent = current;
-    if (current === end) clearInterval(timer);
-  }, stepTime);
-}
-
-function updateScrollProgress() {
-  const scrollProgress = document.querySelector('.scroll-progress');
-  if (!scrollProgress) return;
-  
-  const winScroll = document.documentElement.scrollTop;
-  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  const scrolled = (winScroll / height) * 100;
-  scrollProgress.style.width = scrolled + '%';
-}
-
-function showNotification(message, type = 'success') {
-  const notification = document.createElement('div');
-  notification.className = `notification ${type}`;
-  notification.innerHTML = `
-    <i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i>
-    <span>${message}</span>
-  `;
-  
-  document.body.appendChild(notification);
-  
-  setTimeout(() => {
-    notification.style.animation = 'slideOut 0.3s ease';
-    setTimeout(() => notification.remove(), 300);
-  }, 3000);
-}
-
-// Export pour utilisation globale
-window.APP = {
-  CONFIG,
-  renderAll,
-  applyFilters
-};
-
-  CURRENT_DATE: new Date(),
-  promises: [],
-  charts: {}
-};
-
-// ==========================================
-// INITIALISATION
-// ==========================================
-document.addEventListener('DOMContentLoaded', async () => {
-  initAnimations();
-  await loadData();
-  setupEventListeners();
-  createCharts();
-  updateScrollProgress();
-  console.log('✅ Application initialisée');
-});
-
-// ==========================================
-// ANIMATIONS D'ARRIÈRE-PLAN
-// ==========================================
-function initAnimations() {
-  createParticles();
-  setupCardHoverEffects();
-}
-
-function createParticles() {
-  const container = document.createElement('div');
-  container.className = 'animated-bg';
-  container.id = 'particles';
-  
-  for (let i = 0; i < 30; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    particle.style.width = Math.random() * 100 + 50 + 'px';
-    particle.style.height = particle.style.width;
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.top = Math.random() * 100 + '%';
-    particle.style.animationDelay = Math.random() * 20 + 's';
-    particle.style.animationDuration = Math.random() * 20 + 10 + 's';
-    container.appendChild(particle);
-  }
-  
-  document.body.insertBefore(container, document.body.firstChild);
-}
-
-// ==========================================
-// CHARGEMENT DES DONNÉES
-// ==========================================
-async function loadData() {
-  try {
-    const response = await fetch('promises.json');
-    const data = await response.json();
-    
-    CONFIG.START_DATE = new Date(data.start_date);
-    CONFIG.promises = data.promises.map(p => ({
-      ...p,
-      deadline: calculateDeadline(p.delai),
-      isLate: checkIfLate(p.status, calculateDeadline(p.delai))
-    }));
-    
-    renderAll();
-  } catch (error) {
-    console.error('Erreur chargement:', error);
-    showNotification('Erreur de chargement des données', 'error');
-  }
-}
-
-// ==========================================
-// CALCULS
-// ==========================================
-function calculateDeadline(delaiText) {
-  const text = delaiText.toLowerCase();
-  const result = new Date(CONFIG.START_DATE);
-  
-  if (text.includes('immédiat') || text.includes('3 mois')) {
-    result.setMonth(result.getMonth() + 3);
-  } else if (text.includes('6 mois')) {
-    result.setMonth(result.getMonth() + 6);
-  } else if (text.includes('1 an') || text.includes('12 mois')) {
-    result.setFullYear(result.getFullYear() + 1);
-  } else if (text.includes('2 ans')) {
-    result.setFullYear(result.getFullYear() + 2);
-  } else if (text.includes('3 ans')) {
-    result.setFullYear(result.getFullYear() + 3);
-  } else if (text.includes('5 ans') || text.includes('quinquennat')) {
-    result.setFullYear(result.getFullYear() + 5);
+function getDelayBadge(promise) {
+  if (promise.status === 'realise') {
+    return { class: 'delay-success', icon: 'fas fa-check-circle' };
+  } else if (promise.isLate) {
+    return { class: 'delay-danger', icon: 'fas fa-exclamation-triangle' };
   } else {
-    result.setFullYear(result.getFullYear() + 5);
+    return { class: 'delay-normal', icon: 'fas fa-hourglass-half' };
   }
-  
-  return result;
 }
 
-function checkIfLate(status, deadline) {
-  return status !== 'realise' && CONFIG.CURRENT_DATE > deadline;
-}
-
-function calculateStats() {
-  const total = CONFIG.promises.length;
-  const realise = CONFIG.promises.filter(p => p.status === 'realise').length;
-  const encours = CONFIG.promises.filter(p => p.status === 'encours').length;
-  const nonLance = CONFIG.promises.filter(p => p.status === 'non-lance').length;
-  const retard = CONFIG.promises.filter(p => p.isLate).length;
-  
-  return {
-    total,
-    realise,
-    encours,
-    nonLance,
-    retard,
-    realisePercentage: total > 0 ? ((realise / total) * 100).toFixed(1) : 0,
-    encoursPercentage: total > 0 ? ((encours / total) * 100).toFixed(1) : 0,
-    tauxRealisation: total > 0 ? (((realise * 100 + encours * 50) / (total * 100)) * 100).toFixed(1) : 0
-  };
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('fr-FR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
 }
 
 // ==========================================
-// RENDU
-// ==========================================
-function renderAll() {
-  const stats = calculateStats();
-  renderStats(stats);
-  renderPromises(CONFIG.promises);
-  updateCharts(stats);
-}
-
-function renderStats(stats) {
-  const elements = {
-    total: document.getElementById('total-promises'),
-    realise: document.getElementById('realized'),
-    encours: document.getElementById('inProgress'),
-    retard: document.getElementById('delayed'),
-    taux: document.getElementById('globalProgress')
-  };
-  
-  if (elements.total) animateValue(elements.total, 0, stats.total, 1000);
-  if (elements.realise) animateValue(elements.realise, 0, stats.realise, 1000);
-  if (elements.encours) animateValue(elements.encours, 0, stats.encours, 1000);
-  if (elements.retard) animateValue(elements.retard, 0, stats.retard, 1000);
-  if (elements.taux) elements.taux.textContent = stats.tauxRealisation + '%';
-  
-  // Animer la barre de progression
-  const progressBar = document.getElementById('progressBarFill');
-  if (progressBar) {
-    setTimeout(() => {
-      progressBar.style.width = stats.tauxRealisation + '%';
-    }, 100);
-  }
-}
-
-function renderPromises(promises) {
-  const container = document.getElementById('promisesContainer');
-  if (!container) return;
-  
-  if (promises.length === 0) {
-    container.innerHTML = `
-      <div class="no-results">
-        <i class="fas fa-search fa-3x"></i>
-        <h3>Aucun résultat trouvé</h3>
-        <p>Essayez de modifier vos critères de recherche</p>
-      </div>
-    `;
-    return;
-  }
-  
-  container.innerHTML = promises.map(promise => createPromiseCard(promise)).join('');
-  setupCardHoverEffects();
-}
-
-function createPromiseCard(promise) {
-  const statusClass = promise.status === 'realise' ? 'status-realise' :
-                     promise.status === 'encours' ? 'status-encours' : 'status-nonlance';
-  const statusText = promise.status === 'realise' ? '✅ Réalisé' :
-                    promise.status === 'encours' ? '🔄 En cours' : '⏳ Non lancé';
-  
-  const progress = promise.status === 'realise' ? 100 :
-                  promise.status === 'encours' ? 50 : 10;
-  
-  return `
-    <div class="promise-card" data-id="${promise.id}" onmousemove="handleCardHover(event, this)">
-      <div class="domain-badge">${promise.domaine}</div>
-      <h3 class="promise-title">${promise.engagement}</h3>
-      
-      <div class="result-box">
-        <i class="fas fa-bullseye"></i>
-        <strong>Résultat attendu :</strong> ${promise.resultat}
-      </div>
-      
-      <div class="promise-meta">
-        <div class="status-badge ${statusClass}">${statusText}</div>
-        <div class="delay-badge">
-          <i class="fas fa-clock"></i>
-          ${promise.delai}
-        </div>
-      </div>
-      
-      <div class="progress-container">
-        <div class="progress-label">
-          <span>Progression</span>
-          <span>${progress}%</span>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" style="width: ${progress}%"></div>
-        </div>
-      </div>
-      
-      ${promise.mises_a_jour && promise.mises_a_jour.length > 0 ? `
-        <button class="details-btn" onclick="toggleDetails('${promise.id}')">
-          <i class="fas fa-history"></i>
-          Voir les mises à jour (${promise.mises_a_jour.length})
-        </button>
-      ` : ''}
-    </div>
-  `;
-}
-
-// ==========================================
-// GRAPHIQUES (Chart.js)
-// ==========================================
-function createCharts() {
-  // Chart.js doit être chargé dans index.html
-  if (typeof Chart === 'undefined') {
-    console.warn('Chart.js non chargé');
-    return;
-  }
-  
-  const stats = calculateStats();
-  
-  // Graphique de statut (Donut)
-  const statusCtx = document.getElementById('statusChart');
-  if (statusCtx) {
-    CONFIG.charts.status = new Chart(statusCtx, {
-      type: 'doughnut',
-      data: {
-        labels: ['Réalisés', 'En Cours', 'En Retard', 'Non Lancés'],
-        datasets: [{
-          data: [stats.realise, stats.encours, stats.retard, stats.nonLance],
-          backgroundColor: [
-            'rgba(42, 157, 143, 0.8)',
-            'rgba(74, 144, 226, 0.8)',
-            'rgba(231, 111, 81, 0.8)',
-            'rgba(108, 117, 125, 0.8)'
-          ],
-          borderWidth: 2,
-          borderColor: '#141b2d'
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            labels: {
-              color: '#b8c1ec',
-              font: { family: 'Inter', size: 12 }
-            }
-          }
-        }
-      }
-    });
-  }
-  
-  // Graphique mensuel (Barres)
-  const monthlyCtx = document.getElementById('monthlyChart');
-  if (monthlyCtx) {
-    CONFIG.charts.monthly = new Chart(monthlyCtx, {
-      type: 'bar',
-      data: {
-        labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
-        datasets: [{
-          label: 'Engagements Réalisés',
-          data: [3, 5, 4, 6, 4, 3],
-          backgroundColor: 'rgba(42, 157, 143, 0.8)',
-          borderRadius: 8
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            labels: {
-              color: '#b8c1ec',
-              font: { family: 'Inter' }
-            }
-          }
-        },
-        scales: {
-          x: {
-            ticks: { color: '#b8c1ec' },
-            grid: { color: 'rgba(184, 193, 236, 0.1)' }
-          },
-          y: {
-            ticks: { color: '#b8c1ec' },
-            grid: { color: 'rgba(184, 193, 236, 0.1)' }
-          }
-        }
-      }
-    });
-  }
-}
-
-function updateCharts(stats) {
-  if (CONFIG.charts.status) {
-    CONFIG.charts.status.data.datasets[0].data = [
-      stats.realise, stats.encours, stats.retard, stats.nonLance
-    ];
-    CONFIG.charts.status.update();
-  }
-}
-
-// ==========================================
-// INTERACTIONS
+// INTERACTIONS AMÉLIORÉES
 // ==========================================
 function setupEventListeners() {
+  // Navigation améliorée
+  setupNavigation();
+  
   // Filtres
-  const searchInput = document.getElementById('searchInput');
-  const sectorFilter = document.getElementById('sectorFilter');
-  const statusFilter = document.getElementById('statusFilter');
+  document.getElementById('search')?.addEventListener('input', debounce(updateDisplay, 300));
+  document.getElementById('domaine')?.addEventListener('change', updateDisplay);
+  document.getElementById('status')?.addEventListener('change', updateDisplay);
+  document.getElementById('sort')?.addEventListener('change', updateDisplay);
   
-  if (searchInput) searchInput.addEventListener('input', applyFilters);
-  if (sectorFilter) sectorFilter.addEventListener('change', applyFilters);
-  if (statusFilter) statusFilter.addEventListener('change', applyFilters);
-  
-  // Bouton scroll to top
-  const scrollBtn = document.getElementById('scrollToTop');
-  if (scrollBtn) {
-    scrollBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Filtres rapides
+  document.querySelectorAll('.quick-filter-btn[data-filter]').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const filter = this.dataset.filter;
+      applyQuickFilter(filter);
+      
+      // Animation du bouton
+      this.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 150);
     });
-  }
-  
-  // Scroll progress
-  window.addEventListener('scroll', updateScrollProgress);
-}
-
-function applyFilters() {
-  const search = document.getElementById('searchInput')?.value.toLowerCase() || '';
-  const sector = document.getElementById('sectorFilter')?.value || '';
-  const status = document.getElementById('statusFilter')?.value || '';
-  
-  let filtered = CONFIG.promises.filter(p => {
-    const matchSearch = p.engagement.toLowerCase().includes(search) ||
-                       p.resultat.toLowerCase().includes(search);
-    const matchSector = !sector || p.domaine === sector;
-    const matchStatus = !status || p.status === status;
-    
-    return matchSearch && matchSector && matchStatus;
   });
   
-  renderPromises(filtered);
+  // Scroll events
+  window.addEventListener('scroll', handleScroll);
+  
+  // Gestion du mode sombre
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  if (darkModeToggle) {
+    darkModeToggle.addEventListener('click', toggleDarkMode);
+  }
+  
+  // Animation des cartes au survol
+  setupCardInteractions();
 }
 
-function setupCardHoverEffects() {
+function setupCardInteractions() {
   document.querySelectorAll('.promise-card').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      card.style.setProperty('--mouse-x', x + '%');
-      card.style.setProperty('--mouse-y', y + '%');
+    // Effet de profondeur au survol
+    card.addEventListener('mouseenter', function() {
+      this.style.zIndex = '10';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+      this.style.zIndex = '1';
+    });
+    
+    // Animation au clic
+    card.addEventListener('click', function(e) {
+      // Ne pas déclencher si on clique sur un bouton
+      if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.closest('button') || e.target.closest('a')) {
+        return;
+      }
+      
+      const promiseId = this.dataset.id;
+      showPromiseDetails(promiseId);
     });
   });
 }
 
-window.handleCardHover = function(e, card) {
-  const rect = card.getBoundingClientRect();
-  const x = ((e.clientX - rect.left) / rect.width) * 100;
-  const y = ((e.clientY - rect.top) / rect.height) * 100;
-  card.style.setProperty('--mouse-x', x + '%');
-  card.style.setProperty('--mouse-y', y + '%');
-};
-
-window.toggleDetails = function(promiseId) {
-  const card = document.querySelector(`[data-id="${promiseId}"]`);
-  if (card) {
-    // Toggle details logic
-    console.log('Toggle details for:', promiseId);
+function handleScroll() {
+  // Navbar scroll effect
+  const navbar = document.querySelector('.navbar');
+  if (window.scrollY > 50) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
   }
-};
-
-// ==========================================
-// UTILITAIRES
-// ==========================================
-function animateValue(element, start, end, duration) {
-  const range = end - start;
-  const increment = end > start ? 1 : -1;
-  const stepTime = Math.abs(Math.floor(duration / range));
-  let current = start;
   
-  const timer = setInterval(() => {
-    current += increment;
-    element.textContent = current;
-    if (current === end) clearInterval(timer);
-  }, stepTime);
+  // Bouton retour en haut
+  const backToTop = document.getElementById('backToTop');
+  if (backToTop) {
+    if (window.scrollY > 300) {
+      backToTop.classList.add('visible');
+    } else {
+      backToTop.classList.remove('visible');
+    }
+  }
+  
+  // Animation des éléments au scroll
+  animateOnScroll();
 }
 
-function updateScrollProgress() {
-  const scrollProgress = document.querySelector('.scroll-progress');
-  if (!scrollProgress) return;
+function animateOnScroll() {
+  const elements = document.querySelectorAll('.promise-card, .news-card, .stat-card');
   
-  const winScroll = document.documentElement.scrollTop;
-  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-  const scrolled = (winScroll / height) * 100;
-  scrollProgress.style.width = scrolled + '%';
+  elements.forEach(element => {
+    const elementTop = element.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+    
+    if (elementTop < windowHeight - 100) {
+      element.style.opacity = '1';
+      element.style.transform = 'translateY(0)';
+    }
+  });
+}
+
+// ==========================================
+// NOUVELLES FONCTIONNALITÉS
+// ==========================================
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  localStorage.setItem('darkMode', isDarkMode);
+  
+  showNotification(`Mode ${isDarkMode ? 'sombre' : 'clair'} activé`);
+}
+
+function showPromiseDetails(promiseId) {
+  const promise = CONFIG.promises.find(p => p.id === promiseId);
+  if (!promise) return;
+  
+  // Animation de focus sur la carte
+  const card = document.getElementById(`promise-${promiseId}`);
+  if (card) {
+    card.classList.add('pulse-animation');
+    setTimeout(() => {
+      card.classList.remove('pulse-animation');
+    }, 1000);
+  }
+  
+  // Scroll vers la carte
+  card?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  
+  showNotification(`Détails de "${promise.engagement.substring(0, 50)}..." affichés`);
+}
+
+function readNews(newsId) {
+  const news = CONFIG.news.find(n => n.id === newsId);
+  if (!news) return;
+  
+  // Simuler l'ouverture de l'article
+  const modalContent = `
+    <div style="padding: 2rem; max-width: 800px;">
+      <h2 style="color: var(--primary); margin-bottom: 1rem;">${news.title}</h2>
+      <div style="display: flex; gap: 1rem; margin-bottom: 2rem; color: var(--text-light);">
+        <span><i class="fas fa-calendar-alt"></i> ${formatDate(news.date)}</span>
+        <span><i class="fas fa-clock"></i> ${news.readTime} de lecture</span>
+        <span class="news-type ${news.type}">${news.type.toUpperCase()}</span>
+      </div>
+      <p style="line-height: 1.8; color: var(--text-secondary); margin-bottom: 2rem;">
+        ${news.excerpt}<br><br>
+        Ceci est une démonstration de l'article. Dans la version finale, 
+        le contenu complet de l'article serait affiché ici avec des images,
+        des citations et des liens vers les sources.
+      </p>
+      <button onclick="closeModal()" style="background: var(--primary); color: white; border: none; padding: 1rem 2rem; border-radius: 10px; font-weight: 600; cursor: pointer;">
+        <i class="fas fa-times"></i> Fermer
+      </button>
+    </div>
+  `;
+  
+  showModal(news.title, modalContent);
+}
+
+// ==========================================
+// FONCTIONS UTILITAIRES
+// ==========================================
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+function showModal(title, content) {
+  // Créer la modal
+  const modal = document.createElement('div');
+  modal.className = 'modal-overlay';
+  modal.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 1rem;
+  `;
+  
+  const modalContent = document.createElement('div');
+  modalContent.className = 'modal-content';
+  modalContent.style.cssText = `
+    background: white;
+    border-radius: 20px;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideDown 0.3s ease;
+  `;
+  
+  modalContent.innerHTML = content;
+  modal.appendChild(modalContent);
+  document.body.appendChild(modal);
+  
+  // Fermer en cliquant à l'extérieur
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+  
+  // Empêcher le scroll du body
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const modal = document.querySelector('.modal-overlay');
+  if (modal) {
+    modal.style.animation = 'fadeOut 0.3s ease';
+    setTimeout(() => {
+      modal.remove();
+      document.body.style.overflow = '';
+    }, 300);
+  }
 }
 
 function showNotification(message, type = 'success') {
   const notification = document.createElement('div');
   notification.className = `notification ${type}`;
   notification.innerHTML = `
-    <i class="fas fa-${type === 'success' ? 'check' : 'exclamation'}-circle"></i>
+    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
     <span>${message}</span>
   `;
   
   document.body.appendChild(notification);
   
   setTimeout(() => {
-    notification.style.animation = 'slideOut 0.3s ease';
+    notification.style.animation = 'slideOutRight 0.3s ease';
     setTimeout(() => notification.remove(), 300);
   }, 3000);
 }
 
-// Export pour utilisation globale
+// ==========================================
+// FONCTIONS GLOBALES
+// ==========================================
+window.toggleUpdates = function(promiseId) {
+  const updatesEl = document.getElementById(`updates-${promiseId}`);
+  const btn = updatesEl.previousElementSibling;
+  
+  if (updatesEl.classList.contains('show')) {
+    updatesEl.classList.remove('show');
+    btn.innerHTML = '<i class="fas fa-history"></i> Voir les mises à jour';
+  } else {
+    updatesEl.classList.add('show');
+    btn.innerHTML = '<i class="fas fa-times"></i> Masquer les mises à jour';
+  }
+};
+
+window.resetFilters = function() {
+  document.getElementById('search').value = '';
+  document.getElementById('domaine').value = '';
+  document.getElementById('status').value = '';
+  document.getElementById('sort').value = '';
+  
+  document.querySelectorAll('.quick-filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  renderPromises(CONFIG.promises);
+  calculateAllStats();
+  showNotification('Filtres réinitialisés');
+};
+
+window.shareWithCapture = async function(promiseId, platform) {
+  // Cette fonction existe déjà dans index.html
+  // On la laisse gérer le partage
+  console.log('Partage de la promesse:', promiseId, 'sur', platform);
+};
+
+// ==========================================
+// EXPORT POUR UTILISATION GLOBALE
+// ==========================================
 window.APP = {
   CONFIG,
-  renderAll,
-  applyFilters
+  renderPromises,
+  updateDisplay,
+  showNotification,
+  toggleDarkMode
 };
+
+console.log('📦 Module APP chargé');
