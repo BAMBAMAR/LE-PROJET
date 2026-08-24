@@ -58,9 +58,9 @@ un Sénégal Souverain, Juste & Prospère de PASTEF;Chaque promesse faite au peu
           referrerpolicy="no-referrer">
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" crossorigin="anonymous" defer></script>
-    <link rel="stylesheet" href="style.css?v=v105">
-    <link rel="stylesheet" href="corrections.css?v=v105">
-    <link rel="stylesheet" href="design-system.css?v=v105">
+    <link rel="stylesheet" href="style.css?v=v106">
+    <link rel="stylesheet" href="corrections.css?v=v106">
+    <link rel="stylesheet" href="design-system.css?v=v106">
 
     <style>
     /* ── Corrections ciblées qui ne remplacent PAS style.css ── */
@@ -1303,24 +1303,6 @@ un Sénégal Souverain, Juste & Prospère de PASTEF;Chaque promesse faite au peu
         history.replaceState(null, '', clean);
     }
 })();
-
-// ── Sync KPI menu mobile + desktop sous logo avec #kpiCarousel ──
-(function() {
-    const source = document.getElementById('kpiCarousel');
-    const targets = [
-        document.getElementById('menuKpiDisplay'),
-        document.getElementById('navKpiDesktop')
-    ].filter(Boolean);
-    if (!source || !targets.length) return;
-
-    function syncKpi() {
-        targets.forEach(t => { t.innerHTML = source.innerHTML; });
-    }
-
-    syncKpi();
-    const obs = new MutationObserver(syncKpi);
-    obs.observe(source, { childList: true, subtree: true, characterData: true });
-})();
 (function() {
     const categorySelect = document.getElementById('service-category');
     const serviceSelect  = document.getElementById('service');
@@ -1492,11 +1474,11 @@ if (filterBtn && filterSec) {
 </div>
 
 <!-- ══ Couches JavaScript : app -> perf -> harden (en defer pour ne pas bloquer le parser) ══ -->
-<script src="app.js?v=v105" defer></script>
-<script src="app.perf.js?v=v105" defer></script>
-<script src="app.harden.js?v=v105" defer></script>
-<script src="app.kpi-filters.js?v=v105" defer></script>
-<script src="app.vote-guard.js?v=v105" defer></script>
+<script src="app.js?v=v106" defer></script>
+<script src="app.perf.js?v=v106" defer></script>
+<script src="app.harden.js?v=v106" defer></script>
+<script src="app.kpi-filters.js?v=v106" defer></script>
+<script src="app.vote-guard.js?v=v106" defer></script>
 <!-- ══ PWA Service Worker ══ -->
 <script>
 if ('serviceWorker' in navigator) {
@@ -1511,7 +1493,7 @@ if ('serviceWorker' in navigator) {
         }
     });
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js?v=105', { scope: './' })
+        navigator.serviceWorker.register('sw.js?v=v106', { scope: './' })
             .then(reg => { reg.update(); })
             .catch(() => {});
     });

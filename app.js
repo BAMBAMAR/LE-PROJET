@@ -179,14 +179,14 @@ let currentPhotoIndex = 0;
 
 // KPIs pour le carousel
 const KPI_ITEMS = [
-    { label: 'Total Engagements', value: '0', icon: '📊' },
-    { label: '✅ Réalisés', value: '0', icon: '✅' },
-    { label: '🔄 En Cours', value: '0', icon: '🔄' },
-    { label: '⚠️ En Retard', value: '0', icon: '⚠️' },
-    { label: '📈 Taux Réalisation', value: '0%', icon: '📈' },
-    { label: '⏱️ Retard moyen', value: '0j', icon: '⏱️' },
-    { label: '⭐ Note Moyenne', value: '0.0', icon: '⭐' },
-    { label: '📋 Avec MAJ', value: '0', icon: '📋' }
+    { label: 'Total Engagements', value: '300', icon: '📊' },
+    { label: 'Réalisés', value: '24', icon: '✅' },
+    { label: 'En Cours', value: '187', icon: '🔄' },
+    { label: 'En Retard', value: '12', icon: '⚠️' },
+    { label: 'Taux Réalisation', value: '68%', icon: '📈' },
+    { label: 'Retard moyen', value: '15j', icon: '⏱️' },
+    { label: 'Note Moyenne', value: '4.1', icon: '⭐' },
+    { label: 'Avec MAJ', value: '142', icon: '📋' }
 ];
 
 // ==========================================
@@ -2832,7 +2832,7 @@ function renderKpiItem() {
     
     if (!currentItem) return;
 
-    const kpiCarousel = document.getElementById('kpiCarousel');
+    const kpiCarousel = document.getElementById('kpiCarousel') || document.getElementById('navKpiDesktop');
     if (kpiCarousel) {
         kpiCarousel.innerHTML = `
             <div class="kpi-item" style="display:flex;align-items:center;gap:0.4rem;">

@@ -318,6 +318,7 @@
             }
             KPI_ITEMS[6].value = avgRating;
             KPI_ITEMS[7].value = withUpdates;
+            if (typeof updateKpiCarousel === 'function') updateKpiCarousel();
         }
 
         // Mise à jour DOM (refs cachées, pas de re-querySelector)
