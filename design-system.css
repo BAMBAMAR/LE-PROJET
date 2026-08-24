@@ -1,0 +1,1007 @@
+/**
+ * design-system.css — Design system + corrections d'accessibilité pour projetbi.
+ *
+ * À charger APRÈS style.css et corrections.css. Dernier fichier = priorité maximale
+ * (sans avoir besoin de !important pour la plupart des règles).
+ *
+ * Couvre :
+ *   1.  Tokens design unifiés (couleurs, typo, espacement, rayons, ombres)
+ *   2.  Skip-link visible au focus clavier
+ *   3.  :focus-visible cohérent, lisible
+ *   4.  prefers-reduced-motion : neutralise transitions/animations
+ *   5.  Boutons sociaux : règles CSS qui remplacent forceSocialButtonsColors()
+ *   6.  Éléments .sr-only pour annonces lecteur d'écran
+ */
+
+/* ════════════════════════════════════════════════════════════
+   1.  TOKENS DESIGN
+   ════════════════════════════════════════════════════════════ */
+:root {
+    /* — COULEURS DE MARQUE —
+       Les anciens alias --primary, --primary-color, --pastef-green, --teal
+       sont conservés pour compatibilité mais redirigent tous vers le même token. */
+
+    /* Vert PASTEF — référence unique */
+    --color-brand-700: #1A3D28;   /* foncé : titres, hero */
+    --color-brand-600: #1F4530;
+    --color-brand-500: #2D5F3F;   /* vert PASTEF officiel */
+    --color-brand-400: #3E7F55;
+    --color-brand-300: #5C9479;
+    --color-brand-100: #C5DBC0;
+    --color-brand-50:  #F0F7F2;
+
+    /* Rouge PASTEF — accent */
+    --color-accent-700: #8B2C2C;
+    --color-accent-500: #B23A3A;
+    --color-accent-300: #C85050;
+    --color-accent-100: #F8DCDC;
+
+    /* Or — secondary CTA */
+    --color-gold-500:  #C9A84C;
+    --color-gold-400:  #D9BD6A;
+
+    /* Statuts sémantiques */
+    --color-success:   #2E7D32;
+    --color-warning:   #F57C00;
+    --color-danger:    #C62828;
+    --color-info:      #0277BD;
+
+    /* Neutres */
+    --color-fg-2:      #4A5B52;   /* texte secondaire avec bon contraste */
+    --color-fg-3:      #5A6D63;   /* texte muted conforme WCAG 2.1 AA (4.6:1 ratio) */
+    --color-fg-inv:    #FFFFFF;   /* texte sur fond foncé */
+
+    --color-bg-1:      #FFFFFF;   /* fond principal */
+    --color-bg-2:      #FAFBFC;   /* fond légèrement teinté */
+    --color-bg-3:      #F4F6F8;   /* hover, séparation */
+
+    --color-border-1:  #E0E5E2;
+    --color-border-2:  #C5DBC0;   /* bordure teintée brand */
+
+    /* — ALIASES DE COMPATIBILITÉ — à dépriquer progressivement —
+       Toutes ces variables continuent de fonctionner avec l'ancien CSS,
+       mais résolvent désormais à des valeurs cohérentes. */
+    --pastef-green:        var(--color-brand-500);
+    --pastef-green-light:  var(--color-brand-400);
+    --pastef-green-dark:   var(--color-brand-700);
+    --pastef-red:          var(--color-accent-500);
+    --pastef-red-light:    var(--color-accent-300);
+    --pastef-red-dark:     var(--color-accent-700);
+    --primary-color:       var(--color-brand-500);
+    --primary:             var(--color-brand-500);
+    --primary-light:       var(--color-brand-400);
+    --primary-dark:        var(--color-brand-700);
+    --secondary:           var(--color-accent-500);
+    --accent-color:        var(--color-accent-500);
+    --accent:              var(--color-accent-300);
+    --teal:                var(--color-brand-500);   /* legacy : était #2D5F3F */
+    --success:             var(--color-success);
+    --warning:             var(--color-warning);
+    --danger:              var(--color-danger);
+    --info:                var(--color-info);
+    --text-primary:        var(--color-fg-1);
+    --text-secondary:      var(--color-fg-2);
+    --text-muted:          var(--color-fg-3);
+    --text-dark:           var(--color-fg-1);
+
+    /* — ÉCHELLE TYPOGRAPHIQUE — 7 tailles au lieu de 43 — */
+    --font-size-xs:    0.75rem;   /* 12px — petits labels */
+    --font-size-sm:    0.875rem;  /* 14px — texte secondaire */
+    --font-size-base:  1rem;      /* 16px — corps */
+    --font-size-md:    1.125rem;  /* 18px — texte mis en avant */
+    --font-size-lg:    1.375rem;  /* 22px — h3 */
+    --font-size-xl:    1.75rem;   /* 28px — h2 */
+    --font-size-2xl:   2.25rem;   /* 36px — h1 mobile */
+    --font-size-3xl:   3rem;      /* 48px — hero */
+
+    --line-height-tight: 1.25;
+    --line-height-base:  1.5;
+    --line-height-loose: 1.75;
+
+    /* — FAMILLES — 2 piles seulement — */
+    --font-family-sans:    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-family-display: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+    --font-family-mono:    ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
+    /* — ESPACEMENT — 4 px de base — */
+    --space-1:  0.25rem;   /*  4px */
+    --space-2:  0.5rem;    /*  8px */
+    --space-3:  0.75rem;   /* 12px */
+    --space-4:  1rem;      /* 16px */
+    --space-6:  1.5rem;    /* 24px */
+    --space-8:  2rem;      /* 32px */
+    --space-12: 3rem;      /* 48px */
+    --space-16: 4rem;      /* 64px */
+
+    /* — RAYONS — */
+    --radius-sm:   6px;
+    --radius-md:   12px;
+    --radius-lg:   16px;
+    --radius-xl:   24px;
+    --radius-full: 9999px;
+
+    /* — OMBRES — */
+    --shadow-1: 0 1px 2px rgba(15, 30, 25, 0.04);
+    --shadow-2: 0 4px 12px rgba(15, 30, 25, 0.08);
+    --shadow-3: 0 10px 30px rgba(15, 30, 25, 0.12);
+    --shadow-4: 0 20px 60px rgba(15, 30, 25, 0.16);
+    --shadow:   var(--shadow-2);
+    --shadow-sm: var(--shadow-1);
+    --shadow-lg: var(--shadow-3);
+    --shadow-xl: var(--shadow-4);
+
+    /* — TRANSITIONS — */
+    --duration-fast:   150ms;
+    --duration-base:   250ms;
+    --duration-slow:   400ms;
+    --easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+    --easing-emphasis: cubic-bezier(0.2, 0, 0, 1);
+    --transition:      all var(--duration-base) var(--easing-standard);
+    --transition-fast: all var(--duration-fast) var(--easing-standard);
+
+    /* — Z-INDEX — strate cohérente — */
+    --z-dropdown:    100;
+    --z-sticky:      200;
+    --z-fixed:       300;
+    --z-overlay:     900;
+    --z-modal:       1000;
+    --z-toast:       1100;
+    --z-skip-link:   100000;  /* le skip-link doit toujours gagner */
+
+    /* — COULEUR DE FOCUS — */
+    --color-focus-ring: var(--color-brand-400);
+    --focus-ring-width: 3px;
+    --focus-ring-offset: 2px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   2.  SKIP-LINK
+   À utiliser dans index.html : <a href="#contenu-principal" class="skip-link">Aller au contenu</a>
+   ════════════════════════════════════════════════════════════ */
+.skip-link {
+    position: absolute;
+    top: -200px;
+    left: 0;
+    z-index: var(--z-skip-link);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-brand-500);
+    color: var(--color-fg-inv);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    text-decoration: none;
+    border-radius: 0 0 var(--radius-md) 0;
+    transition: top var(--duration-fast) var(--easing-standard);
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+    top: 0;
+    outline: var(--focus-ring-width) solid var(--color-gold-500);
+    outline-offset: var(--focus-ring-offset);
+}
+
+/* ════════════════════════════════════════════════════════════
+   3.  :FOCUS-VISIBLE — accessibilité clavier
+   :focus-visible ne s'active QUE pour la navigation clavier (pas la souris).
+   On bénéficie ainsi d'un anneau lisible pour les utilisateurs clavier
+   sans gêner les utilisateurs souris.
+   ════════════════════════════════════════════════════════════ */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus-ring);
+    outline-offset: var(--focus-ring-offset);
+    border-radius: var(--radius-sm);
+}
+
+/* Boutons sociaux ronds : l'outline doit suivre la forme */
+.social-btn:focus-visible,
+.social-btn-small:focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-focus-ring);
+    outline-offset: var(--focus-ring-offset);
+}
+
+/* ════════════════════════════════════════════════════════════
+   4.  prefers-reduced-motion — WCAG 2.3.3
+   ════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    /* Le carrousel JS est neutralisé côté JS dans app.harden.js */
+}
+
+/* ════════════════════════════════════════════════════════════
+   5.  BOUTONS SOCIAUX — règle CSS qui REMPLACE forceSocialButtonsColors()
+   La fonction JS qui réinjectait ces styles via cssText à chaque rendu est désormais
+   un no-op (cf. app.perf.js). Les couleurs vivent ici.
+   ════════════════════════════════════════════════════════════ */
+.social-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: var(--radius-full);
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+.social-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+
+.social-btn.fb,
+.social-btn-small.fb { background-color: #3B5998; }
+.social-btn.tw,
+.social-btn-small.tw { background-color: #000000; }
+.social-btn.wa,
+.social-btn-small.wa { background-color: #25D366; }
+.social-btn.ln,
+.social-btn-small.ln { background-color: #0A66C2; }
+
+.social-btn-small {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: var(--radius-full);
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+/* ════════════════════════════════════════════════════════════
+   6.  CLASS UTILITAIRE .sr-only — pour le contenu réservé aux lecteurs d'écran
+   ════════════════════════════════════════════════════════════ */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+.sr-only-focusable:focus,
+.sr-only-focusable:focus-visible {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* ════════════════════════════════════════════════════════════
+   7.  CIBLES TACTILES — taille minimale 44×44 px (WCAG 2.5.5)
+   ════════════════════════════════════════════════════════════ */
+@media (pointer: coarse) {
+    button:not(.carousel-dot):not(.indicator),
+    a.btn,
+    .nav-cta-btn,
+    .modern-link {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* ════════════════════════════════════════════════════════════
+   8.  HARMONISATION TYPOGRAPHIQUE
+   On force les piles de polices et l'échelle. Les anciennes règles avec
+   font-size: 0.68rem, 0.78rem, 0.86rem, etc., héritent désormais de tailles
+   cohérentes via les variables ci-dessus, sans écraser les règles spécifiques.
+   ════════════════════════════════════════════════════════════ */
+body {
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: var(--color-fg-1);
+    background-color: var(--color-bg-2);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-display);
+    line-height: var(--line-height-tight);
+    color: var(--color-brand-700);
+}
+
+/* ════════════════════════════════════════════════════════════
+   9.  MODALES — visuel cohérent, accessible
+   (s'applique à .article-modal, .ratings-modal, etc. déjà présentes)
+   ════════════════════════════════════════════════════════════ */
+.article-modal,
+.ratings-modal,
+[role="dialog"] {
+    /* L'overlay couvre l'écran et est focusable pour le focus trap JS */
+}
+[role="dialog"]:focus {
+    outline: none; /* le focus visible est sur les enfants, pas sur le dialogue lui-même */
+}
+
+/* Bouton de fermeture — taille tactile */
+.article-modal-close,
+.ratings-modal-close,
+.modal-close {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ════════════════════════════════════════════════════════════
+   10. TABLEAU DE COMPATIBILITÉ HÉRITÉE
+   Les classes/règles existantes ne sont pas cassées. Ce fichier vit
+   par-dessus l'existant. Pour migrer progressivement :
+     • supprimer un par un les !important de corrections.css
+     • remplacer les couleurs hex par var(--color-brand-*) etc.
+     • supprimer les styles inline (78 occurrences) au profit de classes
+   ════════════════════════════════════════════════════════════ */
+
+/* =========================================================================
+   11. NOUVEAUX COMPOSANTS ULTRA-PREMIUM (Standard Rpublique & GovTech)
+   ========================================================================= */
+
+/* --- Grille des Engagements : Alignement Parfait et Hauteur gale --- */
+#promisesGrid,
+.promises-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+    gap: 1.5rem !important;
+    align-items: stretch !important;
+    width: 100% !important;
+}
+
+@media (max-width: 640px) {
+    #promisesGrid,
+    .promises-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.1rem !important;
+    }
+}
+
+/* --- Carte d'Engagement (Promise Card) --- */
+.promise-card,
+.promise-item {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    height: 100% !important;
+    min-height: 380px !important;
+    background: #FFFFFF !important;
+    border: 1px solid #E0E5E2 !important;
+    border-radius: 12px !important;
+    padding: 1.4rem !important;
+    position: relative !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 8px -1px rgba(13, 27, 20, 0.05), 0 1px 3px 0 rgba(13, 27, 20, 0.03) !important;
+    transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.promise-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 14px 28px -4px rgba(45, 95, 63, 0.12), 0 6px 12px -2px rgba(13, 27, 20, 0.05) !important;
+    border-color: #A8CDB5 !important;
+}
+
+/* Ligne suprieure d'accent par statut */
+.promise-card::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 4px !important;
+    background: #2D5F3F !important;
+    transition: height 0.2s ease !important;
+}
+
+.promise-card.status-realise::before { background: #2E7D32 !important; }
+.promise-card.status-encours::before { background: #0277BD !important; }
+.promise-card.status-nonlance::before { background: #6B7280 !important; }
+.promise-card.status-retard::before,
+.promise-card.status-danger::before { background: #C62828 !important; }
+
+/* En-tte de carte */
+.promise-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.75rem !important;
+    margin-bottom: 0.85rem !important;
+    flex-wrap: wrap !important;
+}
+
+/* Badges de Statut  Pastille Lumineuse (Glowing Dot) */
+.promise-status,
+.status-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    padding: 4px 10px !important;
+    border-radius: 9999px !important;
+    letter-spacing: 0.02em !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+}
+
+.status-dot {
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 50% !important;
+    display: inline-block !important;
+    flex-shrink: 0 !important;
+}
+
+/* Couleurs des statuts avec pastilles */
+.status-realise,
+.status-badge.status-realise {
+    background: #E6F5E9 !important;
+    color: #1B5E20 !important;
+    border: 1px solid #C8E6C9 !important;
+}
+.status-realise .status-dot {
+    background: #2E7D32 !important;
+    box-shadow: 0 0 6px rgba(46, 125, 50, 0.6) !important;
+}
+
+.status-encours,
+.status-badge.status-encours {
+    background: #E0F0FB !important;
+    color: #0C447C !important;
+    border: 1px solid #B3E5FC !important;
+}
+.status-encours .status-dot {
+    background: #0277BD !important;
+    box-shadow: 0 0 6px rgba(2, 119, 189, 0.6) !important;
+}
+
+.status-nonlance,
+.status-badge.status-nonlance {
+    background: #F3F4F6 !important;
+    color: #374151 !important;
+    border: 1px solid #E5E7EB !important;
+}
+.status-nonlance .status-dot {
+    background: #9CA3AF !important;
+}
+
+.status-retard,
+.status-danger,
+.status-badge.status-retard {
+    background: #FDE8E8 !important;
+    color: #991B1B !important;
+    border: 1px solid #FECACA !important;
+}
+.status-retard .status-dot,
+.status-danger .status-dot {
+    background: #C62828 !important;
+    box-shadow: 0 0 6px rgba(198, 40, 40, 0.6) !important;
+}
+
+/* Badge du Domaine / Pilier */
+.promise-domain,
+.domain-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+    color: #2D5F3F !important;
+    background: #EEF6F1 !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+    border: 1px solid #D6E8DC !important;
+}
+
+/* Titre de l'engagement */
+.promise-title {
+    font-family: var(--font-family-display, 'Crimson Pro', serif) !important;
+    font-size: 1.18rem !important;
+    font-weight: 700 !important;
+    color: #0D1B14 !important;
+    line-height: 1.35 !important;
+    margin: 0.2rem 0 0.75rem !important;
+    letter-spacing: -0.01em !important;
+}
+
+/* Bote de rsultat attendu */
+.promise-result,
+.result-box {
+    background: #F4F7F5 !important;
+    border-left: 3px solid #2D5F3F !important;
+    border-radius: 0 6px 6px 0 !important;
+    padding: 0.7rem 0.85rem !important;
+    margin-bottom: 0.85rem !important;
+    font-size: 0.86rem !important;
+    color: #37474F !important;
+    line-height: 1.45 !important;
+}
+.promise-result strong,
+.result-box strong {
+    color: #1A3D28 !important;
+    display: block !important;
+    margin-bottom: 3px !important;
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.03em !important;
+}
+
+/* Mtadonnes (Dlai, Calendrier) */
+.promise-meta {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.75rem !important;
+    font-size: 0.8rem !important;
+    color: #5A6D63 !important;
+    padding-top: 0.6rem !important;
+    border-top: 1px dashed #E0E5E2 !important;
+    margin-top: auto !important; /* Pousse les mtadonnes et actions vers le bas */
+}
+.promise-meta span,
+.delay-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    font-weight: 500 !important;
+}
+
+/* Actions & Partage en pied de carte */
+.promise-actions {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.75rem !important;
+    margin-top: 0.85rem !important;
+    padding-top: 0.75rem !important;
+    border-top: 1px solid #EDF0EE !important;
+}
+
+.promise-actions .social-share {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+/* Boutons de filtres pilule avec dfilement doux */
+.filters-container,
+.filter-tabs {
+    display: flex !important;
+    gap: 0.5rem !important;
+    overflow-x: auto !important;
+    padding: 0.4rem 0.2rem 0.8rem !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: thin !important;
+}
+
+.filter-btn,
+.tab-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding: 0.55rem 1.1rem !important;
+    border-radius: 9999px !important;
+    font-size: 0.88rem !important;
+    font-weight: 600 !important;
+    background: #FFFFFF !important;
+    color: #4A5B52 !important;
+    border: 1px solid #D6E1DB !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    transition: all 0.18s ease !important;
+}
+
+.filter-btn:hover,
+.tab-btn:hover {
+    background: #EEF6F1 !important;
+    color: #1F4530 !important;
+    border-color: #A8CDB5 !important;
+    transform: translateY(-1px) !important;
+}
+
+.filter-btn.active,
+.tab-btn.active {
+    background: #2D5F3F !important;
+    color: #FFFFFF !important;
+    border-color: #2D5F3F !important;
+    box-shadow: 0 2px 8px rgba(45, 95, 63, 0.25) !important;
+}
+
+/* --- Section Revue de Presse : Kiosque Haute Dfinition 3/4 --- */
+.press-grid,
+.revue-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+    gap: 1.25rem !important;
+    align-items: stretch !important;
+}
+
+@media (max-width: 480px) {
+    .press-grid,
+    .revue-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.85rem !important;
+    }
+}
+
+.press-item,
+.press-card {
+    background: #FFFFFF !important;
+    border-radius: 10px !important;
+    border: 1px solid #E0E5E2 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-shadow: 0 2px 6px rgba(13, 27, 20, 0.05) !important;
+    transition: all 0.22s ease !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+}
+
+.press-item:hover,
+.press-card:hover {
+    transform: translateY(-4px) scale(1.01) !important;
+    box-shadow: 0 12px 24px -2px rgba(13, 27, 20, 0.14) !important;
+    border-color: #C9A84C !important;
+}
+
+.press-img-wrap,
+.press-card-img {
+    width: 100% !important;
+    aspect-ratio: 3 / 4 !important;
+    background: #F3F6F4 !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.press-img-wrap img,
+.press-card-img img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+    transition: transform 0.3s ease !important;
+}
+
+.press-item:hover img,
+.press-card:hover img {
+    transform: scale(1.04) !important;
+}
+
+.press-info {
+    padding: 0.75rem 0.85rem !important;
+    background: #FFFFFF !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+    border-top: 1px solid #EDF0EE !important;
+}
+
+.press-title {
+    font-size: 0.88rem !important;
+    font-weight: 700 !important;
+    color: #0D1B14 !important;
+    line-height: 1.25 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.press-date {
+    font-size: 0.75rem !important;
+    color: #6B7280 !important;
+    font-family: var(--font-mono, monospace) !important;
+}
+
+/* --- Cartes de Statistiques KPI --- */
+.stats-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+    gap: 1.1rem !important;
+    margin-top: 1.5rem !important;
+}
+
+.stat-card {
+    background: #FFFFFF !important;
+    border: 1px solid #E0E5E2 !important;
+    border-radius: 12px !important;
+    padding: 1.25rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    box-shadow: 0 2px 6px rgba(13, 27, 20, 0.04) !important;
+    transition: all 0.2s ease !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 18px rgba(13, 27, 20, 0.08) !important;
+}
+
+.stat-card .stat-icon {
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1.25rem !important;
+}
+
+.stat-card.stat-total .stat-icon { background: #EEF6F1 !important; color: #2D5F3F !important; }
+.stat-card.stat-success .stat-icon { background: #E6F5E9 !important; color: #1B5E20 !important; }
+.stat-card.stat-progress .stat-icon { background: #E0F0FB !important; color: #0C447C !important; }
+.stat-card.stat-pending .stat-icon { background: #F3F4F6 !important; color: #4B5563 !important; }
+.stat-card.stat-warning .stat-icon { background: #FDE8E8 !important; color: #991B1B !important; }
+.stat-card.stat-rate .stat-icon { background: #FBF4DD !important; color: #A18836 !important; }
+
+.stat-value {
+    font-size: 1.85rem !important;
+    font-weight: 800 !important;
+    font-family: var(--font-family-display, 'Crimson Pro', serif) !important;
+    color: #0D1B14 !important;
+    line-height: 1.1 !important;
+    font-variant-numeric: tabular-nums !important;
+}
+
+.stat-label {
+    font-size: 0.8rem !important;
+    color: #5A6D63 !important;
+    font-weight: 600 !important;
+    margin-top: 2px !important;
+}
+
+.stat-percentage {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: #2D5F3F !important;
+    font-family: var(--font-mono, monospace) !important;
+}
+
+/* =========================================================================
+   12. EN-TTE & NAVIGATION HAUT DE GAMME (Glassmorphism & Rpublique)
+   ========================================================================= */
+
+.navbar,
+#modernNav {
+    background: linear-gradient(180deg, #1F4530 0%, #173724 100%) !important;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.3) !important;
+    box-shadow: 0 4px 20px rgba(13, 27, 20, 0.2) !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    transition: all 0.25s ease !important;
+}
+
+/* Ligne 1 : Logo + Tagline + KPI Widget + CTA */
+.nav-row-1 {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: rgba(0, 0, 0, 0.08) !important;
+}
+
+.nav-row-1 .nav-row-inner {
+    height: 54px !important;
+    max-width: 1440px !important;
+    margin: 0 auto !important;
+    padding: 0 1.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 1rem !important;
+}
+
+/* Logo */
+.nav-logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.65rem !important;
+    text-decoration: none !important;
+    flex-shrink: 0 !important;
+}
+
+.nav-logo-img {
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
+    border: 1px solid rgba(201, 168, 76, 0.4) !important;
+}
+
+.nav-logo-block {
+    display: flex !important;
+    flex-direction: column !important;
+    line-height: 1.15 !important;
+}
+
+.nav-logo-text {
+    font-family: var(--font-family-display, 'Crimson Pro', serif) !important;
+    font-weight: 800 !important;
+    font-size: 1.15rem !important;
+    color: #FFFFFF !important;
+    letter-spacing: 0.04em !important;
+}
+
+.nav-logo-sub {
+    font-size: 0.62rem !important;
+    color: #C9A84C !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+}
+
+/* Tagline centrale avec pastille lumineuse */
+.nav-row-center {
+    flex: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1rem !important;
+}
+
+.nav-tagline {
+    font-size: 0.8rem !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    padding: 4px 12px !important;
+    border-radius: 9999px !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.nav-live-dot {
+    width: 7px !important;
+    height: 7px !important;
+    background: #4ADE80 !important;
+    border-radius: 50% !important;
+    display: inline-block !important;
+    box-shadow: 0 0 6px rgba(74, 222, 128, 0.8) !important;
+}
+
+/* Widget KPI sous logo / desktop */
+.nav-kpi-under-logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    background: rgba(0, 0, 0, 0.22) !important;
+    padding: 3px 8px !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.nav-kpi-mini-btn {
+    background: none !important;
+    border: none !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-size: 0.7rem !important;
+    cursor: pointer !important;
+    padding: 2px 4px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: color 0.15s ease !important;
+}
+.nav-kpi-mini-btn:hover { color: #FFFFFF !important; }
+
+/* Ligne 2 : Navigation Horizontale des Liens */
+.nav-row-2 {
+    background: rgba(0, 0, 0, 0.16) !important;
+}
+
+.nav-row-2 .nav-row-inner {
+    height: 42px !important;
+    max-width: 1440px !important;
+    margin: 0 auto !important;
+    padding: 0 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.5rem !important;
+}
+
+.nav-links {
+    display: flex !important;
+    align-items: center !important;
+    gap: 2px !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: auto !important;
+    scrollbar-width: none !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+}
+.nav-links::-webkit-scrollbar { display: none !important; }
+
+.nav-links a,
+.modern-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    text-decoration: none !important;
+    color: rgba(255, 255, 255, 0.88) !important;
+    font-size: 0.78rem !important;
+    font-weight: 500 !important;
+    padding: 0.3rem 0.55rem !important;
+    border-radius: 6px !important;
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+}
+
+.nav-links a i,
+.modern-link i {
+    font-size: 0.78rem !important;
+    color: rgba(201, 168, 76, 0.9) !important;
+}
+
+.nav-links a:hover,
+.modern-link:hover {
+    color: #FFFFFF !important;
+    background: rgba(255, 255, 255, 0.12) !important;
+    transform: translateY(-1px) !important;
+}
+
+.nav-links a.active,
+.modern-link.active {
+    color: #FFFFFF !important;
+    background: rgba(45, 95, 63, 0.85) !important;
+    border: 1px solid rgba(201, 168, 76, 0.5) !important;
+    font-weight: 700 !important;
+}
+
+/* Bouton CTA d'Action "Évaluer un service" */
+.nav-cta-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    background: #FFFFFF !important;
+    color: #1A3D28 !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    padding: 0.32rem 0.85rem !important;
+    border-radius: 9999px !important;
+    text-decoration: none !important;
+    flex-shrink: 0 !important;
+    margin-left: 0.5rem !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18) !important;
+    transition: all 0.2s ease !important;
+    border: 1px solid #C9A84C !important;
+    white-space: nowrap !important;
+}
+
+.nav-cta-btn:hover {
+    background: #FBF4DD !important;
+    color: #0D1B14 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(201, 168, 76, 0.3) !important;
+}
+
+/* Mobile & Tablet Responsive */
+@media (max-width: 992px) {
+    .nav-row-2 { display: none !important; }
+    .nav-row-1 .nav-row-inner { height: 56px !important; padding: 0 1rem !important; }
+    .nav-row-center { display: none !important; }
+    .nav-kpi-under-logo { display: none !important; }
+    .hamburger { display: flex !important; }
+    body { padding-top: 56px !important; }
+}

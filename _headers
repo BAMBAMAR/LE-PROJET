@@ -1,0 +1,46 @@
+/*
+  # ══════════════════════════════════════════════════
+  # En-têtes de sécurité HTTP — projetbi.org
+  # Compatible : Netlify, Cloudflare Pages
+  # Pour GitHub Pages natif → migrer vers Cloudflare
+  # ══════════════════════════════════════════════════
+
+  # Bloque l'intégration dans des iframes (anti-clickjacking)
+  X-Frame-Options: DENY
+
+  # Empêche le MIME type sniffing
+  X-Content-Type-Options: nosniff
+
+  # Force HTTPS pour 1 an, inclut les sous-domaines
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+  # Politique de référent stricte
+  Referrer-Policy: strict-origin-when-cross-origin
+
+  # Isolation des contextes de navigation
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+
+  # Désactive les APIs sensibles non nécessaires
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+
+  # Content Security Policy complète
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net cdnjs.cloudflare.com static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com; font-src 'self' fonts.gstatic.com cdnjs.cloudflare.com; img-src 'self' data: https: blob:; connect-src 'self' https://jwsdxttjjbfnoufiidkd.supabase.co https://*.supabase.co cdn.jsdelivr.net cdnjs.cloudflare.com static.cloudflareinsights.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; upgrade-insecure-requests; block-all-mixed-content;
+
+  # Masque la technologie serveur
+  X-Powered-By: -
+
+# Page admin : indexation bloquée + accès limité
+/update_press_simple.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store, no-cache
+
+# Kit de communication : indexation bloquée + accès limité
+/kit-communication.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store, no-cache
+
+# Panneau admin : indexation bloquée + accès limité
+/admin.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store, no-cache

@@ -1,0 +1,95 @@
+{
+  "last_updated": "",
+  "rss": [
+    {
+      "id": "rss_1",
+      "name": "Google News — Diomaye Faye",
+      "url": "https://news.google.com/rss/search?q=Diomaye+Faye&hl=fr&gl=SN&ceid=SN:fr",
+      "active": true,
+      "builtin": true
+    },
+    {
+      "id": "rss_2",
+      "name": "Google News — PASTEF promesse",
+      "url": "https://news.google.com/rss/search?q=PASTEF+promesse+engagement&hl=fr&gl=SN&ceid=SN:fr",
+      "active": true,
+      "builtin": true
+    },
+    {
+      "id": "rss_3",
+      "name": "Google News — Gouvernement Sénégal",
+      "url": "https://news.google.com/rss/search?q=gouvernement+s%C3%A9n%C3%A9gal+conseil+ministres&hl=fr&gl=SN&ceid=SN:fr",
+      "active": true,
+      "builtin": true
+    },
+    {
+      "id": "rss_4",
+      "name": "Google News — Sonko Primature",
+      "url": "https://news.google.com/rss/search?q=Sonko+primature+s%C3%A9n%C3%A9gal&hl=fr&gl=SN&ceid=SN:fr",
+      "active": true,
+      "builtin": true
+    },
+    {
+      "id": "rss_5",
+      "name": "Google News — Infrastructure Sénégal",
+      "url": "https://news.google.com/rss/search?q=s%C3%A9n%C3%A9gal+infrastructure+route+%C3%A9cole+sant%C3%A9+%C3%A9nergie&hl=fr&gl=SN&ceid=SN:fr",
+      "active": true,
+      "builtin": true
+    },
+    {
+      "id": "rss_6",
+      "name": "APS — Agence de Presse Sénégalaise",
+      "url": "https://www.aps.sn/feed",
+      "active": true,
+      "builtin": true
+    },
+    {
+      "id": "rss_7",
+      "name": "Dakar Actu",
+      "url": "https://www.dakaractu.com/feed",
+      "active": true,
+      "builtin": true
+    },
+    {
+      "id": "rss_8",
+      "name": "Seneweb",
+      "url": "https://www.seneweb.com/news/feed",
+      "active": true,
+      "builtin": true
+    }
+  ],
+  "websites": [
+    {
+      "id": "web_1",
+      "name": "Présidence du Sénégal",
+      "url": "https://www.presidence.sn/fr/actualites",
+      "type": "presidence",
+      "active": true,
+      "builtin": true
+    },
+    {
+      "id": "web_2",
+      "name": "Primature — Actualités",
+      "url": "https://primature.sn/actualites",
+      "type": "primature",
+      "active": true,
+      "builtin": true
+    },
+    {
+      "id": "web_3",
+      "name": "Primature — Conseil des ministres",
+      "url": "https://primature.sn/conseil-des-ministres",
+      "type": "primature",
+      "active": true,
+      "builtin": true
+    },
+    {
+      "id": "web_4",
+      "name": "Assemblée Nationale",
+      "url": "https://www.assemblee.sn/fr/actualites",
+      "type": "assemblee",
+      "active": true,
+      "builtin": true
+    }
+  ]
+}

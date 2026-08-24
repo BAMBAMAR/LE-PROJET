@@ -1,0 +1,898 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <!-- Sécurité : CSP inline (renforce les headers HTTP _headers) -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' cdnjs.cloudflare.com;
+        style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com;
+        font-src 'self' fonts.gstatic.com cdnjs.cloudflare.com;
+        img-src 'self' data: https: blob:;
+        connect-src 'self' https://jwsdxttjjbfnoufiidkd.supabase.co;
+        object-src 'none';
+        base-uri 'self';
+    ">
+    <meta name="description" content="Actualités du Projet PASTEF suivies par les gardiens des engagements. Chaque article témoigne de l'avancée du programme du Président Bassirou Diomaye Faye et du Premier Ministre Ousmane Sonko vers un Sénégal Souverain, Juste & Prospère.">
+    <meta name="theme-color" content="#2D5F3F">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://projetbi.org/actualites.html">
+    <meta property="og:title" content="Actualités du Projet PASTEF | ProjetBI — Gardiens des Engagements">
+    <!-- FIX: og:image corrigé (og-image.jpg au lieu de sonko.jpg) -->
+    <meta property="og:image" content="https://projetbi.org/og-image.jpg">
+    <title>Actualités du Projet PASTEF | ProjetBI — Gardiens des Engagements</title>
+    <link rel="icon" href="https://projetbi.org/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+    :root {
+        --green:#2D5F3F; --green-deep:#1A3D28; --green-mid:#3E7F55;
+        --green-light:#6aad84; --green-mist:#eef6f1;
+        --red:#B23A3A; --gold:#C9A84C;
+        --ink:#0D1B14; --smoke:#4a6055; --silver:#8a9e93;
+        --fog:#d6e8dc; --mist:#f0f7f3; --off-white:#fafcfb;
+    }
+    html,body { overflow-x:hidden; }
+    *,*::before,*::after { box-sizing:border-box; }
+    body {
+        font-family:'Inter',system-ui,sans-serif;
+        background:var(--off-white); color:var(--ink);
+        padding-top:92px;
+    }
+    @media(max-width:768px){ body{padding-top:56px;} *{max-width:100%;} }
+
+    .container { max-width:1440px; margin:0 auto; padding:0 2rem; }
+    @media(max-width:768px){ .container{padding:0 1rem!important;} }
+    @media(max-width:480px){ .container{padding:0 .75rem!important;} }
+
+    @keyframes slideIn {
+        from { opacity:0; transform:translateY(-20px); }
+        to   { opacity:1; transform:translateY(0); }
+    }
+
+    #progressIndicator {
+        position:fixed;top:0;left:0;height:3px;width:0%;
+        background:linear-gradient(90deg,#2D5F3F,#C9A84C);
+        z-index:9999;transition:width .1s;
+    }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+        background:var(--green-deep);
+        padding:3.5rem 2rem 5rem;
+        position:relative;overflow:hidden;
+    }
+    .page-hero::before {
+        content:'';position:absolute;inset:0;
+        background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+                          linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+        background-size:40px 40px;
+    }
+    .page-hero-inner { max-width:1440px;margin:0 auto;position:relative;z-index:1;padding:0 2rem; }
+    .page-hero-crumb {
+        display:flex;align-items:center;gap:.5rem;
+        font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:1.25rem;
+    }
+    .page-hero-crumb a { color:var(--green-light);text-decoration:none; }
+    .page-hero-crumb a:hover { opacity:.8; }
+    .page-hero h1 {
+        font-family:'Crimson Pro',Georgia,serif;
+        font-size:clamp(2rem,5vw,3.2rem);font-weight:800;
+        color:white;letter-spacing:-.02em;line-height:1.1;margin-bottom:.6rem;
+    }
+    .page-hero h1 span { color:var(--gold); }
+    .page-hero p { font-size:1rem;color:rgba(255,255,255,.65);max-width:560px; }
+
+    /* ── FILTER CARD ── */
+    .filter-card {
+        background:white;border:1px solid var(--fog);
+        border-radius:20px;padding:1.5rem;
+        margin:-2.5rem auto 2.5rem;
+        max-width:1400px;position:relative;z-index:10;
+        box-shadow:0 8px 32px rgba(13,27,20,.1);
+        display:flex;gap:1rem;flex-wrap:wrap;align-items:center;
+    }
+    .search-box { flex:1;min-width:220px;position:relative; }
+    .search-box i { position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--silver);font-size:.9rem; }
+    .search-box input {
+        width:100%;padding:.65rem 1rem .65rem 2.5rem;
+        border:1.5px solid var(--fog);border-radius:100px;
+        font-family:'Inter',sans-serif;font-size:.88rem;
+        outline:none;transition:border .2s;background:var(--off-white);color:var(--ink);
+    }
+    .search-box input:focus { border-color:var(--green);background:white; }
+    .cat-pills { display:flex;gap:.4rem;flex-wrap:wrap; }
+    .pill {
+        padding:.4rem .9rem;border-radius:100px;
+        border:1.5px solid var(--fog);background:white;
+        font-size:.78rem;font-weight:600;color:var(--smoke);
+        cursor:pointer;transition:all .2s;white-space:nowrap;
+    }
+    .pill:hover,.pill.active { background:var(--green);color:white;border-color:var(--green); }
+    .sort-sel {
+        padding:.55rem 2.2rem .55rem 1rem;
+        border:1.5px solid var(--fog);border-radius:100px;
+        font-family:'Inter',sans-serif;font-size:.85rem;color:var(--smoke);
+        background:white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238a9e93' d='M6 8L1 3h10z'/%3E%3C/svg%3E") no-repeat right .75rem center;
+        outline:none;cursor:pointer;appearance:none;
+    }
+
+    /* ── FEATURED ── */
+    .featured-article {
+        display:grid;grid-template-columns:1fr 420px;
+        border-radius:20px;overflow:hidden;
+        background:white;border:1px solid var(--fog);
+        box-shadow:0 4px 24px rgba(13,27,20,.08);
+        margin-bottom:2.5rem;cursor:pointer;transition:box-shadow .3s;
+    }
+    .featured-article:hover { box-shadow:0 16px 48px rgba(13,27,20,.14); }
+    .featured-img {
+        min-height:360px;background:var(--green-deep);
+        display:flex;align-items:center;justify-content:center;
+        overflow:hidden;position:relative;
+    }
+    .featured-img img {
+        position:absolute;inset:0;width:100%;height:100%;
+        object-fit:cover;opacity:.8;transition:transform .5s ease;
+    }
+    .featured-article:hover .featured-img img { transform:scale(1.04); }
+    .featured-img-overlay {
+        position:absolute;inset:0;
+        background:linear-gradient(135deg,rgba(13,27,20,.5),transparent);
+    }
+    .featured-icon { position:relative;z-index:1;font-size:3.5rem;color:rgba(255,255,255,.3); }
+    .feat-badge {
+        position:absolute;top:1.25rem;left:1.25rem;z-index:2;
+        display:inline-flex;align-items:center;gap:.35rem;
+        background:var(--red);color:white;font-size:.62rem;font-weight:700;
+        letter-spacing:.1em;text-transform:uppercase;
+        padding:.3rem .8rem;border-radius:100px;
+    }
+    .feat-badge::before {
+        content:'';width:5px;height:5px;border-radius:50%;
+        background:rgba(255,255,255,.8);animation:blink 1.5s infinite;
+    }
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+    .featured-body { padding:2rem;display:flex;flex-direction:column;gap:.7rem; }
+    .featured-cat { font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green); }
+    .featured-title {
+        font-family:'Crimson Pro',Georgia,serif;
+        font-size:clamp(1.25rem,2.5vw,1.7rem);font-weight:800;line-height:1.25;color:var(--ink);
+    }
+    .featured-excerpt { font-size:.9rem;color:var(--smoke);line-height:1.7;flex:1; }
+    .featured-meta { display:flex;gap:1rem;font-size:.78rem;color:var(--silver);flex-wrap:wrap;margin-top:auto; }
+    .featured-meta i { color:var(--green-mid);margin-right:.2rem; }
+    .btn-read {
+        display:inline-flex;align-items:center;gap:.5rem;
+        background:var(--green);color:white;
+        padding:.7rem 1.4rem;border-radius:100px;
+        font-weight:700;font-size:.85rem;text-decoration:none;
+        border:none;cursor:pointer;align-self:flex-start;
+        box-shadow:0 4px 16px rgba(45,95,63,.3);transition:all .25s;
+    }
+    .btn-read:hover { background:var(--green-deep);transform:translateY(-1px); }
+
+    /* ── SECTION LABEL ── */
+    .actu-section-label {
+        font-size:.68rem;font-weight:700;letter-spacing:.14em;
+        text-transform:uppercase;color:var(--green);
+        display:flex;align-items:center;gap:6px;margin-bottom:.4rem;
+    }
+    .actu-section-label::before { content:'';width:16px;height:2px;background:var(--green);border-radius:2px; }
+    .actu-section-title {
+        font-family:'Crimson Pro',Georgia,serif;
+        font-size:1.5rem;font-weight:800;color:var(--ink);margin-bottom:1.5rem;
+    }
+
+    /* ── NEWS GRID ── */
+    .news-grid {
+        display:grid;
+        grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+        gap:1.25rem;
+    }
+    .news-item {
+        background:white;border:1px solid var(--fog);
+        border-radius:14px;overflow:hidden;
+        display:flex;flex-direction:column;
+        transition:all .25s ease;cursor:pointer;
+    }
+    .news-item:hover { box-shadow:0 12px 40px rgba(13,27,20,.1);transform:translateY(-3px); }
+    .news-item-img {
+        aspect-ratio:16/9;background:var(--mist);overflow:hidden;
+        display:flex;align-items:center;justify-content:center;
+        color:var(--green-mid);font-size:2rem;position:relative;
+    }
+    .news-item-img img { width:100%;height:100%;object-fit:cover;transition:transform .4s ease; }
+    .news-item:hover .news-item-img img { transform:scale(1.06); }
+    .news-item-body { padding:1.1rem;display:flex;flex-direction:column;gap:.45rem;flex:1; }
+    .news-item-head { display:flex;align-items:center;justify-content:space-between;gap:.5rem; }
+    .news-item-cat {
+        font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+        color:var(--green);background:var(--green-mist);padding:.18rem .55rem;border-radius:4px;flex-shrink:0;
+    }
+    .news-item-date { font-size:.73rem;color:var(--silver); }
+    .news-item-title { font-weight:700;font-size:.92rem;line-height:1.45;color:var(--ink);flex:1; }
+    .news-item-excerpt {
+        font-size:.82rem;color:var(--smoke);line-height:1.6;
+        display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+    }
+    .news-item-foot {
+        display:flex;align-items:center;justify-content:space-between;
+        padding-top:.7rem;margin-top:auto;
+        border-top:1px solid var(--fog);font-size:.76rem;color:var(--silver);
+    }
+    .news-item-foot i { margin-right:.25rem; }
+    .news-read {
+        display:inline-flex;align-items:center;gap:.3rem;
+        color:var(--green);font-weight:700;font-size:.76rem;
+        cursor:pointer;background:none;border:none;padding:0;transition:gap .2s;
+    }
+    .news-read:hover { gap:.5rem; }
+
+    /* ── NO RESULTS ── */
+    .no-results { grid-column:1/-1;text-align:center;padding:4rem 2rem;color:var(--silver); }
+    .no-results i { font-size:3rem;margin-bottom:1rem;display:block; }
+    .no-results h3 { font-size:1.15rem;color:var(--smoke);margin-bottom:.5rem; }
+
+    /* ── LOAD MORE ── */
+    .load-more {
+        display:flex;align-items:center;justify-content:center;gap:.75rem;
+        width:100%;padding:.9rem;
+        border:1.5px solid var(--fog);border-radius:14px;
+        background:white;color:var(--smoke);
+        font-weight:600;font-size:.88rem;cursor:pointer;
+        margin-top:2rem;transition:all .2s;
+    }
+    .load-more:hover { border-color:var(--green);color:var(--green);background:var(--mist); }
+    .load-more.hidden { display:none; }
+
+    /* ── SPINNER ── */
+    .spinner {
+        width:32px;height:32px;border-radius:50%;
+        border:3px solid var(--fog);border-top-color:var(--green);
+        animation:spin .7s linear infinite;margin:0 auto 1rem;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* ── SCROLL TO TOP ── */
+    #backTop {
+        position:fixed;bottom:2rem;right:2rem;
+        width:44px;height:44px;border-radius:50%;
+        background:var(--green);color:white;border:none;cursor:pointer;
+        display:flex;align-items:center;justify-content:center;
+        box-shadow:0 4px 16px rgba(45,95,63,.4);
+        opacity:0;transform:translateY(10px);transition:all .3s;z-index:500;
+    }
+    #backTop.show { opacity:1;transform:translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){
+        .featured-article { grid-template-columns:1fr; }
+        .featured-img { min-height:220px; }
+    }
+    @media(max-width:600px){
+        .filter-card { flex-direction:column; }
+        .cat-pills { overflow-x:auto;flex-wrap:nowrap;padding-bottom:.5rem; }
+        .news-grid { grid-template-columns:1fr; }
+        .page-hero { padding:2.5rem 1rem 4rem; }
+        .page-hero-inner { padding:0 1rem; }
+    }
+    </style>
+</head>
+<body>
+
+<div id="progressIndicator"></div>
+
+<!-- ══ NAVBAR (même structure que index.html) ══ -->
+<nav class="navbar" id="modernNav">
+    <div class="nav-row-1">
+        <div class="nav-row-inner">
+            <div class="nav-logo-kpi">
+                <a href="./" class="nav-logo">
+                    <img src="https://projetbi.org/favicon.png" alt="PROJETBI" class="nav-logo-img" onerror="this.style.display='none'">
+                    <div class="nav-logo-block">
+                        <span class="nav-logo-text">PROJETBI</span>
+                        <span class="nav-logo-sub">Jub Jubal Jubanti</span>
+                    </div>
+                </a>
+                <div class="nav-kpi-under-logo">
+                    <button class="nav-kpi-mini-btn" id="kpiPrevActu"><i class="fas fa-chevron-left"></i></button>
+                    <div id="navKpiDesktop" class="nav-kpi-mini-display">
+                        <div style="display:flex;align-items:center;gap:.35rem;justify-content:center;">
+                            <span style="font-size:.9rem">📰</span>
+                            <div style="display:flex;flex-direction:column;">
+                                <span class="kpi-value" style="font-size:.95rem;font-weight:800;color:white;line-height:1">—</span>
+                                <span style="font-size:.58rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em">Articles</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="nav-kpi-mini-btn" id="kpiNextActu"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+            <div class="nav-row-center">
+                <span class="nav-tagline"><i class="fas fa-shield-alt"></i> Gardiens du Projet PASTEF — Jub · Jubal · Jubanti</span>
+            </div>
+            <button class="hamburger" id="modernHamburger" aria-label="Menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="nav-row-2">
+        <div class="nav-row-inner">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="./" class="modern-link">🏠 Accueil</a></li>
+                 <li><a href="ideologie.html" class="modern-link"><i class="fas fa-landmark"></i> Idéologie</a></li>
+                <li><a href="./#dashboard" class="modern-link"><i class="fas fa-chart-pie"></i> Tableau de Bord</a></li>
+                <li><a href="./#promesse-du-jour" class="modern-link"><i class="fas fa-bullseye"></i> Engagement du Jour</a></li>
+                <li><a href="./#engagements" class="modern-link"><i class="fas fa-list-check"></i> Les 300 Engagements</a></li>
+                <li><a href="./#actualites" class="modern-link"><i class="fas fa-newspaper"></i> Actualités</a></li>
+                <li><a href="actualites.html" class="modern-link active"><i class="fas fa-layer-group"></i> Toutes les Actus</a></li>
+                <li><a href="./#revue-de-presse" class="modern-link"><i class="fas fa-print"></i> Revue de Presse</a></li>
+            </ul>
+            <a href="./#evaluation" class="nav-cta-btn"><i class="fas fa-star" style="color:#C9A84C"></i> Évaluer un service</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Menu mobile -->
+<div id="modernMenu" style="display:none;position:fixed;top:56px;left:0;right:0;height:calc(100vh - 56px);background:white;z-index:997;overflow-y:auto;padding:1.5rem;border-top:3px solid #2D5F3F;">
+    <div class="menu-kpi-widget">
+        <div class="menu-kpi-inner">
+            <div class="menu-kpi-icon">📰</div>
+            <div class="menu-kpi-carousel" id="menuKpiDisplay">
+                <div class="kpi-item" style="display:flex;flex-direction:column;align-items:center;">
+                    <span class="kpi-value" style="font-size:2rem;font-weight:800;color:white;line-height:1">—</span>
+                    <span class="kpi-label" style="font-size:.72rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em;font-weight:600">Articles</span>
+                </div>
+            </div>
+            <div class="menu-kpi-controls">
+                <button class="menu-kpi-btn" id="menuKpiPrev"><i class="fas fa-chevron-left"></i></button>
+                <button class="menu-kpi-btn" id="menuKpiNext"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+    <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.25rem;">
+        <li><a href="./" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;">🏠 Accueil</a></li>
+     <li><a href="ideologie.html" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;"><i class="fas fa-landmark"></i> Idéologie</a></li>
+         <li><a href="./#dashboard" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;"><i class="fas fa-chart-pie"></i> Tableau de Bord</a></li>
+        <li><a href="./#promesse-du-jour" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;"><i class="fas fa-bullseye"></i> Engagement du Jour</a></li>
+        <li><a href="./#engagements" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;"><i class="fas fa-list-check"></i> Les 300 Engagements</a></li>
+        <li><a href="./#actualites" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;"><i class="fas fa-newspaper"></i> Actualités</a></li>
+        <li><a href="actualites.html" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#2D5F3F;font-weight:700;text-decoration:none;border-bottom:1px solid #eee;background:#eef6f1;"><i class="fas fa-layer-group"></i> Toutes les Actus</a></li>
+        <li><a href="./#revue-de-presse" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;"><i class="fas fa-print"></i> Revue de Presse</a></li>
+        <li><a href="./#evaluation" class="modern-link" style="display:flex;padding:.85rem 1rem;border-radius:100px;background:#2D5F3F;color:white;font-weight:700;text-decoration:none;justify-content:center;margin-top:.75rem;"><i class="fas fa-star" style="color:#C9A84C"></i> Évaluer un service</a></li>
+    </ul>
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="page-hero">
+    <div class="page-hero-inner">
+        <div class="page-hero-crumb">
+            <a href="./"><i class="fas fa-home"></i> Accueil</a>
+            <span><i class="fas fa-chevron-right" style="font-size:.6rem"></i></span>
+            <span style="color:rgba(255,255,255,.7)">Actualités</span>
+        </div>
+        <h1>Les Actualités du <span>Projet PASTEF</span></h1>
+        <p>Gardiens du Projet, nous documentons chaque avancée, chaque réalisation et chaque défi. Parce que le peuple sénégalais mérite de savoir — <em>Jub, Jubal, Jubanti.</em></p>
+    </div>
+</div>
+
+<!-- ══ FILTER CARD ══ -->
+<div class="container">
+    <div class="filter-card">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="newsSearch" placeholder="Rechercher dans les actualités du Projet…">
+        </div>
+        <div class="cat-pills" id="catPills">
+            <button class="pill active" data-cat="all">Tout</button>
+            <!-- Pills générées dynamiquement après chargement des données -->
+        </div>
+        <select class="sort-sel" id="newsSort">
+            <option value="date_desc">Plus récent</option>
+            <option value="date_asc">Plus ancien</option>
+            <option value="alpha">A → Z</option>
+        </select>
+    </div>
+</div>
+
+<!-- ══ CONTENU ══ -->
+<div class="container" style="padding-bottom:4rem">
+    <div id="featuredContainer">
+        <div class="spinner" style="margin:3rem auto;"></div>
+    </div>
+    <div>
+        <div class="actu-section-label">Toutes les actualités du Projet PASTEF</div>
+        <div class="actu-section-title" id="newsCount">Chargement…</div>
+        <div class="news-grid" id="allNewsGrid">
+            <div class="no-results"><div class="spinner"></div></div>
+        </div>
+        <button class="load-more hidden" id="loadMoreBtn">
+            <i class="fas fa-plus"></i> Voir plus d'actualités du Projet
+            <span id="loadMoreCount" style="font-size:.8rem;opacity:.7"></span>
+        </button>
+    </div>
+</div>
+
+<!-- ══ FOOTER (identique à index.html) ══ -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand-row">
+                <div class="footer-brand-info">
+                    <h3 class="footer-brand-name"><i class="fas fa-flag"></i> PROJETBI</h3>
+                    <p class="footer-brand-desc">Gardiens du Projet PASTEF · Sympathisants engagés · Sénégal Souverain 2024–2029</p>
+                </div>
+                <div class="footer-contact">
+                    <h4 class="footer-contact-title"><i class="fas fa-envelope-open-text"></i> Contact</h4>
+                    <ul class="footer-contact-list">
+                        <li><a href="/cdn-cgi/l/email-protection#7f0f1e0c0b1a190f0d10151a0b1d163f18121e1613511c1012" class="footer-contact-link"><i class="fas fa-envelope"></i> <span class="__cf_email__" data-cfemail="3343524047565543415c595647515a73545e525a5f1d505c5e">[email&#160;protected]</span></a></li>
+                        <li><a href="tel:+221708717942" class="footer-contact-link"><i class="fas fa-phone"></i> +221 70 871 79 42</a></li>
+                        <li class="footer-contact-link footer-contact-static"><i class="fas fa-map-marker-alt"></i> Dakar, Sénégal</li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn" title="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" class="social-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-divider"></div>
+        <nav class="footer-nav">
+            <a href="./" class="footer-nav-link"><i class="fas fa-home"></i> Accueil</a>
+            <span class="footer-sep">·</span>
+            <a href="./#dashboard" class="footer-nav-link"><i class="fas fa-chart-bar"></i> Dashboard</a>
+            <span class="footer-sep">·</span>
+            <a href="./#promesse-du-jour" class="footer-nav-link"><i class="fas fa-newspaper"></i> Engagement du Jour</a>
+            <span class="footer-sep">·</span>
+            <a href="./#engagements" class="footer-nav-link"><i class="fas fa-list"></i> Engagements</a>
+            <span class="footer-sep">·</span>
+            <a href="./#actualites" class="footer-nav-link"><i class="fas fa-rss"></i> Actualités</a>
+            <span class="footer-sep">·</span>
+            <a href="./#revue-de-presse" class="footer-nav-link"><i class="fas fa-newspaper"></i> Revue de Presse</a>
+            <span class="footer-sep">·</span>
+            <a href="./#evaluation" class="footer-nav-link"><i class="fas fa-star"></i> Évaluer</a>
+            <span class="footer-sep">·</span>
+            <a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf" class="footer-nav-link" download><i class="fas fa-file-pdf"></i> Programme PDF</a>
+        </nav>
+        <div class="footer-divider"></div>
+        <div class="footer-bottom-compact">
+            <span class="footer-copy">© 2026 PROJETBI · Gardiens du Projet PASTEF · Depuis le <strong>02 AVRIL 2024</strong></span>
+            <span class="footer-disclaimer">Site de sympathisants du Projet PASTEF. Données publiques et vérifiables.</span>
+        </div>
+    </div>
+</footer>
+
+<button id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Retour en haut">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── Sécurité : échappement XSS global ──
+function escH(str) {
+    if (!str) return '';
+    const d = document.createElement('div');
+    d.appendChild(document.createTextNode(String(str)));
+    return d.innerHTML;
+}
+function safeUrl(url) {
+    if (!url || typeof url !== 'string') return '#';
+    const t = url.trim().toLowerCase();
+    if (t.startsWith('javascript:') || t.startsWith('data:') || t.startsWith('vbscript:')) return '#';
+    return url.trim();
+}
+
+// ── Progress bar + scroll ──
+window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    const prog = document.getElementById('progressIndicator');
+    if (prog) prog.style.width = pct + '%';
+    const nav = document.getElementById('navbar');
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
+    document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
+});
+
+// ── Hamburger mobile ──
+const burger   = document.getElementById('modernHamburger');
+const mobMenu  = document.getElementById('modernMenu');
+const navLinks = document.getElementById('navLinks');
+
+function closeNav() {
+    if (burger)  { burger.classList.remove('active'); burger.setAttribute('aria-expanded','false'); }
+    if (mobMenu) { mobMenu.style.display='none'; mobMenu.classList.remove('active'); }
+    if (navLinks) navLinks.classList.remove('open');
+}
+if (burger) {
+    burger.addEventListener('click', e => {
+        e.stopPropagation();
+        const isOpen = burger.classList.toggle('active');
+        burger.setAttribute('aria-expanded', isOpen);
+        if (mobMenu)  { mobMenu.style.display = isOpen ? 'block' : 'none'; mobMenu.classList.toggle('active', isOpen); }
+        if (navLinks) navLinks.classList.toggle('open', isOpen);
+    });
+    document.addEventListener('click', e => {
+        if (!burger.contains(e.target) && (!mobMenu || !mobMenu.contains(e.target))) closeNav();
+    });
+}
+document.querySelectorAll('.modern-link').forEach(a => a.addEventListener('click', closeNav));
+
+// ── News data ──
+let allNews = [];
+let currentCategory = 'all';
+let currentVisible  = 9;
+const PAGE_SIZE = 9;
+
+// Carousel interne pour la page actualités (catégories)
+let kpiItems = [];
+let kpiIndex = 0;
+
+const categoryMap = {
+    general:'Général', education:'Éducation', sante:'Santé', economie:'Économie',
+    infrastructures:'Infrastructures', gouvernance:'Gouvernance', transparence:'Transparence',
+    agriculture:'Agriculture', energie:'Énergie', environnement:'Environnement',
+    emploi:'Emploi', jeunesse:'Jeunesse & Sports', culture:'Culture',
+    securite:'Sécurité', justice:'Justice', numerique:'Numérique',
+    transport:'Transport', logement:'Logement', social:'Affaires Sociales',
+    international:'Relations Internationales', autres:'Autres'
+};
+const iconMap = {
+    news:'fa-newspaper', school:'fa-school', graduation:'fa-graduation-cap',
+    hospital:'fa-hospital', heartbeat:'fa-heartbeat', money:'fa-money-bill-wave',
+    coins:'fa-coins', chart:'fa-chart-line', road:'fa-road', building:'fa-building',
+    home:'fa-home', flag:'fa-flag', balance:'fa-balance-scale', gavel:'fa-gavel',
+    users:'fa-users', handshake:'fa-handshake', seedling:'fa-seedling',
+    tractor:'fa-tractor', bolt:'fa-bolt', leaf:'fa-leaf', recycle:'fa-recycle',
+    briefcase:'fa-briefcase', laptop:'fa-laptop', wifi:'fa-wifi', globe:'fa-globe',
+    rocket:'fa-rocket', lightbulb:'fa-lightbulb', check:'fa-check-circle',
+    tools:'fa-tools', eye:'fa-eye', star:'fa-star'
+};
+function getIcon(img) { return iconMap[img] || 'fa-newspaper'; }
+function getCat(cat)  { return categoryMap[cat] || cat || 'Général'; }
+
+// Map catégorie → icône FontAwesome de fallback
+const catIconMap = {
+    // Catégories principales (clés françaises)
+    'Général':'fa-newspaper', 'general':'fa-newspaper', 'autres':'fa-newspaper', 'Autres':'fa-newspaper',
+    'Politique':'fa-landmark', 'Institutions':'fa-landmark', 'Gouvernance':'fa-landmark', 'gouvernance':'fa-landmark',
+    'Éducation':'fa-graduation-cap', 'education':'fa-graduation-cap', 'Enseignement Supérieur':'fa-university', 'Formation Pro':'fa-tools',
+    'Santé':'fa-heartbeat', 'sante':'fa-heartbeat',
+    'Économie':'fa-chart-line', 'economie':'fa-chart-line', 'Commerce':'fa-shopping-cart', 'Finances':'fa-coins', 'Monnaie':'fa-money-bill-wave',
+    'Infrastructures':'fa-road', 'infrastructures':'fa-road', 'Habitat':'fa-home', 'Urbanisme':'fa-city',
+    'Transparence':'fa-eye', 'Lutte Corruption':'fa-search-dollar', 'Administration':'fa-file-alt',
+    'Agriculture':'fa-seedling', 'Agro-industrie':'fa-industry', 'Élevage':'fa-horse', 'Pêche':'fa-fish',
+    'Énergie':'fa-bolt', 'energie':'fa-bolt', 'Hydrocarbures':'fa-oil-can',
+    'Environnement':'fa-leaf', 'environnement':'fa-leaf', 'Hydraulique':'fa-water',
+    'Emploi':'fa-briefcase', 'emploi':'fa-briefcase', 'Secteur Informel':'fa-store', 'Industrie':'fa-industry',
+    'Sport':'fa-running', 'Jeunesse & Sports':'fa-running',
+    'Culture':'fa-theater-masks',
+    'Sécurité':'fa-shield-alt', 'securite':'fa-shield-alt', 'Défense':'fa-shield-alt',
+    'Justice':'fa-balance-scale', 'justice':'fa-balance-scale', 'Justice & Droit':'fa-balance-scale',
+    'Numérique':'fa-laptop', 'numerique':'fa-laptop',
+    'Transport':'fa-bus', 'transport':'fa-bus',
+    'Logement':'fa-home', 'logement':'fa-home',
+    'Affaires Sociales':'fa-hand-holding-heart', 'social':'fa-hand-holding-heart',
+    'Relations Internationales':'fa-globe', 'international':'fa-globe', 'Intégration Régionale':'fa-globe-africa',
+    'Développement Local':'fa-map-marker-alt', 'Communiqué':'fa-bullhorn'
+};
+
+/**
+ * Appelée par onerror sur une <img> cassée.
+ * Remplace l'image par un bloc icône stylé selon la catégorie de l'article.
+ * @param {HTMLImageElement} el  - l'élément img qui a planté
+ * @param {string} catLabel     - le label de catégorie (ex: "Santé")
+ * @param {boolean} isFeatured  - true si c'est l'article à la une (hauteur plus grande)
+ */
+function fallbackImg(el, catLabel, isFeatured) {
+    el.onerror = null; // éviter les boucles
+    const icon    = catIconMap[catLabel] || 'fa-newspaper';
+    const height  = isFeatured ? '280px' : '180px';
+    const parent  = el.parentElement;
+    parent.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;
+                    height:${height};width:100%;
+                    background:linear-gradient(135deg,#1A3D28,#2D5F3F);
+                    border-radius:inherit;gap:.6rem">
+            <i class="fas ${icon}" style="font-size:2.4rem;color:rgba(255,255,255,.45)"></i>
+            <span style="font-size:.72rem;color:rgba(255,255,255,.35);letter-spacing:.05em;text-transform:uppercase">${catLabel}</span>
+        </div>`;
+}
+
+// Map promise_id → domaine, chargée en parallèle avec news.json
+const _promiseDomaines = new Map();
+
+function getDomaine(news) {
+    if (news.promise_id && _promiseDomaines.has(news.promise_id)) {
+        return _promiseDomaines.get(news.promise_id);
+    }
+    return getCat(news.category);
+}
+
+// Construit les pills de filtre dynamiquement selon les domaines réels des articles
+function buildFilterPills() {
+    const pills = document.getElementById('catPills');
+    // Compter les articles par domaine
+    const counts = new Map();
+    allNews.forEach(n => {
+        const d = getDomaine(n);
+        counts.set(d, (counts.get(d) || 0) + 1);
+    });
+    // Trier par nombre décroissant, garder les 12 premiers
+    const top = [...counts.entries()]
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 12);
+
+    // Reconstruire les pills (garder "Tout" en premier)
+    pills.innerHTML = '<button class="pill active" data-cat="all">Tout</button>' +
+        top.map(([domaine]) =>
+            `<button class="pill" data-cat="${domaine}">${domaine}</button>`
+        ).join('');
+}
+
+// Construit les items KPI (stats par domaine) et lance le carousel
+function buildKpiItems(news) {
+    const total = news.length;
+    const counts = new Map();
+    news.forEach(n => {
+        const d = getDomaine(n);
+        counts.set(d, (counts.get(d) || 0) + 1);
+    });
+    kpiItems = [
+        { icon:'📰', value: total, label: 'Articles' },
+        ...[...counts.entries()]
+            .sort((a,b) => b[1]-a[1]).slice(0,6)
+            .map(([domaine, count]) => ({ icon:'📁', value: count, label: domaine }))
+    ];
+    renderKpi();
+    setInterval(() => { kpiIndex = (kpiIndex+1) % kpiItems.length; renderKpi(); }, 3000);
+}
+
+function renderKpi() {
+    const item = kpiItems[kpiIndex] || { icon:'📰', value:'—', label:'Articles' };
+    const html = `
+        <div style="display:flex;align-items:center;gap:.35rem;justify-content:center;">
+            <span style="font-size:.9rem">${item.icon}</span>
+            <div style="display:flex;flex-direction:column;">
+                <span style="font-size:.95rem;font-weight:800;color:white;line-height:1">${item.value}</span>
+                <span style="font-size:.58rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em">${item.label}</span>
+            </div>
+        </div>`;
+    const htmlMobile = `
+        <div class="kpi-item" style="display:flex;flex-direction:column;align-items:center;">
+            <span style="font-size:1.5rem">${item.icon}</span>
+            <span style="font-size:2rem;font-weight:800;color:white;line-height:1">${item.value}</span>
+            <span style="font-size:.72rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em;font-weight:600">${item.label}</span>
+        </div>`;
+    const d = document.getElementById('navKpiDesktop');
+    const m = document.getElementById('menuKpiDisplay');
+    if (d) d.innerHTML = html;
+    if (m) m.innerHTML = htmlMobile;
+}
+
+// Boutons carousel
+document.getElementById('kpiPrevActu').addEventListener('click', () => {
+    kpiIndex = (kpiIndex - 1 + kpiItems.length) % kpiItems.length; renderKpi();
+});
+document.getElementById('kpiNextActu').addEventListener('click', () => {
+    kpiIndex = (kpiIndex + 1) % kpiItems.length; renderKpi();
+});
+document.getElementById('menuKpiPrev').addEventListener('click', () => {
+    kpiIndex = (kpiIndex - 1 + kpiItems.length) % kpiItems.length; renderKpi();
+});
+document.getElementById('menuKpiNext').addEventListener('click', () => {
+    kpiIndex = (kpiIndex + 1) % kpiItems.length; renderKpi();
+});
+
+async function loadNews() {
+    try {
+        const [newsRes, promisesRes] = await Promise.all([
+            fetch('news.json'),
+            fetch('promises.json').catch(() => null)
+        ]);
+        const data = await newsRes.json();
+        allNews = data.news || [];
+
+        // Construire le map promise_id → domaine
+        if (promisesRes && promisesRes.ok) {
+            const pData = await promisesRes.json();
+            (pData.promises || []).forEach(p => {
+                if (p.id && p.domaine) _promiseDomaines.set(p.id, p.domaine);
+            });
+        }
+
+        buildKpiItems(allNews);
+        buildFilterPills();
+        renderFeatured();
+        renderGrid();
+    } catch(e) {
+        document.getElementById('featuredContainer').innerHTML = '';
+        document.getElementById('allNewsGrid').innerHTML =
+            '<div class="no-results"><i class="fas fa-exclamation-circle"></i><h3>Impossible de charger les actualités</h3></div>';
+    }
+}
+
+function _parseNewsDate(str) {
+    const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(str || '');
+    if (!m) return 0;
+    return new Date(+m[3], +m[2] - 1, +m[1]).getTime();
+}
+
+function filtered() {
+    const term = document.getElementById('newsSearch').value.toLowerCase();
+    const sort = document.getElementById('newsSort').value;
+    let list = currentCategory === 'all' ? allNews.slice(1) : allNews.filter(n => getDomaine(n) === currentCategory);
+    if (term) list = list.filter(n =>
+        n.title.toLowerCase().includes(term) ||
+        (n.excerpt||'').toLowerCase().includes(term) ||
+        (n.source||'').toLowerCase().includes(term)
+    );
+    if (sort === 'alpha') list.sort((a,b) => a.title.localeCompare(b.title));
+    else if (sort === 'date_asc') list.sort((a,b) => _parseNewsDate(a.date) - _parseNewsDate(b.date));
+    else list.sort((a,b) => _parseNewsDate(b.date) - _parseNewsDate(a.date));
+    return list;
+}
+
+// Store des articles indexés par position pour éviter JSON-in-onclick
+const _articleStore = new Map();
+
+function _ensureModal() {
+    let modal = document.getElementById('actuModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'actuModal';
+        modal.style.cssText = 'display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:99999;align-items:center;justify-content:center;padding:1rem;overflow-y:auto;';
+        modal.innerHTML = `
+            <div id="actuModalContent" style="background:white;border-radius:16px;max-width:760px;width:100%;max-height:90vh;overflow-y:auto;position:relative;padding:2rem;animation:slideIn .3s ease;">
+                <button id="actuModalCloseBtn" style="position:absolute;top:1rem;right:1rem;width:40px;height:40px;border-radius:50%;background:#2D5F3F;color:white;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.1rem;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.3);transition:all .2s;" title="Fermer">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div id="actuModalBody"></div>
+            </div>`;
+        modal.addEventListener('click', e => { if (e.target === modal) closeActuModal(); });
+        document.body.appendChild(modal);
+        document.getElementById('actuModalCloseBtn').addEventListener('click', closeActuModal);
+    }
+    return modal;
+}
+
+function openArticleById(key) {
+    const news = _articleStore.get(key);
+    if (!news) return;
+    const modal = _ensureModal();
+    const body = document.getElementById('actuModalBody');
+    const fullText = news.content || news.excerpt || '';
+    const link = (news.link && !news.link.startsWith('<iframe') && news.link !== '#') ? news.link : null;
+
+    // Escape helper local
+    const esc = s => {
+        const d = document.createElement('div');
+        d.appendChild(document.createTextNode(String(s || '')));
+        return d.innerHTML;
+    };
+
+    body.innerHTML = `
+        <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem;">
+            <span style="background:#eef6f1;color:#2D5F3F;border:1px solid #c5dbc0;padding:.2rem .75rem;border-radius:20px;font-size:.78rem;font-weight:700">${esc(getDomaine(news))}</span>
+            <span style="color:#999;font-size:.78rem;margin-left:auto">${esc(news.date)}</span>
+        </div>
+        <h2 style="font-size:1.4rem;font-weight:800;color:#1A3D28;margin-bottom:1rem;line-height:1.35;padding-right:2.5rem">${esc(news.title)}</h2>
+        ${news.image_url ? `<div style="width:100%;border-radius:10px;overflow:hidden;margin-bottom:1rem"><img src="${esc(news.image_url)}" alt="${esc(news.title)}" style="width:100%;max-height:260px;object-fit:cover;display:block" onerror="fallbackImg(this,'${esc(getDomaine(news))}',true)"></div>` : ''}
+        <div style="display:flex;gap:1rem;font-size:.8rem;color:#8a9e93;margin-bottom:1.2rem;flex-wrap:wrap">
+            <span><i class="fas fa-newspaper" style="color:#2D5F3F;margin-right:.3rem"></i>${esc(news.source)}</span>
+            ${news.read_time ? `<span><i class="fas fa-clock" style="color:#2D5F3F;margin-right:.3rem"></i>${esc(news.read_time)}</span>` : ''}
+        </div>
+        <div style="line-height:1.8;color:#333;font-size:.95rem">${fullText.split('\n').filter(l=>l.trim()).map(l=>`<p style="margin-bottom:.85rem">${esc(l)}</p>`).join('')}</div>
+        ${link ? `<div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid #e5ede6">
+            <a href="${safeUrl(esc(link))}" target="_blank" rel="noopener noreferrer" style="color:#2D5F3F;font-weight:700;font-size:.88rem;display:inline-flex;align-items:center;gap:.4rem">
+                <i class="fas fa-external-link-alt"></i> Lire l'article original
+            </a>
+        </div>` : ''}`;
+
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+window.closeActuModal = function() {
+    const modal = document.getElementById('actuModal');
+    if (modal) modal.style.display = 'none';
+    document.body.style.overflow = '';
+};
+
+// Escape clavier
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeActuModal(); });
+
+function renderFeatured() {
+    const container = document.getElementById('featuredContainer');
+    if (!allNews.length) { container.innerHTML=''; return; }
+    const f    = allNews[0];
+    const icon = getIcon(f.image);
+    _articleStore.set('featured', f);
+    container.innerHTML = `
+        <div class="featured-article" style="cursor:pointer" onclick="openArticleById('featured')">
+            <div class="featured-img">
+                ${f.image_url
+                    ? `<img src="${f.image_url}" alt="${f.title}" onerror="fallbackImg(this,'${getDomaine(f)}',true)"><div class="featured-img-overlay"></div>`
+                    : `<i class="fas ${icon} featured-icon"></i>`}
+                <div class="feat-badge">À la une</div>
+            </div>
+            <div class="featured-body">
+                <div class="featured-cat">${getDomaine(f)}</div>
+                <h2 class="featured-title">${f.title}</h2>
+                <p class="featured-excerpt">${(f.excerpt||'').substring(0,280)}${(f.excerpt||'').length>280?'…':''}</p>
+                <div class="featured-meta">
+                    <span><i class="fas fa-calendar"></i>${f.date}</span>
+                    <span><i class="fas fa-newspaper"></i>${f.source||'Source'}</span>
+                    ${f.read_time ? `<span><i class="fas fa-clock"></i>${f.read_time}</span>` : ''}
+                </div>
+                <button class="btn-read" onclick="event.stopPropagation();openArticleById('featured')"><i class="fas fa-book-open"></i> Lire l'article</button>
+            </div>
+        </div>`;
+}
+
+function renderGrid() {
+    const grid    = document.getElementById('allNewsGrid');
+    const loadBtn = document.getElementById('loadMoreBtn');
+    const list    = filtered();
+    const visible = list.slice(0, currentVisible);
+    document.getElementById('newsCount').textContent = `${list.length} article${list.length !== 1 ? 's' : ''}`;
+    if (!visible.length) {
+        grid.innerHTML = '<div class="no-results"><i class="fas fa-search"></i><h3>Aucune actualité trouvée</h3><p>Essayez d\'autres critères</p></div>';
+        loadBtn.classList.add('hidden');
+        return;
+    }
+    grid.innerHTML = visible.map((n, i) => {
+        const icon = getIcon(n.image);
+        const key  = 'art_' + i;
+        _articleStore.set(key, n);
+        return `
+        <article class="news-item" onclick="openArticleById('${key}')">
+            <div class="news-item-img">
+                ${n.image_url ? `<img src="${safeUrl(n.image_url)}" alt="${escH(n.title)}" loading="lazy" onerror="fallbackImg(this,'${escH(getDomaine(n))}',false)">` : `<i class="fas ${icon}"></i>`}
+            </div>
+            <div class="news-item-body">
+                <div class="news-item-head">
+                    <span class="news-item-cat">${escH(getDomaine(n))}</span>
+                    <span class="news-item-date">${escH(n.date)}</span>
+                </div>
+                <h3 class="news-item-title">${escH(n.title)}</h3>
+                <p class="news-item-excerpt">${escH((n.excerpt||'').substring(0,160))}…</p>
+                <div class="news-item-foot">
+                    <span><i class="fas fa-newspaper"></i>${escH(n.source||'')}</span>
+                    <button class="news-read" onclick="event.stopPropagation();openArticleById('${key}')"><i class="fas fa-arrow-right"></i> Lire</button>
+                </div>
+            </div>
+        </article>`;
+    }).join('');
+    const remaining = list.length - currentVisible;
+    if (remaining > 0) {
+        loadBtn.classList.remove('hidden');
+        document.getElementById('loadMoreCount').textContent = `(${remaining} restants)`;
+    } else {
+        loadBtn.classList.add('hidden');
+    }
+}
+
+document.getElementById('newsSearch').addEventListener('input', () => { currentVisible=PAGE_SIZE; renderGrid(); });
+document.getElementById('newsSort').addEventListener('change', () => { currentVisible=PAGE_SIZE; renderGrid(); });
+document.getElementById('catPills').addEventListener('click', e => {
+    const btn = e.target.closest('.pill');
+    if (!btn) return;
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    currentCategory = btn.dataset.cat;
+    currentVisible  = PAGE_SIZE;
+    renderGrid();
+});
+document.getElementById('loadMoreBtn').addEventListener('click', () => { currentVisible += PAGE_SIZE; renderGrid(); });
+
+loadNews();
+</script>
+</body>
+</html>
+

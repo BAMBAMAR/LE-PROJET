@@ -1,0 +1,262 @@
+﻿/* =========================================================================
+   ProjetBI — Design Tokens
+   Source unique de vérité pour les couleurs, typographies, espacements.
+   Ne JAMAIS écrire de valeur en dur dans style.css — toujours utiliser ces tokens.
+   ========================================================================= */
+
+:root {
+
+  /* =========================================================================
+     1. COULEURS — Échelle de marque PASTEF (vert)
+     ========================================================================= */
+
+  --brand-green-50:  #EEF6F1;
+  --brand-green-100: #D6E8DC;
+  --brand-green-200: #A8CDB5;
+  --brand-green-300: #6AAD84;
+  --brand-green-400: #4A9469;
+  --brand-green-500: #2D5F3F;  /* ★ Couleur principale */
+  --brand-green-600: #25533A;
+  --brand-green-700: #1F4530;
+  --brand-green-800: #1A3D28;
+  --brand-green-900: #0F2818;
+
+  /* =========================================================================
+     2. COULEURS — Accents patriotiques
+     ========================================================================= */
+
+  --brand-red-50:  #FCEBEB;
+  --brand-red-100: #F5C5C5;
+  --brand-red-500: #B23A3A;   /* Rouge drapeau */
+  --brand-red-600: #8B2C2C;
+  --brand-red-700: #6B2020;
+
+  --brand-gold-50:  #FBF4DD;
+  --brand-gold-100: #F5E2A8;
+  --brand-gold-400: #D4B859;
+  --brand-gold-500: #C9A84C;  /* Or d'honneur */
+  --brand-gold-600: #A18836;
+  --brand-gold-700: #7A6726;
+
+  /* =========================================================================
+     3. COULEURS — Sémantique (statuts & messages)
+     ========================================================================= */
+
+  /* Succès / Réalisé */
+  --status-success-bg:    #E6F5E9;
+  --status-success-fg:    #1B5E20;
+  --status-success-solid: #2E7D32;
+
+  /* Info / En cours */
+  --status-info-bg:    #E0F0FB;
+  --status-info-fg:    #0C447C;
+  --status-info-solid: #0277BD;
+
+  /* En attente / Non lancé */
+  --status-pending-bg:    #F3F4F6;
+  --status-pending-fg:    #374151;
+  --status-pending-solid: #6B7280;
+
+  /* Danger / En retard */
+  --status-danger-bg:    #FDE8E8;
+  --status-danger-fg:    #991B1B;
+  --status-danger-solid: #C62828;
+
+  /* Avertissement (rare) */
+  --status-warning-bg:    #FEF3C7;
+  --status-warning-fg:    #92400E;
+  --status-warning-solid: #D97706;
+
+  /* =========================================================================
+     4. COULEURS — Neutres & surfaces
+     ========================================================================= */
+
+  --text-primary:   #0D1B14;   /* Noir teinté vert (cohérence de marque) */
+  --text-secondary: #4A6055;
+  --text-muted:     #8A9E93;
+  --text-disabled:  #BCC9C2;
+  --text-inverse:   #FFFFFF;
+
+  --border-subtle:  #EDF0EE;
+  --border-default: #D6E1DB;
+  --border-strong:  #A8B8B0;
+
+  --surface-page:   #FAFBFC;
+  --surface-card:   #FFFFFF;
+  --surface-muted:  #F3F6F4;
+  --surface-overlay: rgba(13, 27, 20, 0.55);
+
+  /* Sélection de texte */
+  --selection-bg: var(--brand-green-100);
+  --selection-fg: var(--brand-green-900);
+
+  /* =========================================================================
+     5. TYPOGRAPHIE — Familles
+     ========================================================================= */
+
+  --font-display: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+  --font-body:    'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Monaco, 'Cascadia Mono', Consolas, monospace;
+
+  /* =========================================================================
+     6. TYPOGRAPHIE — Échelle modulaire (ratio 1.25)
+     ========================================================================= */
+
+  --text-xs:   0.75rem;    /* 12px */
+  --text-sm:   0.875rem;   /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg:   1.125rem;   /* 18px */
+  --text-xl:   1.25rem;    /* 20px */
+  --text-2xl:  1.5rem;     /* 24px */
+  --text-3xl:  1.875rem;   /* 30px */
+  --text-4xl:  2.25rem;    /* 36px */
+  --text-5xl:  3rem;       /* 48px */
+  --text-6xl:  3.75rem;    /* 60px */
+
+  /* =========================================================================
+     7. TYPOGRAPHIE — Graisses & line-height
+     ========================================================================= */
+
+  --weight-regular:   400;
+  --weight-medium:    500;
+  --weight-semibold:  600;
+  --weight-bold:      700;
+  --weight-extrabold: 800;
+
+  --leading-tight:   1.2;
+  --leading-snug:    1.4;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.7;
+
+  --tracking-tight:  -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.05em;
+  --tracking-wider:  0.08em;
+
+  /* =========================================================================
+     8. ESPACEMENT — Échelle 4pt
+     ========================================================================= */
+
+  --space-0:  0;
+  --space-1:  0.25rem;   /* 4px */
+  --space-2:  0.5rem;    /* 8px */
+  --space-3:  0.75rem;   /* 12px */
+  --space-4:  1rem;      /* 16px */
+  --space-5:  1.25rem;   /* 20px */
+  --space-6:  1.5rem;    /* 24px */
+  --space-8:  2rem;      /* 32px */
+  --space-10: 2.5rem;    /* 40px */
+  --space-12: 3rem;      /* 48px */
+  --space-16: 4rem;      /* 64px */
+  --space-20: 5rem;      /* 80px */
+  --space-24: 6rem;      /* 96px */
+
+  /* =========================================================================
+     9. RAYONS DE BORDURE
+     ========================================================================= */
+
+  --radius-none: 0;
+  --radius-sm:   6px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
+  --radius-full: 9999px;
+
+  /* =========================================================================
+     10. OMBRES — Discipline : utiliser rarement
+     ========================================================================= */
+
+  --shadow-xs: 0 1px 2px 0 rgba(13, 27, 20, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(13, 27, 20, 0.08), 0 1px 2px 0 rgba(13, 27, 20, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(13, 27, 20, 0.10), 0 2px 4px -2px rgba(13, 27, 20, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(13, 27, 20, 0.10), 0 4px 6px -4px rgba(13, 27, 20, 0.06);
+  --shadow-xl: 0 20px 25px -5px rgba(13, 27, 20, 0.12), 0 8px 10px -6px rgba(13, 27, 20, 0.08);
+  --shadow-2xl: 0 25px 50px -12px rgba(13, 27, 20, 0.25);
+
+  --ring-focus: 0 0 0 3px rgba(45, 95, 63, 0.30);
+  --ring-error: 0 0 0 3px rgba(198, 40, 40, 0.20);
+
+  /* =========================================================================
+     11. TRANSITIONS
+     ========================================================================= */
+
+  --duration-instant: 75ms;
+  --duration-fast:    150ms;
+  --duration-normal:  250ms;
+  --duration-slow:    400ms;
+
+  --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-in:      cubic-bezier(0.4, 0, 1, 1);
+  --easing-out:     cubic-bezier(0, 0, 0.2, 1);
+
+  /* =========================================================================
+     12. LAYOUT
+     ========================================================================= */
+
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1440px;
+
+  --navbar-height: 72px;
+
+  /* Z-index — échelle disciplinée */
+  --z-base:     1;
+  --z-dropdown: 50;
+  --z-sticky:   100;
+  --z-fixed:    200;
+  --z-modal:    1000;
+  --z-toast:    1100;
+  --z-tooltip:  1200;
+}
+
+/* =========================================================================
+   THÈME SOMBRE — Pour l'admin
+   Dérivé proprement de la palette de marque (au lieu d'un Tailwind générique).
+   ========================================================================= */
+
+[data-theme="dark"] {
+  --text-primary:   #F5F8F6;
+  --text-secondary: #B8C9C0;
+  --text-muted:     #7A8B82;
+  --text-disabled:  #4A5852;
+
+  --border-subtle:  rgba(255, 255, 255, 0.08);
+  --border-default: rgba(255, 255, 255, 0.15);
+  --border-strong:  rgba(255, 255, 255, 0.25);
+
+  --surface-page:   var(--brand-green-900);
+  --surface-card:   var(--brand-green-800);
+  --surface-muted:  rgba(255, 255, 255, 0.04);
+  --surface-overlay: rgba(0, 0, 0, 0.7);
+}
+
+/* =========================================================================
+   ACCESSIBILITÉ — Respect des préférences utilisateur
+   ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Sélection de texte aux couleurs de marque */
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
+}
+
+/* Scrollbars discrètes (WebKit) */
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb {
+  background: var(--brand-green-200);
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-thumb:hover { background: var(--brand-green-400); }
+

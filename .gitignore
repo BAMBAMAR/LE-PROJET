@@ -1,0 +1,9 @@
+node_modules/
+.fb_session/
+revuedepresse/debug_*.png
+revuedepresse/escape_*.png
+revuedepresse/test_*.png
+revuedepresse/grid_test_*.png
+revuedepresse/grid_test_*.jpg
+debug_screenshots/
+

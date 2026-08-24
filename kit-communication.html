@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Robots-Tag" content="noindex, nofollow">
+    <!-- ══ PROTECTION ADMIN — Accès restreint ══ -->
+    <script>
+    (function() {
+        // Authentification par hash SHA-256
+        const ADMIN_HASH = '03eb6856c640072257980d6125e3082905e07a23b3a50f2efe5256bc9898a380';
+
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkAccess() {
+            if (sessionStorage.getItem('admin_auth') === ADMIN_HASH) return;
+
+            // Protection anti-brute force
+            const attempts = parseInt(localStorage.getItem('auth_attempts') || '0');
+            const lockUntil = parseInt(localStorage.getItem('auth_lock_until') || '0');
+            if (Date.now() < lockUntil) {
+                const wait = Math.ceil((lockUntil - Date.now()) / 1000);
+                document.body.innerHTML = `<h1 style="font-family:sans-serif;text-align:center;margin-top:20vh;color:#C0392B">⛔ Trop de tentatives. Réessayez dans ${wait}s.</h1>`;
+                return;
+            }
+
+            document.documentElement.style.display = 'none';
+            const pwd = prompt('🔐 Kit de Communication — Mot de passe requis :');
+            if (!pwd || pwd.length > 128) {
+                document.body.innerHTML = '<h1 style="font-family:sans-serif;text-align:center;margin-top:20vh;color:#C0392B">Accès refusé</h1>';
+                return;
+            }
+            const hash = await sha256(pwd);
+            if (hash === ADMIN_HASH) {
+                localStorage.removeItem('auth_attempts'); sessionStorage.removeItem('auth_attempts');
+                localStorage.removeItem('auth_lock_until'); sessionStorage.removeItem('auth_lock_until');
+                sessionStorage.setItem('admin_auth', ADMIN_HASH);
+                document.documentElement.style.display = '';
+            } else {
+                const newAttempts = attempts + 1;
+                localStorage.setItem('auth_attempts', newAttempts);
+                if (newAttempts >= 5) {
+                    const lock = Math.min(30000 * Math.pow(2, newAttempts - 5), 300000);
+                    localStorage.setItem('auth_lock_until', Date.now() + lock);
+                }
+                document.body.innerHTML = '<h1 style="font-family:sans-serif;text-align:center;margin-top:20vh;color:#C0392B">⛔ Accès refusé</h1>';
+            }
+        }
+
+        checkAccess();
+    })();
+    </script>
+    <title>Kit de Communication — Gardiens du Projet PASTEF | ProjetBI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous">
+    <style>
+        :root {
+            --vert: #2D5F3F;
+            --vert-fonce: #1A3D28;
+            --or: #C9A84C;
+            --or-clair: #F5E6B8;
+            --rouge: #C0392B;
+            --gris: #F8F9FA;
+            --text: #0D1B14;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #F0F4F1;
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ═══ HEADER ═══ */
+        .page-header {
+            background: linear-gradient(135deg, var(--vert-fonce) 0%, var(--vert) 60%, #3D7A55 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+        }
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 900;
+            position: relative;
+            margin-bottom: .5rem;
+        }
+        .page-header p {
+            font-size: 1.05rem;
+            opacity: .85;
+            position: relative;
+        }
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            background: rgba(201,168,76,.25);
+            border: 1px solid rgba(201,168,76,.5);
+            color: var(--or-clair);
+            padding: .35rem 1rem;
+            border-radius: 50px;
+            font-size: .8rem;
+            font-weight: 600;
+            letter-spacing: .05em;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        /* ═══ LAYOUT ═══ */
+        .kit-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--vert-fonce);
+            margin-bottom: .4rem;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+        }
+        .section-sub {
+            color: #666;
+            font-size: .9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* ═══ CONTRÔLES ═══ */
+        .controls-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,.06);
+            margin-bottom: 2rem;
+        }
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        label { font-size: .82rem; font-weight: 600; color: #444; margin-bottom: .3rem; display: block; }
+        input[type="text"], input[type="number"], select, textarea {
+            width: 100%;
+            padding: .6rem .9rem;
+            border: 1.5px solid #DDE5E0;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .9rem;
+            color: var(--text);
+            background: #FAFCFB;
+            outline: none;
+            transition: border-color .2s;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--vert); }
+
+        .btn-primary {
+            background: var(--vert);
+            color: white;
+            border: none;
+            padding: .75rem 1.5rem;
+            border-radius: 10px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: .95rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            transition: background .2s, transform .1s;
+        }
+        .btn-primary:hover { background: var(--vert-fonce); transform: translateY(-1px); }
+        .btn-gold {
+            background: var(--or);
+            color: white;
+        }
+        .btn-gold:hover { background: #b8962a; }
+
+        /* ═══ TEMPLATES ═══ */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .template-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 3px 16px rgba(0,0,0,.08);
+            cursor: pointer;
+            transition: transform .2s, box-shadow .2s;
+        }
+        .template-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,.12); }
+        .template-card.active { outline: 3px solid var(--vert); }
+        .template-label {
+            background: var(--gris);
+            padding: .6rem 1rem;
+            font-size: .78rem;
+            font-weight: 700;
+            color: #666;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .template-label .format-badge {
+            background: var(--vert);
+            color: white;
+            padding: .15rem .5rem;
+            border-radius: 4px;
+            font-size: .7rem;
+        }
+
+        /* ═══ PREVIEW CANVAS ═══ */
+        .preview-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 3px 20px rgba(0,0,0,.07);
+            margin-bottom: 2rem;
+        }
+        .preview-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #E8EDE9;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            min-height: 200px;
+        }
+        canvas {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 8px 40px rgba(0,0,0,.2);
+        }
+
+        .download-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ═══ GUIDE RÉSEAUX SOCIAUX ═══ */
+        .social-guide {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+        .social-card {
+            background: white;
+            border-radius: 14px;
+            padding: 1.4rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,.06);
+            border-top: 4px solid;
+        }
+        .social-card.fb { border-color: #1877F2; }
+        .social-card.tw { border-color: #000; }
+        .social-card.wa { border-color: #25D366; }
+        .social-card.li { border-color: #0A66C2; }
+        .social-icon { font-size: 1.6rem; margin-bottom: .5rem; }
+        .social-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: .5rem; }
+        .social-tip {
+            font-size: .82rem;
+            color: #666;
+            line-height: 1.5;
+        }
+        .social-tip strong { color: var(--text); }
+        .copy-text-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            margin-top: .8rem;
+            background: var(--gris);
+            border: none;
+            padding: .45rem .9rem;
+            border-radius: 6px;
+            font-size: .8rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--vert-fonce);
+            transition: background .2s;
+        }
+        .copy-text-btn:hover { background: #DDE5E0; }
+
+        /* ═══ LÉGENDE COULEURS ═══ */
+        .legend { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .legend-item {
+            display: flex; align-items: center; gap: .35rem;
+            font-size: .78rem; color: #555;
+        }
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+        /* ═══ TOAST ═══ */
+        #toast {
+            position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: var(--vert-fonce); color: white; padding: .75rem 1.5rem;
+            border-radius: 50px; font-size: .9rem; font-weight: 600;
+            box-shadow: 0 4px 20px rgba(0,0,0,.3); transition: transform .3s;
+            z-index: 9999; display: flex; align-items: center; gap: .5rem;
+        }
+        #toast.show { transform: translateX(-50%) translateY(0); }
+
+        @media(max-width:600px) {
+            .templates-grid { grid-template-columns: 1fr; }
+            .controls-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-header">
+    <div class="header-badge">🎯 Outil réservé à l'équipe ProjetBI</div>
+    <h1>Kit de Communication ProjetBI</h1>
+    <p>Créez et téléchargez des infographies prêtes à poster sur Facebook, WhatsApp et Twitter/X</p>
+</div>
+
+<div class="kit-container">
+
+    <!-- ═══ SECTION 1 : CONTRÔLES ═══ -->
+    <div class="controls-card">
+        <div class="section-title" style="margin-bottom:1rem"><i class="fas fa-sliders" style="color:var(--vert)"></i> Paramètres de l'infographie</div>
+        <div class="controls-grid">
+            <div>
+                <label>Total engagements</label>
+                <input type="number" id="ctTotal" value="300" min="1">
+            </div>
+            <div>
+                <label>✅ Réalisés</label>
+                <input type="number" id="ctRealise" value="38" min="0">
+            </div>
+            <div>
+                <label>🔄 En cours</label>
+                <input type="number" id="ctEncours" value="87" min="0">
+            </div>
+            <div>
+                <label>⏳ Non lancés</label>
+                <input type="number" id="ctNonLance" value="141" min="0">
+            </div>
+            <div>
+                <label>⚠️ En retard</label>
+                <input type="number" id="ctRetard" value="34" min="0">
+            </div>
+            <div>
+                <label>Note citoyenne (/5)</label>
+                <input type="number" id="ctNote" value="3.4" step="0.1" min="0" max="5">
+            </div>
+            <div>
+                <label>Période / Titre</label>
+                <input type="text" id="ctPeriode" value="Bilan — Février 2026">
+            </div>
+            <div>
+                <label>Sous-titre personnalisé</label>
+                <input type="text" id="ctSous" value="2 ans après l'élection">
+            </div>
+        </div>
+
+        <!-- Sélecteur de template -->
+        <div style="margin-bottom:1rem">
+            <label>Choisir le modèle</label>
+            <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:.5rem">
+                <button class="btn-primary" onclick="selectTemplate('bilan')" id="btn-bilan">📊 Bilan Global</button>
+                <button class="btn-primary" style="background:#555" onclick="selectTemplate('taux')" id="btn-taux">📈 Taux de réalisation</button>
+                <button class="btn-primary" style="background:#555" onclick="selectTemplate('retard')" id="btn-retard">⚠️ Alertes & retards</button>
+                <button class="btn-primary" style="background:#555" onclick="selectTemplate('note')" id="btn-note">⭐ Note citoyenne</button>
+            </div>
+        </div>
+
+        <button class="btn-primary btn-gold" onclick="renderAll()">
+            <i class="fas fa-sync"></i> Générer l'infographie
+        </button>
+    </div>
+
+    <!-- ═══ SECTION 2 : PREVIEW ═══ -->
+    <div class="preview-section">
+        <div class="section-title"><i class="fas fa-eye" style="color:var(--vert)"></i> Aperçu de l'infographie</div>
+        <p class="section-sub">Cliquez sur "Télécharger" pour sauvegarder l'image en haute qualité</p>
+
+        <div class="preview-wrapper">
+            <canvas id="mainCanvas" width="1080" height="1080"></canvas>
+        </div>
+
+        <div class="download-row">
+            <button class="btn-primary" onclick="downloadCanvas('1080x1080')">
+                <i class="fas fa-download"></i> Instagram / Facebook (1080×1080)
+            </button>
+            <button class="btn-primary" style="background:#555" onclick="downloadCanvas('1200x628')">
+                <i class="fas fa-download"></i> Story / Bannière (1200×628)
+            </button>
+            <button class="btn-primary btn-gold" onclick="copyCanvasToClipboard()">
+                <i class="fas fa-copy"></i> Copier l'image
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══ SECTION 3 : TEXTES RÉSEAUX SOCIAUX ═══ -->
+    <h2 class="section-title" style="margin-bottom:.4rem"><i class="fas fa-share-nodes" style="color:var(--vert)"></i> Textes de partage — Projet PASTEF</h2>
+    <p class="section-sub">Adaptés à chaque réseau social — cliquez pour copier</p>
+
+    <div class="social-guide">
+        <div class="social-card fb">
+            <div class="social-icon">📘</div>
+            <h3>Facebook</h3>
+            <div class="social-tip" id="fbText">Chargement...</div>
+            <button class="copy-text-btn" onclick="copyText('fbText')">
+                <i class="fas fa-copy"></i> Copier ce texte
+            </button>
+        </div>
+        <div class="social-card tw">
+            <div class="social-icon">🐦</div>
+            <h3>Twitter / X</h3>
+            <div class="social-tip" id="twText">Chargement...</div>
+            <button class="copy-text-btn" onclick="copyText('twText')">
+                <i class="fas fa-copy"></i> Copier ce texte
+            </button>
+        </div>
+        <div class="social-card wa">
+            <div class="social-icon">💬</div>
+            <h3>WhatsApp</h3>
+            <div class="social-tip" id="waText">Chargement...</div>
+            <button class="copy-text-btn" onclick="copyText('waText')">
+                <i class="fas fa-copy"></i> Copier ce texte
+            </button>
+        </div>
+        <div class="social-card li">
+            <div class="social-icon">💼</div>
+            <h3>LinkedIn</h3>
+            <div class="social-tip" id="liText">Chargement...</div>
+            <button class="copy-text-btn" onclick="copyText('liText')">
+                <i class="fas fa-copy"></i> Copier ce texte
+            </button>
+        </div>
+    </div>
+
+</div><!-- /kit-container -->
+
+<!-- Toast notification -->
+<div id="toast"></div>
+
+<script>
+// ══════════════════════════════
+// ÉTAT
+// ══════════════════════════════
+let activeTemplate = 'bilan';
+
+function getStats() {
+    return {
+        total: parseInt(document.getElementById('ctTotal').value) || 300,
+        realise: parseInt(document.getElementById('ctRealise').value) || 0,
+        encours: parseInt(document.getElementById('ctEncours').value) || 0,
+        nonLance: parseInt(document.getElementById('ctNonLance').value) || 0,
+        retard: parseInt(document.getElementById('ctRetard').value) || 0,
+        note: parseFloat(document.getElementById('ctNote').value) || 0,
+        periode: document.getElementById('ctPeriode').value || 'Bilan mensuel',
+        sous: document.getElementById('ctSous').value || ''
+    };
+}
+
+function selectTemplate(name) {
+    activeTemplate = name;
+    document.querySelectorAll('[id^="btn-"]').forEach(b => b.style.background = '#555');
+    document.getElementById('btn-' + name).style.background = 'var(--vert)';
+    renderAll();
+}
+
+function renderAll() {
+    drawCanvas();
+    updateSocialTexts();
+}
+
+// ══════════════════════════════
+// CANVAS DRAWING
+// ══════════════════════════════
+function drawCanvas() {
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = 1080;
+    canvas.height = 1080;
+    const s = getStats();
+    const tauxReel = Math.round((s.realise / s.total) * 100);
+
+    if (activeTemplate === 'bilan') drawBilan(ctx, s, tauxReel);
+    else if (activeTemplate === 'taux') drawTaux(ctx, s, tauxReel);
+    else if (activeTemplate === 'retard') drawRetard(ctx, s, tauxReel);
+    else if (activeTemplate === 'note') drawNote(ctx, s, tauxReel);
+}
+
+function gradBg(ctx, c1, c2) {
+    const g = ctx.createLinearGradient(0, 0, 0, 1080);
+    g.addColorStop(0, c1);
+    g.addColorStop(1, c2);
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, 1080, 1080);
+}
+
+function roundRect(ctx, x, y, w, h, r, fill) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+    ctx.fillStyle = fill;
+    ctx.fill();
+}
+
+function drawHeader(ctx, titre, sous, periode) {
+    // Logo zone
+    roundRect(ctx, 54, 54, 180, 60, 12, 'rgba(255,255,255,0.15)');
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 28px Arial';
+    ctx.fillText('PROJETBI', 75, 92);
+
+    // Titre principal
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 68px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText(titre, 540, 200);
+
+    if (sous) {
+        ctx.font = '36px Arial';
+        ctx.fillStyle = 'rgba(255,255,255,0.8)';
+        ctx.fillText(sous, 540, 255);
+    }
+
+    // Date badge
+    roundRect(ctx, 380, 290, 300, 44, 22, 'rgba(255,255,255,0.18)');
+    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+    ctx.font = 'bold 22px Arial';
+    ctx.fillText(periode, 540, 319);
+
+    ctx.textAlign = 'left';
+}
+
+function drawFooter(ctx) {
+    roundRect(ctx, 0, 980, 1080, 100, 0, 'rgba(0,0,0,0.3)');
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.font = '24px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('🌐 projetbi.org  |  Gardiens du Projet PASTEF  |  Jub · Jubal · Jubanti', 540, 1035);
+    ctx.textAlign = 'left';
+}
+
+function statBox(ctx, x, y, w, h, val, label, color, icon) {
+    roundRect(ctx, x, y, w, h, 20, color);
+    ctx.fillStyle = 'rgba(255,255,255,0.15)';
+    ctx.font = '44px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText(icon, x + w/2, y + 58);
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 72px Arial';
+    ctx.fillText(String(val), x + w/2, y + 148);
+    ctx.font = '26px Arial';
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    ctx.fillText(label, x + w/2, y + 190);
+    ctx.textAlign = 'left';
+}
+
+function drawBilan(ctx, s, taux) {
+    gradBg(ctx, '#1A3D28', '#2D5F3F');
+
+    // Déco géométrique
+    ctx.fillStyle = 'rgba(201,168,76,0.08)';
+    ctx.beginPath(); ctx.arc(1080, 0, 400, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(0, 1080, 300, 0, Math.PI*2); ctx.fill();
+
+    drawHeader(ctx, 'BILAN DES ENGAGEMENTS', s.sous, s.periode);
+
+    // 4 stat boxes
+    const boxW = 234, boxH = 220, gap = 20, startX = 54, startY = 370;
+    statBox(ctx, startX, startY, boxW, boxH, s.realise, 'Réalisés', '#1E7A45', '✅');
+    statBox(ctx, startX + boxW + gap, startY, boxW, boxH, s.encours, 'En cours', '#2563A8', '🔄');
+    statBox(ctx, startX + (boxW + gap)*2, startY, boxW, boxH, s.nonLance, 'Non lancés', '#5B4E1A', '⏳');
+    statBox(ctx, startX + (boxW + gap)*3, startY, boxW, boxH, s.retard, 'En retard', '#8B1A1A', '⚠️');
+
+    // Taux de réalisation
+    roundRect(ctx, 54, 620, 972, 120, 20, 'rgba(255,255,255,0.12)');
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 42px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('TAUX DE RÉALISATION GLOBAL', 540, 672);
+    ctx.font = 'bold 88px Arial';
+    ctx.fillStyle = '#C9A84C';
+    ctx.fillText(taux + '%', 540, 760);
+
+    // Barre de progression
+    roundRect(ctx, 54, 780, 972, 28, 14, 'rgba(255,255,255,0.15)');
+    if (taux > 0) {
+        const barW = Math.min(972 * taux / 100, 972);
+        const gBar = ctx.createLinearGradient(54, 0, 54 + barW, 0);
+        gBar.addColorStop(0, '#C9A84C');
+        gBar.addColorStop(1, '#F5E6B8');
+        roundRect(ctx, 54, 780, barW, 28, 14, gBar);
+    }
+
+    ctx.textAlign = 'left';
+    drawFooter(ctx);
+
+    // Total badge
+    roundRect(ctx, 400, 830, 280, 100, 16, 'rgba(255,255,255,0.12)');
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 56px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText(s.total, 540, 900);
+    ctx.font = '28px Arial';
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.fillText('ENGAGEMENTS TOTAUX', 540, 932);
+    ctx.textAlign = 'left';
+}
+
+function drawTaux(ctx, s, taux) {
+    gradBg(ctx, '#1A2B5E', '#2D3F8F');
+    ctx.fillStyle = 'rgba(201,168,76,0.06)';
+    ctx.beginPath(); ctx.arc(540, 540, 500, 0, Math.PI*2); ctx.fill();
+
+    drawHeader(ctx, 'TAUX DE RÉALISATION', s.sous, s.periode);
+
+    // Cercle jauge
+    const cx = 540, cy = 640, r = 260;
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+    ctx.lineWidth = 40;
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.stroke();
+
+    const angle = (taux / 100) * Math.PI * 2 - Math.PI / 2;
+    const g = ctx.createLinearGradient(cx - r, cy, cx + r, cy);
+    g.addColorStop(0, '#C9A84C');
+    g.addColorStop(1, '#F5E6B8');
+    ctx.strokeStyle = g;
+    ctx.lineWidth = 40;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, -Math.PI / 2, angle);
+    ctx.stroke();
+
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 120px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText(taux + '%', cx, cy + 40);
+    ctx.font = '32px Arial';
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.fillText('des engagements avancent', cx, cy + 90);
+
+    ctx.font = 'bold 36px Arial';
+    ctx.fillStyle = '#C9A84C';
+    ctx.fillText(`${s.realise} réalisés sur ${s.total}`, cx, cy + 145);
+    ctx.textAlign = 'left';
+
+    drawFooter(ctx);
+}
+
+function drawRetard(ctx, s, taux) {
+    gradBg(ctx, '#4A0F0F', '#8B1A1A');
+    ctx.fillStyle = 'rgba(201,168,76,0.06)';
+    ctx.beginPath(); ctx.arc(1080, 1080, 500, 0, Math.PI*2); ctx.fill();
+
+    drawHeader(ctx, '⚠️ ALERTES RETARDS', s.sous, s.periode);
+
+    // Stats retard
+    roundRect(ctx, 54, 380, 460, 260, 20, 'rgba(255,255,255,0.12)');
+    ctx.fillStyle = '#FF8C8C';
+    ctx.font = 'bold 110px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText(s.retard, 284, 510);
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 32px Arial';
+    ctx.fillText('Engagements en retard', 284, 560);
+    ctx.font = '26px Arial';
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    const pct = Math.round((s.retard / s.total) * 100);
+    ctx.fillText(`soit ${pct}% du programme`, 284, 605);
+
+    roundRect(ctx, 566, 380, 460, 260, 20, 'rgba(255,255,255,0.12)');
+    ctx.fillStyle = '#FFA500';
+    ctx.font = 'bold 110px Arial';
+    ctx.fillText(s.nonLance, 796, 510);
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 32px Arial';
+    ctx.fillText('Non encore lancés', 796, 560);
+    ctx.font = '26px Arial';
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.fillText(`${Math.round((s.nonLance / s.total) * 100)}% du programme`, 796, 605);
+
+    roundRect(ctx, 54, 670, 972, 90, 16, 'rgba(255,255,255,0.08)');
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    ctx.font = 'bold 36px Arial';
+    ctx.fillText(`Seuls ${s.realise} engagements réalisés sur ${s.total} — Taux : ${taux}%`, 540, 728);
+
+    roundRect(ctx, 54, 790, 972, 120, 16, 'rgba(201,168,76,0.2)');
+    ctx.fillStyle = '#C9A84C';
+    ctx.font = 'bold 32px Arial';
+    ctx.fillText('👉 Soutenez le Projet et suivez chaque engagement sur projetbi.org', 540, 845);
+    ctx.font = '26px Arial';
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.fillText('Sympathisants du Projet PASTEF — Gardiens des engagements de notre Président', 540, 888);
+    ctx.textAlign = 'left';
+    drawFooter(ctx);
+}
+
+function drawNote(ctx, s, taux) {
+    gradBg(ctx, '#1A3820', '#2D5F3F');
+    ctx.fillStyle = 'rgba(201,168,76,0.07)';
+    ctx.beginPath(); ctx.arc(540, 400, 420, 0, Math.PI*2); ctx.fill();
+
+    drawHeader(ctx, '⭐ NOTE CITOYENNE', s.sous, s.periode);
+
+    // Note principale
+    ctx.fillStyle = '#C9A84C';
+    ctx.font = 'bold 200px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText(s.note.toFixed(1), 540, 620);
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 48px Arial';
+    ctx.fillText('/ 5', 540, 675);
+
+    // Étoiles
+    const stars = 5;
+    const starX = 540 - (stars * 55) / 2 + 25;
+    ctx.font = '70px Arial';
+    for (let i = 0; i < 5; i++) {
+        ctx.fillStyle = i < Math.round(s.note) ? '#C9A84C' : 'rgba(255,255,255,0.25)';
+        ctx.fillText('★', starX + i * 55, 760);
+    }
+
+    roundRect(ctx, 200, 800, 680, 110, 20, 'rgba(255,255,255,0.12)');
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 32px Arial';
+    ctx.fillText(`Basé sur les votes des citoyens sénégalais`, 540, 850);
+    ctx.font = '26px Arial';
+    ctx.fillStyle = '#C9A84C';
+    ctx.fillText(`Évaluez un service public sur projetbi.org`, 540, 890);
+
+    ctx.textAlign = 'left';
+    drawFooter(ctx);
+}
+
+// ══════════════════════════════
+// TEXTES SOCIAUX
+// ══════════════════════════════
+function updateSocialTexts() {
+    const s = getStats();
+    const taux = Math.round((s.realise / s.total) * 100);
+
+    const fbT = `📊 ${s.periode}\n\n✅ ${s.realise} engagements réalisés\n🔄 ${s.encours} en cours\n⚠️ ${s.retard} en retard\n⏳ ${s.nonLance} non lancés\n\n📈 Taux de réalisation : ${taux}% sur ${s.total} engagements du Projet PASTEF\n\nNous sommes les gardiens du Projet PASTEF. Chaque engagement du Président Bassirou Diomaye Faye et du PM Ousmane Sonko est une promesse faite au peuple — nous veillons à ce qu'elle soit tenue. Jub, Jubal, Jubanti !\n\n👉 https://projetbi.org\n\n#Sénégal #PASTEF #DiomayeFaye #OusmaneSonko #JubJubalJubanti #ProjetBI`;
+
+    const twT = `🛡️ ${s.periode} — Bilan Projet PASTEF\n\n✅ ${s.realise} réalisés | 🔄 ${s.encours} en cours | ⚠️ ${s.retard} en retard\n\n📈 ${taux}% sur ${s.total} engagements\n\nGardiens du Projet — nous suivons chaque acte.\n👉 https://projetbi.org\n\n#Sénégal #PASTEF #DiomayeFaye #JubJubalJubanti #ProjetBI`;
+
+    const waT = `🛡️ *GARDIENS DU PROJET PASTEF — ${s.periode}*\n\n✅ Réalisés : ${s.realise}\n🔄 En cours : ${s.encours}\n⚠️ En retard : ${s.retard}\n⏳ Non lancés : ${s.nonLance}\n\n📈 *Taux de réalisation : ${taux}% sur ${s.total} engagements*\n\nNous, sympathisants du Projet PASTEF, suivons chaque engagement du Président Diomaye et du PM Sonko.\n\n🌐 Suivez en direct : https://projetbi.org\n\n_Jub · Jubal · Jubanti — Sénégal Souverain, Juste & Prospère_`;
+
+    const liT = `${s.periode} : Bilan des engagements du Projet PASTEF\n\nEn tant que sympathisants et gardiens du Projet PASTEF, nous publions notre suivi mensuel des 300 engagements du Président Bassirou Diomaye Faye et du Premier Ministre Ousmane Sonko.\n\n📊 État d'avancement :\n• Réalisés : ${s.realise} (${taux}%)\n• En cours : ${s.encours}\n• En retard : ${s.retard}\n• Non lancés : ${s.nonLance}\n\nNotre conviction : la souveraineté, la justice et la prospérité ne s'offrent pas — elles se construisent engagement par engagement. Nous veillons. Jub, Jubal, Jubanti.\n\n🌐 https://projetbi.org\n\n#Sénégal #PASTEF #DiomayeFaye #OusmaneSonko #JubJubalJubanti #ProjetBI #Gouvernance #Souveraineté`;
+
+    document.getElementById('fbText').textContent = fbT;
+    document.getElementById('twText').textContent = twT;
+    document.getElementById('waText').textContent = waT;
+    document.getElementById('liText').textContent = liT;
+}
+
+// ══════════════════════════════
+// UTILITAIRES
+// ══════════════════════════════
+function downloadCanvas(size) {
+    const canvas = document.getElementById('mainCanvas');
+    const link = document.createElement('a');
+    const s = getStats();
+    const name = `projetbi-${activeTemplate}-${s.periode.replace(/\s+/g, '-').toLowerCase()}-${size}.png`;
+    link.download = name;
+    link.href = canvas.toDataURL('image/png', 1.0);
+    link.click();
+    showToast('✅ Image téléchargée !');
+}
+
+async function copyCanvasToClipboard() {
+    try {
+        const canvas = document.getElementById('mainCanvas');
+        canvas.toBlob(async blob => {
+            await navigator.clipboard.write([
+                new ClipboardItem({ 'image/png': blob })
+            ]);
+            showToast('✅ Image copiée dans le presse-papiers !');
+        });
+    } catch {
+        showToast('⚠️ Copie non supportée — utilisez Télécharger');
+    }
+}
+
+function copyText(id) {
+    const el = document.getElementById(id);
+    const text = el.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        showToast('✅ Texte copié !');
+    }).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast('✅ Texte copié !');
+    });
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ══════════════════════════════
+// INIT
+// ══════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+    renderAll();
+    // Auto-refresh on any input change
+    document.querySelectorAll('input, select').forEach(el => {
+        el.addEventListener('input', () => setTimeout(renderAll, 300));
+    });
+});
+</script>
+</body>
+</html>

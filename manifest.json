@@ -1,0 +1,43 @@
+{
+  "name": "ProjetBI — Suivi des Engagements Présidentiels",
+  "short_name": "ProjetBI",
+  "description": "Plateforme citoyenne indépendante pour suivre en temps réel les engagements du Président Bassirou Diomaye Faye.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2D5F3F",
+  "orientation": "portrait-primary",
+  "lang": "fr",
+  "categories": ["news", "politics", "government"],
+  "icons": [
+    { "src": "./favicon.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./favicon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "screenshots": [
+    { "src": "./og-image.jpg", "sizes": "1200x630", "type": "image/jpeg", "label": "Tableau de bord ProjetBI" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Stats",
+      "description": "Voir les statistiques des engagements",
+      "url": "./#dashboard",
+      "icons": [{ "src": "./favicon.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Engagements",
+      "short_name": "Engagements",
+      "description": "Consulter tous les engagements",
+      "url": "./#engagements",
+      "icons": [{ "src": "./favicon.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Actualités",
+      "short_name": "News",
+      "description": "Lire les actualités",
+      "url": "./#actualites",
+      "icons": [{ "src": "./favicon.png", "sizes": "192x192" }]
+    }
+  ]
+}

@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Robots-Tag" content="noindex, nofollow">
+    <!-- ══ PROTECTION ADMIN — Accès restreint ══ -->
+    <script>
+    (function() {
+        // Mot de passe haché (SHA-256 de votre mot de passe admin).
+        // Pour générer un nouveau hash : https://emn178.github.io/online-tools/sha256.html
+        const ADMIN_HASH = '03eb6856c640072257980d6125e3082905e07a23b3a50f2efe5256bc9898a380';
+
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkAccess() {
+            // Vérifier si déjà authentifié dans cette session
+            if (sessionStorage.getItem('admin_auth') === ADMIN_HASH) return;
+
+            // Protection anti-brute force
+            const attempts = parseInt(localStorage.getItem('auth_attempts') || '0');
+            const lockUntil = parseInt(localStorage.getItem('auth_lock_until') || '0');
+            if (Date.now() < lockUntil) {
+                const wait = Math.ceil((lockUntil - Date.now()) / 1000);
+                document.body.innerHTML = `<h1 style="font-family:sans-serif;text-align:center;margin-top:20vh;color:#C0392B">⛔ Trop de tentatives. Réessayez dans ${wait}s.</h1>`;
+                return;
+            }
+
+            // Bloquer le contenu
+            document.documentElement.style.display = 'none';
+
+            const pwd = prompt('🔐 Accès restreint — Mot de passe administrateur requis :');
+            if (!pwd || pwd.length > 128) {
+                document.body.innerHTML = '<h1 style="font-family:sans-serif;text-align:center;margin-top:20vh;color:#C0392B">Accès refusé</h1>';
+                return;
+            }
+
+            const hash = await sha256(pwd);
+            if (hash === ADMIN_HASH) {
+                localStorage.removeItem('auth_attempts'); sessionStorage.removeItem('auth_attempts');
+                localStorage.removeItem('auth_lock_until'); sessionStorage.removeItem('auth_lock_until');
+                sessionStorage.setItem('admin_auth', ADMIN_HASH);
+                document.documentElement.style.display = '';
+            } else {
+                const newAttempts = attempts + 1;
+                localStorage.setItem('auth_attempts', newAttempts);
+                if (newAttempts >= 5) {
+                    const lock = Math.min(30000 * Math.pow(2, newAttempts - 5), 300000);
+                    localStorage.setItem('auth_lock_until', Date.now() + lock);
+                }
+                document.body.innerHTML = '<h1 style="font-family:sans-serif;text-align:center;margin-top:20vh;color:#C0392B">⛔ Accès refusé</h1>';
+            }
+        }
+
+        checkAccess();
+    })();
+    </script>
+    <title>Mise à jour Presse & Actualités — Gardiens du Projet PASTEF</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2D5F3F 0%, #1F4530 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        header .date {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            background: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .tab-btn:hover {
+            background: rgba(45, 95, 63, 0.1);
+        }
+        
+        .tab-btn.active {
+            background: #2D5F3F;
+            color: white;
+            border-bottom: 3px solid #B23A3A;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .files-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2D5F3F;
+        }
+        
+        .files-section h3 {
+            color: #2D5F3F;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .file-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .file-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+        
+        .file-name {
+            font-family: monospace;
+            color: #2D5F3F;
+            font-weight: 500;
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+        
+        .file-size {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f1f8e9;
+            border-radius: 10px;
+            border: 1px solid #c5e1a5;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: #2196F3;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #388E3C;
+            transform: translateY(-2px);
+        }
+        
+        .btn-warning {
+            background: #FF9800;
+            color: white;
+        }
+        
+        .btn-warning:hover {
+            background: #F57C00;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: #757575;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #616161;
+            transform: translateY(-2px);
+        }
+        
+        .json-section {
+            background: #f5f5f5;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        
+        .json-section h3 {
+            background: #333;
+            color: white;
+            padding: 15px 20px;
+            margin: 0;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 400px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 20px;
+            border: none;
+            resize: vertical;
+            background: #1e1e1e;
+            color: #d4d4d4;
+        }
+        
+        .instructions {
+            background: #FFF3CD;
+            border: 1px solid #FFEAA7;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .instructions h3 {
+            color: #856404;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .steps {
+            list-style-type: none;
+            counter-reset: step-counter;
+        }
+        
+        .steps li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .steps li:before {
+            content: counter(step-counter);
+            background: #00695c;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-weight: bold;
+        }
+        
+        .current-date {
+            background: #E3F2FD;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: inline-block;
+        }
+        
+        /* Formulaire pour les actualités */
+        .news-form {
+            background: #fff;
+            border: 2px dashed #4CAF50;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #00695c;
+        }
+        
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #00695c;
+            box-shadow: 0 0 0 2px rgba(0, 105, 92, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+        
+        .file-upload {
+            border: 2px dashed #2196F3;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            background: #E3F2FD;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .file-upload:hover {
+            background: #BBDEFB;
+            border-color: #1976D2;
+        }
+        
+        .file-upload input {
+            display: none;
+        }
+        
+        .file-upload label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .file-upload i {
+            font-size: 2rem;
+            color: #2196F3;
+        }
+        
+        .file-preview {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .news-list {
+            margin-top: 30px;
+        }
+        
+        .news-item {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: transform 0.2s;
+        }
+        
+        .news-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .news-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #00695c;
+            margin: 0;
+        }
+        
+        .news-date {
+            font-size: 0.9rem;
+            color: #757575;
+            background: #f5f5f5;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        
+        .news-excerpt {
+            color: #616161;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .news-footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #9e9e9e;
+        }
+        
+        .news-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-small {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .files-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛡️ Gestionnaire Presse & Actualités — ProjetBI</h1>
+            <p class="subtitle">Gardiens du Projet PASTEF — Mise à jour quotidienne du contenu</p>
+            <div class="current-date">Date du jour : <strong id="currentDate"></strong></div>
+        </header>
+        
+        <div class="content">
+            <!-- Onglets -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="press">
+                    <i class="fas fa-newspaper"></i>
+                    Revue de Presse
+                </button>
+                <button class="tab-btn" data-tab="news">
+                    <i class="fas fa-bullhorn"></i>
+                    Actualités
+                </button>
+            </div>
+            
+            <!-- Onglet Revue de Presse -->
+            <div id="press-tab" class="tab-content active">
+                <section class="files-section">
+                    <h3>📁 Bibliothèque de la Revue de Presse</h3>
+                    <div class="files-grid" id="filesList">
+                        <!-- Les fichiers seront listés ici -->
+                    </div>
+                    
+                    <div class="file-upload" onclick="document.getElementById('pressUpload').click()">
+                        <input type="file" id="pressUpload" accept=".jpg,.jpeg,.png" multiple onchange="handlePressUpload(event)">
+                        <label>
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Glissez-déposez ou cliquez pour ajouter les journaux du jour</span>
+                            <small>Formats acceptés: JPG, PNG</small>
+                        </label>
+                    </div>
+                    <div class="file-preview" id="pressPreview"></div>
+                </section>
+                
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="generatePressJSON()">
+                        <i class="fas fa-code"></i>
+                        Générer JSON Presse
+                    </button>
+                    <button class="btn btn-success" onclick="downloadPressJSON()">
+                        <i class="fas fa-download"></i>
+                        Télécharger press.json
+                    </button>
+                    <button class="btn btn-warning" onclick="copyPressToClipboard()">
+                        <i class="fas fa-copy"></i>
+                        Copier JSON Presse
+                    </button>
+                </div>
+                
+                <section class="json-section">
+                    <h3>
+                        <span><i class="fas fa-file-code"></i> Sortie JSON Presse :</span>
+                        <span id="pressCounter">0 journaux</span>
+                    </h3>
+                    <textarea id="pressJsonOutput" readonly></textarea>
+                </section>
+            </div>
+            
+            <!-- Onglet Actualités -->
+            <div id="news-tab" class="tab-content">
+                <div class="news-form">
+                    <h3><i class="fas fa-plus-circle"></i> Ajouter une actualité</h3>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="newsTitle">
+                                <i class="fas fa-heading"></i>
+                                Titre *
+                            </label>
+                            <input type="text" class="form-input" id="newsTitle" placeholder="Titre de l'actualité" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newsDate">
+                                <i class="fas fa-calendar"></i>
+                                Date *
+                            </label>
+                            <input type="date" class="form-input" id="newsDate" value="" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newsSource">
+                            <i class="fas fa-newspaper"></i>
+                            Source (journal)
+                        </label>
+                        <input type="text" class="form-input" id="newsSource" placeholder="Ex: Le Soleil, Sud Quotidien...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newsExcerpt">
+                            <i class="fas fa-align-left"></i>
+                            Résumé/Description *
+                        </label>
+                        <textarea class="form-textarea" id="newsExcerpt" 
+                                  placeholder="Décrivez brièvement l'actualité..." 
+                                  rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="newsCategory">
+                                <i class="fas fa-tag"></i>
+                                Catégorie
+                            </label>
+                            <select class="form-input" id="newsCategory">
+                                <option value="general">⭐ Général</option>
+                                <option value="education">🎓 Éducation</option>
+                                <option value="sante">🏥 Santé</option>
+                                <option value="economie">💰 Économie</option>
+                                <option value="infrastructures">🏗️ Infrastructures</option>
+                                <option value="gouvernance">⚖️ Gouvernance</option>
+                                <option value="transparence">🔍 Transparence</option>
+                                <option value="agriculture">🌾 Agriculture</option>
+                                <option value="energie">⚡ Énergie</option>
+                                <option value="environnement">🌍 Environnement</option>
+                                <option value="emploi">💼 Emploi</option>
+                                <option value="jeunesse">👨‍🎓 Jeunesse & Sports</option>
+                                <option value="culture">🎭 Culture</option>
+                                <option value="securite">🛡️ Sécurité</option>
+                                <option value="justice">⚖️ Justice</option>
+                                <option value="numerique">💻 Numérique</option>
+                                <option value="transport">🚗 Transport</option>
+                                <option value="logement">🏘️ Logement</option>
+                                <option value="social">🤝 Affaires Sociales</option>
+                                <option value="international">🌐 Relations Internationales</option>
+                                <option value="autres">📋 Autres</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="newsImage">
+                                <i class="fas fa-image"></i>
+                                Icône
+                            </label>
+                            <select class="form-input" id="newsImage">
+                                <option value="news">📰 Actualité générale</option>
+                                <option value="school">🏫 École/Éducation</option>
+                                <option value="graduation">🎓 Diplôme/Formation</option>
+                                <option value="hospital">🏥 Hôpital/Santé</option>
+                                <option value="heartbeat">❤️ Santé publique</option>
+                                <option value="money">💰 Budget/Finance</option>
+                                <option value="coins">💵 Économie</option>
+                                <option value="chart">📈 Croissance</option>
+                                <option value="road">🛣️ Route/Infrastructure</option>
+                                <option value="building">🏢 Bâtiment/Construction</option>
+                                <option value="home">🏠 Logement</option>
+                                <option value="flag">🚩 Politique</option>
+                                <option value="balance">⚖️ Justice/Droit</option>
+                                <option value="gavel">🔨 Loi/Réglementation</option>
+                                <option value="users">👥 Société/Population</option>
+                                <option value="handshake">🤝 Partenariat</option>
+                                <option value="seedling">🌱 Agriculture</option>
+                                <option value="tractor">🚜 Agriculture moderne</option>
+                                <option value="bolt">⚡ Énergie/Électricité</option>
+                                <option value="leaf">🍃 Environnement</option>
+                                <option value="recycle">♻️ Écologie</option>
+                                <option value="briefcase">💼 Emploi/Travail</option>
+                                <option value="user-tie">👔 Fonction publique</option>
+                                <option value="futbol">⚽ Sports</option>
+                                <option value="running">🏃 Jeunesse</option>
+                                <option value="theater">🎭 Culture</option>
+                                <option value="music">🎵 Arts</option>
+                                <option value="shield">🛡️ Sécurité</option>
+                                <option value="lock">🔒 Cybersécurité</option>
+                                <option value="laptop">💻 Numérique/Tech</option>
+                                <option value="wifi">📡 Télécommunication</option>
+                                <option value="car">🚗 Transport</option>
+                                <option value="bus">🚌 Transport public</option>
+                                <option value="plane">✈️ Aérien</option>
+                                <option value="ship">🚢 Maritime</option>
+                                <option value="globe">🌍 International</option>
+                                <option value="map">🗺️ Territoire</option>
+                                <option value="award">🏆 Récompense/Succès</option>
+                                <option value="star">⭐ Excellence</option>
+                                <option value="rocket">🚀 Innovation</option>
+                                <option value="lightbulb">💡 Idée/Projet</option>
+                                <option value="megaphone">📣 Communication</option>
+                                <option value="calendar">📅 Événement</option>
+                                <option value="check">✅ Validation/Réalisé</option>
+                                <option value="tools">🔧 Maintenance</option>
+                                <option value="cog">⚙️ Système</option>
+                                <option value="eye">👁️ Transparence</option>
+                                <option value="search">🔍 Enquête</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newsLink">
+                            <i class="fas fa-link"></i>
+                            Lien (optionnel)
+                        </label>
+                        <input type="url" class="form-input" id="newsLink" placeholder="https://...">
+                    </div>
+                    // Dans la partie "Ajouter une actualité"
+<div class="form-group">
+    <label for="newsImageUrl">
+        <i class="fas fa-image"></i>
+        Image personnalisée (URL)
+    </label>
+    <input type="url" class="form-input" id="newsImageUrl" 
+           placeholder="https://exemple.com/image.jpg">
+    <small>Laissez vide pour utiliser une icône</small>
+</div>
+
+<div class="form-group">
+    <label for="newsContent">
+        <i class="fas fa-align-left"></i>
+        Contenu détaillé *
+    </label>
+    <textarea class="form-textarea" id="newsContent" 
+              placeholder="Contenu complet de l'article..." 
+              rows="6" required></textarea>
+</div>
+
+<div class="form-group">
+    <label for="newsAuthor">
+        <i class="fas fa-user-edit"></i>
+        Auteur
+    </label>
+    <input type="text" class="form-input" id="newsAuthor" 
+           placeholder="Nom de l'auteur" value="Rédaction">
+</div>
+
+<div class="form-group">
+    <label for="newsReadTime">
+        <i class="fas fa-clock"></i>
+        Temps de lecture
+    </label>
+    <select class="form-input" id="newsReadTime">
+        <option value="1 min">1 minute</option>
+        <option value="2 min">2 minutes</option>
+        <option value="3 min" selected>3 minutes</option>
+        <option value="5 min">5 minutes</option>
+        <option value="10 min">10 minutes</option>
+    </select>
+</div>
+                    <div class="form-row">
+                        <button class="btn btn-primary" onclick="addNews()">
+                            <i class="fas fa-plus"></i>
+                            Ajouter l'actualité
+                        </button>
+                        <button class="btn btn-secondary" onclick="clearNewsForm()">
+                            <i class="fas fa-redo"></i>
+                            Effacer
+                        </button>
+                    </div>
+                    
+                </div>
+                
+                <div class="news-list">
+                    <h3><i class="fas fa-list"></i> Liste des actualités</h3>
+                    <div id="newsList">
+                        <!-- Liste dynamique des actualités -->
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="generateNewsJSON()">
+                        <i class="fas fa-code"></i>
+                        Générer JSON Actualités
+                    </button>
+                    <button class="btn btn-success" onclick="downloadNewsJSON()">
+                        <i class="fas fa-download"></i>
+                        Télécharger news.json
+                    </button>
+                    <button class="btn btn-warning" onclick="copyNewsToClipboard()">
+                        <i class="fas fa-copy"></i>
+                        Copier JSON Actualités
+                    </button>
+                </div>
+                
+                <section class="json-section">
+                    <h3>
+                        <span><i class="fas fa-file-code"></i> Sortie JSON Actualités :</span>
+                        <span id="newsCounter">0 actualités</span>
+                    </h3>
+                    <textarea id="newsJsonOutput" readonly></textarea>
+                </section>
+            </div>
+            
+            <section class="instructions">
+                <h3>📝 Instructions de mise à jour</h3>
+                <ol class="steps">
+                    <li><strong>Pour la presse :</strong> Téléchargez les journaux du jour en JPG/PNG</li>
+                    <li><strong>Pour les actualités :</strong> Ajoutez les nouvelles actualités via le formulaire</li>
+                    <li><strong>Générez</strong> les fichiers JSON correspondants</li>
+                    <li><strong>Téléchargez</strong> les fichiers press.json et news.json</li>
+                    <li><strong>Remplacez</strong> ces fichiers dans votre site GitHub</li>
+                    <li><strong>Vérifiez</strong> que votre site affiche les nouvelles données</li>
+                </ol>
+                
+                <h4 style="margin-top: 20px; color: #00695c;">📂 Structure des fichiers :</h4>
+                <p><strong>press.json</strong> : Contient la liste des journaux avec images, dates et liens</p>
+                <p><strong>news.json</strong> : Contient les actualités avec titres, dates, sources et descriptions</p>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        // Données initiales
+        const PRESS_FILES = [
+            'lesoleil.jpg',
+            'sudquotidien.jpg', 
+            'liberation.jpg',
+            'observateur.jpg',
+            'lequotidien.jpg',
+            'rewmisport.jpg',
+            'soloquotidien.jpg',
+            'yooryoor.jpg',
+            'record.jpg',
+            'enquete.jpg'
+        ];
+
+        // Données d'actualités par défaut
+        let NEWS_DATA = [
+            {
+                id: '1',
+                title: 'Lancement officiel de la plateforme',
+                excerpt: 'La plateforme citoyenne de suivi des engagements est désormais opérationnelle.',
+                date: '25/01/2026',
+                source: 'Le Soleil',
+                category: 'gouvernance',
+                image: 'school',
+                link: '#'
+            },
+            {
+                id: '2',
+                title: 'Première école numérique inaugurée',
+                excerpt: 'Le gouvernement a inauguré la première école entièrement numérique à Dakar.',
+                date: '20/01/2026',
+                source: 'Sud Quotidien',
+                category: 'education',
+                image: 'school',
+                link: '#'
+            },
+            {
+                id: '3',
+                title: 'Budget 2026 axé sur la relance économique',
+                excerpt: 'Le budget de l\'État pour 2026 prévoit d\'importants investissements dans les infrastructures.',
+                date: '15/01/2026',
+                source: 'WalFadjri',
+                category: 'economie',
+                image: 'money',
+                link: '#'
+            }
+        ];
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCurrentDate();
+            setupTabs();
+            loadInitialData();
+        });
+
+        // ==================== GÉNÉRAL ====================
+        
+        function updateCurrentDate() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            document.getElementById('currentDate').textContent = 
+                now.toLocaleDateString('fr-FR', options);
+            
+            // Définir la date du jour par défaut dans le formulaire
+            const today = now.toISOString().split('T')[0];
+            document.getElementById('newsDate').value = today;
+            
+            return now.toLocaleDateString('fr-FR');
+        }
+
+        function setupTabs() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabId = btn.getAttribute('data-tab');
+                    
+                    // Désactiver tous les onglets
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Activer l'onglet sélectionné
+                    btn.classList.add('active');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+        }
+
+        function showNotification(message, type = 'success') {
+            const types = {
+                success: { icon: '✅', bg: '#4CAF50' },
+                error: { icon: '❌', bg: '#f44336' },
+                info: { icon: 'ℹ️', bg: '#2196F3' },
+                warning: { icon: '⚠️', bg: '#FF9800' }
+            };
+            
+            const notif = document.createElement('div');
+            notif.className = 'notification';
+            notif.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                background: ${types[type].bg};
+                color: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                animation: slideIn 0.3s ease;
+                max-width: 400px;
+            `;
+            
+            notif.innerHTML = `
+                <span style="font-size: 1.2rem;">${types[type].icon}</span>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notif);
+            
+            setTimeout(() => {
+                notif.style.animation = 'slideOut 0.3s ease forwards';
+                setTimeout(() => notif.remove(), 300);
+            }, 3000);
+            
+            // Ajouter les animations CSS
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        // ==================== PRESSE ====================
+
+        async function loadInitialData() {
+            // Essayer de charger les données depuis les fichiers JSON
+            await loadExistingData();
+            
+            displayPressFiles();
+            displayNewsList();
+            generatePressJSON();
+            generateNewsJSON();
+        }
+        
+        async function loadExistingData() {
+            // Charger press.json si disponible
+            try {
+                const pressResponse = await fetch('press.json?v=' + Date.now());
+                if (pressResponse.ok) {
+                    const pressData = await pressResponse.json();
+                    if (pressData && pressData.press && Array.isArray(pressData.press)) {
+                        // Extraire les noms de fichiers depuis press.json
+                        const existingFiles = pressData.press.map(item => {
+                            // Extraire le nom du fichier depuis le chemin image
+                            const imagePath = item.image || '';
+                            const fileName = imagePath.split('/').pop();
+                            return fileName;
+                        }).filter(f => f && f.length > 0);
+                        
+                        // Fusionner avec les fichiers existants sans doublons
+                        existingFiles.forEach(file => {
+                            if (!PRESS_FILES.includes(file)) {
+                                PRESS_FILES.push(file);
+                            }
+                        });
+                        
+                    }
+                }
+            } catch (error) {
+            }
+            
+            // Charger news.json si disponible
+            try {
+                const newsResponse = await fetch('news.json?v=' + Date.now());
+                if (newsResponse.ok) {
+                    const newsData = await newsResponse.json();
+                    if (newsData && newsData.news && Array.isArray(newsData.news)) {
+                        // Remplacer NEWS_DATA par les données chargées
+                        NEWS_DATA = newsData.news;
+                    }
+                }
+            } catch (error) {
+            }
+            
+            // Charger depuis localStorage comme backup
+            loadNewsFromLocal();
+        }
+
+        function displayPressFiles() {
+            const filesList = document.getElementById('filesList');
+            if (!filesList) return;
+            
+            filesList.innerHTML = PRESS_FILES.map(file => {
+                const fileSize = Math.floor(Math.random() * 500) + 300; // Simuler taille
+                return `
+                    <div class="file-item">
+                        <div class="file-name">${file}</div>
+                        <div class="file-size">${fileSize} KB</div>
+                        <small>revuedepresse/${file}</small>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function handlePressUpload(event) {
+            const files = event.target.files;
+            const preview = document.getElementById('pressPreview');
+            
+            if (files.length === 0) return;
+            
+            let html = `<p><strong>${files.length} fichier(s) sélectionné(s) :</strong></p><ul>`;
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const size = (file.size / 1024).toFixed(1);
+                html += `<li>${file.name} (${size} KB)</li>`;
+                
+                // Ajouter à la liste des fichiers
+                if (!PRESS_FILES.includes(file.name)) {
+                    PRESS_FILES.push(file.name);
+                }
+            }
+            
+            html += '</ul>';
+            preview.innerHTML = html;
+            
+            // Mettre à jour l'affichage
+            displayPressFiles();
+            
+            showNotification(`${files.length} fichier(s) ajouté(s) à la liste`, 'success');
+        }
+
+        function generatePressJSON() {
+            const today = new Date();
+            const formattedDate = today.toLocaleDateString('fr-FR');
+            
+            const pressData = {
+                last_updated: formattedDate,
+                press: PRESS_FILES.map((file, index) => {
+                    const name = file.replace('.jpg', '').replace('.png', '')
+                        .replace(/_/g, ' ')
+                        .replace(/\b\w/g, l => l.toUpperCase());
+                    
+                    let link = "#";
+                    if (file.includes('lesoleil')) link = 'http://www.lesoleil.sn/';
+                    if (file.includes('sudquotidien')) link = 'http://www.sudonline.sn/';
+                    if (file.includes('liberation')) link = 'http://www.liberation.sn/';
+                    if (file.includes('observateur')) link = 'http://www.observateur.sn/';
+                    if (file.includes('lequotidien')) link = 'http://www.lequotidien.sn/';
+                    
+                    return {
+                        id: (index + 1).toString(),
+                        title: name,
+                        date: formattedDate,
+                        image: `revuedepresse/${file}`,
+                        logo: `images/logos/${file.replace('.jpg', '.png').replace('.png', '.png')}`,
+                        link: link
+                    };
+                })
+            };
+            
+            const jsonOutput = JSON.stringify(pressData, null, 2);
+            document.getElementById('pressJsonOutput').value = jsonOutput;
+            document.getElementById('pressCounter').textContent = `${PRESS_FILES.length} journaux`;
+            
+            return jsonOutput;
+        }
+
+        function downloadPressJSON() {
+            const json = document.getElementById('pressJsonOutput').value;
+            
+            if (!json || json.trim() === '{}') {
+                showNotification('❌ Veuillez d\'abord générer le JSON', 'error');
+                return;
+            }
+            
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'press.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('📥 Fichier press.json téléchargé !', 'success');
+        }
+
+        async function copyPressToClipboard() {
+            const json = document.getElementById('pressJsonOutput').value;
+            
+            if (!json || json.trim() === '{}') {
+                showNotification('❌ Rien à copier', 'error');
+                return;
+            }
+            
+            try {
+                await navigator.clipboard.writeText(json);
+                showNotification('📋 JSON copié dans le presse-papier !', 'success');
+            } catch (err) {
+                const textArea = document.createElement('textarea');
+                textArea.value = json;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('📋 JSON copié (méthode ancienne)', 'success');
+            }
+        }
+
+        // ==================== ACTUALITÉS ====================
+
+        function addNews() {
+            const title = document.getElementById('newsTitle').value.trim();
+            const dateInput = document.getElementById('newsDate').value;
+            const source = document.getElementById('newsSource').value.trim();
+            const excerpt = document.getElementById('newsExcerpt').value.trim();
+            const category = document.getElementById('newsCategory').value;
+            const image = document.getElementById('newsImage').value;
+            const link = document.getElementById('newsLink').value.trim();
+            
+            // Validation
+            if (!title || !excerpt || !dateInput) {
+                showNotification('Veuillez remplir les champs obligatoires', 'error');
+                return;
+            }
+            
+            // Formater la date
+            const dateParts = dateInput.split('-');
+            const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+            
+            // Trouver le plus grand ID existant
+            const maxId = NEWS_DATA.reduce((max, item) => {
+                const numId = parseInt(item.id, 10);
+                return isNaN(numId) ? max : Math.max(max, numId);
+            }, 0);
+            
+            // Créer l'objet actualité avec ID séquentiel
+            const newsItem = {
+                id: (maxId + 1).toString(),
+                title: title,
+                excerpt: excerpt,
+                date: formattedDate,
+                source: source || 'Le Soleil',
+                category: category,
+                image: image,
+                link: link || '#'
+            };
+            
+            // Ajouter en tête de liste
+            NEWS_DATA.unshift(newsItem);
+            
+            // Mettre à jour l'affichage
+            displayNewsList();
+            
+            // Générer le JSON
+            generateNewsJSON();
+            
+            // Sauvegarder localement
+            saveNewsToLocal();
+            
+            // Réinitialiser le formulaire
+            clearNewsForm();
+            
+            showNotification('Actualité ajoutée avec succès !', 'success');
+        }
+
+        function clearNewsForm() {
+            document.getElementById('newsTitle').value = '';
+            document.getElementById('newsExcerpt').value = '';
+            document.getElementById('newsSource').value = '';
+            document.getElementById('newsLink').value = '';
+            document.getElementById('newsCategory').value = 'general';
+            document.getElementById('newsImage').value = 'school';
+            
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('newsDate').value = today;
+        }
+
+        function displayNewsList() {
+            const newsList = document.getElementById('newsList');
+            if (!newsList) return;
+            
+            if (NEWS_DATA.length === 0) {
+                newsList.innerHTML = `
+                    <div class="news-item" style="text-align: center; padding: 40px;">
+                        <i class="fas fa-newspaper" style="font-size: 2rem; color: #ddd; margin-bottom: 10px;"></i>
+                        <p>Aucune actualité pour le moment</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            newsList.innerHTML = NEWS_DATA.map(item => `
+                <div class="news-item" data-id="${item.id}">
+                    <div class="news-header">
+                        <h4 class="news-title">${item.title}</h4>
+                        <span class="news-date">${item.date}</span>
+                    </div>
+                    <div class="news-excerpt">${item.excerpt}</div>
+                    <div class="news-footer">
+                        <div>
+                            <span><i class="fas fa-newspaper"></i> ${item.source}</span>
+                            <span style="margin-left: 15px;">
+                                <i class="fas fa-tag"></i> ${getCategoryLabel(item.category)}
+                            </span>
+                        </div>
+                        <div class="news-actions">
+                            <button class="btn btn-small btn-warning" onclick="editNews('${item.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-small btn-secondary" onclick="deleteNews('${item.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+// Après la fonction displayNewsList() et avant generateNewsJSON()
+
+// ==================== FONCTIONS ACTUALITÉS ====================
+
+function displayNewsList() {
+    // ... code existant ...
+}
+
+// FONCTION POUR AJOUTER UNE ACTUALITÉ
+function addNews() {
+    const title = document.getElementById('newsTitle').value.trim();
+    const dateInput = document.getElementById('newsDate').value;
+    const source = document.getElementById('newsSource').value.trim();
+    const excerpt = document.getElementById('newsExcerpt').value.trim();
+    const content = document.getElementById('newsContent').value.trim();
+    const category = document.getElementById('newsCategory').value;
+    const image = document.getElementById('newsImage').value;
+    const imageUrl = document.getElementById('newsImageUrl').value.trim();
+    const link = document.getElementById('newsLink').value.trim();
+    const author = document.getElementById('newsAuthor').value.trim() || 'Rédaction';
+    const readTime = document.getElementById('newsReadTime').value;
+    
+    // Validation
+    if (!title || !excerpt || !content || !dateInput) {
+        showNotification('Veuillez remplir les champs obligatoires (*)', 'error');
+        return;
+    }
+    
+    // Formater la date (DD/MM/YYYY)
+    const dateParts = dateInput.split('-');
+    const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+    
+    // Créer l'objet actualité avec ID séquentiel
+    const maxId = NEWS_DATA.reduce((max, item) => {
+        const match = item.id.match(/^(\d+)$/);
+        if (match) {
+            const num = parseInt(match[1], 10);
+            return num > max ? num : max;
+        }
+        return max;
+    }, 0);
+    
+    const newsItem = {
+        id: String(maxId + 1),
+        title: title,
+        excerpt: excerpt,
+        content: content,
+        date: formattedDate,
+        source: source || 'Le Soleil',
+        category: category,
+        image: image,
+        image_url: imageUrl || null,
+        link: link || '#',
+        author: author,
+        read_time: readTime,
+        created_at: new Date().toISOString()
+    };
+    
+    // Ajouter en tête de liste
+    NEWS_DATA.unshift(newsItem);
+    
+    // Mettre à jour l'affichage
+    displayNewsList();
+    
+    // Générer le JSON
+    generateNewsJSON();
+    
+    // Sauvegarder localement
+    saveNewsToLocal();
+    
+    // Réinitialiser le formulaire
+    clearNewsForm();
+    
+    showNotification('✅ Actualité ajoutée avec succès !', 'success');
+}
+
+function clearNewsForm() {
+    // Réinitialiser tous les champs du formulaire
+    document.getElementById('newsTitle').value = '';
+    document.getElementById('newsExcerpt').value = '';
+    document.getElementById('newsContent').value = '';
+    document.getElementById('newsSource').value = '';
+    document.getElementById('newsLink').value = '';
+    document.getElementById('newsImageUrl').value = '';
+    document.getElementById('newsAuthor').value = 'Rédaction';
+    document.getElementById('newsCategory').value = 'general';
+    document.getElementById('newsImage').value = 'school';
+    document.getElementById('newsReadTime').value = '3 min';
+    
+    // Date du jour par défaut
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('newsDate').value = today;
+}
+
+function editNews(id) {
+    const newsItem = NEWS_DATA.find(item => item.id === id);
+    if (!newsItem) return;
+    
+    // Remplir le formulaire
+    document.getElementById('newsTitle').value = newsItem.title;
+    document.getElementById('newsExcerpt').value = newsItem.excerpt;
+    document.getElementById('newsContent').value = newsItem.content;
+    document.getElementById('newsSource').value = newsItem.source;
+    document.getElementById('newsLink').value = newsItem.link === '#' ? '' : newsItem.link;
+    document.getElementById('newsImageUrl').value = newsItem.image_url || '';
+    document.getElementById('newsAuthor').value = newsItem.author;
+    document.getElementById('newsCategory').value = newsItem.category;
+    document.getElementById('newsImage').value = newsItem.image;
+    document.getElementById('newsReadTime').value = newsItem.read_time;
+    
+    // Formater la date pour l'input (YYYY-MM-DD)
+    const dateParts = newsItem.date.split('/');
+    const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+    document.getElementById('newsDate').value = formattedDate;
+    
+    // Supprimer l'ancien élément
+    deleteNews(id);
+    
+    showNotification('📝 Modifiez l\'actualité et cliquez sur "Ajouter"', 'info');
+}
+
+function deleteNews(id) {
+    NEWS_DATA = NEWS_DATA.filter(item => item.id !== id);
+    displayNewsList();
+    generateNewsJSON();
+    saveNewsToLocal();
+    showNotification('🗑️ Actualité supprimée', 'warning');
+}
+
+function generateNewsJSON() {
+    const newsData = {
+        last_updated: new Date().toISOString().split('T')[0],
+        news: NEWS_DATA
+    };
+    
+    const jsonOutput = JSON.stringify(newsData, null, 2);
+    document.getElementById('newsJsonOutput').value = jsonOutput;
+    document.getElementById('newsCounter').textContent = `${NEWS_DATA.length} actualité(s)`;
+    
+    return jsonOutput;
+}
+
+// Fonctions de sauvegarde locale
+function saveNewsToLocal() {
+    try {
+        localStorage.setItem('news_backup', JSON.stringify(NEWS_DATA));
+    } catch (error) {
+        window.newsBackup = NEWS_DATA;
+    }
+}
+
+function loadNewsFromLocal() {
+    // Ne charger depuis localStorage que si NEWS_DATA est vide ou contient seulement les données par défaut
+    if (NEWS_DATA.length > 3) {
+        // On a déjà des données (probablement depuis news.json)
+        return;
+    }
+    
+    try {
+        const saved = localStorage.getItem('news_backup');
+        if (saved) {
+            const savedData = JSON.parse(saved);
+            // Fusionner les données sauvegardées avec les données actuelles
+            if (savedData && savedData.length > NEWS_DATA.length) {
+                NEWS_DATA = savedData;
+            }
+        }
+    } catch (error) {
+        if (window.newsBackup && window.newsBackup.length > NEWS_DATA.length) {
+            NEWS_DATA = window.newsBackup;
+        }
+    }
+}
+        function getCategoryLabel(category) {
+            const labels = {
+                'general': 'Général',
+                'education': 'Éducation',
+                'sante': 'Santé',
+                'economie': 'Économie',
+                'infrastructures': 'Infrastructures',
+                'gouvernance': 'Gouvernance',
+                'transparence': 'Transparence',
+                'agriculture': 'Agriculture',
+                'energie': 'Énergie',
+                'environnement': 'Environnement',
+                'emploi': 'Emploi',
+                'jeunesse': 'Jeunesse & Sports',
+                'culture': 'Culture',
+                'securite': 'Sécurité',
+                'justice': 'Justice',
+                'numerique': 'Numérique',
+                'transport': 'Transport',
+                'logement': 'Logement',
+                'social': 'Affaires Sociales',
+                'international': 'Relations Internationales',
+                'autres': 'Autres'
+            };
+            return labels[category] || category;
+        }
+
+        function editNews(id) {
+            const newsItem = NEWS_DATA.find(item => item.id === id);
+            if (!newsItem) return;
+            
+            // Remplir le formulaire
+            document.getElementById('newsTitle').value = newsItem.title;
+            document.getElementById('newsExcerpt').value = newsItem.excerpt;
+            document.getElementById('newsSource').value = newsItem.source;
+            document.getElementById('newsLink').value = newsItem.link === '#' ? '' : newsItem.link;
+            document.getElementById('newsCategory').value = newsItem.category;
+            document.getElementById('newsImage').value = newsItem.image;
+            
+            // Formater la date pour l'input
+            const dateParts = newsItem.date.split('/');
+            const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+            document.getElementById('newsDate').value = formattedDate;
+            
+            // Supprimer l'ancien élément
+            deleteNews(id);
+            
+            showNotification('Modifiez l\'actualité et cliquez sur "Ajouter"', 'info');
+        }
+
+        function deleteNews(id) {
+            NEWS_DATA = NEWS_DATA.filter(item => item.id !== id);
+            displayNewsList();
+            generateNewsJSON();
+            showNotification('Actualité supprimée', 'warning');
+        }
+
+        function generateNewsJSON() {
+            const newsData = {
+                last_updated: new Date().toISOString().split('T')[0],
+                news: NEWS_DATA
+            };
+            
+            const jsonOutput = JSON.stringify(newsData, null, 2);
+            document.getElementById('newsJsonOutput').value = jsonOutput;
+            document.getElementById('newsCounter').textContent = `${NEWS_DATA.length} actualités`;
+            
+            return jsonOutput;
+        }
+
+        function downloadNewsJSON() {
+            const json = document.getElementById('newsJsonOutput').value;
+            
+            if (!json || json.trim() === '{}') {
+                showNotification('❌ Veuillez d\'abord générer le JSON', 'error');
+                return;
+            }
+            
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'news.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('📥 Fichier news.json téléchargé !', 'success');
+        }
+
+        async function copyNewsToClipboard() {
+            const json = document.getElementById('newsJsonOutput').value;
+            
+            if (!json || json.trim() === '{}') {
+                showNotification('❌ Rien à copier', 'error');
+                return;
+            }
+            
+            try {
+                await navigator.clipboard.writeText(json);
+                showNotification('📋 JSON copié dans le presse-papier !', 'success');
+            } catch (err) {
+                const textArea = document.createElement('textarea');
+                textArea.value = json;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showNotification('📋 JSON copié (méthode ancienne)', 'success');
+            }
+        }
+
+        // ==================== UTILITAIRES ====================
+
+        // Fonctions globales
+        window.handlePressUpload = handlePressUpload;
+        window.addNews = addNews;
+        window.clearNewsForm = clearNewsForm;
+        window.editNews = editNews;
+        window.deleteNews = deleteNews;
+        window.generatePressJSON = generatePressJSON;
+        window.generateNewsJSON = generateNewsJSON;
+        window.downloadPressJSON = downloadPressJSON;
+        window.downloadNewsJSON = downloadNewsJSON;
+        window.copyPressToClipboard = copyPressToClipboard;
+        window.copyNewsToClipboard = copyNewsToClipboard;
+
+    </script>
+</body>
+</html>

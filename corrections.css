@@ -1,0 +1,688 @@
+/* ========================================
+   CORRECTIONS CIBLÉES - 3 PROBLÈMES
+   ======================================== */
+
+/* 
+   PROBLÈME 1: MENU MOBILE NE S'OUVRE PAS
+   Solution: CSS corrigé avec les bonnes classes
+*/
+
+@media (max-width: 992px) {
+    /* Assurer que le bouton hamburger est visible et cliquable */
+    .mobile-menu-btn {
+        display: flex !important;
+        z-index: 2002 !important;
+        pointer-events: all !important;
+        cursor: pointer !important;
+    }
+
+    /* Menu caché par défaut */
+    .nav-menu {
+        position: fixed !important;
+        top: 75px !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        background: white !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        padding: 0 !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+        z-index: 1999 !important;
+        border-bottom: 3px solid var(--primary-color) !important;
+        max-height: calc(100vh - 75px) !important;
+        overflow-y: auto !important;
+        margin: 0 !important;
+        gap: 0 !important;
+        
+        /* CACHÉ PAR DÉFAUT */
+        transform: translateX(-100%) !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+
+    /* Menu OUVERT - avec .active OU .show */
+    .nav-menu.active,
+    .nav-menu.show {
+        transform: translateX(0) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* Liens du menu mobile */
+    .nav-link {
+        width: 100% !important;
+        padding: 16px 20px !important;
+        border-bottom: 1px solid #f0f0f0 !important;
+        white-space: normal !important;
+        justify-content: flex-start !important;
+        font-size: 0.95rem !important;
+        gap: 12px !important;
+        display: flex !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+    }
+    
+    .nav-link i {
+        display: inline-flex !important;
+        font-size: 1.1rem !important;
+        width: 20px !important;
+        justify-content: center !important;
+    }
+    
+    .btn-nav-action {
+        width: calc(100% - 40px) !important;
+        margin: 15px 20px !important;
+        text-align: center !important;
+        justify-content: center !important;
+        padding: 14px 20px !important;
+        border-bottom: none !important;
+    }
+}
+
+/* 
+   PROBLÈME 2: DÉCALAGE À DROITE SUR MOBILE
+   Solution: Empêcher tout débordement
+*/
+
+/* Force tout à rester dans la viewport */
+html {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+}
+
+body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    position: relative !important;
+}
+
+/* Sections qui peuvent causer le décalage */
+.daily-promise-section,
+.promises-section,
+.promises-carousel-section {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+}
+
+/* Containers */
+.container {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
+
+/* Grilles de promesses */
+.promises-grid,
+.daily-promise-card,
+.promise-card {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
+
+/* Fix spécifique pour mobile */
+@media (max-width: 992px) {
+    * {
+        max-width: 100vw !important;
+    }
+    
+    .promises-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .promise-card {
+        width: 100% !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    .daily-promise-card {
+        width: 100% !important;
+        padding: 20px 15px !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Container avec padding réduit sur mobile */
+    .container {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    
+    /* Empêcher les images de déborder */
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+
+/* 
+   PROBLÈME 3: ICÔNES DE PARTAGE EN VERT
+   Solution: Forcer les bonnes couleurs
+*/
+
+/* IMPORTANT: Les icônes doivent être BLANCHES */
+.promise-actions .social-btn i {
+    color: white !important;
+    opacity: 1 !important;
+}
+
+/* Facebook - BLEU */
+.promise-actions .social-btn.fb {
+    background: #3b5998 !important;
+}
+
+.promise-actions .social-btn.fb i {
+    color: white !important;
+}
+
+/* Twitter/X - NOIR */
+.promise-actions .social-btn.tw {
+    background: #000000 !important;
+}
+
+.promise-actions .social-btn.tw i {
+    color: white !important;
+}
+
+/* WhatsApp - VERT */
+.promise-actions .social-btn.wa {
+    background: #25d366 !important;
+}
+
+.promise-actions .social-btn.wa i {
+    color: white !important;
+}
+
+/* Effets hover - garder les couleurs */
+.promise-actions .social-btn:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+    opacity: 0.95 !important;
+}
+
+.promise-actions .social-btn.fb:hover {
+    background: #2d4373 !important;
+}
+
+.promise-actions .social-btn.tw:hover {
+    background: #1a1a1a !important;
+}
+
+.promise-actions .social-btn.wa:hover {
+    background: #1ea952 !important;
+}
+
+/* Footer social buttons aussi */
+.footer-social .social-btn.fb {
+    background: #3b5998 !important;
+}
+
+.footer-social .social-btn.tw {
+    background: #000000 !important;
+}
+
+.footer-social .social-btn.wa {
+    background: #25d366 !important;
+}
+
+/* S'assurer que les icônes sont blanches partout */
+.social-btn i.fa-facebook-f,
+.social-btn i.fa-twitter,
+.social-btn i.fa-x-twitter,
+.social-btn i.fa-whatsapp {
+    color: white !important;
+}
+
+/* Style du composant Compteur de diapositive moderne */
+.carousel-counter-widget {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    background: #ffffff !important;
+    border: 1px solid #d6e8dc !important;
+    padding: 0.45rem 0.9rem !important;
+    border-radius: 100px !important;
+    box-shadow: 0 4px 18px rgba(13, 27, 20, 0.08) !important;
+    margin: 1rem auto 2rem auto !important;
+}
+
+.carousel-nav-btn {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    background: #eef6f1 !important;
+    color: #2D5F3F !important;
+    border: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    font-size: 0.85rem !important;
+}
+
+.carousel-nav-btn:hover {
+    background: #2D5F3F !important;
+    color: #ffffff !important;
+    transform: scale(1.08) !important;
+}
+
+.carousel-counter-badge {
+    font-size: 0.85rem !important;
+    color: #0D1B14 !important;
+    font-weight: 600 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+}
+
+.carousel-counter-badge i {
+    color: #2D5F3F !important;
+}
+
+.counter-numbers {
+    background: #2D5F3F !important;
+    color: #ffffff !important;
+    padding: 0.15rem 0.6rem !important;
+    border-radius: 100px !important;
+    font-weight: 700 !important;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.05em !important;
+}
+
+/* Fix strict pour verrouiller la taille des puces .carousel-dot et empêcher tout débordement dans le Hero */
+.carousel-dots {
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin: 1.5rem 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    z-index: 5 !important;
+}
+
+.carousel-dot {
+    width: 10px !important;
+    height: 10px !important;
+    min-width: 10px !important;
+    min-height: 10px !important;
+    max-width: 10px !important;
+    max-height: 10px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    border: none !important;
+    background: rgba(45, 95, 63, 0.3) !important;
+    cursor: pointer !important;
+    flex-shrink: 0 !important;
+    transition: all 0.2s ease !important;
+    box-sizing: border-box !important;
+}
+
+.carousel-dot.active {
+    background: #2D5F3F !important;
+    transform: scale(1.3) !important;
+    box-shadow: 0 0 0 2px rgba(45, 95, 63, 0.2) !important;
+}
+
+/* ── Effet Éclairage 3D Radial (Spotlight) sur Hero ── */
+.hero-section {
+    background: radial-gradient(circle at 75% 30%, #2D5F3F 0%, #1A3D28 70%) !important;
+}
+
+/* ── Carte Duale Institutionnelle (Présidence vs Assemblée) — Design Premium ── */
+.hero-institution-card {
+    background: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 24px !important;
+    padding: 1.25rem !important;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35) !important;
+    max-width: 440px !important;
+    margin: 0 auto !important;
+}
+
+.institution-tabs {
+    display: flex !important;
+    gap: 0.35rem !important;
+    background: #eef5f0 !important;
+    padding: 4px !important;
+    border-radius: 100px !important;
+    margin-bottom: 1rem !important;
+    border: 1px solid #d4e5d9 !important;
+}
+
+.inst-tab {
+    flex: 1 !important;
+    padding: 0.5rem 0.85rem !important;
+    border-radius: 100px !important;
+    border: none !important;
+    background: transparent !important;
+    color: #3e5648 !important;
+    font-weight: 700 !important;
+    font-size: 0.82rem !important;
+    cursor: pointer !important;
+    transition: all 0.25s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.4rem !important;
+}
+
+.inst-tab.active {
+    background: #2D5F3F !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 14px rgba(45, 95, 63, 0.3) !important;
+}
+
+.inst-view {
+    display: none;
+    animation: fadeInTab 0.35s ease;
+}
+
+.inst-view.active {
+    display: block !important;
+}
+
+@keyframes fadeInTab {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-image-frame {
+    position: relative !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+    background: #1A3D28 !important;
+}
+
+.hero-image-frame img {
+    width: 100% !important;
+    height: 300px !important;
+    object-fit: cover !important;
+    object-position: top center !important;
+    display: block !important;
+}
+
+.hero-image-badge.presidence-badge {
+    background: #2D5F3F !important;
+    color: #ffffff !important;
+}
+
+.hero-image-badge.assemblee-badge {
+    background: #B23A3A !important;
+    color: #ffffff !important;
+}
+
+.hero-image-badge {
+    position: absolute !important;
+    top: 12px !important;
+    right: 12px !important;
+    font-size: 0.72rem !important;
+    font-weight: 800 !important;
+    padding: 0.35rem 0.85rem !important;
+    border-radius: 100px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25) !important;
+    z-index: 2 !important;
+}
+
+.hero-image-ref {
+    position: absolute !important;
+    bottom: 12px !important;
+    left: 12px !important;
+    background: rgba(13, 27, 20, 0.85) !important;
+    color: #ffffff !important;
+    backdrop-filter: blur(8px) !important;
+    padding: 0.35rem 0.85rem !important;
+    border-radius: 100px !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    z-index: 2 !important;
+}
+
+.inst-quote-box {
+    margin-top: 1rem !important;
+    padding: 0.9rem 1.1rem !important;
+    background: #f4f8f5 !important;
+    border-left: 4px solid #2D5F3F !important;
+    border-radius: 10px !important;
+}
+
+.inst-quote-tag {
+    font-size: 0.7rem !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    color: #2D5F3F !important;
+    display: block !important;
+    margin-bottom: 0.3rem !important;
+}
+
+.inst-quote-text {
+    font-size: 0.85rem !important;
+    color: #1A1A1A !important;
+    font-style: italic !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+}
+
+/* ── Lightbox Plein Écran pour Revue de Presse ── */
+.carousel-image-container {
+    position: relative !important;
+    display: inline-block !important;
+    max-width: 100% !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+}
+
+.press-lightbox-hint {
+    position: absolute !important;
+    bottom: 12px !important;
+    right: 12px !important;
+    background: rgba(13, 27, 20, 0.9) !important;
+    color: #ffffff !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    padding: 0.4rem 0.85rem !important;
+    border-radius: 100px !important;
+    backdrop-filter: blur(6px) !important;
+    pointer-events: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    white-space: nowrap !important;
+    gap: 0.4rem !important;
+    z-index: 10 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.carousel-image-container:hover .press-lightbox-hint {
+    background: #2D5F3F !important;
+}
+
+/* ── Lightbox Plein Écran Revue de Presse ── */
+.press-lightbox-modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 999999 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: rgba(0, 0, 0, 0.92) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.lightbox-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 1 !important;
+    cursor: zoom-out !important;
+}
+
+.lightbox-title-badge {
+    position: fixed !important;
+    top: 20px !important;
+    left: 25px !important;
+    z-index: 1000000 !important;
+    background: rgba(13, 27, 20, 0.9) !important;
+    color: #ffffff !important;
+    padding: 0.65rem 1.4rem !important;
+    border-radius: 100px !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+}
+
+.lightbox-close-btn {
+    position: fixed !important;
+    top: 20px !important;
+    right: 25px !important;
+    z-index: 1000000 !important;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% !important;
+    background: #e11d48 !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+    font-size: 1.4rem !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 10px 30px rgba(225, 29, 72, 0.5) !important;
+    transition: transform 0.2s ease, background-color 0.2s ease !important;
+    pointer-events: auto !important;
+}
+
+.lightbox-close-btn:hover {
+    transform: scale(1.1) rotate(90deg) !important;
+    background: #be123c !important;
+}
+
+.lightbox-body {
+    position: relative !important;
+    z-index: 2 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 2rem !important;
+    box-sizing: border-box !important;
+    cursor: zoom-out !important;
+}
+
+.lightbox-img {
+    max-width: 95vw !important;
+    max-height: 92vh !important;
+    object-fit: contain !important;
+    border-radius: 12px !important;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    cursor: default !important;
+}
+
+.lightbox-esc-hint {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 1000000 !important;
+    background: rgba(0, 0, 0, 0.75) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 0.78rem !important;
+    padding: 0.4rem 1.1rem !important;
+    border-radius: 100px !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    pointer-events: none !important;
+}
+
+.lightbox-esc-hint kbd {
+    background: rgba(255, 255, 255, 0.2) !important;
+    padding: 1px 6px !important;
+    border-radius: 4px !important;
+    font-weight: 700 !important;
+}
+
+/* ── Améliorations de Disposition & Alignement du Hero ── */
+.hero-section {
+    display: flex !important;
+    align-items: center !important;
+    min-height: 80vh !important;
+    padding: 3.5rem 0 !important;
+}
+
+.hero-actions {
+    display: flex !important;
+    gap: 1rem !important;
+    align-items: center !important;
+    margin-bottom: 2rem !important;
+    flex-wrap: wrap !important;
+}
+
+.hero-countdown {
+    background: rgba(13, 27, 20, 0.45) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 20px !important;
+    padding: 1.25rem 1.5rem !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25) !important;
+    margin-top: 1rem !important;
+}
+
+/* Positionnement propre de la bannière PWA pour ne pas chevaucher le Hero */
+#pwaBanner, .pwa-banner {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 9999 !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+    max-width: 90vw !important;
+}
+
+/* ── Alignement Parfait du Tableau de Bord (12 Cartes = 2 Lignes de 6 Cartes) ── */
+.stat-presidence .stat-icon { background: #eef6f1 !important; color: #2D5F3F !important; }
+.stat-assemblee  .stat-icon { background: #fff1f2 !important; color: #B23A3A !important; }
+
+@media (min-width: 1200px) {
+    .stats-grid {
+        display: grid !important;
+        grid-template-columns: repeat(6, 1fr) !important;
+        gap: 1rem !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .stats-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 1rem !important;
+    }
+}
+
+/* ========================================
+   FIN DES CORRECTIONS
+   ======================================== */

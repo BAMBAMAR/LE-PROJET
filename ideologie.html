@@ -1,0 +1,2816 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Idéologie PASTEF — Solutions pour un Sénégal Nouveau | ProjetBI</title>
+  <meta name="description" content="L'idéologie PASTEF décryptée depuis le livre Solutions d'Ousmane Sonko. Comparaisons, schémas, engagements.">
+  <meta name="theme-color" content="#2D5F3F">
+  <link rel="icon" href="https://projetbi.org/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="design-system.css">
+
+  <style>
+    :root {
+      --g: #2D5F3F;
+      --g-light: #3E7F55;
+      --g-dark: #1F4530;
+      --r: #B23A3A;
+      --gold: #C9A84C;
+      --gold-light: #E8C96D;
+      --ink: #0D1B14;
+      --cream: #F9F6EF;
+      --border: #e0e0e0;
+      --shadow: 0 8px 40px rgba(0,0,0,0.10);
+      --ff-title: 'Crimson Pro', Georgia, serif;
+      --ff-body: 'Inter', sans-serif;
+      --ff-display: 'Bebas Neue', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 120px; overflow-x: hidden; }
+    body {
+      font-family: var(--ff-body);
+      background: #fafbfc;
+      color: #1a1a1a;
+      overflow-x: hidden;
+    }
+
+    /* ═══════════════ NAV (identique à index) ═══════════════ */
+    @media (max-width: 768px) {
+        * { max-width: 100%; box-sizing: border-box; }
+        .nav-links {
+            display: none !important;
+            position: fixed !important;
+            top: 56px !important; left: 0 !important; right: 0 !important;
+            height: calc(100dvh - 56px) !important;
+            background: white !important;
+            flex-direction: column !important;
+            padding: 1.5rem !important;
+            gap: .25rem !important;
+            overflow-y: auto !important;
+            z-index: 998 !important;
+            border-top: 3px solid #2D5F3F !important;
+            box-shadow: 0 8px 40px rgba(0,0,0,.18) !important;
+        }
+        .nav-links.open, .nav-links.active, .nav-links.show { display: flex !important; }
+        .nav-links a, .modern-link {
+            font-size: 1.05rem !important; padding: .85rem 1.1rem !important;
+            border-radius: 10px !important; color: #0D1B14 !important;
+            font-weight: 600 !important; border-bottom: 1px solid #eee !important;
+            display: block !important; width: 100% !important;
+        }
+    }
+
+    /* ═══════════════ HERO ═══════════════ */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--g-dark) 0%, var(--g) 50%, #1a3a28 100%);
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 4rem;
+      padding: 120px 8% 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-text { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(201,168,76,0.2); border: 1px solid var(--gold);
+      color: var(--gold-light); padding: .4rem 1rem;
+      border-radius: 50px; font-size: .8rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .1em; margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: var(--ff-title); font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800; line-height: 1.1; color: #fff; margin-bottom: 1.5rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--gold-light); }
+    .hero-sub {
+      font-size: 1.1rem; color: rgba(255,255,255,0.80); line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+    .hero-quote {
+      background: rgba(255,255,255,0.07); border-left: 4px solid var(--gold);
+      padding: 1rem 1.5rem; border-radius: 0 8px 8px 0;
+      font-family: var(--ff-title); font-style: italic; font-size: 1.15rem;
+      color: rgba(255,255,255,0.90); line-height: 1.5;
+    }
+    .hero-quote cite { display: block; font-style: normal; font-size: .8rem; color: var(--gold-light); margin-top: .5rem; font-family: var(--ff-body); font-weight: 600; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+    .btn-gold {
+      background: var(--gold); color: var(--ink); padding: .75rem 1.8rem;
+      border-radius: 8px; font-weight: 700; font-size: .95rem;
+      text-decoration: none; display: inline-flex; align-items: center; gap: .5rem;
+      transition: all .2s; border: 2px solid var(--gold);
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(201,168,76,0.35); }
+    .btn-outline {
+      background: transparent; color: #fff; padding: .75rem 1.8rem;
+      border-radius: 8px; font-weight: 600; font-size: .95rem;
+      text-decoration: none; display: inline-flex; align-items: center; gap: .5rem;
+      border: 2px solid rgba(255,255,255,0.4); transition: all .2s;
+    }
+    .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+    /* BOOK VISUAL */
+    .hero-book { position: relative; z-index: 1; display: flex; justify-content: center; }
+    .book-card {
+      background: linear-gradient(160deg, #0d1b14 0%, #1f4530 60%, #0d1b14 100%);
+      border-radius: 4px 18px 18px 4px;
+      width: 260px; height: 370px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-end;
+      padding: 2rem 1.5rem;
+      box-shadow: -8px 8px 40px rgba(0,0,0,0.6), 8px 0 0 #0d1b14 inset, -2px 0 8px rgba(0,0,0,0.4) inset;
+      position: relative; overflow: hidden;
+    }
+    .book-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 60%; 
+      background: radial-gradient(ellipse at 50% -20%, rgba(45,95,63,0.6) 0%, transparent 70%);
+    }
+    .book-face-icon {
+      position: absolute; top: 1.5rem; left: 50%; transform: translateX(-50%);
+      width: 100px; height: 130px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 100%);
+      border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem; color: rgba(255,255,255,0.08);
+    }
+    .book-author { color: rgba(255,255,255,0.7); font-size: .8rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem; position: relative; }
+    .book-title { font-family: var(--ff-display); font-size: 3.2rem; color: var(--gold); letter-spacing: .05em; line-height: 1; position: relative; }
+    .book-subtitle { color: rgba(255,255,255,0.6); font-size: .75rem; margin-top: .3rem; letter-spacing: .05em; position: relative; }
+    .book-spine {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 24px;
+      background: linear-gradient(90deg, #0a1208, #1a3020);
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 4px 0 0 4px;
+    }
+    .book-spine span { 
+      writing-mode: vertical-rl; transform: rotate(180deg); 
+      font-size: .6rem; color: rgba(255,255,255,0.4); letter-spacing: .1em;
+    }
+    .book-glow {
+      position: absolute; width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(201,168,76,0.3) 0%, transparent 70%);
+      bottom: -50px; right: -50px; pointer-events: none;
+    }
+
+    /* ═══════════════ SECTIONS ═══════════════ */
+    section { padding: 80px 8%; }
+    .section-header { text-align: center; max-width: 700px; margin: 0 auto 3.5rem; }
+    .section-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(45,95,63,0.1); border: 1px solid rgba(45,95,63,0.3);
+      color: var(--g); padding: .35rem .9rem; border-radius: 50px;
+      font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--ff-title); font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800; line-height: 1.2; color: var(--ink); margin-bottom: 1rem;
+    }
+    .section-title em { font-style: italic; color: var(--g); }
+    .section-desc { color: #5a5a5a; line-height: 1.7; font-size: 1rem; }
+
+    /* ═══════════════ LE SYSTÈME ═══════════════ */
+    .systeme-section { background: #fff; }
+    .pieuvre-diagram {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center; gap: 2rem;
+    }
+    .pieuvre-center {
+      background: linear-gradient(135deg, #8B2C2C, var(--r));
+      border-radius: 50%; width: 180px; height: 180px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      box-shadow: 0 0 60px rgba(178,58,58,0.4);
+      text-align: center; padding: 1rem; position: relative;
+      z-index: 2;
+    }
+    .pieuvre-center .icon { font-size: 2rem; color: rgba(255,255,255,0.9); margin-bottom: .4rem; }
+    .pieuvre-center h3 { font-family: var(--ff-title); font-size: 1rem; font-weight: 800; color: #fff; line-height: 1.2; }
+    .pieuvre-center p { font-size: .68rem; color: rgba(255,255,255,0.75); margin-top: .2rem; }
+    .tentacles { display: flex; flex-direction: column; gap: 1rem; }
+    .tentacle {
+      background: #fff; border: 2px solid #f0e0e0;
+      border-left: 4px solid var(--r); border-radius: 8px;
+      padding: .75rem 1rem; display: flex; align-items: center; gap: .75rem;
+      transition: all .25s; cursor: default;
+    }
+    .tentacle:hover { border-color: var(--r); box-shadow: 0 4px 20px rgba(178,58,58,0.15); transform: translateX(-4px); }
+    .tentacle.right:hover { transform: translateX(4px); }
+    .tentacle.right { border-left: none; border-right: 4px solid var(--r); text-align: right; flex-direction: row-reverse; }
+    .tentacle-icon { width: 40px; height: 40px; min-width: 40px; background: rgba(178,58,58,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--r); font-size: 1.1rem; }
+    .tentacle h4 { font-weight: 700; font-size: .9rem; color: #1a1a1a; }
+    .tentacle p { font-size: .78rem; color: #777; line-height: 1.4; }
+
+    /* CONNECTOR LINES */
+    .pieuvre-lines { position: relative; width: 60px; height: 100%; }
+
+    /* ═══════════════ COMPARAISON ═══════════════ */
+    .compare-section { background: var(--cream); }
+    .compare-grid { display: grid; gap: 1.5rem; }
+    .compare-row {
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: stretch; gap: 0; border-radius: 16px; overflow: visible;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    /* Inner wrapper clips visually but not children that overflow (panel) */
+    .compare-row-inner-clip {
+      display: contents;
+    }
+    .compare-topic {
+      background: linear-gradient(135deg, var(--g-dark), var(--g));
+      color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 1.5rem 1rem; gap: .5rem; min-width: 100px;
+      text-align: center;
+    }
+    .compare-topic i { font-size: 1.5rem; color: var(--gold-light); }
+    .compare-topic span { font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; }
+    .compare-bad {
+      background: #fff; padding: 1.5rem; border-left: 4px solid var(--r);
+      flex: 1; border-radius: 16px 0 0 16px;
+    }
+    .compare-good {
+      background: #fff; padding: 1.5rem; border-right: 4px solid var(--g);
+      flex: 1; border-radius: 0 16px 16px 0;
+    }
+    .compare-bad .label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--r); margin-bottom: .5rem; display: flex; align-items: center; gap: .3rem; }
+    .compare-good .label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--g); margin-bottom: .5rem; display: flex; align-items: center; gap: .3rem; }
+    .compare-bad h4, .compare-good h4 { font-weight: 700; font-size: 1rem; color: #1a1a1a; margin-bottom: .4rem; }
+    .compare-bad p, .compare-good p { font-size: .875rem; color: #555; line-height: 1.6; }
+    .compare-bad { order: -1; }
+    @media (max-width: 768px) {
+      .compare-row { grid-template-columns: 1fr; }
+      .compare-bad { order: 0; border-left: none; border-top: 4px solid var(--r); border-radius: 12px 12px 0 0; }
+      .compare-good { border-right: none; border-bottom: 4px solid var(--g); border-radius: 0 0 12px 12px; }
+      .compare-topic { border-radius: 0; }
+    }
+
+    /* ═══════════════ PILIERS ═══════════════ */
+    .pillars-section { background: #fff; }
+    .pillars-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+    }
+    .pillar-card {
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      transition: all .3s;
+      background: #fff;
+      border: 1px solid rgba(45,95,63,0.12);
+    }
+    .pillar-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,0.14); }
+    .pillar-header {
+      padding: 1.8rem 1.5rem 1rem;
+      background: linear-gradient(135deg, var(--g-dark), var(--g));
+      color: #fff; position: relative; overflow: hidden;
+    }
+    .pillar-header::after {
+      content: attr(data-num);
+      position: absolute; right: 1rem; bottom: -1rem;
+      font-family: var(--ff-display); font-size: 6rem; color: rgba(255,255,255,0.07);
+      line-height: 1; pointer-events: none;
+    }
+    .pillar-header i { font-size: 2rem; color: var(--gold-light); margin-bottom: .75rem; display: block; }
+    .pillar-header h3 { font-family: var(--ff-title); font-size: 1.3rem; font-weight: 800; line-height: 1.2; }
+    .pillar-header .pillar-sub { font-size: .8rem; color: rgba(255,255,255,0.7); margin-top: .25rem; }
+    .pillar-body { padding: 1.5rem; }
+    .pillar-body p { font-size: .9rem; color: #555; line-height: 1.7; margin-bottom: 1rem; }
+    .pillar-actions { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .pillar-actions li {
+      display: flex; align-items: flex-start; gap: .6rem;
+      font-size: .85rem; color: #333; line-height: 1.5;
+    }
+    .pillar-actions li::before {
+      content: '✓'; color: var(--g); font-weight: 800; font-size: .9rem;
+      margin-top: .05rem; flex-shrink: 0;
+    }
+
+    /* ═══════════════ TIMELINE PASTEF ═══════════════ */
+    .timeline-section { background: linear-gradient(180deg, var(--g-dark) 0%, #0d1b14 100%); }
+    .timeline-section .section-title { color: #fff; }
+    .timeline-section .section-desc { color: rgba(255,255,255,0.65); }
+    .timeline-section .section-badge { background: rgba(201,168,76,0.15); color: var(--gold-light); border-color: rgba(201,168,76,0.3); }
+    .timeline {
+      position: relative; max-width: 800px; margin: 0 auto;
+      padding: 0 1rem;
+    }
+    .timeline::before {
+      content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(180deg, var(--gold), transparent);
+      transform: translateX(-50%);
+    }
+    .timeline-item {
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      gap: 1.5rem; margin-bottom: 2.5rem; align-items: center;
+    }
+    .timeline-item:nth-child(odd) .timeline-content { grid-column: 1; text-align: right; }
+    .timeline-item:nth-child(odd) .timeline-content { order: -1; }
+    .timeline-item:nth-child(even) .timeline-content { grid-column: 3; }
+    .timeline-dot {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; z-index: 1;
+      box-shadow: 0 0 0 6px rgba(201,168,76,0.15), 0 0 0 12px rgba(201,168,76,0.06);
+      font-family: var(--ff-display); font-size: 1rem; color: var(--ink); font-weight: 700;
+    }
+    .timeline-content {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 1.25rem 1.5rem;
+      backdrop-filter: blur(8px);
+    }
+    .timeline-year { font-size: .72rem; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: .1em; margin-bottom: .35rem; }
+    .timeline-content h4 { font-family: var(--ff-title); font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: .4rem; line-height: 1.3; }
+    .timeline-content p { font-size: .82rem; color: rgba(255,255,255,0.65); line-height: 1.5; }
+    @media (max-width: 640px) {
+      .timeline::before { left: 26px; }
+      .timeline-item { grid-template-columns: auto 1fr; }
+      .timeline-item:nth-child(odd) .timeline-content { grid-column: 2; text-align: left; order: 0; }
+      .timeline-item:nth-child(even) .timeline-content { grid-column: 2; }
+    }
+
+    /* ═══════════════ QUOTES ═══════════════ */
+    .quotes-section { background: var(--cream); }
+    .quotes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .quote-card {
+      background: #fff; border-radius: 16px; padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      border-top: 4px solid var(--g);
+      position: relative; transition: all .3s;
+    }
+    .quote-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+    .quote-icon { font-size: 3rem; color: rgba(45,95,63,0.12); line-height: 1; font-family: Georgia; margin-bottom: .5rem; }
+    .quote-text { font-family: var(--ff-title); font-size: 1.1rem; font-style: italic; color: #1a1a1a; line-height: 1.6; margin-bottom: 1rem; }
+    .quote-chapter { font-size: .75rem; font-weight: 700; color: var(--g); text-transform: uppercase; letter-spacing: .1em; display: flex; align-items: center; gap: .4rem; }
+    .quote-chapter::before { content: ''; display: block; width: 24px; height: 2px; background: var(--gold); }
+
+    /* ═══════════════ STATS ═══════════════ */
+    .stats-section {
+      background: linear-gradient(135deg, var(--g), var(--g-light));
+      padding: 60px 8%;
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2rem; max-width: 900px; margin: 0 auto; text-align: center; }
+    .stat-item { }
+    .stat-num { font-family: var(--ff-display); font-size: 3.5rem; color: var(--gold-light); line-height: 1; }
+    .stat-label { font-size: .85rem; color: rgba(255,255,255,0.75); margin-top: .5rem; line-height: 1.4; font-weight: 500; }
+
+    /* ═══════════════ JUB JUBAL ═══════════════ */
+    .jubanti-section { background: #fff; text-align: center; padding: 80px 8%; }
+    .jubanti-trio { display: flex; justify-content: center; gap: 0; flex-wrap: wrap; max-width: 700px; margin: 0 auto 2rem; }
+    .jubanti-item {
+      flex: 1; min-width: 200px; padding: 2.5rem 1.5rem;
+      position: relative;
+    }
+    .jubanti-item:nth-child(2) {
+      background: linear-gradient(180deg, var(--g-dark), var(--g));
+      border-radius: 120px 120px 0 0;
+      margin-top: -20px;
+    }
+    .jubanti-item:nth-child(1), .jubanti-item:nth-child(3) {
+      background: rgba(45,95,63,0.06);
+      border-radius: 12px;
+    }
+    .jubanti-word {
+      font-family: var(--ff-display); font-size: 2.2rem; letter-spacing: .05em;
+      margin-bottom: .4rem;
+    }
+    .jubanti-item:nth-child(2) .jubanti-word { color: var(--gold-light); }
+    .jubanti-item:nth-child(1) .jubanti-word, .jubanti-item:nth-child(3) .jubanti-word { color: var(--g); }
+    .jubanti-def { font-size: .9rem; color: #555; line-height: 1.5; }
+    .jubanti-item:nth-child(2) .jubanti-def { color: rgba(255,255,255,0.8); }
+    .jubanti-connect { display: flex; justify-content: center; margin-bottom: 2rem; }
+    .jubanti-connect p { font-family: var(--ff-title); font-style: italic; font-size: 1.15rem; color: #5a5a5a; max-width: 500px; text-align: center; }
+
+    /* ═══════════════ SCHEMA ÉCONOMIQUE ═══════════════ */
+    .schema-section { background: var(--cream); }
+    .schema-container { max-width: 900px; margin: 0 auto; }
+    .schema-flow {
+      display: flex; align-items: stretch; gap: 0;
+      background: #fff; border-radius: 20px; overflow: hidden;
+      box-shadow: var(--shadow); flex-wrap: wrap;
+    }
+    .schema-step {
+      flex: 1; min-width: 160px; padding: 2rem 1.2rem;
+      text-align: center; position: relative;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      gap: .6rem;
+    }
+    .schema-step:not(:last-child)::after {
+      content: '→';
+      position: absolute; right: -12px; top: 50%; transform: translateY(-50%);
+      font-size: 1.5rem; color: var(--g); z-index: 2; font-weight: 700;
+    }
+    @media (max-width: 600px) { .schema-step:not(:last-child)::after { display: none; } }
+    .schema-step:nth-child(1) { background: rgba(45,95,63,0.05); }
+    .schema-step:nth-child(2) { background: rgba(45,95,63,0.1); }
+    .schema-step:nth-child(3) { background: rgba(45,95,63,0.17); }
+    .schema-step:nth-child(4) { background: var(--g); }
+    .schema-step:nth-child(4) h4, .schema-step:nth-child(4) p { color: #fff; }
+    .schema-step:nth-child(4) i { color: var(--gold-light); }
+    .schema-step i { font-size: 2rem; color: var(--g); }
+    .schema-step h4 { font-weight: 700; font-size: .95rem; color: var(--ink); line-height: 1.3; }
+    .schema-step p { font-size: .78rem; color: #666; line-height: 1.4; }
+    .schema-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--g); background: rgba(45,95,63,0.12); padding: .2rem .6rem; border-radius: 50px; }
+    .schema-step:nth-child(4) .schema-label { background: rgba(201,168,76,0.25); color: var(--gold-light); }
+
+    /* ═══════════════ FOOTER ═══════════════ */
+    .page-footer {
+      background: var(--ink); color: rgba(255,255,255,0.6);
+      text-align: center; padding: 2.5rem 8%;
+      font-size: .85rem;
+    }
+    .page-footer a { color: var(--gold); text-decoration: none; }
+    .page-footer strong { color: #fff; }
+
+    /* ═══════════════ ANIMATIONS ═══════════════ */
+    [data-reveal] { opacity: 0; transform: translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+    [data-reveal].revealed { opacity: 1; transform: translateY(0); }
+
+    /* SCROLL TOC */
+    .toc-sticky {
+      position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: .5rem; z-index: 500;
+    }
+    @media (max-width: 1200px) { .toc-sticky { display: none; } }
+    .toc-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: rgba(45,95,63,0.25); border: 2px solid rgba(45,95,63,0.4);
+      cursor: pointer; transition: all .2s; position: relative;
+    }
+    .toc-dot:hover, .toc-dot.active { background: var(--g); border-color: var(--g); transform: scale(1.4); }
+    .toc-dot .toc-label {
+      position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+      background: var(--g); color: #fff; padding: .2rem .6rem; border-radius: 4px;
+      font-size: .7rem; white-space: nowrap; opacity: 0; pointer-events: none;
+      transition: opacity .2s;
+    }
+    .toc-dot:hover .toc-label { opacity: 1; }
+
+    /* TOC MOBILE (sheet) */
+    #tocMobileBtn {
+      display: none; position: fixed; right: 1rem; bottom: 5.5rem; z-index: 501;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--g); color: #fff; border: none; cursor: pointer;
+      align-items: center; justify-content: center; box-shadow: var(--shadow);
+    }
+    @media (max-width: 1200px) { #tocMobileBtn { display: flex; } }
+
+    #tocMobileSheet {
+      position: fixed; right: 1rem; bottom: 9rem; z-index: 501;
+      background: var(--g-dark); border-radius: 12px; box-shadow: var(--shadow);
+      max-height: 60vh; overflow-y: auto; min-width: 220px;
+      transform: translateY(10px); opacity: 0; pointer-events: none;
+      transition: opacity .2s, transform .2s;
+      display: flex; flex-direction: column; padding: .5rem 0;
+    }
+    #tocMobileSheet.open { opacity: 1; pointer-events: auto; transform: none; }
+    #tocMobileSheet a {
+      font-family: var(--ff-body); color: #fff; padding: .65rem 1.2rem;
+      text-decoration: none; font-size: .9rem; border-left: 3px solid transparent;
+    }
+    #tocMobileSheet a.active { color: var(--gold-light); border-left-color: var(--gold); background: rgba(255,255,255,0.06); }
+    @media (max-width: 480px) { #tocMobileSheet { left: 1rem; right: 1rem; min-width: 0; } }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE MOBILE — optimisation complète
+       ═══════════════════════════════════════════ */
+
+    /* ── Sections : padding réduit ── */
+    @media (max-width: 768px) {
+      html { scroll-padding-top: 70px; }
+      section { padding: 48px 1.1rem; }
+      .section-header { margin-bottom: 2rem; }
+      .section-title { font-size: 1.55rem; }
+
+      /* ── HERO : empilement texte puis livre ── */
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 90px 1.2rem 48px;
+        gap: 2rem;
+        min-height: auto;
+      }
+      .hero h1 { font-size: clamp(1.9rem, 7vw, 2.6rem); }
+      .hero-sub { font-size: .95rem; }
+      .hero-quote { font-size: 1rem; padding: .85rem 1rem; }
+      .hero-cta { flex-direction: column; gap: .75rem; }
+      .btn-gold, .btn-outline {
+        width: 100%; justify-content: center;
+        padding: .85rem 1.2rem; font-size: .9rem;
+      }
+      /* Livre : centré, taille réduite */
+      .hero-book { justify-content: center; }
+      .book-card { width: 180px; height: 260px; padding: 1.5rem 1rem; }
+      .book-title { font-size: 2.2rem; }
+      .hero-badge { font-size: .72rem; }
+
+      /* ── STATS ── */
+      .stats-section { padding: 36px 1.1rem; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+      .stat-num { font-size: 2.5rem; }
+      .stat-label { font-size: .78rem; }
+
+      /* ── PIEUVRE DIAGRAM : colonne unique ── */
+      .pieuvre-diagram {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+      .pieuvre-center {
+        width: 140px; height: 140px;
+        margin: 0 auto;
+        font-size: .9rem;
+      }
+      .pieuvre-center .icon { font-size: 1.6rem; }
+      .pieuvre-center h3 { font-size: .85rem; }
+      /* Tentacules droits : revenir au style gauche */
+      .tentacle.right {
+        border-left: 4px solid var(--r);
+        border-right: none;
+        text-align: left;
+        flex-direction: row;
+      }
+      .tentacle.right:hover { transform: translateX(-4px); }
+      .tentacle-icon { width: 36px; height: 36px; min-width: 36px; font-size: .95rem; }
+      .tentacle h4 { font-size: .82rem; }
+      .tentacle p { font-size: .74rem; }
+
+      /* ── COMPARAISON ── */
+      .compare-section { padding: 48px 1.1rem; }
+      .compare-grid { gap: 1rem; }
+      .compare-row {
+        grid-template-columns: 1fr;
+        border-radius: 12px;
+      }
+      .compare-bad { order: 0; border-left: none; border-top: 4px solid var(--r); }
+      .compare-good { border-right: none; border-bottom: 4px solid var(--g); }
+      .compare-topic {
+        padding: 1rem;
+        flex-direction: row;
+        justify-content: center;
+        gap: .75rem;
+      }
+      .compare-topic i { font-size: 1.2rem; }
+      .compare-bad h4, .compare-good h4 { font-size: .9rem; }
+      .compare-bad p, .compare-good p { font-size: .82rem; }
+      .compare-bad, .compare-good { padding: 1rem 1.1rem; }
+
+      /* ── PILIERS ── */
+      .pillars-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .pillar-header { padding: 1.4rem 1.2rem .8rem; }
+      .pillar-header h3 { font-size: 1.1rem; }
+      .pillar-body { padding: 1.1rem; }
+      .pillar-body p { font-size: .85rem; margin-bottom: .75rem; }
+      .pillar-actions li { font-size: .82rem; }
+
+      /* ── SCHÉMA ÉCONOMIQUE : vertical ── */
+      .schema-flow { flex-direction: column; border-radius: 14px; }
+      .schema-step {
+        min-width: auto;
+        padding: 1.4rem 1.2rem;
+        border-bottom: 1px solid rgba(45,95,63,0.1);
+      }
+      .schema-step:last-child { border-bottom: none; }
+      .schema-step:not(:last-child)::after {
+        content: '↓';
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: -14px;
+        transform: translateX(-50%);
+        font-size: 1.2rem;
+      }
+      .schema-step i { font-size: 1.6rem; }
+      .schema-step h4 { font-size: .88rem; }
+      .schema-step p { font-size: .76rem; }
+
+      /* ── JUB JUBAL JUBANTI ── */
+      .jubanti-section { padding: 48px 1.1rem; }
+      .jubanti-trio {
+        flex-direction: column;
+        gap: .75rem;
+        align-items: stretch;
+      }
+      .jubanti-item {
+        min-width: auto;
+        padding: 1.5rem 1.2rem;
+      }
+      .jubanti-item:nth-child(2) {
+        border-radius: 16px;
+        margin-top: 0;
+      }
+      .jubanti-word { font-size: 1.7rem; }
+      .jubanti-def { font-size: .85rem; }
+
+      /* ── TIMELINE ── */
+      .timeline::before { left: 20px; }
+      .timeline-item {
+        grid-template-columns: auto 1fr;
+        gap: 1rem;
+        margin-bottom: 1.75rem;
+      }
+      .timeline-item:nth-child(odd) .timeline-content { grid-column: 2; text-align: left; order: 0; }
+      .timeline-item:nth-child(even) .timeline-content { grid-column: 2; }
+      .timeline-dot { width: 40px; height: 40px; font-size: .8rem; }
+      .timeline-content { padding: 1rem 1.1rem; }
+      .timeline-content h4 { font-size: .95rem; }
+      .timeline-content p { font-size: .78rem; }
+
+      /* ── QUOTES ── */
+      .quotes-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .quote-card { padding: 1.4rem 1.2rem; }
+      .quote-icon { font-size: 1.8rem; }
+      .quote-text { font-size: .95rem; }
+
+      /* ── ENGAGEMENTS ── */
+      .eng-grid { grid-template-columns: 1fr; gap: .85rem; }
+      .eng-body h4 { font-size: .92rem; }
+      .eng-body p { font-size: .82rem; }
+
+      /* ── FILTRES ENGAGEMENTS ── */
+      .eng-filters-wrap {
+        display: flex; flex-wrap: wrap; gap: .5rem;
+        justify-content: flex-start;
+        overflow-x: auto; padding-bottom: .5rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .eng-filter { font-size: .76rem; padding: .4rem .85rem; }
+
+      /* ── FOOTER texte ── */
+      .footer-brand-row { flex-direction: column; gap: 1.25rem; }
+    }
+
+    /* ── Très petits écrans (≤ 380px) ── */
+    @media (max-width: 380px) {
+      section { padding: 36px .85rem; }
+      .hero { padding: 80px .85rem 36px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.65rem; }
+    }
+
+    /* ═══════════════════════════════════════════
+       SYSTÈME DE PARTAGE
+       ═══════════════════════════════════════════ */
+    .share-bar {
+      display: flex; align-items: center; gap: .35rem;
+      padding: .6rem 1rem .7rem;
+      border-top: 1px solid rgba(0,0,0,.07);
+      background: rgba(45,95,63,.03);
+      flex-wrap: wrap;
+    }
+    .share-bar-label {
+      font-size: .67rem; font-weight: 700; color: #bbb;
+      text-transform: uppercase; letter-spacing: .08em;
+      margin-right: .15rem; white-space: nowrap;
+    }
+    .share-btn {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: none; cursor: pointer; font-size: .75rem;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: transform .18s, opacity .18s; text-decoration: none; flex-shrink: 0;
+    }
+    .share-btn:hover { transform: scale(1.18); }
+    .share-btn:active { transform: scale(.93); }
+    .share-btn.tw  { background:#000;    color:#fff; }
+    .share-btn.fb  { background:#1877F2; color:#fff; }
+    .share-btn.wa  { background:#25D366; color:#fff; }
+    .share-btn.tg  { background:#0088cc; color:#fff; }
+    .share-btn.cp  { background:#eee;    color:#555; }
+    .share-btn.cp.copied { background: var(--g); color:#fff; }
+
+    /* Sur les cartes sombres */
+    .timeline-content .share-bar {
+      background: rgba(255,255,255,.05);
+      border-top-color: rgba(255,255,255,.1);
+    }
+    .timeline-content .share-bar .share-bar-label { color: rgba(255,255,255,.35); }
+    .timeline-content .share-btn.cp { background: rgba(255,255,255,.15); color: rgba(255,255,255,.6); }
+
+    /* Bouton flottant sur compare-row — au-dessus du conteneur */
+    .compare-share-wrap {
+      position: absolute;
+      top: -14px; right: 16px;
+      z-index: 30;
+    }
+    .compare-share-btn {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: #fff; border: 1.5px solid rgba(45,95,63,.28);
+      color: var(--g); font-size: .7rem; font-weight: 700;
+      padding: .28rem .8rem; border-radius: 50px; cursor: pointer;
+      transition: all .2s; box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      white-space: nowrap;
+    }
+    .compare-share-btn:hover { background: var(--g); color: #fff; border-color: var(--g); }
+
+    /* Bouton partage dans les section-headers */
+    .section-share-btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(45,95,63,.07); border: 1.5px solid rgba(45,95,63,.2);
+      color: var(--g); font-size: .78rem; font-weight: 600;
+      padding: .45rem 1.1rem; border-radius: 50px;
+      cursor: pointer; transition: all .2s; margin-top: .75rem;
+    }
+    .section-share-btn:hover { background: var(--g); color: #fff; border-color: var(--g); }
+
+    /* Panel dropdown */
+    .share-panel {
+      position: absolute; bottom: calc(100% + 6px); right: 0;
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.18);
+      padding: .6rem .75rem;
+      display: none; flex-direction: column; gap: .35rem;
+      min-width: 172px; z-index: 200;
+      border: 1px solid rgba(0,0,0,.07);
+    }
+    .share-panel.open { display: flex; }
+    .share-panel-item {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .45rem .5rem; border-radius: 8px;
+      font-size: .8rem; font-weight: 600; color: #333;
+      cursor: pointer; transition: background .14s;
+      border: none; background: transparent; text-align: left; width: 100%;
+    }
+    .share-panel-item:hover { background: #f5f5f5; }
+    .share-panel-item .sp-icon {
+      width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .75rem; color: #fff; flex-shrink: 0;
+    }
+
+    /* Toast */
+    #shareToast {
+      position: fixed; bottom: 1.5rem; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: var(--ink); color: #fff; padding: .65rem 1.4rem;
+      border-radius: 50px; font-size: .82rem; font-weight: 600;
+      box-shadow: 0 8px 32px rgba(0,0,0,.28);
+      z-index: 99999; transition: transform .3s cubic-bezier(.34,1.56,.64,1), opacity .3s;
+      opacity: 0; pointer-events: none;
+      display: flex; align-items: center; gap: .5rem; white-space: nowrap;
+    }
+    #shareToast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  </style>
+</head>
+<body>
+
+<!-- ══ Barre de progression lecture ══ -->
+<div id="progressIndicator" style="position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#2D5F3F,#C9A84C);z-index:9999;transition:width .1s;"></div>
+
+<!-- ══ Retour en haut ══ -->
+<button id="scrollToTop" class="scroll-to-top" aria-label="Retour en haut" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+
+<!-- ════════════════════════════════════════════
+     NAVBAR — identique à index
+     ════════════════════════════════════════════ -->
+<nav class="navbar" id="modernNav">
+    <div class="nav-row-1">
+        <div class="nav-row-inner">
+            <div class="nav-logo-kpi">
+                <a href="index.html#accueil" class="nav-logo">
+                    <img src="https://projetbi.org/favicon.png" alt="PROJETBI" class="nav-logo-img" onerror="this.style.display='none'">
+                    <div class="nav-logo-block">
+                        <span class="nav-logo-text">PROJETBI</span>
+                        <span class="nav-logo-sub">Jub Jubal Jubanti</span>
+                    </div>
+                </a>
+            </div>
+            <div class="nav-row-center">
+                <span class="nav-tagline"><i class="fas fa-shield-alt"></i> Gardiens du Projet PASTEF — Jub · Jubal · Jubanti</span>
+            </div>
+            <button class="hamburger" id="modernHamburger" aria-label="Menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <div class="nav-row-2" id="navRow2">
+        <div class="nav-row-inner">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#accueil" class="modern-link">🏠 Accueil</a></li>
+                <li><a href="ideologie.html" class="modern-link active"><i class="fas fa-landmark"></i> Idéologie</a></li>
+                <li><a href="index.html#dashboard" class="modern-link"><i class="fas fa-chart-pie"></i> Tableau de Bord</a></li>
+                <li><a href="index.html#promesse-du-jour" class="modern-link"><i class="fas fa-bullseye"></i> Engagement du Jour</a></li>
+                <li><a href="index.html#engagements" class="modern-link"><i class="fas fa-list-check"></i> Les 300 Engagements</a></li>
+                <li><a href="index.html#actualites" class="modern-link"><i class="fas fa-newspaper"></i> Actualités</a></li>
+                <li><a href="actualites.html" class="modern-link"><i class="fas fa-layer-group"></i> Toutes les Actus</a></li>
+                <li><a href="index.html#revue-de-presse" class="modern-link"><i class="fas fa-print"></i> Revue de Presse</a></li>
+            </ul>
+            <a href="index.html#evaluation" class="nav-cta-btn"><i class="fas fa-star" style="color:#C9A84C"></i> Évaluer un service</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Menu mobile overlay -->
+<div id="modernMenu" class="mobile-menu-overlay">
+    <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.25rem;">
+        <li><a href="index.html#accueil" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;">🏠 Accueil</a></li>
+                <li><a href="ideologie.html" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#2D5F3F;font-weight:700;text-decoration:none;border-bottom:1px solid #eee;"><i class="fas fa-landmark"></i> Idéologie</a></li>
+      <li><a href="index.html#dashboard" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;"><i class="fas fa-chart-pie"></i> Tableau de Bord</a></li>
+        <li><a href="index.html#promesse-du-jour" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;"><i class="fas fa-bullseye"></i> Engagement du Jour</a></li>
+        <li><a href="index.html#engagements" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;"><i class="fas fa-list-check"></i> Les 300 Engagements</a></li>
+        <li><a href="index.html#actualites" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;"><i class="fas fa-newspaper"></i> Actualités</a></li>
+        <li><a href="actualites.html" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;"><i class="fas fa-layer-group"></i> Toutes les Actus</a></li>
+        <li><a href="index.html#revue-de-presse" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;"><i class="fas fa-print"></i> Revue de Presse</a></li>
+        <li><a href="index.html#evaluation" class="modern-link" style="display:flex;padding:.85rem 1rem;border-radius:100px;background:#2D5F3F;color:white;font-weight:700;text-decoration:none;justify-content:center;margin-top:.75rem;"><i class="fas fa-star" style="color:#C9A84C"></i> Évaluer un service</a></li>
+    </ul>
+</div>
+
+<!-- TOC DOTS -->
+<nav class="toc-sticky" id="tocNav">
+  <div class="toc-dot active" data-target="hero"><span class="toc-label">1. Intro</span></div>
+  <div class="toc-dot" data-target="congres"><span class="toc-label">2. Congrès 2026</span></div>
+  <div class="toc-dot" data-target="quiz"><span class="toc-label">3. Quiz</span></div>
+  <div class="toc-dot" data-target="systeme"><span class="toc-label">4. Le Système</span></div>
+  <div class="toc-dot" data-target="comparaison"><span class="toc-label">5. Comparaison</span></div>
+  <div class="toc-dot" data-target="schema"><span class="toc-label">6. Modèle éco.</span></div>
+  <div class="toc-dot" data-target="piliers"><span class="toc-label">7. 5 Piliers</span></div>
+  <div class="toc-dot" data-target="jubanti"><span class="toc-label">8. Jub Jubal</span></div>
+  <div class="toc-dot" data-target="timeline"><span class="toc-label">9. Timeline</span></div>
+  <div class="toc-dot" data-target="citations"><span class="toc-label">10. Citations</span></div>
+  <div class="toc-dot" data-target="engagements"><span class="toc-label">11. Engagements</span></div>
+</nav>
+
+<!-- TOC MOBILE (sheet) -->
+<button id="tocMobileBtn" aria-label="Aller à une section"><i class="fas fa-list-ul"></i></button>
+<div id="tocMobileSheet">
+  <a href="#hero" data-target="hero">1. Intro</a>
+  <a href="#congres" data-target="congres">2. Congrès 2026</a>
+  <a href="#quiz" data-target="quiz">3. Quiz</a>
+  <a href="#systeme" data-target="systeme">4. Le Système</a>
+  <a href="#comparaison" data-target="comparaison">5. Comparaison</a>
+  <a href="#schema" data-target="schema">6. Modèle éco.</a>
+  <a href="#piliers" data-target="piliers">7. 5 Piliers</a>
+  <a href="#jubanti" data-target="jubanti">8. Jub Jubal</a>
+  <a href="#timeline" data-target="timeline">9. Timeline</a>
+  <a href="#citations" data-target="citations">10. Citations</a>
+  <a href="#engagements" data-target="engagements">11. Engagements</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="hero">
+  <div class="hero-text">
+    <div class="hero-badge"><i class="fas fa-book-open"></i> Basé sur le livre Solutions — O. Sonko</div>
+    <h1>Un <em>Sénégal Nouveau</em> est Possible</h1>
+    <p class="hero-sub">
+      L'idéologie PASTEF, décryptée depuis le livre <strong style="color:var(--gold-light)">« Solutions »</strong> 
+      d'Ousmane Sonko. Comprendre le diagnostic du système, la vision alternative et les engagements concrets pour un Sénégal Souverain, Juste &amp; Prospère.
+    </p>
+    <div class="hero-quote">
+      « Les SOLUTIONS sont bien en nous. Mais il faut s'y atteler dès maintenant, nous avons déjà perdu trop de temps et le monde ne nous attend pas. »
+      <cite>— Ousmane Sonko, Solutions (avant-propos)</cite>
+    </div>
+    <div class="hero-cta">
+      <a href="#systeme" class="btn-gold"><i class="fas fa-eye"></i> Voir le diagnostic</a>
+      <a href="#piliers" class="btn-outline"><i class="fas fa-layer-group"></i> Les 5 Piliers</a>
+    </div>
+  </div>
+  <div class="hero-book">
+    <div class="book-card">
+      <div class="book-spine"><span>SOLUTIONS · OUSMANE SONKO</span></div>
+      <div class="book-face-icon"><i class="fas fa-user"></i></div>
+      <div class="book-glow"></div>
+      <div class="book-author">OUSMANE SONKO</div>
+      <div class="book-title">SOLUTIONS</div>
+      <div class="book-subtitle">Pour un Sénégal nouveau</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-item" data-reveal>
+      <div class="stat-num">232</div>
+      <div class="stat-label">Pages d'analyse et de propositions concrètes</div>
+    </div>
+    <div class="stat-item" data-reveal>
+      <div class="stat-num">2014</div>
+      <div class="stat-label">Création de PASTEF dans l'anonymat total</div>
+    </div>
+    <div class="stat-item" data-reveal>
+      <div class="stat-num">25</div>
+      <div class="stat-label">Sénégal dans les pays les plus pauvres (IDH 2017)</div>
+    </div>
+    <div class="stat-item" data-reveal>
+      <div class="stat-num">58+</div>
+      <div class="stat-label">Années de système à briser selon le livre</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONGRÈS 2026 — DISCOURS ═══ -->
+<section class="congres-section" id="congres">
+  <div class="section-header" data-reveal>
+    <div class="section-badge"><i class="fas fa-landmark-dome"></i> 06 Juin 2026 · Diamniadio</div>
+    <h2 class="section-title">Premier Congrès Ordinaire : <em>« Organisons la Souveraineté »</em></h2>
+    <p class="section-desc">
+      Discours du Président de PASTEF-LES PATRIOTES à l'issue du Premier Congrès ordinaire, réunissant des délégués des 553 communes du Sénégal et de la diaspora à Diamniadio.
+    </p>
+  </div>
+
+  <div class="congres-highlights" data-reveal>
+    <div class="congres-card">
+      <div class="congres-icon"><i class="fas fa-arrow-right-long"></i></div>
+      <h4>Du mouvement au parti de transformation</h4>
+      <p>Le congrès marque le passage du mouvement de rupture au parti révolutionnaire : la mission n'est plus seulement électorale, elle est d'« organiser la souveraineté ».</p>
+    </div>
+    <div class="congres-card">
+      <div class="congres-icon"><i class="fas fa-globe-africa"></i></div>
+      <h4>Panafricanisme souverainiste</h4>
+      <p>La matrice idéologique du parti : un panafricanisme souverainiste de transformation démocratique, dans la continuité de Cheikh Anta Diop, Cabral, Nkrumah, Sankara et Mamadou Dia.</p>
+    </div>
+    <div class="congres-card">
+      <div class="congres-icon"><i class="fas fa-people-group"></i></div>
+      <h4>Le bloc populaire</h4>
+      <p>Jeunesse, travailleurs, femmes, paysans, pêcheurs, artisans, spiritualités populaires et diaspora — la force sociale organisée qui porte la révolution démocratique.</p>
+    </div>
+    <div class="congres-card">
+      <div class="congres-icon"><i class="fas fa-shield-heart"></i></div>
+      <h4>Fidélité aux martyrs</h4>
+      <p>Plus de 80 jeunes tombés selon les organisations de défense des droits humains : leur mémoire oblige le parti à ne jamais transformer la révolution en routine administrative.</p>
+    </div>
+  </div>
+
+  <div class="congres-quote" data-reveal>
+    « La souveraineté politique, sans souveraineté économique, n'est qu'un drapeau flottant sur la dépendance. »
+    <cite>— Ousmane Sonko, Discours de clôture du Congrès, Diamniadio, 06 juin 2026</cite>
+  </div>
+
+  <div class="congres-toggle-wrap" data-reveal>
+    <button class="btn-outline-dark" id="toggleDiscours" aria-expanded="false" aria-controls="discoursFull">
+      <i class="fas fa-book-open"></i> <span id="toggleDiscoursLabel">Lire le discours complet</span>
+    </button>
+  </div>
+
+  <div class="congres-full" id="discoursFull" hidden>
+    <div class="congres-full-inner">
+      <p><em>Diamniadio, samedi 06 juin 2026</em></p>
+      <p>Chères sœurs, chers frères, chers invités, chères militantes et militants, sympathisantes, sympathisants, mes chers compatriotes, peuple sénégalais,</p>
+      <p>Nous voilà face à face. Face à notre histoire. Face à notre peuple. Face à cette responsabilité immense que les Sénégalaises et les Sénégalais nous ont confiée.</p>
+      <p>En ce jour historique du 06 juin 2026, le premier Congrès ordinaire de PASTEF-LES PATRIOTES a réuni des délégués venus des 553 communes du Sénégal ainsi que de la diaspora. C'est tout le parti vivant qui s'est donné rendez-vous ici à Diamniadio pour réfléchir, débattre et préparer l'avenir.</p>
+      <p>Je veux d'abord vous remercier du fond du cœur pour la confiance renouvelée que vous venez de me témoigner en me reconduisant à la présidence du parti. Cette confiance n'est ni un privilège ni un honneur personnel ; elle est une charge, une responsabilité et une exigence de fidélité envers notre peuple, nos militants, nos martyrs, notre option panafricaniste et de solidarité internationale.</p>
+      <p>Dieureudieuf. Adjarama. Ndioko ndial. Al barka. Émité poyoul.</p>
+      <p>Je veux également saluer le travail remarquable accompli durant ce congrès. Des dizaines de contributions, de rapports, de thèses et de textes d'orientation ont été produits, discutés, amendés puis adoptés dans un esprit de responsabilité militante et de profondeur politique. Cela montre une chose essentielle : PASTEF-LES PATRIOTES n'est pas seulement une force électorale ; il est une force de pensée, d'organisation et de transformation.</p>
+      <p>Je remercie chaleureusement le Comité de pilotage du Congrès et le Secrétaire général Mohamed Ayib Salim Daffé, qui en a été la cheville ouvrière si efficace, les différentes commissions et leurs responsables et membres, les équipes techniques, les militants mobilisés jour et nuit, ainsi que tous ceux qui ont permis la tenue de cette rencontre historique dans un esprit de discipline, de fraternité et d'engagement.</p>
+      <p>Chers congressistes, chers invités, nous ne sommes pas réunis pour célébrer une victoire électorale comme on célèbre une fin. Nous sommes réunis parce qu'une brèche historique s'est ouverte et qu'il nous revient désormais de décider ce que nous allons en faire.</p>
+      <p>Allons-nous laisser cette espérance être absorbée par l'ordre ancien ? Ou allons-nous organiser durablement la souveraineté du Sénégal ? Voilà la question radicale.</p>
+      <p>Il y a douze ans, en 2014, naissait PASTEF-LES PATRIOTES. Tout est parti d'une intuition devenue conviction : le Sénégal ne souffrait pas seulement d'erreurs de gouvernance, mais d'un système de dépendance profondément enraciné. Comme l'avait montré Frantz Fanon, l'indépendance politique peut survivre à la dépendance réelle lorsque les structures profondes de domination demeurent intactes. Le Manifeste des Patriotes puis L'Appel aux Patriotes ont donné une première formulation politique à cette exigence de souveraineté, de travail, de dignité et de justice.</p>
+      <p>Au début, beaucoup regardaient notre engagement avec condescendance. On nous présentait comme une force marginale, un regroupement de jeunes cadres de l'administration, d'intellectuels, définitivement incapables de peser dans le jeu politique sénégalais. Mais le peuple sénégalais, lui, entendait déjà autre chose.</p>
+      <p>En 2017, malgré des moyens limités et un environnement politique hostile, PASTEF-Les Patriotes fit son entrée à l'Assemblée nationale avec mon élection comme député. Cette présence parlementaire permit de porter dans les institutions une parole nouvelle sur la souveraineté, les ressources naturelles, la corruption et la dignité nationale.</p>
+      <p>Puis vint l'élection présidentielle de 2019. Ce qui devait être une candidature de témoignage devint une poussée politique majeure. En quelques années seulement, une nouvelle génération politique s'imposait dans le paysage national et faisait émerger une alternative populaire capable de remettre en cause les équilibres établis depuis des décennies.</p>
+      <p>C'est à partir de ce moment que le système comprit que PASTEF-Les Patriotes n'était plus un simple parti d'opposition, mais l'expression politique d'une crise profonde de l'ordre postcolonial sénégalais. Cette crise n'est pas seulement institutionnelle. Elle est aussi morale, culturelle et historique et appelait notre pays, comme tous les peuples africains, à inventer sa propre voie historique. Dès lors, avec une constante renouvelée et une énergie entretenue par des forces internes et externes, nous sommes devenus une cible sur laquelle s'abattaient les foudres du système.</p>
+      <p>Nous avons connu les humiliations et le mépris réservés à ceux qui refusent de courber l'échine. Nous avons connu les arrestations, les gaz lacrymogènes, les prisons, les campagnes de diffamation et le harcèlement judiciaire. Nous avons été dissous administrativement dans l'espoir d'arrêter une dynamique devenue nationale.</p>
+      <p>Les appareils judiciaire, sécuritaire et administratif de même que certains médias ont été mobilisés contre une opposition que le système ne parvenait plus à contenir. Nous avons vécu les restrictions d'Internet, les arrestations massives et les intimidations visant à faire taire une génération. Nous avons connu les tortures, les filatures, les barricades, les licenciements arbitraires, les blessures morales et physiques dont le parti et le peuple vivent encore les terribles conséquences.</p>
+      <p>Nous avons vu des dizaines de jeunes tombés sous les balles lors des manifestations, plus de quatre-vingts morts selon plusieurs organisations de défense des droits humains. Mais plus la répression s'intensifiait, plus grandissait dans le pays la conviction qu'il ne s'agissait plus d'un affrontement politique ordinaire, mais de la confrontation entre un système en crise et un peuple qui refusait désormais de reculer.</p>
+      <p>Et pourtant, PASTEF-Les Patriotes n'a pas disparu. Pendant de longs mois, malgré la dissolution, l'emprisonnement de son leader, ses dirigeants et des centaines de ses militants, le parti a continué à vivre de manière informelle, parfois clandestine, à travers ses militants, ses cellules, ses réseaux et ses alliances. Il a maintenu la flamme dans les quartiers, les villages, les universités, les stades, au sein de la diaspora et dans les espaces numériques. Il a poursuivi l'organisation, la formation et la préparation des échéances décisives, notamment la bataille électorale de mars 2024. Ce que certains pensaient réduire à un simple appareil administratif s'était déjà transformé en force populaire. Et lorsque le décret de dissolution fut finalement abrogé en mars 2024, une vérité était apparue aux yeux de tous : on peut dissoudre un parti sur le papier, mais on ne dissout pas une espérance devenue collective.</p>
+      <p>Chers militantes et militants, nous avons connu ces longues nuits où l'on voulait convaincre notre peuple qu'il devait choisir entre la dignité et la stabilité. Nous avons vu nos jeunes mourir dans la mer, sur les routes désertiques du Sahara ou dans les rues. Nous avons vu des diplômés errer sans emploi pendant que les richesses du pays quittaient nos ports. Nous avons vu des paysans produire sans vivre dignement de leur travail. Nous avons vu des mères renoncer à des soins pour elles-mêmes ou leurs enfants faute d'argent. Nous avons vu des citoyens perdre confiance dans une justice qu'ils ne reconnaissaient plus comme la leur.</p>
+      <p>Et lorsque le peuple s'est levé, lorsque la jeunesse a décidé d'entrer dans l'histoire, nous avons vu la répression s'abattre sur elle. Mais le peuple sénégalais n'a pas reculé.</p>
+      <p>De 2021 à 2024, quelque chose de profond s'est produit dans notre pays. Une conscience nouvelle est née. Le peuple a cessé d'être un simple électorat pour devenir un sujet politique actif. Ce moment marque l'entrée consciente d'un peuple dans l'histoire, cette irruption populaire que les grandes luttes africaines de libération ont toujours portée au cœur de leur espérance. Thomas Sankara rappelait qu'un peuple conscient et organisé devient une force historique impossible à contenir durablement.</p>
+      <p>Et cette séquence historique a débouché sur ce que beaucoup croyaient impossible : une révolution démocratique portée par les urnes. Nos victoires électorales de 2024 n'ont pas été des accidents. Elles ont été l'aboutissement politique d'un long processus de mobilisation populaire.</p>
+      <p>Mais, mes frères et sœurs, l'histoire nous enseigne une chose : les peuples peuvent conquérir le pouvoir sans parvenir à transformer l'État. Les révolutions peuvent être détournées, absorbées ou vidées de leur contenu lorsqu'elles ne se dotent ni d'une doctrine claire ni d'une organisation capable d'inscrire le changement dans la durée.</p>
+      <p>C'est pourquoi ce congrès est historique. Car il marque le passage du mouvement de rupture au parti de transformation historique. Autrement dit, révolutionnaire. Notre responsabilité est désormais claire : organiser la souveraineté.</p>
+      <p>La souveraineté politique, sans souveraineté économique, n'est qu'un drapeau flottant sur la dépendance. La souveraineté économique, sans justice sociale, devient le privilège de quelques-uns. La souveraineté nationale, sans horizon panafricain, demeure fragile dans un monde dominé par les grands ensembles.</p>
+      <p>Voilà pourquoi notre matrice idéologique est un panafricanisme souverainiste de transformation démocratique. Nous nous inscrivons ainsi dans la continuité des grands combats intellectuels et politiques africains, de Cheikh Anta Diop à Amílcar Cabral et Kwame Nkrumah qui avaient compris que la souveraineté ne pouvait être ni seulement juridique ni seulement symbolique, mais devait être culturelle, économique et politique.</p>
+      <p>Le panafricanisme, parce que l'Afrique fragmentée reste vulnérable. La souveraineté, parce qu'aucun peuple ne peut être libre quand d'autres décident à sa place. La transformation, parce que les structures héritées de la domination ne disparaissent pas d'elles-mêmes. La démocratie, parce que le peuple doit demeurer la source permanente de la légitimité politique.</p>
+      <p>Nous refusons deux impasses. Nous refusons le réformisme tiède qui administre les dépendances sans les combattre. Mais nous refusons également le volontarisme autoritaire qui prétend parler au nom du peuple tout en l'éloignant des décisions. Notre voie est celle d'une révolution démocratique, populaire et souveraine.</p>
+      <p>Mais aucune transformation historique ne se réalise sans force sociale organisée. La révolution sénégalaise repose sur un bloc populaire en construction : cette jeunesse qui a refusé la résignation, ces travailleurs du secteur formel et informel qui produisent les richesses du pays sans toujours en recevoir les fruits, ces femmes qui portent les solidarités sociales et l'économie quotidienne, ces paysans, ces pêcheurs, ces artisans, ces enseignants, ces agents publics, ces sportifs, ces intellectuels, artistes, acteurs culturels, mais aussi ces spiritualités populaires qui continuent de structurer la société sénégalaise en profondeur : les femmes du bois sacré, les ndongo daara, les doomou jàngu bii, les héritiers des grandes traditions spirituelles et communautaires qui ont appris à notre peuple la dignité, la discipline, la solidarité, le partage et la résistance. Sans oublier cette diaspora qui continue d'aimer et de soutenir la patrie malgré la distance.</p>
+      <p>PASTEF-Les Patriotes ne doit jamais devenir un simple appareil électoral vivant au rythme des échéances politiques et des conquêtes institutionnelles. Il est né d'une exigence plus profonde : organiser durablement la force populaire qui a rendu possible la rupture historique que connaît aujourd'hui le Sénégal.</p>
+      <p>Notre parti est un parti de masse. Il puise sa force dans son enracinement populaire, territorial et militant. Dans les quartiers, les villages, les universités, les lieux de travail, la diaspora, les cellules, les sections et les coordinations, il doit rester présent au cœur de la société réelle. Car une révolution ne se maintient pas uniquement depuis les sommets de l'État ; elle se construit et se protège dans l'organisation consciente du peuple.</p>
+      <p>Notre rôle n'est pas de nous substituer au peuple, mais de lui donner des instruments d'organisation, de formation et d'action. Amílcar Cabral rappelait que les mouvements de libération ne triomphent durablement que lorsqu'ils élèvent le niveau de conscience politique du peuple et transforment l'organisation en école de responsabilité historique.</p>
+      <p>Le parti doit donc être le levain de la révolution : cette force organisatrice qui relie les aspirations populaires à une stratégie de transformation durable. Cela exige un parti discipliné, formateur et idéologiquement clair. Un parti capable de produire de la pensée, d'éclairer les choix nationaux, de former ses militants, d'éviter les dérives bureaucratiques et de maintenir le lien vivant entre l'État et le peuple. Car lorsqu'un parti révolutionnaire cesse de former, il commence à s'administrer lui-même ; et lorsqu'il cesse d'écouter le peuple, il commence à se détacher de l'histoire.</p>
+      <p>Chers congressistes, la souveraineté exige un État stratège. Cette exigence prolonge une tradition sénégalaise ancienne, portée notamment par Mamadou Dia, qui avait compris très tôt qu'aucune souveraineté politique ne peut survivre durablement sans maîtrise de l'économie nationale.</p>
+      <p>Une économie productive. Une administration efficace. Une lutte implacable contre la corruption et les logiques de rente. Une jeunesse formée et mobilisée. Des femmes placées au cœur de la transformation nationale. Une bataille culturelle pour décoloniser les imaginaires. Un parti discipliné, enraciné et formateur.</p>
+      <p>Car un peuple sans organisation devient une colère dispersée. Et un parti sans doctrine devient un appareil sans direction.</p>
+      <p>Chers congressistes, chers frères et sœurs d'Afrique et du monde, votre présence parmi nous donne à ce congrès une portée qui dépasse les frontières du Sénégal. Car ce qui se joue aujourd'hui dans notre pays s'inscrit dans un moment historique plus large.</p>
+      <p>Le monde traverse une phase de basculement. L'ordre international hérité de la fin de la guerre froide se fragilise. Les certitudes du néolibéralisme vacillent. Les tensions géopolitiques se multiplient, tandis que les inégalités, les crises climatiques, migratoires et les logiques de prédation aggravent les fragilités des peuples du Sud.</p>
+      <p>Dans ce contexte, l'Afrique entre à son tour dans une nouvelle séquence historique. Partout montent des aspirations à la souveraineté, à la dignité, à la maîtrise des ressources et à la reconquête des capacités nationales. Les peuples africains refusent de plus en plus d'être des périphéries dépendantes dans un monde organisé sans eux et souvent contre eux. Cette aspiration rejoint le long combat mené par Cheikh Anta Diop pour restituer à l'Afrique sa centralité historique, scientifique et civilisationnelle.</p>
+      <p>Notre sous-région traverse des tensions profondes : crises sécuritaires, instabilités politiques, interventions extérieures, fragilisation économique et sociale. Mais au cœur même de ces turbulences émergent aussi de nouvelles interrogations sur l'avenir du continent, sur les formes de l'État, sur les modèles de développement et sur les conditions réelles de la souveraineté africaine.</p>
+      <p>Le Sénégal entend prendre toute sa place dans cette réflexion historique. Nous partageons avec les peuples africains la même aspiration à la souveraineté et à la dignité. Mais nous voulons également montrer qu'il est possible de porter une dynamique de rupture dans un cadre démocratique, populaire et institutionnel. Notre ambition est de contribuer à l'émergence d'une Afrique souveraine, stable, productive, solidaire et respectée dans un monde juste, prospère et de paix.</p>
+      <p>Oui, chers congressistes, notre révolution veut transformer profondément l'État. Elle veut conquérir la souveraineté sans fermer le Sénégal au monde — elle veut remettre l'économie au service du peuple sans substituer une prédation nouvelle à l'ancienne. Elle veut réhabiliter le travail, la dignité et la justice sociale dans une société trop longtemps organisée autour de la dépendance et de la rente.</p>
+      <p>En vérité, aucune révolution n'avance en ligne droite. Toutes les expériences historiques de transformation ont connu leurs hésitations, leurs contradictions, leurs tentations de ralentissement, de recentrage ou de détournement une fois confrontées à l'exercice du pouvoir et aux tentatives inéluctables de restauration de l'ordre ancien. Il arrive parfois que certains, au sommet même de l'État, soient tentés de prendre de la distance avec la dynamique populaire qui les a portés, au nom de la stabilité, des équilibres institutionnels ou des contraintes du moment et, souvent, pour des raisons beaucoup plus obscures. Ce risque existe dans toute révolution, la nôtre n'en fait pas exception. Mais nous devons être clairs : la révolution sénégalaise ne repose pas sur des trajectoires individuelles ; elle repose sur un peuple, un parti, une mouvance, une conscience historique collective à travers une orientation stratégique. Et tant que PASTEF-Les Patriotes restera debout, tant que ses cadres, ses militants, ses élus et son bloc populaire resteront fidèles à la ligne de souveraineté et de transformation, la révolution ne déraillera pas.</p>
+      <p>Chers militants et militantes, chers congressistes, nous devons rester fidèles à ce qui nous a fait naître.</p>
+      <p>Depuis notre arrivée aux responsabilités, nous avons commencé à traduire cette orientation dans les faits. Non pas parfaitement. Non pas sans difficultés. Mais avec une ligne claire : remettre l'État au service du peuple et replacer la souveraineté au cœur de l'action publique.</p>
+      <p>Nous avons choisi la vérité plutôt que la dissimulation en révélant l'ampleur réelle de la situation financière héritée du passé. Nous avons engagé une politique de rationalisation de l'État et commencé à remettre la production, le travail et la souveraineté économique au centre des priorités nationales.</p>
+      <p>Nous avons adopté une ligne intransigeante pour la transparence dans la gestion publique, en luttant contre toutes les formes de corruption et pour la reddition des comptes, nonobstant les sabotages internes dictés par des calculs politiciens.</p>
+      <p>Nous avons également entrepris la renégociation de plusieurs contrats dans tous les secteurs et notamment minier, pétrolier et gazier afin que les ressources du Sénégal profitent davantage au peuple sénégalais. Car un pays ne peut parler de souveraineté lorsque ses richesses financent d'abord la prospérité des autres pendant que ses propres populations croulent sous l'endettement, la pauvreté et la précarité.</p>
+      <p>Nous avons accordé nos priorités aux véritables secteurs stratégiques pour une souveraineté agricole, alimentaire, énergétique, sécuritaire… plutôt qu'aux investissements de prestige.</p>
+      <p>Nous avons refusé les diktats exogènes et recouru à des mécanismes endogènes et citoyens de financement de nos politiques publiques pour faire face aux conséquences désastreuses des errements du passé récent.</p>
+      <p>Nous avons refusé de sacrifier le pouvoir d'achat du peuple, déjà durement éprouvé, sur l'autel d'un ajustement sauvage.</p>
+      <p>Nous avons commencé à réhabiliter notre mémoire nationale, à réinterroger nos dépendances et à replacer les intérêts du Sénégal au cœur des décisions publiques. Ce ne sont pas encore des aboutissements. Ce sont les premiers déplacements d'un État qui commence à sortir progressivement des logiques héritées de la dépendance.</p>
+      <p>PASTEF-Les Patriotes n'a pas été créé pour gérer l'ordre ancien avec des visages nouveaux ; ni à revendiquer un socle PASTEF sans PASTEF. La tendance à l'embourgeoisement, à s'éloigner du parti et du peuple ne doit pas prospérer.</p>
+      <p>PASTEF-Les Patriotes a été créé pour dépasser l'État postcolonial et reconstruire le Sénégal autour du travail, de la dignité, de la justice et de la souveraineté populaire.</p>
+      <p>Chères militantes, chers militants, congressistes, de nouveau, nous ne devons jamais oublier le sacrifice de ceux grâce à qui ce moment historique a été rendu possible. Derrière cette victoire, derrière ce congrès, derrière cette espérance qui traverse aujourd'hui le Sénégal, il y a des sacrifices, des souffrances et des vies brisées.</p>
+      <p>Nous pensons à tous ceux qui ont été arrêtés, emprisonnés, blessés, humiliés pour leur engagement. Nous pensons à ces familles qui ont vécu l'angoisse des disparitions, des procès et de la répression. Mais nous pensons surtout à nos martyrs.</p>
+      <p>À ces jeunes tombés dans les manifestations, souvent au seuil de leur vie, parce qu'ils avaient décidé de refuser l'injustice, le mépris et la confiscation de leur avenir. Ils ne demandaient ni privilèges ni faveurs. Ils demandaient simplement le droit de vivre libres et dignes dans leur propre pays.</p>
+      <p>Leur mémoire doit nous obliger. Nous n'avons pas le droit de trahir leur espérance en transformant cette révolution en routine administrative, en compromis de confort ou en simple alternance politique. Car le sang versé par un peuple crée une responsabilité historique. Car une révolution qui oublie ses martyrs finit toujours par oublier son peuple.</p>
+      <p>Chères sœurs, chers frères, nous ne menons pas ce combat pour le seul plaisir des mots ou des symboles. Nous le menons pour construire un Sénégal nouveau. Un Sénégal où aucun jeune ne sera condamné à choisir entre le chômage, l'exil ou le désespoir. Un Sénégal où les richesses tirées de notre sous-sol et de nos mers financeront les écoles, les universités, les hôpitaux, les infrastructures et la recherche plutôt que les privilèges d'une minorité ou la prospérité d'intérêts extérieurs.</p>
+      <p>Notre ambition est de bâtir un pays où le paysan vit dignement de la terre, où les ressources halieutiques sont préservées pour nos pêcheurs, et où le génie de nos artisans et entrepreneurs patriotes transforme et crée la richesse sur place. Un Sénégal où le diplôme ne conduira plus à l'humiliation sociale, où l'école formera des citoyens confiants dans leur histoire et capables d'inventer leur avenir.</p>
+      <p>Nous voulons un Sénégal où les femmes seront pleinement reconnues comme des forces centrales de la transformation nationale, où les jeunes auront accès au savoir, à la culture, au travail et à la responsabilité. Un Sénégal où l'administration servira le citoyen avec efficacité et dignité, où la justice inspirera confiance, où la corruption cessera d'être perçue comme une fatalité.</p>
+      <p>Nous voulons enfin un Sénégal réconcilié avec lui-même, fier de ses langues, de ses cultures, de ses spiritualités et de son histoire ; un Sénégal capable de dialoguer avec le monde sans se renier, de coopérer sans se soumettre, et d'avancer vers l'avenir sans tourner le dos à l'Afrique.</p>
+      <p>Nous sommes à un tournant de l'histoire. Les générations futures nous demanderont si nous avons eu le courage d'aller jusqu'au bout. Car le plus difficile n'est pas toujours de conquérir le pouvoir. Le plus difficile est de rester fidèle à la mission pour laquelle le peuple vous l'a confié.</p>
+      <p>Nous n'avons pas le droit de devenir une élite de remplacement. Ces bourgeoisies nationales qui remplacent la domination sans transformer les structures qui la produisent. Nous n'avons pas le droit de transformer la révolution en carrière. Nous n'avons pas le droit de laisser la prudence devenir un autre nom du renoncement.</p>
+      <p>Nous devons garder vivant ce qui a porté notre combat : le jom, le ngor, le burok, le kersa, le sens du mbokk, le teddungal, la teranga.</p>
+      <p>Le Sénégal attend de nous des résultats. L'Afrique attend de nous un exemple. Le monde attend notre contribution. Et le peuple attend de nous une fidélité.</p>
+      <p>Alors je vous le dis : restons debout. Restons cohérents. Restons dignes de ce peuple immense. Car une fois qu'un peuple a entrevu la possibilité de sa souveraineté, il ne l'oublie plus jamais.</p>
+      <p>Organisons la souveraineté. Transformons l'État. Servons le peuple. Et faisons entrer définitivement le Sénégal dans le temps de sa liberté historique.</p>
+      <p>Je vous dis MERCI.</p>
+      <p style="text-align:right;"><em>Diamniadio, samedi 06 juin 2026</em></p>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ═══ CONGRÈS SECTION STYLES ═══ */
+.congres-section { padding: 80px 8%; background: linear-gradient(180deg, #fafbfc 0%, #f3f1e8 100%); }
+.congres-highlights {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem; max-width: 1100px; margin: 0 auto 2.5rem;
+}
+.congres-card {
+  background: #fff; border-radius: 14px; padding: 1.5rem;
+  box-shadow: 0 3px 16px rgba(0,0,0,0.07); border-top: 3px solid var(--gold);
+}
+.congres-icon {
+  width: 44px; height: 44px; border-radius: 10px;
+  background: rgba(45,95,63,0.1); color: var(--g);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.15rem; margin-bottom: .9rem;
+}
+.congres-card h4 { font-size: 1rem; margin-bottom: .5rem; color: #1a1a1a; }
+.congres-card p { font-size: .87rem; color: #555; line-height: 1.6; }
+
+.congres-quote {
+  max-width: 800px; margin: 0 auto 2.5rem; text-align: center;
+  font-family: var(--ff-title); font-style: italic; font-size: 1.3rem;
+  color: var(--g-dark); line-height: 1.5; padding: 1.5rem 2rem;
+  border-left: 4px solid var(--gold); border-right: 4px solid var(--gold);
+}
+.congres-quote cite {
+  display: block; font-style: normal; font-size: .8rem; font-weight: 700;
+  color: var(--g); margin-top: 1rem; font-family: var(--ff-body);
+}
+
+.congres-toggle-wrap { text-align: center; }
+.btn-outline-dark {
+  background: transparent; color: var(--g); padding: .75rem 1.8rem;
+  border-radius: 8px; font-weight: 700; font-size: .95rem;
+  border: 2px solid var(--g); cursor: pointer; transition: all .2s;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+.btn-outline-dark:hover { background: var(--g); color: #fff; }
+
+.congres-full {
+  max-width: 780px; margin: 2rem auto 0; background: #fff;
+  border-radius: 16px; padding: 2.5rem clamp(1.25rem, 4vw, 3rem);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+}
+.congres-full-inner p { font-size: .95rem; line-height: 1.85; color: #2a2a2a; margin-bottom: 1.1rem; }
+.congres-full-inner p:first-child { text-align: right; color: #888; font-size: .85rem; }
+</style>
+
+<!-- ═══ QUIZ DU MILITANT ═══ -->
+<section class="quiz-section" id="quiz">
+  <div class="section-header" data-reveal>
+    <div class="section-badge"><i class="fas fa-graduation-cap"></i> Testez vos connaissances</div>
+    <h2 class="section-title">Le <em>Quiz du Militant</em></h2>
+    <p class="section-desc">10 questions pour mieux connaître l'histoire, l'idéologie et les engagements de PASTEF-Les Patriotes — du livre « Solutions » au Congrès de 2026.</p>
+  </div>
+
+  <div class="quiz-wrap" data-reveal>
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
+    <div class="quiz-meta">
+      <span id="quizStep">Question 1 / 10</span>
+      <span id="quizScoreLive">Score : 0</span>
+    </div>
+
+    <div id="quizStage">
+      <!-- Rempli dynamiquement en JS -->
+    </div>
+
+    <div id="quizResult" class="quiz-result" hidden>
+      <div class="quiz-result-icon"><i class="fas fa-flag"></i></div>
+      <h3 id="quizResultTitle">Résultat</h3>
+      <p id="quizResultText"></p>
+      <button class="btn-gold" id="quizRestartBtn" style="background:var(--g);border-color:var(--g);color:#fff;">
+        <i class="fas fa-rotate-right"></i> Recommencer le quiz
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ═══ QUIZ STYLES ═══ */
+.quiz-section { padding: 80px 8%; background: #fff; }
+.quiz-wrap {
+  max-width: 720px; margin: 0 auto; background: #fafbfc;
+  border-radius: 18px; padding: clamp(1.5rem, 4vw, 2.5rem);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.08); border: 1px solid var(--border);
+}
+.quiz-progress-bar { width: 100%; height: 8px; background: #e8e8e8; border-radius: 50px; overflow: hidden; margin-bottom: 1rem; }
+.quiz-progress-fill { height: 100%; width: 10%; background: linear-gradient(90deg, var(--g), var(--gold)); transition: width .3s; border-radius: 50px; }
+.quiz-meta { display: flex; justify-content: space-between; font-size: .82rem; font-weight: 700; color: #666; margin-bottom: 1.5rem; }
+.quiz-meta #quizScoreLive { color: var(--g); }
+
+.quiz-question { font-family: var(--ff-title); font-size: 1.3rem; font-weight: 700; color: #1a1a1a; margin-bottom: 1.5rem; line-height: 1.4; }
+.quiz-options { display: flex; flex-direction: column; gap: .75rem; }
+.quiz-option {
+  text-align: left; padding: .9rem 1.2rem; border-radius: 10px;
+  border: 2px solid var(--border); background: #fff; cursor: pointer;
+  font-size: .95rem; color: #333; font-family: var(--ff-body);
+  transition: all .2s; display: flex; align-items: center; gap: .75rem;
+}
+.quiz-option:hover:not(:disabled) { border-color: var(--g); background: rgba(45,95,63,0.04); }
+.quiz-option .opt-letter {
+  width: 28px; height: 28px; border-radius: 50%; background: #eee;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: .8rem; flex-shrink: 0; color: #555;
+}
+.quiz-option.correct { border-color: #2D5F3F; background: rgba(45,95,63,0.1); }
+.quiz-option.correct .opt-letter { background: var(--g); color: #fff; }
+.quiz-option.wrong { border-color: var(--r); background: rgba(178,58,58,0.08); }
+.quiz-option.wrong .opt-letter { background: var(--r); color: #fff; }
+.quiz-option:disabled { cursor: default; }
+
+.quiz-explain {
+  margin-top: 1.25rem; padding: 1rem 1.2rem; border-radius: 10px;
+  background: rgba(201,168,76,0.12); border-left: 4px solid var(--gold);
+  font-size: .87rem; color: #4a4a4a; line-height: 1.6;
+}
+.quiz-next-btn {
+  margin-top: 1.5rem; background: var(--g); color: #fff; border: none;
+  padding: .8rem 1.8rem; border-radius: 8px; font-weight: 700; font-size: .9rem;
+  cursor: pointer; display: inline-flex; align-items: center; gap: .5rem;
+  transition: all .2s;
+}
+.quiz-next-btn:hover { background: var(--g-dark); }
+
+.quiz-result { text-align: center; padding: 1rem 0; }
+.quiz-result-icon {
+  width: 70px; height: 70px; border-radius: 50%; background: rgba(201,168,76,0.15);
+  color: var(--gold); font-size: 1.8rem; display: flex; align-items: center;
+  justify-content: center; margin: 0 auto 1.25rem;
+}
+.quiz-result h3 { font-family: var(--ff-title); font-size: 1.6rem; margin-bottom: .75rem; color: #1a1a1a; }
+.quiz-result p { color: #555; line-height: 1.7; margin-bottom: 1.5rem; }
+</style>
+<!-- ═══ LE SYSTÈME ═══ -->
+<section class="systeme-section" id="systeme">
+  <div class="section-header" data-reveal>
+    <div class="section-badge"><i class="fas fa-spider"></i> Diagnostic</div>
+    <h2 class="section-title">Le <em>Système</em>, cette pieuvre tentaculaire</h2>
+    <p class="section-desc">
+      Dans « Solutions », Sonko identifie le problème principal du Sénégal non comme un parti ou un président, 
+      mais comme un <strong>système pernicieux à plusieurs têtes</strong>, nourri par des intérêts croisés qui paralysent le pays depuis l'indépendance.
+    </p>
+  </div>
+
+  <div class="pieuvre-diagram" data-reveal>
+    <!-- GAUCHE -->
+    <div class="tentacles">
+      <div class="tentacle">
+        <div class="tentacle-icon"><i class="fas fa-briefcase"></i></div>
+        <div>
+          <h4>Classe politique corrompue</h4>
+          <p>Incompétence, amateurisme et corruption érigés en mode de gouvernance depuis l'indépendance</p>
+        </div>
+      </div>
+      <div class="tentacle">
+        <div class="tentacle-icon"><i class="fas fa-newspaper"></i></div>
+        <div>
+          <h4>Médias sous influence</h4>
+          <p>Patrons de presse et hommes de médias intégrés au système, recevant fréquences et marchés publics</p>
+        </div>
+      </div>
+      <div class="tentacle">
+        <div class="tentacle-icon"><i class="fas fa-mosque"></i></div>
+        <div>
+          <h4>Lobbies religieux</h4>
+          <p>Des guides religieux cooptés par le pouvoir contre des avantages matériels et une immunité fiscale</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CENTER -->
+    <div class="pieuvre-center">
+      <div class="icon"><i class="fas fa-spider"></i></div>
+      <h3>LE SYSTÈME</h3>
+      <p>« Une pieuvre à plusieurs têtes »</p>
+    </div>
+
+    <!-- DROITE -->
+    <div class="tentacles">
+      <div class="tentacle right">
+        <div class="tentacle-icon"><i class="fas fa-globe-africa"></i></div>
+        <div>
+          <h4>Lobbies étrangers</h4>
+          <p>Puissances et intérêts privés étrangers qui font du Sénégal « un gâteau livré au partage »</p>
+        </div>
+      </div>
+      <div class="tentacle right">
+        <div class="tentacle-icon"><i class="fas fa-building"></i></div>
+        <div>
+          <h4>Affairistes & technocrates</h4>
+          <p>Hauts fonctionnaires et patrons recevant juteux marchés et promotions en échange de silence</p>
+        </div>
+      </div>
+      <div class="tentacle right">
+        <div class="tentacle-icon"><i class="fas fa-handshake"></i></div>
+        <div>
+          <h4>Partenaires « bienveillants »</h4>
+          <p>Institutions internationales imposant des modèles qui ne sortent jamais un pays du sous-développement</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMPARAISON SYSTÈME vs VISION ═══ -->
+<section class="compare-section" id="comparaison">
+  <div class="section-header" data-reveal>
+    <div class="section-badge"><i class="fas fa-balance-scale"></i> Confrontation</div>
+    <h2 class="section-title">Le Système <em>vs</em> La Vision PASTEF</h2>
+    <p class="section-desc">Secteur par secteur, ce que dénonce le livre et ce que propose PASTEF comme alternative concrète.</p>
+  </div>
+
+  <div class="compare-grid" data-reveal>
+    <!-- AGRICULTURE -->
+    <div class="compare-row">
+      <div class="compare-bad">
+        <div class="label"><i class="fas fa-times-circle"></i> Le système actuel</div>
+        <h4>Agriculture marginalisée</h4>
+        <p>PSE ultra-libéral, adhésion à la NASAN du G8 qui ouvre l'agriculture aux multinationales étrangères. Flou profond autour de la vision agricole nationale.</p>
+      </div>
+      <div class="compare-topic">
+        <i class="fas fa-seedling"></i>
+        <span>Agriculture</span>
+      </div>
+      <div class="compare-good">
+        <div class="label"><i class="fas fa-check-circle"></i> Vision PASTEF</div>
+        <h4>Fer de lance industriel</h4>
+        <p>L'agriculture comme moteur premier de l'industrialisation. Filières fortes et intégrées, souveraineté alimentaire, protection contre les APE néo-coloniaux.</p>
+      </div>
+    </div>
+
+    <!-- RESSOURCES NATURELLES -->
+    <div class="compare-row">
+      <div class="compare-bad">
+        <div class="label"><i class="fas fa-times-circle"></i> Le système actuel</div>
+        <h4>Contrats miniers opaques</h4>
+        <p>Attribution de permis miniers et pétroliers sans appel d'offres transparent. Contrats amputés, dissimulés. Non-fiscalisation des transferts de titres miniers.</p>
+      </div>
+      <div class="compare-topic">
+        <i class="fas fa-oil-well"></i>
+        <span>Ressources</span>
+      </div>
+      <div class="compare-good">
+        <div class="label"><i class="fas fa-check-circle"></i> Vision PASTEF</div>
+        <h4>Transparence totale</h4>
+        <p>Publication intégrale des contrats miniers, processus d'appel d'offres inscrit dans les codes miniers et pétroliers, renforcement de l'OFNAC, protection des lanceurs d'alerte.</p>
+      </div>
+    </div>
+
+    <!-- GOUVERNANCE -->
+    <div class="compare-row">
+      <div class="compare-bad">
+        <div class="label"><i class="fas fa-times-circle"></i> Le système actuel</div>
+        <h4>Contrat social délité</h4>
+        <p>Société fragmentée par le communautarisme, les manipulations politiciennes et la crise socio-économique. Institutions au service d'influences dominantes, non du peuple.</p>
+      </div>
+      <div class="compare-topic">
+        <i class="fas fa-landmark"></i>
+        <span>Gouvernance</span>
+      </div>
+      <div class="compare-good">
+        <div class="label"><i class="fas fa-check-circle"></i> Vision PASTEF</div>
+        <h4>Refonder le contrat social</h4>
+        <p>Nouvelle gouvernance économique et sociale, projet national fédérateur stable et partagé, respectueux des identités spécifiques et tourné vers le futur.</p>
+      </div>
+    </div>
+
+    <!-- COMMERCE INTERNATIONAL -->
+    <div class="compare-row">
+      <div class="compare-bad">
+        <div class="label"><i class="fas fa-times-circle"></i> Le système actuel</div>
+        <h4>Libéralisation prématurée</h4>
+        <p>Ouverture économique sans tissu industriel ni agriculture solide. Importations en hausse sans exportations équivalentes. Relations commerciales gagnant-perdant.</p>
+      </div>
+      <div class="compare-topic">
+        <i class="fas fa-ship"></i>
+        <span>Commerce</span>
+      </div>
+      <div class="compare-good">
+        <div class="label"><i class="fas fa-check-circle"></i> Vision PASTEF</div>
+        <h4>Industrialisation d'abord</h4>
+        <p>Consolider le tissu productif avant l'ouverture. Refus des APE asymétriques. SGP/SGP+ pour les partenaires CEDEAO. Priorité à la transformation locale des matières premières.</p>
+      </div>
+    </div>
+
+    <!-- ÉDUCATION & JEUNESSE -->
+    <div class="compare-row">
+      <div class="compare-bad">
+        <div class="label"><i class="fas fa-times-circle"></i> Le système actuel</div>
+        <h4>Jeunesse sans horizon</h4>
+        <p>Chômage endémique, émigration clandestine mortelle comme seul espoir. Formation déconnectée des besoins économiques réels du pays.</p>
+      </div>
+      <div class="compare-topic">
+        <i class="fas fa-graduation-cap"></i>
+        <span>Jeunesse</span>
+      </div>
+      <div class="compare-good">
+        <div class="label"><i class="fas fa-check-circle"></i> Vision PASTEF</div>
+        <h4>Croire en nous</h4>
+        <p>Décomplexer la jeunesse sénégalaise. Formation professionnelle alignée sur les filières stratégiques. Créer des emplois dignes sur le territoire national.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SCHÉMA MODÈLE ÉCONOMIQUE ═══ -->
+<section class="schema-section" id="schema">
+  <div class="section-header" data-reveal>
+    <div class="section-badge"><i class="fas fa-sitemap"></i> Modèle</div>
+    <h2 class="section-title">Le <em>Modèle Économique</em> PASTEF</h2>
+    <p class="section-desc">La logique de transformation proposée dans « Solutions » : consolider avant d'ouvrir, transformer avant d'exporter.</p>
+  </div>
+
+  <div class="schema-container" data-reveal>
+    <div class="schema-flow">
+      <div class="schema-step">
+        <div class="schema-label">Étape 1</div>
+        <i class="fas fa-seedling"></i>
+        <h4>Agriculture souveraine</h4>
+        <p>Sécurité alimentaire, filières intégrées, valeur ajoutée locale</p>
+      </div>
+      <div class="schema-step">
+        <div class="schema-label">Étape 2</div>
+        <i class="fas fa-industry"></i>
+        <h4>Industrialisation</h4>
+        <p>Transformation des matières premières sur place, pas de simple exportation brute</p>
+      </div>
+      <div class="schema-step">
+        <div class="schema-label">Étape 3</div>
+        <i class="fas fa-handshake"></i>
+        <h4>Commerce équitable</h4>
+        <p>Négocier en position de force, refuser les APE asymétriques</p>
+      </div>
+      <div class="schema-step">
+        <div class="schema-label">Résultat</div>
+        <i class="fas fa-star"></i>
+        <h4>Sénégal Prospère</h4>
+        <p>Souveraineté économique réelle, emplois dignes, sortie du sous-développement</p>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem; display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:1rem;">
+      <div style="background:#fff; border-radius:12px; padding:1.25rem; box-shadow:0 2px 12px rgba(0,0,0,.07); border-left:4px solid var(--g);">
+        <h4 style="font-size:.9rem; font-weight:700; color:var(--g); margin-bottom:.4rem;"><i class="fas fa-shield-alt"></i> Principe 1</h4>
+        <p style="font-size:.82rem; color:#555; line-height:1.5;">Protéger le tissu productif national avant toute ouverture économique internationale</p>
+      </div>
+      <div style="background:#fff; border-radius:12px; padding:1.25rem; box-shadow:0 2px 12px rgba(0,0,0,.07); border-left:4px solid var(--gold);">
+        <h4 style="font-size:.9rem; font-weight:700; color:#8a6e00; margin-bottom:.4rem;"><i class="fas fa-gem"></i> Principe 2</h4>
+        <p style="font-size:.82rem; color:#555; line-height:1.5;">Nos ressources naturelles doivent d'abord profiter aux Sénégalais — transparence totale des contrats</p>
+      </div>
+      <div style="background:#fff; border-radius:12px; padding:1.25rem; box-shadow:0 2px 12px rgba(0,0,0,.07); border-left:4px solid var(--r);">
+        <h4 style="font-size:.9rem; font-weight:700; color:var(--r); margin-bottom:.4rem;"><i class="fas fa-ban"></i> Principe 3</h4>
+        <p style="font-size:.82rem; color:#555; line-height:1.5;">Refus des modèles génériques imposés par des « partenaires » qui n'ont jamais sorti un pays du sous-développement</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 5 PILIERS ═══ -->
+<section class="pillars-section" id="piliers">
+  <div class="section-header" data-reveal>
+    <div class="section-badge"><i class="fas fa-layer-group"></i> Idéologie</div>
+    <h2 class="section-title">Les <em>5 Piliers</em> de la Vision PASTEF</h2>
+    <p class="section-desc">Les grandes orientations idéologiques qui structurent les propositions du livre « Solutions ».</p>
+  </div>
+
+  <div class="pillars-grid" data-reveal>
+    <div class="pillar-card">
+      <div class="pillar-header" data-num="01">
+        <i class="fas fa-flag"></i>
+        <h3>Souveraineté Nationale Réelle</h3>
+        <div class="pillar-sub">Décolonisation économique et politique</div>
+      </div>
+      <div class="pillar-body">
+        <p>Briser la dépendance structurelle héritée de la colonisation. Relire les accords asymétriques et reprendre le contrôle des décisions stratégiques nationales.</p>
+        <ul class="pillar-actions">
+          <li>Renégocier les contrats miniers et pétroliers inégaux</li>
+          <li>Refuser les APE qui freinent l'industrialisation</li>
+          <li>Politique étrangère indépendante et panafricaniste</li>
+          <li>Contrôle national des secteurs stratégiques</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pillar-card">
+      <div class="pillar-header" data-num="02">
+        <i class="fas fa-balance-scale"></i>
+        <h3>Justice Sociale & Équité</h3>
+        <div class="pillar-sub">Rendre à chacun ce qui lui est dû</div>
+      </div>
+      <div class="pillar-body">
+        <p>Le Sénégal est riche de ses ressources mais la richesse ne profite qu'à une élite. La justice sociale implique une redistribution équitable et des institutions impartiales.</p>
+        <ul class="pillar-actions">
+          <li>Lutte sans concession contre la corruption (OFNAC renforcé)</li>
+          <li>Publication intégrale des contrats publics</li>
+          <li>Fiscalité équitable et progressive</li>
+          <li>Accès universel aux services de base</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pillar-card">
+      <div class="pillar-header" data-num="03">
+        <i class="fas fa-industry"></i>
+        <h3>Industrialisation Endogène</h3>
+        <div class="pillar-sub">Transformer avant d'exporter</div>
+      </div>
+      <div class="pillar-body">
+        <p>L'agriculture comme fer de lance, suivie de filières industrielles intégrées. Cesser d'exporter des matières premières brutes pour importer des produits finis à prix fort.</p>
+        <ul class="pillar-actions">
+          <li>Agriculture comme base de l'industrialisation nationale</li>
+          <li>Filières intégrées : arachide, pêche, phosphates, pétrole</li>
+          <li>Protection douanière du tissu industriel naissant</li>
+          <li>Formation technique alignée sur les besoins réels</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pillar-card">
+      <div class="pillar-header" data-num="04">
+        <i class="fas fa-users"></i>
+        <h3>Refonte du Contrat Social</h3>
+        <div class="pillar-sub">Reconstruire la cohésion nationale</div>
+      </div>
+      <div class="pillar-body">
+        <p>Face à la fragmentation de la société sénégalaise, rebâtir un projet national fédérateur, stable et partagé par tous — respectueux des identités et orienté vers l'avenir.</p>
+        <ul class="pillar-actions">
+          <li>Projet national au-delà des clivages ethniques et religieux</li>
+          <li>Institutions au service de l'intérêt général, pas des lobbies</li>
+          <li>Décentralisation effective du pouvoir</li>
+          <li>Citoyenneté active et engagement civique</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pillar-card">
+      <div class="pillar-header" data-num="05">
+        <i class="fas fa-sun"></i>
+        <h3>Décomplexion & Confiance</h3>
+        <div class="pillar-sub">Croire en nous, sans attendre</div>
+      </div>
+      <div class="pillar-body">
+        <p>Le principal obstacle au développement du Sénégal est psychologique : la conviction que les solutions viennent de l'extérieur. PASTEF prône la foi en nos propres capacités.</p>
+        <ul class="pillar-actions">
+          <li>Valoriser l'expertise et l'intelligence sénégalaises</li>
+          <li>Former une élite engagée dans le développement national</li>
+          <li>Panafricanisme concret : coopération Sud-Sud</li>
+          <li>« Les SOLUTIONS sont bien en nous »</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ JUB JUBAL JUBANTI ═══ -->
+<section class="jubanti-section" id="jubanti">
+  <div class="section-header" data-reveal>
+    <div class="section-badge"><i class="fas fa-star-and-crescent"></i> Valeurs fondamentales</div>
+    <h2 class="section-title"><em>Jub · Jubal · Jubanti</em></h2>
+  </div>
+
+  <div class="jubanti-trio" data-reveal>
+    <div class="jubanti-item">
+      <div class="jubanti-word">JUB</div>
+      <div class="jubanti-def">Être juste<br><small style="color:#888">La droiture personnelle comme exigence première du dirigeant</small></div>
+    </div>
+    <div class="jubanti-item">
+      <div class="jubanti-word">JUBAL</div>
+      <div class="jubanti-def" style="color:rgba(255,255,255,0.8)">Rendre juste<br><small style="color:rgba(255,255,255,0.6)">L'action qui répare les injustices et rend à chacun ce qui lui est dû</small></div>
+    </div>
+    <div class="jubanti-item">
+      <div class="jubanti-word">JUBANTI</div>
+      <div class="jubanti-def">Faire que justice soit<br><small style="color:#888">Créer les conditions systémiques d'une société juste et durable</small></div>
+    </div>
+  </div>
+
+  <div class="jubanti-connect" data-reveal>
+    <p>Ces trois mots wolof résument la philosophie d'action de PASTEF : la justice commence en soi, s'exprime dans les actes et doit être institutionnalisée pour durer.</p>
+  </div>
+</section>
+
+<!-- ═══ TIMELINE PASTEF ═══ -->
+<section class="timeline-section" id="timeline">
+  <div class="section-header" data-reveal>
+    <div class="section-badge"><i class="fas fa-history"></i> Histoire</div>
+    <h2 class="section-title">PASTEF : <em>La Montée en Puissance</em></h2>
+    <p class="section-desc">De l'anonymat total à la tête de l'État sénégalais — l'itinéraire d'un mouvement né sans notoriété ni argent.</p>
+  </div>
+
+  <div class="timeline" data-reveal>
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="timeline-year">Janvier 2014</div>
+        <h4>Naissance dans l'ombre</h4>
+        <p>PASTEF est créé dans un anonymat total. Ses fondateurs, dont Sonko porté à la tête par l'AG constitutive, sont des « illustres inconnus » du grand public.</p>
+      </div>
+      <div class="timeline-dot">14</div>
+      <div></div>
+    </div>
+
+    <div class="timeline-item">
+      <div></div>
+      <div class="timeline-dot">15</div>
+      <div class="timeline-content">
+        <div class="timeline-year">2015–2016</div>
+        <h4>Premiers pas laborieux</h4>
+        <p>Difficultés à obtenir des médias. Des amis ironisent : « vous perdez votre temps sans notoriété ni argent ». La ligne de l'opposition ferme et les dénonciations de mal-gouvernance commencent à attirer l'attention.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="timeline-year">2017</div>
+        <h4>Publication de « Solutions »</h4>
+        <p>Sonko publie son programme idéologique complet : diagnostic du Système, propositions sectorielles pour l'agriculture, les ressources naturelles, la gouvernance, le commerce.</p>
+      </div>
+      <div class="timeline-dot">17</div>
+      <div></div>
+    </div>
+
+    <div class="timeline-item">
+      <div></div>
+      <div class="timeline-dot">19</div>
+      <div class="timeline-content">
+        <div class="timeline-year">2019</div>
+        <h4>3ème force nationale</h4>
+        <p>À la présidentielle, Sonko arrive 3ème avec plus de 15% des voix — une performance inédite pour un parti sans moyens face aux machines politiques établies. Gandhi avait raison : « ils vous combattent, ensuite vous gagnez. »</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-content">
+        <div class="timeline-year">2021–2023</div>
+        <h4>Persécutions & résistance</h4>
+        <p>Arrestations, procès politiques, mobilisations populaires. Le système utilise tous ses leviers pour éliminer PASTEF. La résistance renforce la cohésion militante.</p>
+      </div>
+      <div class="timeline-dot">22</div>
+      <div></div>
+    </div>
+
+    <div class="timeline-item">
+      <div></div>
+      <div class="timeline-dot">24</div>
+      <div class="timeline-content">
+        <div class="timeline-year">Mars 2024</div>
+        <h4>Victoire historique</h4>
+        <p>Bassirou Diomaye Faye, candidat de PASTEF, est élu Président de la République au premier tour avec 54% des voix. Le « Système » décrit dans Solutions est défait électoralement. Le Jub Jubal Jubanti devient politique d'État.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CITATIONS ═══ -->
+<section class="quotes-section" id="citations">
+  <div class="section-header" data-reveal>
+    <div class="section-badge"><i class="fas fa-quote-left"></i> Extraits</div>
+    <h2 class="section-title">La Parole de <em>Solutions</em></h2>
+    <p class="section-desc">Les formulations clés qui résument la philosophie du livre et l'ambition de PASTEF.</p>
+  </div>
+
+  <div class="quotes-grid" data-reveal>
+    <div class="quote-card">
+      <div class="quote-icon">"</div>
+      <div class="quote-text">Dans ce livre, nous vous parlons des vrais problèmes du Sénégal, ceux dont « ils » n'ont jamais osé parler, sinon que très mollement, par peur des puissances occultes et lobbyistes, des tabous culturels, des résistances sociologiques.</div>
+      <div class="quote-chapter"><i class="fas fa-book"></i> Avant-propos</div>
+    </div>
+
+    <div class="quote-card">
+      <div class="quote-icon">"</div>
+      <div class="quote-text">Le Sénégal, en 2017, est encore classé parmi les 25 pays les plus pauvres à l'indice de développement humain. Les programmes successifs ont simplement reproduit des modèles génériques et peu audacieux.</div>
+      <div class="quote-chapter"><i class="fas fa-book"></i> Bilan économique</div>
+    </div>
+
+    <div class="quote-card">
+      <div class="quote-icon">"</div>
+      <div class="quote-text">Le système dont il s'agit est pernicieux, c'est une pieuvre tentaculaire et à plusieurs têtes. C'est une monumentale erreur de l'identifier par sa seule composante politique.</div>
+      <div class="quote-chapter"><i class="fas fa-book"></i> Analyse du Système</div>
+    </div>
+
+    <div class="quote-card">
+      <div class="quote-icon">"</div>
+      <div class="quote-text">L'agriculture doit constituer le fer de lance de cette option résolue pour l'industrialisation. Mais hélas, le sous-secteur a souffert jusqu'à maintenant du flou profond autour de la vision.</div>
+      <div class="quote-chapter"><i class="fas fa-book"></i> Modèle économique</div>
+    </div>
+
+    <div class="quote-card">
+      <div class="quote-icon">"</div>
+      <div class="quote-text">La transparence procède d'abord d'une vision. Une vision nationale qui doit se traduire par la mise en place d'un cadre juridique, réglementaire et institutionnel sérieux échappant à tout agenda personnel.</div>
+      <div class="quote-chapter"><i class="fas fa-book"></i> Ressources naturelles</div>
+    </div>
+
+    <div class="quote-card">
+      <div class="quote-icon">"</div>
+      <div class="quote-text">Voilà les convictions fortes qui fondent notre combat pour un autre Sénégal, un Sénégal meilleur, un Sénégal d'espoir. Il ne tient qu'à nous de briser ce cycle d'échecs et de déceptions.</div>
+      <div class="quote-chapter"><i class="fas fa-book"></i> Avant-propos</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ENGAGEMENTS CONCRETS ═══ -->
+<section style="background:#fff; padding:80px 8%;" id="engagements">
+  <div class="section-header" data-reveal>
+    <div class="section-badge"><i class="fas fa-tasks"></i> Propositions du livre</div>
+    <h2 class="section-title">Les <em>Engagements Concrets</em> de Sonko</h2>
+    <p class="section-desc">
+      Domaine par domaine, les mesures précises proposées dans « Solutions » — avec les sources directes du livre. Ce sont les engagements qui ont structuré le programme du gouvernement Diomaye/Sonko.
+    </p>
+  </div>
+
+  <!-- FILTRE PAR DOMAINE -->
+  <div style="display:flex; gap:.75rem; flex-wrap:wrap; justify-content:center; margin-bottom:3rem;" id="engFilters">
+    <button class="eng-filter active" data-cat="all">Tous <span class="eng-count">34</span></button>
+    <button class="eng-filter" data-cat="agri"><i class="fas fa-seedling"></i> Agriculture</button>
+    <button class="eng-filter" data-cat="ressources"><i class="fas fa-oil-well"></i> Ressources</button>
+    <button class="eng-filter" data-cat="gouv"><i class="fas fa-landmark"></i> Gouvernance</button>
+    <button class="eng-filter" data-cat="eco"><i class="fas fa-industry"></i> Économie</button>
+    <button class="eng-filter" data-cat="social"><i class="fas fa-heart"></i> Social</button>
+    <button class="eng-filter" data-cat="finance"><i class="fas fa-coins"></i> Finances</button>
+    <button class="eng-filter" data-cat="securite"><i class="fas fa-shield-alt"></i> Sécurité</button>
+  </div>
+
+  <div class="eng-grid" id="engGrid">
+
+    <!-- ═══ AGRICULTURE ═══ -->
+    <div class="eng-card" data-cat="agri">
+      <div class="eng-header" style="background:linear-gradient(135deg,#1a6b2a,#2d8a42);">
+        <div class="eng-icon"><i class="fas fa-tint"></i></div>
+        <div class="eng-domain">Agriculture</div>
+      </div>
+      <div class="eng-body">
+        <h4>Maîtrise de l'eau agricole</h4>
+        <p>Revitalisation des vallées fossiles, remise en eau de cours d'eau taris dans le Sénégal septentrional. Réhabilitation des barrages (dont Afignam). Étude de faisabilité de nouveaux barrages. Recours maîtrisé aux pluies provoquées.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Agriculture — p.59</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="agri">
+      <div class="eng-header" style="background:linear-gradient(135deg,#1a6b2a,#2d8a42);">
+        <div class="eng-icon"><i class="fas fa-home"></i></div>
+        <div class="eng-domain">Agriculture</div>
+      </div>
+      <div class="eng-body">
+        <h4>Réforme foncière audacieuse</h4>
+        <p>Sécurisation des droits fonciers des exploitations familiales et des investisseurs privés. Réforme agraire concertée pour une agriculture performante avec accès au financement et à la commercialisation.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Agriculture — p.62</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="agri">
+      <div class="eng-header" style="background:linear-gradient(135deg,#1a6b2a,#2d8a42);">
+        <div class="eng-icon"><i class="fas fa-hand-holding-usd"></i></div>
+        <div class="eng-domain">Agriculture</div>
+      </div>
+      <div class="eng-body">
+        <h4>Financement agricole & coopératives</h4>
+        <p>Création de Fonds Mutualistes ruraux pour financer les coopératives. Mobilisation de l'épargne locale pour le développement industriel et agricole. Avances sur récoltes aux producteurs. Subventions d'État à la production et à la commercialisation.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Agriculture — p.62</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="agri">
+      <div class="eng-header" style="background:linear-gradient(135deg,#1a6b2a,#2d8a42);">
+        <div class="eng-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="eng-domain">Agriculture</div>
+      </div>
+      <div class="eng-body">
+        <h4>Protectionnisme agricole intelligent</h4>
+        <p>Maintien de taxes rétablissant l'équilibre face au dumping étranger. Exonération fiscale sur les intrants et matériels d'exploitation. Rejet total de l'APE dans sa forme actuelle. Incitations fiscales à la production intérieure.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Agriculture — p.62–63</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="agri">
+      <div class="eng-header" style="background:linear-gradient(135deg,#1a6b2a,#2d8a42);">
+        <div class="eng-icon"><i class="fas fa-cow"></i></div>
+        <div class="eng-domain">Élevage</div>
+      </div>
+      <div class="eng-body">
+        <h4>Relance de l'élevage national</h4>
+        <p>Triptyque : autosuffisance alimentaire – accès aux marchés régionaux – recherche. Encouragement de grandes fermes d'élevage avec incitations financières. Formation aux métiers de l'élevage. Protection du marché avicole contre l'ouverture sauvage aux producteurs étrangers.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Élevage — p.64</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="agri">
+      <div class="eng-header" style="background:linear-gradient(135deg,#1a6b2a,#2d8a42);">
+        <div class="eng-icon"><i class="fas fa-fish"></i></div>
+        <div class="eng-domain">Pêche</div>
+      </div>
+      <div class="eng-body">
+        <h4>Souveraineté halieutique</h4>
+        <p>Réservation exclusive de la zone 0 à 12 miles à la pêche artisanale. Inscription dans le Code de pêche maritime. Modernisation des infrastructures : quais de pêche, équipements de conservation. Valorisation par transformation locale. Développement de l'aquaculture dans les zones fluviales. Système de financement adapté aux particularités du secteur.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Pêche — p.69</div>
+      </div>
+    </div>
+
+    <!-- ═══ RESSOURCES NATURELLES ═══ -->
+    <div class="eng-card" data-cat="ressources">
+      <div class="eng-header" style="background:linear-gradient(135deg,#7a4a00,#c47c00);">
+        <div class="eng-icon"><i class="fas fa-file-contract"></i></div>
+        <div class="eng-domain">Ressources naturelles</div>
+      </div>
+      <div class="eng-body">
+        <h4>Transparence totale des contrats</h4>
+        <p>Publication intégrale des contrats miniers et pétroliers, sans aucune amputation ni dissimulation. Lois obligeant la publication accessible au grand public. Inscription de l'appel d'offres comme mode premier d'attribution des permis dans les codes miniers et pétroliers.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Ressources — p.74</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="ressources">
+      <div class="eng-header" style="background:linear-gradient(135deg,#7a4a00,#c47c00);">
+        <div class="eng-icon"><i class="fas fa-balance-scale"></i></div>
+        <div class="eng-domain">Ressources naturelles</div>
+      </div>
+      <div class="eng-body">
+        <h4>Lutte anti-corruption minière</h4>
+        <p>Renforcement des pouvoirs d'enquête de l'OFNAC sur les cas de corruption. Protection juridique des lanceurs d'alerte. Sanctions pécuniaires et pénales pour complicités administratives et dissimulations d'informations.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Ressources — p.74</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="ressources">
+      <div class="eng-header" style="background:linear-gradient(135deg,#7a4a00,#c47c00);">
+        <div class="eng-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div class="eng-domain">Pétrole & Gaz</div>
+      </div>
+      <div class="eng-body">
+        <h4>Formation aux métiers du pétrole</h4>
+        <p>Investir les revenus pétrole/gaz dans le recrutement et la formation de jeunes Sénégalais aux métiers pétroliers (géologues, ingénieurs forage, raffinage, traders…). Imposer aux compagnies pétrolières des obligations de formation des populations locales.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Pétrole — p.79</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="ressources">
+      <div class="eng-header" style="background:linear-gradient(135deg,#7a4a00,#c47c00);">
+        <div class="eng-icon"><i class="fas fa-gem"></i></div>
+        <div class="eng-domain">Mines</div>
+      </div>
+      <div class="eng-body">
+        <h4>Objectifs de production minière</h4>
+        <p>Fixer des objectifs annuels ambitieux : 15 à 20 millions de tonnes de minerai de fer, 2,5 millions de tonnes de phosphates, 3 millions de tonnes d'acide phosphorique, 17 tonnes d'or, 90 tonnes de zircon. Développement d'un hub minier régional.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Mines — p.72</div>
+      </div>
+    </div>
+
+    <!-- ═══ GOUVERNANCE ═══ -->
+    <div class="eng-card" data-cat="gouv">
+      <div class="eng-header" style="background:linear-gradient(135deg,#1F4530,#2D5F3F);">
+        <div class="eng-icon"><i class="fas fa-gavel"></i></div>
+        <div class="eng-domain">Gouvernance</div>
+      </div>
+      <div class="eng-body">
+        <h4>Responsabilité pénale du Président</h4>
+        <p>Réforme constitutionnelle instaurant la responsabilité politique et pénale du Président de la République. Introduction de la notion de « manquement grave » à la charge présidentielle et d'une procédure de destitution. Fin de l'impunité présidentielle.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Gouvernance — p.94</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="gouv">
+      <div class="eng-header" style="background:linear-gradient(135deg,#1F4530,#2D5F3F);">
+        <div class="eng-icon"><i class="fas fa-user-slash"></i></div>
+        <div class="eng-domain">Gouvernance</div>
+      </div>
+      <div class="eng-body">
+        <h4>Fin du népotisme & clientélisme</h4>
+        <p>Interdiction d'une implication familiale ou clanique flagrante dans les affaires de l'État. Le Président ne peut plus diriger un parti politique. Réduction des moyens et outils discrétionnaires présidentiels. Interdiction du cumul de deux mandats électifs et de fonctions.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Gouvernance — p.94–95</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="gouv">
+      <div class="eng-header" style="background:linear-gradient(135deg,#1F4530,#2D5F3F);">
+        <div class="eng-icon"><i class="fas fa-vote-yea"></i></div>
+        <div class="eng-domain">Démocratie</div>
+      </div>
+      <div class="eng-body">
+        <h4>Réforme du système électoral</h4>
+        <p>Représentation proportionnelle pour les formations minoritaires. Le parti majoritaire ne prend que 45% des sièges (52% en cas de majorité absolue). Amélioration des conditions de travail des parlementaires. Interdiction du cumul de mandats.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Institutions — p.95–99</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="gouv">
+      <div class="eng-header" style="background:linear-gradient(135deg,#1F4530,#2D5F3F);">
+        <div class="eng-icon"><i class="fas fa-map-marked-alt"></i></div>
+        <div class="eng-domain">Décentralisation</div>
+      </div>
+      <div class="eng-body">
+        <h4>Vraie décentralisation</h4>
+        <p>Transfert effectif de moyens, de compétences et d'autorité aux collectivités territoriales. Politique sociale inclusive et équilibrée pour toutes les régions. Donner à chaque Sénégalais le même sentiment d'appartenir à une même nation.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Unité nationale — p.203</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="gouv">
+      <div class="eng-header" style="background:linear-gradient(135deg,#1F4530,#2D5F3F);">
+        <div class="eng-icon"><i class="fas fa-recycle"></i></div>
+        <div class="eng-domain">Gestion publique</div>
+      </div>
+      <div class="eng-body">
+        <h4>Lutte contre le gaspillage de l'État</h4>
+        <p>Économies potentielles de <strong>216 milliards FCFA/an</strong> sur les marchés publics en luttant contre la corruption (taux OCDE de 11%). Suppression des ministères et agences créés pour caser des partisans. Rationalisation du parc automobile de l'État.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Finances — p.134</div>
+      </div>
+    </div>
+
+    <!-- ═══ ÉCONOMIE & INDUSTRIE ═══ -->
+    <div class="eng-card" data-cat="eco">
+      <div class="eng-header" style="background:linear-gradient(135deg,#0d3d6e,#1565c0);">
+        <div class="eng-icon"><i class="fas fa-industry"></i></div>
+        <div class="eng-domain">Industrie</div>
+      </div>
+      <div class="eng-body">
+        <h4>Modèle endogène d'industrialisation</h4>
+        <p>Un modèle volontariste à l'opposé du libéralisme passif. Industrialisation par substitution aux importations ET promotion des exportations, selon les avantages comparatifs sectoriels. Développement auto-entretenu depuis l'intérieur. Promotion d'une offre compétitive sur des marchés particuliers ciblés.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Industrie — p.48</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="eco">
+      <div class="eng-header" style="background:linear-gradient(135deg,#0d3d6e,#1565c0);">
+        <div class="eng-icon"><i class="fas fa-car"></i></div>
+        <div class="eng-domain">Industrie</div>
+      </div>
+      <div class="eng-body">
+        <h4>Industrie automobile à horizon 2030</h4>
+        <p>Ambition de positionner le Sénégal dans le cercle des pays producteurs de véhicules automobiles d'ici 2030. Capter les délocalisations industrielles liées à la transition électrique européenne. Produire des voitures low cost pour les marchés africains et du Sud global.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Industrie — p.50</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="eco">
+      <div class="eng-header" style="background:linear-gradient(135deg,#0d3d6e,#1565c0);">
+        <div class="eng-icon"><i class="fas fa-user-tie"></i></div>
+        <div class="eng-domain">Économie</div>
+      </div>
+      <div class="eng-body">
+        <h4>Bourgeoisie industrielle nationale</h4>
+        <p>Former de vrais capitaines d'industrie nationaux — et non des parasites enrichis par l'État. Contrer la logique de rente improductive. Favoriser des entrepreneurs qui s'enrichissent en enrichissant leur pays, pas en saignant l'État. Lutter contre les monopoles accordés aux investisseurs étrangers.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Bourgeoisie — p.114</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="eco">
+      <div class="eng-header" style="background:linear-gradient(135deg,#0d3d6e,#1565c0);">
+        <div class="eng-icon"><i class="fas fa-plane"></i></div>
+        <div class="eng-domain">Transport</div>
+      </div>
+      <div class="eng-body">
+        <h4>Transport & position géographique</h4>
+        <p>Exploiter la position géographique exceptionnelle du Sénégal (6148 km de New York, 4200 km de Paris). Développer transports fluvial, maritime et aéroportuaire. Initiative sous-régionale pour une compagnie aérienne commune. Formation des techniciens sénégalais pour gérer les équipements.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Transports — p.164</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="eco">
+      <div class="eng-header" style="background:linear-gradient(135deg,#0d3d6e,#1565c0);">
+        <div class="eng-icon"><i class="fas fa-handshake"></i></div>
+        <div class="eng-domain">Commerce</div>
+      </div>
+      <div class="eng-body">
+        <h4>Politique commerciale souveraine</h4>
+        <p>Refus des APE asymétriques dans leur forme actuelle. Maintien du SGP pour le Nigeria, SGP+ pour le Cap-Vert, régime « Tout sauf les armes » pour les PMA. En dernier recours : droit commun du commerce mondial plus favorable aux pays pauvres. Commerce équitable avec la CEDEAO.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Commerce — p.54</div>
+      </div>
+    </div>
+
+    <!-- ═══ SOCIAL ═══ -->
+    <div class="eng-card" data-cat="social">
+      <div class="eng-header" style="background:linear-gradient(135deg,#7a0000,#b23a3a);">
+        <div class="eng-icon"><i class="fas fa-hospital"></i></div>
+        <div class="eng-domain">Protection sociale</div>
+      </div>
+      <div class="eng-body">
+        <h4>Couverture sociale universelle</h4>
+        <p>Extension de la protection sociale aux travailleurs agricoles, pêcheurs, éleveurs, travailleurs du secteur informel — aujourd'hui totalement exclus. Mécanismes innovants de financement. La CMU (Couverture Maladie Universelle) ne doit pas être sacrifiée aux engagements politiques.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Social — p.173</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="social">
+      <div class="eng-header" style="background:linear-gradient(135deg,#7a0000,#b23a3a);">
+        <div class="eng-icon"><i class="fas fa-briefcase"></i></div>
+        <div class="eng-domain">Emploi</div>
+      </div>
+      <div class="eng-body">
+        <h4>Des centaines de milliers d'emplois</h4>
+        <p>L'effet d'entraînement multiplicateur du programme économique créera des centaines de milliers d'emplois stables et décents, surtout pour les jeunes. Emplois construits sur du réel et du concret — pas sur des promesses. La pêche, l'élevage, l'industrie, le pétrole comme viviers d'emplois.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, conclusion éco — p.89</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="social">
+      <div class="eng-header" style="background:linear-gradient(135deg,#7a0000,#b23a3a);">
+        <div class="eng-icon"><i class="fas fa-leaf"></i></div>
+        <div class="eng-domain">Environnement</div>
+      </div>
+      <div class="eng-body">
+        <h4>Sécurité environnementale du territoire</h4>
+        <p>Lutte contre l'avancée de la mer sur le flanc maritime (Saint-Louis, Mbour). Combat contre la désertification au nord (Ferlo). Lutte contre la salinisation des terres agricoles au sud. Arrêt des exploitations minières et forestières sauvages. Dialogue avec les populations déplacées.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Sécurité — p.193</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="social">
+      <div class="eng-header" style="background:linear-gradient(135deg,#7a0000,#b23a3a);">
+        <div class="eng-icon"><i class="fas fa-dove"></i></div>
+        <div class="eng-domain">Paix & Cohésion</div>
+      </div>
+      <div class="eng-body">
+        <h4>Dialogue avec le MFDC & Casamance</h4>
+        <p>Discussions franches et ouvertes avec le MFDC impliquant toutes les composantes religieuses et coutumières. Justice et équité dans la distribution de la richesse nationale pour donner à tous les Sénégalais le même sentiment de dignité et d'appartenance à une même nation.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Unité — p.200–203</div>
+      </div>
+    </div>
+
+    <!-- ═══ FINANCES ═══ -->
+    <div class="eng-card" data-cat="finance">
+      <div class="eng-header" style="background:linear-gradient(135deg,#4a0072,#7b1fa2);">
+        <div class="eng-icon"><i class="fas fa-money-bill-wave"></i></div>
+        <div class="eng-domain">Monnaie</div>
+      </div>
+      <div class="eng-body">
+        <h4>Sortie prudente du franc CFA</h4>
+        <p>Restituer à la monnaie ses fonctions d'écoute et de financement de l'économie nationale. La politique monétaire doit devenir un instrument de développement, pas uniquement de maîtrise de l'inflation. Sortie prudente du système exsangue pour les banques centrales africaines. Monnaie souveraine comme levier de développement endogène.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Monnaie — p.144</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="finance">
+      <div class="eng-header" style="background:linear-gradient(135deg,#4a0072,#7b1fa2);">
+        <div class="eng-icon"><i class="fas fa-balance-scale-right"></i></div>
+        <div class="eng-domain">Fiscalité</div>
+      </div>
+      <div class="eng-body">
+        <h4>Fiscalité juste et redistributive</h4>
+        <p>Réajustement du système fiscal pour plus d'équité et de justice. Mesures de redistribution en faveur des bas revenus. Réduction des prélèvements sur les bas salaires. Renforcer les perceptions directes sur les hauts revenus. Fiscalité comme outil de réduction des inégalités, pas seulement de rendement.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Fiscalité — p.183</div>
+      </div>
+    </div>
+
+    <div class="eng-card" data-cat="finance">
+      <div class="eng-header" style="background:linear-gradient(135deg,#4a0072,#7b1fa2);">
+        <div class="eng-icon"><i class="fas fa-search-dollar"></i></div>
+        <div class="eng-domain">Marchés publics</div>
+      </div>
+      <div class="eng-body">
+        <h4>Économies sur la corruption publique</h4>
+        <p>216 milliards FCFA d'économies annuelles possibles sur les marchés publics 2017 en appliquant un taux de corruption conservateur de 11% (OCDE). Lutte contre les commandes en matériels administratifs ne répondant à aucune nécessité. Rationalisation du fonctionnement de l'État.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Finances — p.134</div>
+      </div>
+    </div>
+
+    <!-- ═══ SÉCURITÉ ═══ -->
+    <div class="eng-card" data-cat="securite">
+      <div class="eng-header" style="background:linear-gradient(135deg,#1a1a2e,#16213e);">
+        <div class="eng-icon"><i class="fas fa-shield-virus"></i></div>
+        <div class="eng-domain">Sécurité</div>
+      </div>
+      <div class="eng-body">
+        <h4>Double sécurisation du territoire</h4>
+        <p>Sécurité physique du territoire face aux menaces climatiques (avancée mer, désertification) et sécurité des citoyens. Action contre les exploitations minières et forestières sauvages au sud, sud-est et ouest. Réponse aux victimes des inondations et déplacements.</p>
+        <div class="eng-ref"><i class="fas fa-book-open"></i> Solutions, chap. Sécurité — p.193</div>
+      </div>
+    </div>
+
+  </div><!-- /eng-grid -->
+
+  <!-- COMPTEUR -->
+  <div style="text-align:center; margin-top:2rem; color:#888; font-size:.85rem;">
+    <span id="engCounter">34</span> engagements affichés · Source : <em>Solutions — Propositions pour un Sénégal nouveau</em>, Ousmane Sonko (2017)
+  </div>
+
+  <div style="text-align:center; margin-top:2rem;">
+    <a href="#hero" style="color:var(--g); font-weight:600; font-size:.85rem; text-decoration:none;">
+      <i class="fas fa-arrow-up"></i> Retour en haut de la page
+    </a>
+  </div>
+</section>
+
+<style>
+/* ═══ ENGAGEMENTS STYLES ═══ */
+.eng-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.eng-card {
+  border-radius: 14px; overflow: hidden;
+  box-shadow: 0 3px 16px rgba(0,0,0,0.09);
+  background: #fff;
+  transition: transform .25s, box-shadow .25s;
+  display: flex; flex-direction: column;
+}
+.eng-card:hover { transform: translateY(-5px); box-shadow: 0 12px 36px rgba(0,0,0,0.14); }
+.eng-card.hidden { display: none; }
+.eng-header {
+  padding: 1rem 1.2rem .8rem;
+  display: flex; align-items: center; gap: .75rem;
+}
+.eng-icon {
+  width: 38px; height: 38px; background: rgba(255,255,255,0.18);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 1rem; flex-shrink: 0;
+}
+.eng-domain { font-size: .72rem; font-weight: 700; color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: .08em; }
+.eng-body { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; gap: .6rem; }
+.eng-body h4 { font-weight: 700; font-size: 1rem; color: #1a1a1a; line-height: 1.3; }
+.eng-body p { font-size: .85rem; color: #555; line-height: 1.65; flex: 1; }
+.eng-ref { font-size: .72rem; color: var(--g); font-weight: 600; display: flex; align-items: center; gap: .35rem; padding-top: .5rem; border-top: 1px solid #f0f0f0; }
+
+/* FILTERS */
+.eng-filter {
+  padding: .5rem 1.1rem; border-radius: 50px;
+  border: 2px solid #e0e0e0; background: #fff;
+  font-size: .82rem; font-weight: 600; cursor: pointer;
+  transition: all .2s; color: #555;
+  display: inline-flex; align-items: center; gap: .4rem;
+}
+.eng-filter:hover { border-color: var(--g); color: var(--g); }
+.eng-filter.active { background: var(--g); border-color: var(--g); color: #fff; }
+.eng-count { background: rgba(255,255,255,0.25); border-radius: 50px; padding: .1rem .4rem; font-size: .7rem; }
+</style>
+
+
+<!-- ════════════════════════════════════════════
+     FOOTER — identique à index
+     ════════════════════════════════════════════ -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand-row">
+                <div class="footer-brand-info">
+                    <h3 class="footer-brand-name"><i class="fas fa-flag"></i> PROJETBI</h3>
+                    <p class="footer-brand-desc">Gardiens du Projet PASTEF · Sympathisants engagés · Sénégal Souverain 2024–2029</p>
+                </div>
+                <div class="footer-contact">
+                    <h4 class="footer-contact-title"><i class="fas fa-envelope-open-text"></i> Nous Rejoindre</h4>
+                    <ul class="footer-contact-list">
+                        <li><a href="index.html#contact" class="footer-contact-link" id="contactEmailLink"><i class="fas fa-envelope"></i> <span id="contactEmail">Contact par email</span></a></li>
+                        <li><span class="footer-contact-link footer-contact-static" id="contactPhone"><i class="fas fa-phone"></i> Disponible sur demande</span></li>
+                        <li class="footer-contact-link footer-contact-static"><i class="fas fa-map-marker-alt"></i> Dakar, Sénégal</li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn" title="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" class="social-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-divider"></div>
+        <nav class="footer-nav">
+            <a href="index.html#accueil" class="footer-nav-link"><i class="fas fa-home"></i> Accueil</a>
+          <span class="footer-sep">·</span>
+            <a href="ideologie.html" class="footer-nav-link" style="color:#C9A84C;font-weight:700;"><i class="fas fa-brain"></i> Idéologie Pastef</a>
+        </nav>
+            <span class="footer-sep">·</span>
+            <a href="index.html#dashboard" class="footer-nav-link"><i class="fas fa-chart-bar"></i> Tableau de Bord du Projet</a>
+            <span class="footer-sep">·</span>
+            <a href="index.html#promesse-du-jour" class="footer-nav-link"><i class="fas fa-newspaper"></i> Engagement du Jour</a>
+            <span class="footer-sep">·</span>
+            <a href="index.html#engagements" class="footer-nav-link"><i class="fas fa-list"></i> Les 300 Engagements</a>
+            <span class="footer-sep">·</span>
+            <a href="index.html#actualites" class="footer-nav-link"><i class="fas fa-rss"></i> Actualités</a>
+            <span class="footer-sep">·</span>
+            <a href="index.html#revue-de-presse" class="footer-nav-link"><i class="fas fa-newspaper"></i> Revue de Presse</a>
+            <span class="footer-sep">·</span>
+            <a href="actualites.html" class="footer-nav-link"><i class="fas fa-external-link-alt"></i> Toutes Actualités</a>
+            <span class="footer-sep">·</span>
+            <a href="index.html#evaluation" class="footer-nav-link"><i class="fas fa-star"></i> Évaluer les Services</a>
+            <span class="footer-sep">·</span>
+            <a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf" class="footer-nav-link" download><i class="fas fa-file-pdf"></i> Programme PASTEF (PDF)</a>
+                    <div class="footer-divider"></div>
+        <div class="footer-bottom-compact">
+            <span class="footer-copy">© 2026 PROJETBI · Gardiens du Projet PASTEF · Depuis le <strong>02 AVRIL 2024</strong></span>
+            <span class="footer-disclaimer">Site de sympathisants du Projet PASTEF. Données publiques et vérifiables.</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+  // Progress bar (barre de lecture)
+  window.addEventListener('scroll', () => {
+    const prog = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    const bar = document.getElementById('progressIndicator');
+    if (bar) bar.style.width = prog + '%';
+    const topBtn = document.getElementById('scrollToTop');
+    if (topBtn) topBtn.classList.toggle('visible', window.scrollY > 400);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('[data-reveal]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target); }});
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Engagement filters
+  const filters = document.querySelectorAll('.eng-filter');
+  const cards = document.querySelectorAll('.eng-card');
+  const counter = document.getElementById('engCounter');
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filters.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cat = btn.dataset.cat;
+      let count = 0;
+      cards.forEach(card => {
+        const show = cat === 'all' || card.dataset.cat === cat;
+        card.classList.toggle('hidden', !show);
+        if (show) count++;
+      });
+      if (counter) counter.textContent = count;
+    });
+  });
+  const sections = ['hero','congres','quiz','systeme','comparaison','schema','piliers','jubanti','timeline','citations','engagements'];
+  const dots = document.querySelectorAll('.toc-dot');
+  const mobileLinks = document.querySelectorAll('#tocMobileSheet a');
+  const tocObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        dots.forEach(d => d.classList.remove('active'));
+        mobileLinks.forEach(l => l.classList.remove('active'));
+        const idx = sections.indexOf(e.target.id);
+        if (idx >= 0 && dots[idx]) dots[idx].classList.add('active');
+        if (idx >= 0 && mobileLinks[idx]) mobileLinks[idx].classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(id => { const el = document.getElementById(id); if (el) tocObserver.observe(el); });
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      const el = document.getElementById(sections[i]);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // TOC mobile (sheet)
+  const tocBtn = document.getElementById('tocMobileBtn');
+  const tocSheet = document.getElementById('tocMobileSheet');
+  if (tocBtn && tocSheet) {
+    tocBtn.addEventListener('click', () => tocSheet.classList.toggle('open'));
+    mobileLinks.forEach(a => a.addEventListener('click', () => tocSheet.classList.remove('open')));
+    document.addEventListener('click', (e) => {
+      if (!tocSheet.contains(e.target) && !tocBtn.contains(e.target)) tocSheet.classList.remove('open');
+    });
+  }
+</script>
+<script>
+// ── Hamburger mobile (identique à index) ──
+(function() {
+    const burger   = document.getElementById('modernHamburger');
+    const mobMenu  = document.getElementById('modernMenu');
+    const navLinks = document.getElementById('navLinks');
+    function closeNav() {
+        if (burger)   { burger.classList.remove('active'); burger.setAttribute('aria-expanded','false'); }
+        if (mobMenu)  { mobMenu.classList.remove('active'); }
+        if (navLinks) navLinks.classList.remove('open','active');
+    }
+    if (burger) {
+        burger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isOpen = burger.classList.toggle('active');
+            burger.setAttribute('aria-expanded', isOpen);
+            if (mobMenu)  mobMenu.classList.toggle('active', isOpen);
+            if (navLinks) navLinks.classList.toggle('open', isOpen);
+        });
+        document.addEventListener('click', function(e) {
+            const nav = document.getElementById('modernNav');
+            if (nav && !nav.contains(e.target)) closeNav();
+        });
+    }
+    document.querySelectorAll('.modern-link').forEach(a => a.addEventListener('click', closeNav));
+})();
+// ── Obfuscation email ──
+(function() {
+    const u = 'pastefprojetbi'; const d = 'gmail.com';
+    const email = u + '@' + d;
+    const linkEl = document.getElementById('contactEmailLink');
+    const textEl = document.getElementById('contactEmail');
+    if (linkEl) linkEl.href = 'mailto:' + email;
+    if (textEl) textEl.textContent = email;
+    const phoneEl = document.getElementById('contactPhone');
+    if (phoneEl) {
+        const parts = ['+221','70','871','79','42'];
+        phoneEl.style.cursor = 'pointer';
+        phoneEl.title = 'Cliquer pour afficher le numéro';
+        phoneEl.addEventListener('click', function() {
+            this.innerHTML = '<i class="fas fa-phone"></i> ' + parts.join(' ');
+            this.style.cursor = 'default';
+        }, { once: true });
+    }
+})();
+</script>
+
+<script>
+// ── Toggle discours complet ──
+(function() {
+  const btn = document.getElementById('toggleDiscours');
+  const label = document.getElementById('toggleDiscoursLabel');
+  const full = document.getElementById('discoursFull');
+  if (!btn || !full) return;
+  btn.addEventListener('click', () => {
+    const isOpen = !full.hidden;
+    full.hidden = isOpen;
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    label.textContent = isOpen ? 'Lire le discours complet' : 'Replier le discours';
+    if (!isOpen) full.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+})();
+
+// ── Quiz du Militant ──
+(function() {
+  const ALL_QUESTIONS = [
+    {
+      q: "En quelle année PASTEF-Les Patriotes a-t-il été créé ?",
+      options: ["2012", "2014", "2017", "2019"],
+      correct: 1,
+      explain: "PASTEF est né en janvier 2014, dans un anonymat quasi total, porté par des « illustres inconnus » du grand public."
+    },
+    {
+      q: "Quel livre pose les bases du diagnostic et des propositions idéologiques de PASTEF ?",
+      options: ["L'Appel aux Patriotes", "Solutions", "Le Manifeste des Patriotes", "Jub Jubal Jubanti"],
+      correct: 1,
+      explain: "« Solutions », publié par Ousmane Sonko en 2017, détaille le diagnostic du Système et les propositions sectorielles du parti."
+    },
+    {
+      q: "Comment le livre « Solutions » désigne-t-il le principal problème du Sénégal ?",
+      options: ["Un parti unique", "Un système à plusieurs têtes, une pieuvre tentaculaire", "Un seul homme au pouvoir", "Un manque de ressources naturelles"],
+      correct: 1,
+      explain: "Le livre décrit « le Système » comme une pieuvre tentaculaire mêlant classe politique, médias, lobbies religieux, affairistes et partenaires étrangers."
+    },
+    {
+      q: "Quel score Ousmane Sonko obtient-il à la présidentielle de 2019 ?",
+      options: ["Plus de 15%, 3ème place", "Plus de 50%, vainqueur", "Moins de 5%", "Il n'était pas candidat"],
+      correct: 0,
+      explain: "En 2019, Sonko arrive 3ème avec plus de 15% des voix, une performance inédite pour un parti sans moyens face aux machines politiques établies."
+    },
+    {
+      q: "Qui est élu Président de la République en mars 2024, candidat de PASTEF ?",
+      options: ["Ousmane Sonko", "Bassirou Diomaye Faye", "Mohamed Ayib Salim Daffé", "Macky Sall"],
+      correct: 1,
+      explain: "Bassirou Diomaye Faye est élu Président dès le premier tour avec 54% des voix, en mars 2024."
+    },
+    {
+      q: "Quelle est la devise/valeur fondatrice résumée par « Jub · Jubal · Jubanti » ?",
+      options: ["Force, richesse, pouvoir", "Être droit, redresser, rectifier", "Travail, discipline, silence", "Unité, fraternité, progrès"],
+      correct: 1,
+      explain: "Jub Jubal Jubanti est la devise centrale de PASTEF : être droit, redresser ce qui est courbé, rectifier ce qui a été faussé."
+    },
+    {
+      q: "Selon le discours du Congrès 2026, que devient PASTEF après son premier Congrès ordinaire ?",
+      options: ["Un simple appareil électoral", "Un parti de transformation historique, révolutionnaire", "Une ONG humanitaire", "Un syndicat de fonctionnaires"],
+      correct: 1,
+      explain: "Le congrès marque le passage du mouvement de rupture au parti de transformation historique — révolutionnaire, selon les mots du discours."
+    },
+    {
+      q: "Quelle est la matrice idéologique affirmée lors du Congrès de 2026 ?",
+      options: ["Le libéralisme classique", "Le panafricanisme souverainiste de transformation démocratique", "Le non-alignement strict", "Le nationalisme ethnique"],
+      correct: 1,
+      explain: "Le discours affirme un panafricanisme souverainiste de transformation démocratique, dans la lignée de Cheikh Anta Diop, Cabral, Nkrumah et Sankara."
+    },
+    {
+      q: "Combien de communes du Sénégal étaient représentées au Premier Congrès ordinaire de Diamniadio (06 juin 2026) ?",
+      options: ["153", "353", "553", "653"],
+      correct: 2,
+      explain: "Le congrès a réuni des délégués venus des 553 communes du Sénégal ainsi que de la diaspora."
+    },
+    {
+      q: "D'après le discours, quelle est la condition pour qu'une souveraineté politique ne reste pas « un drapeau flottant sur la dépendance » ?",
+      options: ["Une armée forte", "La souveraineté économique", "Des alliances militaires", "Un contrôle strict des médias"],
+      correct: 1,
+      explain: "« La souveraineté politique, sans souveraineté économique, n'est qu'un drapeau flottant sur la dépendance » — l'un des passages clés du discours de clôture."
+    },
+    {
+      q: "Quel est le 1er des 5 Piliers de la vision PASTEF présentés sur cette page ?",
+      options: ["Justice Sociale & Équité", "Souveraineté Nationale Réelle", "Industrialisation Endogène", "Décomplexion & Confiance"],
+      correct: 1,
+      explain: "Le pilier n°01 est la Souveraineté Nationale Réelle : décolonisation économique et politique, renégociation des contrats inégaux."
+    },
+    {
+      q: "Quel pilier PASTEF met l'accent sur « transformer avant d'exporter » ?",
+      options: ["Refonte du Contrat Social", "Industrialisation Endogène", "Justice Sociale & Équité", "Décomplexion & Confiance"],
+      correct: 1,
+      explain: "L'Industrialisation Endogène (pilier 03) prône l'agriculture comme fer de lance suivie de filières industrielles intégrées, plutôt que l'export de matières premières brutes."
+    },
+    {
+      q: "Quel pilier de la vision PASTEF porte sur la lutte contre la corruption et la redistribution équitable des richesses ?",
+      options: ["Justice Sociale & Équité", "Souveraineté Nationale Réelle", "Refonte du Contrat Social", "Industrialisation Endogène"],
+      correct: 0,
+      explain: "Justice Sociale & Équité (pilier 02) vise une redistribution équitable via un OFNAC renforcé, la publication des contrats publics et une fiscalité progressive."
+    },
+    {
+      q: "Que prône le 5ème pilier, « Décomplexion & Confiance » ?",
+      options: ["Une armée nationale forte", "La foi dans les capacités propres du Sénégal, sans attendre l'extérieur", "Une fermeture totale des frontières", "La suppression des partis politiques"],
+      correct: 1,
+      explain: "Le principal obstacle identifié est psychologique : croire que les solutions viennent de l'extérieur. PASTEF prône la confiance en l'expertise sénégalaise et le panafricanisme concret."
+    },
+    {
+      q: "Dans le diagnostic du « Système », quel acteur n'est PAS cité comme une des « tentacules de la pieuvre » ?",
+      options: ["Classe politique corrompue", "Médias sous influence", "Coopératives paysannes autonomes", "Lobbies religieux cooptés"],
+      correct: 2,
+      explain: "Les tentacules citées sont la classe politique, les médias sous influence, les lobbies religieux, les affairistes/technocrates et les lobbies étrangers — pas les coopératives paysannes."
+    },
+    {
+      q: "Que dénonce le livre « Solutions » à propos des contrats miniers et pétroliers ?",
+      options: ["Ils sont trop favorables au Sénégal", "Ils sont attribués sans appel d'offres transparent et souvent dissimulés", "Ils n'existent pas encore", "Ils sont gérés uniquement par l'État"],
+      correct: 1,
+      explain: "Le livre dénonce des contrats miniers/pétroliers opaques : permis attribués sans transparence, contrats amputés ou dissimulés, absence de fiscalisation des transferts de titres."
+    },
+    {
+      q: "Quelle est la proposition PASTEF pour contrer l'opacité des contrats de ressources naturelles ?",
+      options: ["Les garder confidentiels pour la sécurité nationale", "Publication intégrale des contrats et renforcement de l'OFNAC", "Les confier à des cabinets étrangers", "Supprimer tout contrôle parlementaire"],
+      correct: 1,
+      explain: "La vision PASTEF propose la transparence totale : publication intégrale des contrats, appels d'offres inscrits dans les codes miniers/pétroliers, OFNAC renforcé, protection des lanceurs d'alerte."
+    },
+    {
+      q: "Face à la libéralisation commerciale prématurée dénoncée dans « Solutions », que propose PASTEF ?",
+      options: ["Accélérer l'ouverture sans condition", "Consolider le tissu productif avant l'ouverture et refuser les APE asymétriques", "Fermer totalement les frontières commerciales", "Adhérer à tous les accords proposés par le G8"],
+      correct: 1,
+      explain: "PASTEF priorise l'industrialisation d'abord : consolider le tissu productif, refuser les APE asymétriques, utiliser le SGP/SGP+ avec la CEDEAO, transformer localement les matières premières."
+    },
+    {
+      q: "Quel événement marque le retour légal de PASTEF après sa dissolution administrative ?",
+      options: ["Une victoire aux élections législatives de 2022", "L'abrogation du décret de dissolution en mars 2024", "Un accord avec le gouvernement en 2020", "La libération de tous ses militants en 2019"],
+      correct: 1,
+      explain: "Malgré la dissolution et l'emprisonnement de ses dirigeants, le parti a survécu de façon informelle jusqu'à l'abrogation du décret de dissolution en mars 2024."
+    },
+    {
+      q: "Selon le discours du Congrès 2026, combien de jeunes seraient tombés lors des manifestations selon plusieurs organisations de défense des droits humains ?",
+      options: ["Plus de 20", "Plus de 50", "Plus de 80", "Plus de 150"],
+      correct: 2,
+      explain: "Le discours évoque plus de quatre-vingts morts selon plusieurs organisations de défense des droits humains durant la période de répression."
+    },
+    {
+      q: "Quel philosophe/théoricien africain est cité dans le discours à propos de l'indépendance politique qui peut survivre à la dépendance réelle ?",
+      options: ["Frantz Fanon", "Léopold Sédar Senghor", "Nelson Mandela", "Julius Nyerere"],
+      correct: 0,
+      explain: "Le discours cite Frantz Fanon, qui a montré que l'indépendance politique peut survivre à la dépendance réelle quand les structures de domination demeurent intactes."
+    },
+    {
+      q: "Quel intellectuel est associé, dans le discours, à la restitution de l'Afrique dans sa centralité historique et scientifique ?",
+      options: ["Cheikh Anta Diop", "Amílcar Cabral", "Kwame Nkrumah", "Thomas Sankara"],
+      correct: 0,
+      explain: "Cheikh Anta Diop est cité pour son long combat visant à restituer à l'Afrique sa centralité historique, scientifique et civilisationnelle."
+    },
+    {
+      q: "Qui est cité dans le discours à propos de la maîtrise de l'économie nationale comme condition de la souveraineté politique ?",
+      options: ["Mamadou Dia", "Léopold Sédar Senghor", "Abdoulaye Wade", "Macky Sall"],
+      correct: 0,
+      explain: "Mamadou Dia est cité comme ayant compris tôt qu'aucune souveraineté politique ne peut survivre durablement sans maîtrise de l'économie nationale."
+    },
+    {
+      q: "Quel penseur est associé, dans le discours, à l'idée qu'un peuple conscient et organisé devient une force historique impossible à contenir ?",
+      options: ["Thomas Sankara", "Kwame Nkrumah", "Amílcar Cabral", "Cheikh Anta Diop"],
+      correct: 0,
+      explain: "Thomas Sankara est cité pour rappeler qu'un peuple conscient et organisé devient une force historique impossible à contenir durablement."
+    },
+    {
+      q: "D'après le discours, qui composent le « bloc populaire » sur lequel repose la révolution sénégalaise ?",
+      options: ["Uniquement les cadres du parti", "Jeunesse, travailleurs, femmes, paysans, pêcheurs, artisans et diaspora", "Seulement l'armée et l'administration", "Les seuls investisseurs étrangers"],
+      correct: 1,
+      explain: "Le bloc populaire inclut la jeunesse, les travailleurs formels et informels, les femmes, paysans, pêcheurs, artisans, enseignants, agents publics, spiritualités populaires et la diaspora."
+    },
+    {
+      q: "Que signifie le passage du « mouvement de rupture » au « parti de transformation historique » évoqué au Congrès 2026 ?",
+      options: ["PASTEF cesse toute activité politique", "PASTEF devient explicitement un parti révolutionnaire chargé d'organiser la souveraineté", "PASTEF fusionne avec un autre parti", "PASTEF se transforme en ONG"],
+      correct: 1,
+      explain: "Le congrès marque la responsabilité nouvelle et explicite du parti : organiser durablement la souveraineté, au-delà de la seule conquête électorale."
+    },
+    {
+      q: "Quelle action concrète le discours cite-t-il comme déjà engagée par le gouvernement PASTEF depuis son arrivée au pouvoir ?",
+      options: ["Dissimuler la situation financière héritée", "Révéler l'ampleur réelle de la situation financière et renégocier des contrats miniers/pétroliers", "Privatiser tous les services publics", "Signer de nouveaux APE asymétriques"],
+      correct: 1,
+      explain: "Le discours cite la révélation de la situation financière héritée, la renégociation de contrats miniers/pétroliers/gaziers, et le refus des diktats exogènes."
+    },
+    {
+      q: "Quel risque le discours reconnaît-il explicitement pour toute révolution, y compris la révolution sénégalaise ?",
+      options: ["Aucun risque, la victoire est acquise définitivement", "Le risque de détournement, de ralentissement ou de restauration de l'ordre ancien", "Le risque d'une intervention extraterrestre", "Le risque que le peuple s'organise trop bien"],
+      correct: 1,
+      explain: "Le discours reconnaît qu'aucune révolution n'avance en ligne droite et que des tentations de recentrage ou de restauration de l'ordre ancien existent, y compris au sommet de l'État."
+    },
+    {
+      q: "Quelle formule le Congrès 2026 utilise-t-il pour résumer la mission collective du parti et du peuple ?",
+      options: ["« Gérer la routine administrative »", "« Organisons la souveraineté, transformons l'État, servons le peuple »", "« Attendre les prochaines élections »", "« Suivre les recommandations internationales »"],
+      correct: 1,
+      explain: "Le discours se conclut par l'appel : « Organisons la souveraineté. Transformons l'État. Servons le peuple. »"
+    },
+    {
+      q: "Selon le discours, quelles valeurs faut-il garder vivantes pour rester fidèle au combat du parti ?",
+      options: ["Le jom, le ngor, le kersa, le sens du mbokk, la teranga", "La rentabilité financière avant tout", "La discrétion totale envers le peuple", "L'alignement systématique sur les partenaires extérieurs"],
+      correct: 0,
+      explain: "Le discours cite explicitement : le jom, le ngor, le burok, le kersa, le sens du mbokk, le teddungal, la teranga comme valeurs à préserver."
+    },
+    {
+      q: "Que représente le secrétaire général cité dans le discours comme cheville ouvrière du Congrès ?",
+      options: ["Mohamed Ayib Salim Daffé", "Bassirou Diomaye Faye", "Ousmane Sonko", "Amílcar Cabral"],
+      correct: 0,
+      explain: "Le discours remercie Mohamed Ayib Salim Daffé, Secrétaire général, pour son rôle de cheville ouvrière du Comité de pilotage du Congrès."
+    }
+  ];
+
+  // Mélange Fisher-Yates
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  const QUIZ_LENGTH = 10;
+  let QUESTIONS = [];
+
+  function buildQuizSet() {
+    const picked = shuffle(ALL_QUESTIONS).slice(0, Math.min(QUIZ_LENGTH, ALL_QUESTIONS.length));
+    QUESTIONS = picked.map(item => {
+      const correctText = item.options[item.correct];
+      const shuffledOptions = shuffle(item.options);
+      return {
+        q: item.q,
+        options: shuffledOptions,
+        correct: shuffledOptions.indexOf(correctText),
+        explain: item.explain
+      };
+    });
+  }
+
+  let current = 0;
+  let score = 0;
+  let answered = false;
+
+  const stage = document.getElementById('quizStage');
+  const stepEl = document.getElementById('quizStep');
+  const scoreEl = document.getElementById('quizScoreLive');
+  const fillEl = document.getElementById('quizProgressFill');
+  const resultBox = document.getElementById('quizResult');
+  const resultTitle = document.getElementById('quizResultTitle');
+  const resultText = document.getElementById('quizResultText');
+  const restartBtn = document.getElementById('quizRestartBtn');
+  if (!stage) return;
+
+  function render() {
+    const item = QUESTIONS[current];
+    answered = false;
+    stepEl.textContent = `Question ${current + 1} / ${QUESTIONS.length}`;
+    scoreEl.textContent = `Score : ${score}`;
+    fillEl.style.width = `${(current / QUESTIONS.length) * 100}%`;
+
+    const letters = ['A', 'B', 'C', 'D'];
+    stage.innerHTML = `
+      <div class="quiz-question">${item.q}</div>
+      <div class="quiz-options">
+        ${item.options.map((opt, i) => `
+          <button class="quiz-option" data-idx="${i}">
+            <span class="opt-letter">${letters[i]}</span> <span>${opt}</span>
+          </button>
+        `).join('')}
+      </div>
+    `;
+
+    stage.querySelectorAll('.quiz-option').forEach(btn => {
+      btn.addEventListener('click', () => onAnswer(parseInt(btn.dataset.idx, 10)));
+    });
+  }
+
+  function onAnswer(idx) {
+    if (answered) return;
+    answered = true;
+    const item = QUESTIONS[current];
+    const opts = stage.querySelectorAll('.quiz-option');
+    opts.forEach(o => o.disabled = true);
+    opts[item.correct].classList.add('correct');
+    if (idx !== item.correct) opts[idx].classList.add('wrong');
+    else score++;
+    scoreEl.textContent = `Score : ${score}`;
+
+    const explainBox = document.createElement('div');
+    explainBox.className = 'quiz-explain';
+    explainBox.innerHTML = `<i class="fas fa-lightbulb"></i> ${item.explain}`;
+    stage.appendChild(explainBox);
+
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'quiz-next-btn';
+    const isLast = current === QUESTIONS.length - 1;
+    nextBtn.innerHTML = isLast
+      ? '<i class="fas fa-flag-checkered"></i> Voir mon résultat'
+      : '<i class="fas fa-arrow-right"></i> Question suivante';
+    nextBtn.addEventListener('click', () => {
+      if (isLast) { showResult(); } else { current++; render(); }
+    });
+    stage.appendChild(nextBtn);
+  }
+
+  function showResult() {
+    fillEl.style.width = '100%';
+    stepEl.textContent = `Terminé — ${QUESTIONS.length} / ${QUESTIONS.length}`;
+    stage.innerHTML = '';
+    resultBox.hidden = false;
+
+    const pct = Math.round((score / QUESTIONS.length) * 100);
+    let title, text;
+    if (pct >= 90) { title = 'Militant Aguerri !'; text = `${score}/${QUESTIONS.length} bonnes réponses (${pct}%). Tu maîtrises parfaitement l'histoire et l'idéologie de PASTEF-Les Patriotes.`; }
+    else if (pct >= 60) { title = 'Bon Sympathisant'; text = `${score}/${QUESTIONS.length} bonnes réponses (${pct}%). Une bonne base militante — relis « Solutions » et le discours du Congrès pour aller plus loin.`; }
+    else { title = 'À Approfondir'; text = `${score}/${QUESTIONS.length} bonnes réponses (${pct}%). Prends le temps de parcourir les sections « 5 Piliers », « Timeline » et « Congrès 2026 » ci-dessus.`; }
+    resultTitle.textContent = title;
+    resultText.textContent = text;
+  }
+
+  restartBtn.addEventListener('click', () => {
+    buildQuizSet();
+    current = 0; score = 0;
+    resultBox.hidden = true;
+    render();
+  });
+
+  buildQuizSet();
+  render();
+})();
+</script>
+
+<!-- ════════════ MOTEUR DE PARTAGE ════════════ -->
+<script>
+(function() {
+  const PAGE_URL = 'https://projetbi.org/ideologie.html';
+
+  /* ── Toast ── */
+  const toastEl = document.createElement('div');
+  toastEl.id = 'shareToast';
+  toastEl.innerHTML = '<i class="fas fa-check-circle" style="color:#C9A84C"></i> <span id="stMsg">Lien copié !</span>';
+  document.body.appendChild(toastEl);
+
+  let _toastTimer;
+  function showToast(msg, duration) {
+    clearTimeout(_toastTimer);
+    document.getElementById('stMsg').textContent = msg;
+    toastEl.classList.add('show');
+    _toastTimer = setTimeout(() => toastEl.classList.remove('show'), duration || 3000);
+  }
+
+  /* ── Copie dans le presse-papier ── */
+  function copyText(txt) {
+    return navigator.clipboard.writeText(txt).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = txt; ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+    });
+  }
+
+  /* ── Cœur du partage ── */
+  function doShare(platform, text, url) {
+    url = url || PAGE_URL;
+    const e = encodeURIComponent;
+    const fullText = (text ? text + '\n' : '') + url;
+
+    if (platform === 'copy') {
+      copyText(fullText).then(() => showToast('✅ Lien + texte copiés !'));
+      return;
+    }
+
+    if (platform === 'facebook') {
+      /* Facebook bloque le pré-remplissage texte depuis 2018.
+         On copie le texte automatiquement pour que l'utilisateur puisse le coller. */
+      copyText(fullText).then(() => {
+        showToast('📋 Texte copié ! Collez-le dans votre post Facebook.', 5000);
+      });
+      setTimeout(() => {
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${e(url)}`, '_blank', 'width=620,height=460,noopener');
+      }, 400);
+      return;
+    }
+
+    const map = {
+      twitter:  `https://twitter.com/intent/tweet?text=${e((text||'').slice(0,240))}&url=${e(url)}&via=ProjetBI`,
+      whatsapp: `https://wa.me/?text=${e(fullText)}`,
+      telegram: `https://t.me/share/url?url=${e(url)}&text=${e((text||'').slice(0,200))}`,
+    };
+    if (map[platform]) window.open(map[platform], '_blank', 'width=620,height=460,noopener');
+  }
+
+  /* ── Panel FIXED positionné via getBoundingClientRect ── */
+  let activePanel = null;
+
+  // Le panel singleton flottant
+  const PANEL = document.createElement('div');
+  PANEL.id = 'sharePanelGlobal';
+  PANEL.style.cssText = `
+    position:fixed; z-index:99990;
+    background:#fff; border-radius:14px;
+    box-shadow:0 12px 40px rgba(0,0,0,.22);
+    padding:.65rem .8rem;
+    display:none; flex-direction:column; gap:.3rem;
+    min-width:188px;
+    border:1px solid rgba(0,0,0,.08);
+    animation: panelIn .18s cubic-bezier(.34,1.56,.64,1);
+  `;
+  // Animation CSS inline
+  const animStyle = document.createElement('style');
+  animStyle.textContent = `
+    @keyframes panelIn { from { opacity:0; transform:scale(.92) translateY(6px); } to { opacity:1; transform:scale(1) translateY(0); } }
+    #sharePanelGlobal .spi { display:flex;align-items:center;gap:.6rem;padding:.45rem .55rem;border-radius:9px;font-size:.82rem;font-weight:600;color:#222;cursor:pointer;transition:background .13s;border:none;background:transparent;text-align:left;width:100%; }
+    #sharePanelGlobal .spi:hover { background:#f4f4f4; }
+    #sharePanelGlobal .spico { width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.76rem;color:#fff;flex-shrink:0; }
+    #sharePanelGlobal .fb-note { font-size:.68rem;color:#888;padding:.1rem .55rem .4rem;line-height:1.4;border-top:1px solid #eee;margin-top:.15rem; }
+  `;
+  document.head.appendChild(animStyle);
+  document.body.appendChild(PANEL);
+
+  function buildPanel(text, url) {
+    PANEL.innerHTML = `
+      <button class="spi" data-p="twitter"><span class="spico" style="background:#000"><i class="fab fa-x-twitter"></i></span> X (Twitter)</button>
+      <button class="spi" data-p="facebook"><span class="spico" style="background:#1877F2"><i class="fab fa-facebook-f"></i></span> Facebook <span style="font-size:.68rem;color:#aaa;margin-left:auto">+ copie</span></button>
+      <button class="spi" data-p="whatsapp"><span class="spico" style="background:#25D366"><i class="fab fa-whatsapp"></i></span> WhatsApp</button>
+      <button class="spi" data-p="telegram"><span class="spico" style="background:#0088cc"><i class="fab fa-telegram-plane"></i></span> Telegram</button>
+      <button class="spi" data-p="copy"><span class="spico" style="background:#6b7280"><i class="fas fa-link"></i></span> Copier texte + lien</button>
+      <div class="fb-note"><i class="fab fa-facebook-f"></i> Facebook : le texte sera copié dans votre presse-papier pour coller dans votre post.</div>
+    `;
+    PANEL.querySelectorAll('[data-p]').forEach(b => {
+      b.addEventListener('click', ev => {
+        ev.stopPropagation();
+        doShare(b.dataset.p, text, url);
+        closePanel();
+      });
+    });
+  }
+
+  function openPanel(triggerBtn, text, url) {
+    buildPanel(text, url);
+    const rect = triggerBtn.getBoundingClientRect();
+    PANEL.style.display = 'flex';
+
+    // Positionner en dessous par défaut
+    let top  = rect.bottom + 8;
+    let left = rect.left;
+
+    // Ajuster si ça dépasse à droite
+    const panelW = 200;
+    if (left + panelW > window.innerWidth - 12) {
+      left = window.innerWidth - panelW - 12;
+    }
+
+    // Flip vers le haut si pas assez de place en bas
+    const panelH = 230;
+    if (top + panelH > window.innerHeight - 12) {
+      top = rect.top - panelH - 8;
+      if (top < 8) top = 8;
+    }
+
+    PANEL.style.top  = top  + 'px';
+    PANEL.style.left = left + 'px';
+    activePanel = triggerBtn;
+  }
+
+  function closePanel() {
+    PANEL.style.display = 'none';
+    activePanel = null;
+  }
+
+  document.addEventListener('click', e => {
+    if (!PANEL.contains(e.target) && e.target !== activePanel) closePanel();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+  window.addEventListener('scroll', closePanel, { passive: true });
+
+  /* ── Attacher le panel à un bouton ── */
+  function attachPanel(btn, text, url) {
+    btn.addEventListener('click', ev => {
+      ev.stopPropagation();
+      if (PANEL.style.display !== 'none' && activePanel === btn) { closePanel(); return; }
+      openPanel(btn, text, url || PAGE_URL);
+    });
+  }
+
+  /* ── Share-bar inline (sur les cartes) ── */
+  function makeBar(text, url) {
+    const bar = document.createElement('div');
+    bar.className = 'share-bar';
+    bar.innerHTML = `
+      <span class="share-bar-label">Partager</span>
+      <button class="share-btn tw" title="X / Twitter"><i class="fab fa-x-twitter"></i></button>
+      <button class="share-btn fb" title="Facebook (texte copié automatiquement)"><i class="fab fa-facebook-f"></i></button>
+      <button class="share-btn wa" title="WhatsApp"><i class="fab fa-whatsapp"></i></button>
+      <button class="share-btn tg" title="Telegram"><i class="fab fa-telegram-plane"></i></button>
+      <button class="share-btn cp" title="Copier texte + lien"><i class="fas fa-link"></i></button>`;
+    const platforms = ['twitter','facebook','whatsapp','telegram','copy'];
+    bar.querySelectorAll('.share-btn').forEach((btn, i) => {
+      btn.addEventListener('click', ev => {
+        ev.stopPropagation();
+        if (platforms[i] === 'copy') {
+          btn.classList.add('copied'); btn.innerHTML = '<i class="fas fa-check"></i>';
+          setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = '<i class="fas fa-link"></i>'; }, 2200);
+        }
+        doShare(platforms[i], text, url);
+      });
+    });
+    return bar;
+  }
+
+  function clean(el) { return el ? el.textContent.replace(/\s+/g,' ').trim().slice(0,220) : ''; }
+
+  /* ── CITATIONS ── */
+  document.querySelectorAll('.quote-card').forEach(card => {
+    const txt = clean(card.querySelector('.quote-text'));
+    const ch  = clean(card.querySelector('.quote-chapter'));
+    card.appendChild(makeBar(`"${txt}" (${ch}) — Idéologie PASTEF | ProjetBI`));
+  });
+
+  /* ── ENGAGEMENTS ── */
+  document.querySelectorAll('.eng-card').forEach(card => {
+    const title  = clean(card.querySelector('h4'));
+    const domain = clean(card.querySelector('.eng-domain'));
+    const ref    = clean(card.querySelector('.eng-ref'));
+    card.querySelector('.eng-body').appendChild(makeBar(`📌 ${domain} — ${title} | ${ref} | ProjetBI PASTEF`));
+  });
+
+  /* ── PILIERS ── */
+  document.querySelectorAll('.pillar-card').forEach(card => {
+    const title = clean(card.querySelector('h3'));
+    const sub   = clean(card.querySelector('.pillar-sub'));
+    const acts  = Array.from(card.querySelectorAll('.pillar-actions li')).slice(0,3).map(li=>'✓ '+li.textContent.trim()).join(' | ');
+    card.appendChild(makeBar(`🏛️ Pilier PASTEF — ${title} (${sub})\n${acts}\n#JubJubalJubanti | ProjetBI`));
+  });
+
+  /* ── TIMELINE ── */
+  document.querySelectorAll('.timeline-content').forEach(el => {
+    const year  = clean(el.querySelector('.timeline-year'));
+    const title = clean(el.querySelector('h4'));
+    const desc  = clean(el.querySelector('p'));
+    el.appendChild(makeBar(`🕐 ${year} — ${title}: ${desc.slice(0,140)} | Histoire PASTEF | ProjetBI`));
+  });
+
+  /* ── COMPARE-ROW : bouton flottant ── */
+  document.querySelectorAll('.compare-row').forEach(row => {
+    const topic = clean(row.querySelector('.compare-topic span'));
+    const bad   = clean(row.querySelector('.compare-bad h4'));
+    const good  = clean(row.querySelector('.compare-good h4'));
+    const txt   = `⚖️ ${topic} — Système: "${bad}" vs Vision PASTEF: "${good}" | #Solutions #PASTEF | ProjetBI`;
+    const wrap  = document.createElement('div');
+    wrap.className = 'compare-share-wrap';
+    const btn = document.createElement('button');
+    btn.className = 'compare-share-btn';
+    btn.innerHTML = '<i class="fas fa-share-alt"></i> Partager';
+    attachPanel(btn, txt);
+    wrap.appendChild(btn);
+    row.appendChild(wrap);
+  });
+
+  /* ── SECTION-HEADERS ── */
+  const sectionDefs = [
+    { id: 'systeme',     label: '🕸️ Diagnostic du Système PASTEF — La pieuvre tentaculaire à plusieurs têtes décryptée dans Solutions | ProjetBI' },
+    { id: 'comparaison', label: '⚖️ Système vs Vision PASTEF — Secteur par secteur, ce que dénonce Sonko et ce qu\'il propose | ProjetBI' },
+    { id: 'schema',      label: '🏭 Le Modèle Économique PASTEF — Agriculture → Industrialisation → Commerce équitable → Sénégal Prospère | ProjetBI' },
+    { id: 'piliers',     label: '🏛️ Les 5 Piliers de la Vision PASTEF — Souveraineté, Justice, Industrialisation, Contrat social, Confiance | ProjetBI' },
+    { id: 'jubanti',     label: '⚡ Jub · Jubal · Jubanti — La philosophie de PASTEF. Être juste, Rendre juste, Faire que justice soit | ProjetBI' },
+    { id: 'timeline',    label: '🕐 Histoire de PASTEF — De l\'anonymat (2014) à la victoire historique de 2024 | ProjetBI' },
+    { id: 'citations',   label: '💬 Citations clés du livre « Solutions » — La parole d\'Ousmane Sonko sur le Sénégal | ProjetBI' },
+    { id: 'engagements', label: '📋 Les Engagements Concrets de Sonko — Domaine par domaine, les mesures précises du programme PASTEF | ProjetBI' },
+  ];
+
+  sectionDefs.forEach(({ id, label }) => {
+    const section = document.getElementById(id);
+    if (!section) return;
+    const header  = section.querySelector('.section-header');
+    if (!header)  return;
+    const btn = document.createElement('button');
+    btn.className = 'section-share-btn';
+    btn.innerHTML = '<i class="fas fa-share-alt"></i> Partager cette section';
+    attachPanel(btn, label, PAGE_URL + '#' + id);
+    header.appendChild(btn);
+  });
+
+})();
+</script>
+</body>
+</html>
+

@@ -1,0 +1,1552 @@
+<!--
+    index.html — version durcie (perf + sécurité + a11y)
+    Couches additives :
+      • design-system.css : tokens design + focus + reduced-motion
+      • app.perf.js       : optimisations de performance
+      • app.harden.js     : durcissement XSS + accessibilité (focus, ESC, ARIA)
+    Toutes les couches sont chargées APRÈS l'existant — aucun fichier originel n'est modifié.
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <!-- ══ EN-TÊTES DE SÉCURITÉ (via balises meta) ══ -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
+    <!--
+      Content Security Policy :
+      - frame-ancestors est RETIRÉ de la meta (invalide ici, géré dans _headers HTTP)
+      - Cloudflare Analytics (static.cloudflareinsights.com) autorisé
+      - Source maps CDN autorisées dans connect-src
+    -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' cdn.jsdelivr.net cdnjs.cloudflare.com static.cloudflareinsights.com;
+        style-src 'self' 'unsafe-inline' fonts.googleapis.com cdnjs.cloudflare.com;
+        font-src 'self' fonts.gstatic.com cdnjs.cloudflare.com;
+        img-src 'self' data: https: blob:;
+        connect-src 'self' https://jwsdxttjjbfnoufiidkd.supabase.co https://*.supabase.co
+            cdn.jsdelivr.net cdnjs.cloudflare.com static.cloudflareinsights.com;
+        object-src 'none';
+        base-uri 'self';
+    ">
+    <meta name="description" content="Gardiens du Projet PASTEF. Nous suivons, nous comptons, nous témoignons chaque engagement ou promesse issu du Projet pour
+un Sénégal Souverain, Juste & Prospère de PASTEF;Chaque promesse faite au peuple sénégalais — nous veillons à ce qu'elle soit tenue.">
+    <meta name="keywords" content="Carte membre PASTEF prix,Les membres de PASTEF,Les membres fondateurs de Pastef,Livre le projet de Pastef,Pastef et Moi,Organigramme Pastef,Les cadres de Pastef,Idéologie Pastef,PASTEF,MONCAP pastef, Bassirou Diomaye Faye, Ousmane Sonko, Jub Jubal Jubanti, engagements présidentiels, suivi citoyen, souveraineté, justice sociale, Sénégal prospère,Les membres de Pastef,Livre Le Projet de Pastef,Organigramme Pastef,Les cadres de Pastef,Idéologie Pastef,SONKO PASTEF,Carte membre Pastef,Pastef signification,telecharger programme diomaye pdf,programme diomaye,programme pastef pdf,bassirou diomaye faye,ousmane sonko">
+    <meta name="author" content="ProjetBI">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#2D5F3F">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://projetbi.org/">
+    <meta property="og:title" content="ProjetBI — Gardiens du Projet PASTEF pour le Sénégal">
+    <meta property="og:description" content="Sympathisants du Projet PASTEF et gardiens des engagements du Président Bassirou Diomaye Faye. Nous suivons, nous témoignons, nous encourageons chaque pas vers un Sénégal Souverain, Juste &amp; Prospère — Jub, Jubal, Jubanti.">
+    <meta property="og:image" content="https://projetbi.org/og-image.jpg">
+    <title>ProjetBI — Gardiens du Projet Sénégal | PASTEF 2024–2029</title>
+    <!-- ══ Resource hints : preconnect pour les CDN ══ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://jwsdxttjjbfnoufiidkd.supabase.co">
+    <link rel="icon" href="https://projetbi.org/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome — crossorigin pour compatibilité SRI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer">
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" crossorigin="anonymous" defer></script>
+    <link rel="stylesheet" href="style.css?v=v105">
+    <link rel="stylesheet" href="corrections.css?v=v105">
+    <link rel="stylesheet" href="design-system.css?v=v105">
+
+    <style>
+    /* ── Corrections ciblées qui ne remplacent PAS style.css ── */
+
+    /* Anti-overflow + scroll-padding pour ancres sous navbar fixe */
+    html { overflow-x: hidden; scroll-padding-top: 100px; }
+    body { overflow-x: hidden; max-width: 100%; }
+    @media (max-width: 768px) { html { scroll-padding-top: 60px; } }
+
+    @media (max-width: 768px) {
+        /* Racine : rien ne dépasse */
+        * { max-width: 100%; box-sizing: border-box; }
+
+        /* Nav mobile */
+        .nav-links {
+            display: none !important;
+            position: fixed !important;
+            top: 56px !important; left: 0 !important; right: 0 !important;
+            height: calc(100dvh - 56px) !important;
+            background: white !important;
+            flex-direction: column !important;
+            padding: 1.5rem !important;
+            gap: .25rem !important;
+            overflow-y: auto !important;
+            z-index: 998 !important;
+            border-top: 3px solid #2D5F3F !important;
+            box-shadow: 0 8px 40px rgba(0,0,0,.18) !important;
+        }
+        .nav-links.open, .nav-links.active, .nav-links.show {
+            display: flex !important;
+        }
+        .nav-links a, .modern-link {
+            font-size: 1.05rem !important; padding: .85rem 1.1rem !important;
+            border-radius: 10px !important; color: #0D1B14 !important;
+            font-weight: 600 !important; border-bottom: 1px solid #eee !important;
+            display: block !important; width: 100% !important;
+        }
+
+        /* Grille promesses : 1 colonne, pas de débordement */
+        #promisesGrid,
+        .promises-grid {
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            width: 100% !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            overflow: hidden !important;
+        }
+
+        /* Chaque carte : pleine largeur, pas de margin lateral */
+        .promise-card,
+        .promise-item {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+        }
+
+        /* Container sections : padding uniforme */
+        .container {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            width: 100% !important;
+            overflow-x: hidden !important;
+        }
+
+        section { overflow-x: hidden !important; }
+    }
+
+    @media (max-width: 480px) {
+        .container { padding-left: .75rem !important; padding-right: .75rem !important; }
+    }
+
+    /* Bouton afficher plus — respecte display:none de app.js */
+    #showMoreBtn[style*="display: none"],
+    #showLessBtn[style*="display: none"] { display: none !important; }
+
+    /* Notifications */
+    #notification-container {
+        position: fixed; top: 80px; right: 1.5rem;
+        z-index: 10000; display: flex; flex-direction: column; gap: .75rem;
+    }
+    
+    /* ── SECTION ACTUALITÉS INDEX — calqué sur actualites.html ── */
+    .idx-featured {
+        display:grid;grid-template-columns:1fr 400px;
+        border-radius:20px;overflow:hidden;
+        background:white;border:1px solid #d6e8dc;
+        box-shadow:0 4px 24px rgba(13,27,20,.08);
+        margin-bottom:2rem;cursor:pointer;transition:box-shadow .3s;
+    }
+    .idx-featured:hover { box-shadow:0 16px 48px rgba(13,27,20,.14); }
+    .idx-featured-img {
+        min-height:320px;background:#1A3D28;
+        display:flex;align-items:center;justify-content:center;
+        overflow:hidden;position:relative;
+    }
+    .idx-featured-img img {
+        position:absolute;inset:0;width:100%;height:100%;
+        object-fit:cover;opacity:.85;transition:transform .5s;
+    }
+    .idx-featured:hover .idx-featured-img img { transform:scale(1.04); }
+    .idx-feat-overlay {
+        position:absolute;inset:0;
+        background:linear-gradient(135deg,rgba(13,27,20,.5),transparent);
+    }
+    .idx-feat-badge {
+        position:absolute;top:1.1rem;left:1.1rem;z-index:2;
+        background:#B23A3A;color:white;font-size:.62rem;font-weight:700;
+        letter-spacing:.1em;text-transform:uppercase;
+        padding:.28rem .75rem;border-radius:100px;
+        display:inline-flex;align-items:center;gap:.35rem;
+    }
+    .idx-feat-badge::before {
+        content:'';width:5px;height:5px;border-radius:50%;
+        background:rgba(255,255,255,.8);animation:idxBlink 1.5s infinite;
+    }
+    @keyframes idxBlink{0%,100%{opacity:1}50%{opacity:0}}
+    .idx-featured-body { padding:1.75rem;display:flex;flex-direction:column;gap:.6rem; }
+    .idx-feat-cat { font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#2D5F3F; }
+    .idx-feat-title { font-size:clamp(1.1rem,2vw,1.5rem);font-weight:800;line-height:1.3;color:#0D1B14; }
+    .idx-feat-excerpt { font-size:.88rem;color:#4a6055;line-height:1.7;flex:1; }
+    .idx-feat-meta { display:flex;gap:.9rem;font-size:.76rem;color:#8a9e93;flex-wrap:wrap;margin-top:auto; }
+    .idx-feat-meta i { color:#3E7F55;margin-right:.2rem; }
+    .idx-feat-btn {
+        display:inline-flex;align-items:center;gap:.45rem;
+        background:#2D5F3F;color:white;
+        padding:.65rem 1.3rem;border-radius:100px;
+        font-weight:700;font-size:.82rem;
+        border:none;cursor:pointer;align-self:flex-start;
+        box-shadow:0 4px 14px rgba(45,95,63,.3);transition:all .22s;
+    }
+    .idx-feat-btn:hover { background:#1A3D28;transform:translateY(-1px); }
+    #newsGrid.idx-grid {
+        display:grid;
+        grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+        gap:1.1rem;
+    }
+    .idx-news-item {
+        background:white;border:1px solid #d6e8dc;border-radius:14px;
+        overflow:hidden;display:flex;flex-direction:column;
+        transition:all .22s;cursor:pointer;
+    }
+    .idx-news-item:hover { box-shadow:0 10px 36px rgba(13,27,20,.1);transform:translateY(-3px); }
+    .idx-news-img {
+        aspect-ratio:16/9;background:#f0f7f3;overflow:hidden;
+        display:flex;align-items:center;justify-content:center;
+        color:#3E7F55;font-size:2rem;
+    }
+    .idx-news-img img { width:100%;height:100%;object-fit:cover;transition:transform .4s; }
+    .idx-news-item:hover .idx-news-img img { transform:scale(1.06); }
+    .idx-news-body { padding:1rem;display:flex;flex-direction:column;gap:.4rem;flex:1; }
+    .idx-news-head { display:flex;align-items:center;justify-content:space-between;gap:.4rem; }
+    .idx-news-cat {
+        font-size:.62rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+        color:#2D5F3F;background:#eef6f1;padding:.15rem .5rem;border-radius:4px;flex-shrink:0;
+    }
+    .idx-news-date { font-size:.72rem;color:#8a9e93; }
+    .idx-news-title { font-weight:700;font-size:.9rem;line-height:1.4;color:#0D1B14; }
+    .idx-news-excerpt {
+        font-size:.8rem;color:#4a6055;line-height:1.55;
+        display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+    }
+    .idx-news-foot {
+        display:flex;align-items:center;justify-content:space-between;
+        padding-top:.65rem;margin-top:auto;border-top:1px solid #d6e8dc;
+        font-size:.74rem;color:#8a9e93;
+    }
+    .idx-news-foot i { margin-right:.2rem; }
+    .idx-news-read {
+        display:inline-flex;align-items:center;gap:.25rem;
+        color:#2D5F3F;font-weight:700;font-size:.74rem;
+        background:none;border:none;cursor:pointer;padding:0;transition:gap .2s;
+    }
+    .idx-news-read:hover { gap:.45rem; }
+    @media(max-width:900px){
+        .idx-featured { grid-template-columns:1fr; }
+        .idx-featured-img { min-height:200px; }
+    }
+    @media(max-width:600px){
+        #newsGrid.idx-grid { grid-template-columns:1fr; }
+    }
+</style>
+    <!-- ══ PWA Manifest ══ -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ProjetBI">
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- ══ Twitter Card enrichie ══ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@ProjetBI">
+    <meta name="twitter:title" content="ProjetBI — Gardiens du Projet PASTEF | Sénégal 2024–2029">
+    <meta name="twitter:description" content="Sympathisants PASTEF et gardiens du Projet. Nous suivons les 300 engagements du Président Diomaye Faye pour que le Sénégal tienne sa promesse de souveraineté et de justice.">
+    <meta name="twitter:image" content="https://projetbi.org/twitter-card.jpg">
+
+    <!-- ══ Données Structurées JSON-LD (Google Rich Snippets) ══ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "ProjetBI — Gardiens du Projet PASTEF",
+      "alternateName": "Projet BI Sénégal",
+      "url": "https://projetbi.org",
+      "description": "Sympathisants du Projet PASTEF et gardiens des engagements du Président Bassirou Diomaye Faye. Nous suivons, nous témoignons, nous encourageons. Sénégal Souverain, Juste &amp; Prospère 2024-2029.",
+      "inLanguage": "fr",
+      "keywords": "Sénégal, PASTEF, Bassirou Diomaye Faye, promesses électorales, suivi engagements, transparence, gouvernance, Ousmane Sonko",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://projetbi.org/#promises?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "ProjetBI",
+        "url": "https://projetbi.org",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://projetbi.org/favicon.png"
+        }
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Dataset",
+      "name": "Engagements Présidentiels Sénégal 2024-2029",
+      "description": "Suivi citoyen des 300 engagements du Programme PASTEF porté par le Président Bassirou Diomaye Faye et le Premier Ministre Ousmane Sonko. Un projet de souveraineté, de justice et de prospérité pour le peuple sénégalais.",
+      "url": "https://projetbi.org",
+      "creator": { "@type": "Organization", "name": "ProjetBI" },
+      "temporalCoverage": "2024/2029",
+      "spatialCoverage": { "@type": "Place", "name": "Sénégal" },
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isAccessibleForFree": true
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Que contient le Programme PASTEF de Bassirou Diomaye Faye ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Le Projet PASTEF, défendu par le Président Bassirou Diomaye Faye et le Premier Ministre Ousmane Sonko, contient 300 engagements couvrant la santé, l'éducation, la souveraineté économique, la justice et la sécurité. Nous, sympathisants et gardiens du Projet, suivons chacun d'eux en temps réel sur ProjetBI.org."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Comment soutenir et suivre le Programme PASTEF ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ProjetBI.org est la plateforme des gardiens du Projet PASTEF. En tant que sympathisants engagés, nous suivons et documentons chaque avancée du programme du Président Diomaye Faye. Chaque engagement est classifié : Réalisé, En cours, Non lancé ou En retard — avec des données transparentes et vérifiables."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Quels sont les grands axes du Projet PASTEF pour le Sénégal ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Le Projet PASTEF s'articule autour de la souveraineté nationale, la justice sociale, la prospérité partagée et la gouvernance exemplaire. Le mandat du Président Bassirou Diomaye Faye, investi le 2 avril 2024, court jusqu'en 2029. ProjetBI veille à ce que chaque engagement soit honoré."
+          }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+<!-- ══ Lien d'accès rapide pour utilisateurs clavier (WCAG 2.4.1) ══ -->
+<a href="#contenu-principal" class="skip-link">Aller au contenu principal</a>
+
+<!-- ════════════════════════════════════════════
+     NAVBAR — IDs: modernNav, modernMenu, modernHamburger
+     (+ navbar, progressIndicator pour app.js scroll)
+     ════════════════════════════════════════════ -->
+<div id="progressIndicator" style="position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#2D5F3F,#C9A84C);z-index:9999;transition:width .1s;"></div>
+
+<nav class="navbar" id="modernNav">
+    <!-- LIGNE 1 : Logo + KPI sous logo + Tagline + Hamburger mobile -->
+    <div class="nav-row-1">
+        <div class="nav-row-inner">
+            <div class="nav-logo-kpi">
+                <a href="#accueil" class="nav-logo">
+                    <img src="https://projetbi.org/favicon.png" alt="PROJETBI" class="nav-logo-img" onerror="this.style.display='none'">
+                    <div class="nav-logo-block">
+                        <span class="nav-logo-text">PROJETBI</span>
+                        <span class="nav-logo-sub">Jub Jubal Jubanti</span>
+                    </div>
+                </a>
+                <!-- KPI carousel desktop — sous le logo -->
+             
+            </div>
+            <div class="nav-row-center">
+              <div class="nav-kpi-under-logo">
+                    <button class="nav-kpi-mini-btn" aria-label="KPI précédent" onclick="window.kpiPrevSlide()"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+                    <div id="navKpiDesktop" class="nav-kpi-mini-display">
+                        <div id="kpiCarousel" class="hero-kpi-display">
+                            <div class="kpi-item">
+                                <span class="kpi-icon" style="color:#C9A84C">⭐</span>
+                                <div class="kpi-content">
+                                    <span class="kpi-value" style="font-weight:800;color:#2D5F3F">4.1</span>
+                                    <span class="kpi-label" style="font-size:0.7rem;color:#5A6D63;font-weight:700">NOTE MOYENNE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="nav-kpi-mini-btn" aria-label="KPI suivant" onclick="window.kpiNextSlide()"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+                </div> 
+                <span class="nav-tagline"><i class="fas fa-shield-alt"></i> Gardiens du Projet PASTEF — Jub · Jubal · Jubanti</span>
+              </div>
+            <button class="hamburger" id="modernHamburger" aria-label="Menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+    <!-- LIGNE 2 : Menu horizontal + Évaluer CTA (desktop uniquement) -->
+    <div class="nav-row-2" id="navRow2">
+        <div class="nav-row-inner">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#accueil" class="modern-link active"><i class="fas fa-home"></i> Accueil</a></li>
+                <li><a href="ideologie.html" class="modern-link"><i class="fas fa-brain"></i> Idéologie</a></li>
+                <li><a href="#dashboard" class="modern-link"><i class="fas fa-chart-pie"></i> Tableau de Bord</a></li>
+                <li><a href="#promesse-du-jour" class="modern-link"><i class="fas fa-bullseye"></i> Engagement du Jour</a></li>
+                <li><a href="#engagements" class="modern-link"><i class="fas fa-list-check"></i> Engagements</a></li>
+                <li><a href="#actualites" class="modern-link"><i class="fas fa-newspaper"></i> Actualités</a></li>
+                <li><a href="actualites.html" class="modern-link"><i class="fas fa-layer-group"></i> Toutes les Actus</a></li>
+                <li><a href="#revue-de-presse" class="modern-link"><i class="fas fa-print"></i> Revue de Presse</a></li>
+            </ul>
+            <a href="#evaluation" class="nav-cta-btn"><i class="fas fa-star" style="color:#C9A84C"></i> Évaluer un service</a>
+        </div>
+    </div>
+    <!-- IDs requis par app.js -->
+    <button id="kpiPrev" style="display:none"></button>
+    <button id="kpiNext" style="display:none"></button>
+    <button id="kpiAutoPlayToggle" style="display:none"></button>
+</nav>
+
+<!-- Menu mobile overlay (app.js attend id=modernMenu) -->
+<div id="modernMenu" class="mobile-menu-overlay">
+
+    <!-- KPI carousel dans le menu mobile -->
+    <div class="menu-kpi-widget">
+        <div class="menu-kpi-inner">
+            <div class="menu-kpi-icon">📊</div>
+            <div class="menu-kpi-carousel" id="menuKpiDisplay">
+                <div class="kpi-item">
+                    <div class="kpi-content">
+                        <span class="kpi-value" style="font-size:1.8rem;font-weight:800;color:#2D5F3F">—</span>
+                        <span class="kpi-label" style="font-size:.72rem;color:#8a9e93;text-transform:uppercase;letter-spacing:.06em;font-weight:600">Chargement…</span>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-kpi-controls">
+                <button class="menu-kpi-btn" aria-label="KPI précédent" onclick="window.kpiPrevSlide()"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+                <button class="menu-kpi-btn" aria-label="KPI suivant" onclick="window.kpiNextSlide()"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.25rem;">
+        <li><a href="#accueil" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;">🏠 Accueil</a></li>
+                <li><a href="ideologie.html" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;">🧠 Idéologie Pastef</a></li>
+        <li><a href="#dashboard" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;">📊 Tableau de Bord du Projet
+</a></li>
+        <li><a href="#promesse-du-jour" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;">🗓️ Engagement du Jour</a></li>
+        <li><a href="#engagements" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;">📋 Engagements</a></li>
+        <li><a href="#actualites" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;">📰 Actualités</a></li>
+        <li><a href="actualites.html" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;">🔗 Toutes les Actus</a></li>
+        <li><a href="#revue-de-presse" class="modern-link" style="display:block;padding:.85rem 1rem;border-radius:10px;color:#0D1B14;font-weight:600;text-decoration:none;border-bottom:1px solid #eee;">🗞️ Revue de Presse</a></li>
+        <li><a href="#evaluation" class="modern-link" style="display:flex;padding:.85rem 1rem;border-radius:100px;background:#2D5F3F;color:white;font-weight:700;text-decoration:none;justify-content:center;margin-top:.75rem;">⭐ Évaluer un service public</a></li>
+    </ul>
+</div>
+
+<main id="contenu-principal">
+
+<!-- ════════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════════ -->
+<section class="hero-section" id="accueil">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="live-dot"></span>
+            🛡️ Gardiens du Projet PASTEF
+        </div>
+        <h1 class="hero-title">
+            Gardiens du Projet pour<br>
+            <span class="highlight">un Sénégal Souverain, Juste &amp; Prospère</span>
+        </h1>
+        <p class="hero-subtitle">
+            Sympathisants du projet PASTEF, nous suivons les engagements de la Présidence de la République (<strong>Bassirou Diomaye Faye</strong>) et les réformes législatives à l'Assemblée Nationale (<strong>Ousmane Sonko</strong>).
+            Parce qu'un peuple vigilant est un peuple libre — <em>Jub, Jubal, Jubanti.</em>
+        </p>
+        <div class="hero-actions">
+            <a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf" class="btn btn-primary" download target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-file-pdf"></i> Lire le Programme PASTEF
+            </a>
+            <a href="#dashboard" class="btn btn-secondary">
+                <i class="fas fa-chart-bar"></i> Voir l'état du Projet
+            </a>
+        </div>
+        <div class="hero-countdown">
+            <div class="countdown-label">
+                <i class="fas fa-hourglass-half"></i>
+                <span>TEMPS RESTANT DU MANDAT (2024–2029)</span>
+            </div>
+            <div class="countdown-grid">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">000</span>
+                    <span class="countdown-unit">Jours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-unit">Heures</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-unit">Min</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-unit">Sec</span>
+                </div>
+            </div>
+            <div class="mandate-progress-wrapper" style="margin-top: 0.85rem;">
+                <div class="mandate-progress-bar-bg" style="width:100%;height:8px;background:rgba(255,255,255,0.15);border-radius:100px;overflow:hidden;">
+                    <div id="mandateProgressBar" style="width:46%;height:100%;background:linear-gradient(90deg, #C9A84C, #3E7F55);border-radius:100px;transition:width 1s ease;"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:rgba(255,255,255,0.85);margin-top:0.35rem;font-weight:600;">
+                    <span><i class="fas fa-flag-checkered" style="color:#C9A84C"></i> Mandat 2024–2029</span>
+                    <span id="mandatePercentText">Avancement : ~46%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-image">
+        <div class="hero-institution-card">
+            <div class="institution-tabs">
+                <button type="button" class="inst-tab active" id="tabPresidence" onclick="switchHeroInstitution('presidence')">
+                    <i class="fas fa-landmark"></i> Présidence
+                </button>
+                <button type="button" class="inst-tab" id="tabAssemblee" onclick="switchHeroInstitution('assemblee')">
+                    <i class="fas fa-balance-scale"></i> Assemblée
+                </button>
+            </div>
+            
+            <!-- Vue Présidence -->
+            <div class="inst-view active" id="viewPresidence">
+                <div class="hero-image-frame">
+                    <img src="sonko.jpg" alt="Ousmane SONKO - Présidence du Projet" onerror="this.parentElement.style.background='linear-gradient(135deg,#2D5F3F,#1A3D28)'">
+                    <div class="hero-image-badge presidence-badge"><i class="fas fa-shield-alt"></i> PASTEF 2024–2029</div>
+                    <div class="hero-image-ref"><i class="fas fa-user-check"></i> Ousmane SONKO</div>
+                </div>
+            </div>
+
+            <!-- Vue Assemblée Nationale -->
+            <div class="inst-view" id="viewAssemblee" style="display:none;">
+                <div class="hero-image-frame">
+                    <img src="sonko.jpg" alt="Ousmane SONKO - Assemblée Nationale" onerror="this.parentElement.style.background='linear-gradient(135deg,#2D5F3F,#1A3D28)'">
+                    <div class="hero-image-badge assemblee-badge"><i class="fas fa-gavel"></i> LÉGISLATIF</div>
+                    <div class="hero-image-ref"><i class="fas fa-gavel"></i> Ousmane SONKO</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     STATS / KPIs
+     IDs attendus par app.js: total, realise, encours, non-lance, retard,
+     avec-maj, taux-realisation, moyenne-notes, votes-total, delai-moyen,
+     domaine-principal, domaine-count, total-percentage, realise-percentage,
+     encours-percentage, non-lance-percentage, retard-percentage, avec-maj-percentage
+     ════════════════════════════════════════════ -->
+<section class="stats-section" id="dashboard">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-header-left">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Tableau de Bord du Projet
+                </h2>
+                <p class="section-subtitle">État d'avancement des 300 engagements — <span id="current-date"></span></p>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card stat-total">
+                <div class="stat-icon"><i class="fas fa-tasks"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="total">—</div>
+                    <div class="stat-label">Engagements du Projet</div>
+                    <div class="stat-percentage" id="total-percentage">100%</div>
+                </div>
+            </div>
+            <div class="stat-card stat-success">
+                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="realise">—</div>
+                    <div class="stat-label">✅ Réalisés</div>
+                    <div class="stat-percentage" id="realise-percentage">0%</div>
+                </div>
+            </div>
+            <div class="stat-card stat-progress">
+                <div class="stat-icon"><i class="fas fa-sync-alt"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="encours">—</div>
+                    <div class="stat-label">🔄 En Cours</div>
+                    <div class="stat-percentage" id="encours-percentage">0%</div>
+                </div>
+            </div>
+            <div class="stat-card stat-pending">
+                <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="non-lance">—</div>
+                    <div class="stat-label">⏳ Non Lancés</div>
+                    <div class="stat-percentage" id="non-lance-percentage">0%</div>
+                </div>
+            </div>
+            <div class="stat-card stat-warning">
+                <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="retard">—</div>
+                    <div class="stat-label">⚠️ En Retard</div>
+                    <div class="stat-percentage" id="retard-percentage">0%</div>
+                </div>
+            </div>
+            <div class="stat-card stat-rate">
+                <div class="stat-icon"><i class="fas fa-percentage"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="taux-realisation">—</div>
+                    <div class="stat-label">📈 Taux Réalisation</div>
+                </div>
+            </div>
+            <div class="stat-card stat-time">
+                <div class="stat-icon"><i class="fas fa-hourglass-half"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="delai-moyen">—</div>
+                    <div class="stat-label">⏱️ Retard Moyen</div>
+                </div>
+            </div>
+            <div class="stat-card stat-rating">
+                <div class="stat-icon"><i class="fas fa-star"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="moyenne-notes">—</div>
+                    <div class="stat-label">⭐ Note Citoyenne</div>
+                    <div class="stat-percentage" id="votes-total">0 votes</div>
+                </div>
+            </div>
+            <div class="stat-card stat-update">
+                <div class="stat-icon"><i class="fas fa-history"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="avec-maj">—</div>
+                    <div class="stat-label">📋 Avec MAJ</div>
+                    <div class="stat-percentage" id="avec-maj-percentage">0%</div>
+                </div>
+            </div>
+            <div class="stat-card stat-domain">
+                <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" style="font-size:1.1rem" id="domaine-principal">—</div>
+                    <div class="stat-label">🏛️ Domaine Principal</div>
+                    <div class="stat-percentage" id="domaine-count">0 engagements</div>
+                </div>
+            </div>
+            <div class="stat-card stat-presidence">
+                <div class="stat-icon"><i class="fas fa-landmark"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="presidence-count">250</div>
+                    <div class="stat-label">🏛️ Volet Exécutif</div>
+                    <div class="stat-percentage" id="presidence-percentage">83% du Projet</div>
+                </div>
+            </div>
+            <div class="stat-card stat-assemblee">
+                <div class="stat-icon"><i class="fas fa-gavel"></i></div>
+                <div class="stat-content">
+                    <div class="stat-value" id="assemblee-count">50</div>
+                    <div class="stat-label">⚖️ Volet Législatif</div>
+                    <div class="stat-percentage" id="assemblee-percentage">17% du Projet</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     PROMESSE DU JOUR
+     ID attendu: dailyPromise
+     ════════════════════════════════════════════ -->
+<section class="daily-promise-section" id="promesse-du-jour">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-newspaper"></i>
+                Engagement du Jour
+            </h2>
+            <p class="section-subtitle">Chaque jour, un engagement du programme PASTEF à la loupe</p>
+        </div>
+        <div id="dailyPromise">
+            <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Chargement de l'engagement du jour…</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     CAROUSEL DES PROMESSES EN VEDETTE
+     IDs: promisesCarouselGrid, carouselPrevBtn, carouselNextBtn,
+          carouselAutoPlayToggle, carouselDots
+     ════════════════════════════════════════════ -->
+<section class="promises-carousel-section" id="promesses-vedette">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                Engagements en Lumière
+            </h2>
+            <div class="section-controls">
+                <button id="carouselPrevBtn" class="control-btn" title="Précédent">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="carouselAutoPlayToggle" class="control-btn" title="Pause/Play">
+                    <i class="fas fa-pause"></i>
+                </button>
+                <button id="carouselNextBtn" class="control-btn" title="Suivant">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+        <div id="promisesCarouselGrid" class="promises-carousel-grid">
+            <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Chargement…</p>
+            </div>
+        </div>
+        <div id="carouselDots" class="carousel-dots"></div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     TOUS LES ENGAGEMENTS
+     IDs: promisesGrid, filterToggleBtn, filtersSection,
+          filter-search, filter-status, filter-domain,
+          results-count, showMoreBtn, showLessBtn, resetFilters
+     ════════════════════════════════════════════ -->
+<section class="promises-section" id="engagements">
+    <div class="container">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">
+                    <i class="fas fa-list-check"></i>
+                    Les 300 Engagements du Projet
+                </h2>
+                <p class="section-subtitle" id="results-count">Chargement…</p>
+            </div>
+            <div class="section-controls">
+                <button id="filterToggleBtn" class="btn btn-outline-sm">
+                    <i class="fas fa-filter"></i> Filtres
+                </button>
+            </div>
+        </div>
+
+        <div id="filtersSection" class="filters-section" style="display:none;">
+            <div class="filter-bar">
+                <div class="filter-search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="filter-search" placeholder="Rechercher un engagement…">
+                </div>
+                <select id="filter-institution" class="filter-select">
+                    <option value="">Toutes les institutions</option>
+                    <option value="presidence">🏛️ Présidence &amp; Exécutif</option>
+                    <option value="assemblee">⚖️ Assemblée Nationale &amp; Lois</option>
+                </select>
+                <select id="filter-status" class="filter-select">
+                    <option value="">Tous les statuts</option>
+                    <option value="✅ Réalisé">✅ Réalisé</option>
+                    <option value="🔄 En cours">🔄 En cours</option>
+                    <option value="⏳ Non lancé">⏳ Non lancé</option>
+                    <option value="En retard">⚠️ En retard</option>
+                </select>
+                <select id="filter-domain" class="filter-select">
+                    <option value="">Tous les domaines</option>
+                </select>
+                <button id="resetFilters" class="btn btn-outline-sm">
+                    <i class="fas fa-undo"></i> Réinitialiser
+                </button>
+            </div>
+        </div>
+
+        <div id="promisesGrid" class="promises-grid">
+            <div class="loading-state" style="grid-column:1/-1">
+                <div class="spinner"></div>
+                <p>Chargement des engagements…</p>
+            </div>
+        </div>
+        <div class="prom-btn-row">
+            <button id="showMoreBtn" class="btn btn-primary" style="display:none;">
+                <i class="fas fa-plus"></i> Voir plus d'engagements
+            </button>
+            <button id="showLessBtn" class="btn btn-secondary" style="display:none;">
+                <i class="fas fa-minus"></i> Réduire
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     ACTUALITÉS
+     ID attendu: newsGrid (app.js écrit dans getElementById('newsGrid'))
+     ════════════════════════════════════════════ -->
+<section class="news-section" id="actualites">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-newspaper"></i>
+                Actualités du Projet
+            </h2>
+            <a href="actualites.html" class="btn btn-voir-tout">
+                <i class="fas fa-rss"></i> Toutes les actualités <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        <!-- Article à la une -->
+        <div id="newsFeatured">
+            <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Chargement des actualités…</p>
+            </div>
+        </div>
+        <!-- Grille des 7 suivants -->
+        <div id="newsGrid" class="idx-grid"></div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     REVUE DE PRESSE
+     IDs: pressCarousel, prevBtn, nextBtn, autoPlayToggle,
+          carouselIndicators, newspapersGrid
+     ════════════════════════════════════════════ -->
+<section class="press-section" id="revue-de-presse">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-newspaper"></i>
+                La Presse en Parle
+            </h2>
+            <div class="section-controls">
+                <button id="prevBtn" class="control-btn" aria-label="Diapositive précédente"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+                <button id="autoPlayToggle" class="control-btn" aria-label="Mettre en pause le défilement automatique"><i class="fas fa-pause" aria-hidden="true"></i></button>
+                <button id="nextBtn" class="control-btn" aria-label="Diapositive suivante"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
+        </div>
+
+        <div id="pressCarousel" class="press-carousel">
+            <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Chargement de la revue de presse…</p>
+            </div>
+        </div>
+        <div id="carouselIndicators" class="carousel-indicators"></div>
+
+        <div class="section-header" style="margin-top:3rem">
+            <h3 class="section-title" style="font-size:1.3rem">
+                <i class="fas fa-th-large"></i> Les Quotidiens Sénégalais
+            </h3>
+        </div>
+        <div id="newspapersGrid" class="newspapers-grid">
+            <div class="loading-state" style="grid-column:1/-1">
+                <div class="spinner"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════
+     NOTATION DES SERVICES
+     IDs: ratingForm, service, service-category,
+          accessibility, welcome, efficiency, transparency, comment,
+          totalVotes, totalServices, avgRating, topServices, recentRatings
+     ════════════════════════════════════════════ -->
+<section class="rating-section" id="evaluation">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                Évaluez les Services Publics
+            </h2>
+            <p class="section-subtitle">En tant que citoyen·ne, votre voix est le meilleur outil de contrôle démocratique</p>
+        </div>
+
+        <div class="rating-unified">
+
+            <!-- COLONNE GAUCHE : Formulaire -->
+            <div class="rating-form-card">
+                <div class="rating-form-header">
+                    <h3><i class="fas fa-pencil-alt"></i> Témoignez du terrain</h3>
+                    <p>Votre expérience avec les services publics est une donnée précieuse pour mesurer les avancées réelles du Projet</p>
+                </div>
+                <div class="rating-form-body">
+                    <form id="ratingForm">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-folder"></i> Secteur concerné *
+                            </label>
+                            <select class="form-select" id="service-category" name="service-category" required>
+                                <option value="">Choisissez une catégorie</option>
+                                <option value="sante">🏥 Santé &amp; Hôpitaux</option>
+                                <option value="education">🎓 Éducation &amp; Formation</option>
+                                <option value="securite">👮‍♂️ Sécurité &amp; Défense</option>
+                                <option value="justice">⚖️ Justice &amp; Droit</option>
+                                <option value="administration">🏛️ Administration &amp; État Civil</option>
+                                <option value="finances">💰 Finances &amp; Impôts</option>
+                                <option value="transports">🚌 Transports &amp; Mobilité</option>
+                                <option value="energie">⚡ Énergie &amp; Eau</option>
+                                <option value="communication">📞 Communication &amp; Numérique</option>
+                                <option value="social">🤝 Action Sociale &amp; Solidarité</option>
+                                <option value="emploi">💼 Emploi &amp; Formation Pro</option>
+                                <option value="environnement">🌿 Environnement &amp; Cadre de Vie</option>
+                                <option value="culture">🎭 Culture &amp; Tourisme</option>
+                                <option value="autre">📋 Autre Service Public</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-building"></i> Service concerné *
+                            </label>
+                            <select class="form-select" id="service" name="service" required disabled>
+                                <option value="">Sélectionnez d'abord une catégorie</option>
+                            </select>
+                        </div>
+
+                        <div class="rating-criteria-grid">
+                            <div class="criteria-item">
+                                <label class="form-label"><i class="fas fa-wheelchair"></i> Accessibilité</label>
+                                <div class="stars-rating" data-criteria="accessibility">
+                                    <i class="fas fa-star star-active" data-value="1"></i>
+                                    <i class="fas fa-star star-active" data-value="2"></i>
+                                    <i class="fas fa-star star-active" data-value="3"></i>
+                                    <i class="far fa-star" data-value="4"></i>
+                                    <i class="far fa-star" data-value="5"></i>
+                                    <input type="hidden" name="accessibility" id="accessibility" value="3">
+                                </div>
+                            </div>
+                            <div class="criteria-item">
+                                <label class="form-label"><i class="fas fa-handshake"></i> Accueil</label>
+                                <div class="stars-rating" data-criteria="welcome">
+                                    <i class="fas fa-star star-active" data-value="1"></i>
+                                    <i class="fas fa-star star-active" data-value="2"></i>
+                                    <i class="fas fa-star star-active" data-value="3"></i>
+                                    <i class="far fa-star" data-value="4"></i>
+                                    <i class="far fa-star" data-value="5"></i>
+                                    <input type="hidden" name="welcome" id="welcome" value="3">
+                                </div>
+                            </div>
+                            <div class="criteria-item">
+                                <label class="form-label"><i class="fas fa-bolt"></i> Efficacité</label>
+                                <div class="stars-rating" data-criteria="efficiency">
+                                    <i class="fas fa-star star-active" data-value="1"></i>
+                                    <i class="fas fa-star star-active" data-value="2"></i>
+                                    <i class="fas fa-star star-active" data-value="3"></i>
+                                    <i class="far fa-star" data-value="4"></i>
+                                    <i class="far fa-star" data-value="5"></i>
+                                    <input type="hidden" name="efficiency" id="efficiency" value="3">
+                                </div>
+                            </div>
+                            <div class="criteria-item">
+                                <label class="form-label"><i class="fas fa-eye"></i> Transparence</label>
+                                <div class="stars-rating" data-criteria="transparency">
+                                    <i class="fas fa-star star-active" data-value="1"></i>
+                                    <i class="fas fa-star star-active" data-value="2"></i>
+                                    <i class="fas fa-star star-active" data-value="3"></i>
+                                    <i class="far fa-star" data-value="4"></i>
+                                    <i class="far fa-star" data-value="5"></i>
+                                    <input type="hidden" name="transparency" id="transparency" value="3">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-comment"></i> Commentaire (optionnel)
+                            </label>
+                            <textarea class="form-textarea" id="comment" name="comment" rows="3"
+                                placeholder="Partagez votre expérience du terrain — chaque témoignage compte…"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width:100%">
+                            <i class="fas fa-paper-plane"></i> Soumettre mon témoignage
+                        </button>
+
+                        <!-- Légende des critères -->
+                        <div class="criteria-legend">
+                            <div class="criteria-legend-item">
+                                <div class="criteria-legend-icon criteria-legend-icon--accessibility">
+                                    <i class="fas fa-wheelchair"></i>
+                                </div>
+                                <div class="criteria-legend-text">
+                                    <strong>Accessibilité</strong>
+                                    Le Projet s'engage à rendre chaque service accessible à tous, du nord au sud du Sénégal, physiquement et numériquement.
+                                </div>
+                            </div>
+                            <div class="criteria-legend-item">
+                                <div class="criteria-legend-icon criteria-legend-icon--welcome">
+                                    <i class="fas fa-handshake"></i>
+                                </div>
+                                <div class="criteria-legend-text">
+                                    <strong>Accueil</strong>
+                                    La dignité du citoyen commence à l'accueil. Le Projet exige un État qui respecte son peuple dès le premier contact.
+                                </div>
+                            </div>
+                            <div class="criteria-legend-item">
+                                <div class="criteria-legend-icon criteria-legend-icon--efficiency">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <div class="criteria-legend-text">
+                                    <strong>Efficacité</strong>
+                                    Le Projet s'engage à libérer le citoyen des tracasseries administratives — des services efficaces, rapides, sans corruption.
+                                </div>
+                            </div>
+                            <div class="criteria-legend-item">
+                                <div class="criteria-legend-icon criteria-legend-icon--transparency">
+                                    <i class="fas fa-eye"></i>
+                                </div>
+                                <div class="criteria-legend-text">
+                                    <strong>Transparence</strong>
+                                    Des procédures claires, des délais affichés, des décisions justifiées — Jub, Jubal, Jubanti : c'est la promesse du Projet.
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- COLONNE DROITE : Résultats -->
+            <div class="rating-results-card">
+                <div class="rr-header">
+                    <h3><i class="fas fa-chart-pie"></i> La Parole Citoyenne</h3>
+                </div>
+
+                <!-- Stats globales -->
+                <div class="rr-stats-row">
+                    <div class="rr-stat">
+                        <span class="rr-stat-value" id="totalVotes">0</span>
+                        <span class="rr-stat-label">TÉMOIGNAGES</span>
+                    </div>
+                    <div class="rr-stat">
+                        <span class="rr-stat-value" id="totalServices">0</span>
+                        <span class="rr-stat-label">SERVICES INSPECTÉS</span>
+                    </div>
+                    <div class="rr-stat">
+                        <span class="rr-stat-value" id="avgRating">0.0</span>
+                        <span class="rr-stat-label">NOTE /5</span>
+                    </div>
+                </div>
+
+                <!-- Classement des services -->
+                <div class="rr-section">
+                    <h4 class="rr-section-title"><i class="fas fa-trophy"></i> Services les Mieux Notés</h4>
+                    <div id="topServices" class="rr-ranking-list">
+                        <div class="loading-state"><div class="spinner"></div><p>Chargement...</p></div>
+                    </div>
+                    <button class="rr-btn-view-all rr-btn-gold" onclick="showAllRatings('top-rated')">
+                        <i class="fas fa-trophy"></i> Voir le classement complet
+                    </button>
+                </div>
+
+                <!-- Dernières notations -->
+                <div class="rr-section">
+                    <h4 class="rr-section-title"><i class="fas fa-history"></i> Derniers Témoignages Citoyens</h4>
+                    <div id="recentRatings" class="rr-recent-list">
+                        <div class="loading-state"><div class="spinner"></div><p>Chargement...</p></div>
+                    </div>
+                    <button class="rr-btn-view-all rr-btn-green" onclick="showAllRatings('recent')">
+                        <i class="fas fa-list"></i> Voir tous les témoignages
+                    </button>
+                </div>
+            </div>
+
+        </div><!-- /.rating-unified -->
+    </div>
+</section>
+
+</main><!-- /#contenu-principal -->
+
+<!-- ════════════════════════════════════════════
+     FOOTER — compact, couleur var(--secondary) = #B23A3A PASTEF rouge
+     ════════════════════════════════════════════ -->
+<footer class="footer">
+    <div class="container">
+
+        <!-- LIGNE 1 : Logo + Description + Contact + Réseaux sociaux -->
+        <div class="footer-top">
+            <div class="footer-brand-row">
+                <div class="footer-brand-info">
+                    <h3 class="footer-brand-name"><i class="fas fa-flag"></i> PROJETBI</h3>
+                    <p class="footer-brand-desc">Gardiens du Projet PASTEF · Sympathisants engagés · Sénégal Souverain 2024–2029</p>
+                </div>
+                <div class="footer-contact">
+                    <h4 class="footer-contact-title"><i class="fas fa-envelope-open-text"></i> Nous Rejoindre</h4>
+                    <ul class="footer-contact-list">
+                        <li><a href="#contact" class="footer-contact-link" id="contactEmailLink"><i class="fas fa-envelope"></i> <span id="contactEmail">Contact par email</span></a></li>
+                        <li><span class="footer-contact-link footer-contact-static" id="contactPhone"><i class="fas fa-phone"></i> Disponible sur demande</span></li>
+                        <li class="footer-contact-link footer-contact-static"><i class="fas fa-map-marker-alt"></i> Dakar, Sénégal</li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-btn" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn" title="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" class="social-btn" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <!-- LIGNE 2 : Navigation horizontale -->
+        <nav class="footer-nav">
+            <a href="#accueil" class="footer-nav-link"><i class="fas fa-home"></i> Accueil</a>
+            <span class="footer-sep">·</span>
+            <a href="#dashboard" class="footer-nav-link"><i class="fas fa-chart-bar"></i> Dashboard</a>
+            <span class="footer-sep">·</span>
+            <a href="#promesse-du-jour" class="footer-nav-link"><i class="fas fa-newspaper"></i> Engagement du Jour</a>
+            <span class="footer-sep">·</span>
+            <a href="#engagements" class="footer-nav-link"><i class="fas fa-list"></i> Les 300 Engagements</a>
+            <span class="footer-sep">·</span>
+            <a href="#actualites" class="footer-nav-link"><i class="fas fa-rss"></i> Actualités</a>
+            <span class="footer-sep">·</span>
+            <a href="#revue-de-presse" class="footer-nav-link"><i class="fas fa-newspaper"></i> Revue de Presse</a>
+            <span class="footer-sep">·</span>
+            <a href="actualites.html" class="footer-nav-link"><i class="fas fa-external-link-alt"></i> Toutes Actualités</a>
+            <span class="footer-sep">·</span>
+            <a href="#evaluation" class="footer-nav-link"><i class="fas fa-star"></i> Évaluer les Services</a>
+            <span class="footer-sep">·</span>
+            <a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf" class="footer-nav-link" download><i class="fas fa-file-pdf"></i> Programme PASTEF (PDF)</a>
+            <span class="footer-sep">·</span>
+            <a href="ideologie.html" class="footer-nav-link"><i class="fas fa-brain"></i> Idéologie Pastef</a>
+        </nav>
+
+        <div class="footer-divider"></div>
+
+        <!-- LIGNE 3 : Copyright -->
+        <div class="footer-bottom-compact">
+            <span class="footer-copy">© 2026 PROJETBI · Gardiens du Projet PASTEF · Depuis le <strong>02 AVRIL 2024</strong></span>
+            <span class="footer-disclaimer">Site de sympathisants du Projet PASTEF. Données publiques et vérifiables.</span>
+        </div>
+
+    </div>
+</footer>
+
+<!-- Services data — données exactes du fichier original (app.js lit [data-category]) -->
+<div id="services-data" style="display:none">
+    <div data-category="sante">
+        <option value="Hôpital public">Hôpital public</option>
+        <option value="Centre hospitalier régional">Centre hospitalier régional</option>
+        <option value="Centre de santé">Centre de santé</option>
+        <option value="Pharmacie publique (SEN-Pharmacie)">Pharmacie publique (SEN-Pharmacie)</option>
+        <option value="SAMU (Service d'Assistance Médicale Urgente)">SAMU (Service d'Assistance Médicale Urgente)</option>
+        <option value="Centre national de Transfusion sanguine">Centre national de Transfusion sanguine</option>
+        <option value="Centre national d'Oncologie">Centre national d'Oncologie</option>
+        <option value="Laboratoire d'analyses médicales public">Laboratoire d'analyses médicales public</option>
+        <option value="Centre psychiatrique">Centre psychiatrique</option>
+        <option value="Service de Protection maternelle et infantile">Service de Protection maternelle et infantile</option>
+    </div>
+    <div data-category="education">
+        <option value="École publique (élémentaire)">École publique (élémentaire)</option>
+        <option value="Collège public">Collège public</option>
+        <option value="Lycée public">Lycée public</option>
+        <option value="Université publique (UCAD, UGB, etc.)">Université publique (UCAD, UGB, etc.)</option>
+        <option value="Institut Islamique de Dakar">Institut Islamique de Dakar</option>
+        <option value="École nationale d'Administration (ENA)">École nationale d'Administration (ENA)</option>
+        <option value="Centre de Formation judiciaire">Centre de Formation judiciaire</option>
+        <option value="École nationale de Cybersécurité">École nationale de Cybersécurité</option>
+        <option value="Centre régional des Œuvres universitaires">Centre régional des Œuvres universitaires</option>
+        <option value="Inspection d'Académie">Inspection d'Académie</option>
+    </div>
+    <div data-category="securite">
+        <option value="Commissariat de police">Commissariat de police</option>
+        <option value="Brigade de gendarmerie">Brigade de gendarmerie</option>
+        <option value="Police judiciaire (PJ)">Police judiciaire (PJ)</option>
+        <option value="Police routière">Police routière</option>
+        <option value="Sapeurs-pompiers / Protection civile">Sapeurs-pompiers / Protection civile</option>
+        <option value="Douanes (poste frontalier)">Douanes (poste frontalier)</option>
+        <option value="Direction de la Surveillance du Territoire">Direction de la Surveillance du Territoire</option>
+        <option value="Centre national de coordination des alertes">Centre national de coordination des alertes</option>
+        <option value="Administration pénitentiaire">Administration pénitentiaire</option>
+        <option value="Brigade nationale des sapeurs-pompiers">Brigade nationale des sapeurs-pompiers</option>
+    </div>
+    <div data-category="justice">
+        <option value="Tribunal (civil, pénal, commerce)">Tribunal (civil, pénal, commerce)</option>
+        <option value="Maison de justice">Maison de justice</option>
+        <option value="Centre national des Archives judiciaires">Centre national des Archives judiciaires</option>
+        <option value="Médiateur de la République">Médiateur de la République</option>
+        <option value="Commission nationale des Droits de l'Homme">Commission nationale des Droits de l'Homme</option>
+        <option value="Commission de Protection des Données Personnelles">Commission de Protection des Données Personnelles</option>
+        <option value="Direction de la Justice de Proximité">Direction de la Justice de Proximité</option>
+        <option value="Service d'aide juridictionnelle">Service d'aide juridictionnelle</option>
+    </div>
+    <div data-category="administration">
+        <option value="Mairie">Mairie</option>
+        <option value="Préfecture / Sous-préfecture">Préfecture / Sous-préfecture</option>
+        <option value="Service d'état civil (naissance, mariage)">Service d'état civil (naissance, mariage)</option>
+        <option value="Agence nationale de l'état civil">Agence nationale de l'état civil</option>
+        <option value="Archives du Sénégal">Archives du Sénégal</option>
+        <option value="Imprimerie nationale">Imprimerie nationale</option>
+        <option value="Direction générale de l'Administration territoriale">Direction générale de l'Administration territoriale</option>
+        <option value="Service du Protocole d'État">Service du Protocole d'État</option>
+    </div>
+    <div data-category="finances">
+        <option value="Trésor public (Trésorerie régionale)">Trésor public (Trésorerie régionale)</option>
+        <option value="Centre des Impôts (DGID)">Centre des Impôts (DGID)</option>
+        <option value="Douanes (dédouanement)">Douanes (dédouanement)</option>
+        <option value="Caisse des Dépôts et Consignations">Caisse des Dépôts et Consignations</option>
+        <option value="Banque agricole">Banque agricole</option>
+        <option value="Banque de l'Habitat du Sénégal">Banque de l'Habitat du Sénégal</option>
+        <option value="Office de recouvrement">Office de recouvrement</option>
+        <option value="Direction générale du Budget">Direction générale du Budget</option>
+    </div>
+    <div data-category="transports">
+        <option value="Transport urbain (Dakar Dem Dikk)">Transport urbain (Dakar Dem Dikk)</option>
+        <option value="Train Express Régional (TER)">Train Express Régional (TER)</option>
+        <option value="Chemins de Fer du Sénégal">Chemins de Fer du Sénégal</option>
+        <option value="Aéroport international Blaise Diagne">Aéroport international Blaise Diagne</option>
+        <option value="Port autonome de Dakar">Port autonome de Dakar</option>
+        <option value="Agence nationale de Sécurité routière">Agence nationale de Sécurité routière</option>
+        <option value="Direction des Transports routiers">Direction des Transports routiers</option>
+        <option value="Société nationale Autoroutes du Sénégal">Société nationale Autoroutes du Sénégal</option>
+    </div>
+    <div data-category="energie">
+        <option value="SENELEC (bureau clientèle)">SENELEC (bureau clientèle)</option>
+        <option value="Société nationale des Eaux du Sénégal">Société nationale des Eaux du Sénégal</option>
+        <option value="SDE (Sénégal des Eaux)">SDE (Sénégal des Eaux)</option>
+        <option value="Agence sénégalaise de l'Électrification rurale">Agence sénégalaise de l'Électrification rurale</option>
+        <option value="Office national des Forages ruraux">Office national des Forages ruraux</option>
+        <option value="Office national de l'Assainissement">Office national de l'Assainissement</option>
+        <option value="Commission de Régulation du Secteur de l'Énergie">Commission de Régulation du Secteur de l'Énergie</option>
+    </div>
+    <div data-category="communication">
+        <option value="SONATEL (agence)">SONATEL (agence)</option>
+        <option value="La Poste (bureau de poste)">La Poste (bureau de poste)</option>
+        <option value="RTS (Radiodiffusion Télévision Sénégalaise)">RTS (Radiodiffusion Télévision Sénégalaise)</option>
+        <option value="Agence de Presse Sénégalaise (APS)">Agence de Presse Sénégalaise (APS)</option>
+        <option value="Maison de la Presse Babacar TOURE">Maison de la Presse Babacar TOURE</option>
+        <option value="Autorité de Régulation des Télécoms (ARTP)">Autorité de Régulation des Télécoms (ARTP)</option>
+        <option value="Sénégal Numérique SA">Sénégal Numérique SA</option>
+    </div>
+    <div data-category="social">
+        <option value="Commissariat à la Sécurité alimentaire">Commissariat à la Sécurité alimentaire</option>
+        <option value="Agence de Couverture sanitaire universelle">Agence de Couverture sanitaire universelle</option>
+        <option value="Fonds national de l'Entreprenariat féminin">Fonds national de l'Entreprenariat féminin</option>
+        <option value="Office national des Pupilles de la Nation">Office national des Pupilles de la Nation</option>
+        <option value="Centre d'accueil pour enfants">Centre d'accueil pour enfants</option>
+        <option value="Direction de l'Action sociale">Direction de l'Action sociale</option>
+        <option value="Service national d'Hygiène">Service national d'Hygiène</option>
+    </div>
+    <div data-category="emploi">
+        <option value="ANPEJ (Promotion de l'Emploi des Jeunes)">ANPEJ (Promotion de l'Emploi des Jeunes)</option>
+        <option value="Office national de Formation professionnelle">Office national de Formation professionnelle</option>
+        <option value="Centre de formation professionnelle">Centre de formation professionnelle</option>
+        <option value="Centre national de Qualification professionnelle">Centre national de Qualification professionnelle</option>
+        <option value="Direction de l'Emploi">Direction de l'Emploi</option>
+        <option value="Service d'orientation professionnelle">Service d'orientation professionnelle</option>
+    </div>
+    <div data-category="environnement">
+        <option value="Direction des Eaux et Forêts">Direction des Eaux et Forêts</option>
+        <option value="Parc national">Parc national</option>
+        <option value="Agence de la Reforestation et Grande Muraille verte">Agence de la Reforestation et Grande Muraille verte</option>
+        <option value="Centre de Suivi écologique">Centre de Suivi écologique</option>
+        <option value="Service de collecte des ordures (SONAGED)">Service de collecte des ordures (SONAGED)</option>
+        <option value="Direction de la Propreté et Hygiène publique">Direction de la Propreté et Hygiène publique</option>
+        <option value="Commission nationale de Gestion des Produits Chimiques">Commission nationale de Gestion des Produits Chimiques</option>
+    </div>
+    <div data-category="culture">
+        <option value="Musée des Civilisations Noires">Musée des Civilisations Noires</option>
+        <option value="Bibliothèque nationale du Sénégal">Bibliothèque nationale du Sénégal</option>
+        <option value="Grand Théâtre National">Grand Théâtre National</option>
+        <option value="Agence sénégalaise de Promotion touristique">Agence sénégalaise de Promotion touristique</option>
+        <option value="Centre culturel régional">Centre culturel régional</option>
+        <option value="Monument de la Renaissance africaine">Monument de la Renaissance africaine</option>
+        <option value="Musée Boribana">Musée Boribana</option>
+    </div>
+    <div data-category="autre">
+        <option value="Service agricole / vétérinaire">Service agricole / vétérinaire</option>
+        <option value="Haras national">Haras national</option>
+        <option value="Station piscicole">Station piscicole</option>
+        <option value="Institut de Recherches agricoles">Institut de Recherches agricoles</option>
+        <option value="Service de l'Urbanisme">Service de l'Urbanisme</option>
+        <option value="Société nationale des HLM">Société nationale des HLM</option>
+        <option value="Service des Sports et Jeunesse">Service des Sports et Jeunesse</option>
+        <option value="Autre (précisez en commentaire)">Autre (précisez en commentaire)</option>
+    </div>
+</div>
+
+<!-- ID requis par app.js -->
+<div id="topServicesList" style="display:none"></div>
+<!-- ID=scrollToTop (app.js) -->
+<button id="scrollToTop" class="scroll-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- Notifications container — ID=notification-container (app.js) -->
+<div id="notification-container"></div>
+
+<!-- ════════════════════════════════════════════
+     SCRIPTS INLINE
+     ════════════════════════════════════════════ -->
+<script>
+// ── URL propre : supprimer index.html au chargement ──
+(function() {
+    const loc = window.location;
+    if (loc.pathname.endsWith('/index.html')) {
+        const clean = loc.pathname.replace('/index.html', '/') + loc.search + loc.hash;
+        history.replaceState(null, '', clean);
+    }
+})();
+
+// ── Sync KPI menu mobile + desktop sous logo avec #kpiCarousel ──
+(function() {
+    const source = document.getElementById('kpiCarousel');
+    const targets = [
+        document.getElementById('menuKpiDisplay'),
+        document.getElementById('navKpiDesktop')
+    ].filter(Boolean);
+    if (!source || !targets.length) return;
+
+    function syncKpi() {
+        targets.forEach(t => { t.innerHTML = source.innerHTML; });
+    }
+
+    syncKpi();
+    const obs = new MutationObserver(syncKpi);
+    obs.observe(source, { childList: true, subtree: true, characterData: true });
+})();
+(function() {
+    const categorySelect = document.getElementById('service-category');
+    const serviceSelect  = document.getElementById('service');
+    const servicesData   = document.getElementById('services-data');
+
+    if (categorySelect && serviceSelect && servicesData) {
+        categorySelect.addEventListener('change', function() {
+            const selectedCategory = this.value;
+            serviceSelect.innerHTML = '<option value="">Sélectionnez un service</option>';
+            serviceSelect.disabled = true;
+
+            if (selectedCategory) {
+                const categoryServices = servicesData.querySelector(`[data-category="${selectedCategory}"]`);
+                if (categoryServices) {
+                    serviceSelect.disabled = false;
+                    serviceSelect.innerHTML = '<option value="">Sélectionnez un service</option>' + categoryServices.innerHTML;
+                }
+            }
+        });
+    }
+})();
+
+// ── Proxy getElementById('navbar') → modernNav (app.js scroll effects) ──
+(function() {
+    const origGet = Document.prototype.getElementById;
+    Document.prototype.getElementById = function(id) {
+        if (id === 'navbar') return origGet.call(this, 'modernNav') || origGet.call(this, id);
+        return origGet.call(this, id);
+    };
+})();
+
+// ── Hamburger mobile — compatible app.js (classList.active) ──
+(function() {
+    const burger    = document.getElementById('modernHamburger');
+    const mobMenu   = document.getElementById('modernMenu');
+    const navLinks  = document.getElementById('navLinks');
+
+    function closeNav() {
+        if (burger)   { burger.classList.remove('active'); burger.setAttribute('aria-expanded','false'); }
+        if (mobMenu)  { mobMenu.classList.remove('active'); }
+        if (navLinks) navLinks.classList.remove('open','active');
+    }
+
+    if (burger) {
+        burger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const isOpen = burger.classList.toggle('active');
+            burger.setAttribute('aria-expanded', isOpen);
+            if (mobMenu)  mobMenu.classList.toggle('active', isOpen);
+            if (navLinks) navLinks.classList.toggle('open', isOpen);
+        });
+        document.addEventListener('click', function(e) {
+            const nav = document.getElementById('modernNav');
+            if (nav && !nav.contains(e.target)) closeNav();
+        });
+    }
+    document.querySelectorAll('.modern-link').forEach(a => a.addEventListener('click', closeNav));
+})();
+
+// ── Obfuscation email/téléphone (anti-bots) ──
+(function() {
+    // Reconstruit l'adresse email côté JS uniquement (les bots ne l'exécutent pas)
+    const u = 'pastefprojetbi';
+    const d = 'gmail.com';
+    const email = u + '@' + d;
+    const linkEl = document.getElementById('contactEmailLink');
+    const textEl = document.getElementById('contactEmail');
+    if (linkEl) linkEl.href = 'mailto:' + email;
+    if (textEl) textEl.textContent = email;
+    // Téléphone reconstruit (affiché uniquement sur clic)
+    const phoneEl = document.getElementById('contactPhone');
+    if (phoneEl) {
+        const parts = ['+221', '70', '871', '79', '42'];
+        phoneEl.style.cursor = 'pointer';
+        phoneEl.title = 'Cliquer pour afficher le numéro';
+        phoneEl.addEventListener('click', function() {
+            this.innerHTML = '<i class="fas fa-phone"></i> ' + parts.join(' ');
+            this.style.cursor = 'default';
+        }, { once: true });
+    }
+})();
+
+// ── Countdown mandat ──
+(function() {
+    const target = new Date('2029-04-02T00:00:00');
+    function update() {
+        const diff = target - Date.now();
+        if (diff <= 0) return;
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        const el = (id) => document.getElementById(id);
+        if(el('days'))    el('days').textContent    = String(d).padStart(3,'0');
+        if(el('hours'))   el('hours').textContent   = String(h).padStart(2,'0');
+        if(el('minutes')) el('minutes').textContent = String(m).padStart(2,'0');
+        if(el('seconds')) el('seconds').textContent = String(s).padStart(2,'0');
+    }
+    update();
+    setInterval(update, 1000);
+})();
+
+// ── Date affichée ──
+const dateEl = document.getElementById('current-date');
+if (dateEl) {
+    dateEl.textContent = new Date().toLocaleDateString('fr-FR',
+        { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+}
+
+// ── Photo modal global (app.js peut appeler openPhotoViewer) ──
+window.openPhotoViewer = function(id) {
+    // app.js setupPhotoViewerControls crée sa propre modale — on la laisse faire
+    // Mais si elle n'existe pas encore, on crée un fallback
+    let modal = document.getElementById('photoViewerModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'photoViewerModal';
+        modal.className = 'photo-viewer-modal';
+        modal.innerHTML = `
+            <div class="photo-viewer-content">
+                <div class="photo-viewer-header">
+                    <h3><i class="fas fa-newspaper"></i> Visualiseur</h3>
+                    <button id="closeViewerBtn" onclick="closePhotoViewer()">&times;</button>
+                </div>
+                <div class="photo-viewer-body">
+                    <div class="photo-container">
+                        <img id="photoViewerImage" src="" alt="">
+                    </div>
+                </div>
+                <div class="photo-viewer-footer">
+                    <span id="photoViewerInfo"></span>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+    modal.style.display = 'flex';
+};
+window.closePhotoViewer = function() {
+    const m = document.getElementById('photoViewerModal');
+    if (m) m.style.display = 'none';
+};
+
+// ── News modal global ──
+window.openNewsModal = function(id, e) {
+    if (e) e.preventDefault();
+    // app.js gère le contenu
+};
+
+// ── Filter toggle ──
+const filterBtn = document.getElementById('filterToggleBtn');
+const filterSec = document.getElementById('filtersSection');
+if (filterBtn && filterSec) {
+    filterBtn.addEventListener('click', function() {
+        filterSec.style.display = filterSec.style.display === 'none' ? 'block' : 'none';
+    });
+}
+</script>
+
+<!-- Modal pour liste complète des notations — ID requis par app.js showAllRatings() -->
+<div id="ratingsListModal" class="ratings-modal" style="display:none;">
+    <div class="ratings-modal-content">
+        <button class="ratings-modal-close" onclick="closeRatingsModal()" aria-label="Fermer">
+            <i class="fas fa-times"></i>
+        </button>
+        <h2 id="ratingsModalTitle"></h2>
+        <div id="ratingsModalBody"></div>
+    </div>
+</div>
+
+<!-- ══ Couches JavaScript : app -> perf -> harden (en defer pour ne pas bloquer le parser) ══ -->
+<script src="app.js?v=v105" defer></script>
+<script src="app.perf.js?v=v105" defer></script>
+<script src="app.harden.js?v=v105" defer></script>
+<script src="app.kpi-filters.js?v=v105" defer></script>
+<script src="app.vote-guard.js?v=v105" defer></script>
+<!-- ══ PWA Service Worker ══ -->
+<script>
+if ('serviceWorker' in navigator) {
+    // Auto-reload quand le SW se met à jour
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) { refreshing = true; location.reload(); }
+    });
+    navigator.serviceWorker.addEventListener('message', e => {
+        if (e.data?.type === 'SW_UPDATED' && !refreshing) {
+            refreshing = true; location.reload();
+        }
+    });
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js?v=105', { scope: './' })
+            .then(reg => { reg.update(); })
+            .catch(() => {});
+    });
+}
+</script>
+
+<script>
+// ── Bannière "Installer l'app" ──
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    // Afficher une bannière discrète après 30 secondes
+    setTimeout(() => {
+        const banner = document.createElement('div');
+        banner.id = 'installBanner';
+        banner.innerHTML = `
+            <div style="position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);
+                background:#2D5F3F;color:white;padding:.85rem 1.5rem;border-radius:50px;
+                box-shadow:0 4px 20px rgba(0,0,0,.3);display:flex;align-items:center;
+                gap:.75rem;z-index:99999;font-family:Arial,sans-serif;font-size:.9rem;
+                cursor:pointer;animation:slideUp .4s ease;">
+                <span>📱</span>
+                <span><strong>Installer ProjetBI</strong> comme application</span>
+                <button onclick="installApp()" style="background:#C9A84C;border:none;color:white;
+                    padding:.4rem 1rem;border-radius:20px;cursor:pointer;font-weight:700;">
+                    Installer
+                </button>
+                <button onclick="this.closest('#installBanner').remove()" style="background:none;
+                    border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:1.2rem;">×</button>
+            </div>
+        `;
+        document.body.appendChild(banner);
+    }, 30000);
+});
+
+window.installApp = async function() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        const banner = document.getElementById('installBanner');
+        if (banner) banner.remove();
+    }
+};
+</script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,44 @@
+name: ProjetBI - Collecte automatique brouillons
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  collect:
+    name: Collecte et analyse
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install --quiet feedparser requests beautifulsoup4 anthropic
+
+      - name: Run collector
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FB_ACCESS_TOKEN: ${{ secrets.FB_ACCESS_TOKEN }}
+        run: python .github/scripts/collect_drafts.py
+
+      - name: Commit drafts.json
+        run: |
+          git config user.name "ProjetBI Bot"
+          git config user.email "bot@projetbi.org"
+          git add drafts.json
+          if git diff --staged --quiet; then
+            echo "No new drafts."
+          else
+            git commit -m "bot: update drafts $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
