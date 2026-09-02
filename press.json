@@ -1,39 +1,39 @@
 {
-  "last_updated": "2026-08-28T12:29:11.036Z",
+  "last_updated": "2026-09-02T12:29:11.036Z",
   "press": [
     {
       "id": "1",
       "title": "Le Soleil",
       "date": "28/08/2026",
-      "image": "revuedepresse/revue_2026-08-28_1.webp",
+      "image": "revuedepresse/lesoleil.jpg",
       "link": "#"
     },
     {
       "id": "2",
-      "title": "Quotidien",
+      "title": "yooryoor",
       "date": "28/08/2026",
-      "image": "revuedepresse/revue_2026-08-28_2.webp",
+      "image": "revuedepresse/yooryoor.jpg",
       "link": "#"
     },
     {
       "id": "3",
-      "title": "L'Évidence",
+      "title": "observateur",
       "date": "28/08/2026",
-      "image": "revuedepresse/revue_2026-08-28_3.webp",
+      "image": "revuedepresse/observateur.jpg",
       "link": "#"
     },
     {
       "id": "4",
-      "title": "Quotidien",
+      "title": "liberation",
       "date": "28/08/2026",
-      "image": "revuedepresse/revue_2026-08-28_4.webp",
+      "image": "revuedepresse/liberation.jpg",
       "link": "#"
     },
     {
       "id": "5",
-      "title": "Quotidien",
+      "title": "lerepublicain",
       "date": "28/08/2026",
-      "image": "revuedepresse/revue_2026-08-28_5.webp",
+      "image": "revuedepresse/lerepublicain.jpg",
       "link": "#"
     },
     {
