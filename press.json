@@ -45,30 +45,30 @@
     },
     {
       "id": "7",
-      "title": "enquete",
+      "title": "Quotidien",
       "date": "28/08/2026",
-      "image": "revuedepresse/enquete.jpg",
+      "image": "revuedepresse/revue_2026-08-28_7.webp",
       "link": "#"
     },
     {
       "id": "8",
-      "title": "sudquotidien",
+      "title": "Quotidien",
       "date": "28/08/2026",
-      "image": "revuedepresse/sudquotidien.jpg",
+      "image": "revuedepresse/revue_2026-08-28_8.webp",
       "link": "#"
     },
     {
       "id": "9",
-      "title": "rewmisport",
+      "title": "Le Quotidien",
       "date": "28/08/2026",
-      "image": "revuedepresse/rewmisport.jpg",
+      "image": "revuedepresse/revue_2026-08-28_9.webp",
       "link": "#"
     },
     {
       "id": "10",
-      "title": "tribunesport",
+      "title": "Direct News",
       "date": "28/08/2026",
-      "image": "revuedepresse/tribunesport.jpg",
+      "image": "revuedepresse/revue_2026-08-28_10.webp",
       "link": "#"
     },
     {
@@ -80,9 +80,9 @@
     },
     {
       "id": "12",
-      "title": "record",
+      "title": "L'Info",
       "date": "28/08/2026",
-      "image": "revuedepresse/record.jpg
+      "image": "revuedepresse/revue_2026-08-28_12.webp",
       "link": "#"
     },
     {
