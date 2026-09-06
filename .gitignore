@@ -7,3 +7,4 @@ revuedepresse/grid_test_*.png
 revuedepresse/grid_test_*.jpg
 debug_screenshots/
 daily_run.log
+.env
