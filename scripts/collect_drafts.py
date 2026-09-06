@@ -1,4 +1,4 @@
-﻿"""
+"""
 collect_drafts.py — Collecte automatique des mises à jour pour ProjetBI
 
 Sources :
@@ -141,6 +141,34 @@ def clean_html(text: str) -> str:
     return cleaned
 
 
+def clean_title(title: str, source: str) -> str:
+    if not title:
+        return ""
+    t = clean_html(title)
+    if source and source.strip():
+        s_esc = re.escape(source.strip())
+        t = re.sub(rf"\s*[-|–—]\s*{s_esc}\s*$", "", t, flags=re.IGNORECASE)
+    t = re.sub(r"\s*[-|–—]\s*(?:[a-zA-Z0-9.-]+\.(?:com|sn|net|org|fr|info)|xalima|sanslimitesn|senego|seneweb|dakaractu|pressafrik|lequotidien|le soleil|walf|sudquotidien|aps|rts|jeune afrique|dw\.com)\s*$", "", t, flags=re.IGNORECASE)
+    t = re.sub(r"\s*[-|–—]\s*([A-Za-z0-9.\s_-]{2,30})$", lambda m: "" if re.search(r"\.(com|sn|net|org)", m.group(1), re.I) or m.group(1).isupper() else m.group(0), t)
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def clean_summary(summary: str, title: str, source: str) -> str:
+    if not summary:
+        return ""
+    s = clean_html(summary)
+    if source and source.strip():
+        s_esc = re.escape(source.strip())
+        s = re.sub(rf"\s*[-|–—]?\s*{s_esc}\s*$", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"\s*[-|–—]\s*(?:[a-zA-Z0-9.-]+\.(?:com|sn|net|org|fr|info)|xalima|sanslimitesn|senego|seneweb|dakaractu|pressafrik|lequotidien|le soleil|walf|sudquotidien|aps|rts|jeune afrique|dw\.com)\s*$", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"The post .* appeared first on .*", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"The post .*", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"\[\s*…\s*\]", "…", s)
+    s = re.sub(r"\[\s*&#8230;\s*\]", "…", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
+
+
 def format_date_fr(dt: datetime) -> str:
     return dt.strftime("%d/%m/%Y")
 
@@ -175,10 +203,10 @@ def fetch_google_news() -> list:
                 pub = entry.get("published", "")
                 if article_too_old(pub):
                     continue
-                title   = clean_html(entry.get("title", ""))
-                summary = clean_html(entry.get("summary", ""))[:600]
-                link    = entry.get("link", "")
                 source  = entry.get("source", {}).get("title", "Google News")
+                title   = clean_title(entry.get("title", ""), source)
+                summary = clean_summary(entry.get("summary", ""), title, source)[:600]
+                link    = entry.get("link", "")
                 if title:
                     articles.append({
                         "title":   title,

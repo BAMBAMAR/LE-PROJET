@@ -2547,6 +2547,64 @@ function safeUrl(url) {
   return url;
 }
 
+function decodeEntities(str) {
+  if (!str) return '';
+  const txt = document.createElement('textarea');
+  txt.innerHTML = str;
+  let res = txt.value || '';
+  return res
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&#8211;/g, '–')
+    .replace(/&#8212;/g, '—')
+    .replace(/&#8216;/g, '’')
+    .replace(/&#8217;/g, '’')
+    .replace(/&#8220;/g, '"')
+    .replace(/&#8221;/g, '"')
+    .replace(/&#8230;/g, '…')
+    .replace(/&hellip;/gi, '…')
+    .replace(/\u00a0/g, ' ');
+}
+
+function cleanNewsTitle(title, source) {
+  if (!title) return '';
+  let t = decodeEntities(title).trim();
+  if (source && source.trim()) {
+    const sEsc = source.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    t = t.replace(new RegExp('\\s*[-|–—]\\s*' + sEsc + '\\s*$', 'i'), '');
+  }
+  t = t.replace(/\s*[-|–—]\s*(?:[a-zA-Z0-9.-]+\.(?:com|sn|net|org|fr|info)|xalima|sanslimitesn|senego|seneweb|dakaractu|pressafrik|lequotidien|le soleil|walf|sudquotidien|aps|rts|jeune afrique|dw\.com)\s*$/i, '');
+  t = t.replace(/\s*[-|–—]\s*([A-Za-z0-9.\s_-]{2,30})$/, (match, p1) => {
+    const trimmed = p1.trim();
+    if (/\b(avec|face|pour|contre|dans|sur|sous|selon|vers|par)\b/i.test(trimmed)) return match;
+    if (/\.(com|sn|net|org|info)/i.test(trimmed) || /^[A-Z0-9.\s_-]+$/.test(trimmed)) {
+      return '';
+    }
+    return match;
+  });
+  return t.replace(/\s+/g, ' ').trim();
+}
+
+function cleanNewsExcerpt(excerpt, title, source) {
+  if (!excerpt) return '';
+  let s = decodeEntities(excerpt).trim();
+  if (source && source.trim()) {
+    const sEsc = source.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    s = s.replace(new RegExp('\\s*[-|–—]?\\s*' + sEsc + '\\s*$', 'i'), '');
+  }
+  s = s.replace(/\s*[-|–—]\s*(?:[a-zA-Z0-9.-]+\.(?:com|sn|net|org|fr|info)|xalima|sanslimitesn|senego|seneweb|dakaractu|pressafrik|lequotidien|le soleil|walf|sudquotidien|aps|rts|jeune afrique|dw\.com)\s*$/i, '');
+  s = s.replace(/The post .* appeared first on .*/gi, '');
+  s = s.replace(/The post .*/gi, '');
+  s = s.replace(/\[\s*…\s*\]/g, '…');
+  s = s.replace(/\[\s*&#8230;\s*\]/g, '…');
+  s = s.replace(/\s+/g, ' ').trim();
+
+  const cleanT = cleanNewsTitle(title, source);
+  if (s.toLowerCase() === cleanT.toLowerCase() || s.length < 15) {
+    return `Actualité relayée depuis ${source || 'la presse sénégalaise'} : retrouvez les points clés et l'article original.`;
+  }
+  return s;
+}
+
 function confirmDelete(msg, onConfirm) {
   document.querySelectorAll('.toast-confirm').forEach(t => t.remove());
   const id = '_cdel_' + Date.now();
@@ -3173,6 +3231,9 @@ function renderDraftsList(list) {
       dateFmt = `${dd2}/${m}/${y}`;
     }
 
+    const cleanT = cleanNewsTitle(d.title, d.source);
+    const cleanD = cleanNewsExcerpt(d.description, cleanT, d.source);
+
     return `
       <div style="padding:1rem 1.2rem;border-bottom:1px solid var(--border)" id="draft-${escId(d.id)}">
         <div style="display:flex;align-items:flex-start;gap:.75rem;flex-wrap:wrap">
@@ -3184,10 +3245,10 @@ function renderDraftsList(list) {
               ${dateFmt ? `<span style="font-size:.72rem;color:var(--text3);font-family:'JetBrains Mono',monospace">${dateFmt}</span>` : ''}
             </div>
             <div style="font-weight:600;color:var(--text);font-size:.88rem;margin-bottom:.25rem">
-              ${escH(d.title || '—')}
+              ${escH(cleanT || '—')}
             </div>
             <div style="font-size:.8rem;color:var(--text2);line-height:1.55">
-              ${escH(d.description || '')}
+              ${escH(cleanD || '')}
             </div>
             <div style="font-size:.72rem;color:var(--text3);margin-top:.3rem">
               <i class="fas fa-globe"></i> ${escH(d.source || '—')}
@@ -3221,9 +3282,10 @@ function validateDraft(id) {
     const p = DB.promises.find(x => x.id === d.promise_id);
     if (p) {
       p.mises_a_jour = p.mises_a_jour || [];
+      const cleanDesc = cleanNewsExcerpt(d.description || d.title, d.title, d.source);
       p.mises_a_jour.unshift({
         date:        d.date || new Date().toISOString().split('T')[0],
-        description: d.description || d.title,
+        description: cleanDesc || d.title,
         source:      d.source_url || d.source || 'ProjetBI collecte auto',
       });
       _pendingPublish.promises = true;
@@ -3286,11 +3348,13 @@ function _convertDraftToNews(d) {
     const [y, m, dd] = dateFr.split('-');
     dateFr = `${dd}/${m}/${y}`;
   }
+  const cleanT = cleanNewsTitle(d.title, d.source);
+  const cleanD = cleanNewsExcerpt(d.description, cleanT, d.source);
   DB.news.unshift({
     id:         newId,
-    title:      d.title || '',
-    excerpt:    d.description || '',
-    content:    d.description || '',
+    title:      cleanT || '',
+    excerpt:    cleanD || '',
+    content:    cleanD || '',
     date:       dateFr,
     source:     d.source || 'ProjetBI',
     link:       d.source_url || '',

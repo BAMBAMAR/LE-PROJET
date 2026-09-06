@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -211,12 +211,12 @@ crossorigin="anonymous">
     .news-item-img img { width:100%;height:100%;object-fit:cover;transition:transform .4s ease; }
     .news-item:hover .news-item-img img { transform:scale(1.06); }
     .news-item-body { padding:1.1rem;display:flex;flex-direction:column;gap:.45rem;flex:1; }
-    .news-item-head { display:flex;align-items:center;justify-content:space-between;gap:.5rem; }
+    .news-item-head { display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-bottom:.15rem; }
     .news-item-cat {
         font-size:.64rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-        color:var(--green);background:var(--green-mist);padding:.18rem .55rem;border-radius:4px;flex-shrink:0;
+        color:var(--green);background:var(--green-mist);padding:.22rem .6rem;border-radius:4px;flex-shrink:0;
     }
-    .news-item-date { font-size:.73rem;color:var(--silver); }
+    .news-item-date { font-size:.73rem;color:var(--silver);display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap; }
     .news-item-title { font-weight:700;font-size:.92rem;line-height:1.45;color:var(--ink);flex:1; }
     .news-item-excerpt {
         font-size:.82rem;color:var(--smoke);line-height:1.6;
@@ -487,6 +487,98 @@ function safeUrl(url) {
     const t = url.trim().toLowerCase();
     if (t.startsWith('javascript:') || t.startsWith('data:') || t.startsWith('vbscript:')) return '#';
     return url.trim();
+}
+
+// ── Décodage entités & nettoyage éditorial des actualités ──
+function decodeEntities(str) {
+    if (!str) return '';
+    const txt = document.createElement('textarea');
+    txt.innerHTML = str;
+    let res = txt.value || '';
+    return res
+        .replace(/&nbsp;/gi, ' ')
+        .replace(/&#8211;/g, '–')
+        .replace(/&#8212;/g, '—')
+        .replace(/&#8216;/g, '’')
+        .replace(/&#8217;/g, '’')
+        .replace(/&#8220;/g, '"')
+        .replace(/&#8221;/g, '"')
+        .replace(/&#8230;/g, '…')
+        .replace(/&hellip;/gi, '…')
+        .replace(/\u00a0/g, ' ');
+}
+
+function cleanNewsTitle(title, source) {
+    if (!title) return '';
+    let t = decodeEntities(title).trim();
+    if (source && source.trim()) {
+        const sEsc = source.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        t = t.replace(new RegExp('\\s*[-|–—]\\s*' + sEsc + '\\s*$', 'i'), '');
+    }
+    t = t.replace(/\s*[-|–—]\s*(?:[a-zA-Z0-9.-]+\.(?:com|sn|net|org|fr|info)|xalima|sanslimitesn|senego|seneweb|dakaractu|pressafrik|lequotidien|le soleil|walf|sudquotidien|aps|rts|jeune afrique|dw\.com)\s*$/i, '');
+    t = t.replace(/\s*[-|–—]\s*([A-Za-z0-9.\s_-]{2,30})$/, (match, p1) => {
+        const trimmed = p1.trim();
+        if (/\b(avec|face|pour|contre|dans|sur|sous|selon|vers|par)\b/i.test(trimmed)) return match;
+        if (/\.(com|sn|net|org|info)/i.test(trimmed) || /^[A-Z0-9.\s_-]+$/.test(trimmed)) {
+            return '';
+        }
+        return match;
+    });
+    return t.replace(/\s+/g, ' ').trim();
+}
+
+function cleanNewsExcerpt(excerpt, title, source) {
+    if (!excerpt) return '';
+    let s = decodeEntities(excerpt).trim();
+    if (source && source.trim()) {
+        const sEsc = source.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        s = s.replace(new RegExp('\\s*[-|–—]?\\s*' + sEsc + '\\s*$', 'i'), '');
+    }
+    s = s.replace(/\s*[-|–—]\s*(?:[a-zA-Z0-9.-]+\.(?:com|sn|net|org|fr|info)|xalima|sanslimitesn|senego|seneweb|dakaractu|pressafrik|lequotidien|le soleil|walf|sudquotidien|aps|rts|jeune afrique|dw\.com)\s*$/i, '');
+    s = s.replace(/The post .* appeared first on .*/gi, '');
+    s = s.replace(/The post .*/gi, '');
+    s = s.replace(/\[\s*…\s*\]/g, '…');
+    s = s.replace(/\[\s*&#8230;\s*\]/g, '…');
+    s = s.replace(/\s+/g, ' ').trim();
+
+    const cleanT = cleanNewsTitle(title, source);
+    if (s.toLowerCase() === cleanT.toLowerCase() || s.length < 15) {
+        return `Actualité relayée depuis ${source || 'la presse sénégalaise'} : retrouvez les points clés et l'article original ci-dessous.`;
+    }
+    return s;
+}
+
+function formatNewsBodyHtml(text, title, source) {
+    if (!text) return '';
+    const cleanT = cleanNewsTitle(title, source);
+    const cleanE = cleanNewsExcerpt(text, title, source);
+
+    if (cleanE.toLowerCase() === cleanT.toLowerCase() || cleanE.startsWith('Actualité relayée depuis') || text.trim().length < 25) {
+        return `
+            <div style="background:#f4f9f5;border-left:4px solid #2D5F3F;padding:1.2rem 1.4rem;border-radius:0 12px 12px 0;margin:1.2rem 0;">
+                <p style="font-size:1.05rem;font-weight:600;color:#1A3D28;line-height:1.6;margin:0 0 .5rem 0;">${escH(cleanT)}</p>
+                <p style="font-size:.88rem;color:#4a6055;line-height:1.6;margin:0;">
+                    Cette information a été publiée par <strong>${escH(source || 'la presse sénégalaise')}</strong> dans le cadre du suivi citoyen du Projet. Pour consulter le reportage complet et les déclarations détaillées, accédez à l'article complet ci-dessous.
+                </p>
+            </div>
+        `;
+    }
+
+    let cleaned = decodeEntities(text)
+        .replace(/The post .* appeared first on .*/gi, '')
+        .replace(/The post .*/gi, '')
+        .replace(/\[\s*…\s*\]/g, '…')
+        .replace(/\[\s*&#8230;\s*\]/g, '…')
+        .trim();
+
+    const paragraphs = cleaned.split('\n').map(l => l.trim()).filter(Boolean);
+    return paragraphs.map(p => {
+        let escaped = escH(p);
+        escaped = escaped.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (match, label, url) => {
+            return `<a href="${safeUrl(url)}" target="_blank" rel="noopener noreferrer" style="color:#2D5F3F;font-weight:600;text-decoration:underline;">${label} <i class="fas fa-external-link-alt" style="font-size:.75em"></i></a>`;
+        });
+        return `<p style="margin-bottom:.9rem;line-height:1.75;color:#2c3e35;font-size:.95rem;">${escaped}</p>`;
+    }).join('');
 }
 
 // ── Progress bar + scroll ──
@@ -768,29 +860,33 @@ function openArticleById(key) {
     const body = document.getElementById('actuModalBody');
     const fullText = news.content || news.excerpt || '';
     const link = (news.link && !news.link.startsWith('<iframe') && news.link !== '#') ? news.link : null;
-
-    // Escape helper local
-    const esc = s => {
-        const d = document.createElement('div');
-        d.appendChild(document.createTextNode(String(s || '')));
-        return d.innerHTML;
-    };
+    const cleanT = cleanNewsTitle(news.title, news.source);
+    const domain = getDomaine(news);
+    const bodyHtml = formatNewsBodyHtml(fullText, news.title, news.source);
 
     body.innerHTML = `
-        <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem;">
-            <span style="background:#eef6f1;color:#2D5F3F;border:1px solid #c5dbc0;padding:.2rem .75rem;border-radius:20px;font-size:.78rem;font-weight:700">${esc(getDomaine(news))}</span>
-            <span style="color:#999;font-size:.78rem;margin-left:auto">${esc(news.date)}</span>
+        <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid #eef2ef;">
+            <span style="background:#eef6f1;color:#2D5F3F;border:1px solid #c5dbc0;padding:.3rem .85rem;border-radius:100px;font-size:.78rem;font-weight:700;display:inline-flex;align-items:center;gap:.35rem">
+                <i class="fas fa-tag" style="font-size:.7rem"></i> ${escH(domain)}
+            </span>
+            <span style="color:#6b7280;font-size:.82rem;margin-left:auto;display:inline-flex;align-items:center;gap:.4rem">
+                <i class="fas fa-calendar-alt" style="color:#2D5F3F"></i> ${escH(news.date)}
+            </span>
         </div>
-        <h2 style="font-size:1.4rem;font-weight:800;color:#1A3D28;margin-bottom:1rem;line-height:1.35;padding-right:2.5rem">${esc(news.title)}</h2>
-        ${news.image_url ? `<div style="width:100%;border-radius:10px;overflow:hidden;margin-bottom:1rem"><img src="${esc(news.image_url)}" alt="${esc(news.title)}" style="width:100%;max-height:260px;object-fit:cover;display:block" onerror="fallbackImg(this,'${esc(getDomaine(news))}',true)"></div>` : ''}
-        <div style="display:flex;gap:1rem;font-size:.8rem;color:#8a9e93;margin-bottom:1.2rem;flex-wrap:wrap">
-            <span><i class="fas fa-newspaper" style="color:#2D5F3F;margin-right:.3rem"></i>${esc(news.source)}</span>
-            ${news.read_time ? `<span><i class="fas fa-clock" style="color:#2D5F3F;margin-right:.3rem"></i>${esc(news.read_time)}</span>` : ''}
+        <h2 style="font-size:1.45rem;font-weight:800;color:#1A3D28;margin-bottom:1.2rem;line-height:1.35;padding-right:2.5rem">${escH(cleanT)}</h2>
+        ${news.image_url ? `<div style="width:100%;border-radius:12px;overflow:hidden;margin-bottom:1.25rem;box-shadow:0 4px 16px rgba(0,0,0,.08)"><img src="${safeUrl(news.image_url)}" alt="${escH(cleanT)}" style="width:100%;max-height:280px;object-fit:cover;display:block" onerror="fallbackImg(this,'${escH(domain)}',true)"></div>` : ''}
+        <div style="display:flex;gap:1.25rem;font-size:.82rem;color:#718096;margin-bottom:1.4rem;flex-wrap:wrap;padding-bottom:.75rem;border-bottom:1px dashed #e2e8f0;">
+            <span style="display:inline-flex;align-items:center;gap:.35rem"><i class="fas fa-newspaper" style="color:#2D5F3F"></i><strong>${escH(news.source || 'Presse')}</strong></span>
+            ${news.read_time ? `<span style="display:inline-flex;align-items:center;gap:.35rem"><i class="fas fa-clock" style="color:#2D5F3F"></i>${escH(news.read_time)}</span>` : ''}
         </div>
-        <div style="line-height:1.8;color:#333;font-size:.95rem">${fullText.split('\n').filter(l=>l.trim()).map(l=>`<p style="margin-bottom:.85rem">${esc(l)}</p>`).join('')}</div>
-        ${link ? `<div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid #e5ede6">
-            <a href="${safeUrl(esc(link))}" target="_blank" rel="noopener noreferrer" style="color:#2D5F3F;font-weight:700;font-size:.88rem;display:inline-flex;align-items:center;gap:.4rem">
-                <i class="fas fa-external-link-alt"></i> Lire l'article original
+        <div class="actu-modal-text" style="line-height:1.8;color:#2d3748;font-size:.95rem">${bodyHtml}</div>
+        ${link ? `<div style="margin-top:2rem;padding-top:1.25rem;border-top:1px solid #e5ede6;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+            <div style="font-size:.82rem;color:#718096">
+                <i class="fas fa-check-circle" style="color:#2D5F3F;margin-right:.3rem"></i> Source : <strong>${escH(news.source || 'Article original')}</strong>
+            </div>
+            <a href="${safeUrl(link)}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:.5rem;background:#2D5F3F;color:white;padding:.65rem 1.3rem;border-radius:100px;font-weight:700;font-size:.86rem;text-decoration:none;box-shadow:0 3px 12px rgba(45,95,63,.25);transition:background .2s;">
+                <span>Lire l'article complet</span>
+                <i class="fas fa-external-link-alt" style="font-size:.8rem"></i>
             </a>
         </div>` : ''}`;
 
@@ -813,22 +909,25 @@ function renderFeatured() {
     const f    = allNews[0];
     const icon = getIcon(f.image);
     _articleStore.set('featured', f);
+    const title = cleanNewsTitle(f.title, f.source);
+    const excerpt = cleanNewsExcerpt(f.excerpt, title, f.source);
+    const domain = getDomaine(f);
     container.innerHTML = `
         <div class="featured-article" style="cursor:pointer" onclick="openArticleById('featured')">
             <div class="featured-img">
                 ${f.image_url
-                    ? `<img src="${f.image_url}" alt="${f.title}" onerror="fallbackImg(this,'${getDomaine(f)}',true)"><div class="featured-img-overlay"></div>`
+                    ? `<img src="${safeUrl(f.image_url)}" alt="${escH(title)}" onerror="fallbackImg(this,'${domain}',true)"><div class="featured-img-overlay"></div>`
                     : `<i class="fas ${icon} featured-icon"></i>`}
                 <div class="feat-badge">À la une</div>
             </div>
             <div class="featured-body">
-                <div class="featured-cat">${getDomaine(f)}</div>
-                <h2 class="featured-title">${f.title}</h2>
-                <p class="featured-excerpt">${(f.excerpt||'').substring(0,280)}${(f.excerpt||'').length>280?'…':''}</p>
+                <div class="featured-cat">${escH(domain)}</div>
+                <h2 class="featured-title">${escH(title)}</h2>
+                <p class="featured-excerpt">${escH(excerpt.substring(0,280))}${excerpt.length>280?'…':''}</p>
                 <div class="featured-meta">
-                    <span><i class="fas fa-calendar"></i>${f.date}</span>
-                    <span><i class="fas fa-newspaper"></i>${f.source||'Source'}</span>
-                    ${f.read_time ? `<span><i class="fas fa-clock"></i>${f.read_time}</span>` : ''}
+                    <span><i class="fas fa-calendar-alt"></i> ${escH(f.date)}</span>
+                    <span><i class="fas fa-newspaper"></i> ${escH(f.source||'Source')}</span>
+                    ${f.read_time ? `<span><i class="fas fa-clock"></i> ${escH(f.read_time)}</span>` : ''}
                 </div>
                 <button class="btn-read" onclick="event.stopPropagation();openArticleById('featured')"><i class="fas fa-book-open"></i> Lire l'article</button>
             </div>
@@ -850,20 +949,23 @@ function renderGrid() {
         const icon = getIcon(n.image);
         const key  = 'art_' + i;
         _articleStore.set(key, n);
+        const title = cleanNewsTitle(n.title, n.source);
+        const excerpt = cleanNewsExcerpt(n.excerpt, title, n.source);
+        const domain = getDomaine(n);
         return `
         <article class="news-item" onclick="openArticleById('${key}')">
             <div class="news-item-img">
-                ${n.image_url ? `<img src="${safeUrl(n.image_url)}" alt="${escH(n.title)}" loading="lazy" onerror="fallbackImg(this,'${escH(getDomaine(n))}',false)">` : `<i class="fas ${icon}"></i>`}
+                ${n.image_url ? `<img src="${safeUrl(n.image_url)}" alt="${escH(title)}" loading="lazy" onerror="fallbackImg(this,'${escH(domain)}',false)">` : `<i class="fas ${icon}"></i>`}
             </div>
             <div class="news-item-body">
                 <div class="news-item-head">
-                    <span class="news-item-cat">${escH(getDomaine(n))}</span>
-                    <span class="news-item-date">${escH(n.date)}</span>
+                    <span class="news-item-cat">${escH(domain)}</span>
+                    <span class="news-item-date"><i class="fas fa-calendar-alt" style="font-size:.68rem;opacity:.7;margin-right:3px"></i> ${escH(n.date)}</span>
                 </div>
-                <h3 class="news-item-title">${escH(n.title)}</h3>
-                <p class="news-item-excerpt">${escH((n.excerpt||'').substring(0,160))}…</p>
+                <h3 class="news-item-title">${escH(title)}</h3>
+                <p class="news-item-excerpt">${escH(excerpt.substring(0,160))}${excerpt.length > 160 ? '…' : ''}</p>
                 <div class="news-item-foot">
-                    <span><i class="fas fa-newspaper"></i>${escH(n.source||'')}</span>
+                    <span><i class="fas fa-newspaper"></i> ${escH(n.source||'')}</span>
                     <button class="news-read" onclick="event.stopPropagation();openArticleById('${key}')"><i class="fas fa-arrow-right"></i> Lire</button>
                 </div>
             </div>

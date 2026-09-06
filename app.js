@@ -2183,6 +2183,98 @@ function _closeIndexModal() {
     document.body.style.overflow = '';
 }
 
+// ── Nettoyage et décodage actualités ──
+function _newsDecodeEntities(str) {
+    if (!str) return '';
+    const txt = document.createElement('textarea');
+    txt.innerHTML = str;
+    let res = txt.value || '';
+    return res
+        .replace(/&nbsp;/gi, ' ')
+        .replace(/&#8211;/g, '–')
+        .replace(/&#8212;/g, '—')
+        .replace(/&#8216;/g, '’')
+        .replace(/&#8217;/g, '’')
+        .replace(/&#8220;/g, '"')
+        .replace(/&#8221;/g, '"')
+        .replace(/&#8230;/g, '…')
+        .replace(/&hellip;/gi, '…')
+        .replace(/\u00a0/g, ' ');
+}
+
+function _cleanNewsTitle(title, source) {
+    if (!title) return '';
+    let t = _newsDecodeEntities(title).trim();
+    if (source && source.trim()) {
+        const sEsc = source.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        t = t.replace(new RegExp('\\s*[-|–—]\\s*' + sEsc + '\\s*$', 'i'), '');
+    }
+    t = t.replace(/\s*[-|–—]\s*(?:[a-zA-Z0-9.-]+\.(?:com|sn|net|org|fr|info)|xalima|sanslimitesn|senego|seneweb|dakaractu|pressafrik|lequotidien|le soleil|walf|sudquotidien|aps|rts|jeune afrique|dw\.com)\s*$/i, '');
+    t = t.replace(/\s*[-|–—]\s*([A-Za-z0-9.\s_-]{2,30})$/, (match, p1) => {
+        const trimmed = p1.trim();
+        if (/\b(avec|face|pour|contre|dans|sur|sous|selon|vers|par)\b/i.test(trimmed)) return match;
+        if (/\.(com|sn|net|org|info)/i.test(trimmed) || /^[A-Z0-9.\s_-]+$/.test(trimmed)) {
+            return '';
+        }
+        return match;
+    });
+    return t.replace(/\s+/g, ' ').trim();
+}
+
+function _cleanNewsExcerpt(excerpt, title, source) {
+    if (!excerpt) return '';
+    let s = _newsDecodeEntities(excerpt).trim();
+    if (source && source.trim()) {
+        const sEsc = source.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        s = s.replace(new RegExp('\\s*[-|–—]?\\s*' + sEsc + '\\s*$', 'i'), '');
+    }
+    s = s.replace(/\s*[-|–—]\s*(?:[a-zA-Z0-9.-]+\.(?:com|sn|net|org|fr|info)|xalima|sanslimitesn|senego|seneweb|dakaractu|pressafrik|lequotidien|le soleil|walf|sudquotidien|aps|rts|jeune afrique|dw\.com)\s*$/i, '');
+    s = s.replace(/The post .* appeared first on .*/gi, '');
+    s = s.replace(/The post .*/gi, '');
+    s = s.replace(/\[\s*…\s*\]/g, '…');
+    s = s.replace(/\[\s*&#8230;\s*\]/g, '…');
+    s = s.replace(/\s+/g, ' ').trim();
+
+    const cleanT = _cleanNewsTitle(title, source);
+    if (s.toLowerCase() === cleanT.toLowerCase() || s.length < 15) {
+        return `Actualité relayée depuis ${source || 'la presse sénégalaise'} : retrouvez les points clés et l'article original ci-dessous.`;
+    }
+    return s;
+}
+
+function _formatNewsBodyHtml(text, title, source) {
+    if (!text) return '';
+    const cleanT = _cleanNewsTitle(title, source);
+    const cleanE = _cleanNewsExcerpt(text, title, source);
+
+    if (cleanE.toLowerCase() === cleanT.toLowerCase() || cleanE.startsWith('Actualité relayée depuis') || text.trim().length < 25) {
+        return `
+            <div style="background:#f4f9f5;border-left:4px solid #2D5F3F;padding:1.2rem 1.4rem;border-radius:0 12px 12px 0;margin:1.2rem 0;">
+                <p style="font-size:1.05rem;font-weight:600;color:#1A3D28;line-height:1.6;margin:0 0 .5rem 0;">${_newsEsc(cleanT)}</p>
+                <p style="font-size:.88rem;color:#4a6055;line-height:1.6;margin:0;">
+                    Cette information a été publiée par <strong>${_newsEsc(source || 'la presse sénégalaise')}</strong> dans le cadre du suivi citoyen du Projet. Pour consulter l'intégralité du reportage et les déclarations détaillées, accédez à l'article complet ci-dessous.
+                </p>
+            </div>
+        `;
+    }
+
+    let cleaned = _newsDecodeEntities(text)
+        .replace(/The post .* appeared first on .*/gi, '')
+        .replace(/The post .*/gi, '')
+        .replace(/\[\s*…\s*\]/g, '…')
+        .replace(/\[\s*&#8230;\s*\]/g, '…')
+        .trim();
+
+    const paragraphs = cleaned.split('\n').map(l => l.trim()).filter(Boolean);
+    return paragraphs.map(p => {
+        let escaped = _newsEsc(p);
+        escaped = escaped.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (match, label, url) => {
+            return `<a href="${_newsSafeUrl(url)}" target="_blank" rel="noopener noreferrer" style="color:#2D5F3F;font-weight:600;text-decoration:underline;">${label} <i class="fas fa-external-link-alt" style="font-size:.75em"></i></a>`;
+        });
+        return `<p style="margin-bottom:.9rem;line-height:1.75;color:#2c3e35;font-size:.95rem;">${escaped}</p>`;
+    }).join('');
+}
+
 function _openIndexArticle(key) {
     const n = _indexArticleStore.get(key);
     if (!n) return;
@@ -2191,21 +2283,32 @@ function _openIndexArticle(key) {
     const cat   = n.category || 'Général';
     const fullText = n.content || n.excerpt || '';
     const link  = (n.link && !n.link.startsWith('<iframe') && n.link !== '#') ? n.link : null;
+    const cleanT = _cleanNewsTitle(n.title, n.source);
+    const bodyHtml = _formatNewsBodyHtml(fullText, n.title, n.source);
+
     body.innerHTML = `
-        <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem;">
-            <span style="background:#eef6f1;color:#2D5F3F;border:1px solid #c5dbc0;padding:.2rem .75rem;border-radius:20px;font-size:.78rem;font-weight:700">${_newsEsc(cat)}</span>
-            <span style="color:#999;font-size:.78rem;margin-left:auto">${_newsEsc(n.date)}</span>
+        <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid #eef2ef;">
+            <span style="background:#eef6f1;color:#2D5F3F;border:1px solid #c5dbc0;padding:.3rem .85rem;border-radius:100px;font-size:.78rem;font-weight:700;display:inline-flex;align-items:center;gap:.35rem">
+                <i class="fas fa-tag" style="font-size:.7rem"></i> ${_newsEsc(cat)}
+            </span>
+            <span style="color:#6b7280;font-size:.82rem;margin-left:auto;display:inline-flex;align-items:center;gap:.4rem">
+                <i class="fas fa-calendar-alt" style="color:#2D5F3F"></i> ${_newsEsc(n.date)}
+            </span>
         </div>
-        <h2 style="font-size:1.4rem;font-weight:800;color:#1A3D28;margin-bottom:1rem;line-height:1.35;padding-right:2.5rem">${_newsEsc(n.title)}</h2>
-        ${n.image_url ? `<div style="width:100%;border-radius:10px;overflow:hidden;margin-bottom:1rem"><img src="${_newsEsc(n.image_url)}" alt="${_newsEsc(n.title)}" style="width:100%;max-height:260px;object-fit:cover;display:block" onerror="_newsFallbackImg(this,'${_newsEsc(cat)}',true)"></div>` : ''}
-        <div style="display:flex;gap:1rem;font-size:.8rem;color:#8a9e93;margin-bottom:1.2rem;flex-wrap:wrap">
-            <span><i class="fas fa-newspaper" style="color:#2D5F3F;margin-right:.3rem"></i>${_newsEsc(n.source)}</span>
-            ${n.read_time ? `<span><i class="fas fa-clock" style="color:#2D5F3F;margin-right:.3rem"></i>${_newsEsc(n.read_time)}</span>` : ''}
+        <h2 style="font-size:1.45rem;font-weight:800;color:#1A3D28;margin-bottom:1.2rem;line-height:1.35;padding-right:2.5rem">${_newsEsc(cleanT)}</h2>
+        ${n.image_url ? `<div style="width:100%;border-radius:12px;overflow:hidden;margin-bottom:1.25rem;box-shadow:0 4px 16px rgba(0,0,0,.08)"><img src="${_newsEsc(n.image_url)}" alt="${_newsEsc(cleanT)}" style="width:100%;max-height:280px;object-fit:cover;display:block" onerror="_newsFallbackImg(this,'${_newsEsc(cat)}',true)"></div>` : ''}
+        <div style="display:flex;gap:1.25rem;font-size:.82rem;color:#718096;margin-bottom:1.4rem;flex-wrap:wrap;padding-bottom:.75rem;border-bottom:1px dashed #e2e8f0;">
+            <span style="display:inline-flex;align-items:center;gap:.35rem"><i class="fas fa-newspaper" style="color:#2D5F3F"></i><strong>${_newsEsc(n.source || 'Presse')}</strong></span>
+            ${n.read_time ? `<span style="display:inline-flex;align-items:center;gap:.35rem"><i class="fas fa-clock" style="color:#2D5F3F"></i>${_newsEsc(n.read_time)}</span>` : ''}
         </div>
-        <div style="line-height:1.8;color:#333;font-size:.95rem">${fullText.split('\n').filter(l=>l.trim()).map(l=>`<p style="margin-bottom:.85rem">${_newsEsc(l)}</p>`).join('')}</div>
-        ${link ? `<div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid #e5ede6">
-            <a href="${_newsSafeUrl(link)}" target="_blank" rel="noopener noreferrer" style="color:#2D5F3F;font-weight:700;font-size:.88rem;display:inline-flex;align-items:center;gap:.4rem">
-                <i class="fas fa-external-link-alt"></i> Lire l'article original
+        <div class="actu-modal-text" style="line-height:1.8;color:#2d3748;font-size:.95rem">${bodyHtml}</div>
+        ${link ? `<div style="margin-top:2rem;padding-top:1.25rem;border-top:1px solid #e5ede6;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+            <div style="font-size:.82rem;color:#718096">
+                <i class="fas fa-check-circle" style="color:#2D5F3F;margin-right:.3rem"></i> Source : <strong>${_newsEsc(n.source || 'Article original')}</strong>
+            </div>
+            <a href="${_newsSafeUrl(link)}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:.5rem;background:#2D5F3F;color:white;padding:.65rem 1.3rem;border-radius:100px;font-weight:700;font-size:.86rem;text-decoration:none;box-shadow:0 3px 12px rgba(45,95,63,.25);transition:background .2s;">
+                <span>Lire l'article complet</span>
+                <i class="fas fa-external-link-alt" style="font-size:.8rem"></i>
             </a>
         </div>` : ''}`;
     modal.style.display = 'flex';
@@ -2220,22 +2323,16 @@ function _parseNewsDate(str) {
 }
 
 async function renderNewsIndex() {
-        const featured = document.getElementById('newsFeatured');
+    const featured = document.getElementById('newsFeatured');
     const grid     = document.getElementById('newsGrid');
-    console.log('[renderNews] newsFeatured:', featured, '| newsGrid:', grid);
-    if (!featured && !grid) {
-        console.warn('[renderNews] ⚠ aucun conteneur trouvé — abandon');
-        return;
-    }
+    if (!featured && !grid) return;
 
     let news = [];
     try {
-                const res  = await fetch('news.json');
-        console.log('[renderNews] réponse HTTP:', res.status, res.ok);
+        const res  = await fetch('news.json');
         const data = await res.json();
         news = data.news || [];
         news.sort((a, b) => _parseNewsDate(b.date) - _parseNewsDate(a.date));
-        console.log('[renderNews] articles reçus:', news.length, '| 1er:', news[0]?.title);
     } catch(e) {
         console.error('[renderNews] ✗ fetch/parse error:', e);
         if (featured) featured.innerHTML = '<p style="color:#888;text-align:center;padding:2rem">Impossible de charger les actualités.</p>';
@@ -2243,7 +2340,6 @@ async function renderNewsIndex() {
         return;
     }
     if (!news.length) {
-        console.warn('[renderNews] tableau vide');
         if (featured) featured.innerHTML = '<p style="color:#888;text-align:center;padding:2rem">Aucune actualité disponible.</p>';
         return;
     }
@@ -2254,20 +2350,22 @@ async function renderNewsIndex() {
         const cat = f.category || 'Général';
         const icon = _newsGetIcon(cat);
         _indexArticleStore.set('featured', f);
+        const title = _cleanNewsTitle(f.title, f.source);
+        const excerpt = _cleanNewsExcerpt(f.excerpt, title, f.source);
         featured.innerHTML = `
         <div class="idx-featured" onclick="_openIndexArticle('featured')">
             <div class="idx-featured-img">
                 ${f.image_url
-                    ? `<img src="${_newsEsc(f.image_url)}" alt="${_newsEsc(f.title)}" onerror="_newsFallbackImg(this,'${_newsEsc(cat)}',true)"><div class="idx-feat-overlay"></div>`
+                    ? `<img src="${_newsEsc(f.image_url)}" alt="${_newsEsc(title)}" onerror="_newsFallbackImg(this,'${_newsEsc(cat)}',true)"><div class="idx-feat-overlay"></div>`
                     : `<i class="fas ${icon}" style="font-size:3.5rem;color:rgba(255,255,255,.3);position:relative;z-index:1"></i>`}
                 <div class="idx-feat-badge">À la une</div>
             </div>
             <div class="idx-featured-body">
                 <div class="idx-feat-cat">${_newsEsc(cat)}</div>
-                <h3 class="idx-feat-title">${_newsEsc(f.title)}</h3>
-                <p class="idx-feat-excerpt">${_newsEsc((f.excerpt||'').substring(0,240))}${(f.excerpt||'').length>240?'…':''}</p>
+                <h3 class="idx-feat-title">${_newsEsc(title)}</h3>
+                <p class="idx-feat-excerpt">${_newsEsc(excerpt.substring(0,240))}${excerpt.length>240?'…':''}</p>
                 <div class="idx-feat-meta">
-                    <span><i class="fas fa-calendar"></i> ${_newsEsc(f.date)}</span>
+                    <span><i class="fas fa-calendar-alt"></i> ${_newsEsc(f.date)}</span>
                     <span><i class="fas fa-newspaper"></i> ${_newsEsc(f.source||'')}</span>
                 </div>
                 <button class="idx-feat-btn" onclick="event.stopPropagation();_openIndexArticle('featured')">
@@ -2285,20 +2383,22 @@ async function renderNewsIndex() {
             const icon = _newsGetIcon(cat);
             const key  = 'art_' + i;
             _indexArticleStore.set(key, n);
+            const title = _cleanNewsTitle(n.title, n.source);
+            const excerpt = _cleanNewsExcerpt(n.excerpt, title, n.source);
             return `
             <article class="idx-news-item" onclick="_openIndexArticle('${key}')">
                 <div class="idx-news-img">
                     ${n.image_url
-                        ? `<img src="${_newsSafeUrl(n.image_url)}" alt="${_newsEsc(n.title)}" loading="lazy" onerror="_newsFallbackImg(this,'${_newsEsc(cat)}',false)">`
+                        ? `<img src="${_newsSafeUrl(n.image_url)}" alt="${_newsEsc(title)}" loading="lazy" onerror="_newsFallbackImg(this,'${_newsEsc(cat)}',false)">`
                         : `<i class="fas ${icon}"></i>`}
                 </div>
                 <div class="idx-news-body">
                     <div class="idx-news-head">
                         <span class="idx-news-cat">${_newsEsc(cat)}</span>
-                        <span class="idx-news-date">${_newsEsc(n.date)}</span>
+                        <span class="idx-news-date"><i class="fas fa-calendar-alt" style="font-size:.68rem;opacity:.7;margin-right:3px"></i> ${_newsEsc(n.date)}</span>
                     </div>
-                    <h4 class="idx-news-title">${_newsEsc(n.title)}</h4>
-                    <p class="idx-news-excerpt">${_newsEsc((n.excerpt||'').substring(0,140))}…</p>
+                    <h4 class="idx-news-title">${_newsEsc(title)}</h4>
+                    <p class="idx-news-excerpt">${_newsEsc(excerpt.substring(0,140))}${excerpt.length>140?'…':''}</p>
                     <div class="idx-news-foot">
                         <span><i class="fas fa-newspaper"></i> ${_newsEsc(n.source||'')}</span>
                         <button class="idx-news-read" onclick="event.stopPropagation();_openIndexArticle('${key}')">
