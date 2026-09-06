@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-Robots-Tag" content="noindex, nofollow">
 <title>Admin — ProjetBI</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700&family=Inter:wght@400;500;600;700;800&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -854,10 +856,10 @@ textarea.form-control{resize:vertical;min-height:90px}
             <div style="display:flex;align-items:center;gap:.4rem">
               <span><i class="fas fa-palette" style="color:var(--gold)"></i> Thème de couleur :</span>
               <select class="form-control" id="stThemeSelect" onchange="studioRenderAll()" style="padding:.25rem .6rem;font-size:.8rem;height:auto;width:auto">
-                <option value="emerald">🌿 Émeraude Sénégal (Prestige)</option>
-                <option value="goldnight">🌌 Nuit & Or Profond</option>
-                <option value="tricolor">🇸🇳 Tricolore Républicain</option>
-                <option value="ruby">🚨 Alerte & Retard</option>
+                <option value="white_editorial" selected>⚪ Blanc Épure & Éditorial (Minimaliste Premium)</option>
+                <option value="white_senegal">🇸🇳 Blanc Républicain & Vert Sobre</option>
+                <option value="dark_minimal">⚫ Monochrome Noir & Blanc Minimaliste</option>
+                <option value="emerald">🌿 Émeraude Sombre Institutionnel</option>
               </select>
             </div>
             <div style="display:flex;align-items:center;gap:.4rem">
@@ -2963,7 +2965,7 @@ function toast(msg, type='success') {
 // STUDIO RÉSEAUX SOCIAUX & VISUELS HD (META / X)
 // ═══════════════════════════════════════════════════
 let studioActiveTemplate = 'flash';
-let studioTheme = 'emerald';
+let studioTheme = 'white_editorial';
 let studioRatio = '1:1';
 
 function studioInit() {
@@ -3234,181 +3236,347 @@ function studioWrapText(ctx, text, x, y, maxW, lineH, maxLines = 10) {
   return lines.length;
 }
 
-function studioDrawBackground(ctx, theme, w, h) {
-  ctx.save();
-  let g = ctx.createLinearGradient(0, 0, w, h);
-  if (theme === 'goldnight') {
-    g.addColorStop(0, '#070C16');
-    g.addColorStop(0.5, '#0E1729');
-    g.addColorStop(1, '#080D1A');
-  } else if (theme === 'tricolor') {
-    g.addColorStop(0, '#08170F');
-    g.addColorStop(0.6, '#102A1C');
-    g.addColorStop(1, '#0C1E15');
-  } else if (theme === 'ruby') {
-    g.addColorStop(0, '#1E0808');
-    g.addColorStop(0.6, '#381212');
-    g.addColorStop(1, '#180707');
+// ── Palette de Couleurs & Thèmes Studio ──
+function studioGetThemeColors(theme) {
+  if (theme === 'white_editorial') {
+    return {
+      name: 'white_editorial',
+      isDark: false,
+      bg: '#FFFFFF',
+      bgCard: '#FFFFFF',
+      borderCard: '#E2E8F0',
+      textPrimary: '#0F172A',
+      textSecondary: '#475569',
+      textMuted: '#64748B',
+      accentGold: '#9A6715',
+      accentBrand: '#0F172A',
+      boxBg: '#F8FAFC',
+      boxBorder: '#E2E8F0',
+      badgeBg: '#F1F5F9',
+      badgeBorder: '#E2E8F0',
+      badgeText: '#0F172A',
+      ctaBg: '#0F172A',
+      ctaBorder: '#0F172A',
+      ctaText: '#FFFFFF',
+      footerBg: '#FAFAFA',
+      footerBorder: '#E2E8F0',
+      footerText: '#0F172A',
+      footerMuted: '#64748B',
+      starColor: '#B45309',
+      mottoColor: '#9A6715'
+    };
+  } else if (theme === 'white_senegal') {
+    return {
+      name: 'white_senegal',
+      isDark: false,
+      bg: '#FFFFFF',
+      bgCard: '#FFFFFF',
+      borderCard: '#DCFCE7',
+      textPrimary: '#052E16',
+      textSecondary: '#14532D',
+      textMuted: '#166534',
+      accentGold: '#9A6715',
+      accentBrand: '#15803D',
+      boxBg: '#F0FDF4',
+      boxBorder: '#DCFCE7',
+      badgeBg: '#DCFCE7',
+      badgeBorder: '#86EFAC',
+      badgeText: '#14532D',
+      ctaBg: '#15803D',
+      ctaBorder: '#166534',
+      ctaText: '#FFFFFF',
+      footerBg: '#FAFAF9',
+      footerBorder: '#DCFCE7',
+      footerText: '#052E16',
+      footerMuted: '#166534',
+      starColor: '#9A6715',
+      mottoColor: '#9A6715'
+    };
+  } else if (theme === 'dark_minimal') {
+    return {
+      name: 'dark_minimal',
+      isDark: true,
+      bg: '#09090B',
+      bgCard: '#141416',
+      borderCard: '#27272A',
+      textPrimary: '#FAFAFA',
+      textSecondary: '#A1A1AA',
+      textMuted: '#71717A',
+      accentGold: '#EAB308',
+      accentBrand: '#FAFAFA',
+      boxBg: '#1E1E22',
+      boxBorder: '#2E2E33',
+      badgeBg: '#27272A',
+      badgeBorder: '#3F3F46',
+      badgeText: '#FAFAFA',
+      ctaBg: '#FAFAFA',
+      ctaBorder: '#FFFFFF',
+      ctaText: '#09090B',
+      footerBg: '#09090B',
+      footerBorder: '#27272A',
+      footerText: '#FAFAFA',
+      footerMuted: '#71717A',
+      starColor: '#EAB308',
+      mottoColor: '#EAB308'
+    };
   } else {
     // emerald prestige
-    g.addColorStop(0, '#06160D');
-    g.addColorStop(0.5, '#0F2F1C');
-    g.addColorStop(1, '#081910');
+    return {
+      name: 'emerald',
+      isDark: true,
+      bg: '#06160D',
+      bgCard: 'rgba(255,255,255,0.04)',
+      borderCard: 'rgba(255,255,255,0.12)',
+      textPrimary: '#FFFFFF',
+      textSecondary: '#C8E6C9',
+      textMuted: 'rgba(255,255,255,0.65)',
+      accentGold: '#C9A84C',
+      accentBrand: '#4ADE80',
+      boxBg: 'rgba(0,0,0,0.3)',
+      boxBorder: 'rgba(255,255,255,0.08)',
+      badgeBg: 'rgba(74,222,128,0.12)',
+      badgeBorder: 'rgba(74,222,128,0.4)',
+      badgeText: '#4ADE80',
+      ctaBg: 'rgba(74,222,128,0.15)',
+      ctaBorder: 'rgba(74,222,128,0.5)',
+      ctaText: '#4ADE80',
+      footerBg: 'rgba(6,12,8,0.85)',
+      footerBorder: 'rgba(255,255,255,0.08)',
+      footerText: '#E8F0E5',
+      footerMuted: 'rgba(255,255,255,0.55)',
+      starColor: '#C9A84C',
+      mottoColor: '#C9A84C'
+    };
   }
-  ctx.fillStyle = g;
-  ctx.fillRect(0, 0, w, h);
+}
 
-  // Halos lumineux doux d'ambiance
-  const rad1 = ctx.createRadialGradient(w * 0.85, h * 0.15, 20, w * 0.85, h * 0.15, 520);
-  rad1.addColorStop(0, theme === 'ruby' ? 'rgba(239,68,68,0.14)' : 'rgba(201,168,76,0.13)');
-  rad1.addColorStop(1, 'rgba(0,0,0,0)');
-  ctx.fillStyle = rad1;
-  ctx.beginPath(); ctx.arc(w * 0.85, h * 0.15, 520, 0, Math.PI * 2); ctx.fill();
-
-  const rad2 = ctx.createRadialGradient(w * 0.15, h * 0.85, 20, w * 0.15, h * 0.85, 480);
-  rad2.addColorStop(0, theme === 'ruby' ? 'rgba(185,28,28,0.12)' : 'rgba(74,222,128,0.10)');
-  rad2.addColorStop(1, 'rgba(0,0,0,0)');
-  ctx.fillStyle = rad2;
-  ctx.beginPath(); ctx.arc(w * 0.15, h * 0.85, 480, 0, Math.PI * 2); ctx.fill();
-
-  // Subtle tricolor accent strip for tricolor theme or default republic touch
-  if (theme === 'tricolor') {
-    const stripH = 6;
+function studioDrawBackground(ctx, theme, w, h) {
+  ctx.save();
+  const c = studioGetThemeColors(theme);
+  
+  if (c.isDark) {
+    if (theme === 'emerald') {
+      let g = ctx.createLinearGradient(0, 0, w, h);
+      g.addColorStop(0, '#06160D');
+      g.addColorStop(0.5, '#0F2F1C');
+      g.addColorStop(1, '#081910');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, w, h);
+      const rad1 = ctx.createRadialGradient(w * 0.85, h * 0.15, 20, w * 0.85, h * 0.15, 520);
+      rad1.addColorStop(0, 'rgba(201,168,76,0.12)');
+      rad1.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = rad1;
+      ctx.beginPath(); ctx.arc(w * 0.85, h * 0.15, 520, 0, Math.PI * 2); ctx.fill();
+    } else {
+      ctx.fillStyle = c.bg;
+      ctx.fillRect(0, 0, w, h);
+    }
+  } else {
+    // Pure clean white editorial
+    ctx.fillStyle = c.bg;
+    ctx.fillRect(0, 0, w, h);
+    
+    // Discret tricolor bar on very top
+    const stripH = 4;
     ctx.fillStyle = '#00853F'; ctx.fillRect(0, 0, w / 3, stripH);
     ctx.fillStyle = '#FDEF42'; ctx.fillRect(w / 3, 0, w / 3, stripH);
     ctx.fillStyle = '#E31B23'; ctx.fillRect((w / 3) * 2, 0, w / 3, stripH);
   }
 
-  // Watermark filigrane républicain très discret
-  ctx.fillStyle = 'rgba(255,255,255,0.018)';
-  ctx.font = '900 360px Inter, sans-serif';
+  // Refined border framing
+  studioRoundBox(ctx, 16, 16, w - 32, h - 32, 14, 'transparent', c.borderCard, 1.5);
+
+  // Subtle republican watermark
+  ctx.fillStyle = c.isDark ? 'rgba(255,255,255,0.015)' : 'rgba(0,0,0,0.015)';
+  ctx.font = '900 320px Inter, sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('🇸🇳', w / 2, h / 2 + 120);
+  ctx.fillText('🇸🇳', w / 2, h / 2 + 100);
 
   ctx.restore();
 }
 
-function studioDrawHeader(ctx, tagLabel, subTag, w) {
+function studioDrawHeader(ctx, tagLabel, subTag, w, h, colors) {
   ctx.save();
-  const startX = 64;
-  const startY = 64;
+  const c = colors || studioGetThemeColors(studioTheme);
+  const isLandscape = h < 800;
+  const startX = isLandscape ? 48 : 64;
+  const startY = isLandscape ? 30 : 50;
+  const logoH  = isLandscape ? 44 : 52;
+  const logoW  = isLandscape ? 190 : 215;
 
   // Logo Badge PROJETBI
-  studioRoundBox(ctx, startX, startY, 210, 52, 12, 'rgba(255,255,255,0.08)', 'rgba(201,168,76,0.35)', 1.5);
-  ctx.fillStyle = '#C9A84C';
-  ctx.font = 'bold 22px Inter, sans-serif';
+  studioRoundBox(ctx, startX, startY, logoW, logoH, 10, c.isDark ? 'rgba(255,255,255,0.06)' : '#F8FAFC', c.borderCard, 1.5);
   ctx.textAlign = 'left';
-  ctx.fillText('★ PROJETBI', startX + 22, startY + 34);
+  
+  // Star icon
+  ctx.fillStyle = c.starColor;
+  ctx.font = isLandscape ? 'bold 16px Inter, sans-serif' : 'bold 19px Inter, sans-serif';
+  ctx.fillText('★', startX + 18, startY + (isLandscape ? 28 : 33));
+
+  // Logo text
+  ctx.fillStyle = c.textPrimary;
+  ctx.font = isLandscape ? 'bold 17px Inter, sans-serif' : 'bold 20px Inter, sans-serif';
+  ctx.fillText('PROJETBI', startX + (isLandscape ? 38 : 44), startY + (isLandscape ? 28 : 33));
 
   // Category / Mode Badge à droite
   if (tagLabel) {
-    const badgeW = Math.max(160, ctx.measureText(tagLabel).width + 50);
+    const fontStr = isLandscape ? 'bold 14px Inter, sans-serif' : 'bold 16px Inter, sans-serif';
+    ctx.font = fontStr;
+    const textW = ctx.measureText(tagLabel.toUpperCase()).width;
+    const badgeW = Math.max(140, textW + 40);
     const badgeX = w - startX - badgeW;
-    studioRoundBox(ctx, badgeX, startY, badgeW, 52, 26, 'rgba(74,222,128,0.12)', 'rgba(74,222,128,0.4)', 1.5);
-    ctx.fillStyle = '#4ADE80';
-    ctx.font = 'bold 18px Inter, sans-serif';
+    studioRoundBox(ctx, badgeX, startY, badgeW, logoH, 10, c.badgeBg, c.badgeBorder, 1.5);
+    ctx.fillStyle = c.badgeText;
     ctx.textAlign = 'center';
-    ctx.fillText(tagLabel.toUpperCase(), badgeX + badgeW / 2, startY + 33);
+    ctx.fillText(tagLabel.toUpperCase(), badgeX + badgeW / 2, startY + (isLandscape ? 27 : 33));
   }
 
   ctx.restore();
 }
 
-function studioDrawFooter(ctx, customCall, w, h) {
+function studioDrawFooter(ctx, customCall, w, h, colors) {
   ctx.save();
-  const footerH = 88;
+  const c = colors || studioGetThemeColors(studioTheme);
+  const isLandscape = h < 800;
+  const footerH = isLandscape ? 56 : 78;
   const footerY = h - footerH;
 
-  // Dark glass footer container
-  studioRoundBox(ctx, 0, footerY, w, footerH, 0, 'rgba(6,12,8,0.82)', 'rgba(255,255,255,0.08)', 1);
+  // Footer background
+  studioRoundBox(ctx, 0, footerY, w, footerH, 0, c.footerBg, c.footerBorder, 1);
 
   // Left URL
+  const startX = isLandscape ? 48 : 64;
   ctx.textAlign = 'left';
-  ctx.fillStyle = '#E8F0E5';
-  ctx.font = 'bold 22px Inter, sans-serif';
-  ctx.fillText('🌐 projetbi.org', 64, footerY + 52);
+  ctx.fillStyle = c.textPrimary;
+  ctx.font = isLandscape ? 'bold 17px Inter, sans-serif' : 'bold 20px Inter, sans-serif';
+  ctx.fillText('🌐 projetbi.org', startX, footerY + (isLandscape ? 34 : 46));
 
-  ctx.fillStyle = 'rgba(255,255,255,0.55)';
-  ctx.font = '16px Inter, sans-serif';
-  ctx.fillText('Plateforme citoyenne indépendante de suivi', 250, footerY + 52);
+  ctx.fillStyle = c.footerMuted;
+  ctx.font = isLandscape ? '13px Inter, sans-serif' : '15px Inter, sans-serif';
+  ctx.fillText('Plateforme citoyenne de suivi', startX + (isLandscape ? 150 : 175), footerY + (isLandscape ? 34 : 46));
 
   // Right Motto
   ctx.textAlign = 'right';
-  ctx.fillStyle = '#C9A84C';
-  ctx.font = 'bold 20px Inter, sans-serif';
-  ctx.fillText('JUB • JUBAL • JUBANTI 🇸🇳', w - 64, footerY + 52);
+  ctx.fillStyle = c.mottoColor;
+  ctx.font = isLandscape ? 'bold 15px Inter, sans-serif' : 'bold 18px Inter, sans-serif';
+  ctx.fillText('JUB • JUBAL • JUBANTI 🇸🇳', w - startX, footerY + (isLandscape ? 34 : 46));
 
   ctx.restore();
 }
 
-/* ── 5 Renderers Spécifiques HD ── */
+/* ── 5 Renderers Spécifiques HD Responsives (1:1 & 16:9) ── */
 
 // 1. FLASH INFO / ACTUALITÉ
 function studioDrawFlash(ctx, w, h) {
+  const c = studioGetThemeColors(studioTheme);
+  const isLandscape = h < 800;
   const cat     = studioVal('stFlashCategory') || 'POLITIQUE';
-  const source  = studioVal('stFlashSource')   || 'Le Soleil • Récemment';
+  const source  = studioVal('stFlashSource')   || 'Le Soleil • Récent';
   const title   = studioVal('stFlashTitle')    || 'ACTUALITÉ OFFICIELLE';
   const excerpt = studioVal('stFlashExcerpt')  || '';
   const badge   = studioVal('stFlashBadge')    || 'FLASH INFO';
   const call    = studioVal('stFlashCall')     || 'Lire l’analyse complète sur projetbi.org';
 
-  studioDrawHeader(ctx, cat, '', w);
+  studioDrawHeader(ctx, cat, '', w, h, c);
 
-  // Carte principale en verre
-  const cardX = 64, cardY = 150, cardW = w - 128, cardH = h - 264;
-  studioRoundBox(ctx, cardX, cardY, cardW, cardH, 20, 'rgba(255,255,255,0.05)', 'rgba(255,255,255,0.12)', 1.5);
+  const cardX = isLandscape ? 48 : 64;
+  const cardY = isLandscape ? 88 : 130;
+  const cardW = w - (cardX * 2);
+  const cardH = (h - (isLandscape ? 56 : 78)) - cardY - (isLandscape ? 14 : 24);
 
-  // Pill "FLASH ACTUALITÉ"
-  studioRoundBox(ctx, cardX + 44, cardY + 44, 210, 42, 8, 'rgba(201,168,76,0.22)', 'rgba(201,168,76,0.6)', 1.5);
-  ctx.fillStyle = '#C9A84C';
-  ctx.font = 'bold 18px Inter, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('⚡ ' + badge.toUpperCase(), cardX + 44 + 105, cardY + 71);
+  // Main Card
+  studioRoundBox(ctx, cardX, cardY, cardW, cardH, 16, c.bgCard, c.borderCard, 1.5);
 
-  // Source & Date
-  ctx.textAlign = 'right';
-  ctx.fillStyle = 'rgba(255,255,255,0.65)';
-  ctx.font = '500 20px Inter, sans-serif';
-  ctx.fillText('📰 ' + source, cardX + cardW - 44, cardY + 71);
+  if (isLandscape) {
+    // 16:9 LANDSCAPE
+    // Top Row: Badge & Source
+    studioRoundBox(ctx, cardX + 28, cardY + 20, 180, 36, 8, c.boxBg, c.boxBorder, 1);
+    ctx.fillStyle = c.accentGold;
+    ctx.font = 'bold 14px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('⚡ ' + badge.toUpperCase(), cardX + 28 + 90, cardY + 43);
 
-  // Titre principal percutant (Crimson Pro & Inter)
-  ctx.textAlign = 'left';
-  ctx.fillStyle = '#FFFFFF';
-  ctx.font = 'bold 44px "Crimson Pro", Georgia, serif';
-  const titleLines = studioWrapText(ctx, title, cardX + 44, cardY + 155, cardW - 88, 54, 4);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = c.textMuted;
+    ctx.font = '500 15px Inter, sans-serif';
+    ctx.fillText('📰 ' + source, cardX + cardW - 28, cardY + 43);
 
-  // Séparateur fin or
-  const sepY = cardY + 175 + titleLines * 54;
-  const sepGrad = ctx.createLinearGradient(cardX + 44, 0, cardX + cardW - 44, 0);
-  sepGrad.addColorStop(0, '#C9A84C');
-  sepGrad.addColorStop(1, 'rgba(201,168,76,0.1)');
-  ctx.fillStyle = sepGrad;
-  ctx.fillRect(cardX + 44, sepY, cardW - 88, 2);
+    // Title
+    ctx.textAlign = 'left';
+    ctx.fillStyle = c.textPrimary;
+    ctx.font = 'bold 30px "Crimson Pro", Georgia, serif';
+    const titleLines = studioWrapText(ctx, title, cardX + 28, cardY + 95, cardW - 56, 38, 3);
 
-  // Boîte résumé / extrait
-  if (excerpt) {
-    const boxY = sepY + 36;
-    const boxH = Math.min(240, cardY + cardH - boxY - 110);
-    studioRoundBox(ctx, cardX + 44, boxY, cardW - 88, boxH, 14, 'rgba(0,0,0,0.26)', 'rgba(255,255,255,0.06)', 1);
+    // Separator line
+    const sepY = cardY + 105 + titleLines * 38;
+    ctx.fillStyle = c.borderCard;
+    ctx.fillRect(cardX + 28, sepY, cardW - 56, 1);
 
-    ctx.fillStyle = 'rgba(255,255,255,0.88)';
-    ctx.font = '500 26px "Crimson Pro", Georgia, serif';
-    studioWrapText(ctx, '« ' + excerpt + ' »', cardX + 74, boxY + 54, cardW - 148, 38, 4);
+    // Excerpt Box if space
+    const btnH = 44;
+    const btnY = cardY + cardH - btnH - 18;
+    if (excerpt && (btnY - (sepY + 12)) >= 70) {
+      const boxY = sepY + 12;
+      const boxH = Math.min(115, btnY - boxY - 14);
+      studioRoundBox(ctx, cardX + 28, boxY, cardW - 56, boxH, 10, c.boxBg, c.boxBorder, 1);
+      ctx.fillStyle = c.textSecondary;
+      ctx.font = 'italic 18px "Crimson Pro", Georgia, serif';
+      studioWrapText(ctx, '« ' + excerpt + ' »', cardX + 46, boxY + 34, cardW - 92, 26, 3);
+    }
+
+    // CTA Button
+    studioRoundBox(ctx, cardX + 28, btnY, cardW - 56, btnH, 10, c.ctaBg, c.ctaBorder, 1);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = c.ctaText;
+    ctx.font = 'bold 16px Inter, sans-serif';
+    ctx.fillText('👉 ' + call, cardX + cardW / 2, btnY + 28);
+  } else {
+    // 1:1 SQUARE
+    studioRoundBox(ctx, cardX + 40, cardY + 36, 210, 44, 10, c.boxBg, c.boxBorder, 1);
+    ctx.fillStyle = c.accentGold;
+    ctx.font = 'bold 16px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('⚡ ' + badge.toUpperCase(), cardX + 40 + 105, cardY + 64);
+
+    ctx.textAlign = 'right';
+    ctx.fillStyle = c.textMuted;
+    ctx.font = '500 18px Inter, sans-serif';
+    ctx.fillText('📰 ' + source, cardX + cardW - 40, cardY + 64);
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = c.textPrimary;
+    ctx.font = 'bold 42px "Crimson Pro", Georgia, serif';
+    const titleLines = studioWrapText(ctx, title, cardX + 40, cardY + 145, cardW - 80, 52, 4);
+
+    const sepY = cardY + 165 + titleLines * 52;
+    ctx.fillStyle = c.borderCard;
+    ctx.fillRect(cardX + 40, sepY, cardW - 80, 1.5);
+
+    if (excerpt) {
+      const boxY = sepY + 30;
+      const btnY = cardY + cardH - 80;
+      const boxH = Math.min(200, btnY - boxY - 24);
+      studioRoundBox(ctx, cardX + 40, boxY, cardW - 80, boxH, 14, c.boxBg, c.boxBorder, 1);
+      ctx.fillStyle = c.textSecondary;
+      ctx.font = 'italic 25px "Crimson Pro", Georgia, serif';
+      studioWrapText(ctx, '« ' + excerpt + ' »', cardX + 68, boxY + 50, cardW - 136, 36, 4);
+    }
+
+    const btnY = cardY + cardH - 80;
+    studioRoundBox(ctx, cardX + 40, btnY, cardW - 80, 56, 12, c.ctaBg, c.ctaBorder, 1);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = c.ctaText;
+    ctx.font = 'bold 20px Inter, sans-serif';
+    ctx.fillText('👉 ' + call, cardX + cardW / 2, btnY + 36);
   }
 
-  // Call to action en bas de carte
-  const btnY = cardY + cardH - 84;
-  studioRoundBox(ctx, cardX + 44, btnY, cardW - 88, 56, 12, 'rgba(74,222,128,0.15)', 'rgba(74,222,128,0.5)', 1.5);
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#4ADE80';
-  ctx.font = 'bold 22px Inter, sans-serif';
-  ctx.fillText('👉 ' + call, cardX + cardW / 2, btnY + 36);
-
-  studioDrawFooter(ctx, '', w, h);
+  studioDrawFooter(ctx, '', w, h, c);
 }
 
 // 2. ENGAGEMENT / PROMESSE SUIVIE
 function studioDrawEngagement(ctx, w, h) {
+  const c = studioGetThemeColors(studioTheme);
+  const isLandscape = h < 800;
   const title    = studioVal('stEngTitle')    || 'Intitulé de l\'engagement suivi';
   const domain   = studioVal('stEngDomain')   || 'Gouvernance';
   const status   = studioVal('stEngStatus')   || 'encours';
@@ -3416,192 +3584,319 @@ function studioDrawEngagement(ctx, w, h) {
   const resultat = studioVal('stEngResultat') || '';
   const update   = studioVal('stEngUpdate')   || '';
 
-  studioDrawHeader(ctx, domain, '', w);
+  studioDrawHeader(ctx, domain, '', w, h, c);
 
-  const cardX = 64, cardY = 150, cardW = w - 128, cardH = h - 264;
-  studioRoundBox(ctx, cardX, cardY, cardW, cardH, 20, 'rgba(255,255,255,0.05)', 'rgba(255,255,255,0.12)', 1.5);
+  const cardX = isLandscape ? 48 : 64;
+  const cardY = isLandscape ? 88 : 130;
+  const cardW = w - (cardX * 2);
+  const cardH = (h - (isLandscape ? 56 : 78)) - cardY - (isLandscape ? 14 : 24);
 
-  // Status Banner Vibrant
+  studioRoundBox(ctx, cardX, cardY, cardW, cardH, 16, c.bgCard, c.borderCard, 1.5);
+
   const statusConfigs = {
-    realise:   { label: '✅ ENGAGEMENT RÉALISÉ', bg: '#059669', border: '#34D399', text: '#FFFFFF' },
-    encours:   { label: '🔄 EN COURS D\'EXÉCUTION', bg: '#0284C7', border: '#38BDF8', text: '#FFFFFF' },
-    retard:    { label: '⚠️ ATTENTION • EN RETARD', bg: '#DC2626', border: '#F87171', text: '#FFFFFF' },
-    'non-lance': { label: '⏳ NON ENCORE LANCÉ', bg: '#D97706', border: '#FBBF24', text: '#FFFFFF' }
+    realise:   { label: '✅ ENGAGEMENT RÉALISÉ', bg: c.isDark ? '#064E3B' : '#ECFDF5', border: '#10B981', text: c.isDark ? '#34D399' : '#065F46' },
+    encours:   { label: '🔄 EN COURS D\'EXÉCUTION', bg: c.isDark ? '#0C4A6E' : '#F0F9FF', border: '#0284C7', text: c.isDark ? '#38BDF8' : '#0369A1' },
+    retard:    { label: '⚠️ ATTENTION • EN RETARD', bg: c.isDark ? '#7F1D1D' : '#FEF2F2', border: '#EF4444', text: c.isDark ? '#FCA5A5' : '#991B1B' },
+    'non-lance': { label: '⏳ NON ENCORE LANCÉ', bg: c.isDark ? '#78350F' : '#FFFBEB', border: '#F59E0B', text: c.isDark ? '#FCD34D' : '#92400E' }
   };
   const cfg = statusConfigs[status] || statusConfigs.encours;
 
-  studioRoundBox(ctx, cardX + 44, cardY + 44, cardW - 88, 64, 12, cfg.bg, cfg.border, 2);
-  ctx.fillStyle = cfg.text;
-  ctx.font = 'bold 26px Inter, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText(cfg.label, cardX + cardW / 2, cardY + 86);
+  if (isLandscape) {
+    // 16:9 LANDSCAPE
+    studioRoundBox(ctx, cardX + 28, cardY + 20, cardW - 56, 44, 10, cfg.bg, cfg.border, 1.5);
+    ctx.fillStyle = cfg.text;
+    ctx.font = 'bold 18px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(cfg.label, cardX + cardW / 2, cardY + 48);
 
-  // Domaine & Échéance Pills
-  const pillY = cardY + 135;
-  studioRoundBox(ctx, cardX + 44, pillY, 260, 44, 10, 'rgba(255,255,255,0.08)', 'rgba(255,255,255,0.15)', 1);
-  ctx.textAlign = 'left';
-  ctx.fillStyle = '#C9A84C';
-  ctx.font = 'bold 18px Inter, sans-serif';
-  ctx.fillText('🏛️ ' + domain.substring(0, 22), cardX + 64, pillY + 28);
+    const pillY = cardY + 76;
+    studioRoundBox(ctx, cardX + 28, pillY, 240, 36, 8, c.boxBg, c.boxBorder, 1);
+    ctx.textAlign = 'left';
+    ctx.fillStyle = c.accentGold;
+    ctx.font = 'bold 14px Inter, sans-serif';
+    ctx.fillText('🏛️ ' + domain.substring(0, 24), cardX + 42, pillY + 23);
 
-  studioRoundBox(ctx, cardX + cardW - 44 - 260, pillY, 260, 44, 10, 'rgba(255,255,255,0.08)', 'rgba(255,255,255,0.15)', 1);
-  ctx.fillStyle = 'rgba(255,255,255,0.85)';
-  ctx.font = 'bold 18px Inter, sans-serif';
-  ctx.fillText('⏳ Échéance : ' + deadline.substring(0, 14), cardX + cardW - 44 - 240, pillY + 28);
+    studioRoundBox(ctx, cardX + cardW - 28 - 240, pillY, 240, 36, 8, c.boxBg, c.boxBorder, 1);
+    ctx.fillStyle = c.textSecondary;
+    ctx.font = 'bold 14px Inter, sans-serif';
+    ctx.fillText('⏳ Échéance : ' + deadline.substring(0, 14), cardX + cardW - 28 - 224, pillY + 23);
 
-  // Titre de l'engagement
-  ctx.textAlign = 'left';
-  ctx.fillStyle = '#FFFFFF';
-  ctx.font = 'bold 40px "Crimson Pro", Georgia, serif';
-  const tLines = studioWrapText(ctx, title, cardX + 44, cardY + 240, cardW - 88, 50, 3);
+    ctx.textAlign = 'left';
+    ctx.fillStyle = c.textPrimary;
+    ctx.font = 'bold 28px "Crimson Pro", Georgia, serif';
+    const tLines = studioWrapText(ctx, title, cardX + 28, cardY + 148, cardW - 56, 36, 2);
 
-  // Bloc Dernière Étape / Avancée
-  const updateY = cardY + 260 + tLines * 50;
-  studioRoundBox(ctx, cardX + 44, updateY, cardW - 88, 140, 14, 'rgba(0,0,0,0.32)', 'rgba(255,255,255,0.08)', 1);
-  ctx.fillStyle = '#4ADE80';
-  ctx.font = 'bold 18px Inter, sans-serif';
-  ctx.fillText('📌 DERNIÈRE AVANCÉE CONSTATÉE :', cardX + 70, updateY + 38);
+    const updateY = cardY + 155 + tLines * 36;
+    const updateH = Math.min(100, cardY + cardH - updateY - 50);
+    if (updateH >= 50) {
+      studioRoundBox(ctx, cardX + 28, updateY, cardW - 56, updateH, 10, c.boxBg, c.boxBorder, 1);
+      ctx.fillStyle = c.isDark ? '#4ADE80' : '#15803D';
+      ctx.font = 'bold 13px Inter, sans-serif';
+      ctx.fillText('📌 DERNIÈRE AVANCÉE CONSTATÉE :', cardX + 46, updateY + 28);
 
-  ctx.fillStyle = 'rgba(255,255,255,0.82)';
-  ctx.font = '500 22px Inter, sans-serif';
-  studioWrapText(ctx, update || 'Suivi continu par la plateforme citoyenne.', cardX + 70, updateY + 76, cardW - 140, 32, 2);
+      ctx.fillStyle = c.textSecondary;
+      ctx.font = '500 15px Inter, sans-serif';
+      studioWrapText(ctx, update || 'Suivi continu par la plateforme citoyenne.', cardX + 46, updateY + 54, cardW - 92, 22, 2);
+    }
 
-  // Bottom prompt
-  const bottomPromptY = cardY + cardH - 60;
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#C9A84C';
-  ctx.font = 'bold 22px Inter, sans-serif';
-  ctx.fillText('👉 Suivre l’avancement en détail sur projetbi.org', cardX + cardW / 2, bottomPromptY);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = c.accentBrand;
+    ctx.font = 'bold 15px Inter, sans-serif';
+    ctx.fillText('👉 Suivre l’avancement en détail sur projetbi.org', cardX + cardW / 2, cardY + cardH - 18);
+  } else {
+    // 1:1 SQUARE
+    studioRoundBox(ctx, cardX + 40, cardY + 36, cardW - 80, 58, 12, cfg.bg, cfg.border, 2);
+    ctx.fillStyle = cfg.text;
+    ctx.font = 'bold 24px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(cfg.label, cardX + cardW / 2, cardY + 73);
 
-  studioDrawFooter(ctx, '', w, h);
+    const pillY = cardY + 115;
+    studioRoundBox(ctx, cardX + 40, pillY, 260, 44, 10, c.boxBg, c.boxBorder, 1);
+    ctx.textAlign = 'left';
+    ctx.fillStyle = c.accentGold;
+    ctx.font = 'bold 16px Inter, sans-serif';
+    ctx.fillText('🏛️ ' + domain.substring(0, 22), cardX + 58, pillY + 28);
+
+    studioRoundBox(ctx, cardX + cardW - 40 - 260, pillY, 260, 44, 10, c.boxBg, c.boxBorder, 1);
+    ctx.fillStyle = c.textSecondary;
+    ctx.font = 'bold 16px Inter, sans-serif';
+    ctx.fillText('⏳ Échéance : ' + deadline.substring(0, 14), cardX + cardW - 40 - 242, pillY + 28);
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = c.textPrimary;
+    ctx.font = 'bold 38px "Crimson Pro", Georgia, serif';
+    const tLines = studioWrapText(ctx, title, cardX + 40, cardY + 215, cardW - 80, 48, 3);
+
+    const updateY = cardY + 240 + tLines * 48;
+    studioRoundBox(ctx, cardX + 40, updateY, cardW - 80, 140, 12, c.boxBg, c.boxBorder, 1);
+    ctx.fillStyle = c.isDark ? '#4ADE80' : '#15803D';
+    ctx.font = 'bold 16px Inter, sans-serif';
+    ctx.fillText('📌 DERNIÈRE AVANCÉE CONSTATÉE :', cardX + 64, updateY + 40);
+
+    ctx.fillStyle = c.textSecondary;
+    ctx.font = '500 20px Inter, sans-serif';
+    studioWrapText(ctx, update || 'Suivi continu par la plateforme citoyenne.', cardX + 64, updateY + 78, cardW - 128, 30, 2);
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = c.accentGold;
+    ctx.font = 'bold 20px Inter, sans-serif';
+    ctx.fillText('👉 Suivre l’avancement en détail sur projetbi.org', cardX + cardW / 2, cardY + cardH - 35);
+  }
+
+  studioDrawFooter(ctx, '', w, h, c);
 }
 
 // 3. CHIFFRE CLÉ & BILAN GLOBAL
 function studioDrawBilan(ctx, w, h) {
+  const c = studioGetThemeColors(studioTheme);
+  const isLandscape = h < 800;
   const s = studioGetStats();
   const mode = studioVal('stBilanMode') || 'global';
   const bigCustom = studioVal('stBilanBigCustom');
   const taux = s.total > 0 ? Math.round((s.realise / s.total) * 100) : 0;
 
-  studioDrawHeader(ctx, 'BILAN DU PROJET', '', w);
+  studioDrawHeader(ctx, 'BILAN DU PROJET', '', w, h, c);
 
-  const cardX = 64, cardY = 150, cardW = w - 128, cardH = h - 264;
-  studioRoundBox(ctx, cardX, cardY, cardW, cardH, 20, 'rgba(255,255,255,0.05)', 'rgba(255,255,255,0.12)', 1.5);
+  const cardX = isLandscape ? 48 : 64;
+  const cardY = isLandscape ? 88 : 130;
+  const cardW = w - (cardX * 2);
+  const cardH = (h - (isLandscape ? 56 : 78)) - cardY - (isLandscape ? 14 : 24);
 
-  // En-tête période
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#FFFFFF';
-  ctx.font = 'bold 44px Inter, sans-serif';
-  ctx.fillText(s.periode.toUpperCase(), cardX + cardW / 2, cardY + 68);
+  studioRoundBox(ctx, cardX, cardY, cardW, cardH, 16, c.bgCard, c.borderCard, 1.5);
 
-  ctx.fillStyle = 'rgba(255,255,255,0.65)';
-  ctx.font = '24px Inter, sans-serif';
-  ctx.fillText(s.sous, cardX + cardW / 2, cardY + 110);
+  if (isLandscape) {
+    // 16:9 LANDSCAPE
+    ctx.textAlign = 'center';
+    ctx.fillStyle = c.textPrimary;
+    ctx.font = 'bold 26px Inter, sans-serif';
+    ctx.fillText(s.periode.toUpperCase(), cardX + cardW / 2, cardY + 38);
 
-  if (mode === 'chiffre_choc') {
-    // Mode grand nombre choc
-    const displayNum = bigCustom || (taux + '%');
-    ctx.fillStyle = '#C9A84C';
-    ctx.font = 'bold 160px Inter, sans-serif';
-    ctx.fillText(displayNum, cardX + cardW / 2, cardY + 300);
+    ctx.fillStyle = c.textMuted;
+    ctx.font = '14px Inter, sans-serif';
+    ctx.fillText(s.sous, cardX + cardW / 2, cardY + 62);
 
-    ctx.fillStyle = '#FFFFFF';
-    ctx.font = 'bold 36px Inter, sans-serif';
-    ctx.fillText('DES ENGAGEMENTS DU PROGRAMME RÉALISÉS', cardX + cardW / 2, cardY + 365);
+    if (mode === 'chiffre_choc') {
+      const displayNum = bigCustom || (taux + '%');
+      ctx.fillStyle = c.accentGold;
+      ctx.font = 'bold 100px Inter, sans-serif';
+      ctx.fillText(displayNum, cardX + cardW / 2, cardY + 175);
 
-    studioRoundBox(ctx, cardX + 90, cardY + 420, cardW - 180, 80, 16, 'rgba(255,255,255,0.08)', 'rgba(201,168,76,0.3)', 1.5);
-    ctx.fillStyle = '#4ADE80';
-    ctx.font = 'bold 28px Inter, sans-serif';
-    ctx.fillText(`✅ ${s.realise} réalisés sur un total de ${s.total} engagements`, cardX + cardW / 2, cardY + 470);
-  } else {
-    // Mode standard 4 piliers
-    const bW = 210, bH = 175, gap = 16;
-    const startBX = cardX + (cardW - (bW * 4 + gap * 3)) / 2;
-    const bY = cardY + 155;
+      ctx.fillStyle = c.textPrimary;
+      ctx.font = 'bold 22px Inter, sans-serif';
+      ctx.fillText('DES ENGAGEMENTS DU PROGRAMME RÉALISÉS', cardX + cardW / 2, cardY + 225);
 
-    const statsCards = [
-      { val: s.realise, label: 'Réalisés', bg: 'rgba(5,150,105,0.22)', border: '#10B981', color: '#34D399', icon: '✅' },
-      { val: s.encours, label: 'En cours', bg: 'rgba(2,132,199,0.22)', border: '#38BDF8', color: '#60A5FA', icon: '🔄' },
-      { val: s.nonLance, label: 'Non lancés', bg: 'rgba(217,119,6,0.22)', border: '#F59E0B', color: '#FCD34D', icon: '⏳' },
-      { val: s.retard, label: 'En retard', bg: 'rgba(220,38,38,0.22)', border: '#EF4444', color: '#FCA5A5', icon: '⚠️' }
-    ];
+      studioRoundBox(ctx, cardX + 60, cardY + 260, cardW - 120, 56, 10, c.boxBg, c.boxBorder, 1);
+      ctx.fillStyle = c.isDark ? '#4ADE80' : '#15803D';
+      ctx.font = 'bold 18px Inter, sans-serif';
+      ctx.fillText(`✅ ${s.realise} réalisés sur un total de ${s.total} engagements`, cardX + cardW / 2, cardY + 295);
+    } else {
+      const bW = Math.floor((cardW - 56 - (3 * 14)) / 4);
+      const bH = 125;
+      const bY = cardY + 82;
 
-    statsCards.forEach((sc, i) => {
-      const bx = startBX + i * (bW + gap);
-      studioRoundBox(ctx, bx, bY, bW, bH, 16, sc.bg, sc.border, 1.5);
-      ctx.fillStyle = sc.color;
-      ctx.font = 'bold 64px Inter, sans-serif';
-      ctx.fillText(String(sc.val), bx + bW / 2, bY + 80);
+      const statsCards = [
+        { val: s.realise, label: 'Réalisés', bg: c.isDark ? '#064E3B' : '#ECFDF5', border: '#10B981', color: c.isDark ? '#34D399' : '#065F46', icon: '✅' },
+        { val: s.encours, label: 'En cours', bg: c.isDark ? '#0C4A6E' : '#F0F9FF', border: '#0284C7', color: c.isDark ? '#38BDF8' : '#0369A1', icon: '🔄' },
+        { val: s.nonLance, label: 'Non lancés', bg: c.isDark ? '#78350F' : '#FFFBEB', border: '#F59E0B', color: c.isDark ? '#FCD34D' : '#92400E', icon: '⏳' },
+        { val: s.retard, label: 'En retard', bg: c.isDark ? '#7F1D1D' : '#FEF2F2', border: '#EF4444', color: c.isDark ? '#FCA5A5' : '#991B1B', icon: '⚠️' }
+      ];
 
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = 'bold 20px Inter, sans-serif';
-      ctx.fillText(sc.icon + ' ' + sc.label, bx + bW / 2, bY + 125);
+      statsCards.forEach((sc, i) => {
+        const bx = cardX + 28 + i * (bW + 14);
+        studioRoundBox(ctx, bx, bY, bW, bH, 12, sc.bg, sc.border, 1.5);
+        ctx.fillStyle = sc.color;
+        ctx.font = 'bold 44px Inter, sans-serif';
+        ctx.fillText(String(sc.val), bx + bW / 2, bY + 54);
 
-      const pct = s.total > 0 ? Math.round((sc.val / s.total) * 100) : 0;
-      ctx.fillStyle = 'rgba(255,255,255,0.6)';
-      ctx.font = '16px Inter, sans-serif';
-      ctx.fillText(pct + '% du programme', bx + bW / 2, bY + 152);
-    });
+        ctx.fillStyle = c.textPrimary;
+        ctx.font = 'bold 15px Inter, sans-serif';
+        ctx.fillText(sc.icon + ' ' + sc.label, bx + bW / 2, bY + 86);
 
-    // Taux Global Banner
-    const rateY = cardY + 365;
-    studioRoundBox(ctx, cardX + 44, rateY, cardW - 88, 145, 18, 'rgba(0,0,0,0.3)', 'rgba(201,168,76,0.35)', 1.5);
+        const pct = s.total > 0 ? Math.round((sc.val / s.total) * 100) : 0;
+        ctx.fillStyle = c.textMuted;
+        ctx.font = '12px Inter, sans-serif';
+        ctx.fillText(pct + '% du programme', bx + bW / 2, bY + 108);
+      });
 
-    ctx.textAlign = 'left';
-    ctx.fillStyle = 'rgba(255,255,255,0.75)';
-    ctx.font = 'bold 22px Inter, sans-serif';
-    ctx.fillText('TAUX D\'AVANCEMENT GLOBAL DU PROGRAMME', cardX + 74, rateY + 42);
+      const rateY = cardY + 225;
+      const rateH = 100;
+      studioRoundBox(ctx, cardX + 28, rateY, cardW - 56, rateH, 12, c.boxBg, c.boxBorder, 1);
 
-    ctx.textAlign = 'right';
-    ctx.fillStyle = '#C9A84C';
-    ctx.font = 'bold 56px Inter, sans-serif';
-    ctx.fillText(taux + '%', cardX + cardW - 74, rateY + 58);
+      ctx.textAlign = 'left';
+      ctx.fillStyle = c.textSecondary;
+      ctx.font = 'bold 15px Inter, sans-serif';
+      ctx.fillText('TAUX D\'AVANCEMENT GLOBAL DU PROGRAMME', cardX + 48, rateY + 34);
 
-    // Progress bar
-    const barX = cardX + 74, barY = rateY + 80, barW = cardW - 148, barH = 26;
-    studioRoundBox(ctx, barX, barY, barW, barH, 13, 'rgba(255,255,255,0.1)', 'transparent');
-    const fillW = Math.min(barW, Math.max(16, (barW * taux) / 100));
-    const gBar = ctx.createLinearGradient(barX, 0, barX + fillW, 0);
-    gBar.addColorStop(0, '#C9A84C');
-    gBar.addColorStop(1, '#4ADE80');
-    studioRoundBox(ctx, barX, barY, fillW, barH, 13, gBar, 'transparent');
+      ctx.textAlign = 'right';
+      ctx.fillStyle = c.accentGold;
+      ctx.font = 'bold 36px Inter, sans-serif';
+      ctx.fillText(taux + '%', cardX + cardW - 48, rateY + 40);
+
+      const barX = cardX + 48, barY = rateY + 50, barW = cardW - 96, barH = 16;
+      studioRoundBox(ctx, barX, barY, barW, barH, 8, c.borderCard, 'transparent');
+      const fillW = Math.min(barW, Math.max(12, (barW * taux) / 100));
+      const gBar = ctx.createLinearGradient(barX, 0, barX + fillW, 0);
+      gBar.addColorStop(0, '#B45309');
+      gBar.addColorStop(1, '#16A34A');
+      studioRoundBox(ctx, barX, barY, fillW, barH, 8, gBar, 'transparent');
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = c.textMuted;
+      ctx.font = '13px Inter, sans-serif';
+      ctx.fillText(`Total suivi : ${s.total} engagements présidentiels sur 2024–2029`, cardX + cardW / 2, rateY + 86);
+    }
 
     ctx.textAlign = 'center';
-    ctx.fillStyle = 'rgba(255,255,255,0.65)';
-    ctx.font = '17px Inter, sans-serif';
-    ctx.fillText(`Total suivi : ${s.total} engagements présidentiels sur 2024–2029`, cardX + cardW / 2, rateY + 128);
+    ctx.fillStyle = c.accentBrand;
+    ctx.font = 'bold 15px Inter, sans-serif';
+    ctx.fillText('👉 Consultez la liste complète sur https://projetbi.org', cardX + cardW / 2, cardY + cardH - 18);
+  } else {
+    // 1:1 SQUARE
+    ctx.textAlign = 'center';
+    ctx.fillStyle = c.textPrimary;
+    ctx.font = 'bold 38px Inter, sans-serif';
+    ctx.fillText(s.periode.toUpperCase(), cardX + cardW / 2, cardY + 58);
+
+    ctx.fillStyle = c.textMuted;
+    ctx.font = '20px Inter, sans-serif';
+    ctx.fillText(s.sous, cardX + cardW / 2, cardY + 95);
+
+    if (mode === 'chiffre_choc') {
+      const displayNum = bigCustom || (taux + '%');
+      ctx.fillStyle = c.accentGold;
+      ctx.font = 'bold 150px Inter, sans-serif';
+      ctx.fillText(displayNum, cardX + cardW / 2, cardY + 280);
+
+      ctx.fillStyle = c.textPrimary;
+      ctx.font = 'bold 32px Inter, sans-serif';
+      ctx.fillText('DES ENGAGEMENTS DU PROGRAMME RÉALISÉS', cardX + cardW / 2, cardY + 345);
+
+      studioRoundBox(ctx, cardX + 60, cardY + 400, cardW - 120, 76, 14, c.boxBg, c.boxBorder, 1.5);
+      ctx.fillStyle = c.isDark ? '#4ADE80' : '#15803D';
+      ctx.font = 'bold 24px Inter, sans-serif';
+      ctx.fillText(`✅ ${s.realise} réalisés sur un total de ${s.total} engagements`, cardX + cardW / 2, cardY + 448);
+    } else {
+      const bW = 195, bH = 160, gap = 16;
+      const startBX = cardX + (cardW - (bW * 4 + gap * 3)) / 2;
+      const bY = cardY + 135;
+
+      const statsCards = [
+        { val: s.realise, label: 'Réalisés', bg: c.isDark ? '#064E3B' : '#ECFDF5', border: '#10B981', color: c.isDark ? '#34D399' : '#065F46', icon: '✅' },
+        { val: s.encours, label: 'En cours', bg: c.isDark ? '#0C4A6E' : '#F0F9FF', border: '#0284C7', color: c.isDark ? '#38BDF8' : '#0369A1', icon: '🔄' },
+        { val: s.nonLance, label: 'Non lancés', bg: c.isDark ? '#78350F' : '#FFFBEB', border: '#F59E0B', color: c.isDark ? '#FCD34D' : '#92400E', icon: '⏳' },
+        { val: s.retard, label: 'En retard', bg: c.isDark ? '#7F1D1D' : '#FEF2F2', border: '#EF4444', color: c.isDark ? '#FCA5A5' : '#991B1B', icon: '⚠️' }
+      ];
+
+      statsCards.forEach((sc, i) => {
+        const bx = startBX + i * (bW + gap);
+        studioRoundBox(ctx, bx, bY, bW, bH, 14, sc.bg, sc.border, 1.5);
+        ctx.fillStyle = sc.color;
+        ctx.font = 'bold 56px Inter, sans-serif';
+        ctx.fillText(String(sc.val), bx + bW / 2, bY + 70);
+
+        ctx.fillStyle = c.textPrimary;
+        ctx.font = 'bold 18px Inter, sans-serif';
+        ctx.fillText(sc.icon + ' ' + sc.label, bx + bW / 2, bY + 112);
+
+        const pct = s.total > 0 ? Math.round((sc.val / s.total) * 100) : 0;
+        ctx.fillStyle = c.textMuted;
+        ctx.font = '14px Inter, sans-serif';
+        ctx.fillText(pct + '% du programme', bx + bW / 2, bY + 138);
+      });
+
+      const rateY = cardY + 330;
+      studioRoundBox(ctx, cardX + 40, rateY, cardW - 80, 135, 16, c.boxBg, c.boxBorder, 1.5);
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = c.textSecondary;
+      ctx.font = 'bold 19px Inter, sans-serif';
+      ctx.fillText('TAUX D\'AVANCEMENT GLOBAL DU PROGRAMME', cardX + 68, rateY + 40);
+
+      ctx.textAlign = 'right';
+      ctx.fillStyle = c.accentGold;
+      ctx.font = 'bold 50px Inter, sans-serif';
+      ctx.fillText(taux + '%', cardX + cardW - 68, rateY + 54);
+
+      const barX = cardX + 68, barY = rateY + 74, barW = cardW - 136, barH = 22;
+      studioRoundBox(ctx, barX, barY, barW, barH, 11, c.borderCard, 'transparent');
+      const fillW = Math.min(barW, Math.max(14, (barW * taux) / 100));
+      const gBar = ctx.createLinearGradient(barX, 0, barX + fillW, 0);
+      gBar.addColorStop(0, '#B45309');
+      gBar.addColorStop(1, '#16A34A');
+      studioRoundBox(ctx, barX, barY, fillW, barH, 11, gBar, 'transparent');
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = c.textMuted;
+      ctx.font = '16px Inter, sans-serif';
+      ctx.fillText(`Total suivi : ${s.total} engagements présidentiels sur 2024–2029`, cardX + cardW / 2, rateY + 118);
+    }
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = c.accentBrand;
+    ctx.font = 'bold 20px Inter, sans-serif';
+    ctx.fillText('👉 Consultez la liste complète sur https://projetbi.org', cardX + cardW / 2, cardY + cardH - 35);
   }
 
-  // Bottom prompt
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#4ADE80';
-  ctx.font = 'bold 22px Inter, sans-serif';
-  ctx.fillText('👉 Consultez la liste complète sur https://projetbi.org', cardX + cardW / 2, cardY + cardH - 35);
-
-  studioDrawFooter(ctx, '', w, h);
+  studioDrawFooter(ctx, '', w, h, c);
 }
 
-// 4. REVUE DE PRESSE QUOTIDIENNE
+// 4. REVUE DE PRESSE QUOTIDIENNE (Grille 2x2 en 16:9, Empilé en 1:1)
 function studioDrawRevue(ctx, w, h) {
+  const c = studioGetThemeColors(studioTheme);
+  const isLandscape = h < 800;
   const dateStr = studioVal('stRevueDate') || 'Lundi 07 Septembre 2026';
   const sous    = studioVal('stRevueSous') || 'Xéy-Xéyi Teey ci Réew mi';
 
-  studioDrawHeader(ctx, 'REVUE DE PRESSE', '', w);
+  studioDrawHeader(ctx, 'REVUE DE PRESSE', '', w, h, c);
 
-  const cardX = 64, cardY = 150, cardW = w - 128, cardH = h - 264;
-  studioRoundBox(ctx, cardX, cardY, cardW, cardH, 20, 'rgba(255,255,255,0.05)', 'rgba(255,255,255,0.12)', 1.5);
+  const cardX = isLandscape ? 48 : 64;
+  const cardY = isLandscape ? 88 : 130;
+  const cardW = w - (cardX * 2);
+  const cardH = (h - (isLandscape ? 56 : 78)) - cardY - (isLandscape ? 14 : 24);
 
-  // Titre Revue
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#C9A84C';
-  ctx.font = 'bold 42px "Crimson Pro", Georgia, serif';
-  ctx.fillText('🗞️ REVUE DE PRESSE SÉNÉGALAISE', cardX + cardW / 2, cardY + 58);
+  studioRoundBox(ctx, cardX, cardY, cardW, cardH, 16, c.bgCard, c.borderCard, 1.5);
 
-  ctx.fillStyle = '#FFFFFF';
-  ctx.font = 'bold 22px Inter, sans-serif';
-  ctx.fillText(dateStr.toUpperCase() + '  •  ' + sous, cardX + cardW / 2, cardY + 96);
-
-  // 4 Cards de journaux
   const papers = [
     { paper: studioVal('stRevueJ1') || 'Le Soleil', title: studioVal('stRevueT1') || 'Titre 1' },
     { paper: studioVal('stRevueJ2') || 'L\'Observateur', title: studioVal('stRevueT2') || 'Titre 2' },
@@ -3609,81 +3904,166 @@ function studioDrawRevue(ctx, w, h) {
     { paper: studioVal('stRevueJ4') || 'Walf Quotidien', title: studioVal('stRevueT4') || 'Titre 4' }
   ];
 
-  const rowY = cardY + 125;
-  const rowH = 92;
-  const gap = 14;
-
-  papers.forEach((p, idx) => {
-    const y = rowY + idx * (rowH + gap);
-    studioRoundBox(ctx, cardX + 34, y, cardW - 68, rowH, 12, 'rgba(0,0,0,0.28)', 'rgba(255,255,255,0.08)', 1);
-
-    // Journal Tag
-    studioRoundBox(ctx, cardX + 50, y + 20, 160, 52, 8, 'rgba(201,168,76,0.18)', 'rgba(201,168,76,0.5)', 1);
+  if (isLandscape) {
+    // 16:9 LANDSCAPE: Grille 2x2 équilibrée — AUCUN CHEVAUCHEMENT
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#C9A84C';
-    ctx.font = 'bold 17px Inter, sans-serif';
-    ctx.fillText(p.paper.substring(0, 14), cardX + 50 + 80, y + 52);
+    ctx.fillStyle = c.accentGold;
+    ctx.font = 'bold 28px "Crimson Pro", Georgia, serif';
+    ctx.fillText('🗞️ REVUE DE PRESSE SÉNÉGALAISE', cardX + cardW / 2, cardY + 36);
 
-    // Headline
-    ctx.textAlign = 'left';
-    ctx.fillStyle = '#FFFFFF';
-    ctx.font = 'bold 21px Inter, sans-serif';
-    studioWrapText(ctx, p.title, cardX + 230, y + 40, cardW - 280, 28, 2);
-  });
+    ctx.fillStyle = c.textSecondary;
+    ctx.font = 'bold 15px Inter, sans-serif';
+    ctx.fillText(dateStr.toUpperCase() + '  •  ' + sous, cardX + cardW / 2, cardY + 62);
 
-  // Call
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#4ADE80';
-  ctx.font = 'bold 22px Inter, sans-serif';
-  ctx.fillText('👉 Retrouvez toutes les unes numérisées sur projetbi.org/revuedepresse.html', cardX + cardW / 2, cardY + cardH - 28);
+    const gridY = cardY + 80;
+    const colGap = 16;
+    const colW = Math.floor((cardW - 56 - colGap) / 2);
+    const rowH = 140;
+    const rowGap = 12;
 
-  studioDrawFooter(ctx, '', w, h);
+    papers.forEach((p, idx) => {
+      const col = idx % 2;
+      const row = Math.floor(idx / 2);
+      const x = cardX + 28 + col * (colW + colGap);
+      const y = gridY + row * (rowH + rowGap);
+
+      // Card box
+      studioRoundBox(ctx, x, y, colW, rowH, 10, c.boxBg, c.boxBorder, 1);
+
+      // Newspaper tag
+      studioRoundBox(ctx, x + 16, y + 14, 150, 32, 6, c.badgeBg, c.badgeBorder, 1);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = c.accentGold;
+      ctx.font = 'bold 13px Inter, sans-serif';
+      ctx.fillText(p.paper.substring(0, 15), x + 16 + 75, y + 35);
+
+      // Headline
+      ctx.textAlign = 'left';
+      ctx.fillStyle = c.textPrimary;
+      ctx.font = 'bold 15px Inter, sans-serif';
+      studioWrapText(ctx, p.title, x + 16, y + 68, colW - 32, 22, 3);
+    });
+
+    // Callout de fin parfaitement calé en bas
+    const ctaY = cardY + cardH - 42;
+    studioRoundBox(ctx, cardX + 28, ctaY, cardW - 56, 34, 8, c.boxBg, c.boxBorder, 1);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = c.accentBrand;
+    ctx.font = 'bold 14px Inter, sans-serif';
+    ctx.fillText('👉 Retrouvez toutes les unes numérisées sur projetbi.org/revuedepresse.html', cardX + cardW / 2, ctaY + 22);
+  } else {
+    // 1:1 CARRE: 4 lignes spacieuses avec aération
+    ctx.textAlign = 'center';
+    ctx.fillStyle = c.accentGold;
+    ctx.font = 'bold 38px "Crimson Pro", Georgia, serif';
+    ctx.fillText('🗞️ REVUE DE PRESSE SÉNÉGALAISE', cardX + cardW / 2, cardY + 54);
+
+    ctx.fillStyle = c.textSecondary;
+    ctx.font = 'bold 20px Inter, sans-serif';
+    ctx.fillText(dateStr.toUpperCase() + '  •  ' + sous, cardX + cardW / 2, cardY + 90);
+
+    const rowY = cardY + 124;
+    const rowH = 115;
+    const gap = 16;
+
+    papers.forEach((p, idx) => {
+      const y = rowY + idx * (rowH + gap);
+      studioRoundBox(ctx, cardX + 36, y, cardW - 72, rowH, 12, c.boxBg, c.boxBorder, 1);
+
+      // Journal Pill
+      studioRoundBox(ctx, cardX + 54, y + 26, 170, 60, 8, c.badgeBg, c.badgeBorder, 1);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = c.accentGold;
+      ctx.font = 'bold 18px Inter, sans-serif';
+      ctx.fillText(p.paper.substring(0, 15), cardX + 54 + 85, y + 62);
+
+      // Headline
+      ctx.textAlign = 'left';
+      ctx.fillStyle = c.textPrimary;
+      ctx.font = 'bold 21px Inter, sans-serif';
+      studioWrapText(ctx, p.title, cardX + 248, y + 48, cardW - 320, 30, 2);
+    });
+
+    const ctaY = cardY + cardH - 58;
+    studioRoundBox(ctx, cardX + 36, ctaY, cardW - 72, 44, 10, c.boxBg, c.boxBorder, 1);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = c.accentBrand;
+    ctx.font = 'bold 18px Inter, sans-serif';
+    ctx.fillText('👉 Retrouvez toutes les unes numérisées sur projetbi.org/revuedepresse.html', cardX + cardW / 2, ctaY + 28);
+  }
+
+  studioDrawFooter(ctx, '', w, h, c);
 }
 
 // 5. CITATION OFFICIELLE
 function studioDrawCitation(ctx, w, h) {
+  const c = studioGetThemeColors(studioTheme);
+  const isLandscape = h < 800;
   const quote   = studioVal('stCitText')    || '« Jub, Jubal, Jubanti... »';
   const author  = studioVal('stCitAuthor')  || 'Bassirou Diomaye Faye';
   const role    = studioVal('stCitRole')    || 'Président de la République du Sénégal';
   const context = studioVal('stCitContext') || 'Déclaration Officielle';
 
-  studioDrawHeader(ctx, 'PAROLES OFFICIELLES', '', w);
+  studioDrawHeader(ctx, 'PAROLES OFFICIELLES', '', w, h, c);
 
-  const cardX = 64, cardY = 150, cardW = w - 128, cardH = h - 264;
-  studioRoundBox(ctx, cardX, cardY, cardW, cardH, 20, 'rgba(255,255,255,0.05)', 'rgba(255,255,255,0.12)', 1.5);
+  const cardX = isLandscape ? 48 : 64;
+  const cardY = isLandscape ? 88 : 130;
+  const cardW = w - (cardX * 2);
+  const cardH = (h - (isLandscape ? 56 : 78)) - cardY - (isLandscape ? 14 : 24);
 
-  // Guillemets géants or
-  ctx.textAlign = 'center';
-  ctx.fillStyle = 'rgba(201,168,76,0.3)';
-  ctx.font = '900 130px Georgia, serif';
-  ctx.fillText('“', cardX + cardW / 2, cardY + 110);
+  studioRoundBox(ctx, cardX, cardY, cardW, cardH, 16, c.bgCard, c.borderCard, 1.5);
 
-  // Texte de la citation
-  ctx.fillStyle = '#FFFFFF';
-  ctx.font = 'italic 36px "Crimson Pro", Georgia, serif';
   const cleanQuote = quote.replace(/^[«“]\s*/, '').replace(/\s*[»”]$/, '');
-  const qLines = studioWrapText(ctx, '« ' + cleanQuote + ' »', cardX + 70, cardY + 175, cardW - 140, 52, 6);
 
-  // Ligne de séparation dorée
-  const lineY = cardY + 205 + qLines * 52;
-  studioRoundBox(ctx, cardX + cardW / 2 - 100, lineY, 200, 3, 2, '#C9A84C', 'transparent');
+  if (isLandscape) {
+    // 16:9 LANDSCAPE
+    ctx.textAlign = 'center';
+    ctx.fillStyle = c.accentGold;
+    ctx.font = '900 64px Georgia, serif';
+    ctx.fillText('“', cardX + cardW / 2, cardY + 52);
 
-  // Auteur
-  ctx.fillStyle = '#C9A84C';
-  ctx.font = 'bold 32px Inter, sans-serif';
-  ctx.fillText(author.toUpperCase(), cardX + cardW / 2, lineY + 50);
+    ctx.fillStyle = c.textPrimary;
+    ctx.font = 'italic 25px "Crimson Pro", Georgia, serif';
+    const qLines = studioWrapText(ctx, '« ' + cleanQuote + ' »', cardX + 48, cardY + 95, cardW - 96, 36, 3);
 
-  // Fonction
-  ctx.fillStyle = 'rgba(255,255,255,0.85)';
-  ctx.font = '500 22px Inter, sans-serif';
-  ctx.fillText(role, cardX + cardW / 2, lineY + 84);
+    const lineY = cardY + 115 + qLines * 36;
+    studioRoundBox(ctx, cardX + cardW / 2 - 80, lineY, 160, 2, 1, c.borderCard, 'transparent');
 
-  // Contexte
-  ctx.fillStyle = 'rgba(255,255,255,0.55)';
-  ctx.font = '18px Inter, sans-serif';
-  ctx.fillText('📍 ' + context, cardX + cardW / 2, lineY + 116);
+    ctx.fillStyle = c.accentGold;
+    ctx.font = 'bold 22px Inter, sans-serif';
+    ctx.fillText(author.toUpperCase(), cardX + cardW / 2, lineY + 36);
 
-  studioDrawFooter(ctx, '', w, h);
+    ctx.fillStyle = c.textSecondary;
+    ctx.font = '500 15px Inter, sans-serif';
+    ctx.fillText(role + (context ? '  •  ' + context : ''), cardX + cardW / 2, lineY + 62);
+  } else {
+    // 1:1 SQUARE
+    ctx.textAlign = 'center';
+    ctx.fillStyle = c.accentGold;
+    ctx.font = '900 120px Georgia, serif';
+    ctx.fillText('“', cardX + cardW / 2, cardY + 95);
+
+    ctx.fillStyle = c.textPrimary;
+    ctx.font = 'italic 34px "Crimson Pro", Georgia, serif';
+    const qLines = studioWrapText(ctx, '« ' + cleanQuote + ' »', cardX + 60, cardY + 160, cardW - 120, 48, 5);
+
+    const lineY = cardY + 185 + qLines * 48;
+    studioRoundBox(ctx, cardX + cardW / 2 - 100, lineY, 200, 3, 2, c.borderCard, 'transparent');
+
+    ctx.fillStyle = c.accentGold;
+    ctx.font = 'bold 28px Inter, sans-serif';
+    ctx.fillText(author.toUpperCase(), cardX + cardW / 2, lineY + 45);
+
+    ctx.fillStyle = c.textSecondary;
+    ctx.font = '500 20px Inter, sans-serif';
+    ctx.fillText(role, cardX + cardW / 2, lineY + 78);
+
+    ctx.fillStyle = c.textMuted;
+    ctx.font = '16px Inter, sans-serif';
+    ctx.fillText('📍 ' + context, cardX + cardW / 2, lineY + 108);
+  }
+
+  studioDrawFooter(ctx, '', w, h, c);
 }
 
 function studioRenderAll() {
@@ -3693,7 +4073,7 @@ function studioRenderAll() {
   const ctx = canvas.getContext('2d');
   const themeSel = document.getElementById('stThemeSelect');
   const ratioSel = document.getElementById('stRatioSelect');
-  if (themeSel) studioTheme = themeSel.value || 'emerald';
+  if (themeSel) studioTheme = themeSel.value || 'white_editorial';
   if (ratioSel) studioRatio = ratioSel.value || '1:1';
 
   // Dimension setup
