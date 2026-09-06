@@ -1509,8 +1509,8 @@ textarea.form-control{resize:vertical;min-height:90px}
     <div class="modal-foot">
       <button class="btn btn-danger btn-sm" id="pressDeleteBtn" onclick="deletePress()" style="margin-right:auto;display:none"><i class="fas fa-trash"></i> Supprimer</button>
       <button class="btn btn-outline" onclick="closeModal('pressModal')">Annuler</button>
-      <button class="btn btn-primary" onclick="savePress()"><i class="fas fa-save"></i> Enregistrer</button>
     </div>
+  </div>
 </div>
 
 <div class="modal-overlay" id="githubConfigModal">
@@ -3489,7 +3489,6 @@ function studioDrawFlash(ctx, w, h) {
 
   if (isLandscape) {
     // 16:9 LANDSCAPE
-    // Top Row: Badge & Source
     studioRoundBox(ctx, cardX + 28, cardY + 20, 180, 36, 8, c.boxBg, c.boxBorder, 1);
     ctx.fillStyle = c.accentGold;
     ctx.font = 'bold 14px Inter, sans-serif';
@@ -3519,6 +3518,7 @@ function studioDrawFlash(ctx, w, h) {
       const boxY = sepY + 12;
       const boxH = Math.min(115, btnY - boxY - 14);
       studioRoundBox(ctx, cardX + 28, boxY, cardW - 56, boxH, 10, c.boxBg, c.boxBorder, 1);
+      studioRoundBox(ctx, cardX + 28, boxY, 4, boxH, 2, c.accentGold, 'transparent');
       ctx.fillStyle = c.textSecondary;
       ctx.font = 'italic 18px "Crimson Pro", Georgia, serif';
       studioWrapText(ctx, '« ' + excerpt + ' »', cardX + 46, boxY + 34, cardW - 92, 26, 3);
@@ -3557,6 +3557,7 @@ function studioDrawFlash(ctx, w, h) {
       const btnY = cardY + cardH - 80;
       const boxH = Math.min(200, btnY - boxY - 24);
       studioRoundBox(ctx, cardX + 40, boxY, cardW - 80, boxH, 14, c.boxBg, c.boxBorder, 1);
+      studioRoundBox(ctx, cardX + 40, boxY, 6, boxH, 3, c.accentGold, 'transparent');
       ctx.fillStyle = c.textSecondary;
       ctx.font = 'italic 25px "Crimson Pro", Georgia, serif';
       studioWrapText(ctx, '« ' + excerpt + ' »', cardX + 68, boxY + 50, cardW - 136, 36, 4);
@@ -3594,10 +3595,10 @@ function studioDrawEngagement(ctx, w, h) {
   studioRoundBox(ctx, cardX, cardY, cardW, cardH, 16, c.bgCard, c.borderCard, 1.5);
 
   const statusConfigs = {
-    realise:   { label: '✅ ENGAGEMENT RÉALISÉ', bg: c.isDark ? '#064E3B' : '#ECFDF5', border: '#10B981', text: c.isDark ? '#34D399' : '#065F46' },
-    encours:   { label: '🔄 EN COURS D\'EXÉCUTION', bg: c.isDark ? '#0C4A6E' : '#F0F9FF', border: '#0284C7', text: c.isDark ? '#38BDF8' : '#0369A1' },
-    retard:    { label: '⚠️ ATTENTION • EN RETARD', bg: c.isDark ? '#7F1D1D' : '#FEF2F2', border: '#EF4444', text: c.isDark ? '#FCA5A5' : '#991B1B' },
-    'non-lance': { label: '⏳ NON ENCORE LANCÉ', bg: c.isDark ? '#78350F' : '#FFFBEB', border: '#F59E0B', text: c.isDark ? '#FCD34D' : '#92400E' }
+    realise:   { label: '✅ ENGAGEMENT RÉALISÉ', bg: c.isDark ? '#064E3B' : '#F0FDF4', border: c.isDark ? '#10B981' : '#A7F3D0', text: c.isDark ? '#34D399' : '#065F46' },
+    encours:   { label: '🔄 EN COURS D\'EXÉCUTION', bg: c.isDark ? '#0C4A6E' : '#F0F9FF', border: c.isDark ? '#0284C7' : '#BAE6FD', text: c.isDark ? '#38BDF8' : '#0369A1' },
+    retard:    { label: '⚠️ ATTENTION • EN RETARD', bg: c.isDark ? '#7F1D1D' : '#FEF2F2', border: c.isDark ? '#EF4444' : '#FECACA', text: c.isDark ? '#FCA5A5' : '#991B1B' },
+    'non-lance': { label: '⏳ NON ENCORE LANCÉ', bg: c.isDark ? '#78350F' : '#FFFBEB', border: c.isDark ? '#F59E0B' : '#FDE68A', text: c.isDark ? '#FCD34D' : '#92400E' }
   };
   const cfg = statusConfigs[status] || statusConfigs.encours;
 
@@ -3630,9 +3631,10 @@ function studioDrawEngagement(ctx, w, h) {
     const updateH = Math.min(100, cardY + cardH - updateY - 50);
     if (updateH >= 50) {
       studioRoundBox(ctx, cardX + 28, updateY, cardW - 56, updateH, 10, c.boxBg, c.boxBorder, 1);
-      ctx.fillStyle = c.isDark ? '#4ADE80' : '#15803D';
+      studioRoundBox(ctx, cardX + 28, updateY, 4, updateH, 2, c.isDark ? '#38BDF8' : '#0284C7', 'transparent');
+      ctx.fillStyle = c.isDark ? '#38BDF8' : '#0369A1';
       ctx.font = 'bold 13px Inter, sans-serif';
-      ctx.fillText('📌 DERNIÈRE AVANCÉE CONSTATÉE :', cardX + 46, updateY + 28);
+      ctx.fillText('📌 POINT D’ÉTAPE OFFICIEL :', cardX + 46, updateY + 28);
 
       ctx.fillStyle = c.textSecondary;
       ctx.font = '500 15px Inter, sans-serif';
@@ -3670,9 +3672,10 @@ function studioDrawEngagement(ctx, w, h) {
 
     const updateY = cardY + 240 + tLines * 48;
     studioRoundBox(ctx, cardX + 40, updateY, cardW - 80, 140, 12, c.boxBg, c.boxBorder, 1);
-    ctx.fillStyle = c.isDark ? '#4ADE80' : '#15803D';
+    studioRoundBox(ctx, cardX + 40, updateY, 6, 140, 3, c.isDark ? '#38BDF8' : '#0284C7', 'transparent');
+    ctx.fillStyle = c.isDark ? '#38BDF8' : '#0369A1';
     ctx.font = 'bold 16px Inter, sans-serif';
-    ctx.fillText('📌 DERNIÈRE AVANCÉE CONSTATÉE :', cardX + 64, updateY + 40);
+    ctx.fillText('📌 POINT D’ÉTAPE OFFICIEL :', cardX + 64, updateY + 40);
 
     ctx.fillStyle = c.textSecondary;
     ctx.font = '500 20px Inter, sans-serif';
@@ -3736,10 +3739,10 @@ function studioDrawBilan(ctx, w, h) {
       const bY = cardY + 82;
 
       const statsCards = [
-        { val: s.realise, label: 'Réalisés', bg: c.isDark ? '#064E3B' : '#ECFDF5', border: '#10B981', color: c.isDark ? '#34D399' : '#065F46', icon: '✅' },
-        { val: s.encours, label: 'En cours', bg: c.isDark ? '#0C4A6E' : '#F0F9FF', border: '#0284C7', color: c.isDark ? '#38BDF8' : '#0369A1', icon: '🔄' },
-        { val: s.nonLance, label: 'Non lancés', bg: c.isDark ? '#78350F' : '#FFFBEB', border: '#F59E0B', color: c.isDark ? '#FCD34D' : '#92400E', icon: '⏳' },
-        { val: s.retard, label: 'En retard', bg: c.isDark ? '#7F1D1D' : '#FEF2F2', border: '#EF4444', color: c.isDark ? '#FCA5A5' : '#991B1B', icon: '⚠️' }
+        { val: s.realise, label: 'Réalisés', bg: c.isDark ? '#064E3B' : '#F0FDF4', border: c.isDark ? '#10B981' : '#A7F3D0', color: c.isDark ? '#34D399' : '#065F46', icon: '✅' },
+        { val: s.encours, label: 'En cours', bg: c.isDark ? '#0C4A6E' : '#F0F9FF', border: c.isDark ? '#0284C7' : '#BAE6FD', color: c.isDark ? '#38BDF8' : '#0369A1', icon: '🔄' },
+        { val: s.nonLance, label: 'Non lancés', bg: c.isDark ? '#78350F' : '#FFFBEB', border: c.isDark ? '#F59E0B' : '#FDE68A', color: c.isDark ? '#FCD34D' : '#92400E', icon: '⏳' },
+        { val: s.retard, label: 'En retard', bg: c.isDark ? '#7F1D1D' : '#FEF2F2', border: c.isDark ? '#EF4444' : '#FECACA', color: c.isDark ? '#FCA5A5' : '#991B1B', icon: '⚠️' }
       ];
 
       statsCards.forEach((sc, i) => {
@@ -3822,10 +3825,10 @@ function studioDrawBilan(ctx, w, h) {
       const bY = cardY + 135;
 
       const statsCards = [
-        { val: s.realise, label: 'Réalisés', bg: c.isDark ? '#064E3B' : '#ECFDF5', border: '#10B981', color: c.isDark ? '#34D399' : '#065F46', icon: '✅' },
-        { val: s.encours, label: 'En cours', bg: c.isDark ? '#0C4A6E' : '#F0F9FF', border: '#0284C7', color: c.isDark ? '#38BDF8' : '#0369A1', icon: '🔄' },
-        { val: s.nonLance, label: 'Non lancés', bg: c.isDark ? '#78350F' : '#FFFBEB', border: '#F59E0B', color: c.isDark ? '#FCD34D' : '#92400E', icon: '⏳' },
-        { val: s.retard, label: 'En retard', bg: c.isDark ? '#7F1D1D' : '#FEF2F2', border: '#EF4444', color: c.isDark ? '#FCA5A5' : '#991B1B', icon: '⚠️' }
+        { val: s.realise, label: 'Réalisés', bg: c.isDark ? '#064E3B' : '#F0FDF4', border: c.isDark ? '#10B981' : '#A7F3D0', color: c.isDark ? '#34D399' : '#065F46', icon: '✅' },
+        { val: s.encours, label: 'En cours', bg: c.isDark ? '#0C4A6E' : '#F0F9FF', border: c.isDark ? '#0284C7' : '#BAE6FD', color: c.isDark ? '#38BDF8' : '#0369A1', icon: '🔄' },
+        { val: s.nonLance, label: 'Non lancés', bg: c.isDark ? '#78350F' : '#FFFBEB', border: c.isDark ? '#F59E0B' : '#FDE68A', color: c.isDark ? '#FCD34D' : '#92400E', icon: '⏳' },
+        { val: s.retard, label: 'En retard', bg: c.isDark ? '#7F1D1D' : '#FEF2F2', border: c.isDark ? '#EF4444' : '#FECACA', color: c.isDark ? '#FCA5A5' : '#991B1B', icon: '⚠️' }
       ];
 
       statsCards.forEach((sc, i) => {
@@ -3929,11 +3932,12 @@ function studioDrawRevue(ctx, w, h) {
 
       // Card box
       studioRoundBox(ctx, x, y, colW, rowH, 10, c.boxBg, c.boxBorder, 1);
+      studioRoundBox(ctx, x, y, 4, rowH, 2, c.accentGold, 'transparent');
 
       // Newspaper tag
       studioRoundBox(ctx, x + 16, y + 14, 150, 32, 6, c.badgeBg, c.badgeBorder, 1);
       ctx.textAlign = 'center';
-      ctx.fillStyle = c.accentGold;
+      ctx.fillStyle = c.isDark ? c.accentGold : '#0F172A';
       ctx.font = 'bold 13px Inter, sans-serif';
       ctx.fillText(p.paper.substring(0, 15), x + 16 + 75, y + 35);
 
@@ -3969,11 +3973,12 @@ function studioDrawRevue(ctx, w, h) {
     papers.forEach((p, idx) => {
       const y = rowY + idx * (rowH + gap);
       studioRoundBox(ctx, cardX + 36, y, cardW - 72, rowH, 12, c.boxBg, c.boxBorder, 1);
+      studioRoundBox(ctx, cardX + 36, y, 5, rowH, 2, c.accentGold, 'transparent');
 
       // Journal Pill
       studioRoundBox(ctx, cardX + 54, y + 26, 170, 60, 8, c.badgeBg, c.badgeBorder, 1);
       ctx.textAlign = 'center';
-      ctx.fillStyle = c.accentGold;
+      ctx.fillStyle = c.isDark ? c.accentGold : '#0F172A';
       ctx.font = 'bold 18px Inter, sans-serif';
       ctx.fillText(p.paper.substring(0, 15), cardX + 54 + 85, y + 62);
 
@@ -4029,7 +4034,7 @@ function studioDrawCitation(ctx, w, h) {
     const lineY = cardY + 115 + qLines * 36;
     studioRoundBox(ctx, cardX + cardW / 2 - 80, lineY, 160, 2, 1, c.borderCard, 'transparent');
 
-    ctx.fillStyle = c.accentGold;
+    ctx.fillStyle = c.isDark ? c.accentGold : '#0F172A';
     ctx.font = 'bold 22px Inter, sans-serif';
     ctx.fillText(author.toUpperCase(), cardX + cardW / 2, lineY + 36);
 
@@ -4050,7 +4055,7 @@ function studioDrawCitation(ctx, w, h) {
     const lineY = cardY + 185 + qLines * 48;
     studioRoundBox(ctx, cardX + cardW / 2 - 100, lineY, 200, 3, 2, c.borderCard, 'transparent');
 
-    ctx.fillStyle = c.accentGold;
+    ctx.fillStyle = c.isDark ? c.accentGold : '#0F172A';
     ctx.font = 'bold 28px Inter, sans-serif';
     ctx.fillText(author.toUpperCase(), cardX + cardW / 2, lineY + 45);
 
