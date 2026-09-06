@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -520,14 +520,66 @@ textarea.form-control{resize:vertical;min-height:90px}
     </div>
 
     <div class="page" id="page-press">
+      <!-- Section Dépôt Visuel Drag & Drop -->
+      <div class="card" style="margin-bottom:1.5rem;border:1.5px dashed var(--green);background:rgba(74,222,128,0.03)">
+        <div class="card-head" style="border-bottom:1px solid rgba(74,222,128,0.2)">
+          <span class="card-title" style="color:var(--green)">
+            <i class="fas fa-cloud-arrow-up"></i> Dépôt Rapide & Publication Directe (Glisser-Déposer)
+          </span>
+          <div style="display:flex;gap:.5rem">
+            <button class="btn btn-outline btn-xs" onclick="openGitHubConfigModal()"><i class="fab fa-github"></i> <span id="ghStatusLabel">Config GitHub</span></button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div id="adminPressDropZone" style="border:2px dashed var(--border2);border-radius:10px;padding:2rem 1rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg)" onclick="document.getElementById('adminPressFileInput').click()">
+            <input type="file" id="adminPressFileInput" multiple accept="image/jpeg,image/png,image/webp" style="display:none" onchange="handleAdminPressFiles(this.files)">
+            <div style="font-size:2.4rem;color:var(--green);margin-bottom:.5rem"><i class="fas fa-images"></i></div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;color:var(--text);margin-bottom:.3rem">Glissez-déposez vos Unes de journaux ici</div>
+            <div style="font-size:.8rem;color:var(--text2)">ou cliquez pour sélectionner toutes vos photos d'un coup (JPG, PNG, WEBP)</div>
+          </div>
+
+          <!-- Panneau d'action du lot déposé -->
+          <div id="adminBatchControls" style="display:none;margin-top:1.2rem">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;padding:.8rem 1rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px">
+              <div style="display:flex;align-items:center;gap:.75rem">
+                <span class="badge badge-green" id="adminBatchCount">0 journaux</span>
+                <label style="font-size:.78rem;color:var(--text2);font-weight:600">Date :</label>
+                <input type="date" id="adminBatchDate" class="form-control" style="width:auto;padding:.3rem .6rem;font-size:.8rem">
+              </div>
+              <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+                <button class="btn btn-danger btn-xs" onclick="clearAdminBatch()"><i class="fas fa-trash"></i> Vider</button>
+                <button class="btn btn-gold btn-sm" onclick="saveAdminBatchLocalDisk()"><i class="fas fa-folder-open"></i> Enregistrer dans le dossier LE-PROJET</button>
+                <button class="btn btn-primary btn-sm" id="btnPublishGitHub" onclick="publishBatchToGitHub()"><i class="fab fa-github"></i> Publier en direct sur GitHub</button>
+                <button class="btn btn-outline btn-sm" onclick="downloadAdminBatchJson()"><i class="fas fa-download"></i> Télécharger press.json</button>
+              </div>
+            </div>
+
+            <div id="ghProgressWrap" style="display:none;margin-top:.8rem;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.8rem 1rem">
+              <div style="display:flex;justify-content:space-between;font-size:.78rem;color:var(--text2);margin-bottom:.4rem">
+                <span id="ghProgressText">Envoi sur GitHub...</span>
+                <span id="ghProgressPercent">0%</span>
+              </div>
+              <div style="height:6px;background:var(--bg3);border-radius:4px;overflow:hidden">
+                <div id="ghProgressBar" style="height:100%;background:var(--green);width:0%;transition:width .2s"></div>
+              </div>
+            </div>
+
+            <!-- Grille de prévisualisation des cartes -->
+            <div id="adminBatchGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;margin-top:1.2rem"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtres et tableau existants -->
       <div class="filter-bar">
-        <button class="btn btn-primary btn-sm" onclick="openPressModal()"><i class="fas fa-plus"></i> Nouvelle une</button>
+        <button class="btn btn-primary btn-sm" onclick="openPressModal()"><i class="fas fa-plus"></i> Nouvelle une manuelle</button>
         <button class="btn btn-outline btn-sm" onclick="generateAndShowPressJSON()"><i class="fas fa-code"></i> Générer JSON</button>
         <button class="btn btn-gold btn-sm" onclick="downloadJSON('press')"><i class="fas fa-download"></i> Télécharger JSON</button>
         <button class="btn btn-sm" style="background:var(--blue-bg);color:var(--blue);border:1px solid rgba(96,165,250,.3)" onclick="copyPressJSON()"><i class="fas fa-copy"></i> Copier JSON</button>
       </div>
+
       <div class="card">
-        <div class="card-head"><span class="card-title"><i class="fas fa-print" style="color:var(--green)"></i> Revue de Presse <span id="pressCount" style="color:var(--text3);font-size:.78rem;font-weight:400"></span></span></div>
+        <div class="card-head"><span class="card-title"><i class="fas fa-print" style="color:var(--green)"></i> Unes actuellement publiées <span id="pressCount" style="color:var(--text3);font-size:.78rem;font-weight:400"></span></span></div>
         <div style="overflow-x:auto">
           <table class="data-table">
             <thead><tr><th>ID</th><th>Journal</th><th>Date</th><th>Image</th><th>Lien</th><th>Actions</th></tr></thead>
@@ -1170,6 +1222,34 @@ textarea.form-control{resize:vertical;min-height:90px}
       <button class="btn btn-outline" onclick="closeModal('pressModal')">Annuler</button>
       <button class="btn btn-primary" onclick="savePress()"><i class="fas fa-save"></i> Enregistrer</button>
     </div>
+</div>
+
+<div class="modal-overlay" id="githubConfigModal">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-head">
+      <span class="modal-title"><i class="fab fa-github" style="color:var(--green)"></i> Configuration Publication GitHub Directe</span>
+      <button class="modal-close" onclick="closeModal('githubConfigModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:.82rem;color:var(--text2);margin-bottom:1rem">
+        En enregistrant votre <strong>Token GitHub (Personal Access Token)</strong>, vous pouvez publier la revue de presse directement sur le site en 1 clic sans lancer aucun serveur ni terminal !
+      </p>
+      <div class="form-group">
+        <label>Dépôt GitHub (Owner / Repo)</label>
+        <input type="text" class="form-control" id="ghRepoInput" value="BAMBAMAR/LE-PROJET">
+      </div>
+      <div class="form-group" style="margin-top:.75rem">
+        <label>GitHub Personal Access Token (PAT)</label>
+        <input type="password" class="form-control" id="ghTokenInput" placeholder="github_pat_... ou ghp_...">
+        <small style="font-size:.72rem;color:var(--text3);display:block;margin-top:.3rem">
+          Créez un token avec permission <code>repo</code> ou <code>contents:write</code> sur <a href="https://github.com/settings/tokens" target="_blank" style="color:var(--green)">github.com/settings/tokens</a>. Ce token reste stocké uniquement dans votre navigateur (localStorage).
+        </small>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline btn-sm" onclick="closeModal('githubConfigModal')">Annuler</button>
+      <button class="btn btn-primary btn-sm" onclick="saveGitHubConfig()"><i class="fas fa-check"></i> Enregistrer</button>
+    </div>
   </div>
 </div>
 
@@ -1269,6 +1349,7 @@ async function init() {
   renderPromises();
   renderNews();
   renderPress();
+  initAdminPressDropZone();
   renderSEO();
   await loadDrafts();
   await loadSources();
@@ -1871,6 +1952,421 @@ function deletePressById(id) {
     renderPress();
     toast('Une supprimée', 'info');
   });
+}
+
+// ══════════════════════════════════════════════
+// REVUE DE PRESSE — GESTIONNAIRE PAR LOT VISUEL (DRAG & DROP)
+// ══════════════════════════════════════════════
+let adminBatchPapers = [];
+
+const ADMIN_KNOWN_PAPERS = [
+  { keywords: ['rewmi sport', 'rewmisport'], name: 'Rewmi Sports' },
+  { keywords: ['rewmi quotidien', 'rewmi'], name: 'Rewmi Quotidien' },
+  { keywords: ['soleil', 'le soleil', 'lesoleil'], name: 'Le Soleil' },
+  { keywords: ['sud quotidien', 'sudonline', 'sudquotidien', 'sud'], name: 'Sud Quotidien' },
+  { keywords: ['liberation'], name: 'Libération' },
+  { keywords: ['observateur', 'lobservateur', "l'observateur"], name: "L'Observateur" },
+  { keywords: ['le quotidien', 'lequotidien'], name: 'Le Quotidien' },
+  { keywords: ['evidence', 'levidence', "l'evidence"], name: "L'Évidence" },
+  { keywords: ['echos', 'les echos'], name: 'Les Échos' },
+  { keywords: ['point actu', 'le point', 'le epoint'], name: 'Le Point' },
+  { keywords: ['tribune sport', 'tribunesport', 'tribune'], name: 'Tribune' },
+  { keywords: ['republicain', 'lerepublicain'], name: 'Le Républicain' },
+  { keywords: ['las', "l'as"], name: "L'As" },
+  { keywords: ['enquete'], name: 'Enquête' },
+  { keywords: ['record'], name: 'Record' },
+  { keywords: ['yoor-yoor', 'yooryoor', 'yoor'], name: 'Yoor-Yoor' },
+  { keywords: ['direct news', 'directnews'], name: 'Direct News' },
+  { keywords: ['linfo', "l'info"], name: "L'Info" },
+  { keywords: ['populaire', 'pop', 'le populaire'], name: 'Le Populaire' },
+  { keywords: ['bes bi', 'besbi', 'le jour'], name: 'Bès Bi' },
+  { keywords: ['source a', 'sourcea'], name: 'Source A' },
+  { keywords: ['walf', 'walfadjri'], name: 'Walf Quotidien' },
+  { keywords: ['lii quotidien', 'lii'], name: 'Lii Quotidien' },
+  { keywords: ['temoin', 'le temoin'], name: 'Le Témoin' },
+  { keywords: ['vox populi', 'voxpopuli', 'vox'], name: 'Vox Populi' },
+  { keywords: ['stade'], name: 'Stade' },
+  { keywords: ['grand panel', 'panel'], name: 'Grand Panel' },
+  { keywords: ['scoop', 'digital scoop'], name: 'Scoop' },
+  { keywords: ['alerte'], name: 'Alerte Quotidien' },
+  { keywords: ['independant', "l'independant"], name: "L'Indépendant" },
+  { keywords: ['informateur', "l'informateur"], name: "L'Informateur" },
+  { keywords: ['solo quotidien', 'solo'], name: 'Solo Quotidien' },
+  { keywords: ['peuple', 'le peuple'], name: 'Le Peuple' }
+];
+
+function adminDetectPaperName(filename) {
+  if (!filename) return 'Quotidien';
+  const clean = filename.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[_-]/g, ' ');
+  for (const paper of ADMIN_KNOWN_PAPERS) {
+    for (const kw of paper.keywords) {
+      if (clean.includes(kw)) return paper.name;
+    }
+  }
+  const base = filename.replace(/\.[^/.]+$/, '').replace(/^revue_\d{4}-\d{2}-\d{2}_\d+$/i, '').replace(/[_-]/g, ' ').trim();
+  if (base && base.length > 2) return base.charAt(0).toUpperCase() + base.slice(1);
+  return 'Quotidien';
+}
+
+function initAdminPressDropZone() {
+  const zone = document.getElementById('adminPressDropZone');
+  if (!zone) return;
+  zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.style.borderColor = 'var(--green)'; zone.style.background = 'rgba(74,222,128,0.08)'; });
+  zone.addEventListener('dragleave', () => { zone.style.borderColor = 'var(--border2)'; zone.style.background = 'var(--bg)'; });
+  zone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    zone.style.borderColor = 'var(--border2)';
+    zone.style.background = 'var(--bg)';
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      handleAdminPressFiles(e.dataTransfer.files);
+    }
+  });
+
+  const dateInput = document.getElementById('adminBatchDate');
+  if (dateInput && !dateInput.value) {
+    dateInput.value = new Date().toISOString().split('T')[0];
+  }
+  updateGHStatusLabel();
+}
+
+async function handleAdminPressFiles(fileList) {
+  if (!fileList || fileList.length === 0) return;
+  toast(`Chargement de ${fileList.length} image(s)...`, 'info');
+
+  for (const file of fileList) {
+    if (!file.type.startsWith('image/')) continue;
+    const base64 = await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.readAsDataURL(file);
+    });
+
+    const detectedTitle = adminDetectPaperName(file.name);
+    adminBatchPapers.push({
+      id: Date.now() + Math.random().toString(36).substring(2, 6),
+      filename: file.name,
+      title: detectedTitle,
+      dataUrl: base64,
+      fileObj: file
+    });
+  }
+
+  renderAdminBatchGrid();
+  toast(`${adminBatchPapers.length} journaux prêts dans le lot`, 'success');
+}
+
+function renderAdminBatchGrid() {
+  const container = document.getElementById('adminBatchControls');
+  const countBadge = document.getElementById('adminBatchCount');
+  const grid = document.getElementById('adminBatchGrid');
+  if (!container || !grid) return;
+
+  if (adminBatchPapers.length === 0) {
+    container.style.display = 'none';
+    grid.innerHTML = '';
+    return;
+  }
+
+  container.style.display = 'block';
+  countBadge.textContent = `${adminBatchPapers.length} journaux`;
+
+  grid.innerHTML = adminBatchPapers.map((p, index) => `
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden;position:relative;display:flex;flex-direction:column">
+      <span style="position:absolute;top:6px;left:6px;background:rgba(0,0,0,0.7);color:white;font-size:0.7rem;font-weight:700;padding:2px 6px;border-radius:10px;z-index:2">#${index + 1}</span>
+      <button onclick="removeAdminBatchPaper('${p.id}')" style="position:absolute;top:6px;right:6px;background:var(--red);color:white;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:0.8rem;display:flex;align-items:center;justify-content:center;z-index:2" title="Supprimer">&times;</button>
+      <div style="width:100%;height:180px;background:#000;display:flex;align-items:center;justify-content:center;overflow:hidden">
+        <img src="${p.dataUrl}" alt="${escH(p.title)}" style="width:100%;height:100%;object-fit:cover">
+      </div>
+      <div style="padding:.6rem">
+        <input type="text" class="form-control" style="font-size:0.8rem;padding:.3rem .5rem;font-weight:600" value="${escH(p.title)}" oninput="updateAdminBatchTitle('${p.id}', this.value)" placeholder="Titre du journal">
+      </div>
+    </div>
+  `).join('');
+}
+
+function updateAdminBatchTitle(id, newTitle) {
+  const p = adminBatchPapers.find(x => x.id === id);
+  if (p) p.title = newTitle;
+}
+
+function removeAdminBatchPaper(id) {
+  adminBatchPapers = adminBatchPapers.filter(x => x.id !== id);
+  renderAdminBatchGrid();
+}
+
+function clearAdminBatch() {
+  if (adminBatchPapers.length > 0 && !confirm('Voulez-vous vider les journaux déposés ?')) return;
+  adminBatchPapers = [];
+  renderAdminBatchGrid();
+}
+
+async function saveAdminBatchLocalDisk() {
+  if (adminBatchPapers.length === 0) return toast('Aucun journal à enregistrer', 'error');
+  if (!('showDirectoryPicker' in window)) {
+    return alert('Votre navigateur ne supporte pas le File System Access API.\\nUtilisez Chrome ou Edge sur PC pour enregistrer directement sur votre disque.');
+  }
+
+  const dateVal = document.getElementById('adminBatchDate').value || new Date().toISOString().split('T')[0];
+  const [y, m, d] = dateVal.split('-');
+  const dateFr = `${d}/${m}/${y}`;
+
+  try {
+    toast('Sélectionnez le dossier LE-PROJET dans la fenêtre qui va s\'ouvrir...', 'info');
+    const dirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
+    const revueDirHandle = await dirHandle.getDirectoryHandle('revuedepresse', { create: true });
+
+    const newPressEntries = [];
+    let counter = 1;
+
+    for (const p of adminBatchPapers) {
+      const matches = p.dataUrl.match(/^data:image\/([a-zA-Z0-9]+);base64,(.+)$/);
+      if (!matches) continue;
+      let ext = matches[1].toLowerCase();
+      if (ext === 'jpeg') ext = 'jpg';
+      const binaryString = atob(matches[2]);
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) bytes[i] = binaryString.charCodeAt(i);
+
+      const filename = `revue_${dateVal}_${counter}.${ext}`;
+      const fileHandle = await revueDirHandle.getFileHandle(filename, { create: true });
+      const writable = await fileHandle.createWritable();
+      await writable.write(bytes);
+      await writable.close();
+
+      newPressEntries.push({
+        id: String(counter),
+        title: p.title || 'Quotidien',
+        date: dateFr,
+        image: `revuedepresse/${filename}`,
+        link: '#'
+      });
+      counter++;
+    }
+
+    const pressData = {
+      last_updated: new Date().toISOString(),
+      press: newPressEntries
+    };
+
+    const pressFileHandle = await dirHandle.getFileHandle('press.json', { create: true });
+    const writablePress = await pressFileHandle.createWritable();
+    await writablePress.write(JSON.stringify(pressData, null, 2));
+    await writablePress.close();
+
+    DB.press = newPressEntries;
+    renderPress();
+    toast(`🎉 ${newPressEntries.length} journaux enregistrés directement dans LE-PROJET et press.json mis à jour !`, 'success');
+  } catch (err) {
+    if (err.name !== 'AbortError') {
+      alert('Erreur enregistrement disque : ' + err.message);
+    }
+  }
+}
+
+async function publishBatchToGitHub() {
+  if (adminBatchPapers.length === 0) return toast('Aucun journal à publier', 'error');
+
+  const token = localStorage.getItem('projetbi_gh_token');
+  const repo = localStorage.getItem('projetbi_gh_repo') || 'BAMBAMAR/LE-PROJET';
+
+  if (!token) {
+    openGitHubConfigModal();
+    return toast('Veuillez d\'abord configurer votre token GitHub', 'error');
+  }
+
+  const dateVal = document.getElementById('adminBatchDate').value || new Date().toISOString().split('T')[0];
+  const [y, m, d] = dateVal.split('-');
+  const dateFr = `${d}/${m}/${y}`;
+
+  const progressWrap = document.getElementById('ghProgressWrap');
+  const progressBar = document.getElementById('ghProgressBar');
+  const progressText = document.getElementById('ghProgressText');
+  const progressPercent = document.getElementById('ghProgressPercent');
+  const btn = document.getElementById('btnPublishGitHub');
+
+  progressWrap.style.display = 'block';
+  btn.disabled = true;
+
+  try {
+    const newPressEntries = [];
+    const total = adminBatchPapers.length;
+    let counter = 1;
+
+    for (let i = 0; i < total; i++) {
+      const p = adminBatchPapers[i];
+      const matches = p.dataUrl.match(/^data:image\/([a-zA-Z0-9]+);base64,(.+)$/);
+      if (!matches) continue;
+      let ext = matches[1].toLowerCase();
+      if (ext === 'jpeg') ext = 'jpg';
+      const b64Content = matches[2];
+      const filename = `revue_${dateVal}_${counter}.${ext}`;
+      const path = `revuedepresse/${filename}`;
+
+      const pct = Math.round(((i + 1) / (total + 1)) * 100);
+      progressBar.style.width = `${pct}%`;
+      progressPercent.textContent = `${pct}%`;
+      progressText.textContent = `Envoi image ${i + 1}/${total} : ${filename}...`;
+
+      let sha = null;
+      try {
+        const checkRes = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+          headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' }
+        });
+        if (checkRes.ok) {
+          const checkData = await checkRes.json();
+          sha = checkData.sha;
+        }
+      } catch (e) {}
+
+      const uploadRes = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: `Ajout Une : ${filename} [${p.title}]`,
+          content: b64Content,
+          branch: 'main',
+          ...(sha ? { sha } : {})
+        })
+      });
+
+      if (!uploadRes.ok) {
+        const errJson = await uploadRes.json();
+        throw new Error(`Erreur envoi ${filename}: ${errJson.message}`);
+      }
+
+      newPressEntries.push({
+        id: String(counter),
+        title: p.title || 'Quotidien',
+        date: dateFr,
+        image: `revuedepresse/${filename}`,
+        link: '#'
+      });
+
+      counter++;
+    }
+
+    progressText.textContent = 'Mise à jour de press.json sur GitHub...';
+    progressBar.style.width = '95%';
+
+    const pressData = {
+      last_updated: new Date().toISOString(),
+      press: newPressEntries
+    };
+    const b64Press = btoa(unescape(encodeURIComponent(JSON.stringify(pressData, null, 2))));
+
+    let pressSha = null;
+    try {
+      const getPressRes = await fetch(`https://api.github.com/repos/${repo}/contents/press.json`, {
+        headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' }
+      });
+      if (getPressRes.ok) {
+        const d = await getPressRes.json();
+        pressSha = d.sha;
+      }
+    } catch (e) {}
+
+    const putPressRes = await fetch(`https://api.github.com/repos/${repo}/contents/press.json`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: `Mise à jour revue de presse du ${dateFr} (${newPressEntries.length} journaux)`,
+        content: b64Press,
+        branch: 'main',
+        ...(pressSha ? { sha: pressSha } : {})
+      })
+    });
+
+    if (!putPressRes.ok) {
+      const errJson = await putPressRes.json();
+      throw new Error(`Erreur mise à jour press.json: ${errJson.message}`);
+    }
+
+    progressBar.style.width = '100%';
+    progressPercent.textContent = '100%';
+    progressText.textContent = 'Terminé avec succès !';
+
+    DB.press = newPressEntries;
+    renderPress();
+
+    setTimeout(() => { progressWrap.style.display = 'none'; }, 2500);
+    toast(`🚀 ${newPressEntries.length} journaux publiés en direct sur GitHub ! Le site sera actualisé dans 1 minute.`, 'success');
+  } catch (err) {
+    alert('Erreur lors de la publication GitHub : ' + err.message);
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function downloadAdminBatchJson() {
+  if (adminBatchPapers.length === 0) return toast('Aucun journal dans le lot', 'error');
+  const dateVal = document.getElementById('adminBatchDate').value || new Date().toISOString().split('T')[0];
+  const [y, m, d] = dateVal.split('-');
+  const dateFr = `${d}/${m}/${y}`;
+
+  const papers = adminBatchPapers.map((p, idx) => {
+    const ext = p.filename.split('.').pop() || 'jpg';
+    return {
+      id: String(idx + 1),
+      title: p.title || 'Quotidien',
+      date: dateFr,
+      image: `revuedepresse/revue_${dateVal}_${idx + 1}.${ext}`,
+      link: '#'
+    };
+  });
+
+  const data = {
+    last_updated: new Date().toISOString(),
+    press: papers
+  };
+
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'press.json';
+  a.click();
+  toast('press.json téléchargé avec succès ✅', 'success');
+}
+
+function openGitHubConfigModal() {
+  document.getElementById('ghRepoInput').value = localStorage.getItem('projetbi_gh_repo') || 'BAMBAMAR/LE-PROJET';
+  document.getElementById('ghTokenInput').value = localStorage.getItem('projetbi_gh_token') || '';
+  openModal('githubConfigModal');
+}
+
+function saveGitHubConfig() {
+  const repo = document.getElementById('ghRepoInput').value.trim();
+  const token = document.getElementById('ghTokenInput').value.trim();
+  if (!repo) return toast('Le nom du repo est requis', 'error');
+
+  localStorage.setItem('projetbi_gh_repo', repo);
+  if (token) {
+    localStorage.setItem('projetbi_gh_token', token);
+    toast('Token GitHub enregistré ✅', 'success');
+  } else {
+    localStorage.removeItem('projetbi_gh_token');
+    toast('Configuration enregistrée sans token', 'info');
+  }
+  closeModal('githubConfigModal');
+  updateGHStatusLabel();
+}
+
+function updateGHStatusLabel() {
+  const lbl = document.getElementById('ghStatusLabel');
+  if (!lbl) return;
+  const token = localStorage.getItem('projetbi_gh_token');
+  if (token) {
+    lbl.innerHTML = '<span style="color:var(--green)"><i class="fas fa-check-circle"></i> GitHub Connecté</span>';
+  } else {
+    lbl.innerHTML = '<i class="fab fa-github"></i> Config GitHub';
+  }
 }
 
 // ══════════════════════

@@ -1,0 +1,3 @@
+# Dossier de depot rapide pour la mise a jour manuelle
+# Deposez ici vos images de journaux, puis double-cliquez sur :
+# mettre_a_jour_revue_manuelle.bat

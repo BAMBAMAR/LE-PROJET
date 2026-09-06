@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/actualites", "destination": "/actualites.html" },
+    { "source": "/ideologie", "destination": "/ideologie.html" },
+    { "source": "/kit-communication", "destination": "/kit-communication.html" }
+  ]
+}

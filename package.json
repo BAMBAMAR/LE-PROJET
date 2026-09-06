@@ -7,7 +7,9 @@
     "revue": "node scripts/download_revue.js",
     "revue:login": "node scripts/download_revue.js --login",
     "revue:force": "node scripts/download_revue.js --force",
-    "revue:check": "node scripts/download_revue.js --check-source"
+    "revue:check": "node scripts/download_revue.js --check-source",
+    "revue:manual": "node scripts/manual_update_press.js",
+    "revue:ui": "node scripts/press_manager_server.js"
   },
   "dependencies": {
     "playwright": "^1.50.0"

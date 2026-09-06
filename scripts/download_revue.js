@@ -64,7 +64,7 @@ async function run() {
     }
   } catch (e) {}
 
-  if (!directUrlArg && !isForceMode && new Date().getDay() === 0) {
+  if (!isLoginMode && !isSourceCheckMode && !directUrlArg && !isForceMode && new Date().getDay() === 0) {
     console.log("ℹ️ C'est dimanche. Il n'y a pas de parution de presse aujourd'hui.");
     console.log("Arrêt du script pour éviter de scraper de fausses images.");
     return;
@@ -72,13 +72,25 @@ async function run() {
 
   const launchOptions = {
     headless: !isLoginMode,
-    args: ['--disable-notifications', '--no-sandbox', '--disable-setuid-sandbox'],
+    args: [
+      '--disable-notifications',
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-blink-features=AutomationControlled'
+    ],
+    ignoreDefaultArgs: ['--enable-automation'],
     viewport: { width: 1280, height: 950 },
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
     locale: 'fr-FR'
   };
 
   const context = await chromium.launchPersistentContext(USER_DATA_DIR, launchOptions);
+
+  // Masquer les traces de Playwright pour éviter la déconnexion automatique par Facebook
+  await context.addInitScript(() => {
+    Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
+    window.chrome = window.chrome || { runtime: {} };
+  });
 
   if (isLoginMode) {
     console.log('MODE CONNEXION ACTIVE - Connectez-vous puis fermez le navigateur.');
