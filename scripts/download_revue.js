@@ -365,63 +365,113 @@ async function findTodayPcbAlbum(page, pageUrl, sourceName, allowLatestPcbWithou
   log(`  🔎 Recherche des albums de presse sur : ${sourceName}...`);
   await safeGoto(page, pageUrl, 35000);
 
-  for (let i = 0; i < 4; i++) {
-    log(`     📜 Défilement du fil (${i + 1}/4) pour charger les parutions...`);
-    await page.evaluate(() => window.scrollBy(0, 1500));
-    await page.waitForTimeout(800);
-  }
+  const allCandidates = [];
+  const seenUrls = new Set();
 
-  const candidates = await page.evaluate((keywords) => {
-    const found = [];
-    const seen = new Set();
+  // Défilement progressif avec extraction à chaque étape pour ne rien manquer (évite le recyclage virtuel de Facebook)
+  for (let s = 0; s < 5; s++) {
+    if (s > 0) {
+      log(`     📜 Défilement du fil (${s + 1}/5) pour charger les parutions...`);
+      await page.evaluate(() => window.scrollBy(0, 900));
+      await page.waitForTimeout(1200);
+    }
 
-    // 1. Chercher dans les balises article / feed
-    const articles = Array.from(document.querySelectorAll('div[role="article"], div[data-ad-preview]'));
-    for (const article of articles) {
-      const links = Array.from(article.querySelectorAll('a[href*="set=pcb."], a[href*="/photo"]'));
-      if (!links.length) continue;
-      const text = (article.innerText || '').toLowerCase();
-      const isRevue = keywords.some(keyword => text.includes(keyword)) ||
-        text.includes('journal') || text.includes('quotidien') || text.includes('kiosque') || text.includes('unes');
+    const stepItems = await page.evaluate((keywords) => {
+      const items = [];
+      const seen = new Set();
 
-      for (const link of links) {
-        if (link.href && !seen.has(link.href)) {
-          seen.add(link.href);
-          found.push({ href: link.href, context: text, isRevue });
+      // Stratégie 1 : Balises article classiques (Pages Facebook)
+      const articles = Array.from(document.querySelectorAll('div[role="article"], div[data-ad-preview]'));
+      for (const article of articles) {
+        const links = Array.from(article.querySelectorAll('a[href*="set=pcb."], a[href*="/photo"]'));
+        if (!links.length) continue;
+        const text = (article.innerText || '').toLowerCase();
+        const isRevue = keywords.some(keyword => text.includes(keyword)) ||
+          text.includes('journal') || text.includes('quotidien') || text.includes('kiosque') || text.includes('unes');
+
+        for (const link of links) {
+          if (link.href && !seen.has(link.href)) {
+            seen.add(link.href);
+            items.push({ href: link.href, context: article.innerText || text, isRevue });
+          }
         }
       }
-    }
 
-    // 2. Chercher dans tous les liens set=pcb
-    const pcbLinks = Array.from(document.querySelectorAll('a[href*="set=pcb"]')).slice(0, 30);
-    for (const link of pcbLinks) {
-      if (!link.href || seen.has(link.href)) continue;
-      let parent = link;
-      let context = '';
-      for (let level = 0; level < 6 && parent; level++, parent = parent.parentElement) {
-        context += ` ${parent.innerText || ''}`;
+      // Stratégie 2 : Recherche de liens set=pcb avec remontée profonde (Profils personnels Facebook)
+      const pcbLinks = Array.from(document.querySelectorAll('a[href*="set=pcb."]')).slice(0, 30);
+      for (const link of pcbLinks) {
+        if (!link.href || seen.has(link.href)) continue;
+        let parent = link;
+        let fullContext = '';
+        for (let level = 0; level < 18 && parent && parent !== document.body; level++, parent = parent.parentElement) {
+          const txt = parent.innerText || '';
+          if (txt.length > fullContext.length) {
+            fullContext = txt;
+          }
+          if (keywords.some(k => txt.toLowerCase().includes(k)) && (txt.includes('07') || txt.toLowerCase().includes('septembre') || txt.includes('#Rp221') || txt.includes('#rp221'))) {
+            fullContext = txt;
+            break;
+          }
+        }
+        const ctxLower = fullContext.toLowerCase();
+        const isRevue = keywords.some(keyword => ctxLower.includes(keyword)) ||
+          ctxLower.includes('journal') || ctxLower.includes('quotidien') || ctxLower.includes('kiosque') || ctxLower.includes('unes') || ctxLower.includes('rp221');
+        seen.add(link.href);
+        items.push({ href: link.href, context: fullContext, isRevue });
       }
-      context = context.toLowerCase();
-      const isRevue = keywords.some(keyword => context.includes(keyword)) ||
-        context.includes('journal') || text.includes('quotidien') || text.includes('kiosque') || text.includes('unes');
-      seen.add(link.href);
-      found.push({ href: link.href, context, isRevue });
+
+      // Stratégie 3 : Recherche inversée par texte de publication (#Rp221, Revue de Presse, Unes du...)
+      const allTextNodes = Array.from(document.querySelectorAll('a, span, div, p'));
+      for (const node of allTextNodes) {
+        const text = (node.innerText || '').trim();
+        const textLower = text.toLowerCase();
+        if (textLower.includes('#rp221') || textLower.includes('revue de presse') || textLower.includes('unes du')) {
+          let p = node;
+          for (let l = 0; l < 16 && p && p !== document.body; l++, p = p.parentElement) {
+            const pcb = p.querySelector('a[href*="set=pcb."], a[href*="/photo"]');
+            if (pcb && pcb.href && !seen.has(pcb.href)) {
+              seen.add(pcb.href);
+              items.push({
+                href: pcb.href,
+                context: p.innerText || text,
+                isRevue: true
+              });
+              break;
+            }
+          }
+        }
+      }
+
+      return items;
+    }, REVUE_KEYWORDS);
+
+    for (const item of stepItems) {
+      if (!seenUrls.has(item.href)) {
+        seenUrls.add(item.href);
+        allCandidates.push(item);
+      }
     }
 
-    return found;
-  }, REVUE_KEYWORDS);
+    // Si on a déjà trouvé un album du jour avec certitude, on peut arrêter de défiler
+    const earlyMatch = allCandidates.find(c => c.isRevue && isTodayFacebookPost(c.context));
+    if (earlyMatch) {
+      log(`     🎯 Album du jour repéré dès l'étape ${s + 1} !`);
+      break;
+    }
+  }
 
-  log(`     📊 ${candidates.length} publication(s) avec photos détectée(s).`);
+  log(`     📊 ${allCandidates.length} publication(s) avec photos analysée(s).`);
 
   if (isSourceCheckMode) {
-    candidates.slice(0, 8).forEach(candidate => {
-      const status = isTodayFacebookPost(candidate.context) ? 'AUJOURD\'HUI' : 'autre date';
-      log(`     [${status}] ${candidate.href.substring(0, 80)}...`);
+    allCandidates.slice(0, 10).forEach(candidate => {
+      const isToday = isTodayFacebookPost(candidate.context);
+      const status = isToday ? 'AUJOURD\'HUI' : 'autre date';
+      log(`     [${status}] (Revue: ${candidate.isRevue ? 'OUI' : 'NON'}) ${candidate.href.substring(0, 75)}...`);
     });
   }
 
   // Chercher un album caractérisé du jour
-  const todayAlbum = candidates.find(candidate =>
+  const todayAlbum = allCandidates.find(candidate =>
     candidate.isRevue && isTodayFacebookPost(candidate.context)
   );
   if (todayAlbum) {
@@ -429,9 +479,9 @@ async function findTodayPcbAlbum(page, pageUrl, sourceName, allowLatestPcbWithou
     return todayAlbum.href;
   }
 
-  // Si on autorise le dernier album pcb (ex: page UniversActu spécialisée dans la revue)
-  if (allowLatestPcbWithoutDate && candidates.length > 0) {
-    const revueCandidate = candidates.find(c => c.isRevue) || candidates[0];
+  // Si on autorise le dernier album pcb (ex: page UniversActu de secours)
+  if (allowLatestPcbWithoutDate && allCandidates.length > 0) {
+    const revueCandidate = allCandidates.find(c => c.isRevue) || allCandidates[0];
     log(`  ✅ Dernier album sélectionné sur la source de secours : ${revueCandidate.href}`);
     return revueCandidate.href;
   }
