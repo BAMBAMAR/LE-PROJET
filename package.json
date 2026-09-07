@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "revue": "node scripts/download_revue.js",
+    "revue:visible": "node scripts/download_revue.js --visible",
     "revue:login": "node scripts/download_revue.js --login",
     "revue:force": "node scripts/download_revue.js --force",
     "revue:check": "node scripts/download_revue.js --check-source",

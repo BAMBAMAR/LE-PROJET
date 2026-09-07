@@ -2,7 +2,7 @@
 # Gestionnaire de tâche planifiée Windows pour la Revue de Presse automatisée
 
 param (
-    [ValidateSet('creer', 'lancer', 'status', 'logs', 'supprimer')]
+    [ValidateSet('creer', 'lancer', 'status', 'logs', 'follow', 'supprimer')]
     [string]$Action = 'status',
     [string]$Heure = '08:00'
 )
@@ -24,9 +24,9 @@ switch ($Action) {
         Write-Host "   -> Option 'Démarrer dès que possible' activée si le PC était éteint à l'heure prévue." -ForegroundColor Gray
     }
     'lancer' {
-        Write-Host "Lancement immédiat de la tâche en arrière-plan..." -ForegroundColor Cyan
+        Write-Host "Lancement immédiat de la tâche en arrière-plan (Task Scheduler)..." -ForegroundColor Cyan
         Start-Process schtasks -ArgumentList "/Run /TN `"$TaskName`"" -NoNewWindow -Wait
-        Write-Host "🚀 Tâche lancée ! Consultez le fichier daily_run.log pour suivre la progression." -ForegroundColor Green
+        Write-Host "🚀 Tâche lancée ! Vous pouvez suivre les logs avec l'option 5 ou consulter daily_run.log." -ForegroundColor Green
     }
     'status' {
         Write-Host "=== État de la tâche planifiée $TaskName ===" -ForegroundColor Cyan
@@ -38,6 +38,15 @@ switch ($Action) {
             Get-Content $LogPath -Tail 40
         } else {
             Write-Host "Aucun log trouvé pour le moment ($LogPath)." -ForegroundColor Yellow
+        }
+    }
+    'follow' {
+        if (Test-Path $LogPath) {
+            Write-Host "=== Suivi en direct du fichier journal ($LogPath) ===" -ForegroundColor Cyan
+            Write-Host "(Appuyez sur Ctrl + C pour quitter le suivi)" -ForegroundColor Yellow
+            Get-Content $LogPath -Tail 20 -Wait
+        } else {
+            Write-Host "Aucun log trouvé ($LogPath). Lancez une exécution d'abord." -ForegroundColor Yellow
         }
     }
     'supprimer' {
