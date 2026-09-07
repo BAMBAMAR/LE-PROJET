@@ -10,14 +10,14 @@
   <circle cx="200" cy="200" r="190" fill="url(#cleanBg)" />
   <circle cx="200" cy="200" r="184" fill="none" stroke="rgba(201, 168, 76, 0.45)" stroke-width="2" />
 
-  <!-- Monogramme JJJ Typographique avec ÉTOILE VERTE OFFICIELLE AU MILIEU DU J JAUNE -->
-  <g transform="translate(68, 80)">
+  <!-- Monogramme JJJ 100% calibré sur l'axe central X=200 -->
+  <g transform="translate(68.5, 80)">
     <!-- J1 Vert Sénégal -->
     <text x="30" y="112" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="112" fill="#00853F" letter-spacing="-4">J</text>
-    <!-- J2 Jaune Sénégal -->
+    <!-- J2 Jaune Sénégal (Tige centrée exactement à X=200 global) -->
     <text x="78" y="112" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="112" fill="#FDEF42" letter-spacing="-4">J</text>
-    <!-- ★ ÉTOILE VERTE CENTRÉE AU MILIEU EXACT DE LA TIGE DU J JAUNE ★ -->
-    <polygon points="113.2,57.8 115.4,63.7 121.8,64.0 116.8,68.0 118.5,74.1 113.2,70.6 107.9,74.1 109.6,68.0 104.6,64.0 111.0,63.7" fill="#00853F" />
+    <!-- ★ ÉTOILE VERTE CENTRÉE AU COEUR ABSOLU DE LA TIGE DU J JAUNE (X=200 GLOBAL) ★ -->
+    <polygon points="131.5,46.5 133.6,52.1 139.6,52.4 134.9,56.1 136.5,61.9 131.5,58.6 126.5,61.9 128.1,56.1 123.4,52.4 129.4,52.1" fill="#00853F" />
     <!-- J3 Rouge Sénégal -->
     <text x="126" y="112" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="112" fill="#E31B23" letter-spacing="-4">J</text>
   </g>
