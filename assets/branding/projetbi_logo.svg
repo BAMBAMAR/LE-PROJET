@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#143D26" />
+      <stop offset="65%" stop-color="#0B2416" />
+      <stop offset="100%" stop-color="#04120A" />
+    </radialGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5E2A8" />
+      <stop offset="25%" stop-color="#C9A84C" />
+      <stop offset="60%" stop-color="#E5C76B" />
+      <stop offset="85%" stop-color="#9E7D2E" />
+      <stop offset="100%" stop-color="#D8BA5C" />
+    </linearGradient>
+    <linearGradient id="shieldGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F4C29" />
+      <stop offset="100%" stop-color="#082815" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+    <path id="textArcTop" d="M 85,250 A 165,165 0 0,1 415,250" fill="none"/>
+    <path id="textArcBottom" d="M 415,250 A 165,165 0 0,1 85,250" fill="none"/>
+  </defs>
+
+  <!-- Fond Circulaire Principal -->
+  <circle cx="250" cy="250" r="240" fill="url(#bgGrad)" />
+
+  <!-- Anneaux Dorés Extérieurs -->
+  <circle cx="250" cy="250" r="236" fill="none" stroke="url(#goldGrad)" stroke-width="4" />
+  <circle cx="250" cy="250" r="226" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" stroke-dasharray="4,4" />
+  <circle cx="250" cy="250" r="198" fill="none" stroke="url(#goldGrad)" stroke-width="3" />
+
+  <!-- Liseré Tricolore Sénégalais Discret -->
+  <circle cx="250" cy="250" r="202" fill="none" stroke="#00853F" stroke-width="2" stroke-dasharray="140,840" stroke-dashoffset="70" />
+  <circle cx="250" cy="250" r="202" fill="none" stroke="#FDEF42" stroke-width="2" stroke-dasharray="140,840" stroke-dashoffset="-70" />
+  <circle cx="250" cy="250" r="202" fill="none" stroke="#E31B23" stroke-width="2" stroke-dasharray="140,840" stroke-dashoffset="-210" />
+
+  <!-- Étoiles Latérales -->
+  <text x="72" y="256" fill="url(#goldGrad)" font-size="16" text-anchor="middle">★</text>
+  <text x="428" y="256" fill="url(#goldGrad)" font-size="16" text-anchor="middle">★</text>
+
+  <!-- Texte Courbé : PROJETBI -->
+  <text font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="28" fill="url(#goldGrad)" letter-spacing="9" filter="url(#shadow)">
+    <textPath href="#textArcTop" startOffset="50%" text-anchor="middle">PROJETBI</textPath>
+  </text>
+
+  <!-- Texte Courbé : JUB • JUBAL • JUBANTI -->
+  <text font-family="'Inter', -apple-system, sans-serif" font-weight="800" font-size="17" fill="url(#goldGrad)" letter-spacing="5" filter="url(#shadow)">
+    <textPath href="#textArcBottom" startOffset="50%" text-anchor="middle">JUB • JUBAL • JUBANTI 🇸🇳</textPath>
+  </text>
+
+  <!-- Écusson Central (Shield) -->
+  <g filter="url(#shadow)">
+    <!-- Contour Doré Écusson -->
+    <path d="M 250,135 
+             C 305,135 325,160 325,215 
+             C 325,275 285,325 250,350 
+             C 215,325 175,275 175,215 
+             C 175,160 195,135 250,135 Z" 
+          fill="url(#shieldGreen)" stroke="url(#goldGrad)" stroke-width="5" stroke-linejoin="round" />
+
+    <!-- Filet intérieur écusson -->
+    <path d="M 250,144 
+             C 298,144 316,166 316,215 
+             C 316,268 280,314 250,338 
+             C 220,314 184,268 184,215 
+             C 184,166 202,144 250,144 Z" 
+          fill="none" stroke="url(#goldGrad)" stroke-width="1.5" opacity="0.6" />
+
+    <!-- Étoile d'Or au sommet de l'écusson -->
+    <polygon points="250,152 254,164 267,164 256,172 260,184 250,177 240,184 244,172 233,164 246,164" fill="url(#goldGrad)" />
+
+    <!-- Monogramme JJJ Tricolore Stylisé dans l'écusson -->
+    <!-- Premier J (Vert Sénégal) -->
+    <path d="M 215,195 L 225,195 L 225,255 C 225,275 210,285 195,280 C 190,278 186,272 188,266 C 190,260 196,258 201,260 C 208,263 214,258 214,250 L 214,195 Z" fill="#00853F" stroke="url(#goldGrad)" stroke-width="1" />
+    
+    <!-- Deuxième J Central (Or / Jaune Sénégal) -->
+    <path d="M 245,185 L 255,185 L 255,275 C 255,295 240,305 225,300 C 220,298 216,292 218,286 C 220,280 226,278 231,280 C 238,283 244,278 244,270 L 244,185 Z" fill="#FDEF42" stroke="url(#goldGrad)" stroke-width="1.2" />
+
+    <!-- Troisième J (Rouge Sénégal) -->
+    <path d="M 275,195 L 285,195 L 285,255 C 285,275 270,285 255,280 C 250,278 246,272 248,266 C 250,260 256,258 261,260 C 268,263 274,258 274,250 L 274,195 Z" fill="#E31B23" stroke="url(#goldGrad)" stroke-width="1" />
+  </g>
+
+  <!-- Étoile centrale sur le J jaune -->
+  <polygon points="250,225 252,231 258,231 253,235 255,241 250,237 245,241 247,235 242,231 248,231" fill="#00853F" />
+
+  <!-- Couronne de Lauriers Stylisée en Or sous l'écusson -->
+  <g fill="url(#goldGrad)" opacity="0.9">
+    <ellipse cx="215" cy="358" rx="8" ry="4" transform="rotate(-30 215 358)" />
+    <ellipse cx="200" cy="350" rx="8" ry="4" transform="rotate(-45 200 350)" />
+    <ellipse cx="188" cy="338" rx="8" ry="4" transform="rotate(-60 188 338)" />
+    <ellipse cx="285" cy="358" rx="8" ry="4" transform="rotate(30 285 358)" />
+    <ellipse cx="300" cy="350" rx="8" ry="4" transform="rotate(45 300 350)" />
+    <ellipse cx="312" cy="338" rx="8" ry="4" transform="rotate(60 312 338)" />
+  </g>
+</svg>

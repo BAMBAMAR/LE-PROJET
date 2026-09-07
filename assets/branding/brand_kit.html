@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProjetBI — Kit de Marque & Déploiement Réseaux Sociaux</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --brand-green: #0A2315;
+      --brand-dark: #05150C;
+      --brand-surface: #0E2E1D;
+      --accent-gold: #C9A84C;
+      --accent-gold-light: #F5E2A8;
+      --text-white: #FFFFFF;
+      --text-sub: #D5E8DD;
+      --text-muted: #8EAE9D;
+      --border-card: rgba(201, 168, 76, 0.3);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--brand-dark);
+      color: var(--text-white);
+      font-family: 'Inter', -apple-system, sans-serif;
+      padding: 2.5rem 1.5rem;
+      line-height: 1.6;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border-subtle);
+      position: relative;
+    }
+    .flag-bar {
+      height: 6px;
+      width: 180px;
+      margin: 0 auto 1.5rem auto;
+      display: flex;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .flag-g { flex: 1; background: #00853F; }
+    .flag-y { flex: 1; background: #FDEF42; }
+    .flag-r { flex: 1; background: #E31B23; }
+    h1 {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--accent-gold-light);
+      margin-bottom: .5rem;
+      letter-spacing: -0.5px;
+    }
+    .subtitle {
+      color: var(--text-sub);
+      font-size: 1.15rem;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+    @media (max-width: 900px) { .grid-2 { grid-template-columns: 1fr; } }
+    .card {
+      background: var(--brand-surface);
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      padding: 1.8rem;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.4);
+    }
+    .card-title {
+      font-family: 'Crimson Pro', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 1.2rem;
+    }
+    .preview-box {
+      background: #020804;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 1.2rem;
+      border: 1px solid var(--border-subtle);
+    }
+    .avatar-preview {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6), 0 0 0 4px var(--accent-gold);
+      margin: 0 auto;
+      display: block;
+      object-fit: cover;
+    }
+    .cover-preview {
+      width: 100%;
+      height: auto;
+      max-height: 260px;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      display: block;
+      object-fit: cover;
+    }
+    .specs-list {
+      list-style: none;
+      font-size: .92rem;
+      color: var(--text-sub);
+      margin-bottom: 1.5rem;
+    }
+    .specs-list li {
+      padding: .4rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      display: flex;
+      justify-content: space-between;
+    }
+    .specs-list li strong { color: var(--text-white); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      padding: .75rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: .95rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all .2s ease;
+      width: 100%;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, #C9A84C 0%, #E5C76B 50%, #A18836 100%);
+      color: #0A1C11;
+      border: none;
+    }
+    .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201,168,76,0.4); }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--accent-gold);
+      color: var(--accent-gold-light);
+      margin-top: .6rem;
+    }
+    .btn-outline:hover { background: rgba(201,168,76,0.1); }
+    .network-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: rgba(255,255,255,0.07);
+      padding: .35rem .75rem;
+      border-radius: 20px;
+      font-size: .82rem;
+      font-weight: 600;
+      margin-right: .4rem;
+      margin-bottom: .6rem;
+    }
+    .network-badge.fb { color: #1877F2; }
+    .network-badge.ig { color: #E4405F; }
+    .network-badge.tt { color: #00F2FE; }
+    .network-badge.x { color: #FFFFFF; }
+    .copy-code {
+      background: #040E07;
+      padding: .85rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: .88rem;
+      color: #4ADE80;
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      margin: .8rem 0;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="flag-bar">
+        <div class="flag-g"></div>
+        <div class="flag-y"></div>
+        <div class="flag-r"></div>
+      </div>
+      <h1>Kit de Marque & Déploiement Réseaux Sociaux</h1>
+      <p class="subtitle">Ressources officielles pour transformer la page Facebook « Laverite » en « ProjetBI » et uniformiser l'identité sur Instagram, TikTok et Twitter / X.</p>
+    </header>
+
+    <div class="grid-2">
+      <!-- 1. PHOTO DE PROFIL OFFICIELLE -->
+      <div class="card">
+        <div class="card-title">
+          <i class="fas fa-certificate"></i> Photo de Profil Master (Avatar Rond)
+        </div>
+        <div class="preview-box">
+          <img src="projetbi_avatar_official.jpg" alt="Avatar Officiel ProjetBI" class="avatar-preview">
+        </div>
+        <div style="margin-bottom:1rem">
+          <span class="network-badge fb"><i class="fab fa-facebook"></i> Facebook</span>
+          <span class="network-badge ig"><i class="fab fa-instagram"></i> Instagram</span>
+          <span class="network-badge tt"><i class="fab fa-tiktok"></i> TikTok</span>
+          <span class="network-badge x"><i class="fab fa-x-twitter"></i> X (Twitter)</span>
+        </div>
+        <ul class="specs-list">
+          <li><span>Format natif :</span> <strong>1080 × 1080 px (HD Carré)</strong></li>
+          <li><span>Recadrage Réseaux :</span> <strong>Cercle parfait sécurisé à 100%</strong></li>
+          <li><span>Éléments clés :</span> <strong>Sceau Or, JJJ Héraldique, Étoile, Lauriers</strong></li>
+        </ul>
+        <a href="projetbi_avatar_official.jpg" download="projetbi_avatar_official.jpg" class="btn btn-gold">
+          <i class="fas fa-download"></i> Télécharger l'Avatar HD
+        </a>
+        <a href="projetbi_logo.svg" download="projetbi_logo.svg" class="btn btn-outline">
+          <i class="fas fa-bezier-curve"></i> Télécharger le Logo Vectoriel SVG
+        </a>
+      </div>
+
+      <!-- 2. COUVERTURE FACEBOOK OFFICIELLE -->
+      <div class="card">
+        <div class="card-title">
+          <i class="fas fa-panorama"></i> Couverture Facebook Officielle (Cover HD)
+        </div>
+        <div class="preview-box">
+          <img src="facebook_cover_official.jpg" alt="Couverture Facebook ProjetBI" class="cover-preview">
+        </div>
+        <div style="margin-bottom:1rem">
+          <span class="network-badge fb"><i class="fab fa-facebook"></i> Bannière Facebook (Mobile & Desktop)</span>
+        </div>
+        <ul class="specs-list">
+          <li><span>Résolution :</span> <strong>1920 × 1080 px (16:9 HD)</strong></li>
+          <li><span>Compatibilité Mobile :</span> <strong>Zone centrale protégée</strong></li>
+          <li><span>Message principal :</span> <strong>Observatoire Citoyen • 300 Engagements</strong></li>
+        </ul>
+        <a href="facebook_cover_official.jpg" download="facebook_cover_official.jpg" class="btn btn-gold">
+          <i class="fas fa-download"></i> Télécharger la Bannière Facebook HD
+        </a>
+      </div>
+    </div>
+
+    <!-- GUIDE DÉPLOIEMENT SOCIAL MEDIA -->
+    <div class="card" style="margin-bottom:2.5rem">
+      <div class="card-title">
+        <i class="fas fa-list-check"></i> Guide Pas-à-Pas : Rebranding de « Laverite » ➔ « ProjetBI »
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:1.5rem">
+        <div>
+          <h3 style="color:var(--accent-gold);margin-bottom:.5rem">1. Nom & Nom d'Utilisateur</h3>
+          <p style="font-size:.9rem;color:var(--text-sub)">Sur Facebook > Paramètres de la Page > Général :</p>
+          <div class="copy-code">Nom : ProjetBI - Observatoire Citoyen<br>Nom d'utilisateur : @projetbi.sn</div>
+          <small style="color:var(--text-muted)">Si Meta demande une justification, indiquer « Évolution vers la plateforme citoyenne officielle de suivi www.projetbi.org ».</small>
+        </div>
+        <div>
+          <h3 style="color:var(--accent-gold);margin-bottom:.5rem">2. Catégorie & Bouton d'Action</h3>
+          <p style="font-size:.9rem;color:var(--text-sub)">Catégorie principale :</p>
+          <div class="copy-code">Site web d'actualités et médias<br>OU Organisation d'intérêt public</div>
+          <p style="font-size:.9rem;color:var(--text-sub)">Bouton d'action Facebook :</p>
+          <div class="copy-code">Bouton : « En savoir plus » ➔ https://projetbi.org</div>
+        </div>
+        <div>
+          <h3 style="color:var(--accent-gold);margin-bottom:.5rem">3. Biographie Officielle Facebook</h3>
+          <p style="font-size:.9rem;color:var(--text-sub)">À copier dans « À propos » :</p>
+          <div class="copy-code">🇸🇳 Observatoire citoyen indépendant de suivi des 300 engagements du Président Bassirou Diomaye Faye et des réformes législatives (Ousmane Sonko). Données vérifiées & transparence citoyenne. Jub · Jubal · Jubanti. 🌐 https://projetbi.org</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MATRICE DES RÉSEAUX (INSTA, TIKTOK, TWITTER) -->
+    <div class="card">
+      <div class="card-title">
+        <i class="fas fa-share-nodes"></i> Matrice de Création : Instagram, TikTok & Twitter / X
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:1.5rem">
+        <!-- INSTAGRAM -->
+        <div style="background:rgba(0,0,0,0.25);padding:1.2rem;border-radius:12px;border:1px solid var(--border-subtle)">
+          <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem">
+            <i class="fab fa-instagram" style="font-size:1.5rem;color:#E4405F"></i>
+            <h3 style="font-size:1.15rem">Instagram</h3>
+          </div>
+          <p style="font-size:.85rem;color:var(--text-muted)">Nom : <strong>ProjetBI • Observatoire Citoyen</strong></p>
+          <p style="font-size:.85rem;color:var(--text-muted)">Handle : <strong>@projetbi_sn</strong> ou <strong>@projetbi.org</strong></p>
+          <div class="copy-code">
+            🛡️ Observatoire citoyen indépendant du Sénégal 🇸🇳<br>
+            📊 Suivi en direct des 300 engagements du Projet<br>
+            ⚖️ Jub · Jubal · Jubanti<br>
+            👉 Analyses, bilans &amp; revues de presse quotidiennes ⬇️<br>
+            projetbi.org
+          </div>
+        </div>
+
+        <!-- TIKTOK -->
+        <div style="background:rgba(0,0,0,0.25);padding:1.2rem;border-radius:12px;border:1px solid var(--border-subtle)">
+          <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem">
+            <i class="fab fa-tiktok" style="font-size:1.5rem;color:#00F2FE"></i>
+            <h3 style="font-size:1.15rem">TikTok</h3>
+          </div>
+          <p style="font-size:.85rem;color:var(--text-muted)">Nom : <strong>ProjetBI Sénégal 🇸🇳</strong></p>
+          <p style="font-size:.85rem;color:var(--text-muted)">Handle : <strong>@projetbi_sn</strong></p>
+          <div class="copy-code">
+            🇸🇳 Gardiens du Projet PASTEF.<br>
+            📊 Décryptage rapide des réformes &amp; promesses en direct.<br>
+            Jub · Jubal · Jubanti.<br>
+            🔗 projetbi.org
+          </div>
+        </div>
+
+        <!-- TWITTER / X -->
+        <div style="background:rgba(0,0,0,0.25);padding:1.2rem;border-radius:12px;border:1px solid var(--border-subtle)">
+          <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem">
+            <i class="fab fa-x-twitter" style="font-size:1.5rem;color:#FFFFFF"></i>
+            <h3 style="font-size:1.15rem">Twitter / X</h3>
+          </div>
+          <p style="font-size:.85rem;color:var(--text-muted)">Nom : <strong>ProjetBI — Observatoire Citoyen</strong></p>
+          <p style="font-size:.85rem;color:var(--text-muted)">Handle : <strong>@ProjetBI_SN</strong> ou <strong>@projetbi_org</strong></p>
+          <div class="copy-code">
+            Observatoire citoyen indépendant du Sénégal 🇸🇳. Suivi factuel des 300 engagements présidentiels (B. D. Faye) &amp; réformes (O. Sonko). Jub • Jubal • Jubanti. https://projetbi.org
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
