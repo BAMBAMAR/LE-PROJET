@@ -8,24 +8,24 @@
 
   <!-- Fond Circulaire Épuré -->
   <circle cx="200" cy="200" r="190" fill="url(#cleanBg)" />
-  <circle cx="200" cy="200" r="184" fill="none" stroke="rgba(201, 168, 76, 0.4)" stroke-width="2" />
+  <circle cx="200" cy="200" r="184" fill="none" stroke="rgba(201, 168, 76, 0.45)" stroke-width="2" />
 
-  <!-- Étoile d'Or Minimaliste -->
-  <polygon points="200,80 206,96 223,96 209,106 214,122 200,113 186,122 191,106 177,96 194,96" fill="#C9A84C" />
-
-  <!-- Monogramme JJJ Géométrique Plat (Vert, Jaune, Rouge) -->
-  <g transform="translate(115, 140)">
-    <!-- Premier J (Vert) -->
-    <path d="M 15,0 L 40,0 L 40,75 C 40,95 24,106 0,103 C 4,92 15,90 15,75 L 15,0 Z" fill="#00853F" />
-    <!-- Deuxième J (Jaune) -->
-    <path d="M 72,0 L 97,0 L 97,85 C 97,105 81,116 57,113 C 61,102 72,100 72,85 L 72,0 Z" fill="#FDEF42" />
-    <!-- Troisième J (Rouge) -->
-    <path d="M 130,0 L 155,0 L 155,75 C 155,95 139,106 115,103 C 119,92 130,90 130,75 L 130,0 Z" fill="#E31B23" />
+  <!-- Monogramme JJJ Typographique avec ÉTOILE VERTE OFFICIELLE AU MILIEU DU J JAUNE -->
+  <g transform="translate(68, 80)">
+    <!-- J1 Vert Sénégal -->
+    <text x="30" y="112" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="112" fill="#00853F" letter-spacing="-4">J</text>
+    <!-- J2 Jaune Sénégal -->
+    <text x="78" y="112" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="112" fill="#FDEF42" letter-spacing="-4">J</text>
+    <!-- ★ ÉTOILE VERTE CENTRÉE AU MILIEU EXACT DE LA TIGE DU J JAUNE ★ -->
+    <polygon points="113.2,57.8 115.4,63.7 121.8,64.0 116.8,68.0 118.5,74.1 113.2,70.6 107.9,74.1 109.6,68.0 104.6,64.0 111.0,63.7" fill="#00853F" />
+    <!-- J3 Rouge Sénégal -->
+    <text x="126" y="112" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="112" fill="#E31B23" letter-spacing="-4">J</text>
   </g>
 
   <!-- Typographie PROJETBI -->
-  <text x="200" y="300" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="34" fill="#FFFFFF" letter-spacing="8" text-anchor="middle">PROJETBI</text>
+  <text x="200" y="278" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="34" fill="#FFFFFF" letter-spacing="9" text-anchor="middle">PROJETBI</text>
 
-  <!-- Sous-titre JUB JUBAL JUBANTI -->
-  <text x="200" y="332" font-family="'Inter', sans-serif" font-weight="600" font-size="13" fill="#C9A84C" letter-spacing="3" text-anchor="middle">JUB • JUBAL • JUBANTI</text>
+  <!-- Sous-titre JUB • JUBAL • JUBANTI -->
+  <text x="200" y="312" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#C9A84C" letter-spacing="4" text-anchor="middle">JUB • JUBAL • JUBANTI 🇸🇳</text>
+  <text x="200" y="338" font-family="'Inter', sans-serif" font-weight="500" font-size="11" fill="#8EAE9D" letter-spacing="2" text-anchor="middle">OBSERVATOIRE CITOYEN</text>
 </svg>

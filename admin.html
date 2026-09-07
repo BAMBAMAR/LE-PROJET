@@ -3400,7 +3400,7 @@ function studioDrawHeader(ctx, tagLabel, subTag, w, h, colors) {
   const startX = isLandscape ? 48 : 64;
   const startY = isLandscape ? 26 : 46;
   const logoH  = isLandscape ? 44 : 52;
-  const logoW  = isLandscape ? 230 : 255;
+  const logoW  = isLandscape ? 260 : 290;
 
   // Logo Badge PROJETBI
   const logoBg = c.isDark ? 'rgba(255,255,255,0.07)' : '#1A3D28';
@@ -3408,20 +3408,47 @@ function studioDrawHeader(ctx, tagLabel, subTag, w, h, colors) {
   studioRoundBox(ctx, startX, startY, logoW, logoH, 10, logoBg, logoBorder, 1.5);
   ctx.textAlign = 'left';
   
-  // Étoile d'or
-  ctx.fillStyle = c.starColor;
-  ctx.font = isLandscape ? 'bold 18px Inter, sans-serif' : 'bold 21px Inter, sans-serif';
-  ctx.fillText('★', startX + 16, startY + (isLandscape ? 29 : 34));
+  // Monogramme JJJ aux couleurs nationales (Vert, Jaune avec étoile verte, Rouge)
+  const jFont = isLandscape ? '900 16px Inter, sans-serif' : '900 19px Inter, sans-serif';
+  const jY = startY + (isLandscape ? 29 : 34);
+  const j1X = startX + (isLandscape ? 14 : 16);
+  const jSpacing = isLandscape ? 11 : 13;
+
+  ctx.font = jFont;
+  // J1 Vert Sénégal
+  ctx.fillStyle = '#00853F';
+  ctx.fillText('J', j1X, jY);
+
+  // J2 Jaune Sénégal
+  const j2X = j1X + jSpacing;
+  ctx.fillStyle = '#FDEF42';
+  ctx.fillText('J', j2X, jY);
+
+  // ★ Étoile verte au milieu du J jaune ★
+  const starCX = j2X + (isLandscape ? 5.5 : 6.5);
+  const starCY = jY - (isLandscape ? 5.5 : 6.5);
+  ctx.fillStyle = '#00853F';
+  ctx.font = isLandscape ? '900 7px Inter, sans-serif' : '900 8px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('★', starCX, starCY);
+  ctx.textAlign = 'left';
+
+  // J3 Rouge Sénégal
+  const j3X = j2X + jSpacing;
+  ctx.fillStyle = '#E31B23';
+  ctx.font = jFont;
+  ctx.fillText('J', j3X, jY);
 
   // Texte PROJETBI
   ctx.fillStyle = '#FFFFFF';
-  ctx.font = isLandscape ? '900 17px Inter, sans-serif' : '900 20px Inter, sans-serif';
-  ctx.fillText('PROJETBI', startX + (isLandscape ? 38 : 44), startY + (isLandscape ? 29 : 34));
+  ctx.font = isLandscape ? '900 16px Inter, sans-serif' : '900 19px Inter, sans-serif';
+  const nameX = j3X + (isLandscape ? 16 : 18);
+  ctx.fillText('PROJETBI', nameX, jY);
 
   // Tag observatoire à côté
   ctx.fillStyle = c.isDark ? '#F5E2A8' : '#A8CDB5';
   ctx.font = isLandscape ? '600 11px Inter, sans-serif' : '600 12px Inter, sans-serif';
-  ctx.fillText('• OBSERVATOIRE', startX + (isLandscape ? 132 : 152), startY + (isLandscape ? 28 : 33));
+  ctx.fillText('• OBSERVATOIRE', nameX + (isLandscape ? 84 : 98), jY - (isLandscape ? 1 : 1));
 
   // Catégorie / Domaine à droite avec calcul de largeur dynamique (aucun texte coupé)
   if (tagLabel) {

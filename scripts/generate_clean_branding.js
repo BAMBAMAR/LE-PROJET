@@ -10,7 +10,8 @@ async function generateBranding() {
   if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
 
   // ─────────────────────────────────────────────────────────────
-  // 1. AVATAR PROFILE MASTER (1080x1080) - Minimaliste & Institutionnel
+  // 1. AVATAR PROFILE MASTER (1080x1080)
+  //    Monogramme JJJ aux couleurs nationales avec ÉTOILE VERTE AU MILIEU DU J JAUNE
   // ─────────────────────────────────────────────────────────────
   await page.setViewportSize({ width: 1080, height: 1080 });
   await page.setContent(`
@@ -26,7 +27,7 @@ async function generateBranding() {
         body {
           width: 1080px;
           height: 1080px;
-          background: #081C12;
+          background: #07190F;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -40,13 +41,13 @@ async function generateBranding() {
           position: absolute;
           inset: 0;
           background-image: 
-            radial-gradient(circle at 50% 50%, rgba(45, 95, 63, 0.25) 0%, transparent 70%),
+            radial-gradient(circle at 50% 50%, rgba(45, 95, 63, 0.32) 0%, transparent 68%),
             linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
             linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
           background-size: 100% 100%, 60px 60px, 60px 60px;
         }
 
-        /* Cercle de délimitation sécurisé pour le recadrage social media */
+        /* Cercle de sécurité 100% calibré pour le découpage circulaire des réseaux sociaux */
         .circle-safe {
           width: 960px;
           height: 960px;
@@ -66,15 +67,15 @@ async function generateBranding() {
           position: absolute;
         }
 
-        /* Liseré tricolore minimaliste en arc de cercle */
+        /* Liseré tricolore en haut */
         .flag-strip {
           position: absolute;
-          top: 72px;
+          top: 68px;
           display: flex;
-          gap: 6px;
+          gap: 7px;
           align-items: center;
         }
-        .flag-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .flag-dot { width: 11px; height: 11px; border-radius: 50%; }
         .dot-g { background: #00853F; }
         .dot-y { background: #FDEF42; }
         .dot-r { background: #E31B23; }
@@ -91,54 +92,34 @@ async function generateBranding() {
 
         /* Monogramme JJJ Contemporain et Épuré */
         .monogram-container {
-          width: 280px;
-          height: 280px;
-          background: #0D281A;
+          width: 330px;
+          height: 330px;
+          background: #0C2417;
           border: 2px solid rgba(201, 168, 76, 0.45);
-          border-radius: 36px;
+          border-radius: 48px;
           display: flex;
-          flex-direction: column;
           align-items: center;
           justify-content: center;
-          margin-bottom: 2.5rem;
+          margin-bottom: 2.2rem;
           position: relative;
-          box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+          box-shadow: 0 24px 60px rgba(0,0,0,0.55);
         }
 
         .monogram-container::before {
           content: '';
           position: absolute;
-          inset: 8px;
-          border: 1px solid rgba(255,255,255,0.06);
-          border-radius: 28px;
+          inset: 10px;
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 38px;
         }
-
-        .star-top {
-          color: #C9A84C;
-          font-size: 2.2rem;
-          margin-bottom: 0.2rem;
-        }
-
-        .jjj-letters {
-          font-family: 'Inter', sans-serif;
-          font-weight: 900;
-          font-size: 6.2rem;
-          line-height: 1;
-          letter-spacing: -4px;
-          display: flex;
-          align-items: center;
-        }
-        .j1 { color: #00853F; }
-        .j2 { color: #FDEF42; margin: 0 2px; }
-        .j3 { color: #E31B23; }
 
         .brand-name {
           font-family: 'Inter', -apple-system, sans-serif;
-          font-size: 4.6rem;
+          font-size: 4.8rem;
           font-weight: 900;
-          letter-spacing: 12px;
+          letter-spacing: 14px;
           color: #FFFFFF;
-          margin-bottom: 0.8rem;
+          margin-bottom: 0.6rem;
           text-transform: uppercase;
         }
 
@@ -149,14 +130,14 @@ async function generateBranding() {
           font-weight: 600;
           color: #C9A84C;
           letter-spacing: 2px;
-          margin-bottom: 1.8rem;
+          margin-bottom: 1.6rem;
         }
 
         .tag-pill {
           background: rgba(255,255,255,0.05);
           border: 1px solid rgba(255,255,255,0.12);
           border-radius: 30px;
-          padding: 10px 28px;
+          padding: 10px 30px;
           font-size: 1.15rem;
           font-weight: 700;
           letter-spacing: 3px;
@@ -171,7 +152,7 @@ async function generateBranding() {
           font-size: 1.1rem;
           font-weight: 700;
           letter-spacing: 4px;
-          color: rgba(201, 168, 76, 0.8);
+          color: rgba(201, 168, 76, 0.85);
           text-transform: uppercase;
         }
       </style>
@@ -190,12 +171,17 @@ async function generateBranding() {
 
       <div class="center-content">
         <div class="monogram-container">
-          <div class="star-top">★</div>
-          <div class="jjj-letters">
-            <span class="j1">J</span>
-            <span class="j2">J</span>
-            <span class="j3">J</span>
-          </div>
+          <!-- Monogramme JJJ Vectoriel avec ÉTOILE VERTE OFFICIELLE CENTRÉE AU MILIEU DU J JAUNE -->
+          <svg viewBox="0 0 240 160" width="280" height="190">
+            <!-- J1 Vert Sénégal -->
+            <text x="35" y="122" font-family="'Inter', sans-serif" font-weight="900" font-size="124" fill="#00853F" letter-spacing="-4">J</text>
+            <!-- J2 Jaune Sénégal -->
+            <text x="88" y="122" font-family="'Inter', sans-serif" font-weight="900" font-size="124" fill="#FDEF42" letter-spacing="-4">J</text>
+            <!-- ★ ÉTOILE VERTE OFFICIELLE CENTRÉE AU MILIEU DU J JAUNE (cx=143.5, cy=76) ★ -->
+            <polygon points="143.5,66.5 145.9,72.8 152.5,73.1 147.3,77.2 149.1,83.7 143.5,80.0 137.9,83.7 139.7,77.2 134.5,73.1 141.1,72.8" fill="#00853F" />
+            <!-- J3 Rouge Sénégal -->
+            <text x="141" y="122" font-family="'Inter', sans-serif" font-weight="900" font-size="124" fill="#E31B23" letter-spacing="-4">J</text>
+          </svg>
         </div>
         <div class="brand-name">PROJETBI</div>
         <div class="brand-sub">L'Observatoire Citoyen du Sénégal</div>
@@ -206,10 +192,11 @@ async function generateBranding() {
   `);
 
   await page.screenshot({ path: path.join(outDir, 'projetbi_avatar_clean.png'), type: 'png' });
-  console.log('✅ Avatar clean généré : assets/branding/projetbi_avatar_clean.png');
+  console.log('✅ Avatar clean (étoile au milieu du J jaune) : assets/branding/projetbi_avatar_clean.png');
 
   // ─────────────────────────────────────────────────────────────
-  // 2. COUVERTURE FACEBOOK DATA-DRIVEN (1640x624) - Style Éditorial Sobre
+  // 2. COUVERTURE FACEBOOK DATA-DRIVEN (1640x624)
+  //    Avec le monogramme JJJ officiel & étoile au milieu du J jaune
   // ─────────────────────────────────────────────────────────────
   await page.setViewportSize({ width: 1640, height: 624 });
   await page.setContent(`
@@ -247,7 +234,6 @@ async function generateBranding() {
         .f-y { flex: 1; background: #FDEF42; }
         .f-r { flex: 1; background: #E31B23; }
 
-        /* Arrière plan et grille subtile */
         .bg-pattern {
           position: absolute;
           inset: 0;
@@ -271,7 +257,6 @@ async function generateBranding() {
           align-items: center;
         }
 
-        /* Colonne Gauche : Identité & Mission */
         .col-left {
           display: flex;
           flex-direction: column;
@@ -287,15 +272,39 @@ async function generateBranding() {
 
         .brand-badge {
           background: rgba(255,255,255,0.06);
-          border: 1px solid rgba(201, 168, 76, 0.4);
+          border: 1px solid rgba(201, 168, 76, 0.45);
           padding: 8px 18px;
-          border-radius: 8px;
+          border-radius: 10px;
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 12px;
         }
 
-        .brand-badge .star { color: #C9A84C; font-size: 1.2rem; }
+        .mini-jjj {
+          display: flex;
+          align-items: center;
+          font-family: 'Inter', sans-serif;
+          font-weight: 900;
+          font-size: 1.25rem;
+          line-height: 1;
+        }
+        .mini-j1 { color: #00853F; }
+        .mini-j2 { 
+          color: #FDEF42; 
+          margin: 0 1px; 
+          position: relative; 
+        }
+        .mini-j3 { color: #E31B23; }
+        .mini-star {
+          position: absolute;
+          top: 48%;
+          left: 54%;
+          transform: translate(-50%, -50%);
+          color: #00853F;
+          font-size: 0.5rem;
+          line-height: 1;
+        }
+
         .brand-badge .name { font-weight: 900; font-size: 1.3rem; letter-spacing: 3px; color: #FFFFFF; }
 
         .tag-status {
@@ -351,7 +360,6 @@ async function generateBranding() {
           font-weight: 700;
         }
 
-        /* Colonne Droite : Données Factuelles Épurées */
         .col-right {
           background: rgba(13, 40, 26, 0.6);
           border: 1px solid rgba(255,255,255,0.08);
@@ -432,7 +440,13 @@ async function generateBranding() {
         <div class="col-left">
           <div class="brand-header">
             <div class="brand-badge">
-              <span class="star">★</span>
+              <svg viewBox="0 0 84 32" width="64" height="26" style="display:block;">
+                <text x="6" y="24" font-family="'Inter', sans-serif" font-weight="900" font-size="28" fill="#00853F">J</text>
+                <text x="26" y="24" font-family="'Inter', sans-serif" font-weight="900" font-size="28" fill="#FDEF42">J</text>
+                <!-- Étoile Verte au Milieu du J Jaune (exacte) -->
+                <polygon points="34.8,10.5 35.4,11.9 36.9,12.0 35.7,13.0 36.1,14.5 34.8,13.7 33.5,14.5 33.9,13.0 32.7,12.0 34.2,11.9" fill="#00853F" />
+                <text x="47" y="24" font-family="'Inter', sans-serif" font-weight="900" font-size="28" fill="#E31B23">J</text>
+              </svg>
               <span class="name">PROJETBI</span>
             </div>
             <div class="tag-status">● Baromètre Citoyen 2024–2029</div>
@@ -454,7 +468,7 @@ async function generateBranding() {
           </div>
         </div>
 
-        <!-- Droite : Métriques & Transparence -->
+        <!-- Droite -->
         <div class="col-right">
           <div class="stats-title">
             <span>OBSERVATION CITOYENNE</span>
@@ -494,7 +508,7 @@ async function generateBranding() {
   console.log('✅ Bannière Facebook clean générée : assets/branding/facebook_cover_clean.png');
 
   // ─────────────────────────────────────────────────────────────
-  // 3. LOGO MINIMALISTE VECTORIEL SVG (Pour site, favicons et prints)
+  // 3. LOGO SVG VECTORIEL : ÉTOILE VERTE CENTRÉE SUR LE J JAUNE
   // ─────────────────────────────────────────────────────────────
   const cleanSvg = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
@@ -507,31 +521,71 @@ async function generateBranding() {
 
   <!-- Fond Circulaire Épuré -->
   <circle cx="200" cy="200" r="190" fill="url(#cleanBg)" />
-  <circle cx="200" cy="200" r="184" fill="none" stroke="rgba(201, 168, 76, 0.4)" stroke-width="2" />
+  <circle cx="200" cy="200" r="184" fill="none" stroke="rgba(201, 168, 76, 0.45)" stroke-width="2" />
 
-  <!-- Étoile d'Or Minimaliste -->
-  <polygon points="200,80 206,96 223,96 209,106 214,122 200,113 186,122 191,106 177,96 194,96" fill="#C9A84C" />
-
-  <!-- Monogramme JJJ Géométrique Plat (Vert, Jaune, Rouge) -->
-  <g transform="translate(115, 140)">
-    <!-- Premier J (Vert) -->
-    <path d="M 15,0 L 40,0 L 40,75 C 40,95 24,106 0,103 C 4,92 15,90 15,75 L 15,0 Z" fill="#00853F" />
-    <!-- Deuxième J (Jaune) -->
-    <path d="M 72,0 L 97,0 L 97,85 C 97,105 81,116 57,113 C 61,102 72,100 72,85 L 72,0 Z" fill="#FDEF42" />
-    <!-- Troisième J (Rouge) -->
-    <path d="M 130,0 L 155,0 L 155,75 C 155,95 139,106 115,103 C 119,92 130,90 130,75 L 130,0 Z" fill="#E31B23" />
+  <!-- Monogramme JJJ Typographique avec ÉTOILE VERTE OFFICIELLE AU MILIEU DU J JAUNE -->
+  <g transform="translate(68, 80)">
+    <!-- J1 Vert Sénégal -->
+    <text x="30" y="112" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="112" fill="#00853F" letter-spacing="-4">J</text>
+    <!-- J2 Jaune Sénégal -->
+    <text x="78" y="112" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="112" fill="#FDEF42" letter-spacing="-4">J</text>
+    <!-- ★ ÉTOILE VERTE CENTRÉE AU MILIEU EXACT DE LA TIGE DU J JAUNE ★ -->
+    <polygon points="113.2,57.8 115.4,63.7 121.8,64.0 116.8,68.0 118.5,74.1 113.2,70.6 107.9,74.1 109.6,68.0 104.6,64.0 111.0,63.7" fill="#00853F" />
+    <!-- J3 Rouge Sénégal -->
+    <text x="126" y="112" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="112" fill="#E31B23" letter-spacing="-4">J</text>
   </g>
 
   <!-- Typographie PROJETBI -->
-  <text x="200" y="300" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="34" fill="#FFFFFF" letter-spacing="8" text-anchor="middle">PROJETBI</text>
+  <text x="200" y="278" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="34" fill="#FFFFFF" letter-spacing="9" text-anchor="middle">PROJETBI</text>
 
-  <!-- Sous-titre JUB JUBAL JUBANTI -->
-  <text x="200" y="332" font-family="'Inter', sans-serif" font-weight="600" font-size="13" fill="#C9A84C" letter-spacing="3" text-anchor="middle">JUB • JUBAL • JUBANTI</text>
+  <!-- Sous-titre JUB • JUBAL • JUBANTI -->
+  <text x="200" y="312" font-family="'Inter', sans-serif" font-weight="700" font-size="13" fill="#C9A84C" letter-spacing="4" text-anchor="middle">JUB • JUBAL • JUBANTI 🇸🇳</text>
+  <text x="200" y="338" font-family="'Inter', sans-serif" font-weight="500" font-size="11" fill="#8EAE9D" letter-spacing="2" text-anchor="middle">OBSERVATOIRE CITOYEN</text>
 </svg>
   `.trim();
 
   fs.writeFileSync(path.join(outDir, 'projetbi_logo_clean.svg'), cleanSvg);
-  console.log('✅ Logo SVG clean généré : assets/branding/projetbi_logo_clean.svg');
+  console.log('✅ Logo SVG clean (étoile au milieu du J jaune) : assets/branding/projetbi_logo_clean.svg');
+
+  // ─────────────────────────────────────────────────────────────
+  // 4. ICON / BADGE MASTER SANS TEXTE (512x512)
+  // ─────────────────────────────────────────────────────────────
+  await page.setViewportSize({ width: 512, height: 512 });
+  await page.setContent(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
+      <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+          width: 512px;
+          height: 512px;
+          background: #061A0F;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 110px;
+          overflow: hidden;
+          border: 2px solid rgba(201, 168, 76, 0.4);
+        }
+      </style>
+    </head>
+    <body>
+      <svg viewBox="0 0 240 160" width="380" height="250">
+        <text x="35" y="122" font-family="'Inter', sans-serif" font-weight="900" font-size="124" fill="#00853F" letter-spacing="-4">J</text>
+        <text x="88" y="122" font-family="'Inter', sans-serif" font-weight="900" font-size="124" fill="#FDEF42" letter-spacing="-4">J</text>
+        <!-- ★ ÉTOILE VERTE CENTRÉE AU MILIEU DU J JAUNE ★ -->
+        <polygon points="143.5,66.5 145.9,72.8 152.5,73.1 147.3,77.2 149.1,83.7 143.5,80.0 137.9,83.7 139.7,77.2 134.5,73.1 141.1,72.8" fill="#00853F" />
+        <text x="141" y="122" font-family="'Inter', sans-serif" font-weight="900" font-size="124" fill="#E31B23" letter-spacing="-4">J</text>
+      </svg>
+    </body>
+    </html>
+  `);
+  await page.screenshot({ path: path.join(outDir, 'projetbi_icon_clean.png'), type: 'png' });
+  console.log('✅ Icône JJJ clean générée : assets/branding/projetbi_icon_clean.png');
 
   await browser.close();
 }
