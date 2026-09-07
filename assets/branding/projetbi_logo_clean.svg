@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <radialGradient id="cleanBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0F3822" />
+      <stop offset="100%" stop-color="#061A0F" />
+    </radialGradient>
+  </defs>
+
+  <!-- Fond Circulaire Épuré -->
+  <circle cx="200" cy="200" r="190" fill="url(#cleanBg)" />
+  <circle cx="200" cy="200" r="184" fill="none" stroke="rgba(201, 168, 76, 0.4)" stroke-width="2" />
+
+  <!-- Étoile d'Or Minimaliste -->
+  <polygon points="200,80 206,96 223,96 209,106 214,122 200,113 186,122 191,106 177,96 194,96" fill="#C9A84C" />
+
+  <!-- Monogramme JJJ Géométrique Plat (Vert, Jaune, Rouge) -->
+  <g transform="translate(115, 140)">
+    <!-- Premier J (Vert) -->
+    <path d="M 15,0 L 40,0 L 40,75 C 40,95 24,106 0,103 C 4,92 15,90 15,75 L 15,0 Z" fill="#00853F" />
+    <!-- Deuxième J (Jaune) -->
+    <path d="M 72,0 L 97,0 L 97,85 C 97,105 81,116 57,113 C 61,102 72,100 72,85 L 72,0 Z" fill="#FDEF42" />
+    <!-- Troisième J (Rouge) -->
+    <path d="M 130,0 L 155,0 L 155,75 C 155,95 139,106 115,103 C 119,92 130,90 130,75 L 130,0 Z" fill="#E31B23" />
+  </g>
+
+  <!-- Typographie PROJETBI -->
+  <text x="200" y="300" font-family="'Inter', -apple-system, sans-serif" font-weight="900" font-size="34" fill="#FFFFFF" letter-spacing="8" text-anchor="middle">PROJETBI</text>
+
+  <!-- Sous-titre JUB JUBAL JUBANTI -->
+  <text x="200" y="332" font-family="'Inter', sans-serif" font-weight="600" font-size="13" fill="#C9A84C" letter-spacing="3" text-anchor="middle">JUB • JUBAL • JUBANTI</text>
+</svg>
