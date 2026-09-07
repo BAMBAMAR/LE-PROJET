@@ -1,23 +1,23 @@
 {
-  "last_updated": "2026-09-07T00:08:08.044Z",
+  "last_updated": "2026-09-07T00:55:21.112Z",
   "press": [
     {
       "id": "1",
-      "title": "Le Soleil",
+      "title": "Quotidien",
       "date": "07/09/2026",
       "image": "revuedepresse/revue_2026-09-07_1.webp",
       "link": "#"
     },
     {
       "id": "2",
-      "title": "Quotidien",
+      "title": "Le Point",
       "date": "07/09/2026",
       "image": "revuedepresse/revue_2026-09-07_2.webp",
       "link": "#"
     },
     {
       "id": "3",
-      "title": "L'Évidence",
+      "title": "Grand Panel",
       "date": "07/09/2026",
       "image": "revuedepresse/revue_2026-09-07_3.webp",
       "link": "#"
@@ -31,21 +31,21 @@
     },
     {
       "id": "5",
-      "title": "Quotidien",
+      "title": "Scoop",
       "date": "07/09/2026",
       "image": "revuedepresse/revue_2026-09-07_5.webp",
       "link": "#"
     },
     {
       "id": "6",
-      "title": "Quotidien",
+      "title": "L'As",
       "date": "07/09/2026",
       "image": "revuedepresse/revue_2026-09-07_6.webp",
       "link": "#"
     },
     {
       "id": "7",
-      "title": "Quotidien",
+      "title": "Le Populaire",
       "date": "07/09/2026",
       "image": "revuedepresse/revue_2026-09-07_7.webp",
       "link": "#"
@@ -59,28 +59,28 @@
     },
     {
       "id": "9",
-      "title": "Le Quotidien",
+      "title": "Rewmi Quotidien",
       "date": "07/09/2026",
       "image": "revuedepresse/revue_2026-09-07_9.webp",
       "link": "#"
     },
     {
       "id": "10",
-      "title": "Direct News",
+      "title": "Quotidien",
       "date": "07/09/2026",
       "image": "revuedepresse/revue_2026-09-07_10.webp",
       "link": "#"
     },
     {
       "id": "11",
-      "title": "Tribune",
+      "title": "Rewmi Quotidien",
       "date": "07/09/2026",
       "image": "revuedepresse/revue_2026-09-07_11.webp",
       "link": "#"
     },
     {
       "id": "12",
-      "title": "L'Info",
+      "title": "Quotidien",
       "date": "07/09/2026",
       "image": "revuedepresse/revue_2026-09-07_12.webp",
       "link": "#"
@@ -94,21 +94,21 @@
     },
     {
       "id": "14",
-      "title": "L'As",
+      "title": "Quotidien",
       "date": "07/09/2026",
       "image": "revuedepresse/revue_2026-09-07_14.webp",
       "link": "#"
     },
     {
       "id": "15",
-      "title": "Quotidien",
+      "title": "L'Évidence",
       "date": "07/09/2026",
       "image": "revuedepresse/revue_2026-09-07_15.webp",
       "link": "#"
     },
     {
       "id": "16",
-      "title": "Le Populaire",
+      "title": "Quotidien",
       "date": "07/09/2026",
       "image": "revuedepresse/revue_2026-09-07_16.webp",
       "link": "#"
@@ -139,13 +139,6 @@
       "title": "Quotidien",
       "date": "07/09/2026",
       "image": "revuedepresse/revue_2026-09-07_20.webp",
-      "link": "#"
-    },
-    {
-      "id": "21",
-      "title": "Quotidien",
-      "date": "07/09/2026",
-      "image": "revuedepresse/revue_2026-09-07_21.webp",
       "link": "#"
     }
   ]
