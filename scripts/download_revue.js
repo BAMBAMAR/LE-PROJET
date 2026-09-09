@@ -397,28 +397,29 @@ async function findTodayPcbAlbum(page, pageUrl, sourceName, allowLatestPcbWithou
         }
       }
 
-      // Stratégie 2 : Recherche de liens set=pcb avec remontée profonde (Profils personnels Facebook)
-      const pcbLinks = Array.from(document.querySelectorAll('a[href*="set=pcb."]')).slice(0, 30);
-      for (const link of pcbLinks) {
-        if (!link.href || seen.has(link.href)) continue;
-        let parent = link;
-        let fullContext = '';
-        for (let level = 0; level < 18 && parent && parent !== document.body; level++, parent = parent.parentElement) {
-          const txt = parent.innerText || '';
-          if (txt.length > fullContext.length) {
-            fullContext = txt;
+        // Stratégie 2 : Recherche de liens set=pcb avec remontée profonde (Profils personnels Facebook)
+        const pcbLinks = Array.from(document.querySelectorAll('a[href*="set=pcb."]')).slice(0, 30);
+        for (const link of pcbLinks) {
+          if (!link.href || seen.has(link.href)) continue;
+          let parent = link;
+          let fullContext = '';
+          for (let level = 0; level < 18 && parent && parent !== document.body; level++, parent = parent.parentElement) {
+            const txt = parent.innerText || '';
+            if (txt.length > fullContext.length) {
+              fullContext = txt;
+            }
+            const hasKeyword = keywords.some(k => txt.toLowerCase().includes(k));
+            if (hasKeyword && (txt.includes('#Rp221') || txt.includes('#rp221') || txt.toLowerCase().includes('revue'))) {
+              fullContext = txt;
+              break;
+            }
           }
-          if (keywords.some(k => txt.toLowerCase().includes(k)) && (txt.includes('07') || txt.toLowerCase().includes('septembre') || txt.includes('#Rp221') || txt.includes('#rp221'))) {
-            fullContext = txt;
-            break;
-          }
+          const ctxLower = fullContext.toLowerCase();
+          const isRevue = keywords.some(keyword => ctxLower.includes(keyword)) ||
+            ctxLower.includes('journal') || ctxLower.includes('quotidien') || ctxLower.includes('kiosque') || ctxLower.includes('unes') || ctxLower.includes('rp221');
+          seen.add(link.href);
+          items.push({ href: link.href, context: fullContext, isRevue });
         }
-        const ctxLower = fullContext.toLowerCase();
-        const isRevue = keywords.some(keyword => ctxLower.includes(keyword)) ||
-          ctxLower.includes('journal') || ctxLower.includes('quotidien') || ctxLower.includes('kiosque') || ctxLower.includes('unes') || ctxLower.includes('rp221');
-        seen.add(link.href);
-        items.push({ href: link.href, context: fullContext, isRevue });
-      }
 
       // Stratégie 3 : Recherche inversée par texte de publication (#Rp221, Revue de Presse, Unes du...)
       const allTextNodes = Array.from(document.querySelectorAll('a, span, div, p'));
