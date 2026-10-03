@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+const fs = require('fs');
+const path = require('path');
+
+const brandKitHtml = `<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -907,3 +910,7 @@
   </script>
 </body>
 </html>
+`;
+
+fs.writeFileSync(path.resolve('assets/branding/brand_kit.html'), brandKitHtml, 'utf8');
+console.log('brand_kit.html successfully rewritten into modern, luminous, comprehensive brand portal!');

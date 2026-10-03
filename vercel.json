@@ -5,6 +5,8 @@
     { "source": "/admin", "destination": "/admin.html" },
     { "source": "/actualites", "destination": "/actualites.html" },
     { "source": "/ideologie", "destination": "/ideologie.html" },
-    { "source": "/kit-communication", "destination": "/kit-communication.html" }
+    { "source": "/kit-communication", "destination": "/kit-communication.html" },
+    { "source": "/brand-kit", "destination": "/assets/branding/brand_kit.html" },
+    { "source": "/brand_kit", "destination": "/assets/branding/brand_kit.html" }
   ]
 }
