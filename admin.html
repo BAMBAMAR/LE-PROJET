@@ -821,7 +821,7 @@ textarea.form-control{resize:vertical;min-height:90px}
         <div class="card-head" style="flex-wrap:wrap;gap:.75rem">
           <div style="display:flex;align-items:center;gap:.6rem">
             <span class="card-title"><i class="fas fa-bullhorn" style="color:var(--green)"></i> Studio Réseaux Sociaux & Visuels HD</span>
-            <span class="badge badge-green" style="font-size:.68rem">Retina 1080×1080</span>
+            <span id="stTopDefBadge" class="badge badge-green" style="font-size:.68rem">1080×1080 HD</span>
           </div>
           <div style="display:flex;align-items:center;gap:.5rem;margin-left:auto;flex-wrap:wrap">
             <a href="assets/branding/brand_kit.html" target="_blank" class="btn btn-outline btn-sm" style="color:var(--gold);border-color:var(--gold)">
@@ -892,9 +892,9 @@ textarea.form-control{resize:vertical;min-height:90px}
             <!-- FORM 1: FLASH ACTUALITÉ -->
             <div id="studioFormFlash">
               <div class="form-group" style="margin-bottom:.85rem">
-                <label style="display:flex;justify-content:space-between">
+                <label style="display:flex;justify-content:space-between;align-items:center">
                   <span>⚡ Pré-remplir depuis un article de news.json</span>
-                  <span style="color:var(--green);font-size:.72rem">1 clic</span>
+                  <button type="button" class="btn btn-outline btn-xs" onclick="studioPickLatestNews()" style="font-size:.7rem"><i class="fas fa-bolt"></i> Dernière actu</button>
                 </label>
                 <select class="form-control" id="stFlashPickNews" onchange="studioOnPickNews(this.value)">
                   <option value="">— Choisir un article de news.json —</option>
@@ -937,9 +937,9 @@ textarea.form-control{resize:vertical;min-height:90px}
             <!-- FORM 2: ENGAGEMENT SUIVI -->
             <div id="studioFormEngagement" style="display:none">
               <div class="form-group" style="margin-bottom:.85rem">
-                <label style="display:flex;justify-content:space-between">
+                <label style="display:flex;justify-content:space-between;align-items:center">
                   <span>🎯 Sélectionner un engagement du programme</span>
-                  <span style="color:var(--green);font-size:.72rem">Depuis promises.json</span>
+                  <button type="button" class="btn btn-outline btn-xs" onclick="studioPickRandomPromise()" style="font-size:.7rem"><i class="fas fa-dice"></i> Au hasard</button>
                 </label>
                 <select class="form-control" id="stEngPickPromise" onchange="studioOnPickPromise(this.value)">
                   <option value="">— Choisir un engagement suivi —</option>
@@ -988,7 +988,7 @@ textarea.form-control{resize:vertical;min-height:90px}
             <div id="studioFormBilan" style="display:none">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem">
                 <label style="font-weight:600;color:var(--text)">Données du bilan</label>
-                <button class="btn btn-outline btn-xs" onclick="studioSyncStatsFromDB()"><i class="fas fa-sync"></i> Recharger de la base</button>
+                <button type="button" class="btn btn-outline btn-xs" onclick="studioSyncStatsFromDB()"><i class="fas fa-sync"></i> Recharger de la base</button>
               </div>
 
               <div class="form-row cols-3" style="margin-bottom:.75rem">
@@ -1012,9 +1012,9 @@ textarea.form-control{resize:vertical;min-height:90px}
                 <div class="form-group">
                   <label>Mode de mise en avant</label>
                   <select class="form-control" id="stBilanMode" onchange="studioRenderAll()">
-                    <option value="global">Bilan 4 Statuts + Taux</option>
+                    <option value="global" selected>Bilan 4 Statuts + Taux</option>
                     <option value="chiffre_choc">Grand Chiffre Record</option>
-                    <option value="note">Évaluation Citoyenne</option>
+                    <option value="note">Évaluation Citoyenne (/5 ★)</option>
                   </select>
                 </div>
                 <div class="form-group">
@@ -1028,7 +1028,7 @@ textarea.form-control{resize:vertical;min-height:90px}
             <div id="studioFormRevue" style="display:none">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem">
                 <label style="font-weight:600;color:var(--text)">Les Unes & Titres du Jour</label>
-                <button class="btn btn-outline btn-xs" onclick="studioFillLatestPress()"><i class="fas fa-magic"></i> Remplir avec les dernières unes</button>
+                <button type="button" class="btn btn-outline btn-xs" onclick="studioFillLatestPress()"><i class="fas fa-magic"></i> Remplir avec les unes d'aujourd'hui</button>
               </div>
 
               <div class="form-row cols-2" style="margin-bottom:.75rem">
@@ -1065,8 +1065,10 @@ textarea.form-control{resize:vertical;min-height:90px}
                   <option value="">— Choisir une citation marquante —</option>
                   <option value="diomaye_investiture">Diomaye Faye : « Je mesure le poids de la charge et la gravité de l'heure... »</option>
                   <option value="diomaye_jubanti">Diomaye Faye : « Jub, Jubal, Jubanti n'est pas un slogan, c'est une exigence morale... »</option>
+                  <option value="diomaye_jeunesse">Diomaye Faye : « La jeunesse est le cœur battant de notre Nation... »</option>
                   <option value="sonko_souverainete">Ousmane Sonko : « Notre souveraineté commence par notre capacité à nous nourrir... »</option>
                   <option value="sonko_solutions">Ousmane Sonko : « Le changement que nous portons exige rigueur, méthode et constance. »</option>
+                  <option value="sonko_justice">Ousmane Sonko : « La justice est le socle inébranlable de la confiance citoyenne... »</option>
                 </select>
               </div>
 
@@ -1092,43 +1094,86 @@ textarea.form-control{resize:vertical;min-height:90px}
         <!-- RIGHT COLUMN: Live Canvas & Multi-Platform Publishing Hub -->
         <div style="display:flex;flex-direction:column;gap:1rem">
 
-          <!-- Canvas Preview Card -->
+          <!-- Canvas Preview Card with Direct Format & Scale Bar -->
           <div class="card">
-            <div class="card-head">
-              <span class="card-title"><i class="fas fa-eye" style="color:var(--blue)"></i> Aperçu HD Studio</span>
-              <span id="studioRatioBadge" class="badge badge-gray">1080 × 1080</span>
+            <div class="card-head" style="flex-wrap:wrap;gap:.5rem">
+              <div style="display:flex;align-items:center;gap:.5rem">
+                <span class="card-title"><i class="fas fa-eye" style="color:var(--blue)"></i> Aperçu Direct</span>
+                <span id="studioRatioBadge" class="badge badge-green">1080 × 1080 HD</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:.35rem;margin-left:auto">
+                <button type="button" class="btn btn-outline btn-xs" onclick="studioOpenFullscreen()" title="Agrandir en plein écran"><i class="fas fa-expand"></i> Plein écran</button>
+              </div>
             </div>
-            <div class="card-body" style="background:var(--bg3);display:flex;flex-direction:column;align-items:center;gap:.9rem;padding:1.1rem">
-              <canvas id="studioCanvas" width="1080" height="1080" style="width:100%;max-width:440px;border-radius:12px;box-shadow:0 12px 36px rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.08)"></canvas>
+            
+            <div class="card-body" style="background:var(--bg3);display:flex;flex-direction:column;align-items:center;gap:.85rem;padding:1rem">
+              
+              <!-- Quick Switcher Bar (Format, Résolution, Thème) -->
+              <div style="display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;width:100%;font-size:.76rem">
+                <div class="btn-group" style="display:inline-flex;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.1)">
+                  <button type="button" class="btn btn-xs" id="qbtn-ratio-11" onclick="studioSetRatio('1:1')" style="padding:.25rem .55rem">⬛ 1:1 Carré</button>
+                  <button type="button" class="btn btn-xs" id="qbtn-ratio-169" onclick="studioSetRatio('16:9')" style="padding:.25rem .55rem">🖥️ 16:9 Paysage</button>
+                </div>
+
+                <div class="btn-group" style="display:inline-flex;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.1)">
+                  <button type="button" class="btn btn-xs" id="qbtn-scale-1" onclick="studioSetScale(1)" style="padding:.25rem .55rem">HD</button>
+                  <button type="button" class="btn btn-xs" id="qbtn-scale-2" onclick="studioSetScale(2)" style="padding:.25rem .55rem">4K Ultra-HD</button>
+                </div>
+
+                <div class="btn-group" style="display:inline-flex;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.1)">
+                  <button type="button" class="btn btn-xs" id="qbtn-theme-vert" onclick="studioSetTheme('projetbi_prestige')" title="Vert Prestige Républicain">🇸🇳 Vert</button>
+                  <button type="button" class="btn btn-xs" id="qbtn-theme-blanc" onclick="studioSetTheme('white_republican')" title="Blanc Républicain">⚪ Blanc</button>
+                  <button type="button" class="btn btn-xs" id="qbtn-theme-noir" onclick="studioSetTheme('dark_minimal')" title="Noir & Or Minimaliste">⚫ Noir</button>
+                </div>
+              </div>
+
+              <!-- Main Interactive Canvas -->
+              <canvas id="studioCanvas" width="1080" height="1080" style="width:100%;max-width:440px;border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.09);cursor:pointer" onclick="studioOpenFullscreen()"></canvas>
 
               <!-- Download & Copy image buttons -->
               <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;width:100%">
-                <button class="btn btn-primary btn-sm" onclick="studioDownloadHD()"><i class="fas fa-download"></i> Télécharger l'image HD</button>
-                <button class="btn btn-outline btn-sm" onclick="studioCopyImage()"><i class="fas fa-copy"></i> Copier l'image HD</button>
+                <button class="btn btn-primary btn-sm" onclick="studioDownloadHD()"><i class="fas fa-download"></i> <span id="stDownloadBtnLabel">Télécharger l'image HD</span></button>
+                <button class="btn btn-outline btn-sm" onclick="studioCopyImage()"><i class="fas fa-copy"></i> Copier l'image</button>
+                <button class="btn btn-outline btn-sm" onclick="studioOpenFullscreen()"><i class="fas fa-search-plus"></i> Inspecter à 100%</button>
               </div>
             </div>
           </div>
 
-          <!-- Social Publishing Center -->
+          <!-- Multi-Platform Social Publishing Center -->
           <!-- 1. FACEBOOK PUBLISHING CARD -->
-          <div class="card" style="border-color:rgba(24,119,242,.4);background:linear-gradient(180deg,rgba(24,119,242,.05),transparent)">
+          <div class="card" style="border-color:rgba(24,119,242,.4);background:linear-gradient(180deg,rgba(24,119,242,.06),transparent)">
             <div class="card-head" style="padding:.75rem 1rem">
               <div style="display:flex;align-items:center;gap:.5rem">
-                <i class="fab fa-facebook" style="color:#1877F2;font-size:1.1rem"></i>
-                <span class="card-title" style="font-size:.86rem;font-weight:700">Publication Facebook Page</span>
+                <i class="fab fa-facebook" style="color:#1877F2;font-size:1.15rem"></i>
+                <div>
+                  <span class="card-title" style="font-size:.86rem;font-weight:700">Publication Page Facebook</span>
+                  <div id="fbPageNameDisplay" style="font-size:.72rem;color:var(--text3)">Page : Laverite (135 abonnés)</div>
+                </div>
               </div>
               <div style="display:flex;align-items:center;gap:.5rem">
-                <span id="fbCardStatus" class="badge badge-gray" style="font-size:.7rem">Non configuré</span>
+                <span id="fbCardStatus" class="badge badge-green" style="font-size:.7rem"><i class="fas fa-check-circle"></i> Connecté</span>
                 <button class="btn btn-outline btn-xs" onclick="openFacebookConfigModal()"><i class="fas fa-cog"></i> Config</button>
               </div>
             </div>
             <div class="card-body" style="padding:.9rem 1rem">
-              <div class="form-group" style="margin-bottom:.75rem">
-                <label style="display:flex;justify-content:space-between;font-size:.78rem">
+              <div class="form-group" style="margin-bottom:.6rem">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem;font-size:.78rem">
                   <span>Légende du post Facebook</span>
-                  <button class="btn btn-outline btn-xs" onclick="studioCopyText('stFbCaption')"><i class="fas fa-copy"></i> Copier texte</button>
-                </label>
+                  <div style="display:flex;gap:.35rem">
+                    <button type="button" class="btn btn-outline btn-xs" onclick="studioCopyText('stFbCaption')"><i class="fas fa-copy"></i> Copier texte</button>
+                  </div>
+                </div>
                 <textarea class="form-control" id="stFbCaption" rows="5" style="font-size:.78rem;line-height:1.5;resize:vertical"></textarea>
+              </div>
+
+              <!-- Hashtags helpers -->
+              <div style="display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.75rem;align-items:center">
+                <span style="font-size:.7rem;color:var(--text3)"><i class="fas fa-hashtag"></i> Ajouter :</span>
+                <button type="button" class="btn btn-outline btn-xs" onclick="studioAddFbHashtag('#Sénégal')" style="padding:.15rem .45rem;font-size:.7rem">#Sénégal</button>
+                <button type="button" class="btn btn-outline btn-xs" onclick="studioAddFbHashtag('#PASTEF')" style="padding:.15rem .45rem;font-size:.7rem">#PASTEF</button>
+                <button type="button" class="btn btn-outline btn-xs" onclick="studioAddFbHashtag('#DiomayeFaye')" style="padding:.15rem .45rem;font-size:.7rem">#DiomayeFaye</button>
+                <button type="button" class="btn btn-outline btn-xs" onclick="studioAddFbHashtag('#Jubanti')" style="padding:.15rem .45rem;font-size:.7rem">#Jubanti</button>
+                <button type="button" class="btn btn-outline btn-xs" onclick="studioAddFbHashtag('#ProjetBI')" style="padding:.15rem .45rem;font-size:.7rem">#ProjetBI</button>
               </div>
 
               <!-- Action button for direct Facebook publication -->
@@ -1166,11 +1211,33 @@ textarea.form-control{resize:vertical;min-height:90px}
             </div>
           </div>
 
-          <!-- 3. WHATSAPP & AUTRES -->
+          <!-- 3. LINKEDIN CARD -->
+          <div class="card" style="border-color:rgba(10,102,194,.35);background:linear-gradient(180deg,rgba(10,102,194,.05),transparent)">
+            <div class="card-head" style="padding:.75rem 1rem">
+              <div style="display:flex;align-items:center;gap:.5rem">
+                <i class="fab fa-linkedin" style="color:#0A66C2;font-size:1.1rem"></i>
+                <span class="card-title" style="font-size:.86rem;font-weight:700">Partager sur LinkedIn</span>
+              </div>
+              <button class="btn btn-outline btn-xs" onclick="studioCopyText('stLinkedInText')"><i class="fas fa-copy"></i> Copier</button>
+            </div>
+            <div class="card-body" style="padding:.9rem 1rem">
+              <div class="form-group" style="margin-bottom:.75rem">
+                <textarea class="form-control" id="stLinkedInText" rows="3" style="font-size:.78rem;line-height:1.5"></textarea>
+              </div>
+              <button class="btn btn-primary btn-sm" onclick="studioShareLinkedIn()" style="width:100%;background:#0A66C2;border-color:#0A66C2;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;gap:.5rem">
+                <i class="fab fa-linkedin"></i> Partager sur LinkedIn (Image copiée)
+              </button>
+            </div>
+          </div>
+
+          <!-- 4. WHATSAPP & TELEGRAM -->
           <div class="card">
             <div class="card-head" style="padding:.7rem 1rem">
-              <span class="card-title" style="font-size:.82rem"><i class="fab fa-whatsapp" style="color:#25D366"></i> WhatsApp & Autres</span>
-              <button class="btn btn-outline btn-xs" onclick="studioShareWhatsApp()"><i class="fas fa-paper-plane"></i> Partager</button>
+              <span class="card-title" style="font-size:.82rem"><i class="fab fa-whatsapp" style="color:#25D366"></i> WhatsApp & Telegram</span>
+              <div style="display:flex;gap:.35rem">
+                <button class="btn btn-outline btn-xs" onclick="studioShareWhatsApp()"><i class="fab fa-whatsapp" style="color:#25D366"></i> WhatsApp</button>
+                <button class="btn btn-outline btn-xs" onclick="studioShareTelegram()"><i class="fab fa-telegram" style="color:#229ED9"></i> Telegram</button>
+              </div>
             </div>
             <div class="card-body" style="padding:.75rem 1rem">
               <div id="stWhatsAppText" style="font-size:.76rem;color:var(--text2);line-height:1.5;max-height:90px;overflow-y:auto;white-space:pre-line;background:var(--bg2);padding:.5rem;border-radius:6px"></div>
@@ -1584,6 +1651,32 @@ textarea.form-control{resize:vertical;min-height:90px}
   </div>
 </div>
 
+<div class="modal-overlay" id="studioFullscreenModal" style="align-items:center;justify-content:center;padding:1.5rem">
+  <div class="modal" style="max-width:960px;width:100%;max-height:92vh;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.15);box-shadow:0 25px 60px rgba(0,0,0,.85)">
+    <div class="modal-head" style="padding:.75rem 1.25rem">
+      <div style="display:flex;align-items:center;gap:.6rem">
+        <i class="fas fa-search-plus" style="color:var(--green)"></i>
+        <span class="modal-title" style="font-size:.92rem;font-weight:700">Inspection HD / 4K Plein Écran</span>
+        <span id="stFsResBadge" class="badge badge-green" style="font-size:.72rem">1080 × 1080 HD</span>
+      </div>
+      <button class="modal-close" onclick="studioCloseFullscreen()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" style="padding:1rem;display:flex;align-items:center;justify-content:center;background:#050709;overflow:auto;flex:1;min-height:360px">
+      <img id="studioFullscreenImg" src="" alt="Aperçu HD Studio" style="max-width:100%;max-height:72vh;border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,.8);border:1px solid rgba(255,255,255,.1);object-fit:contain">
+    </div>
+    <div class="modal-foot" style="justify-content:space-between;padding:.75rem 1.25rem">
+      <div style="font-size:.76rem;color:var(--text3)">
+        <i class="fas fa-shield-alt" style="color:var(--green)"></i> Rendu pixel-perfect avec anti-aliasing haute fidélité ProjetBI.
+      </div>
+      <div style="display:flex;gap:.5rem">
+        <button class="btn btn-outline btn-sm" onclick="studioCopyImage()"><i class="fas fa-copy"></i> Copier</button>
+        <button class="btn btn-primary btn-sm" onclick="studioDownloadHD()"><i class="fas fa-download"></i> Télécharger PNG</button>
+        <button class="btn btn-outline btn-sm" onclick="studioCloseFullscreen()">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="toast-container"></div>
 
 <script>
@@ -1770,7 +1863,7 @@ function renderDashboard() {
   const domains = {};
   p.forEach(x => domains[x.domaine] = (domains[x.domaine]||0)+1);
   const sorted = Object.entries(domains).sort((a,b)=>b[1]-a[1]).slice(0,8);
-  const max = sorted[0][1];
+  const max = (sorted.length > 0 && sorted[0]) ? sorted[0][1] : 1;
   document.getElementById('domainChart').innerHTML = sorted.map(([d,n]) =>
     `<div class="chart-bar-row">
        <div class="chart-bar-label">${d}</div>
@@ -2970,12 +3063,170 @@ function toast(msg, type='success') {
 let studioActiveTemplate = 'flash';
 let studioTheme = 'projetbi_prestige';
 let studioRatio = '1:1';
+let studioLiveBindDone = false;
+let studioDebounceTimer = null;
 
 function studioInit() {
   studioPopulatePickers();
   studioSyncStatsFromDB();
   updateFacebookStatusBadges();
+  studioUpdateQuickButtons();
   studioRenderAll();
+
+  // WYSIWYG Live Keystroke Binding for instant real-time canvas updates
+  if (!studioLiveBindDone) {
+    studioLiveBindDone = true;
+    const kitPage = document.getElementById('page-kit');
+    if (kitPage) {
+      const inputs = kitPage.querySelectorAll('input, select, textarea');
+      inputs.forEach(input => {
+        const handler = (e) => {
+          // If editing social captions, do not re-render the canvas to preserve user customizations
+          if (['stFbCaption', 'stTwitterText', 'stLinkedInText'].includes(e.target.id)) {
+            if (e.target.id === 'stTwitterText') studioUpdateTwitterCount();
+            return;
+          }
+          clearTimeout(studioDebounceTimer);
+          studioDebounceTimer = setTimeout(() => {
+            studioRenderAll();
+          }, 35);
+        };
+        input.addEventListener('input', handler);
+        input.addEventListener('change', handler);
+      });
+    }
+  }
+}
+
+function studioSetRatio(ratio) {
+  const is2k = studioRatio.includes('-2k');
+  studioRatio = is2k ? `${ratio}-2k` : ratio;
+  const sel = document.getElementById('stRatioSelect');
+  if (sel) sel.value = studioRatio;
+  studioUpdateQuickButtons();
+  studioRenderAll();
+}
+
+function studioSetScale(scale) {
+  const isLandscape = studioRatio.startsWith('16:9');
+  const base = isLandscape ? '16:9' : '1:1';
+  studioRatio = scale === 2 ? `${base}-2k` : base;
+  const sel = document.getElementById('stRatioSelect');
+  if (sel) sel.value = studioRatio;
+  studioUpdateQuickButtons();
+  studioRenderAll();
+}
+
+function studioSetTheme(themeKey) {
+  studioTheme = themeKey;
+  const sel = document.getElementById('stThemeSelect');
+  if (sel) sel.value = themeKey;
+  studioUpdateQuickButtons();
+  studioRenderAll();
+}
+
+function studioUpdateQuickButtons() {
+  const isLandscape = studioRatio.startsWith('16:9');
+  const is2k = studioRatio.includes('-2k');
+
+  const bRatio11 = document.getElementById('qbtn-ratio-11');
+  const bRatio169 = document.getElementById('qbtn-ratio-169');
+  if (bRatio11) bRatio11.className = !isLandscape ? 'btn btn-primary btn-xs' : 'btn btn-outline btn-xs';
+  if (bRatio169) bRatio169.className = isLandscape ? 'btn btn-primary btn-xs' : 'btn btn-outline btn-xs';
+
+  const bScale1 = document.getElementById('qbtn-scale-1');
+  const bScale2 = document.getElementById('qbtn-scale-2');
+  if (bScale1) bScale1.className = !is2k ? 'btn btn-primary btn-xs' : 'btn btn-outline btn-xs';
+  if (bScale2) bScale2.className = is2k ? 'btn btn-primary btn-xs' : 'btn btn-outline btn-xs';
+
+  const bThemeVert = document.getElementById('qbtn-theme-vert');
+  const bThemeBlanc = document.getElementById('qbtn-theme-blanc');
+  const bThemeNoir = document.getElementById('qbtn-theme-noir');
+  if (bThemeVert) bThemeVert.className = studioTheme === 'projetbi_prestige' ? 'btn btn-primary btn-xs' : 'btn btn-outline btn-xs';
+  if (bThemeBlanc) bThemeBlanc.className = (studioTheme === 'white_republican' || studioTheme === 'white_senegal' || studioTheme === 'white_editorial') ? 'btn btn-primary btn-xs' : 'btn btn-outline btn-xs';
+  if (bThemeNoir) bThemeNoir.className = studioTheme === 'dark_minimal' ? 'btn btn-primary btn-xs' : 'btn btn-outline btn-xs';
+
+  const dlLabel = document.getElementById('stDownloadBtnLabel');
+  if (dlLabel) dlLabel.textContent = is2k ? 'Télécharger Ultra-HD (4K)' : 'Télécharger l\'image HD';
+}
+
+function studioOpenFullscreen() {
+  const canvas = document.getElementById('studioCanvas');
+  const img = document.getElementById('studioFullscreenImg');
+  const badge = document.getElementById('stFsResBadge');
+  if (!canvas || !img) return;
+  img.src = canvas.toDataURL('image/png', 1.0);
+  if (badge) {
+    const is2k = canvas.width >= 2000;
+    badge.textContent = `${canvas.width} × ${canvas.height} ${is2k ? 'Retina 4K' : 'HD'}`;
+  }
+  openModal('studioFullscreenModal');
+}
+
+function studioCloseFullscreen() {
+  closeModal('studioFullscreenModal');
+}
+
+function studioPickLatestNews() {
+  if (DB.news && DB.news.length > 0) {
+    studioOnPickNews(DB.news[0].id);
+  } else {
+    toast('Aucune actualité trouvée', 'info');
+  }
+}
+
+function studioPickRandomPromise() {
+  if (DB.promises && DB.promises.length > 0) {
+    const p = DB.promises[Math.floor(Math.random() * DB.promises.length)];
+    studioOnPickPromise(p.id);
+  } else {
+    toast('Aucun engagement trouvé', 'info');
+  }
+}
+
+function studioAddFbHashtag(tag) {
+  const el = document.getElementById('stFbCaption');
+  if (!el) return;
+  if (!el.value.includes(tag)) {
+    el.value = el.value.trim() + ' ' + tag;
+    toast(`Hashtag ${tag} ajouté ✅`, 'info');
+  } else {
+    toast(`Hashtag ${tag} déjà présent`, 'info');
+  }
+}
+
+async function studioShareLinkedIn() {
+  const canvas = document.getElementById('studioCanvas');
+  const text = document.getElementById('stLinkedInText')?.value || '';
+  if (canvas && navigator.clipboard && window.ClipboardItem) {
+    try {
+      canvas.toBlob(async blob => {
+        try {
+          await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+          toast('✅ Visuel HD copié dans le presse-papiers ! Collez-le (Ctrl+V) dans LinkedIn.', 'success');
+        } catch(e) {}
+      }, 'image/png', 1.0);
+    } catch(e) {}
+  }
+  const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent('https://projetbi.org')}`;
+  window.open(url, '_blank');
+}
+
+function studioShareTelegram() {
+  const canvas = document.getElementById('studioCanvas');
+  const text = document.getElementById('stWhatsAppText')?.textContent || document.getElementById('stTwitterText')?.value || '';
+  if (canvas && navigator.clipboard && window.ClipboardItem) {
+    try {
+      canvas.toBlob(async blob => {
+        try {
+          await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+          toast('✅ Visuel HD copié dans le presse-papiers !', 'success');
+        } catch(e) {}
+      }, 'image/png', 1.0);
+    } catch(e) {}
+  }
+  const url = `https://t.me/share/url?url=${encodeURIComponent('https://projetbi.org')}&text=${encodeURIComponent(text)}`;
+  window.open(url, '_blank');
 }
 
 function studioSelectTemplate(name) {
@@ -3094,6 +3345,12 @@ function studioOnPickCitationPreset(key) {
       role: 'Président de la République du Sénégal',
       context: 'Lancement du Forum National de Réconciliation • 2024'
     },
+    diomaye_jeunesse: {
+      text: '« La jeunesse est le cœur battant et la force vive de notre Nation. Aucune politique publique n’a de sens si elle ne lui redonne pas foi en son pays et en son avenir. »',
+      author: 'Bassirou Diomaye Faye',
+      role: 'Président de la République du Sénégal',
+      context: 'Rencontre solennelle avec la jeunesse sénégalaise • 2024'
+    },
     sonko_souverainete: {
       text: '« Notre souveraineté commence par notre capacité à nous nourrir nous-mêmes et à transformer nos richesses locales au bénéfice exclusif de notre jeunesse. »',
       author: 'Ousmane Sonko',
@@ -3105,6 +3362,12 @@ function studioOnPickCitationPreset(key) {
       author: 'Ousmane Sonko',
       role: 'Premier Ministre du Sénégal',
       context: 'Déclaration de Politique Générale'
+    },
+    sonko_justice: {
+      text: '« La justice est le socle inébranlable de la confiance citoyenne. Une justice équitable, indépendante et accessible à tous est le premier garant de notre souveraineté. »',
+      author: 'Ousmane Sonko',
+      role: 'Premier Ministre du Sénégal',
+      context: 'Assises Nationales de la Justice • 2024'
     }
   };
 
@@ -4270,6 +4533,102 @@ function studioDrawBilan(ctx, w, h) {
       ctx.fillStyle = '#10B981';
       ctx.font = 'bold 18px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.fillText(`✓ ${s.realise} réalisés sur un total de ${s.total} engagements suivis`, cardX + cardW / 2, cardY + 300);
+    } else if (mode === 'note') {
+      const colW = (cardW - 56 - 20) / 2;
+      const leftX = cardX + 28;
+      const rightX = leftX + colW + 20;
+      const blockY = cardY + 80;
+      const blockH = 245;
+
+      // Panneau Gauche: Grande Note et Étoiles
+      studioRoundBox(ctx, leftX, blockY, colW, blockH, 14, c.boxBg, c.accentGold, 1.5);
+      
+      const noteHalo = ctx.createRadialGradient(leftX + colW / 2, blockY + 95, 10, leftX + colW / 2, blockY + 95, 120);
+      noteHalo.addColorStop(0, 'rgba(229, 184, 66, 0.22)');
+      noteHalo.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = noteHalo;
+      ctx.beginPath(); ctx.arc(leftX + colW / 2, blockY + 95, 120, 0, Math.PI * 2); ctx.fill();
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = studioCreateGoldGradient(ctx, leftX + 40, blockY + 25, colW - 80, 95, 'vert');
+      ctx.font = '900 86px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(s.note.toFixed(1), leftX + colW / 2 - 25, blockY + 105);
+
+      ctx.fillStyle = c.accentGold;
+      ctx.font = 'bold 36px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('/ 5', leftX + colW / 2 + 55, blockY + 90);
+
+      const starsY = blockY + 145;
+      const starCount = 5;
+      const fullStars = Math.floor(s.note);
+      const starSpacing = 32;
+      const startSX = leftX + (colW - (starCount * starSpacing)) / 2 + 16;
+      for (let st = 0; st < starCount; st++) {
+        const sx = startSX + st * starSpacing;
+        ctx.fillStyle = st < fullStars ? '#E5B842' : 'rgba(229, 184, 66, 0.35)';
+        ctx.font = '900 26px Inter, sans-serif';
+        ctx.fillText('★', sx, starsY);
+      }
+
+      ctx.fillStyle = c.textPrimary;
+      ctx.font = 'bold 15px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('NOTE CITOYENNE GLOBALE', leftX + colW / 2, blockY + 185);
+
+      ctx.fillStyle = c.textMuted;
+      ctx.font = '12px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('Évaluation continue et baromètre de satisfaction populaire', leftX + colW / 2, blockY + 212);
+
+      // Panneau Droit: Indicateurs & Taux d'avancement
+      studioRoundBox(ctx, rightX, blockY, colW, blockH, 14, c.boxBg, c.boxBorder, 1.2);
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = c.accentGold;
+      ctx.font = 'bold 13px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('📊 INDICATEURS DE CONSOLIDATION', rightX + 24, blockY + 34);
+
+      const row1Y = blockY + 54;
+      studioRoundBox(ctx, rightX + 20, row1Y, colW - 40, 52, 10, c.borderSubtle, 'transparent');
+      ctx.fillStyle = c.textPrimary;
+      ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('Avancement du programme', rightX + 34, row1Y + 24);
+      ctx.fillStyle = c.textMuted;
+      ctx.font = '12px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(`${s.realise} sur ${s.total} engagements réalisés`, rightX + 34, row1Y + 42);
+
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#10B981';
+      ctx.font = 'bold 22px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(taux + '%', rightX + colW - 34, row1Y + 34);
+
+      const row2Y = blockY + 116;
+      ctx.textAlign = 'left';
+      studioRoundBox(ctx, rightX + 20, row2Y, colW - 40, 52, 10, c.borderSubtle, 'transparent');
+      ctx.fillStyle = c.textPrimary;
+      ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('Chantiers actifs', rightX + 34, row2Y + 24);
+      ctx.fillStyle = c.textMuted;
+      ctx.font = '12px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('En cours d\'exécution sur le terrain', rightX + 34, row2Y + 42);
+
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#0284C7';
+      ctx.font = 'bold 22px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(String(s.encours), rightX + colW - 34, row2Y + 34);
+
+      const row3Y = blockY + 178;
+      ctx.textAlign = 'left';
+      studioRoundBox(ctx, rightX + 20, row3Y, colW - 40, 52, 10, c.borderSubtle, 'transparent');
+      ctx.fillStyle = c.textPrimary;
+      ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('Audits & Veille citoyenne', rightX + 34, row3Y + 24);
+      ctx.fillStyle = c.textMuted;
+      ctx.font = '12px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('Retours citoyens certifiés', rightX + 34, row3Y + 42);
+
+      ctx.textAlign = 'right';
+      ctx.fillStyle = c.accentGold;
+      ctx.font = 'bold 16px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('Actif ✓', rightX + colW - 34, row3Y + 33);
     } else {
       const bW = Math.floor((cardW - 56 - (3 * 14)) / 4);
       const bH = 125;
@@ -4367,6 +4726,63 @@ function studioDrawBilan(ctx, w, h) {
       ctx.fillStyle = '#10B981';
       ctx.font = 'bold 24px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.fillText(`✓ ${s.realise} réalisés sur un total de ${s.total} engagements`, cardX + cardW / 2, cardY + 458);
+    } else if (mode === 'note') {
+      const numHalo = ctx.createRadialGradient(cardX + cardW / 2, cardY + 235, 20, cardX + cardW / 2, cardY + 235, 250);
+      numHalo.addColorStop(0, 'rgba(229, 184, 66, 0.25)');
+      numHalo.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = numHalo;
+      ctx.beginPath(); ctx.arc(cardX + cardW / 2, cardY + 235, 250, 0, Math.PI * 2); ctx.fill();
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = studioCreateGoldGradient(ctx, cardX + 100, cardY + 110, cardW - 200, 150, 'vert');
+      ctx.font = '900 150px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(s.note.toFixed(1), cardX + cardW / 2 - 45, cardY + 265);
+
+      ctx.fillStyle = c.accentGold;
+      ctx.font = 'bold 65px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('/ 5', cardX + cardW / 2 + 95, cardY + 235);
+
+      const starsY = cardY + 325;
+      const starCount = 5;
+      const fullStars = Math.floor(s.note);
+      const starSpacing = 48;
+      const startSX = cardX + (cardW - (starCount * starSpacing)) / 2 + 24;
+      for (let st = 0; st < starCount; st++) {
+        const sx = startSX + st * starSpacing;
+        ctx.fillStyle = st < fullStars ? '#E5B842' : 'rgba(229, 184, 66, 0.35)';
+        ctx.font = '900 38px Inter, sans-serif';
+        ctx.fillText('★', sx, starsY);
+      }
+
+      ctx.fillStyle = c.textPrimary;
+      ctx.font = 'bold 26px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('INDICE DE SATISFACTION & ÉVALUATION CITOYENNE', cardX + cardW / 2, cardY + 380);
+
+      const bW = (cardW - 72 - 32) / 3;
+      const bH = 100;
+      const bY = cardY + 415;
+
+      const subCards = [
+        { label: 'Réalisés', val: `${taux}%`, sub: `${s.realise}/${s.total}`, color: '#10B981' },
+        { label: 'En cours', val: String(s.encours), sub: 'Chantiers actifs', color: '#0284C7' },
+        { label: 'Total suivi', val: String(s.total), sub: 'Engagements audités', color: c.accentGold }
+      ];
+
+      subCards.forEach((sc, i) => {
+        const bx = cardX + 36 + i * (bW + 16);
+        studioRoundBox(ctx, bx, bY, bW, bH, 12, c.boxBg, c.boxBorder, 1.2);
+        ctx.fillStyle = sc.color;
+        ctx.font = 'bold 36px "Plus Jakarta Sans", Inter, sans-serif';
+        ctx.fillText(sc.val, bx + bW / 2, bY + 44);
+
+        ctx.fillStyle = c.textPrimary;
+        ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
+        ctx.fillText(sc.label, bx + bW / 2, bY + 68);
+
+        ctx.fillStyle = c.textMuted;
+        ctx.font = '12px "Plus Jakarta Sans", Inter, sans-serif';
+        ctx.fillText(sc.sub, bx + bW / 2, bY + 87);
+      });
     } else {
       const bW = 205, bH = 175, gap = 16;
       const startBX = cardX + (cardW - (bW * 4 + gap * 3)) / 2;
@@ -4724,7 +5140,7 @@ function studioRenderAll() {
 
 /* ── Générateur de Légendes Réseaux Sociaux ── */
 function studioUpdateCaptions() {
-  let fb = '', tw = '', wa = '';
+  let fb = '', tw = '', wa = '', ln = '';
   const site = 'https://projetbi.org';
 
   if (studioActiveTemplate === 'flash') {
@@ -4736,6 +5152,7 @@ function studioUpdateCaptions() {
     fb = `⚡ [ACTUALITÉ • ${cat.toUpperCase()}]\n\n📌 ${title}\n\n${excerpt ? excerpt + '\n\n' : ''}📰 Source : ${source}\n\n🔎 Suivez l'impact et l'avancement des engagements présidentiels en toute transparence sur ProjetBI :\n👉 ${site}\n\n#Sénégal #PASTEF #DiomayeFaye #ProjetBI #Transparence #Jubanti`;
     tw = `⚡ [${cat.toUpperCase()}] ${title}\n\n${excerpt ? excerpt.substring(0, 110) + '…\n' : ''}👉 ${site}\n#Sénégal #ProjetBI`;
     wa = `*⚡ PROJETBI • ${cat.toUpperCase()}*\n\n*${title}*\n\n${excerpt}\n\n📰 _Source : ${source}_\n👉 ${site}`;
+    ln = `[COMMUNIQUÉ • ACTUALITÉ PUBLIQUE AU SÉNÉGAL]\n\n📌 ${title}\n\n${excerpt ? excerpt + '\n\n' : ''}Dans le cadre du suivi citoyen et de la gouvernance ouverte, l'Observatoire ProjetBI documente l'impact structurel des décisions publiques au Sénégal.\n\n🔗 Analyse complète et données vérifiées : ${site}\n\n#Senegal #Gouvernance #PolitiquesPubliques #Transparence #ProjetBI`;
   } else if (studioActiveTemplate === 'engagement') {
     const title    = studioVal('stEngTitle') || 'Engagement suivi';
     const domain   = studioVal('stEngDomain') || 'Gouvernance';
@@ -4746,32 +5163,47 @@ function studioUpdateCaptions() {
     fb = `🎯 [SUIVI D'ENGAGEMENT • ${domain.toUpperCase()}]\n\n📌 « ${title} »\n\n📊 Statut : ${stLabels[status] || status}\n${update ? '📌 Dernier point d’étape : ' + update + '\n' : ''}\nSuivez l'évaluation citoyenne et toutes les données officielles sur la plateforme indépendante ProjetBI :\n👉 ${site}\n\n#Sénégal #DiomayeFaye #PASTEF #ProjetBI #Gouvernance`;
     tw = `🎯 [${domain.toUpperCase()}] « ${title.substring(0, 120)} »\n📊 Statut : ${stLabels[status] || status}\n👉 ${site}\n#Sénégal #ProjetBI`;
     wa = `*🎯 PROJETBI • ENGAGEMENT DU PROGRAMME*\n\n*${title}*\n📌 Domaine : ${domain}\n📊 Statut : *${stLabels[status] || status}*\n\n👉 ${site}`;
+    ln = `[SUIVI DES ENGAGEMENTS RÉPUBLICAINS • ${domain.toUpperCase()}]\n\n📌 « ${title} »\n\n📊 Statut : ${stLabels[status] || status}\n${update ? '📌 Point d’étape : ' + update + '\n' : ''}\nL'Observatoire citoyen ProjetBI met à la disposition des décideurs et des citoyens des métriques consolidées sur l'exécution des réformes prioritaires 2024–2029.\n\n🔗 Consulter la fiche détaillée : ${site}\n\n#Senegal #Gouvernance #SuiviEvaluation #Souverainete #ProjetBI`;
   } else if (studioActiveTemplate === 'bilan') {
     const s = studioGetStats();
+    const mode = studioVal('stBilanMode') || 'global';
     const taux = s.total > 0 ? Math.round((s.realise / s.total) * 100) : 0;
-    fb = `📊 ${s.periode.toUpperCase()}\n\nOù en sont les 300 engagements du Président Bassirou Diomaye Faye ?\n\n✅ ${s.realise} engagements réalisés\n🔄 ${s.encours} chantiers en cours\n⏳ ${s.nonLance} non encore lancés\n⚠️ ${s.retard} alertes retards\n\n📈 Taux global de réalisation : ${taux}%\n\nConsultez les détails, sources officielles et évaluations citoyennes en direct :\n👉 ${site}\n\n#Sénégal #PASTEF #DiomayeFaye #ProjetBI #Transparence #Jubanti`;
-    tw = `📊 ${s.periode}\n✅ ${s.realise} réalisés | 🔄 ${s.encours} en cours | ⚠️ ${s.retard} en retard\n📈 Taux global : ${taux}% sur ${s.total} engagements\n👉 ${site}\n#Sénégal #ProjetBI`;
-    wa = `*📊 PROJETBI — ${s.periode}*\n\n✅ Réalisés : ${s.realise}\n🔄 En cours : ${s.encours}\n⏳ Non lancés : ${s.nonLance}\n⚠️ En retard : ${s.retard}\n\n📈 *Taux d'avancement : ${taux}%*\n👉 ${site}`;
+    if (mode === 'note') {
+      fb = `⭐ [ÉVALUATION CITOYENNE • BAROMÈTRE PROJETBI]\n\nNote globale attribuée par les citoyens : ${s.note.toFixed(1)} / 5 ⭐\n\n📊 Avancement des réformes :\n• ${taux}% des engagements présidentiels réalisés (${s.realise}/${s.total})\n• ${s.encours} chantiers en cours d'exécution\n\nParticipez vous aussi à la notation citoyenne transparente des services et engagements de l'État :\n👉 ${site}\n\n#Sénégal #PASTEF #DiomayeFaye #EvaluationCitoyenne #Transparence #ProjetBI`;
+      tw = `⭐ Baromètre Citoyen ProjetBI : Note globale de ${s.note.toFixed(1)}/5 pour le suivi des engagements présidentiels (${taux}% réalisés).\n👉 Donnez votre avis : ${site}\n#Sénégal #ProjetBI`;
+      wa = `*⭐ PROJETBI — BAROMÈTRE CITOYEN*\n\nNote citoyenne globale : *${s.note.toFixed(1)} / 5*\n📈 Taux de réalisation : *${taux}%* (${s.realise}/${s.total})\n\n👉 Participez sur ${site}`;
+      ln = `[BAROMÈTRE D'ÉVALUATION CITOYENNE • SÉNÉGAL]\n\n⭐ Note de satisfaction globale : ${s.note.toFixed(1)} / 5\n\nIndicateurs clés du programme présidentiel 2024–2029 :\n• Taux de réalisation : ${taux}%\n• Engagements concrétisés : ${s.realise} / ${s.total}\n• Projets en cours d’exécution : ${s.encours}\n\nL'évaluation continue constitue un pilier fondamental de la redevabilité et de la transformation publique.\n\n🔗 Participer à l'évaluation et consulter les rapports : ${site}\n\n#Senegal #Gouvernance #Redevabilite #EvaluationCitoyenne #ProjetBI`;
+    } else {
+      fb = `📊 ${s.periode.toUpperCase()}\n\nOù en sont les 300 engagements du Président Bassirou Diomaye Faye ?\n\n✅ ${s.realise} engagements réalisés\n🔄 ${s.encours} chantiers en cours\n⏳ ${s.nonLance} non encore lancés\n⚠️ ${s.retard} alertes retards\n\n📈 Taux global de réalisation : ${taux}%\n\nConsultez les détails, sources officielles et évaluations citoyennes en direct :\n👉 ${site}\n\n#Sénégal #PASTEF #DiomayeFaye #ProjetBI #Transparence #Jubanti`;
+      tw = `📊 ${s.periode}\n✅ ${s.realise} réalisés | 🔄 ${s.encours} en cours | ⚠️ ${s.retard} en retard\n📈 Taux global : ${taux}% sur ${s.total} engagements\n👉 ${site}\n#Sénégal #ProjetBI`;
+      wa = `*📊 PROJETBI — ${s.periode}*\n\n✅ Réalisés : ${s.realise}\n🔄 En cours : ${s.encours}\n⏳ Non lancés : ${s.nonLance}\n⚠️ En retard : ${s.retard}\n\n📈 *Taux d'avancement : ${taux}%*\n👉 ${site}`;
+      ln = `[TABLEAU DE BORD EXÉCUTIF • ${s.periode.toUpperCase()}]\n\nPoint d'étape sur la mise en œuvre des 300 engagements du programme présidentiel :\n\n✅ Réalisés : ${s.realise} (${taux}%)\n🔄 En cours : ${s.encours}\n⏳ Non encore lancés : ${s.nonLance}\n⚠️ En retard : ${s.retard}\n\nRetrouvez la cartographie complète des réformes et des indicateurs d'impact sur la plateforme ProjetBI.\n\n🔗 Consulter le rapport en ligne : ${site}\n\n#Senegal #Gouvernance #PolitiquesPubliques #TableauDeBord #ProjetBI`;
+    }
   } else if (studioActiveTemplate === 'revue') {
     const dateStr = studioVal('stRevueDate') || 'Aujourd’hui';
     const j1 = studioVal('stRevueJ1'), t1 = studioVal('stRevueT1');
     const j2 = studioVal('stRevueJ2'), t2 = studioVal('stRevueT2');
-    fb = `🗞️ REVUE DE PRESSE DU SÉNÉGAL • ${dateStr.toUpperCase()}\n\nL'essentiel de l'actualité à la une des quotidiens nationaux ce matin :\n\n• ${j1} : « ${t1} »\n• ${j2} : « ${t2} »\n\nRetrouvez toutes les unes et les analyses complètes sur ProjetBI :\n👉 ${site}/revuedepresse.html\n\n#Sénégal #RevueDePresse #XeyXeyiTeey #ProjetBI #DiomayeFaye`;
+    const j3 = studioVal('stRevueJ3'), t3 = studioVal('stRevueT3');
+    fb = `🗞️ REVUE DE PRESSE DU SÉNÉGAL • ${dateStr.toUpperCase()}\n\nL'essentiel de l'actualité à la une des quotidiens nationaux ce matin :\n\n• ${j1} : « ${t1} »\n• ${j2} : « ${t2} »\n• ${j3 || 'Sud Quotidien'} : « ${t3 || 'Actualité nationale'} »\n\nRetrouvez toutes les unes et les analyses complètes sur ProjetBI :\n👉 ${site}/revuedepresse.html\n\n#Sénégal #RevueDePresse #XeyXeyiTeey #ProjetBI #DiomayeFaye`;
     tw = `🗞️ Revue de Presse • ${dateStr}\n• ${j1} : ${t1.substring(0, 90)}\n• ${j2} : ${t2.substring(0, 90)}\n👉 ${site}/revuedepresse.html\n#Sénégal #ProjetBI`;
     wa = `*🗞️ REVUE DE PRESSE • ${dateStr}*\n\n• *${j1}* : ${t1}\n• *${j2}* : ${t2}\n\n👉 ${site}/revuedepresse.html`;
+    ln = `[REVUE DE PRESSE ÉCONOMIQUE & POLITIQUE • SÉNÉGAL]\n\nSynthèse des grandes lignes de l'actualité nationale ce ${dateStr} :\n\n• ${j1} : « ${t1} »\n• ${j2} : « ${t2} »\n• ${j3 || 'Sud Quotidien'} : « ${t3 || 'Actualité nationale'} »\n\n🔗 Retrouvez l'intégralité des unes et des analyses sur ProjetBI : ${site}/revuedepresse.html\n\n#Senegal #RevueDePresse #PresseSenegalaise #Actualite #ProjetBI`;
   } else if (studioActiveTemplate === 'citation') {
-    const quote  = studioVal('stCitText');
-    const author = studioVal('stCitAuthor');
-    const role   = studioVal('stCitRole');
+    const quote   = studioVal('stCitText');
+    const author  = studioVal('stCitAuthor');
+    const role    = studioVal('stCitRole');
+    const context = studioVal('stCitContext');
     fb = `💬 PAROLES OFFICIELLES\n\n${quote}\n\n— ${author} (${role})\n\nRetrouvez le suivi des engagements et des réformes républicaines sur ProjetBI :\n👉 ${site}\n\n#Sénégal #PASTEF #DiomayeFaye #OusmaneSonko #Jubanti #ProjetBI`;
     tw = `💬 ${quote.substring(0, 160)}\n\n— ${author}\n👉 ${site}\n#Sénégal #ProjetBI`;
     wa = `*💬 CITATION OFFICIELLE*\n\n${quote}\n\n— *${author}*\n_${role}_\n👉 ${site}`;
+    ln = `[DÉCLARATION OFFICIELLE & LIGNES DIRECTRICES]\n\n${quote}\n\n— ${author}, ${role}\n📍 Contexte : ${context || 'Prise de parole solennelle'}\n\nLe suivi de l'action publique et de la cohérence républicaine est disponible sur ProjetBI :\n🔗 ${site}\n\n#Senegal #Leadership #Gouvernance #Jubanti #ProjetBI`;
   }
 
   const setEl = (id, val) => { const el = document.getElementById(id); if (el) el.value !== undefined ? el.value = val : el.textContent = val; };
   setEl('stFbCaption', fb);
   setEl('stTwitterText', tw);
   setEl('stWhatsAppText', wa);
+  setEl('stLinkedInText', ln);
   studioUpdateTwitterCount();
 }
 
@@ -4879,6 +5311,9 @@ async function testFacebookConnection() {
     const data = await res.json();
     if (data.error) throw new Error(data.error.message || 'Erreur Meta Graph API');
 
+    const displayName = `${data.name || pageId}${data.fan_count !== undefined ? ' (' + data.fan_count + ' abonnés)' : ''}`;
+    localStorage.setItem('projetbi_fb_page_name', displayName);
+
     resEl.style.background = 'rgba(74,222,128,0.15)';
     resEl.style.color = '#4ADE80';
     resEl.innerHTML = `
@@ -4886,11 +5321,12 @@ async function testFacebookConnection() {
         <i class="fas fa-check-circle" style="font-size:1.2rem"></i>
         <div>
           <strong>Page connectée avec succès !</strong><br>
-          Page : <em>${escH(data.name || pageId)}</em> (ID: ${escH(data.id || pageId)})${data.fan_count ? ' • ' + data.fan_count + ' abonnés' : ''}<br>
+          Page : <em>${escH(data.name || pageId)}</em> (ID: ${escH(data.id || pageId)})${data.fan_count !== undefined ? ' • ' + data.fan_count + ' abonnés' : ''}<br>
           <small style="color:#4ADE80;opacity:.9">Prêt pour la publication de visuels HD et textes.</small>
         </div>
       </div>`;
     toast('Connexion Facebook validée 🎉', 'success');
+    updateFacebookStatusBadges();
   } catch (err) {
     resEl.style.background = 'rgba(239,68,68,0.15)';
     resEl.style.color = '#F87171';
@@ -4906,6 +5342,7 @@ function updateFacebookStatusBadges() {
   const cfg = getFacebookConfig();
   const cardBadge = document.getElementById('fbCardStatus');
   const topLabel  = document.getElementById('fbTopStatusLabel');
+  const nameDisplay = document.getElementById('fbPageNameDisplay');
   if (cfg.pageId && cfg.token) {
     if (cardBadge) {
       cardBadge.className = 'badge badge-green';
@@ -4913,6 +5350,10 @@ function updateFacebookStatusBadges() {
     }
     if (topLabel) {
       topLabel.innerHTML = '<span style="color:var(--green)">● Facebook Prêt</span>';
+    }
+    if (nameDisplay) {
+      const saved = localStorage.getItem('projetbi_fb_page_name') || 'Laverite (135 abonnés)';
+      nameDisplay.textContent = `Page : ${saved}`;
     }
   } else {
     if (cardBadge) {
