@@ -4418,11 +4418,34 @@ function studioUpdateTwitterCount() {
 }
 
 /* ── Publication Directe Facebook (Meta Graph API) ── */
+const DEFAULT_FB_PAGE_TOKEN = 'EAAZAfj2K9O1MBSitDwzz2qrWEmZBgTOwcaKpHjtIl7XrJ5prjRRuiTlT92NI5NQJyesTgcXfUlzP1SGU8E85OWNWcFWRx5Nt0iwAvZAEqdTNnll8x4ZBdNC6zWRskY27oAmeRIafI40fyPtBHUoKPVwkv7EbFed63nZBWrZAt1lHAZBOvcSv5dHISXmTfomYL9PciVtD8q1PGt9FUUBZBqA5Wg9t0cBKpPcPpX2IlQZDZD';
+
 function getFacebookConfig() {
   return {
     pageId: localStorage.getItem('projetbi_fb_page_id') || '165343486664407',
-    token:  localStorage.getItem('projetbi_fb_page_token') || ''
+    token:  localStorage.getItem('projetbi_fb_page_token') || DEFAULT_FB_PAGE_TOKEN
   };
+}
+
+/** Tente de convertir un User Token personnel en Page Access Token permanent via /me/accounts */
+async function resolvePageAccessToken(token, targetPageId) {
+  if (!token) return token;
+  try {
+    const meRes = await fetch(`https://graph.facebook.com/v19.0/me?access_token=${encodeURIComponent(token)}`);
+    const meData = await meRes.json();
+    if (meData && meData.id && meData.id !== targetPageId) {
+      // C'est un profil utilisateur. Récupérons le jeton dédié à la Page pour éviter l'erreur publish_actions (#200)
+      const accRes = await fetch(`https://graph.facebook.com/v19.0/me/accounts?access_token=${encodeURIComponent(token)}`);
+      const accData = await accRes.json();
+      if (accData && accData.data && accData.data.length > 0) {
+        const pageMatch = accData.data.find(p => p.id === targetPageId) || accData.data[0];
+        if (pageMatch && pageMatch.access_token) {
+          return pageMatch.access_token;
+        }
+      }
+    }
+  } catch (e) {}
+  return token;
 }
 
 function openFacebookConfigModal() {
@@ -4434,16 +4457,19 @@ function openFacebookConfigModal() {
   openModal('facebookConfigModal');
 }
 
-function saveFacebookConfig() {
+async function saveFacebookConfig() {
   const pageId = document.getElementById('fbPageIdInput').value.trim();
-  const token  = document.getElementById('fbPageTokenInput').value.trim();
+  let token  = document.getElementById('fbPageTokenInput').value.trim();
 
   if (!pageId) return toast('L\'ID de la Page Facebook est requis', 'error');
 
   localStorage.setItem('projetbi_fb_page_id', pageId);
   if (token) {
-    localStorage.setItem('projetbi_fb_page_token', token);
-    toast('Paramètres Facebook enregistrés ✅', 'success');
+    // Si c'est un jeton utilisateur, le convertir automatiquement en jeton de Page
+    const resolvedToken = await resolvePageAccessToken(token, pageId);
+    localStorage.setItem('projetbi_fb_page_token', resolvedToken);
+    document.getElementById('fbPageTokenInput').value = resolvedToken;
+    toast('Jeton Facebook de Page enregistré avec succès ✅', 'success');
   } else {
     localStorage.removeItem('projetbi_fb_page_token');
     toast('ID de Page enregistré sans jeton', 'info');
@@ -4454,7 +4480,7 @@ function saveFacebookConfig() {
 
 async function testFacebookConnection() {
   const pageId = document.getElementById('fbPageIdInput').value.trim();
-  const token  = document.getElementById('fbPageTokenInput').value.trim();
+  let token  = document.getElementById('fbPageTokenInput').value.trim();
   const resEl  = document.getElementById('fbTestResult');
   if (!pageId || !token) {
     resEl.style.display = 'block';
@@ -4467,9 +4493,17 @@ async function testFacebookConnection() {
   resEl.style.display = 'block';
   resEl.style.background = 'rgba(255,255,255,0.06)';
   resEl.style.color = 'var(--text2)';
-  resEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion à l\'API Meta Graph en cours...';
+  resEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion et vérification du jeton de Page en cours...';
 
   try {
+    // Conversion automatique du jeton utilisateur en jeton de Page si nécessaire
+    const resolvedToken = await resolvePageAccessToken(token, pageId);
+    if (resolvedToken !== token) {
+      token = resolvedToken;
+      document.getElementById('fbPageTokenInput').value = token;
+      localStorage.setItem('projetbi_fb_page_token', token);
+    }
+
     const res = await fetch(`https://graph.facebook.com/v19.0/${encodeURIComponent(pageId)}?fields=name,id,fan_count,link,picture&access_token=${encodeURIComponent(token)}`);
     const data = await res.json();
     if (data.error) throw new Error(data.error.message || 'Erreur Meta Graph API');
@@ -4480,8 +4514,9 @@ async function testFacebookConnection() {
       <div style="display:flex;align-items:center;gap:.6rem">
         <i class="fas fa-check-circle" style="font-size:1.2rem"></i>
         <div>
-          <strong>Connecté avec succès !</strong><br>
-          Page : <em>${escH(data.name || pageId)}</em> (ID: ${escH(data.id || pageId)})${data.fan_count ? ' • ' + data.fan_count + ' abonnés' : ''}
+          <strong>Page connectée avec succès !</strong><br>
+          Page : <em>${escH(data.name || pageId)}</em> (ID: ${escH(data.id || pageId)})${data.fan_count ? ' • ' + data.fan_count + ' abonnés' : ''}<br>
+          <small style="color:#4ADE80;opacity:.9">Prêt pour la publication de visuels HD et textes.</small>
         </div>
       </div>`;
     toast('Connexion Facebook validée 🎉', 'success');
@@ -4520,7 +4555,7 @@ function updateFacebookStatusBadges() {
 }
 
 async function studioPublishFacebook() {
-  const cfg = getFacebookConfig();
+  let cfg = getFacebookConfig();
   if (!cfg.pageId || !cfg.token) {
     toast('Veuillez d\'abord configurer votre Page Facebook', 'info');
     openFacebookConfigModal();
@@ -4544,6 +4579,13 @@ async function studioPublishFacebook() {
   }
 
   try {
+    // S'assurer que le token utilisé est bien un Page Access Token (évite l'erreur #200 publish_actions)
+    const pageToken = await resolvePageAccessToken(cfg.token, cfg.pageId);
+    if (pageToken !== cfg.token) {
+      localStorage.setItem('projetbi_fb_page_token', pageToken);
+      cfg.token = pageToken;
+    }
+
     canvas.toBlob(async blob => {
       try {
         if (!blob) throw new Error('Impossible de générer le blob image');
