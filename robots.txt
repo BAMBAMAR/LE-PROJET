@@ -5,9 +5,12 @@ User-agent: *
 Allow: /
 
 # Pages d'administration — ne pas indexer
+Disallow: /admin
 Disallow: /admin.html
 Disallow: /admin/
+Disallow: /kit-communication
 Disallow: /kit-communication.html
+Disallow: /update_press_simple
 Disallow: /update_press_simple.html
 
 # Fichiers techniques
@@ -23,8 +26,8 @@ Allow: /*.jpg$
 Allow: /*.svg$
 Allow: /*.webp$
 
-# Indiquer le sitemap aux moteurs
-Sitemap: https://projetbi.org/sitemap.xml
+# Indiquer le sitemap aux moteurs (URL canonique www sans redirection 308)
+Sitemap: https://www.projetbi.org/sitemap.xml
 
 # Bots SEO agressifs — limiter la fréquence
 User-agent: AhrefsBot

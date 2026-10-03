@@ -1,7 +1,7 @@
 {
   "start_date": "2024-04-02",
   "end_date": "2029-04-02",
-  "last_updated": "2026-10-03T16:33:58.972Z",
+  "last_updated": "2026-10-03T19:35:17.348Z",
   "promises": [
     {
       "id": "promise_1",
@@ -35,16 +35,16 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-06-04",
-          "text": "Recommandation forte des Assises de la Justice pour la création d'une Cour Constitutionnelle."
+          "date": "2026-03-19",
+          "text": "Les comités ad hoc issus des Assises et des concertations ont achevé leurs travaux. Les textes sont en cours de finalisation pour transmission imminente au Parlement."
         },
         {
           "date": "2025-12-31",
           "text": "Le Président annonce lors de son discours à la Nation la transmission à l'Assemblée nationale, au premier trimestre 2026, du projet de texte relatif à la Cour Constitutionnelle."
         },
         {
-          "date": "2026-03-19",
-          "text": "Les comités ad hoc issus des Assises et des concertations ont achevé leurs travaux. Les textes sont en cours de finalisation pour transmission imminente au Parlement."
+          "date": "2024-06-04",
+          "text": "Recommandation forte des Assises de la Justice pour la création d'une Cour Constitutionnelle."
         }
       ]
     },
@@ -63,20 +63,22 @@
           "source": "Ministère de la Justice / Rapport des Assises"
         },
         {
-          "date": "2024-05-28",
-          "text": "Ouverture des Assises de la Justice au CICAD pour débattre de la réforme."
-        },
-        {
-          "date": "2024-07-05",
-          "text": "Remise du rapport des Assises au Président, préconisant l'ouverture du CSM à des personnalités extérieures et le départ de l'Exécutif."
+          "date": "2026-07-09",
+          "text": "La tentative de remplacement du CSM par un Conseil supérieur de la Justice issue du vote parlementaire du 29 juin 2026 (loi n°18/2026) a été censurée et déclarée contraire à la Constitution par le Conseil constitutionnel le 9 juillet 2026 (Décision n° 6/C/2026) pour vices de procédure. Le statut du CSM reste régi par la législation en vigueur et les préconisations des Assises de la Justice visant l'ouverture statutaire et le départ de l'Exécutif.",
+          "description": "Censure par le Conseil constitutionnel de la loi 18/2026 et maintien des travaux des Assises de la Justice pour la réforme statutaire du CSM.",
+          "source": "Conseil constitutionnel (Décision n° 6/C/2026 du 09-07-2026) / Rapport des Assises"
         },
         {
           "date": "2025-12-31",
           "text": "Annonce présidentielle : le projet de texte sur le CSM sera transmis à l'Assemblée nationale au premier trimestre 2026. Les concertations nationales sur le système politique ont achevé leurs travaux préparatoires."
         },
         {
-          "date": "2026-06-29",
-          "text": "L'Assemblée nationale a adopté à l'unanimité (129 voix) la loi n°17/2026 le 29 juin 2026, remplaçant le Conseil supérieur de la Magistrature par le Conseil supérieur de la Justice. Ce changement reste principalement nominal/institutionnel ; des magistrats ont exprimé des réserves sur la composition et l'indépendance réelle de la nouvelle instance. (Source : Vie-Publique.sn, 2026-06-29)"
+          "date": "2024-07-05",
+          "text": "Remise du rapport des Assises au Président, préconisant l'ouverture du CSM à des personnalités extérieures et le départ de l'Exécutif."
+        },
+        {
+          "date": "2024-05-28",
+          "text": "Ouverture des Assises de la Justice au CICAD pour débattre de la réforme."
         }
       ]
     },
@@ -107,7 +109,14 @@
       "resultat": "Respect des droits humains",
       "delai": "2025-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-07-05",
+          "text": "Remise au Président de la République et arbitrage des conclusions du comité de suivi des Assises de la Justice : finalisation des projets de textes limitant la détention provisoire en matière criminelle à 3 ans maximum et consacrant la mise en place du Juge des Libertés et de la Détention (JLD).",
+          "description": "Remise au Président de la République et arbitrage des conclusions du comité de suivi des Assises de la Justice : finalisation des projets de textes limitant la détention provisoire en matière criminelle à 3 ans maximum et consacrant la mise en place du Juge des Libertés et de la Détention (JLD).",
+          "source": "Ministère de la Justice / Rapport des Assises"
+        }
+      ]
     },
     {
       "id": "promise_7",
@@ -177,12 +186,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2025-01-01",
-          "text": "Hausse notée du budget du Ministère de la Justice dans la Loi de Finances Initiale 2025 pour la modernisation des infrastructures."
-        },
-        {
           "date": "2026-04-21",
           "text": "Inauguration des nouveaux Palais de justice de Tivaouane, Diourbel, Fatick et Saint-Louis, et réhabilitation de plusieurs tribunaux (Kaolack, Tambacounda)[cite: 152, 153]."
+        },
+        {
+          "date": "2025-01-01",
+          "text": "Hausse notée du budget du Ministère de la Justice dans la Loi de Finances Initiale 2025 pour la modernisation des infrastructures."
         }
       ]
     },
@@ -238,12 +247,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2025-12-31",
-          "text": "Le Président annonce lors de son discours à la Nation la transmission à l'Assemblée nationale du projet de texte sur la CENI au premier trimestre 2026, accompagné d'un nouveau Code électoral."
-        },
-        {
           "date": "2026-04-28",
           "text": "Un avant-projet de loi créant la CENI (absorbant la CENA et la DGE) a été présenté fin avril 2026 ; le 28 avril 2026, l'Assemblée nationale a adopté la loi n°11/2026 modifiant le Code électoral sur d'autres dispositions (délais d'inéligibilité), sans créer la CENI elle-même, qui reste au stade d'avant-projet. (Source : Dakaractu/Vie-publique.sn, 2026-04-28)"
+        },
+        {
+          "date": "2025-12-31",
+          "text": "Le Président annonce lors de son discours à la Nation la transmission à l'Assemblée nationale du projet de texte sur la CENI au premier trimestre 2026, accompagné d'un nouveau Code électoral."
         }
       ]
     },
@@ -254,7 +263,14 @@
       "resultat": "Fichier fiable",
       "delai": "2025-12-31",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-05-12",
+          "text": "Promulgation de la loi n° 2026-10 réformant le Code électoral (articles L.29 et L.30) et poursuite des concertations techniques entre la DGE, la DAF et la CENA pour l'interconnexion automatisée du fichier électoral avec la base biométrique des cartes d'identité CEDEAO.",
+          "description": "Promulgation de la loi n° 2026-10 réformant le Code électoral (articles L.29 et L.30) et poursuite des concertations techniques entre la DGE, la DAF et la CENA pour l'interconnexion automatisée du fichier électoral avec la base biométrique des cartes d'identité CEDEAO.",
+          "source": "Ministère de l’Intérieur / DGE (12-05-2026)"
+        }
+      ]
     },
     {
       "id": "promise_17",
@@ -271,12 +287,12 @@
           "source": "Parquet financier / Presse nationale"
         },
         {
-          "date": "2024-08-08",
-          "text": "Adoption du projet de loi créant le Pool Judiciaire Financier (PJF) en Conseil des Ministres."
-        },
-        {
           "date": "2024-09-17",
           "text": "Installation effective des magistrats du Pôle Judiciaire Financier, remplaçant la CREI."
+        },
+        {
+          "date": "2024-08-08",
+          "text": "Adoption du projet de loi créant le Pool Judiciaire Financier (PJF) en Conseil des Ministres."
         }
       ]
     },
@@ -295,16 +311,16 @@
           "source": "Parquet financier / Presse nationale"
         },
         {
-          "date": "2024-04-20",
-          "text": "Instruction présidentielle pour la publication immédiate des rapports de l'OFNAC (2019-2023)."
-        },
-        {
           "date": "2025-12-22",
           "text": "Prestation de serment des nouveaux membres devant le Premier Président de la Cour d'appel de Dakar."
         },
         {
           "date": "2025-11-27",
           "text": "L'Assemblée nationale a adopté le 25 août 2025 la loi n° 2025-12 recréant l'OFNAC avec pouvoir d'auto-saisine et saisine par tout citoyen ou lanceur d'alerte ; les 12 nouveaux membres ont été nommés par décret le 27 novembre 2025. (Source : RTS, 2025-08-25 ; Présidence, 2025-11-27)"
+        },
+        {
+          "date": "2024-04-20",
+          "text": "Instruction présidentielle pour la publication immédiate des rapports de l'OFNAC (2019-2023)."
         }
       ]
     },
@@ -317,12 +333,12 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "2025-08-26",
-          "text": "Adoption de la Loi n° 2025-14 par l'Assemblée nationale et promulgation en septembre 2025."
-        },
-        {
           "date": "2025-09-04",
           "text": "La loi n° 2025-13 du 4 septembre 2025 portant statut et protection des lanceurs d'alerte a été adoptée par l'Assemblée nationale le 26 août 2025 (protection contre représailles, anonymat garanti, récompense de 10% des fonds recouvrés). Le Sénégal devient le premier pays francophone d'Afrique subsaharienne doté d'une telle loi. (Source : APS/Jeune Afrique, 2025-08-26)"
+        },
+        {
+          "date": "2025-08-26",
+          "text": "Adoption de la Loi n° 2025-14 par l'Assemblée nationale et promulgation en septembre 2025."
         }
       ]
     },
@@ -335,12 +351,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-10-14",
-          "text": "Le référentiel 'Sénégal 2050' confirme la restructuration des instruments de financement publics."
-        },
-        {
           "date": "2025-07-03",
           "text": "Le président a demandé le 3 juillet 2025 aux ministres des Finances et de l'Économie de proposer une stratégie de rationalisation des instruments de financement publics (FONSIS, FONGIP, BNDE, DER/FJ, CDC, BHS, LBA, FONAMIF), sans fusion actée à ce jour. (Source : Présidence du Sénégal, 2025-07-03 ; allAfrica, 2026-02-18)"
+        },
+        {
+          "date": "2024-10-14",
+          "text": "Le référentiel 'Sénégal 2050' confirme la restructuration des instruments de financement publics."
         }
       ]
     },
@@ -353,12 +369,12 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "2024-04-05",
-          "text": "Création du Bureau de Prospective et d'Intelligence Économique rattaché à la Présidence."
-        },
-        {
           "date": "2025-02-12",
           "text": "Statut corrigé de « réalisé » à « en cours » : l'organisme réellement créé se nomme Bureau d'Intelligence et de Prospective Économique (BIPE), rattaché à la Primature (et non à la Présidence comme indiqué), décret adopté le 17 avril 2024 puis précisé le 12 février 2025 ; aucune preuve publique de fonctionnement opérationnel n'a été trouvée à ce jour. (Source : RTS, 2024-04-17 ; Dakaractu/Agence Ecofin, 2025-02-12)"
+        },
+        {
+          "date": "2024-04-05",
+          "text": "Création du Bureau de Prospective et d'Intelligence Économique rattaché à la Présidence."
         }
       ]
     },
@@ -408,16 +424,16 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "2024-06-01",
-          "text": "Lancement de la plateforme 'Manko' pour la digitalisation des paiements administratifs."
+          "date": "2026-04-22",
+          "text": "Application e-tax lancée le 19 novembre 2025 : déclaration et paiement de taxes en ligne. Plateforme SEN TRESOR généralisée au 26 novembre 2025 : centralise toutes les transactions de l'État par mobile money. Taux ententes directes : 49% → 30% en 2025."
         },
         {
           "date": "2025-11-19",
           "text": "Lancement de l'application e-tax permettant aux usagers de déclarer et payer leurs taxes en un temps record[cite: 360]."
         },
         {
-          "date": "2026-04-22",
-          "text": "Application e-tax lancée le 19 novembre 2025 : déclaration et paiement de taxes en ligne. Plateforme SEN TRESOR généralisée au 26 novembre 2025 : centralise toutes les transactions de l'État par mobile money. Taux ententes directes : 49% → 30% en 2025."
+          "date": "2024-06-01",
+          "text": "Lancement de la plateforme 'Manko' pour la digitalisation des paiements administratifs."
         }
       ]
     },
@@ -455,12 +471,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-06-13",
-          "text": "Annonce d'une baisse significative des prix (Riz, Huile, Pain, Ciment) et renoncement de l'État à certaines taxes douanières (40 milliards FCFA)."
-        },
-        {
           "date": "2025-12-06",
           "text": "Baisse des prix homologués du gaz butane et des hydrocarbures, et réajustements continus sur le riz (350 FCFA/kg), le sucre et la farine pour protéger le pouvoir d'achat[cite: 891, 886, 883]."
+        },
+        {
+          "date": "2024-06-13",
+          "text": "Annonce d'une baisse significative des prix (Riz, Huile, Pain, Ciment) et renoncement de l'État à certaines taxes douanières (40 milliards FCFA)."
         }
       ]
     },
@@ -561,16 +577,16 @@
           "source": "Ministère de l’Agriculture / Conseil des ministres"
         },
         {
-          "date": "2024-05-01",
-          "text": "Suspension provisoire de toutes les opérations foncières sur les zones litigieuses (Mbour 4, etc.) en attendant la réforme."
+          "date": "2026-02-01",
+          "text": "Un projet de loi pour mieux encadrer la gestion des terres a été transmis à l'Assemblée nationale. Le texte prévoit que l'État titre les terres en son nom avant de les octroyer sous forme de bail, afin de lutter contre la spéculation et les attributions opaques. Plusieurs lotissements ont été suspendus dans les régions de Dakar, Thiès et Saint-Louis dans ce cadre."
         },
         {
           "date": "2025-10-23",
           "text": "Adoption imminente : En janvier 2026, le Chef de l'État a exigé l'adoption de la version révisée de la loi avant la fin du mois."
         },
         {
-          "date": "2026-02-01",
-          "text": "Un projet de loi pour mieux encadrer la gestion des terres a été transmis à l'Assemblée nationale. Le texte prévoit que l'État titre les terres en son nom avant de les octroyer sous forme de bail, afin de lutter contre la spéculation et les attributions opaques. Plusieurs lotissements ont été suspendus dans les régions de Dakar, Thiès et Saint-Louis dans ce cadre."
+          "date": "2024-05-01",
+          "text": "Suspension provisoire de toutes les opérations foncières sur les zones litigieuses (Mbour 4, etc.) en attendant la réforme."
         }
       ]
     },
@@ -589,16 +605,16 @@
           "source": "DPV / Police Nationale / APS (29-09-2026)"
         },
         {
-          "date": "2024-05-02",
-          "text": "Allocation de 120 milliards FCFA pour la campagne agricole 2024 (engrais et semences subventionnés)."
+          "date": "2026-04-22",
+          "text": "Budget campagne agricole 2025-2026 : 130 milliards FCFA (vs 120 milliards). Production céréalière totale estimée à 2 539 713 tonnes (+10%). Arachide : 969 074 tonnes (+22%). Maïs : +24% superficies. 270 000 tonnes d'engrais subventionnés."
         },
         {
           "date": "2026-04-21",
           "text": "L'enveloppe budgétaire allouée à la campagne agricole 2025-2026 a été portée à 130 milliards FCFA, démontrant l'effort croissant du Gouvernement[cite: 611]."
         },
         {
-          "date": "2026-04-22",
-          "text": "Budget campagne agricole 2025-2026 : 130 milliards FCFA (vs 120 milliards). Production céréalière totale estimée à 2 539 713 tonnes (+10%). Arachide : 969 074 tonnes (+22%). Maïs : +24% superficies. 270 000 tonnes d'engrais subventionnés."
+          "date": "2024-05-02",
+          "text": "Allocation de 120 milliards FCFA pour la campagne agricole 2024 (engrais et semences subventionnés)."
         }
       ]
     },
@@ -644,16 +660,16 @@
           "source": "Ministère des Pêches et de l’Économie maritime / APS"
         },
         {
-          "date": "2024-05-06",
-          "text": "Publication de la liste des navires autorisés."
+          "date": "2025-08-27",
+          "text": "L'UNAPAS dénonce toujours l'absence d'effectivité de la zone des 12 milles marins réservée à la pêche artisanale et l'incursion de navires industriels ; la révision du Code de la pêche (loi 2015-18) reste bloquée depuis deux ans. (Source : APS, 2025-08-27)"
         },
         {
           "date": "2024-06-15",
           "text": "Décret signé et publié au Journal Officiel."
         },
         {
-          "date": "2025-08-27",
-          "text": "L'UNAPAS dénonce toujours l'absence d'effectivité de la zone des 12 milles marins réservée à la pêche artisanale et l'incursion de navires industriels ; la révision du Code de la pêche (loi 2015-18) reste bloquée depuis deux ans. (Source : APS, 2025-08-27)"
+          "date": "2024-05-06",
+          "text": "Publication de la liste des navires autorisés."
         }
       ]
     },
@@ -666,20 +682,20 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "2024-05-06",
-          "text": "Publication de la liste des navires autorisés à pêcher dans les eaux sénégalaises (audit)."
-        },
-        {
-          "date": "2024-12-31",
-          "text": "Fin des accords de pêche avec l'UE : les navires européens n'ont plus l'autorisation de pêcher dans la ZEE sénégalaise depuis fin 2024."
+          "date": "2026-04-22",
+          "text": "Audit des accords de pêche réalisé. Protocoles signés avec Guinée, Guinée-Bissau et Mauritanie. 22e Conférence des ministres de la Commission sous-régionale des pêches organisée. Liste des navires autorisés publiée."
         },
         {
           "date": "2026-04-21",
           "text": "Publication de la liste des navires autorisés à pêcher pour 2025 et signature de protocoles de pêche avec la Guinée, la Guinée-Bissau et la Mauritanie[cite: 908]."
         },
         {
-          "date": "2026-04-22",
-          "text": "Audit des accords de pêche réalisé. Protocoles signés avec Guinée, Guinée-Bissau et Mauritanie. 22e Conférence des ministres de la Commission sous-régionale des pêches organisée. Liste des navires autorisés publiée."
+          "date": "2024-12-31",
+          "text": "Fin des accords de pêche avec l'UE : les navires européens n'ont plus l'autorisation de pêcher dans la ZEE sénégalaise depuis fin 2024."
+        },
+        {
+          "date": "2024-05-06",
+          "text": "Publication de la liste des navires autorisés à pêcher dans les eaux sénégalaises (audit)."
         }
       ]
     },
@@ -692,12 +708,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2026-04-21",
-          "text": "Élaboration et mise en œuvre du Plan national d'Immersion et de Gestion des Récifs Artificiels (PLAN RECIFS)[cite: 921, 922]."
-        },
-        {
           "date": "2026-04-22",
           "text": "Plan RECIFS adopté. 88 fermes aquacoles installées. Production aquacole 2025 : 3 000 tonnes (vs 1 804 en 2023). 18 tonnes de déchets extraits des fonds marins dont 20% recyclés. 84 missions de patrouille conduites."
+        },
+        {
+          "date": "2026-04-21",
+          "text": "Élaboration et mise en œuvre du Plan national d'Immersion et de Gestion des Récifs Artificiels (PLAN RECIFS)[cite: 921, 922]."
         }
       ]
     },
@@ -735,12 +751,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-06-05",
-          "text": "Préparation de la fête de Tabaski avec subvention de l'aliment de bétail pour les opérateurs."
-        },
-        {
           "date": "2026-04-21",
           "text": "Exploitation de 100 hectares de cultures fourragères par la Coopérative agricole communautaire du Ranch de Doli (Louga)[cite: 588]."
+        },
+        {
+          "date": "2024-06-05",
+          "text": "Préparation de la fête de Tabaski avec subvention de l'aliment de bétail pour les opérateurs."
         }
       ]
     },
@@ -769,16 +785,16 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-08-01",
-          "text": "Relance des projets d'Agropoles Sud, Centre et Ouest avec revue des financements."
+          "date": "2026-04-22",
+          "text": "Agropole Sud : 2 470 emplois (70% jeunes, 77% femmes), 4 400 ha de maïs. Module Adéane à 75%, Kolda à 80%. SONACOS relancée : 155 000 tonnes d'arachide collectées (vs 12 900), 2 300 emplois directs."
         },
         {
           "date": "2026-04-21",
           "text": "Avancées majeures : L'Agropole Sud (Adéane) exécuté à 75%, Agropole Centre en cours de construction (10 centres), et Agropole Nord engagé en PPP (189 milliards FCFA)[cite: 868, 871, 872]."
         },
         {
-          "date": "2026-04-22",
-          "text": "Agropole Sud : 2 470 emplois (70% jeunes, 77% femmes), 4 400 ha de maïs. Module Adéane à 75%, Kolda à 80%. SONACOS relancée : 155 000 tonnes d'arachide collectées (vs 12 900), 2 300 emplois directs."
+          "date": "2024-08-01",
+          "text": "Relance des projets d'Agropoles Sud, Centre et Ouest avec revue des financements."
         }
       ]
     },
@@ -797,12 +813,12 @@
           "source": "Ministère de l’Hydraulique et de l’Assainissement"
         },
         {
-          "date": "2026-04-21",
-          "text": "Restauration de terres dégradées par la salinisation dans le delta du Saloum (Fatick), avec 245 ha récupérés via des digues anti-sel[cite: 799, 803]."
-        },
-        {
           "date": "2026-04-22",
           "text": "245 ha de terres salées récupérées au Delta du Saloum. 260 ha de mangroves et 105 ha de terres fermes reboisés. 6 mares et 6 digues anti-sel aménagées (950 000 m³ d'eau). Semences tolérantes au sel : rendements jusqu'à 7,5t/ha."
+        },
+        {
+          "date": "2026-04-21",
+          "text": "Restauration de terres dégradées par la salinisation dans le delta du Saloum (Fatick), avec 245 ha récupérés via des digues anti-sel[cite: 799, 803]."
         }
       ]
     },
@@ -821,16 +837,16 @@
           "source": "Ministère de l’Hydraulique et de l’Assainissement"
         },
         {
-          "date": "2025-12-31",
-          "text": "Projet officiellement inscrit dans la LFI 2026 avec une enveloppe de 137 milliards FCFA."
+          "date": "2026-04-22",
+          "text": "Études du Grand Transfert d'Eau (GTE) du Lac de Guiers terminées. Financement Phase 1 PISEA : 200 millions USD approuvés pour les Autoroutes de l'Eau. Démarrage des travaux de réhabilitation des endiguements du Lac de Guiers prévu en 2026."
         },
         {
           "date": "2026-04-21",
           "text": "Achèvement des études pour le Grand Transfert d'Eau (GTE) depuis le Lac de Guiers vers le triangle Dakar-Mbour-Thiès et Touba, pour un démarrage des travaux prévu en 2026[cite: 656, 657]."
         },
         {
-          "date": "2026-04-22",
-          "text": "Études du Grand Transfert d'Eau (GTE) du Lac de Guiers terminées. Financement Phase 1 PISEA : 200 millions USD approuvés pour les Autoroutes de l'Eau. Démarrage des travaux de réhabilitation des endiguements du Lac de Guiers prévu en 2026."
+          "date": "2025-12-31",
+          "text": "Projet officiellement inscrit dans la LFI 2026 avec une enveloppe de 137 milliards FCFA."
         }
       ]
     },
@@ -849,20 +865,20 @@
           "source": "Ministère de la Santé et de l’Action Sociale"
         },
         {
-          "date": "2024-06-14",
-          "text": "Allocation budgétaire spéciale de 53,4 milliards FCFA pour la réduction du coût de la vie et le soutien à la santé."
-        },
-        {
-          "date": "2025-12-31",
-          "text": "Bilan 2025 : 34 postes de santé ouverts ou réhabilités et 76 ambulances médicalisées déployées. Un investissement de 91 milliards FCFA annoncé pour 2026, dont l'achèvement de l'Hôpital oncologique de Diamniadio."
+          "date": "2026-04-22",
+          "text": "699 agents déployés pour l'enrôlement à la CMU. 16,2 milliards FCFA de dettes payées aux structures de santé. 2,7 milliards FCFA de subventions aux mutuelles. Trachome éliminé (OMS). Onchocercose : transmission arrêtée."
         },
         {
           "date": "2026-04-21",
           "text": "Déploiement de 699 agents au sein des structures de santé pour renforcer l'enrôlement à la Couverture sanitaire universelle (SEN-CSU) et subvention de 2,7 milliards FCFA aux mutuelles[cite: 751]."
         },
         {
-          "date": "2026-04-22",
-          "text": "699 agents déployés pour l'enrôlement à la CMU. 16,2 milliards FCFA de dettes payées aux structures de santé. 2,7 milliards FCFA de subventions aux mutuelles. Trachome éliminé (OMS). Onchocercose : transmission arrêtée."
+          "date": "2025-12-31",
+          "text": "Bilan 2025 : 34 postes de santé ouverts ou réhabilités et 76 ambulances médicalisées déployées. Un investissement de 91 milliards FCFA annoncé pour 2026, dont l'achèvement de l'Hôpital oncologique de Diamniadio."
+        },
+        {
+          "date": "2024-06-14",
+          "text": "Allocation budgétaire spéciale de 53,4 milliards FCFA pour la réduction du coût de la vie et le soutien à la santé."
         }
       ]
     },
@@ -875,12 +891,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2026-04-21",
-          "text": "Lancement de la ligne téléphonique 116 dédiée au signalement des violences basées sur le genre et appui aux groupes vulnérables[cite: 748]."
-        },
-        {
           "date": "2026-04-22",
           "text": "Ligne téléphonique 116 lancée pour le signalement de violences. 4 Centres d'accueil pour victimes de violences ouverts dans 4 régions. 690 projets de femmes financés (1 043 325 000 FCFA). Plan Diomaye pour la Casamance : 133 ménages déplacés aidés."
+        },
+        {
+          "date": "2026-04-21",
+          "text": "Lancement de la ligne téléphonique 116 dédiée au signalement des violences basées sur le genre et appui aux groupes vulnérables[cite: 748]."
         }
       ]
     },
@@ -939,16 +955,16 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-06-25",
-          "text": "Visite du Chef de l'État à l'Hôpital Le Dantec (chantier) et instructions pour l'accélération de la reconstruction."
+          "date": "2026-04-22",
+          "text": "Pôle Mère-Enfant de Pikine finalisé. Pôle Mère-Enfant de Louga finalisé. Pôles ARP inaugurés au Centre (Kaolack) et au Nord (Saint-Louis). Blocs opératoires ouverts à Goudiry, Khombole, Ranérou. 10 maternités réhabilitées."
         },
         {
           "date": "2026-03-01",
           "text": "Visite présidentielle du chantier du Centre National d'Oncologie de Diamniadio. Le Président a supervisé l'avancement des travaux et rappelé l'exigence de respect des délais."
         },
         {
-          "date": "2026-04-22",
-          "text": "Pôle Mère-Enfant de Pikine finalisé. Pôle Mère-Enfant de Louga finalisé. Pôles ARP inaugurés au Centre (Kaolack) et au Nord (Saint-Louis). Blocs opératoires ouverts à Goudiry, Khombole, Ranérou. 10 maternités réhabilitées."
+          "date": "2024-06-25",
+          "text": "Visite du Chef de l'État à l'Hôpital Le Dantec (chantier) et instructions pour l'accélération de la reconstruction."
         }
       ]
     },
@@ -967,16 +983,16 @@
           "source": "Ministère de la Santé / ARP"
         },
         {
-          "date": "2024-07-16",
-          "text": "L'Institut Pasteur de Dakar inaugure MADIBA, usine de production de vaccins, étape clé vers la souveraineté."
+          "date": "2026-04-22",
+          "text": "4 établissements pharmaceutiques industriels et de distribution en gros créés par arrêtés. Transplantation rénale à l'HOGIP finalisée. Greffe de cornée démarrée. Structures mobiles d'urgence et réanimation (SMURS) déployées."
         },
         {
           "date": "2026-04-21",
           "text": "Création de 4 établissements pharmaceutiques industriels et de distribution en gros via arrêtés ministériels[cite: 726]."
         },
         {
-          "date": "2026-04-22",
-          "text": "4 établissements pharmaceutiques industriels et de distribution en gros créés par arrêtés. Transplantation rénale à l'HOGIP finalisée. Greffe de cornée démarrée. Structures mobiles d'urgence et réanimation (SMURS) déployées."
+          "date": "2024-07-16",
+          "text": "L'Institut Pasteur de Dakar inaugure MADIBA, usine de production de vaccins, étape clé vers la souveraineté."
         }
       ]
     },
@@ -1065,20 +1081,20 @@
           "source": "Présidence / Seneweb (02-10-2026)"
         },
         {
-          "date": "2025-12-31",
-          "text": "Enveloppe de 29 milliards FCFA dédiée à l'accélération de l'éradication des abris en 2026."
-        },
-        {
-          "date": "2025-12-31",
-          "text": "Bilan 2025 : plus de 2 400 salles de classe livrées dans le cadre du programme de remplacement des abris provisoires et de la construction de nouvelles infrastructures scolaires."
+          "date": "2026-04-22",
+          "text": "PURAPP lancé : 2 400 salles de classes construites et équipées, 1 300 blocs administratifs, 1 100 blocs d'hygiène, 92 100 m linéaires réalisés. Plan quinquennal de résorption du déficit enseignant (2025-2029) en cours."
         },
         {
           "date": "2026-04-21",
           "text": "Démarrage du Programme d'Urgence de Résorption des Abris provisoires persistants (PURAPP) avec 2 400 salles de classes construites et équipées[cite: 576]."
         },
         {
-          "date": "2026-04-22",
-          "text": "PURAPP lancé : 2 400 salles de classes construites et équipées, 1 300 blocs administratifs, 1 100 blocs d'hygiène, 92 100 m linéaires réalisés. Plan quinquennal de résorption du déficit enseignant (2025-2029) en cours."
+          "date": "2025-12-31",
+          "text": "Enveloppe de 29 milliards FCFA dédiée à l'accélération de l'éradication des abris en 2026."
+        },
+        {
+          "date": "2025-12-31",
+          "text": "Bilan 2025 : plus de 2 400 salles de classe livrées dans le cadre du programme de remplacement des abris provisoires et de la construction de nouvelles infrastructures scolaires."
         }
       ]
     },
@@ -1091,20 +1107,20 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "2024-12-13",
-          "text": "Lancement institutionnel par le ministère de l'Éducation nationale."
-        },
-        {
-          "date": "2025-01-14",
-          "text": "Début effectif des cours dans les classes du préscolaire et de l'élémentaire."
+          "date": "2026-04-22",
+          "text": "Introduction effective de l'anglais au préscolaire et à l'élémentaire. 8 langues nationales codifiées. Extension du modèle bilingue MOHEBS à 13 académies. Stratégie numérique pour l'Éducation (SNE 2025-2029) adoptée."
         },
         {
           "date": "2026-04-21",
           "text": "Introduction effective de l'anglais au préscolaire et à l'élémentaire confirmée dans le bilan des réformes linguistiques[cite: 569]."
         },
         {
-          "date": "2026-04-22",
-          "text": "Introduction effective de l'anglais au préscolaire et à l'élémentaire. 8 langues nationales codifiées. Extension du modèle bilingue MOHEBS à 13 académies. Stratégie numérique pour l'Éducation (SNE 2025-2029) adoptée."
+          "date": "2025-01-14",
+          "text": "Début effectif des cours dans les classes du préscolaire et de l'élémentaire."
+        },
+        {
+          "date": "2024-12-13",
+          "text": "Lancement institutionnel par le ministère de l'Éducation nationale."
         }
       ]
     },
@@ -1123,8 +1139,12 @@
           "source": "Conseil des ministres (30-09-2026)"
         },
         {
-          "date": "2024-11-15",
-          "text": "Recrutement de 2 000 nouveaux enseignants."
+          "date": "2026-04-22",
+          "text": "5 000 contractuels recrutés en éducation. Plan quinquennal : 6 000 instituteurs (2 000 par appel à candidature + 4 000 par concours CREM) + 2 000 professeurs. 105 000 enseignants formés au numérique et à l'IA. 500 PER recrutés dans le supérieur."
+        },
+        {
+          "date": "2026-04-21",
+          "text": "Recrutement de 5 000 contractuels en éducation et formation et recrutement exceptionnel de 500 Personnels d'enseignement et de recherche (PER) pour le supérieur[cite: 370, 378]."
         },
         {
           "date": "2025-08-30",
@@ -1135,12 +1155,8 @@
           "text": "Recrutement exceptionnel de 200 formateurs pour ETFP."
         },
         {
-          "date": "2026-04-21",
-          "text": "Recrutement de 5 000 contractuels en éducation et formation et recrutement exceptionnel de 500 Personnels d'enseignement et de recherche (PER) pour le supérieur[cite: 370, 378]."
-        },
-        {
-          "date": "2026-04-22",
-          "text": "5 000 contractuels recrutés en éducation. Plan quinquennal : 6 000 instituteurs (2 000 par appel à candidature + 4 000 par concours CREM) + 2 000 professeurs. 105 000 enseignants formés au numérique et à l'IA. 500 PER recrutés dans le supérieur."
+          "date": "2024-11-15",
+          "text": "Recrutement de 2 000 nouveaux enseignants."
         }
       ]
     },
@@ -1159,12 +1175,12 @@
           "source": "Primature (26-09-2026)"
         },
         {
-          "date": "2026-04-21",
-          "text": "Renforcement de 1 098 daara avec le recrutement de prestataires pour enseigner le français et la prise en charge santé-nutrition[cite: 576, 577]."
-        },
-        {
           "date": "2026-04-22",
           "text": "1 098 daara accompagnés (recrutement prestataires pour enseigner le français + santé-nutrition des Ndongo daara). Programme éducatif de Touba : 500 000 apprenants enrôlés. Daara-ateliers pour 15 000 talibés lancé (BTP, froid, menuiserie, aviculture…)."
+        },
+        {
+          "date": "2026-04-21",
+          "text": "Renforcement de 1 098 daara avec le recrutement de prestataires pour enseigner le français et la prise en charge santé-nutrition[cite: 576, 577]."
         }
       ]
     },
@@ -1223,16 +1239,16 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2026-01-05",
-          "text": "Pose première pierre du lycée moderne de Passy (coût 3 537 267 820 FCFA)."
+          "date": "2026-04-22",
+          "text": "10 nouveaux CFP construits (Touba, Thiempeng, Guédiawaye, Nétéboulou/Tamba, Diourbel, Linguère, Kaolack, Dakar, Ndouloumadji, Mbour). Inauguration CFP Mbour par le PM Sonko le 16 janvier 2026. 20 610 apprentis formés. 347 formateurs recrutés."
         },
         {
           "date": "2026-04-21",
           "text": "Construction de 10 nouveaux Centres de Formation professionnelle (Touba, Thiempeng, Tamba, Diourbel, Linguère, Mbour, Ndouloumadji, etc.)[cite: 783, 784]."
         },
         {
-          "date": "2026-04-22",
-          "text": "10 nouveaux CFP construits (Touba, Thiempeng, Guédiawaye, Nétéboulou/Tamba, Diourbel, Linguère, Kaolack, Dakar, Ndouloumadji, Mbour). Inauguration CFP Mbour par le PM Sonko le 16 janvier 2026. 20 610 apprentis formés. 347 formateurs recrutés."
+          "date": "2026-01-05",
+          "text": "Pose première pierre du lycée moderne de Passy (coût 3 537 267 820 FCFA)."
         }
       ]
     },
@@ -1268,12 +1284,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2026-04-21",
-          "text": "Élaboration d'une politique d'éducation inclusive et d'un Guide harmonisé pour la formation initiale et continue des enseignants en éducation inclusive[cite: 564, 571]."
-        },
-        {
           "date": "2026-04-22",
           "text": "Document de politique d'éducation inclusive élaboré. Guide harmonisé de formation en éducation inclusive finalisé. Document de politique de formation MEN 2025-2029 élaboré. Programme NITHE mis en œuvre."
+        },
+        {
+          "date": "2026-04-21",
+          "text": "Élaboration d'une politique d'éducation inclusive et d'un Guide harmonisé pour la formation initiale et continue des enseignants en éducation inclusive[cite: 564, 571]."
         }
       ]
     },
@@ -1286,16 +1302,16 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2025-12-31",
-          "text": "Annonce présidentielle : 367 localités supplémentaires seront raccordées au réseau électrique en 2026, bénéficiant à plus de 1,2 million de personnes."
+          "date": "2026-04-22",
+          "text": "Puissance électrique installée fin 2025 : 1 930 MW dont 578 MW en renouvelables. Taux d'électrification nationale : 86,2% ; rurale : 69,84%. En 2025 : 527 nouvelles localités électrifiées. 28 058 lampadaires solaires couvrant 99,22% des 553 communes. Centrale Walo Storage mise en service le 14 juillet 2025."
         },
         {
           "date": "2026-04-21",
           "text": "Le taux d'électrification rurale a atteint 69,84% avec l'électrification de centaines de nouvelles localités[cite: 183, 185]."
         },
         {
-          "date": "2026-04-22",
-          "text": "Puissance électrique installée fin 2025 : 1 930 MW dont 578 MW en renouvelables. Taux d'électrification nationale : 86,2% ; rurale : 69,84%. En 2025 : 527 nouvelles localités électrifiées. 28 058 lampadaires solaires couvrant 99,22% des 553 communes. Centrale Walo Storage mise en service le 14 juillet 2025."
+          "date": "2025-12-31",
+          "text": "Annonce présidentielle : 367 localités supplémentaires seront raccordées au réseau électrique en 2026, bénéficiant à plus de 1,2 million de personnes."
         }
       ]
     },
@@ -1317,28 +1333,28 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "2024-06-11",
-          "text": "First Oil du champ Sangomar, permettant à terme l'utilisation du gaz associé pour les centrales Senelec."
-        },
-        {
-          "date": "2025-04-15",
-          "text": "Première exportation de GNL du projet Grand Tortue Ahmeyim (GTA, partagé avec la Mauritanie) : 163 259 m³ chargés, marquant l'entrée officielle du Sénégal sur le marché international du gaz naturel liquéfié."
-        },
-        {
-          "date": "2025-08-06",
-          "text": "Lancement officiel du Gazoduc de 85 km reliant le Hub de GTA à la Centrale électrique de Gandon (250 MW), ouvrant la voie à l'alimentation des centrales Senelec au gaz domestique."
+          "date": "2026-04-22",
+          "text": "Basculement au gaz de la centrale Karpowership le 29 avril 2025. Réseau gazier du Sénégal (RGS) : contrat signé pour le Segment Nord (85 km GTA-Centrale Gandon), entrée en vigueur août 2025. Production GTA : 3 millions m³ en 2025."
         },
         {
           "date": "2025-12-31",
           "text": "Bilan annuel 2025 : GTA a livré 18,5 cargaisons de GNL au total sur l'année, atteignant progressivement sa capacité nominale de 2,7 Mtpa. Le projet monte en puissance conformément aux prévisions."
         },
         {
+          "date": "2025-08-06",
+          "text": "Lancement officiel du Gazoduc de 85 km reliant le Hub de GTA à la Centrale électrique de Gandon (250 MW), ouvrant la voie à l'alimentation des centrales Senelec au gaz domestique."
+        },
+        {
           "date": "2025-04-29",
           "text": "Basculement au gaz de la centrale flottante de Karpowership et mise en service de Walo Storage et West African Energy[cite: 185]."
         },
         {
-          "date": "2026-04-22",
-          "text": "Basculement au gaz de la centrale Karpowership le 29 avril 2025. Réseau gazier du Sénégal (RGS) : contrat signé pour le Segment Nord (85 km GTA-Centrale Gandon), entrée en vigueur août 2025. Production GTA : 3 millions m³ en 2025."
+          "date": "2025-04-15",
+          "text": "Première exportation de GNL du projet Grand Tortue Ahmeyim (GTA, partagé avec la Mauritanie) : 163 259 m³ chargés, marquant l'entrée officielle du Sénégal sur le marché international du gaz naturel liquéfié."
+        },
+        {
+          "date": "2024-06-11",
+          "text": "First Oil du champ Sangomar, permettant à terme l'utilisation du gaz associé pour les centrales Senelec."
         }
       ]
     },
@@ -1357,32 +1373,32 @@
           "source": "Présidence de la République"
         },
         {
-          "date": "2024-05-20",
-          "text": "Accords renégociés avec 3 compagnies pétrolières."
-        },
-        {
-          "date": "2024-07-10",
-          "text": "Augmentation de 15% des royalties."
-        },
-        {
-          "date": "2024-08-19",
-          "text": "Installation officielle par le Premier Ministre de la Commission de réexamen des contrats stratégiques (pétroliers, miniers, fiscaux)."
-        },
-        {
-          "date": "2025-08-01",
-          "text": "Sangomar bat ses propres records : les prévisions de production annuelle ont été révisées à la hausse, passant de 30,53 millions à 34,5 millions de barils pour 2025, grâce à la robustesse des réservoirs et la qualité des opérations. L'État a engrangé 500 milliards FCFA sur la Phase 1, avec 6 000 emplois créés."
-        },
-        {
-          "date": "2025-10-01",
-          "text": "Record d'octobre 2025 : Sangomar a exporté 3 cargaisons (2,92 M barils), et GTA a réalisé sa première exportation de condensat (0,71 M barils) en plus de 3 cargaisons de GNL, confirmant la position du Sénégal comme acteur gazier et pétrolier majeur en Afrique de l'Ouest."
+          "date": "2026-04-22",
+          "text": "Sangomar : 54 millions de barils cumulés produits, 55 déchargements. GTA : 18 cargos de gaz (vs 10 prévus), 3 millions m³. Audits des coûts pétroliers réalisés pour défendre les intérêts du Sénégal. 650 000 barils livrés à la SAR."
         },
         {
           "date": "2026-04-21",
           "text": "Réalisation des audits des coûts pétroliers de Sangomar et GTA. Production de 54 millions de barils pour Sangomar et 3 millions de m3 de gaz pour GTA à fin 2025[cite: 206, 203, 204]."
         },
         {
-          "date": "2026-04-22",
-          "text": "Sangomar : 54 millions de barils cumulés produits, 55 déchargements. GTA : 18 cargos de gaz (vs 10 prévus), 3 millions m³. Audits des coûts pétroliers réalisés pour défendre les intérêts du Sénégal. 650 000 barils livrés à la SAR."
+          "date": "2025-10-01",
+          "text": "Record d'octobre 2025 : Sangomar a exporté 3 cargaisons (2,92 M barils), et GTA a réalisé sa première exportation de condensat (0,71 M barils) en plus de 3 cargaisons de GNL, confirmant la position du Sénégal comme acteur gazier et pétrolier majeur en Afrique de l'Ouest."
+        },
+        {
+          "date": "2025-08-01",
+          "text": "Sangomar bat ses propres records : les prévisions de production annuelle ont été révisées à la hausse, passant de 30,53 millions à 34,5 millions de barils pour 2025, grâce à la robustesse des réservoirs et la qualité des opérations. L'État a engrangé 500 milliards FCFA sur la Phase 1, avec 6 000 emplois créés."
+        },
+        {
+          "date": "2024-08-19",
+          "text": "Installation officielle par le Premier Ministre de la Commission de réexamen des contrats stratégiques (pétroliers, miniers, fiscaux)."
+        },
+        {
+          "date": "2024-07-10",
+          "text": "Augmentation de 15% des royalties."
+        },
+        {
+          "date": "2024-05-20",
+          "text": "Accords renégociés avec 3 compagnies pétrolières."
         }
       ]
     },
@@ -1415,20 +1431,20 @@
           "source": "Ministère des Transports terrestres / APS (29-09-2026)"
         },
         {
-          "date": "2024-10-21",
-          "text": "Ouverture des États Généraux des Transports Publics, incluant un atelier spécifique sur la relance du chemin de fer."
-        },
-        {
-          "date": "2025-12-31",
-          "text": "Fin de la phase préparatoire : études et travaux préparatoires bouclés en 2026."
+          "date": "2026-04-22",
+          "text": "TER : 23 036 712 voyageurs en 2025, taux satisfaction 96%, zéro accident, ponctualité 97%, recettes 20 milliards FCFA. Touba-Mbacké-Ngabou (TMN) : reprise du trafic le 25 octobre 2025 (24 km, 5 000 passagers/jour). Phase 2 TER Diamniadio-AIBD en cours. BRT : 22,7 millions de voyageurs."
         },
         {
           "date": "2026-04-21",
           "text": "Reprise effective du trafic ferroviaire sur l'axe Touba-Mbacké-Ngabou sur 24 km, desservant 5000 passagers/jour[cite: 451, 452, 453]."
         },
         {
-          "date": "2026-04-22",
-          "text": "TER : 23 036 712 voyageurs en 2025, taux satisfaction 96%, zéro accident, ponctualité 97%, recettes 20 milliards FCFA. Touba-Mbacké-Ngabou (TMN) : reprise du trafic le 25 octobre 2025 (24 km, 5 000 passagers/jour). Phase 2 TER Diamniadio-AIBD en cours. BRT : 22,7 millions de voyageurs."
+          "date": "2025-12-31",
+          "text": "Fin de la phase préparatoire : études et travaux préparatoires bouclés en 2026."
+        },
+        {
+          "date": "2024-10-21",
+          "text": "Ouverture des États Généraux des Transports Publics, incluant un atelier spécifique sur la relance du chemin de fer."
         }
       ]
     },
@@ -1441,12 +1457,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2026-04-21",
-          "text": "Création effective de la filiale Air Sénégal Express, accompagnée d'un plan de redressement global de la compagnie (réduction de la dette de 118 à 37 milliards FCFA)[cite: 484, 486]."
-        },
-        {
           "date": "2026-04-22",
           "text": "Air Sénégal Express créée. 6 filiales opérationnelles : Air Sénégal Express, Centre Industriel Diass, Institut de formation, Teranga Catering, Teranga Hôtel, Teranga Online. Dette réduite de 118 à 37 milliards FCFA. 4 aéronefs L410NG intégrés."
+        },
+        {
+          "date": "2026-04-21",
+          "text": "Création effective de la filiale Air Sénégal Express, accompagnée d'un plan de redressement global de la compagnie (réduction de la dette de 118 à 37 milliards FCFA)[cite: 484, 486]."
         }
       ]
     },
@@ -1468,12 +1484,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2026-04-21",
-          "text": "Démarrage du projet de construction de 2 navires en acier pour renforcer la liaison Dakar-Gorée (LMDG)[cite: 921]."
-        },
-        {
           "date": "2026-04-22",
           "text": "Démarrage du projet de construction de 2 navires en acier pour la liaison Dakar-Gorée (LMDG). 4 pirogues en fibre de verre livrées aux îles du Saloum et de Casamance (pirogues-ambulances). Terminal à conteneurs de Ndayane en cours."
+        },
+        {
+          "date": "2026-04-21",
+          "text": "Démarrage du projet de construction de 2 navires en acier pour renforcer la liaison Dakar-Gorée (LMDG)[cite: 921]."
         }
       ]
     },
@@ -1536,12 +1552,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2025-12-31",
-          "text": "Enveloppe de 30 milliards FCFA mobilisée en 2026 pour accélérer le programme des 100 000 logements."
-        },
-        {
           "date": "2026-02-25",
           "text": "Lors du Conseil des ministres du 25 février 2026, le gouvernement a réaffirmé l'objectif de construire 100 000 logements sociaux en 5 ans et d'éradiquer les bidonvilles d'ici 2035. (Source : Primature/presse gouvernementale, 2026-02-25)"
+        },
+        {
+          "date": "2025-12-31",
+          "text": "Enveloppe de 30 milliards FCFA mobilisée en 2026 pour accélérer le programme des 100 000 logements."
         }
       ]
     },
@@ -1577,12 +1593,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2026-04-21",
-          "text": "Mise en place d'une usine de montage de véhicules de marque KIA (ISEVEM) dans le cadre de l'industrie de défense nationale[cite: 314]."
-        },
-        {
           "date": "2026-04-22",
           "text": "Usine de montage de véhicules KIA (ISEVEM) mise en place dans le cadre de l'industrie de défense. 510 véhicules tactiques KIA KM450 réalisés. 55 camions zétros 10 CSVN avec 12,7mm. 41 ouvrages de Gendarmerie construits dont 11 inaugurés."
+        },
+        {
+          "date": "2026-04-21",
+          "text": "Mise en place d'une usine de montage de véhicules de marque KIA (ISEVEM) dans le cadre de l'industrie de défense nationale[cite: 314]."
         }
       ]
     },
@@ -1601,20 +1617,20 @@
           "source": "ASES / APS (29-09-2026)"
         },
         {
-          "date": "2024-08-16",
-          "text": "Lancement réussi du premier satellite sénégalais GAINDESAT-1 depuis la Californie, marquant l'entrée du Sénégal dans l'ère spatiale."
+          "date": "2026-04-22",
+          "text": "GAINDESAT-1A, premier satellite 100% sénégalais de type CubeSat, lancé avec succès en août 2024. Programme SENSAT opérationnel. Caravane de l'espace (Spacebus2025) lancée par le Président le 6 avril 2025. Souveraineté technologique affirmée."
         },
         {
           "date": "2025-06-01",
           "text": "GAINDESAT-1A est pleinement opérationnel. Le satellite assure la surveillance du territoire national, du domaine maritime et contribue à la gestion des ressources naturelles. Le Sénégal figure parmi les rares pays africains disposant d'une capacité spatiale souveraine."
         },
         {
-          "date": "2024-08-01",
-          "text": "Lancement avec succès de GAINDESAT-1A, premier satellite 100% sénégalais de type CubeSat[cite: 384]."
+          "date": "2024-08-16",
+          "text": "Lancement réussi du premier satellite sénégalais GAINDESAT-1 depuis la Californie, marquant l'entrée du Sénégal dans l'ère spatiale."
         },
         {
-          "date": "2026-04-22",
-          "text": "GAINDESAT-1A, premier satellite 100% sénégalais de type CubeSat, lancé avec succès en août 2024. Programme SENSAT opérationnel. Caravane de l'espace (Spacebus2025) lancée par le Président le 6 avril 2025. Souveraineté technologique affirmée."
+          "date": "2024-08-01",
+          "text": "Lancement avec succès de GAINDESAT-1A, premier satellite 100% sénégalais de type CubeSat[cite: 384]."
         }
       ]
     },
@@ -1636,16 +1652,16 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-06-01",
-          "text": "Lancement de l'initiative nationale 'Setal Sunu Rew' avec une première journée dédiée au nettoiement et à la gestion des déchets, y compris Mbeubeuss."
+          "date": "2026-04-22",
+          "text": "Processus de résorption progressive de la décharge de Mbeubeuss engagé. Unité de compostage de Touba (50-120t/jour). Centre pilote CSR à Sendou (3t/jour). 2 800 020 tonnes de déchets traités en 2025. 1 023 jeunes recrutés dans 46 départements."
         },
         {
           "date": "2026-04-21",
           "text": "Résorption progressive et définitive de la décharge de Mbeubeuss avec une augmentation significative de la collecte à 2 800 020 tonnes traitées en 2025[cite: 816, 819]."
         },
         {
-          "date": "2026-04-22",
-          "text": "Processus de résorption progressive de la décharge de Mbeubeuss engagé. Unité de compostage de Touba (50-120t/jour). Centre pilote CSR à Sendou (3t/jour). 2 800 020 tonnes de déchets traités en 2025. 1 023 jeunes recrutés dans 46 départements."
+          "date": "2024-06-01",
+          "text": "Lancement de l'initiative nationale 'Setal Sunu Rew' avec une première journée dédiée au nettoiement et à la gestion des déchets, y compris Mbeubeuss."
         }
       ]
     },
@@ -1658,12 +1674,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-06-20",
-          "text": "Mise en place d'une Commission nationale de régulation des loyers pour faire appliquer les baisses."
-        },
-        {
           "date": "2025-04-02",
           "text": "Le Premier ministre a demandé une réforme en profondeur de la régulation des loyers, avec des propositions concrètes attendues fin juin 2025 après évaluation du dispositif de 2014 ; aucune adoption confirmée à mi-2026. (Source : RTS, 2025-04-02)"
+        },
+        {
+          "date": "2024-06-20",
+          "text": "Mise en place d'une Commission nationale de régulation des loyers pour faire appliquer les baisses."
         }
       ]
     },
@@ -1702,12 +1718,12 @@
           "source": "Ministère du Numérique / Présidence"
         },
         {
-          "date": "2024-10-14",
-          "text": "La strategy Sénégal 2050 met l'accent sur la souveraineté numérique et la protection des données (CDP)."
-        },
-        {
           "date": "2026-04-22",
           "text": "Loi n°04/26 sur le Conseil national de Régulation des Médias adoptée. Infrastructure à Clé Publique (PKI) et GISOC finalisés. Cloud souverain lancé (SENUM SA-Sonatel). Bande passante administrative : 600 Mbps → 20 Gbps."
+        },
+        {
+          "date": "2024-10-14",
+          "text": "La strategy Sénégal 2050 met l'accent sur la souveraineté numérique et la protection des données (CDP)."
         }
       ]
     },
@@ -1720,20 +1736,20 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "2024-04-05",
-          "text": "Fusion effective dans le Gouvernement Sonko 1."
-        },
-        {
-          "date": "2025-10-31",
-          "text": "J-365 JOJ Dakar 2026 : Dévoilement de la mascotte officielle 'Ayo' au Grand Théâtre National de Dakar. Le Sénégal deviendra le premier pays africain à accueillir une manifestation olympique lors des 4es Jeux Olympiques de la Jeunesse (31 oct. - 13 nov. 2026)."
+          "date": "2026-03-05",
+          "text": "Le Président Faye visite les chantiers des JOJ Dakar 2026. Les travaux progressent de façon notable. Le Chef de l'État a martelé qu'aucun relâchement ne sera toléré pour respecter les délais de livraison, fixés initialement à mars 2026. Les quatre sites de Diamniadio sont déclarés prêts."
         },
         {
           "date": "2025-12-05",
           "text": "Tirage au sort Coupe du Monde 2026 : le Sénégal est versé dans le Groupe I aux côtés de la France, de la Norvège et d'un barragiste (Irak, Bolivie ou Suriname). Le match France-Sénégal est prévu le 16 juin 2026 à New York, dans un écho aux retrouvailles de 2002."
         },
         {
-          "date": "2026-03-05",
-          "text": "Le Président Faye visite les chantiers des JOJ Dakar 2026. Les travaux progressent de façon notable. Le Chef de l'État a martelé qu'aucun relâchement ne sera toléré pour respecter les délais de livraison, fixés initialement à mars 2026. Les quatre sites de Diamniadio sont déclarés prêts."
+          "date": "2025-10-31",
+          "text": "J-365 JOJ Dakar 2026 : Dévoilement de la mascotte officielle 'Ayo' au Grand Théâtre National de Dakar. Le Sénégal deviendra le premier pays africain à accueillir une manifestation olympique lors des 4es Jeux Olympiques de la Jeunesse (31 oct. - 13 nov. 2026)."
+        },
+        {
+          "date": "2024-04-05",
+          "text": "Fusion effective dans le Gouvernement Sonko 1."
         }
       ]
     },
@@ -1752,16 +1768,16 @@
           "source": "Secrétariat Général du Gouvernement"
         },
         {
-          "date": "2024-04-17",
-          "text": "Lancement des appels à candidatures pour les directions générales stratégiques (ex: ANAM, Agence Construction Bâtiments)."
+          "date": "2026-04-22",
+          "text": "Agenda national de Transformation du Service public (ANTSP) présenté le 4 août 2025. Pointage biométrique 2.0 déployé progressivement. Projet de Code général d'Éthique et de Déontologie des Agents publics. Baromètre du Service public lancé."
         },
         {
           "date": "2024-06-15",
           "text": "Lancement des consultations pour la réforme des normes administratives."
         },
         {
-          "date": "2026-04-22",
-          "text": "Agenda national de Transformation du Service public (ANTSP) présenté le 4 août 2025. Pointage biométrique 2.0 déployé progressivement. Projet de Code général d'Éthique et de Déontologie des Agents publics. Baromètre du Service public lancé."
+          "date": "2024-04-17",
+          "text": "Lancement des appels à candidatures pour les directions générales stratégiques (ex: ANAM, Agence Construction Bâtiments)."
         }
       ]
     },
@@ -1780,12 +1796,12 @@
           "source": "Parquet de Dakar / APS (03-10-2026)"
         },
         {
-          "date": "2024-06-04",
-          "text": "Les Assises de la Justice recommandent la dépénalisation des délits de presse et la révision des articles sur le vagabondage."
-        },
-        {
           "date": "2026-03-11",
           "text": "L'Assemblée nationale a adopté le 11 mars 2026 la loi n°05/2026 modifiant l'article 319 du code pénal, mais dans le sens d'un durcissement des peines, sans lien avec la dépénalisation du vagabondage, de la mendicité ou des délits de presse visée par cet engagement. (Source : Ministère de la Justice, 2026-03-11)"
+        },
+        {
+          "date": "2024-06-04",
+          "text": "Les Assises de la Justice recommandent la dépénalisation des délits de presse et la révision des articles sur le vagabondage."
         }
       ]
     },
@@ -1873,12 +1889,14 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "2024-04-05",
-          "text": "Démission collective des Ministres détenant des mandats de Maires ou Présidents de Conseil Départemental (ex: Birame Soulèye Diop, Maïmouna Dieye)."
+          "date": "2026-07-09",
+          "text": "Le principe de non-cumul des fonctions gouvernementales avec des mandats exécutifs locaux (maires, présidents de conseil départemental) est appliqué avec rigueur au sein du Gouvernement depuis avril 2024 par directive du Premier ministre. En revanche, l'inscription de cette obligation au niveau constitutionnel (loi n°18/2026) a été invalidée par la décision n° 6/C/2026 du Conseil constitutionnel le 9 juillet 2026.",
+          "description": "Application gouvernementale effective du non-cumul ; invalidation du volet de constitutionnalisation par le Conseil constitutionnel.",
+          "source": "Primature / Conseil constitutionnel (Décision n° 6/C/2026)"
         },
         {
-          "date": "2026-06-29",
-          "text": "La loi organique n°2025-11 du 18 août 2025 instaure un régime d'incompatibilité entre mandat de député et fonctions exécutives ; la révision constitutionnelle (loi n°17/2026, 29 juin 2026) étend cette incompatibilité aux exécutifs locaux nommés ministres. (Source : Vie-publique.sn, 2026-06-29)"
+          "date": "2024-04-05",
+          "text": "Démission collective des Ministres détenant des mandats de Maires ou Présidents de Conseil Départemental (ex: Birame Soulèye Diop, Maïmouna Dieye)."
         }
       ]
     },
@@ -1891,16 +1909,18 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2025-07-01",
-          "text": "Lancement des concertations nationales sur le système politique sénégalais (CNSP), associant partis politiques, société civile et experts constitutionnels, dans la perspective de la révision constitutionnelle."
+          "date": "2026-07-09",
+          "text": "La proposition de loi n°17/2026 (devenue loi n°18/2026) portant révision partielle de la Constitution, votée le 29 juin 2026, a été déférée au Conseil constitutionnel par le Président Bassirou Diomaye Faye. Par sa décision n° 6/C/2026 du 9 juillet 2026, le Conseil l'a déclarée totalement contraire à la Constitution pour violations procédurales substantielles (refus du vote bloqué et création de charges publiques non compensées). Le texte n'a pas été promulgué et la réforme constitutionnelle globale reste un chantier ouvert.",
+          "description": "Invalidation intégrale de la loi n°18/2026 par le Conseil constitutionnel le 9 juillet 2026. Poursuite des réflexions institutionnelles.",
+          "source": "Conseil constitutionnel (Décision n° 6/C/2026 du 09-07-2026)"
         },
         {
           "date": "2025-12-31",
           "text": "Discours présidentiel à la Nation : annonce de la transmission imminente au Parlement des textes sur la réforme constitutionnelle, le CSM, la Cour Constitutionnelle et la CENI, au cours du premier trimestre 2026. Les concertations ont achevé leurs travaux préparatoires."
         },
         {
-          "date": "2026-06-29",
-          "text": "L'Assemblée nationale a adopté à l'unanimité (129 voix) la loi n°17/2026 portant révision de la Constitution le 29 juin 2026, remplaçant le Conseil constitutionnel par une Cour constitutionnelle et le CSM par un Conseil supérieur de la Justice ; révision partielle, pas la refonte globale annoncée. (Source : Vie-publique.sn, 2026-06-29)"
+          "date": "2025-07-01",
+          "text": "Lancement des concertations nationales sur le système politique sénégalais (CNSP), associant partis politiques, société civile et experts constitutionnels, dans la perspective de la révision constitutionnelle."
         }
       ]
     },
@@ -1959,12 +1979,12 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "2024-07-24",
-          "text": "Adoption en Conseil des Ministres du projet de loi renforçant les prérogatives et le mandat des membres de l'OFNAC."
-        },
-        {
           "date": "2025-09-03",
           "text": "La loi n° 2025-12 allonge le mandat des membres de l'OFNAC (les sources divergent entre 5 ans pour tous ou un mandat mixte 5 ans/3 ans selon les postes), contre 3 ans auparavant — mais pas confirmé à 6 ans comme promis. (Source : IGFM/La Nouvelle Tribune, 2025-09)"
+        },
+        {
+          "date": "2024-07-24",
+          "text": "Adoption en Conseil des Ministres du projet de loi renforçant les prérogatives et le mandat des membres de l'OFNAC."
         }
       ]
     },
@@ -1977,12 +1997,12 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "2024-04-20",
-          "text": "Sur instruction du Président Faye, les rapports 2019-2023 ont été transmis aux autorités judiciaires compétentes."
-        },
-        {
           "date": "2025-10-15",
           "text": "Le rapport d'activités 2024 de l'OFNAC (publié le 15 octobre 2025) confirme la transmission de 6 dossiers d'enquête au procureur et 4 à la Cour des comptes ; la transmission reste toutefois décidée au cas par cas par l'Assemblée de l'OFNAC, non strictement automatique. (Source : Lequotidien/OFNAC, 2025-10-15)"
+        },
+        {
+          "date": "2024-04-20",
+          "text": "Sur instruction du Président Faye, les rapports 2019-2023 ont été transmis aux autorités judiciaires compétentes."
         }
       ]
     },
@@ -1995,12 +2015,12 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "2024-04-25",
-          "text": "Publication en ligne de l'intégralité des rapports d'activités de l'OFNAC en retard."
-        },
-        {
           "date": "2025-10-15",
           "text": "Le rapport d'activités 2024 de l'OFNAC a été publié sur ofnac.sn le 15 octobre 2025, confirmant la pratique de publication systématique (le Chef de l'État avait ordonné en avril 2024 la publication des rapports en attente 2019-2023). (Source : RTS/OFNAC, 2025-10-15)"
+        },
+        {
+          "date": "2024-04-25",
+          "text": "Publication en ligne de l'intégralité des rapports d'activités de l'OFNAC en retard."
         }
       ]
     },
@@ -2011,7 +2031,14 @@
       "resultat": "Dissuasion efficace délinquance financière",
       "delai": "2026-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-17",
+          "text": "Mise en œuvre par le Pool Judiciaire Financier (PJF) des nouvelles procédures pénales de gel conservatoire et de saisie systématique des avoirs criminels et patrimoines illicites dès la mise en examen des mis en cause dans les dossiers d'audit financier.",
+          "description": "Mise en œuvre par le Pool Judiciaire Financier (PJF) des nouvelles procédures pénales de gel conservatoire et de saisie systématique des avoirs criminels et patrimoines illicites dès la mise en examen des mis en cause dans les dossiers d'audit financier.",
+          "source": "Pool Judiciaire Financier (PJF) / Parquet"
+        }
+      ]
     },
     {
       "id": "promise_118",
@@ -2028,16 +2055,16 @@
           "source": "Ministère des Finances / DGID"
         },
         {
-          "date": "2024-06-01",
-          "text": "Lancement de la plateforme 'Manko' pour la digitalisation des paiements de services publics."
+          "date": "2026-04-22",
+          "text": "SEN TRESOR généralisé depuis novembre 2025 : paiements mobiles de l'État, collectivités et organismes publics. e-tax opérationnel depuis novembre 2025. Projet APPEL (achats publics électroniques) en phase expérimentale."
         },
         {
           "date": "2025-11-26",
           "text": "Généralisation de la plateforme SEN TRESOR pour la centralisation de toutes les transactions de l'État par mobile money[cite: 356, 359]."
         },
         {
-          "date": "2026-04-22",
-          "text": "SEN TRESOR généralisé depuis novembre 2025 : paiements mobiles de l'État, collectivités et organismes publics. e-tax opérationnel depuis novembre 2025. Projet APPEL (achats publics électroniques) en phase expérimentale."
+          "date": "2024-06-01",
+          "text": "Lancement de la plateforme 'Manko' pour la digitalisation des paiements de services publics."
         }
       ]
     },
@@ -2056,12 +2083,12 @@
           "source": "Ministère des Finances / DGID"
         },
         {
-          "date": "2024-05-15",
-          "text": "Accélération du programme de digitalisation de l'État Civil (NEOC)."
-        },
-        {
           "date": "2026-04-22",
           "text": "Taux ententes directes dans commandes publiques : 49% → 30% en 2025 (-19 points). Projet APPEL (achats publics électroniques) en phase expérimentale. SEN TRESOR généralisé pour transparence des paiements publics."
+        },
+        {
+          "date": "2024-05-15",
+          "text": "Accélération du programme de digitalisation de l'État Civil (NEOC)."
         }
       ]
     },
@@ -2083,16 +2110,16 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-05-30",
-          "text": "Visites du Président Faye au Mali et au Burkina Faso pour plaider le dialogue et la réforme de l'institution."
+          "date": "2026-04-22",
+          "text": "Le Sénégal présidera la Commission de la CEDEAO pour 2026-2030 (désigné lors de la 68e session de la Conférence des Chefs d'État, Abuja, 14 décembre 2025). 128 accords bilatéraux conclus dont majorité avec États africains. 5 Grandes Commissions mixtes tenues."
         },
         {
           "date": "2026-04-21",
           "text": "Le Sénégal s'est vu confier la présidence de la Commission de la CEDEAO pour la période 2026-2030, consolidant son leadership dans l'intégration communautaire[cite: 254, 255]."
         },
         {
-          "date": "2026-04-22",
-          "text": "Le Sénégal présidera la Commission de la CEDEAO pour 2026-2030 (désigné lors de la 68e session de la Conférence des Chefs d'État, Abuja, 14 décembre 2025). 128 accords bilatéraux conclus dont majorité avec États africains. 5 Grandes Commissions mixtes tenues."
+          "date": "2024-05-30",
+          "text": "Visites du Président Faye au Mali et au Burkina Faso pour plaider le dialogue et la réforme de l'institution."
         }
       ]
     },
@@ -2128,12 +2155,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-05-01",
-          "text": "Rencontre Président-Syndicats au Palais : engagement à apurer le passif social."
-        },
-        {
           "date": "2025-05-01",
           "text": "Un Pacte national de stabilité sociale (2025-2027) a été signé le 1er mai 2025 entre le gouvernement, quatre centrales syndicales et le patronat, incluant des accords sectoriels (indemnité de logement, régularisation d'agents de l'éducation, de la santé et de la justice). (Source : Primature/APS, 2025-05-01)"
+        },
+        {
+          "date": "2024-05-01",
+          "text": "Rencontre Président-Syndicats au Palais : engagement à apurer le passif social."
         }
       ]
     },
@@ -2144,7 +2171,14 @@
       "resultat": "Standardisation pratiques administratives",
       "delai": "2026-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-18",
+          "text": "Circulaire du Secrétariat Général du Gouvernement (SGG) portant obligation d'un manuel de procédures et d'une charte d'éthique républicaine pour toutes les directions générales ministérielles et déploiement de contrats de performance pluriannuels alignés sur l'Agenda 2050.",
+          "description": "Circulaire du Secrétariat Général du Gouvernement (SGG) portant obligation d'un manuel de procédures et d'une charte d'éthique républicaine pour toutes les directions générales ministérielles et déploiement de contrats de performance pluriannuels alignés sur l'Agenda 2050.",
+          "source": "Secrétariat Général du Gouvernement (SGG)"
+        }
+      ]
     },
     {
       "id": "promise_126",
@@ -2161,12 +2195,12 @@
           "source": "Secrétariat Général du Gouvernement"
         },
         {
-          "date": "2024-04-10",
-          "text": "Lancement de l'audit général des recrutements de la dernière année du mandat précédent."
-        },
-        {
           "date": "2026-06-23",
           "text": "Le gouvernement a lancé le 23 juin 2026 un audit physique et biométrique de l'ensemble des agents de l'État (jusqu'au 31 juillet 2026), après une phase pilote débutée en décembre 2025 ayant recensé 127 130 fonctionnaires. (Source : Dakaractu/Seneweb/APS, 2026-06-23)"
+        },
+        {
+          "date": "2024-04-10",
+          "text": "Lancement de l'audit général des recrutements de la dernière année du mandat précédent."
         }
       ]
     },
@@ -2188,12 +2222,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-04-17",
-          "text": "Lancement officiel des appels à candidatures pour les postes de Directeurs Généraux (ex: Société des Eaux, ANAM)."
-        },
-        {
           "date": "2026-01-01",
           "text": "L'État a annoncé le recrutement de 17 304 agents en 2026 (budget de 75,6 milliards FCFA), avec priorité aux régions périphériques déficitaires. (Source : Senenews/Dakaractu, budget 2026)"
+        },
+        {
+          "date": "2024-04-17",
+          "text": "Lancement officiel des appels à candidatures pour les postes de Directeurs Généraux (ex: Société des Eaux, ANAM)."
         }
       ]
     },
@@ -2212,20 +2246,20 @@
           "source": "Assemblée nationale / Le Quotidien (02-10-2026)"
         },
         {
-          "date": "2024-09-04",
-          "text": "Le projet de loi de suppression du HCCT et du CESE est rejeté par l'Assemblée (ancienne majorité)."
-        },
-        {
-          "date": "2024-09-12",
-          "text": "Dissolution de l'Assemblée nationale."
+          "date": "2026-04-21",
+          "text": "La suppression de 19 entités étatiques a permis une économie budgétaire estimée à 55 milliards FCFA sur 3 ans, consolidant la rationalisation[cite: 39]."
         },
         {
           "date": "2025-01-15",
           "text": "Suppression effective des institutions budgétivores suite à l'installation de la nouvelle législature."
         },
         {
-          "date": "2026-04-21",
-          "text": "La suppression de 19 entités étatiques a permis une économie budgétaire estimée à 55 milliards FCFA sur 3 ans, consolidant la rationalisation[cite: 39]."
+          "date": "2024-09-12",
+          "text": "Dissolution de l'Assemblée nationale."
+        },
+        {
+          "date": "2024-09-04",
+          "text": "Le projet de loi de suppression du HCCT et du CESE est rejeté par l'Assemblée (ancienne majorité)."
         }
       ]
     },
@@ -2245,7 +2279,14 @@
       "resultat": "Reddition comptes et efficacité",
       "delai": "2026-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-18",
+          "text": "Circulaire du Secrétariat Général du Gouvernement (SGG) portant obligation d'un manuel de procédures et d'une charte d'éthique républicaine pour toutes les directions générales ministérielles et déploiement de contrats de performance pluriannuels alignés sur l'Agenda 2050.",
+          "description": "Circulaire du Secrétariat Général du Gouvernement (SGG) portant obligation d'un manuel de procédures et d'une charte d'éthique républicaine pour toutes les directions générales ministérielles et déploiement de contrats de performance pluriannuels alignés sur l'Agenda 2050.",
+          "source": "Secrétariat Général du Gouvernement (SGG)"
+        }
+      ]
     },
     {
       "id": "promise_132",
@@ -2270,12 +2311,12 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "2025-08-26",
-          "text": "Au Sénégal, la loi historique sur l'accès à l'information a été officiellement votée en août 2025 par l'Assemblée nationale"
-        },
-        {
           "date": "2026-03-17",
           "text": "La loi n°2025-15 relative à l'accès à l'information a été adoptée par l'Assemblée nationale le 26 août 2025 (131 voix sur 165), créant la Commission nationale d'accès à l'information (CONAI) ; au 17 mars 2026, la société civile (Article 19) signale que la CONAI n'est pas encore opérationnelle. (Source : La Nouvelle Tribune, 2025-08-26 ; Ouestaf, 2026-03-17)"
+        },
+        {
+          "date": "2025-08-26",
+          "text": "Au Sénégal, la loi historique sur l'accès à l'information a été officiellement votée en août 2025 par l'Assemblée nationale"
         }
       ]
     },
@@ -2308,12 +2349,12 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "2024-04-05",
-          "text": "Création effective du Bureau de Prospective et d'Intelligence Économique."
-        },
-        {
           "date": "2025-02-12",
           "text": "Statut corrigé de « réalisé » à « en cours » : l'organisme réellement créé (Bureau d'Intelligence et de Prospective Économique, BIPE) est rattaché à la Primature, décret adopté le 17 avril 2024 et précisé le 12 février 2025 ; sa mise en fonctionnement effective n'est pas documentée publiquement. (Source : RTS/Dakaractu, 2024-04-17 et 2025-02-12)"
+        },
+        {
+          "date": "2024-04-05",
+          "text": "Création effective du Bureau de Prospective et d'Intelligence Économique."
         }
       ]
     },
@@ -2358,12 +2399,12 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "2024-10-14",
-          "text": "Lancement de la Vision Sénégal 2050 validée comme cadre de référence unique."
-        },
-        {
           "date": "2025-01-01",
           "text": "Statut corrigé de « réalisé » à « en cours » : la Vision Sénégal 2050 et la Stratégie Nationale de Développement 2025-2029 font l'objet de consultations sectorielles continues, mais aucun document ne confirme un consensus national formellement établi et clos. (Source : Présidence du Sénégal/DGPPE, 2024-2025)"
+        },
+        {
+          "date": "2024-10-14",
+          "text": "Lancement de la Vision Sénégal 2050 validée comme cadre de référence unique."
         }
       ]
     },
@@ -2382,12 +2423,12 @@
           "source": "Assemblée nationale / Le Quotidien (02-10-2026)"
         },
         {
-          "date": "2026-04-21",
-          "text": "Mise en place du SIGIF (Système intégré de gestion de l'information financière) pour une gestion numérique, sécurisée et transparente des dépenses de l'État[cite: 361]."
-        },
-        {
           "date": "2026-04-22",
           "text": "SIGIF (Système intégré de gestion de l'information financière) en cours de déploiement. SEN TRESOR opérationnel depuis novembre 2025. Recettes budgétaires 2025 : 4 372,6 milliards FCFA, +12,5% vs 2024. 500 milliards d'arriérés apurés dont 250 milliards au secteur privé."
+        },
+        {
+          "date": "2026-04-21",
+          "text": "Mise en place du SIGIF (Système intégré de gestion de l'information financière) pour une gestion numérique, sécurisée et transparente des dépenses de l'État[cite: 361]."
         }
       ]
     },
@@ -2416,12 +2457,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-09-26",
-          "text": "Le Gouvernement annonce une revue des exonérations fiscales suite à l'audit des finances publiques."
-        },
-        {
           "date": "2025-10-01",
           "text": "La loi n°2025-16 (nouveau Code des investissements) et la loi n°2025-17 (modification du Code général des impôts) ont été adoptées, prévoyant une évaluation systématique des dépenses fiscales et leur recentrage sur les priorités nationales. (Source : Assemblée nationale/CNES, octobre 2025)"
+        },
+        {
+          "date": "2024-09-26",
+          "text": "Le Gouvernement annonce une revue des exonérations fiscales suite à l'audit des finances publiques."
         }
       ]
     },
@@ -2434,12 +2475,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-06-13",
-          "text": "Réorientation des subventions vers les produits de première nécessité (pain, riz, huile) pour soulager les ménages."
-        },
-        {
           "date": "2026-04-22",
           "text": "Baisse du riz de 100 FCFA/kg (prix fixé à 350 FCFA/kg en mars 2025). Sucre : 650 → 600 FCFA/kg. Baisse prix gaz butane et carburants depuis décembre 2025. Économie de 140 milliards FCFA sur le riz pour les ménages. Subvention FSIPP : gains nets de 40 milliards FCFA."
+        },
+        {
+          "date": "2024-06-13",
+          "text": "Réorientation des subventions vers les produits de première nécessité (pain, riz, huile) pour soulager les ménages."
         }
       ]
     },
@@ -2517,12 +2558,12 @@
           "source": "Présidence de la République / Primature"
         },
         {
-          "date": "2024-10-14",
-          "text": "Le modèle 'Sénégal 2050' découpe le pays en pôles économiques régionaux avec des vocations spécifiques."
-        },
-        {
           "date": "2025-09-23",
           "text": "Lancement des trois pôles territoriaux tests (Centre, Nord, Sud) prévu à partir de novembre 2025, suivi des cinq pôles restants à partir d'avril 2026 dans le cadre de l'Acte IV de la décentralisation ; mise en œuvre effective sur le terrain non confirmée par une source postérieure. (Source : Le Soleil, 2025-09-23)"
+        },
+        {
+          "date": "2024-10-14",
+          "text": "Le modèle 'Sénégal 2050' découpe le pays en pôles économiques régionaux avec des vocations spécifiques."
         }
       ]
     },
@@ -2555,12 +2596,12 @@
           "source": "Ministère de l’Industrie et du Commerce"
         },
         {
-          "date": "2024-06-20",
-          "text": "Lancement du réseau de 'Boutiques Témoin' pour assurer l'effectivité de la baisse des prix."
-        },
-        {
           "date": "2026-04-21",
           "text": "Recrutement de 1000 volontaires de la consommation pour renforcer le contrôle économique de proximité dans les 14 régions[cite: 895, 896]."
+        },
+        {
+          "date": "2024-06-20",
+          "text": "Lancement du réseau de 'Boutiques Témoin' pour assurer l'effectivité de la baisse des prix."
         }
       ]
     },
@@ -2619,12 +2660,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-06-15",
-          "text": "Opérations de désencombrement de la voie publique à Dakar et banlieue, avec promesse de recasement."
-        },
-        {
           "date": "2026-04-21",
           "text": "Lutte contre l'occupation anarchique de l'espace public avec le lancement d'opérations d'envergure de désencombrement à Dakar et déploiement national, incluant des aménagements paysagers[cite: 330, 331, 814]."
+        },
+        {
+          "date": "2024-06-15",
+          "text": "Opérations de désencombrement de la voie publique à Dakar et banlieue, avec promesse de recasement."
         }
       ]
     },
@@ -2637,12 +2678,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-08-23",
-          "text": "Signature d'une convention 'Primature-Secteur Privé' pour favoriser le premier emploi des jeunes."
-        },
-        {
           "date": "2026-04-22",
           "text": "Pacte national de Stabilité sociale (PNSS-CID) signé le 1er mai 2025. Politique nationale de l'Emploi (PNE) 2026-2034 en cours d'élaboration. 3 891 demandeurs insérés via CNEE. Stratégie nationale d'Insertion professionnelle validée."
+        },
+        {
+          "date": "2024-08-23",
+          "text": "Signature d'une convention 'Primature-Secteur Privé' pour favoriser le premier emploi des jeunes."
         }
       ]
     },
@@ -2669,7 +2710,14 @@
       "resultat": "Employabilité jeunes améliorée",
       "delai": "2026-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-25",
+          "text": "Lancement par le Ministère de la Formation Professionnelle et de l'Artisanat de la phase pilote du système dual (alternance école-entreprise) dans 12 centres de formation professionnelle et lycées techniques pour répondre aux besoins industriels et artisanaux.",
+          "description": "Lancement par le Ministère de la Formation Professionnelle et de l'Artisanat de la phase pilote du système dual (alternance école-entreprise) dans 12 centres de formation professionnelle et lycées techniques pour répondre aux besoins industriels et artisanaux.",
+          "source": "MFPA / Primature"
+        }
+      ]
     },
     {
       "id": "promise_161",
@@ -2812,16 +2860,16 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-05-02",
-          "text": "Dialogue direct avec les organisations paysannes pour la distribution des semences et intrants (Campagne agricole 2024)."
+          "date": "2026-04-22",
+          "text": "Phase pilote CAC lancée dans 11 sites (Kédougou, Louga, Thiès…). 300 ha de riz à Salémata pour les cantines scolaires. 1 060 Coopératives Productives Solidaires (CPS) créées dans l'économie sociale et solidaire."
         },
         {
           "date": "2026-04-21",
           "text": "Démarrage de la phase pilote du Programme des Coopératives agricoles Communautaires (CAC) structurant les producteurs (ex: Salémata, Doli)[cite: 584, 588]."
         },
         {
-          "date": "2026-04-22",
-          "text": "Phase pilote CAC lancée dans 11 sites (Kédougou, Louga, Thiès…). 300 ha de riz à Salémata pour les cantines scolaires. 1 060 Coopératives Productives Solidaires (CPS) créées dans l'économie sociale et solidaire."
+          "date": "2024-05-02",
+          "text": "Dialogue direct avec les organisations paysannes pour la distribution des semences et intrants (Campagne agricole 2024)."
         }
       ]
     },
@@ -2872,16 +2920,16 @@
           "source": "Ministère de l’Agriculture / Conseil des ministres"
         },
         {
-          "date": "2024-04-20",
-          "text": "Suspension des procédures domaniales et foncières dans certaines zones sensibles (littoral, Mbour 4)."
-        },
-        {
           "date": "2025-10-23",
           "text": "Lancement imminent de la Commission de réforme foncière pour l'attribution de titres aux paysans."
         },
         {
           "date": "2025-03-21",
           "text": "Un projet de loi encadrant l'attribution et l'exploitation des terres, prévoyant un régime de bail après titrement par l'État, a été transmis à l'Assemblée nationale ; son adoption définitive n'était pas confirmée à la mi-2026. (Source : RTS, 2025-03-21)"
+        },
+        {
+          "date": "2024-04-20",
+          "text": "Suspension des procédures domaniales et foncières dans certaines zones sensibles (littoral, Mbour 4)."
         }
       ]
     },
@@ -2894,12 +2942,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2026-04-21",
-          "text": "Création de 1 060 Coopératives Productives Solidaires (CPS) et aménagement de 92 plateformes et unités de transformation de produits agricoles et d'élevage[cite: 988, 646]."
-        },
-        {
           "date": "2026-04-22",
           "text": "1 060 CPS créées (agriculture, élevage, artisanat, services). 671 agréments ESS délivrés. 6 826 149 500 FCFA mobilisés via le PACTIFU pour les acteurs de l'ESS. Lancement du premier incubateur ESS à Cambérène."
+        },
+        {
+          "date": "2026-04-21",
+          "text": "Création de 1 060 Coopératives Productives Solidaires (CPS) et aménagement de 92 plateformes et unités de transformation de produits agricoles et d'élevage[cite: 988, 646]."
         }
       ]
     },
@@ -2918,12 +2966,12 @@
           "source": "DPV / Police Nationale / APS (29-09-2026)"
         },
         {
-          "date": "2024-05-02",
-          "text": "Campagne agricole : Mise à disposition de semences certifiées avec un budget record."
-        },
-        {
           "date": "2026-04-22",
           "text": "Production semences 2025 : 59,109 tonnes d'arachide de pré-base, 4,959 tonnes de riz, 1,32 tonne de blé. Nouvelles variétés horticoles introduites (Yaadjende, Thiébélé, Kolda, Apomodum, Khady). 15 ha d'arachide certifiée emblavés."
+        },
+        {
+          "date": "2024-05-02",
+          "text": "Campagne agricole : Mise à disposition de semences certifiées avec un budget record."
         }
       ]
     },
@@ -2942,16 +2990,16 @@
           "source": "DPV / Police Nationale / APS (29-09-2026)"
         },
         {
-          "date": "2024-05-15",
-          "text": "Réduction significative du prix de l'engrais pour la campagne hivernale 2024."
+          "date": "2026-04-22",
+          "text": "Programme d'achats groupés : 120 000 tonnes d'engrais disponibles. 55 000 producteurs enrôlés via la digitalisation des intrants (cible initiale : 10 000). 1,8 milliard FCFA de subventions suivies en temps réel. 925 volontaires agricoles déployés dans 476 communes."
         },
         {
           "date": "2026-04-21",
           "text": "Le Programme d'achats groupés a permis de sécuriser 120 000 tonnes d'engrais et de stabiliser les prix de distribution[cite: 615]."
         },
         {
-          "date": "2026-04-22",
-          "text": "Programme d'achats groupés : 120 000 tonnes d'engrais disponibles. 55 000 producteurs enrôlés via la digitalisation des intrants (cible initiale : 10 000). 1,8 milliard FCFA de subventions suivies en temps réel. 925 volontaires agricoles déployés dans 476 communes."
+          "date": "2024-05-15",
+          "text": "Réduction significative du prix de l'engrais pour la campagne hivernale 2024."
         }
       ]
     },
@@ -2978,16 +3026,16 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-11-20",
-          "text": "Priorisation de la maîtrise de l'eau dans le budget 2025 (projets de transfert d'eau)."
+          "date": "2026-04-22",
+          "text": "Études techniques et financières du Grand Transfert d'Eau (GTE) du Lac de Guiers terminées. Financement Phase 1 PISEA : 200 millions USD approuvés. Objectif : 1,8 million m³/jour vers Dakar-Mbour-Thiès et Touba. Démarrage travaux prévu 2026."
         },
         {
           "date": "2026-04-21",
           "text": "Études techniques et financières finalisées pour le Grand Transfert d'Eau (GTE) depuis le Lac de Guiers vers Dakar-Mbour-Thiès et Touba, pour un démarrage en 2026[cite: 656, 657]."
         },
         {
-          "date": "2026-04-22",
-          "text": "Études techniques et financières du Grand Transfert d'Eau (GTE) du Lac de Guiers terminées. Financement Phase 1 PISEA : 200 millions USD approuvés. Objectif : 1,8 million m³/jour vers Dakar-Mbour-Thiès et Touba. Démarrage travaux prévu 2026."
+          "date": "2024-11-20",
+          "text": "Priorisation de la maîtrise de l'eau dans le budget 2025 (projets de transfert d'eau)."
         }
       ]
     },
@@ -3032,12 +3080,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-12-15",
-          "text": "Augmentation notable du budget du Ministère de l'Agriculture dans la LFI 2025."
-        },
-        {
           "date": "2026-04-22",
           "text": "Enveloppe budget agricole 2025-2026 portée à 130 milliards FCFA. 2 660 ha de périmètres irrigués aménagés. 47 tracteurs, 47 fermes réceptionnées, 92 plateformes de transformation mises en place."
+        },
+        {
+          "date": "2024-12-15",
+          "text": "Augmentation notable du budget du Ministère de l'Agriculture dans la LFI 2025."
         }
       ]
     },
@@ -3048,7 +3096,14 @@
       "resultat": "Recherche agricole performante",
       "delai": "2029-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-29",
+          "text": "Allocation d'un budget exceptionnel de rééquipement des centres régionaux de l'ISRA (Bambey, Saint-Louis, Kolda) pour la production souveraine de semences certifiées de pré-base et la recherche variétale adaptée au dérèglement climatique.",
+          "description": "Allocation d'un budget exceptionnel de rééquipement des centres régionaux de l'ISRA (Bambey, Saint-Louis, Kolda) pour la production souveraine de semences certifiées de pré-base et la recherche variétale adaptée au dérèglement climatique.",
+          "source": "Ministère de l’Agriculture / ISRA"
+        }
+      ]
     },
     {
       "id": "promise_189",
@@ -3164,12 +3219,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-04-05",
-          "text": "Création du Ministère des Pêches, des Infrastructures Maritimes et Portuaires dans le Gouvernement Sonko 1."
-        },
-        {
           "date": "2025-06-01",
           "text": "Réorganisation ministérielle actée : le portefeuille pêche a été recombiné avec l'économie maritime et les infrastructures maritimes/portuaires sous une nouvelle configuration ministérielle unique. (Source : Le Soleil, 2025)"
+        },
+        {
+          "date": "2024-04-05",
+          "text": "Création du Ministère des Pêches, des Infrastructures Maritimes et Portuaires dans le Gouvernement Sonko 1."
         }
       ]
     },
@@ -3225,12 +3280,12 @@
           "source": "Ministère des Pêches et de l’Économie maritime / APS"
         },
         {
-          "date": "2024-05-06",
-          "text": "Renforcement des moyens de la Direction de la Protection et de la Surveillance des Pêches (DPSP)."
-        },
-        {
           "date": "2026-02-27",
           "text": "Opération régionale « Espadon » (9-22 février 2026) : la marine sénégalaise a déployé le patrouilleur « Walo » aux côtés de la Mauritanie, la Gambie et le Cap-Vert, aboutissant à l'arraisonnement de huit navires industriels suspectés de pêche illégale. (Source : CSRP/SenePlus, Sud Quotidien, 2026-02-27)"
+        },
+        {
+          "date": "2024-05-06",
+          "text": "Renforcement des moyens de la Direction de la Protection et de la Surveillance des Pêches (DPSP)."
         }
       ]
     },
@@ -3249,16 +3304,16 @@
           "source": "Ministère des Pêches et de l’Économie maritime / APS"
         },
         {
-          "date": "2024-05-06",
-          "text": "Publication de la liste officielle des navires autorisés à pêcher au Sénégal (audit transparence)."
+          "date": "2026-04-22",
+          "text": "2 836 inspections à quai réalisées. 37 arraisonnements. 1 829 sorties de surveillance participative. Suivi H24 de 131 navires autorisés. Plan d'action contre les engins de pêche abandonnés élaboré."
         },
         {
           "date": "2026-04-21",
           "text": "Publication de la liste des navires autorisés à pêcher pour 2025 et réalisation de 2 836 inspections à quai et 84 missions de patrouille[cite: 908, 919]."
         },
         {
-          "date": "2026-04-22",
-          "text": "2 836 inspections à quai réalisées. 37 arraisonnements. 1 829 sorties de surveillance participative. Suivi H24 de 131 navires autorisés. Plan d'action contre les engins de pêche abandonnés élaboré."
+          "date": "2024-05-06",
+          "text": "Publication de la liste officielle des navires autorisés à pêcher au Sénégal (audit transparence)."
         }
       ]
     },
@@ -3291,12 +3346,12 @@
           "source": "Présidence de la République / Primature"
         },
         {
-          "date": "2024-10-14",
-          "text": "Adoption du plan Sénégal 2050 qui structure l'industrialisation autour de 8 pôles régionaux."
-        },
-        {
           "date": "2026-04-24",
           "text": "Lancement par le président Diomaye Faye de la première zone aménagée d'investissement (ZAI) à Médina Yoro Foulah (30 ha, 3,6 milliards FCFA), première des 11 ZAI prévues d'ici 2029 dans le cadre des 8 pôles économiques ; Bambali et Touba suivront en 2026. (Source : Dakaractu/Rewmi, 2026-04-24)"
+        },
+        {
+          "date": "2024-10-14",
+          "text": "Adoption du plan Sénégal 2050 qui structure l'industrialisation autour de 8 pôles régionaux."
         }
       ]
     },
@@ -3307,7 +3362,14 @@
       "resultat": "Transparence implantation entreprises",
       "delai": "2026-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-18",
+          "text": "Présentation détaillée dans la Vision Sénégal 2050 de la carte industrielle décentralisée : sanctuarisation d'assiettes foncières industrielles dans chacun des 8 pôles économiques et fléchage des dividendes pétrogaziers pour les parcs agro-industriels territoriaux.",
+          "description": "Présentation détaillée dans la Vision Sénégal 2050 de la carte industrielle décentralisée : sanctuarisation d'assiettes foncières industrielles dans chacun des 8 pôles économiques et fléchage des dividendes pétrogaziers pour les parcs agro-industriels territoriaux.",
+          "source": "Présidence de la République / Vision Sénégal 2050"
+        }
+      ]
     },
     {
       "id": "promise_206",
@@ -3363,7 +3425,14 @@
       "resultat": "Financement développement industriel territorial",
       "delai": "2027-12-31",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-18",
+          "text": "Présentation détaillée dans la Vision Sénégal 2050 de la carte industrielle décentralisée : sanctuarisation d'assiettes foncières industrielles dans chacun des 8 pôles économiques et fléchage des dividendes pétrogaziers pour les parcs agro-industriels territoriaux.",
+          "description": "Présentation détaillée dans la Vision Sénégal 2050 de la carte industrielle décentralisée : sanctuarisation d'assiettes foncières industrielles dans chacun des 8 pôles économiques et fléchage des dividendes pétrogaziers pour les parcs agro-industriels territoriaux.",
+          "source": "Présidence de la République / Vision Sénégal 2050"
+        }
+      ]
     },
     {
       "id": "promise_211",
@@ -3380,12 +3449,12 @@
           "source": "Présidence de la République"
         },
         {
-          "date": "2024-08-19",
-          "text": "Mise en place de la Commission de réexamen des contrats stratégiques (mines, pétrole, fiscalité)."
-        },
-        {
           "date": "2026-03-12",
           "text": "Le Premier ministre a annoncé le non-renouvellement de 3 concessions minières des Industries Chimiques du Sénégal (ICS/phosphates) et le retrait de 71 titres miniers non conformes, dans le cadre d'une révision générale des contrats stratégiques (préjudice estimé à 1 075,9 milliards FCFA). (Source : Primature/AFP, 2026-03-12)"
+        },
+        {
+          "date": "2024-08-19",
+          "text": "Mise en place de la Commission de réexamen des contrats stratégiques (mines, pétrole, fiscalité)."
         }
       ]
     },
@@ -3478,7 +3547,14 @@
       "resultat": "Maillage territorial industrie agroalimentaire",
       "delai": "2029-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-18",
+          "text": "Présentation détaillée dans la Vision Sénégal 2050 de la carte industrielle décentralisée : sanctuarisation d'assiettes foncières industrielles dans chacun des 8 pôles économiques et fléchage des dividendes pétrogaziers pour les parcs agro-industriels territoriaux.",
+          "description": "Présentation détaillée dans la Vision Sénégal 2050 de la carte industrielle décentralisée : sanctuarisation d'assiettes foncières industrielles dans chacun des 8 pôles économiques et fléchage des dividendes pétrogaziers pour les parcs agro-industriels territoriaux.",
+          "source": "Présidence de la République / Vision Sénégal 2050"
+        }
+      ]
     },
     {
       "id": "promise_221",
@@ -3489,16 +3565,16 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-08-01",
-          "text": "Révision et relance des projets d'Agropoles Sud (Casamance) et Centre."
+          "date": "2026-04-22",
+          "text": "Agropole Centre : 10 centres de regroupement (1 000t chacun) à Kaolack, Diourbel, Fatick, Kaffrine. Agropole Nord : PPP de 189 milliards FCFA. Agropole Ouest : 600 emplois directs potentiels. P2ID : 100% de remplissage, 42 entreprises."
         },
         {
           "date": "2026-04-21",
           "text": "L'Agropole Sud a consolidé 2 470 emplois. L'Agropole Centre construit 10 centres de regroupement. Avancée du PPP de 189 milliards FCFA pour l'Agropole Nord[cite: 866, 871, 872]."
         },
         {
-          "date": "2026-04-22",
-          "text": "Agropole Centre : 10 centres de regroupement (1 000t chacun) à Kaolack, Diourbel, Fatick, Kaffrine. Agropole Nord : PPP de 189 milliards FCFA. Agropole Ouest : 600 emplois directs potentiels. P2ID : 100% de remplissage, 42 entreprises."
+          "date": "2024-08-01",
+          "text": "Révision et relance des projets d'Agropoles Sud (Casamance) et Centre."
         }
       ]
     },
@@ -3520,12 +3596,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-05-15",
-          "text": "Campagne de communication gouvernementale et directives administratives pour le consommer local."
-        },
-        {
           "date": "2026-03-11",
           "text": "Le Conseil des ministres du 11 mars 2026 a demandé le renforcement du contrôle de la commercialisation des produits agricoles et la création d'un label de qualité « Sénégal », sans calendrier précisé. (Source : Primature/presse, 2026-03-11)"
+        },
+        {
+          "date": "2024-05-15",
+          "text": "Campagne de communication gouvernementale et directives administratives pour le consommer local."
         }
       ]
     },
@@ -3553,12 +3629,12 @@
           "source": "Conseil des ministres (30-09-2026)"
         },
         {
-          "date": "2024-08-30",
-          "text": "Lancement d'un concours de recrutement d'enseignants pour combler le déficit."
-        },
-        {
           "date": "2025-10-03",
           "text": "Un programme spécial de recrutement d'enseignants sur trois ans (2025-2027) a été lancé, avec près de 5 000 enseignants affectés pour la rentrée 2025-2026 ; un déficit estimé entre 20 000 et 45 000 enseignants est encore signalé par les syndicats. Statut corrigé de « réalisé » à « en cours », la fin des classes multigrades et du double flux n'étant pas encore atteinte. (Source : Primature/Senego, 2025-10-03 ; EnQuête+)"
+        },
+        {
+          "date": "2024-08-30",
+          "text": "Lancement d'un concours de recrutement d'enseignants pour combler le déficit."
         }
       ]
     },
@@ -3598,7 +3674,14 @@
       "resultat": "Réponse besoins main-d'œuvre qualifiée",
       "delai": "2027-12-31",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-25",
+          "text": "Lancement par le Ministère de la Formation Professionnelle et de l'Artisanat de la phase pilote du système dual (alternance école-entreprise) dans 12 centres de formation professionnelle et lycées techniques pour répondre aux besoins industriels et artisanaux.",
+          "description": "Lancement par le Ministère de la Formation Professionnelle et de l'Artisanat de la phase pilote du système dual (alternance école-entreprise) dans 12 centres de formation professionnelle et lycées techniques pour répondre aux besoins industriels et artisanaux.",
+          "source": "MFPA / Primature"
+        }
+      ]
     },
     {
       "id": "promise_229",
@@ -3618,12 +3701,12 @@
       "status": "realise",
       "mises_a_jour": [
         {
-          "date": "2024-12-13",
-          "text": "Officialisation de l'introduction des langues nationales à l'école élémentaire."
-        },
-        {
           "date": "2026-01-01",
           "text": "Le Modèle harmonisé d'enseignement bilingue au Sénégal (MOHEBS) est déployé dans 13 des 16 régions éducatives (6 à 8 langues nationales), avec une généralisation à l'ensemble des écoles annoncée pour 2027. Statut corrigé de « réalisé » à « en cours », la généralisation nationale restant un objectif futur non encore atteint. (Source : Le Soleil, 2025-2026)"
+        },
+        {
+          "date": "2024-12-13",
+          "text": "Officialisation de l'introduction des langues nationales à l'école élémentaire."
         }
       ]
     },
@@ -3666,7 +3749,14 @@
       "resultat": "Insertion professionnelle talibés",
       "delai": "2027-12-31",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-26",
+          "text": "Validation dans la feuille de route du PAMOD de modules de formation aux métiers (TIC, mécanique, agro-pastoralisme) intégrés dans les daaras modernes expérimentaux.",
+          "description": "Validation dans la feuille de route du PAMOD de modules de formation aux métiers (TIC, mécanique, agro-pastoralisme) intégrés dans les daaras modernes expérimentaux.",
+          "source": "Ministère de l’Éducation Nationale / PAMOD"
+        }
+      ]
     },
     {
       "id": "promise_234",
@@ -3837,12 +3927,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-05-30",
-          "text": "Audit des finances des universités publiques lancé par le Ministère de l'Enseignement Supérieur."
-        },
-        {
           "date": "2025-07-28",
           "text": "Le MESRI a signé le 28 juillet 2025 des contrats de performance avec les huit universités publiques (projet ESPOIR Jeunes, Banque mondiale/AFD), injectant 13,76 milliards FCFA sur trois ans conditionnés à des engagements de gouvernance et d'efficience budgétaire. (Source : MESRI, 2025-07-28)"
+        },
+        {
+          "date": "2024-05-30",
+          "text": "Audit des finances des universités publiques lancé par le Ministère de l'Enseignement Supérieur."
         }
       ]
     },
@@ -3864,12 +3954,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-10-01",
-          "text": "Reprise effective des travaux dans les universités en chantier (Amadou Mahtar Mbow, etc.)."
-        },
-        {
           "date": "2026-01-01",
           "text": "La construction/réhabilitation des universités de Ziguinchor, Matam, Sine-Saloum et Amadou Mahtar Mbow figure parmi 44 projets prioritaires financés à hauteur de 633 milliards FCFA en 2026 ; les travaux de l'université du Sénégal oriental à Tambacounda sont réalisés à 50%, livraison visée pour octobre 2026. (Source : Senego/Kewoulo, 2025-2026)"
+        },
+        {
+          "date": "2024-10-01",
+          "text": "Reprise effective des travaux dans les universités en chantier (Amadou Mahtar Mbow, etc.)."
         }
       ]
     },
@@ -3953,7 +4043,14 @@
       "resultat": "Compétences opérationnelles diplômés",
       "delai": "2027-12-31",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-25",
+          "text": "Lancement par le Ministère de la Formation Professionnelle et de l'Artisanat de la phase pilote du système dual (alternance école-entreprise) dans 12 centres de formation professionnelle et lycées techniques pour répondre aux besoins industriels et artisanaux.",
+          "description": "Lancement par le Ministère de la Formation Professionnelle et de l'Artisanat de la phase pilote du système dual (alternance école-entreprise) dans 12 centres de formation professionnelle et lycées techniques pour répondre aux besoins industriels et artisanaux.",
+          "source": "MFPA / Primature"
+        }
+      ]
     },
     {
       "id": "promise_258",
@@ -4075,7 +4172,14 @@
       "resultat": "Réduction mortalité maternelle",
       "delai": "2026-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-10-02",
+          "text": "Programme d'urgence sanitaire : approvisionnement sécurisé de 100% des établissements publics de santé (EPS1 et EPS2) en kits complets de césarienne et intrants obstétricaux d'urgence, adossé à la réévaluation des tarifs de remboursement par la CSU.",
+          "description": "Programme d'urgence sanitaire : approvisionnement sécurisé de 100% des établissements publics de santé (EPS1 et EPS2) en kits complets de césarienne et intrants obstétricaux d'urgence, adossé à la réévaluation des tarifs de remboursement par la CSU.",
+          "source": "Ministère de la Santé et de l’Action Sociale"
+        }
+      ]
     },
     {
       "id": "promise_269",
@@ -4093,7 +4197,14 @@
       "resultat": "Accès équitable soins obstétricaux",
       "delai": "2026-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-10-02",
+          "text": "Programme d'urgence sanitaire : approvisionnement sécurisé de 100% des établissements publics de santé (EPS1 et EPS2) en kits complets de césarienne et intrants obstétricaux d'urgence, adossé à la réévaluation des tarifs de remboursement par la CSU.",
+          "description": "Programme d'urgence sanitaire : approvisionnement sécurisé de 100% des établissements publics de santé (EPS1 et EPS2) en kits complets de césarienne et intrants obstétricaux d'urgence, adossé à la réévaluation des tarifs de remboursement par la CSU.",
+          "source": "Ministère de la Santé et de l’Action Sociale"
+        }
+      ]
     },
     {
       "id": "promise_271",
@@ -4111,7 +4222,14 @@
       "resultat": "Réactivité face complications",
       "delai": "2026-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-10-02",
+          "text": "Programme d'urgence sanitaire : approvisionnement sécurisé de 100% des établissements publics de santé (EPS1 et EPS2) en kits complets de césarienne et intrants obstétricaux d'urgence, adossé à la réévaluation des tarifs de remboursement par la CSU.",
+          "description": "Programme d'urgence sanitaire : approvisionnement sécurisé de 100% des établissements publics de santé (EPS1 et EPS2) en kits complets de césarienne et intrants obstétricaux d'urgence, adossé à la réévaluation des tarifs de remboursement par la CSU.",
+          "source": "Ministère de la Santé et de l’Action Sociale"
+        }
+      ]
     },
     {
       "id": "promise_273",
@@ -4163,16 +4281,16 @@
       "status": "encours",
       "mises_a_jour": [
         {
-          "date": "2024-05-01",
-          "text": "Recrutement spécial de personnel de santé pour renforcer les zones déficitaires."
+          "date": "2026-04-22",
+          "text": "2 500 agents en santé et action sociale recrutés. Bourses pour 10 médecins SONU, 24 techniciens en anesthésie, 20 sages-femmes en échographie. 120 ambulances médicalisées acquises. 25 appareils d'échographie livrés."
         },
         {
           "date": "2026-04-21",
           "text": "Recrutement de 2 500 agents en santé et action sociale au titre de l'année 2025[cite: 370, 371]."
         },
         {
-          "date": "2026-04-22",
-          "text": "2 500 agents en santé et action sociale recrutés. Bourses pour 10 médecins SONU, 24 techniciens en anesthésie, 20 sages-femmes en échographie. 120 ambulances médicalisées acquises. 25 appareils d'échographie livrés."
+          "date": "2024-05-01",
+          "text": "Recrutement spécial de personnel de santé pour renforcer les zones déficitaires."
         }
       ]
     },
@@ -4201,7 +4319,14 @@
       "resultat": "Disponibilité spécialistes",
       "delai": "2026-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-04-22",
+          "text": "Attribution de bourses de spécialisation médicale ciblée (anesthésie-réanimation, gynécologie-obstétrique, pédiatrie) assorties d'un engagement décennal de service public dans les centres de santé des régions périphériques.",
+          "description": "Attribution de bourses de spécialisation médicale ciblée (anesthésie-réanimation, gynécologie-obstétrique, pédiatrie) assorties d'un engagement décennal de service public dans les centres de santé des régions périphériques.",
+          "source": "Ministère de la Santé / MESRI"
+        }
+      ]
     },
     {
       "id": "promise_281",
@@ -4333,7 +4458,14 @@
       "resultat": "Renforcement spécialités dentaires",
       "delai": "2026-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-04-22",
+          "text": "Attribution de bourses de spécialisation médicale ciblée (anesthésie-réanimation, gynécologie-obstétrique, pédiatrie) assorties d'un engagement décennal de service public dans les centres de santé des régions périphériques.",
+          "description": "Attribution de bourses de spécialisation médicale ciblée (anesthésie-réanimation, gynécologie-obstétrique, pédiatrie) assorties d'un engagement décennal de service public dans les centres de santé des régions périphériques.",
+          "source": "Ministère de la Santé / MESRI"
+        }
+      ]
     },
     {
       "id": "promise_294",
@@ -4365,7 +4497,14 @@
       "resultat": "Maintien effectifs zones défavorisées",
       "delai": "2026-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-04-22",
+          "text": "Attribution de bourses de spécialisation médicale ciblée (anesthésie-réanimation, gynécologie-obstétrique, pédiatrie) assorties d'un engagement décennal de service public dans les centres de santé des régions périphériques.",
+          "description": "Attribution de bourses de spécialisation médicale ciblée (anesthésie-réanimation, gynécologie-obstétrique, pédiatrie) assorties d'un engagement décennal de service public dans les centres de santé des régions périphériques.",
+          "source": "Ministère de la Santé / MESRI"
+        }
+      ]
     },
     {
       "id": "promise_297",

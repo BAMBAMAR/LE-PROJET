@@ -9,3 +9,7 @@ debug_screenshots/
 daily_run.log
 .env
 *.bak
+
+preview_*.html
+scripts/capture_*.js
+scripts/apply_seo_fixes.js

@@ -12,6 +12,10 @@ echo.
 node scripts/download_revue.js %*
 
 echo.
+echo [%date% %time%] Mise a jour automatique des pages SEO, flux RSS et sitemap...
+node scripts/build_all_seo.js
+
+echo.
 echo ===================================================
 echo   FIN DU TRAITEMENT (Code retour : %errorlevel%)
 echo ===================================================

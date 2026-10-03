@@ -10,7 +10,8 @@
     "revue:force": "node scripts/download_revue.js --force",
     "revue:check": "node scripts/download_revue.js --check-source",
     "revue:manual": "node scripts/manual_update_press.js",
-    "revue:ui": "node scripts/press_manager_server.js"
+    "revue:ui": "node scripts/press_manager_server.js",
+    "build:seo": "node scripts/build_all_seo.js"
   },
   "dependencies": {
     "playwright": "^1.50.0"
