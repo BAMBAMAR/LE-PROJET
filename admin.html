@@ -17,27 +17,27 @@
    VARIABLES & RESET
 ═══════════════════════════════════════════════════ */
 :root {
-  --bg:       #0C0F0A;
-  --bg2:      #131810;
-  --bg3:      #1A2118;
-  --bg4:      #212C20;
-  --border:   #2A3828;
-  --border2:  #354832;
-  --green:    #4ADE80;
-  --green-d:  #22C55E;
-  --green-dd: #16A34A;
-  --green-bg: rgba(74,222,128,.07);
-  --gold:     #F59E0B;
-  --gold-bg:  rgba(245,158,11,.08);
-  --red:      #F87171;
-  --red-bg:   rgba(248,113,113,.08);
-  --blue:     #60A5FA;
-  --blue-bg:  rgba(96,165,250,.08);
-  --text:     #E8F0E5;
-  --text2:    #9DB89A;
-  --text3:    #5C7A58;
+  --bg:       #F5F8F5;   /* Fond principal clair, doux et reposant */
+  --bg2:      #FFFFFF;   /* Surfaces, cartes, sidebar, topbar : blanc pur */
+  --bg3:      #EEF4EE;   /* Hover, boutons secondaires, séparateurs doux */
+  --bg4:      #E2ECE2;   /* Éléments sélectionnés, tags actifs */
+  --border:   #DCE5DC;   /* Bordures nettes et précises */
+  --border2:  #C4D5C5;   /* Bordures de focus et cartes actives */
+  --green:    #1E6E3E;   /* Vert PASTEF officiel, profond et lisible sur fond blanc */
+  --green-d:  #16542F;
+  --green-dd: #0F3C21;
+  --green-bg: rgba(30, 110, 62, 0.08);
+  --gold:     #A67C19;   /* Or républicain contrasté sur fond blanc */
+  --gold-bg:  rgba(166, 124, 25, 0.09);
+  --red:      #D92D20;   /* Rouge républicain vif */
+  --red-bg:   rgba(217, 45, 32, 0.08);
+  --blue:     #1D64D8;
+  --blue-bg:  rgba(29, 100, 216, 0.08);
+  --text:     #111D14;   /* Texte principal : anthracite profond haute lisibilité */
+  --text2:    #354B3C;   /* Texte secondaire */
+  --text3:    #637C6A;   /* Texte tertiaire / légendes */
   --radius:   10px;
-  --shadow:   0 4px 24px rgba(0,0,0,.4);
+  --shadow:   0 2px 12px rgba(18, 30, 20, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;overflow:hidden}
@@ -303,7 +303,7 @@ textarea.form-control{resize:vertical;min-height:90px}
 }
 .auth-card{
   background:var(--bg2);border:1px solid var(--border);border-radius:18px;
-  padding:2.5rem;width:100%;max-width:400px;text-align:center;
+  padding:2.5rem;width:100%;max-width:400px;text-align:center;box-shadow:0 8px 30px rgba(18,30,20,0.08);
 }
 .auth-logo{
   width:60px;height:60px;background:var(--green-bg);border:2px solid var(--green);
@@ -1172,7 +1172,7 @@ textarea.form-control{resize:vertical;min-height:90px}
     <div class="page" id="page-social">
 
       <!-- Top Banner & Quick Controls -->
-      <div class="card" style="margin-bottom:1rem;background:linear-gradient(135deg,rgba(26,43,30,.85),rgba(13,24,18,.95));border-color:var(--border2)">
+      <div class="card" style="margin-bottom:1rem;background:var(--bg2);border-color:var(--border);box-shadow:var(--shadow)">
         <div class="card-head" style="flex-wrap:wrap;gap:.75rem">
           <div style="display:flex;align-items:center;gap:.6rem">
             <span class="card-title"><i class="fas fa-share-nodes" style="color:var(--green)"></i> Gestion & Personnalisation des Réseaux Sociaux</span>
@@ -1562,7 +1562,7 @@ textarea.form-control{resize:vertical;min-height:90px}
     <div class="page" id="page-kit">
 
       <!-- Top Studio Banner & Template Switcher -->
-      <div class="card" style="margin-bottom:1rem;background:linear-gradient(135deg,rgba(26,43,30,.85),rgba(13,24,18,.95));border-color:var(--border2)">
+      <div class="card" style="margin-bottom:1rem;background:var(--bg2);border-color:var(--border);box-shadow:var(--shadow)">
         <div class="card-head" style="flex-wrap:wrap;gap:.75rem">
           <div style="display:flex;align-items:center;gap:.6rem">
             <span class="card-title"><i class="fas fa-bullhorn" style="color:var(--green)"></i> Studio Réseaux Sociaux & Visuels HD</span>
@@ -1603,8 +1603,8 @@ textarea.form-control{resize:vertical;min-height:90px}
             <div style="display:flex;align-items:center;gap:.4rem">
               <span><i class="fas fa-palette" style="color:var(--gold)"></i> Thème de couleur :</span>
               <select class="form-control" id="stThemeSelect" onchange="studioRenderAll()" style="padding:.25rem .6rem;font-size:.8rem;height:auto;width:auto">
-                <option value="projetbi_prestige" selected>🇸🇳 Vert Prestige Républicain (Identité Officielle ProjetBI)</option>
-                <option value="white_republican">⚪ Blanc Républicain Institutionnel (Contraste Élevé)</option>
+                <option value="white_republican" selected>⚪ Blanc Républicain Institutionnel (Fond Clair Haute Lisibilité)</option>
+                <option value="projetbi_prestige">🇸🇳 Vert Prestige Républicain (Identité ProjetBI)</option>
                 <option value="dark_minimal">⚫ Studio Noir & Or Minimaliste</option>
               </select>
             </div>
@@ -3810,7 +3810,7 @@ function toast(msg, type='success') {
 // STUDIO RÉSEAUX SOCIAUX & VISUELS HD (META / X)
 // ═══════════════════════════════════════════════════
 let studioActiveTemplate = 'flash';
-let studioTheme = 'projetbi_prestige';
+let studioTheme = 'white_republican';
 let studioRatio = '1:1';
 let studioLiveBindDone = false;
 let studioDebounceTimer = null;
@@ -6939,42 +6939,38 @@ function ideoRR(ctx,x,y,w,h,r,fill) {
   ctx.closePath(); if(fill){ctx.fillStyle=fill;ctx.fill();}
 }
 function ideoLogoHeader(ctx) {
-  ideoRR(ctx, 48, 44, 300, 52, 12, 'rgba(8, 28, 17, 0.85)');
-  ctx.strokeStyle = 'rgba(229, 184, 66, 0.45)';
-  ctx.lineWidth = 1.2;
+  ideoRR(ctx, 48, 44, 300, 52, 12, '#FFFFFF');
+  ctx.strokeStyle = 'rgba(201, 168, 76, 0.55)';
+  ctx.lineWidth = 1.5;
   ideoRR(ctx, 48, 44, 300, 52, 12);
   ctx.stroke();
 
-  // Monogramme JJJ
+  // Monogramme JJJ (Vert, Or, Rouge républicains)
   ctx.font = '900 18px "Plus Jakarta Sans", Inter, sans-serif';
-  ctx.fillStyle = '#00B054'; ctx.fillText('J', 68, 77);
-  ctx.fillStyle = '#FFD700'; ctx.fillText('J', 82, 77);
-  ctx.fillStyle = '#E31B23'; ctx.fillText('J', 96, 77);
+  ctx.fillStyle = '#1E6E3E'; ctx.fillText('J', 68, 77);
+  ctx.fillStyle = '#A67C19'; ctx.fillText('J', 82, 77);
+  ctx.fillStyle = '#D92D20'; ctx.fillText('J', 96, 77);
 
-  ctx.fillStyle = '#FFFFFF';
+  ctx.fillStyle = '#0D2818';
   ctx.font = '900 18px "Syne", "Plus Jakarta Sans", sans-serif';
   ctx.fillText('PROJETBI', 116, 77);
 
-  ctx.fillStyle = '#E5B842';
+  ctx.fillStyle = '#A67C19';
   ctx.font = '700 11px "Plus Jakarta Sans", Inter, sans-serif';
   ctx.fillText('◆ IDÉOLOGIE', 224, 76);
 }
 
 function ideoFooter(ctx) {
-  ideoRR(ctx, 0, 990, 1080, 90, 0, 'rgba(3, 14, 8, 0.96)');
-  const lineG = ctx.createLinearGradient(0, 990, 1080, 990);
-  lineG.addColorStop(0, 'rgba(229,184,66,0.1)');
-  lineG.addColorStop(0.5, 'rgba(229,184,66,0.5)');
-  lineG.addColorStop(1, 'rgba(229,184,66,0.1)');
-  ctx.fillStyle = lineG;
+  ideoRR(ctx, 0, 990, 1080, 90, 0, '#FFFFFF');
+  ctx.fillStyle = 'rgba(201,168,76,0.40)';
   ctx.fillRect(0, 990, 1080, 1.5);
 
-  ctx.fillStyle = 'rgba(255,255,255,0.75)';
-  ctx.font = '500 16px "Plus Jakarta Sans", Inter, sans-serif';
+  ctx.fillStyle = '#354B3C';
+  ctx.font = '600 16px "Plus Jakarta Sans", Inter, sans-serif';
   ctx.textAlign = 'left';
   ctx.fillText('🌐 projetbi.org/ideologie.html  •  Plateforme Citoyenne Indépendante', 48, 1042);
 
-  ctx.fillStyle = '#E5B842';
+  ctx.fillStyle = '#A67C19';
   ctx.font = '800 16px "Plus Jakarta Sans", Inter, sans-serif';
   ctx.textAlign = 'right';
   ctx.fillText('JUB • JUBAL • JUBANTI 🇸🇳', 1032, 1042);
@@ -7006,7 +7002,7 @@ function ideoDrawCanvas() {
   ctx.imageSmoothingQuality = 'high';
 
   if (ideoActiveTemplate === 'citation') {
-    ideoBg(ctx, '#031409', '#082D18');
+    ideoBg(ctx, '#FFFFFF', '#F4F7F4');
     
     // Halos lumineux d'ambiance
     const rad1 = ctx.createRadialGradient(900, 150, 10, 900, 150, 400);
@@ -7025,11 +7021,11 @@ function ideoDrawCanvas() {
     const cite = ideoVal('ictText') || 'Les SOLUTIONS sont bien en nous.';
     const src  = ideoVal('ictSource') || 'Ousmane Sonko — Solutions';
 
-    ideoRR(ctx, 70, 240, 940, 520, 20, 'rgba(8, 28, 17, 0.85)');
-    ctx.strokeStyle = 'rgba(229,184,66,0.40)'; ctx.lineWidth = 1.5;
+    ideoRR(ctx, 70, 240, 940, 520, 20, '#FFFFFF');
+    ctx.strokeStyle = 'rgba(201,168,76,0.60)'; ctx.lineWidth = 2;
     ideoRR(ctx, 70, 240, 940, 520, 20); ctx.stroke();
 
-    ctx.fillStyle = '#FFFFFF';
+    ctx.fillStyle = '#0D2818';
     ctx.font = 'italic bold 42px "Crimson Pro", Georgia, serif';
     ctx.textAlign = 'center';
     const lh = 64;
@@ -7056,7 +7052,7 @@ function ideoDrawCanvas() {
     ideoFooter(ctx);
 
   } else if (ideoActiveTemplate === 'pilier') {
-    ideoBg(ctx, '#031409', '#082D18');
+    ideoBg(ctx, '#FFFFFF', '#F4F7F4');
     ideoLogoHeader(ctx);
     const num   = ideoVal('iplNum')   || '01';
     const title = ideoVal('iplTitle') || 'Souveraineté Nationale';
@@ -7080,13 +7076,13 @@ function ideoDrawCanvas() {
     ctx.fillText('PILIER ' + num, 540, 178);
 
     // Titre
-    ctx.fillStyle = '#FFFFFF';
+    ctx.fillStyle = '#0D2818';
     ctx.font = 'bold 56px "Crimson Pro", Georgia, serif';
     ctx.textAlign = 'center';
     ideoWrapText(ctx, title, 540, 275, 900, 68);
 
     // Sous-titre
-    ctx.fillStyle = 'rgba(215, 234, 223, 0.75)';
+    ctx.fillStyle = '#354B3C';
     ctx.font = '500 24px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(sub, 540, 375);
@@ -7098,17 +7094,17 @@ function ideoDrawCanvas() {
     const startA = 460;
     acts.forEach((a, i) => {
       const y = startA + i * 110;
-      ideoRR(ctx, 70, y, 940, 88, 14, 'rgba(8, 28, 17, 0.80)');
-      ideoRR(ctx, 70, y, 5, 88, 2.5, '#10B981');
-      ctx.strokeStyle = 'rgba(255,255,255,0.10)'; ctx.lineWidth = 1;
+      ideoRR(ctx, 70, y, 940, 88, 14, '#FFFFFF');
+      ideoRR(ctx, 70, y, 6, 88, 3, '#1E6E3E');
+      ctx.strokeStyle = 'rgba(201,168,76,0.35)'; ctx.lineWidth = 1.5;
       ideoRR(ctx, 70, y, 940, 88, 14); ctx.stroke();
 
-      ctx.fillStyle = '#10B981';
+      ctx.fillStyle = '#1E6E3E';
       ctx.font = 'bold 26px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.textAlign = 'left';
       ctx.fillText('✓', 105, y + 54);
 
-      ctx.fillStyle = '#FFFFFF';
+      ctx.fillStyle = '#111D14';
       ctx.font = '600 24px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.fillText(a.slice(0, 68), 150, y + 54);
     });
@@ -7117,7 +7113,7 @@ function ideoDrawCanvas() {
     ideoFooter(ctx);
 
   } else if (ideoActiveTemplate === 'comparaison') {
-    ideoBg(ctx, '#07090D', '#121820');
+    ideoBg(ctx, '#FFFFFF', '#F4F7F4');
     ideoLogoHeader(ctx);
     const topic    = ideoVal('icmpTopic')    || 'Agriculture';
     const badTitle = ideoVal('icmpBadTitle') || 'Le Système';
@@ -7130,7 +7126,7 @@ function ideoDrawCanvas() {
     ctx.strokeStyle = '#E5B842'; ctx.lineWidth = 1.5;
     ideoRR(ctx, 340, 135, 400, 64, 12); ctx.stroke();
 
-    ctx.fillStyle = '#FFE9A3';
+    ctx.fillStyle = '#A67C19';
     ctx.font = 'bold 28px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('⚖️  ' + topic.toUpperCase(), 540, 178);
@@ -7182,21 +7178,21 @@ function ideoDrawCanvas() {
     ideoFooter(ctx);
 
   } else if (ideoActiveTemplate === 'jubanti') {
-    ideoBg(ctx, '#031409', '#082D18');
+    ideoBg(ctx, '#FFFFFF', '#F4F7F4');
     ideoLogoHeader(ctx);
 
-    ctx.fillStyle = 'rgba(255,255,255,0.60)';
+    ctx.fillStyle = '#354B3C';
     ctx.font = 'bold 24px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('VALEURS FONDAMENTALES DU PROJET SÉNÉGALAIS', 540, 160);
 
     const words = ['JUB', 'JUBAL', 'JUBANTI'];
     const defs  = [ideoVal('ijub1') || 'Être juste', ideoVal('ijub2') || 'Rendre juste', ideoVal('ijub3') || 'Faire que justice soit'];
-    const textColors = ['#FFFFFF', '#FFE9A3', '#FFFFFF'];
+    const textColors = ['#1E6E3E', '#A67C19', '#D92D20'];
 
     words.forEach((w, i) => {
       const x = 54 + i * 336, bW = 305, bH = 560, bY = 210;
-      ideoRR(ctx, x, bY, bW, bH, 18, 'rgba(8, 28, 17, 0.85)');
+      ideoRR(ctx, x, bY, bW, bH, 18, '#FFFFFF');
       ctx.strokeStyle = i === 1 ? '#E5B842' : 'rgba(255,255,255,0.12)';
       ctx.lineWidth = i === 1 ? 2 : 1;
       ideoRR(ctx, x, bY, bW, bH, 18); ctx.stroke();
@@ -7208,7 +7204,7 @@ function ideoDrawCanvas() {
 
       ideoRR(ctx, x + 40, bY + 160, bW - 80, 2, 1, i === 1 ? '#E5B842' : 'rgba(255,255,255,0.15)');
 
-      ctx.fillStyle = 'rgba(255,255,255,0.85)';
+      ctx.fillStyle = '#111D14';
       ctx.font = 'italic 26px "Crimson Pro", Georgia, serif';
       ideoWrapText(ctx, defs[i], x + bW / 2, bY + 220, 250, 38);
     });
@@ -7238,16 +7234,16 @@ function ideoDrawCanvas() {
     ctx.fillText(title, 540, 175);
 
     // Grand chiffre avec halo
-    ideoRR(ctx, 150, 220, 780, 350, 20, 'rgba(8, 28, 17, 0.88)');
+    ideoRR(ctx, 150, 220, 780, 350, 20, '#FFFFFF');
     ctx.strokeStyle = 'rgba(229,184,66,0.50)'; ctx.lineWidth = 1.5;
     ideoRR(ctx, 150, 220, 780, 350, 20); ctx.stroke();
 
-    ctx.fillStyle = '#FFE9A3';
+    ctx.fillStyle = '#A67C19';
     ctx.font = '900 200px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(bigN, 540, 440);
 
-    ctx.fillStyle = '#FFFFFF';
+    ctx.fillStyle = '#0D2818';
     ctx.font = 'bold 32px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText(bigL, 540, 520);
 
