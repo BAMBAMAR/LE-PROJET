@@ -375,6 +375,12 @@ function isTodayFacebookPost(text) {
   const explicitTodayDate = new RegExp(`\\b(${day}|${dayPadded})\\s+${month}(\\s+${year})?\\b`).test(normalized);
   if (explicitTodayDate) return true;
 
+  // Vérifier aussi le format numérique (ex: "03/10" ou "3/10" ou "03-10")
+  const monthNum = String(now.getMonth() + 1).padStart(2, '0');
+  const monthNumShort = String(now.getMonth() + 1);
+  const explicitNumericDate = new RegExp(`\\b(${day}|${dayPadded})[\\/\\.-](${monthNum}|${monthNumShort})(\\b|[\\/\\.-])`).test(normalized);
+  if (explicitNumericDate) return true;
+
   // Si une AUTRE date précise du même mois est mentionnée (ex: "02 octobre" alors qu'on est le 3), rejeter
   const otherDateMatch = new RegExp(`\\b(\\d{1,2})\\s+${month}(\\s+${year})?\\b`).exec(normalized);
   if (otherDateMatch && parseInt(otherDateMatch[1], 10) !== parseInt(day, 10)) {
