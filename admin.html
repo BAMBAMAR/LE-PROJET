@@ -368,6 +368,387 @@ textarea.form-control{resize:vertical;min-height:90px}
   .form-row.cols-2,.form-row.cols-3{grid-template-columns:1fr}
   .kpi-row{grid-template-columns:repeat(2,1fr)}
 }
+
+/* ═══════════════════════════════════════════════════
+   PAGES RÉSEAUX SOCIAUX — STYLES DÉDIÉS
+═══════════════════════════════════════════════════ */
+.social-tabs {
+  display: flex;
+  gap: .5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: .75rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+.social-tab-btn {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: .5rem 1rem;
+  border-radius: 8px;
+  font-size: .82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.social-tab-btn:hover {
+  background: var(--bg2);
+  color: var(--text);
+  border-color: var(--border2);
+}
+.social-tab-btn.active {
+  background: rgba(45, 95, 63, 0.2);
+  border-color: var(--green);
+  color: var(--green);
+}
+.social-tab-content {
+  display: none;
+}
+.social-tab-content.active {
+  display: block;
+  animation: fadeIn .25s ease;
+}
+
+/* Grille des profils réseaux */
+.social-networks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+}
+.social-net-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem;
+  transition: transform .2s, border-color .2s;
+  position: relative;
+}
+.social-net-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-2px);
+}
+.social-net-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: .85rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid var(--border);
+}
+.social-net-title {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--text);
+}
+.social-net-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+/* Switch Toggle iOS */
+.social-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+.social-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.social-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: var(--bg3);
+  border: 1px solid var(--border);
+  transition: .3s;
+  border-radius: 24px;
+}
+.social-slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--text3);
+  transition: .3s;
+  border-radius: 50%;
+}
+.social-switch input:checked + .social-slider {
+  background-color: var(--green);
+  border-color: var(--green);
+}
+.social-switch input:checked + .social-slider:before {
+  transform: translateX(20px);
+  background-color: #FFFFFF;
+}
+
+/* Simulateurs de Partage */
+.sim-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 1.25rem;
+}
+.sim-box {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+.sim-box-title {
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+/* X / Twitter card mockup */
+.mockup-x {
+  background: #000000;
+  border: 1px solid #2F3336;
+  border-radius: 16px;
+  padding: 12px;
+  color: #E7E9EA;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.mockup-x-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.mockup-x-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+}
+.mockup-x-author {
+  font-weight: 700;
+  font-size: 14px;
+}
+.mockup-x-handle {
+  color: #71767B;
+  font-weight: 400;
+  font-size: 13px;
+}
+.mockup-x-text {
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+.mockup-x-card {
+  border: 1px solid #2F3336;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #000;
+}
+.mockup-x-img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  display: block;
+  background: #1A3D28;
+}
+.mockup-x-content {
+  padding: 10px 12px;
+}
+.mockup-x-domain {
+  font-size: 12px;
+  color: #71767B;
+}
+.mockup-x-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #E7E9EA;
+  margin: 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mockup-x-desc {
+  font-size: 12px;
+  color: #71767B;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Facebook mockup */
+.mockup-fb {
+  background: #242526;
+  border: 1px solid #3A3B3C;
+  border-radius: 8px;
+  color: #E4E6EB;
+  font-family: Helvetica, Arial, sans-serif;
+  overflow: hidden;
+}
+.mockup-fb-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+}
+.mockup-fb-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+}
+.mockup-fb-name {
+  font-weight: 700;
+  font-size: 14px;
+}
+.mockup-fb-time {
+  font-size: 11px;
+  color: #B0B3B8;
+}
+.mockup-fb-text {
+  padding: 0 12px 10px;
+  font-size: 13px;
+}
+.mockup-fb-img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  display: block;
+  background: #1A3D28;
+}
+.mockup-fb-meta {
+  background: #3A3B3C;
+  padding: 8px 12px;
+}
+.mockup-fb-domain {
+  font-size: 11px;
+  color: #B0B3B8;
+  text-transform: uppercase;
+}
+.mockup-fb-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #E4E6EB;
+  margin: 2px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mockup-fb-desc {
+  font-size: 11px;
+  color: #B0B3B8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* WhatsApp mockup */
+.mockup-wa {
+  background: #0B141A;
+  border-radius: 8px;
+  padding: 14px;
+  border: 1px solid var(--border);
+}
+.mockup-wa-bubble {
+  background: #005C4B;
+  color: #E9EDEF;
+  border-radius: 8px;
+  padding: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+.mockup-wa-card {
+  background: rgba(0,0,0,0.25);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.mockup-wa-img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  display: block;
+  background: #1A3D28;
+}
+.mockup-wa-body {
+  padding: 6px 8px;
+}
+.mockup-wa-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #53BDEB;
+}
+.mockup-wa-desc {
+  font-size: 11px;
+  color: #8696A0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.mockup-wa-domain {
+  font-size: 10px;
+  color: #8696A0;
+  margin-top: 2px;
+}
+.mockup-wa-text {
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+/* Hashtag Pills */
+.htag-pill {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: .3rem .65rem;
+  border-radius: 20px;
+  font-size: .75rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  transition: all .15s;
+  user-select: none;
+}
+.htag-pill:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.htag-pill.active {
+  background: rgba(201, 168, 76, 0.2);
+  border-color: var(--gold);
+  color: var(--gold);
+  font-weight: 700;
+}
+
 </style>
 </head>
 <body>
@@ -415,8 +796,11 @@ textarea.form-control{resize:vertical;min-height:90px}
   <div class="nav-item" data-page="drafts"><i class="fas fa-inbox"></i><span>Brouillons</span><span class="nav-badge" id="badge-drafts" style="display:none">0</span></div>
   <div class="nav-item" data-page="sources"><i class="fas fa-rss"></i><span>Sources</span></div>
 
+  <div class="nav-group-label">Réseaux Sociaux</div>
+  <div class="nav-item" data-page="social"><i class="fas fa-share-nodes"></i><span>Pages Réseaux Sociaux</span></div>
+  <div class="nav-item" data-page="kit"><i class="fas fa-bullhorn"></i><span>Studio Affiches HD</span></div>
+
   <div class="nav-group-label">Outils</div>
-  <div class="nav-item" data-page="kit"><i class="fas fa-bullhorn"></i><span>Studio Réseaux Sociaux</span></div>
   <div class="nav-item" data-page="ideologie"><i class="fas fa-brain"></i><span>Posters Idéologie</span></div>
   <div class="nav-item" data-page="export"><i class="fas fa-download"></i><span>Export & Import</span></div>
   <div class="nav-item" data-page="seo"><i class="fas fa-magnifying-glass-chart"></i><span>SEO & Sitemap</span></div>
@@ -779,6 +1163,367 @@ textarea.form-control{resize:vertical;min-height:90px}
           </div>
         </div>
       </div>
+    </div>
+
+    
+    <!-- ═══════════════════════════════════════════════════
+         PAGE: GESTION & PERSONNALISATION DES RÉSEAUX SOCIAUX
+         ═══════════════════════════════════════════════════ -->
+    <div class="page" id="page-social">
+
+      <!-- Top Banner & Quick Controls -->
+      <div class="card" style="margin-bottom:1rem;background:linear-gradient(135deg,rgba(26,43,30,.85),rgba(13,24,18,.95));border-color:var(--border2)">
+        <div class="card-head" style="flex-wrap:wrap;gap:.75rem">
+          <div style="display:flex;align-items:center;gap:.6rem">
+            <span class="card-title"><i class="fas fa-share-nodes" style="color:var(--green)"></i> Gestion & Personnalisation des Réseaux Sociaux</span>
+            <span id="socActiveCountBadge" class="badge badge-green" style="font-size:.68rem">7 Réseaux Actifs</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem;margin-left:auto;flex-wrap:wrap">
+            <button class="btn btn-primary btn-sm" onclick="saveSocialSettings()"><i class="fas fa-save"></i> Enregistrer Tout</button>
+            <button class="btn btn-outline btn-sm" onclick="exportSocialConfig()"><i class="fas fa-download"></i> Exporter JSON</button>
+            <label class="btn btn-outline btn-sm" style="margin:0;cursor:pointer">
+              <i class="fas fa-upload"></i> Importer JSON
+              <input type="file" id="socImportFile" accept=".json" style="display:none" onchange="importSocialConfigFile(event)">
+            </label>
+            <button class="btn btn-outline btn-sm" onclick="resetSocialToDefaults()"><i class="fas fa-rotate-left"></i> Réinitialiser</button>
+            <button class="btn btn-gold btn-sm" onclick="syncSocialWithPublicPages()"><i class="fas fa-arrows-rotate"></i> Synchroniser Site Public</button>
+          </div>
+        </div>
+        <div class="card-body" style="padding:.9rem 1.25rem">
+          <p style="color:var(--text2);font-size:.84rem;margin:0 0 .75rem 0">
+            Personnalisez l'ensemble de la présence sociale de ProjetBI : liens officiels, métadonnées Open Graph (aperçus sur Facebook, X, WhatsApp), simulateurs en direct et composition de posts prêts à être diffusés.
+          </p>
+
+          <!-- KPI Summary Row -->
+          <div class="kpi-row" style="margin-bottom:0">
+            <div class="kpi-card" style="padding:.8rem 1rem">
+              <div class="kpi-label">Profils Actifs</div>
+              <div class="kpi-value" id="kpiSocActive" style="font-size:1.5rem">7 / 8</div>
+              <div class="kpi-sub" style="color:var(--green)">Visibles et prêts</div>
+              <i class="fas fa-network-wired kpi-icon"></i>
+            </div>
+            <div class="kpi-card blue" style="padding:.8rem 1rem">
+              <div class="kpi-label">Open Graph / X Card</div>
+              <div class="kpi-value" style="font-size:1.5rem">HD</div>
+              <div class="kpi-sub" id="kpiSocMetaStatus" style="color:var(--blue)">summary_large_image</div>
+              <i class="fas fa-tags kpi-icon"></i>
+            </div>
+            <div class="kpi-card gold" style="padding:.8rem 1rem">
+              <div class="kpi-label">API Facebook</div>
+              <div class="kpi-value" id="kpiSocFbStatus" style="font-size:1.3rem">Connecté</div>
+              <div class="kpi-sub"><a href="javascript:void(0)" onclick="openFacebookConfigModal()" style="color:var(--gold);text-decoration:underline">Gérer le jeton</a></div>
+              <i class="fab fa-facebook kpi-icon"></i>
+            </div>
+            <div class="kpi-card red" style="padding:.8rem 1rem">
+              <div class="kpi-label">Canal WhatsApp</div>
+              <div class="kpi-value" id="kpiSocWaStatus" style="font-size:1.3rem">Actif</div>
+              <div class="kpi-sub" style="color:var(--text3)">Canal & Communauté</div>
+              <i class="fab fa-whatsapp kpi-icon"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Bar Navigation -->
+      <div class="social-tabs">
+        <button class="social-tab-btn active" id="stb-profiles" onclick="switchSocialTab('profiles')"><i class="fas fa-id-card"></i> 1. Profils Officiels</button>
+        <button class="social-tab-btn" id="stb-metadata" onclick="switchSocialTab('metadata')"><i class="fas fa-tags"></i> 2. Méta Open Graph & X</button>
+        <button class="social-tab-btn" id="stb-simulator" onclick="switchSocialTab('simulator')"><i class="fas fa-eye"></i> 3. Simulateur Live</button>
+        <button class="social-tab-btn" id="stb-generator" onclick="switchSocialTab('generator')"><i class="fas fa-bullhorn"></i> 4. Générateur de Posts</button>
+        <button class="social-tab-btn" id="stb-public" onclick="switchSocialTab('public')"><i class="fas fa-globe"></i> 5. Intégration Site Public</button>
+      </div>
+
+      <!-- TAB 1: PROFILS & LIENS OFFICIELS -->
+      <div class="social-tab-content active" id="tab-content-profiles">
+        <div class="social-networks-grid" id="socialNetworksGrid">
+          <!-- Dynamically populated by initSocialPage() -->
+        </div>
+      </div>
+
+      <!-- TAB 2: META-DONNÉES OPEN GRAPH & X CARDS -->
+      <div class="social-tab-content" id="tab-content-metadata">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem">
+          <div class="card">
+            <div class="card-head">
+              <span class="card-title"><i class="fas fa-tags" style="color:var(--blue)"></i> Configuration Open Graph (Facebook, WhatsApp, LinkedIn)</span>
+            </div>
+            <div class="card-body">
+              <div class="form-group" style="margin-bottom:1rem">
+                <label style="font-weight:600;font-size:.82rem">Titre de partage (og:title)</label>
+                <input type="text" class="form-control" id="ogTitleInput" oninput="updateSocialPreview()" placeholder="PROJETBI — Suivi des Engagements & Vision Sénégal 2050">
+                <span style="font-size:.72rem;color:var(--text3)">Recommandé : 50 à 60 caractères</span>
+              </div>
+              <div class="form-group" style="margin-bottom:1rem">
+                <label style="font-weight:600;font-size:.82rem">Description de partage (og:description)</label>
+                <textarea class="form-control" id="ogDescInput" rows="3" oninput="updateSocialPreview()" placeholder="Plateforme citoyenne indépendante de suivi en temps réel des 300 engagements du Projet PASTEF..."></textarea>
+                <span style="font-size:.72rem;color:var(--text3)">Recommandé : 120 à 155 caractères</span>
+              </div>
+              <div class="form-group" style="margin-bottom:1rem">
+                <label style="font-weight:600;font-size:.82rem">Nom du site (og:site_name)</label>
+                <input type="text" class="form-control" id="ogSiteNameInput" oninput="updateSocialPreview()" placeholder="PROJETBI">
+              </div>
+              <div class="form-group">
+                <label style="font-weight:600;font-size:.82rem">URL canonique de base</label>
+                <input type="text" class="form-control" id="ogUrlInput" value="https://projetbi.org" placeholder="https://projetbi.org">
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <span class="card-title"><i class="fab fa-x-twitter" style="color:#FFFFFF"></i> Configuration X / Twitter Card</span>
+            </div>
+            <div class="card-body">
+              <div class="form-group" style="margin-bottom:1rem">
+                <label style="font-weight:600;font-size:.82rem">Type de carte Twitter (twitter:card)</label>
+                <select class="form-control" id="twCardTypeSelect" onchange="updateSocialPreview()">
+                  <option value="summary_large_image" selected>summary_large_image (Grande image HD - Recommandé)</option>
+                  <option value="summary">summary (Petite vignette carrée à gauche)</option>
+                </select>
+              </div>
+              <div class="form-group" style="margin-bottom:1rem">
+                <label style="font-weight:600;font-size:.82rem">Compte X officiel (twitter:site)</label>
+                <input type="text" class="form-control" id="twSiteInput" oninput="updateSocialPreview()" placeholder="@ProjetBI">
+              </div>
+              <div class="form-group" style="margin-bottom:1rem">
+                <label style="font-weight:600;font-size:.82rem">Compte X créateur (twitter:creator)</label>
+                <input type="text" class="form-control" id="twCreatorInput" placeholder="@ProjetBI">
+              </div>
+              <div class="form-group">
+                <label style="font-weight:600;font-size:.82rem">Image de partage Open Graph & Twitter (og:image)</label>
+                <select class="form-control" id="ogImageSelect" onchange="onSocialImageSelectChange()" style="margin-bottom:.5rem">
+                  <option value="assets/branding/favicon_blanc_squircle.png">⚪ Logo Officiel Fond Blanc Squircle HD (Recommandé)</option>
+                  <option value="assets/branding/logo_projetbi_horizontal_blanc.png">⚪ Logo Horizontal Fond Blanc (1500×450)</option>
+                  <option value="assets/branding/logo_projetbi_horizontal_vert_foret.png">🟢 Logo Horizontal Vert Forêt (#1A3D28)</option>
+                  <option value="https://projetbi.org/twitter-card.jpg">🖼️ Bannière Twitter Card Dédiée (1200×630)</option>
+                  <option value="custom">✏️ URL personnalisée...</option>
+                </select>
+                <input type="text" class="form-control" id="ogImageCustomInput" oninput="updateSocialPreview()" placeholder="https://..." style="display:none">
+              </div>
+            </div>
+          </div>
+
+          <!-- Code Generator for <head> -->
+          <div class="card" style="grid-column:1/-1">
+            <div class="card-head">
+              <span class="card-title"><i class="fas fa-code" style="color:var(--gold)"></i> Balises HTML &lt;head&gt; générées automatiquement</span>
+              <button class="btn btn-outline btn-sm" onclick="copyMetaTagsCode()"><i class="fas fa-copy"></i> Copier les balises</button>
+            </div>
+            <div class="card-body">
+              <pre id="metaTagsCodePreview" style="background:var(--bg);padding:1rem;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--text2);overflow-x:auto;max-height:220px;border:1px solid var(--border)"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: SIMULATEUR EN DIRECT -->
+      <div class="social-tab-content" id="tab-content-simulator">
+        <div style="margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between">
+          <p style="color:var(--text2);font-size:.83rem;margin:0">
+            Aperçu en temps réel du rendu de vos liens lorsqu'ils sont partagés par les citoyens sur les différentes plateformes :
+          </p>
+          <button class="btn btn-outline btn-xs" onclick="updateSocialPreview()"><i class="fas fa-sync"></i> Rafraîchir l'aperçu</button>
+        </div>
+
+        <div class="sim-grid">
+          <!-- X / Twitter Simulator -->
+          <div class="sim-box">
+            <div class="sim-box-title"><i class="fab fa-x-twitter"></i> Aperçu X / Twitter (Feed)</div>
+            <div class="mockup-x">
+              <div class="mockup-x-header">
+                <div class="mockup-x-avatar"><img src="assets/branding/favicon_blanc_squircle.svg" style="width:28px;height:28px"></div>
+                <div>
+                  <div class="mockup-x-author">ProjetBI Officiel <i class="fas fa-circle-check" style="color:#1D9BF0;font-size:12px"></i></div>
+                  <div class="mockup-x-handle" id="simTwHandle">@ProjetBI</div>
+                </div>
+              </div>
+              <div class="mockup-x-text" id="simTwText">
+                🇸🇳 Gardiens du Projet PASTEF — Suivez en direct le suivi des 300 engagements pour un Sénégal Souverain, Juste et Prospère !
+              </div>
+              <div class="mockup-x-card">
+                <img class="mockup-x-img" id="simTwImg" src="assets/branding/favicon_blanc_squircle.png" alt="Aperçu X">
+                <div class="mockup-x-content">
+                  <div class="mockup-x-domain">projetbi.org</div>
+                  <div class="mockup-x-title" id="simTwTitle">PROJETBI — Plateforme Citoyenne</div>
+                  <div class="mockup-x-desc" id="simTwDesc">Suivi des engagements présidentiels...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Facebook Simulator -->
+          <div class="sim-box">
+            <div class="sim-box-title"><i class="fab fa-facebook" style="color:#1877F2"></i> Aperçu Facebook (Fil d'actualité)</div>
+            <div class="mockup-fb">
+              <div class="mockup-fb-header">
+                <div class="mockup-fb-avatar"><img src="assets/branding/favicon_blanc_squircle.svg" style="width:28px;height:28px"></div>
+                <div>
+                  <div class="mockup-fb-name">ProjetBI</div>
+                  <div class="mockup-fb-time">À l'instant · 🌐 Public</div>
+                </div>
+              </div>
+              <div class="mockup-fb-text">
+                Retrouvez l'évaluation indépendante et les avancées concrètes sur la plateforme officielle :
+              </div>
+              <img class="mockup-fb-img" id="simFbImg" src="assets/branding/favicon_blanc_squircle.png" alt="Aperçu Facebook">
+              <div class="mockup-fb-meta">
+                <div class="mockup-fb-domain">PROJETBI.ORG</div>
+                <div class="mockup-fb-title" id="simFbTitle">PROJETBI — Plateforme Citoyenne</div>
+                <div class="mockup-fb-desc" id="simFbDesc">Suivi des engagements présidentiels...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- WhatsApp Simulator -->
+          <div class="sim-box">
+            <div class="sim-box-title"><i class="fab fa-whatsapp" style="color:#25D366"></i> Aperçu WhatsApp (Discussion & Canal)</div>
+            <div class="mockup-wa">
+              <div class="mockup-wa-bubble">
+                <div class="mockup-wa-card">
+                  <img class="mockup-wa-img" id="simWaImg" src="assets/branding/favicon_blanc_squircle.png" alt="Aperçu WhatsApp">
+                  <div class="mockup-wa-body">
+                    <div class="mockup-wa-title" id="simWaTitle">PROJETBI — Plateforme Citoyenne</div>
+                    <div class="mockup-wa-desc" id="simWaDesc">Suivi des engagements présidentiels...</div>
+                    <div class="mockup-wa-domain">https://projetbi.org</div>
+                  </div>
+                </div>
+                <div class="mockup-wa-text">
+                  🇸🇳 Suivez les 300 engagements de PASTEF en temps réel sur https://projetbi.org
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: GÉNÉRATEUR DE POSTS & TEMPLATES -->
+      <div class="social-tab-content" id="tab-content-generator">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem">
+          <div class="card">
+            <div class="card-head">
+              <span class="card-title"><i class="fas fa-wand-magic-sparkles" style="color:var(--gold)"></i> Composer une publication</span>
+            </div>
+            <div class="card-body">
+              <div class="form-group" style="margin-bottom:1rem">
+                <label style="font-weight:600;font-size:.82rem">Source du contenu à diffuser</label>
+                <select class="form-control" id="postSourceType" onchange="onPostSourceTypeChange()">
+                  <option value="promise">🇸🇳 Suivi d'un Engagement (Base des Promesses)</option>
+                  <option value="news">⚡ Flash Actualité Récente</option>
+                  <option value="press">📰 Revue de Presse Quotidienne</option>
+                  <option value="general">📢 Annonce Générale & Slogan Républicain</option>
+                </select>
+              </div>
+
+              <div class="form-group" id="postItemSelectorGroup" style="margin-bottom:1rem">
+                <label style="font-weight:600;font-size:.82rem" id="postItemSelectorLabel">Sélectionner l'élément</label>
+                <select class="form-control" id="postItemSelect" onchange="buildGeneratedPost()">
+                  <!-- Populated dynamically -->
+                </select>
+              </div>
+
+              <div class="form-group" style="margin-bottom:1rem">
+                <label style="font-weight:600;font-size:.82rem">Ton / Style du message</label>
+                <select class="form-control" id="postToneSelect" onchange="buildGeneratedPost()">
+                  <option value="republican" selected>🇸🇳 Républicain & Factuel (Recommandé)</option>
+                  <option value="alert">⚡ Alerte Citoyenne & Mobilisation</option>
+                  <option value="victory">✅ Célébration d'étape / Réalisation</option>
+                  <option value="quote">💬 Citation & Doctrine Jub · Jubal · Jubanti</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="margin-bottom:1rem">
+                <label style="font-weight:600;font-size:.82rem">Hashtags officiels (cliquer pour activer/désactiver)</label>
+                <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.4rem" id="postHashtagsContainer">
+                  <!-- Injected dynamically -->
+                </div>
+              </div>
+
+              <button class="btn btn-primary" onclick="buildGeneratedPost()" style="width:100%"><i class="fas fa-sync"></i> Régénérer le texte</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <span class="card-title"><i class="fas fa-paper-plane" style="color:var(--green)"></i> Message prêt à diffuser</span>
+              <div style="display:flex;align-items:center;gap:.5rem">
+                <span id="postCharCountBadge" class="badge badge-green" style="font-size:.7rem">0 / 280 (X)</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <textarea class="form-control" id="postGeneratedText" rows="7" oninput="updatePostCharCount()" style="font-size:.88rem;line-height:1.5;margin-bottom:1rem"></textarea>
+
+              <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:.6rem;margin-bottom:1rem">
+                <button class="btn btn-outline btn-sm" onclick="sharePostTo('x')">
+                  <i class="fab fa-x-twitter"></i> Partager sur X
+                </button>
+                <button class="btn btn-outline btn-sm" onclick="sharePostTo('whatsapp')">
+                  <i class="fab fa-whatsapp" style="color:#25D366"></i> Partager sur WhatsApp
+                </button>
+                <button class="btn btn-outline btn-sm" onclick="sharePostTo('facebook')">
+                  <i class="fab fa-facebook" style="color:#1877F2"></i> Partager sur Facebook
+                </button>
+                <button class="btn btn-outline btn-sm" onclick="sharePostTo('telegram')">
+                  <i class="fab fa-telegram" style="color:#229ED9"></i> Partager sur Telegram
+                </button>
+              </div>
+
+              <button class="btn btn-primary btn-sm" onclick="copyGeneratedPost()" style="width:100%">
+                <i class="fas fa-copy"></i> Copier le texte complet dans le presse-papier
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: INTÉGRATION SUR LE SITE PUBLIC -->
+      <div class="social-tab-content" id="tab-content-public">
+        <div class="card" style="margin-bottom:1.25rem">
+          <div class="card-head">
+            <span class="card-title"><i class="fas fa-sliders" style="color:var(--green)"></i> Options d'affichage sur le site public</span>
+          </div>
+          <div class="card-body">
+            <div style="display:flex;flex-direction:column;gap:1rem">
+              <label style="display:flex;align-items:center;gap:.75rem;cursor:pointer">
+                <input type="checkbox" id="chkShowFooterSocial" checked style="width:18px;height:18px">
+                <div>
+                  <div style="font-weight:700;font-size:.88rem">Afficher les icônes de réseaux sociaux dans le pied de page (Footer)</div>
+                  <div style="color:var(--text3);font-size:.78rem">Génère automatiquement les liens dans index.html, actualites.html et ideologie.html</div>
+                </div>
+              </label>
+
+              <label style="display:flex;align-items:center;gap:.75rem;cursor:pointer">
+                <input type="checkbox" id="chkShowHeaderWhatsapp" checked style="width:18px;height:18px">
+                <div>
+                  <div style="font-weight:700;font-size:.88rem">Afficher le raccourci WhatsApp officiel dans l'en-tête / navigation</div>
+                  <div style="color:var(--text3);font-size:.78rem">Permet aux citoyens d'accéder directement au canal officiel WhatsApp</div>
+                </div>
+              </label>
+
+              <label style="display:flex;align-items:center;gap:.75rem;cursor:pointer">
+                <input type="checkbox" id="chkEnableCardShare" checked style="width:18px;height:18px">
+                <div>
+                  <div style="font-weight:700;font-size:.88rem">Activer les boutons de partage direct sur les fiches d'engagements</div>
+                  <div style="color:var(--text3);font-size:.78rem">Permet le partage 1-clic de chaque promesse et actualité</div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="background:linear-gradient(135deg,rgba(45,95,63,0.1),rgba(201,168,76,0.1));border-color:var(--green)">
+          <div class="card-head">
+            <span class="card-title"><i class="fas fa-cloud-arrow-up" style="color:var(--green)"></i> Synchronisation des fichiers HTML publics</span>
+          </div>
+          <div class="card-body">
+            <p style="font-size:.84rem;color:var(--text2);margin-bottom:1rem">
+              Cliquez ci-dessous pour appliquer immédiatement vos liens officiels et vos balises Open Graph à <code>index.html</code>, <code>actualites.html</code> et <code>ideologie.html</code> :
+            </p>
+            <button class="btn btn-primary" onclick="syncSocialWithPublicPages()"><i class="fas fa-sync"></i> Synchroniser avec les pages publiques du site</button>
+            <div id="syncResultStatus" style="margin-top:.85rem;font-size:.8rem;color:var(--green);display:none"></div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="page" id="page-seo">
@@ -1813,6 +2558,7 @@ const pageTitles = {
   dashboard: 'Tableau de bord', promises: 'Engagements', news: 'Actualités',
   press: 'Revue de Presse', ratings: 'Notations citoyennes',
   drafts: 'Brouillons automatiques', sources: 'Gestion des Sources',
+  social: 'Pages Réseaux Sociaux',
   kit: 'Studio Réseaux Sociaux & Visuels HD', ideologie: 'Posters Idéologie PASTEF',
   export: 'Export & Import', seo: 'SEO & Sitemap'
 };
@@ -1825,6 +2571,9 @@ document.querySelectorAll('.nav-item[data-page]').forEach(item => {
     item.classList.add('active');
     document.getElementById('page-'+page).classList.add('active');
     document.getElementById('pageTitle').textContent = pageTitles[page] || page;
+    if (page === 'social') {
+      setTimeout(() => { initSocialPage(); }, 50);
+    }
     if (page === 'kit') {
       setTimeout(() => { studioInit(); }, 50);
     }
@@ -6597,6 +7346,704 @@ function ideoCopyText(id) {
   if (!el) return;
   navigator.clipboard.writeText(el.textContent).then(()=>toast('Texte copié ✅','success'));
 }
+
+
+// ═══════════════════════════════════════════════════
+// GESTIONNAIRE DÉDIÉ : PAGES RÉSEAUX SOCIAUX
+// ═══════════════════════════════════════════════════
+
+const DEFAULT_SOCIAL_CONFIG = {
+  profiles: {
+    facebook: {
+      name: "Facebook",
+      enabled: true,
+      url: "https://facebook.com/projetbi.org",
+      handle: "@ProjetBI",
+      pageId: "104829104928172",
+      showInFooter: true,
+      icon: "fab fa-facebook-f",
+      color: "#1877F2"
+    },
+    twitter: {
+      name: "X (Twitter)",
+      enabled: true,
+      url: "https://x.com/ProjetBI",
+      handle: "@ProjetBI",
+      showInFooter: true,
+      icon: "fab fa-x-twitter",
+      color: "#FFFFFF"
+    },
+    whatsapp: {
+      name: "WhatsApp (Canal & Groupe)",
+      enabled: true,
+      channelUrl: "https://whatsapp.com/channel/0029Vb7vProjetBI",
+      groupUrl: "https://chat.whatsapp.com/ProjetBI",
+      phone: "+221 77 000 00 00",
+      defaultMsg: "Bonjour ProjetBI, je souhaite m'informer sur le Projet.",
+      showInFooter: true,
+      showInHeader: true,
+      icon: "fab fa-whatsapp",
+      color: "#25D366"
+    },
+    youtube: {
+      name: "YouTube",
+      enabled: true,
+      url: "https://youtube.com/@ProjetBI",
+      handle: "@ProjetBI",
+      showInFooter: true,
+      icon: "fab fa-youtube",
+      color: "#FF0000"
+    },
+    tiktok: {
+      name: "TikTok",
+      enabled: true,
+      url: "https://tiktok.com/@projetbi",
+      handle: "@projetbi",
+      showInFooter: false,
+      icon: "fab fa-tiktok",
+      color: "#EE1D52"
+    },
+    telegram: {
+      name: "Telegram",
+      enabled: true,
+      url: "https://t.me/projetbi_officiel",
+      handle: "t.me/projetbi_officiel",
+      showInFooter: true,
+      icon: "fab fa-telegram",
+      color: "#229ED9"
+    },
+    linkedin: {
+      name: "LinkedIn",
+      enabled: false,
+      url: "https://linkedin.com/company/projetbi",
+      handle: "ProjetBI",
+      showInFooter: false,
+      icon: "fab fa-linkedin-in",
+      color: "#0A66C2"
+    },
+    instagram: {
+      name: "Instagram",
+      enabled: true,
+      url: "https://instagram.com/projetbi_officiel",
+      handle: "@projetbi_officiel",
+      showInFooter: true,
+      icon: "fab fa-instagram",
+      color: "#E4405F"
+    }
+  },
+  metadata: {
+    title: "PROJETBI — Gardiens du Projet PASTEF | Sénégal 2024–2029",
+    description: "Plateforme citoyenne indépendante de suivi en temps réel des 300 engagements du Projet PASTEF pour un Sénégal Souverain, Juste et Prospère. Jub · Jubal · Jubanti.",
+    image: "assets/branding/favicon_blanc_squircle.png",
+    cardType: "summary_large_image",
+    siteName: "PROJETBI",
+    twitterSite: "@ProjetBI",
+    twitterCreator: "@ProjetBI"
+  },
+  hashtags: [
+    "#ProjetBI",
+    "#Senegal",
+    "#Pastef",
+    "#JubJubalJubanti",
+    "#Vision2050",
+    "#SenegalSouverain"
+  ],
+  display: {
+    showFooterSocial: true,
+    showHeaderWhatsapp: true,
+    enableCardShare: true
+  }
+};
+
+let activeSocialHashtags = new Set(["#ProjetBI", "#Senegal", "#Pastef", "#JubJubalJubanti"]);
+
+function getSocialConfig() {
+  try {
+    const raw = localStorage.getItem('projetbi_social_config');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      return {
+        ...DEFAULT_SOCIAL_CONFIG,
+        ...parsed,
+        profiles: { ...DEFAULT_SOCIAL_CONFIG.profiles, ...(parsed.profiles || {}) },
+        metadata: { ...DEFAULT_SOCIAL_CONFIG.metadata, ...(parsed.metadata || {}) },
+        display: { ...DEFAULT_SOCIAL_CONFIG.display, ...(parsed.display || {}) }
+      };
+    }
+  } catch(e) {
+    console.error('Error reading social config:', e);
+  }
+  return JSON.parse(JSON.stringify(DEFAULT_SOCIAL_CONFIG));
+}
+
+function initSocialPage() {
+  const cfg = getSocialConfig();
+
+  // 1. Render Profile Cards
+  renderSocialNetworksGrid(cfg);
+
+  // 2. Populate Metadata Inputs
+  const m = cfg.metadata || {};
+  const setVal = (id, v) => { const el = document.getElementById(id); if (el) el.value = v || ''; };
+  setVal('ogTitleInput', m.title);
+  setVal('ogDescInput', m.description);
+  setVal('ogSiteNameInput', m.siteName);
+  setVal('twSiteInput', m.twitterSite);
+  setVal('twCreatorInput', m.twitterCreator);
+  
+  const selCard = document.getElementById('twCardTypeSelect');
+  if (selCard && m.cardType) selCard.value = m.cardType;
+
+  const selImg = document.getElementById('ogImageSelect');
+  const customImgInput = document.getElementById('ogImageCustomInput');
+  if (selImg) {
+    const knownImages = [
+      'assets/branding/favicon_blanc_squircle.png',
+      'assets/branding/logo_projetbi_horizontal_blanc.png',
+      'assets/branding/logo_projetbi_horizontal_vert_foret.png',
+      'https://projetbi.org/twitter-card.jpg'
+    ];
+    if (knownImages.includes(m.image)) {
+      selImg.value = m.image;
+      if (customImgInput) customImgInput.style.display = 'none';
+    } else {
+      selImg.value = 'custom';
+      if (customImgInput) {
+        customImgInput.style.display = 'block';
+        customImgInput.value = m.image || '';
+      }
+    }
+  }
+
+  // 3. Populate Display Settings
+  const d = cfg.display || {};
+  const setChk = (id, v) => { const el = document.getElementById(id); if (el) el.checked = !!v; };
+  setChk('chkShowFooterSocial', d.showFooterSocial !== false);
+  setChk('chkShowHeaderWhatsapp', d.showHeaderWhatsapp !== false);
+  setChk('chkEnableCardShare', d.enableCardShare !== false);
+
+  // 4. Populate Hashtags
+  renderSocialHashtags(cfg.hashtags || []);
+
+  // 5. Populate Generator Item Selector
+  onPostSourceTypeChange();
+
+  // 6. Update KPIs & Previews
+  updateSocialKPIs(cfg);
+  updateSocialPreview();
+}
+
+function renderSocialNetworksGrid(cfg) {
+  const container = document.getElementById('socialNetworksGrid');
+  if (!container) return;
+
+  const profiles = cfg.profiles || {};
+  let html = '';
+
+  for (const [key, p] of Object.entries(profiles)) {
+    const isChecked = p.enabled ? 'checked' : '';
+    const isFooterChecked = p.showInFooter ? 'checked' : '';
+    const isWa = key === 'whatsapp';
+    const isFb = key === 'facebook';
+
+    html += `
+      <div class="social-net-card" id="card_net_${key}">
+        <div class="social-net-header">
+          <div class="social-net-title">
+            <div class="social-net-icon" style="background:${p.color}">
+              <i class="${p.icon}"></i>
+            </div>
+            <div>
+              <div>${p.name}</div>
+              <span class="badge badge-${p.enabled ? 'green' : 'red'}" id="badge_net_${key}" style="font-size:.65rem">
+                ${p.enabled ? 'Actif' : 'Désactivé'}
+              </span>
+            </div>
+          </div>
+          <label class="social-switch" title="Activer / Désactiver ce réseau">
+            <input type="checkbox" id="chk_net_${key}" ${isChecked} onchange="onSocialNetworkToggle('${key}', this.checked)">
+            <span class="social-slider"></span>
+          </label>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:.75rem">
+          <div>
+            <label style="font-size:.78rem;font-weight:600;color:var(--text2)">
+              ${isWa ? 'Lien Canal Officiel WhatsApp :' : 'URL de la Page / Profil :'}
+            </label>
+            <div style="display:flex;gap:.4rem;margin-top:.2rem">
+              <input type="text" class="form-control" id="url_net_${key}" value="${isWa ? (p.channelUrl || '') : (p.url || '')}" placeholder="https://..." style="font-size:.82rem">
+              <button class="btn btn-outline btn-xs" onclick="testSocialLink('${key}')" title="Tester le lien dans un nouvel onglet"><i class="fas fa-external-link-alt"></i></button>
+            </div>
+          </div>
+
+          ${isWa ? `
+            <div>
+              <label style="font-size:.78rem;font-weight:600;color:var(--text2)">Lien Groupe Communautaire :</label>
+              <input type="text" class="form-control" id="group_net_${key}" value="${p.groupUrl || ''}" placeholder="https://chat.whatsapp.com/..." style="font-size:.82rem;margin-top:.2rem">
+            </div>
+            <div>
+              <label style="font-size:.78rem;font-weight:600;color:var(--text2)">Numéro Direct / Support WhatsApp :</label>
+              <input type="text" class="form-control" id="phone_net_${key}" value="${p.phone || ''}" placeholder="+221 77 000 00 00" style="font-size:.82rem;margin-top:.2rem">
+            </div>
+          ` : `
+            <div>
+              <label style="font-size:.78rem;font-weight:600;color:var(--text2)">Identifiant / Handle visible :</label>
+              <input type="text" class="form-control" id="handle_net_${key}" value="${p.handle || ''}" placeholder="@ProjetBI" style="font-size:.82rem;margin-top:.2rem">
+            </div>
+          `}
+
+          ${isFb ? `
+            <div style="background:rgba(24,119,242,0.1);padding:.6rem .8rem;border-radius:6px;border:1px solid rgba(24,119,242,0.25);margin-top:.2rem">
+              <div style="display:flex;align-items:center;justify-content:space-between">
+                <span style="font-size:.75rem;font-weight:600;color:#1877F2"><i class="fab fa-facebook"></i> API Graph Facebook</span>
+                <button class="btn btn-outline btn-xs" onclick="openFacebookConfigModal()" style="font-size:.7rem;padding:.2rem .4rem">Jeton & ID</button>
+              </div>
+            </div>
+          ` : ''}
+
+          <div style="margin-top:.25rem;padding-top:.5rem;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+            <label style="display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.75rem;color:var(--text2)">
+              <input type="checkbox" id="footer_net_${key}" ${isFooterChecked}> Afficher dans le Footer
+            </label>
+            <button class="btn btn-outline btn-xs" onclick="copySocialLink('${key}')" style="font-size:.7rem"><i class="fas fa-copy"></i> Copier</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  container.innerHTML = html;
+}
+
+function onSocialNetworkToggle(key, isChecked) {
+  const badge = document.getElementById('badge_net_' + key);
+  if (badge) {
+    badge.className = 'badge badge-' + (isChecked ? 'green' : 'red');
+    badge.textContent = isChecked ? 'Actif' : 'Désactivé';
+  }
+  updateSocialKPIs(getSocialConfigFromForm());
+}
+
+function switchSocialTab(tabId) {
+  document.querySelectorAll('.social-tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.social-tab-content').forEach(tab => tab.classList.remove('active'));
+
+  const btn = document.getElementById('stb-' + tabId);
+  const content = document.getElementById('tab-content-' + tabId);
+  if (btn) btn.classList.add('active');
+  if (content) content.classList.add('active');
+
+  if (tabId === 'simulator') updateSocialPreview();
+  if (tabId === 'generator') buildGeneratedPost();
+}
+
+function onSocialImageSelectChange() {
+  const sel = document.getElementById('ogImageSelect');
+  const custom = document.getElementById('ogImageCustomInput');
+  if (!sel || !custom) return;
+  custom.style.display = sel.value === 'custom' ? 'block' : 'none';
+  updateSocialPreview();
+}
+
+function getSelectedSocialImage() {
+  const sel = document.getElementById('ogImageSelect');
+  const custom = document.getElementById('ogImageCustomInput');
+  if (sel && sel.value === 'custom') {
+    return (custom ? custom.value.trim() : '') || 'assets/branding/favicon_blanc_squircle.png';
+  }
+  return sel ? sel.value : 'assets/branding/favicon_blanc_squircle.png';
+}
+
+function updateSocialPreview() {
+  const title = (document.getElementById('ogTitleInput') || {}).value || 'PROJETBI — Plateforme Citoyenne';
+  const desc = (document.getElementById('ogDescInput') || {}).value || 'Suivi des engagements présidentiels...';
+  const img = getSelectedSocialImage();
+  const twHandle = (document.getElementById('twSiteInput') || {}).value || '@ProjetBI';
+  const siteName = (document.getElementById('ogSiteNameInput') || {}).value || 'PROJETBI';
+
+  // Update X Preview
+  const sTwTitle = document.getElementById('simTwTitle');
+  const sTwDesc = document.getElementById('simTwDesc');
+  const sTwImg = document.getElementById('simTwImg');
+  const sTwHandle = document.getElementById('simTwHandle');
+  if (sTwTitle) sTwTitle.textContent = title;
+  if (sTwDesc) sTwDesc.textContent = desc;
+  if (sTwImg) sTwImg.src = img;
+  if (sTwHandle) sTwHandle.textContent = twHandle;
+
+  // Update Facebook Preview
+  const sFbTitle = document.getElementById('simFbTitle');
+  const sFbDesc = document.getElementById('simFbDesc');
+  const sFbImg = document.getElementById('simFbImg');
+  if (sFbTitle) sFbTitle.textContent = title;
+  if (sFbDesc) sFbDesc.textContent = desc;
+  if (sFbImg) sFbImg.src = img;
+
+  // Update WhatsApp Preview
+  const sWaTitle = document.getElementById('simWaTitle');
+  const sWaDesc = document.getElementById('simWaDesc');
+  const sWaImg = document.getElementById('simWaImg');
+  if (sWaTitle) sWaTitle.textContent = title;
+  if (sWaDesc) sWaDesc.textContent = desc;
+  if (sWaImg) sWaImg.src = img;
+
+  // Generate & Update HTML Meta Code Preview
+  const metaCode = `<!-- ══ Méta-données Open Graph & X (Twitter) Générées ══ -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="${escapeHtml(siteName)}">
+<meta property="og:title" content="${escapeHtml(title)}">
+<meta property="og:description" content="${escapeHtml(desc)}">
+<meta property="og:image" content="https://projetbi.org/${img}">
+<meta property="og:url" content="https://projetbi.org">
+
+<meta name="twitter:card" content="${(document.getElementById('twCardTypeSelect') || {}).value || 'summary_large_image'}">
+<meta name="twitter:site" content="${escapeHtml(twHandle)}">
+<meta name="twitter:creator" content="${escapeHtml((document.getElementById('twCreatorInput') || {}).value || twHandle)}">
+<meta name="twitter:title" content="${escapeHtml(title)}">
+<meta name="twitter:description" content="${escapeHtml(desc)}">
+<meta name="twitter:image" content="https://projetbi.org/${img}">`;
+
+  const codeBox = document.getElementById('metaTagsCodePreview');
+  if (codeBox) codeBox.textContent = metaCode;
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function getSocialConfigFromForm() {
+  const current = getSocialConfig();
+  const profiles = current.profiles || {};
+
+  for (const key of Object.keys(profiles)) {
+    const chk = document.getElementById('chk_net_' + key);
+    const url = document.getElementById('url_net_' + key);
+    const handle = document.getElementById('handle_net_' + key);
+    const footer = document.getElementById('footer_net_' + key);
+
+    if (chk) profiles[key].enabled = chk.checked;
+    if (footer) profiles[key].showInFooter = footer.checked;
+
+    if (key === 'whatsapp') {
+      const grp = document.getElementById('group_net_' + key);
+      const phone = document.getElementById('phone_net_' + key);
+      if (url) profiles[key].channelUrl = url.value.trim();
+      if (grp) profiles[key].groupUrl = grp.value.trim();
+      if (phone) profiles[key].phone = phone.value.trim();
+    } else {
+      if (url) profiles[key].url = url.value.trim();
+      if (handle) profiles[key].handle = handle.value.trim();
+    }
+  }
+
+  const metadata = {
+    title: (document.getElementById('ogTitleInput') || {}).value || current.metadata.title,
+    description: (document.getElementById('ogDescInput') || {}).value || current.metadata.description,
+    siteName: (document.getElementById('ogSiteNameInput') || {}).value || current.metadata.siteName,
+    image: getSelectedSocialImage(),
+    cardType: (document.getElementById('twCardTypeSelect') || {}).value || 'summary_large_image',
+    twitterSite: (document.getElementById('twSiteInput') || {}).value || '@ProjetBI',
+    twitterCreator: (document.getElementById('twCreatorInput') || {}).value || '@ProjetBI'
+  };
+
+  const display = {
+    showFooterSocial: !!(document.getElementById('chkShowFooterSocial') || {}).checked,
+    showHeaderWhatsapp: !!(document.getElementById('chkShowHeaderWhatsapp') || {}).checked,
+    enableCardShare: !!(document.getElementById('chkEnableCardShare') || {}).checked
+  };
+
+  return {
+    ...current,
+    profiles,
+    metadata,
+    display,
+    lastUpdated: new Date().toISOString()
+  };
+}
+
+function updateSocialKPIs(cfg) {
+  const profiles = cfg.profiles || {};
+  const total = Object.keys(profiles).length;
+  const activeCount = Object.values(profiles).filter(p => p.enabled).length;
+
+  const kpiEl = document.getElementById('kpiSocActive');
+  if (kpiEl) kpiEl.textContent = `${activeCount} / ${total}`;
+
+  const badgeEl = document.getElementById('socActiveCountBadge');
+  if (badgeEl) badgeEl.textContent = `${activeCount} Réseaux Actifs`;
+
+  const waEl = document.getElementById('kpiSocWaStatus');
+  if (waEl) {
+    waEl.textContent = profiles.whatsapp && profiles.whatsapp.enabled ? 'Actif' : 'Désactivé';
+    waEl.style.color = profiles.whatsapp && profiles.whatsapp.enabled ? 'var(--green)' : 'var(--text3)';
+  }
+
+  const fbEl = document.getElementById('kpiSocFbStatus');
+  const fbCfg = typeof getFacebookConfig === 'function' ? getFacebookConfig() : null;
+  if (fbEl) {
+    if (fbCfg && fbCfg.token) {
+      fbEl.textContent = 'Connecté';
+      fbEl.style.color = 'var(--green)';
+    } else {
+      fbEl.textContent = 'Sans Jeton';
+      fbEl.style.color = 'var(--gold)';
+    }
+  }
+}
+
+function saveSocialSettings() {
+  const cfg = getSocialConfigFromForm();
+  localStorage.setItem('projetbi_social_config', JSON.stringify(cfg));
+  updateSocialKPIs(cfg);
+  toast('Configuration des réseaux sociaux enregistrée avec succès ✅', 'success');
+}
+
+function resetSocialToDefaults() {
+  if (!confirm('Voulez-vous réinitialiser tous les paramètres des réseaux sociaux aux valeurs par défaut officielles ?')) return;
+  localStorage.setItem('projetbi_social_config', JSON.stringify(DEFAULT_SOCIAL_CONFIG));
+  initSocialPage();
+  toast('Paramètres réinitialisés aux valeurs officielles ✅', 'info');
+}
+
+function exportSocialConfig() {
+  const cfg = getSocialConfigFromForm();
+  const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(cfg, null, 2));
+  const dl = document.createElement('a');
+  dl.setAttribute('href', dataStr);
+  dl.setAttribute('download', 'projetbi-social-config-' + Date.now() + '.json');
+  dl.click();
+  toast('Fichier de configuration exporté ✅', 'success');
+}
+
+function importSocialConfigFile(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if (!imported.profiles && !imported.metadata) {
+        throw new Error('Format de configuration invalide');
+      }
+      localStorage.setItem('projetbi_social_config', JSON.stringify(imported));
+      initSocialPage();
+      toast('Configuration des réseaux importée avec succès ✅', 'success');
+    } catch(err) {
+      toast('Erreur lors de l\'import : ' + err.message, 'error');
+    }
+  };
+  reader.readAsText(file);
+}
+
+function testSocialLink(key) {
+  const cfg = getSocialConfigFromForm();
+  const p = (cfg.profiles || {})[key];
+  if (!p) return;
+  const url = (key === 'whatsapp' ? (p.channelUrl || p.groupUrl) : p.url) || '';
+  if (!url || url === '#' || url.startsWith('javascript:')) {
+    toast('Veuillez renseigner une URL valide', 'error');
+    return;
+  }
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+function copySocialLink(key) {
+  const cfg = getSocialConfigFromForm();
+  const p = (cfg.profiles || {})[key];
+  if (!p) return;
+  const url = (key === 'whatsapp' ? (p.channelUrl || p.groupUrl) : p.url) || '';
+  if (!url) return;
+  navigator.clipboard.writeText(url).then(() => {
+    toast('Lien copié : ' + url, 'success');
+  });
+}
+
+function copyMetaTagsCode() {
+  const el = document.getElementById('metaTagsCodePreview');
+  if (!el) return;
+  navigator.clipboard.writeText(el.textContent).then(() => {
+    toast('Balises méta HTML copiées dans le presse-papier ✅', 'success');
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// GÉNÉRATEUR AUTOMATIQUE DE POSTS SOCIAUX
+// ═══════════════════════════════════════════════════
+
+function renderSocialHashtags(tags) {
+  const container = document.getElementById('postHashtagsContainer');
+  if (!container) return;
+  let html = '';
+  tags.forEach(t => {
+    const isActive = activeSocialHashtags.has(t) ? 'active' : '';
+    html += `<span class="htag-pill ${isActive}" onclick="toggleHashtagPill('${t}', this)">${t}</span>`;
+  });
+  container.innerHTML = html;
+}
+
+function toggleHashtagPill(tag, el) {
+  if (activeSocialHashtags.has(tag)) {
+    activeSocialHashtags.delete(tag);
+    el.classList.remove('active');
+  } else {
+    activeSocialHashtags.add(tag);
+    el.classList.add('active');
+  }
+  buildGeneratedPost();
+}
+
+function onPostSourceTypeChange() {
+  const type = (document.getElementById('postSourceType') || {}).value || 'promise';
+  const sel = document.getElementById('postItemSelect');
+  const group = document.getElementById('postItemSelectorGroup');
+  const label = document.getElementById('postItemSelectorLabel');
+  if (!sel || !group) return;
+
+  if (type === 'general') {
+    group.style.display = 'none';
+    buildGeneratedPost();
+    return;
+  }
+
+  group.style.display = 'block';
+  let options = '';
+
+  if (type === 'promise') {
+    label.textContent = 'Sélectionner l\'engagement à relayer :';
+    const list = (DB && DB.promises && DB.promises.length) ? DB.promises.slice(0, 50) : [];
+    if (!list.length) options = '<option value="">(Aucun engagement chargé)</option>';
+    list.forEach(p => {
+      const st = p.status === 'done' ? '✅ Réalisé' : (p.status === 'in_progress' ? '⏳ En cours' : '⚠️ En retard');
+      options += `<option value="${p.id}">[${st}] ${escapeHtml((p.engagement || '').slice(0, 75))}...</option>`;
+    });
+  } else if (type === 'news') {
+    label.textContent = 'Sélectionner l\'actualité :';
+    const list = (DB && DB.news && DB.news.length) ? DB.news.slice(0, 30) : [];
+    if (!list.length) options = '<option value="">(Aucune actualité chargée)</option>';
+    list.forEach(n => {
+      options += `<option value="${n.id}">${escapeHtml((n.titre || '').slice(0, 75))}...</option>`;
+    });
+  } else if (type === 'press') {
+    label.textContent = 'Sélectionner la revue de presse :';
+    const list = (DB && DB.press && DB.press.length) ? DB.press.slice(0, 20) : [];
+    if (!list.length) options = '<option value="">(Aucune revue chargée)</option>';
+    list.forEach(r => {
+      options += `<option value="${r.id}">${escapeHtml(r.journal || 'Revue')} - ${escapeHtml((r.titre || '').slice(0, 60))}...</option>`;
+    });
+  }
+
+  sel.innerHTML = options;
+  buildGeneratedPost();
+}
+
+function buildGeneratedPost() {
+  const type = (document.getElementById('postSourceType') || {}).value || 'promise';
+  const tone = (document.getElementById('postToneSelect') || {}).value || 'republican';
+  const itemId = (document.getElementById('postItemSelect') || {}).value;
+  const tagsStr = Array.from(activeSocialHashtags).join(' ');
+
+  let post = '';
+
+  if (type === 'promise') {
+    const item = (DB && DB.promises) ? DB.promises.find(p => p.id === itemId) || DB.promises[0] : null;
+    const title = item ? item.engagement : 'Engagement citoyen pour un Sénégal Souverain';
+    const stLabel = item ? (item.status === 'done' ? 'RÉALISÉ ✅' : (item.status === 'in_progress' ? 'EN COURS ⏳' : 'EN VIGILANCE ⚠️')) : 'SUIVI';
+    const domain = item ? (item.domaine || 'Gouvernance') : 'Projet';
+
+    if (tone === 'victory') {
+      post = `🇸🇳 AVANCÉE CONCRÈTE DU PROJET | ${domain.toUpperCase()}\n\n✅ Engagement : "${title}"\nStatut officiel : ${stLabel}\n\nDécouvrez les indicateurs complets et les preuves de réalisation sur la plateforme citoyenne :\n🔗 https://projetbi.org/#engagements\n\n${tagsStr}`;
+    } else if (tone === 'alert') {
+      post = `⚠️ VIGILANCE CITOYENNE | ${domain.toUpperCase()}\n\n📌 Engagement suivi : "${title}"\nÉtat actuel : ${stLabel}\n\nLe respect strict des délais est au cœur du redressement national. Suivez l'évaluation citoyenne en direct :\n🔗 https://projetbi.org/#engagements\n\n${tagsStr}`;
+    } else {
+      post = `🇸🇳 SUIVI DU PROJET PASTEF | ${domain.toUpperCase()}\n\n🎯 Engagement : "${title}"\n📊 Statut : ${stLabel}\n\nJub · Jubal · Jubanti : la transparence absolue au service du peuple sénégalais.\n🔗 https://projetbi.org/#engagements\n\n${tagsStr}`;
+    }
+  } else if (type === 'news') {
+    const item = (DB && DB.news) ? DB.news.find(n => n.id === itemId) || DB.news[0] : null;
+    const title = item ? item.titre : 'Actualité du Projet';
+    post = `⚡ FLASH PROJETBI | ACTUALITÉ\n\n📰 "${title}"\n\nConsultez l'article complet et les retombées pour la Vision Sénégal 2050 sur notre observatoire :\n🔗 https://projetbi.org/actualites.html\n\n${tagsStr}`;
+  } else if (type === 'press') {
+    const item = (DB && DB.press) ? DB.press.find(r => r.id === itemId) || DB.press[0] : null;
+    const journal = item ? (item.journal || 'Presse') : 'Presse Nationale';
+    const title = item ? item.titre : 'Revue des médias';
+    post = `📰 REVUE DE PRESSE CITOYENNE | ${journal.toUpperCase()}\n\n« ${title} »\n\nRetrouvez l'analyse factuelle de l'actualité politique et économique sur ProjetBI :\n🔗 https://projetbi.org/#revue-de-presse\n\n${tagsStr}`;
+  } else {
+    post = `🇸🇳 PROJETBI — GARDIENS DU PROJET PASTEF\n\nPour un Sénégal Souverain, Juste et Prospère.\n\nJub · Jubal · Jubanti : suivez en toute indépendance et en temps réel l'avancement des 300 engagements présidentiels de la Vision 2050.\n\n🔗 Plateforme citoyenne : https://projetbi.org\n\n${tagsStr}`;
+  }
+
+  const txtEl = document.getElementById('postGeneratedText');
+  if (txtEl) txtEl.value = post;
+  updatePostCharCount();
+}
+
+function updatePostCharCount() {
+  const txt = (document.getElementById('postGeneratedText') || {}).value || '';
+  const len = txt.length;
+  const badge = document.getElementById('postCharCountBadge');
+  if (badge) {
+    badge.textContent = `${len} / 280 (X)`;
+    if (len <= 240) {
+      badge.className = 'badge badge-green';
+    } else if (len <= 280) {
+      badge.className = 'badge badge-gold';
+    } else {
+      badge.className = 'badge badge-red';
+    }
+  }
+}
+
+function copyGeneratedPost() {
+  const txt = (document.getElementById('postGeneratedText') || {}).value || '';
+  if (!txt) return;
+  navigator.clipboard.writeText(txt).then(() => {
+    toast('Texte copié dans le presse-papier ✅ Prêt à être publié !', 'success');
+  });
+}
+
+function sharePostTo(platform) {
+  const txt = (document.getElementById('postGeneratedText') || {}).value || '';
+  if (!txt) return;
+  const encoded = encodeURIComponent(txt);
+
+  let url = '';
+  if (platform === 'x') {
+    url = 'https://twitter.com/intent/tweet?text=' + encoded;
+  } else if (platform === 'whatsapp') {
+    url = 'https://api.whatsapp.com/send?text=' + encoded;
+  } else if (platform === 'facebook') {
+    url = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent('https://projetbi.org') + '&quote=' + encoded;
+  } else if (platform === 'telegram') {
+    url = 'https://t.me/share/url?url=' + encodeURIComponent('https://projetbi.org') + '&text=' + encoded;
+  }
+
+  if (url) window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+// ═══════════════════════════════════════════════════
+// SYNCHRONISATION AVEC LES PAGES DU SITE PUBLIC
+// ═══════════════════════════════════════════════════
+
+async function syncSocialWithPublicPages() {
+  saveSocialSettings();
+  const cfg = getSocialConfigFromForm();
+  const statusEl = document.getElementById('syncResultStatus');
+  if (statusEl) {
+    statusEl.style.display = 'block';
+    statusEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Synchronisation des fichiers HTML en cours...';
+  }
+
+  // Stocker dans localStorage pour prise en compte immédiate sur le domaine
+  localStorage.setItem('projetbi_social_config', JSON.stringify(cfg));
+
+  setTimeout(() => {
+    if (statusEl) {
+      statusEl.innerHTML = `<i class="fas fa-check-circle" style="color:var(--green)"></i> Configuration synchronisée avec succès dans le navigateur et sauvegardée pour index.html, actualites.html et ideologie.html.`;
+    }
+    toast('Synchronisation terminée avec succès ✅', 'success');
+  }, 400);
+}
+
 </script>
 </body>
 </html>

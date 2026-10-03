@@ -1,0 +1,103 @@
+{
+  "profiles": {
+    "facebook": {
+      "name": "Facebook",
+      "enabled": true,
+      "url": "https://facebook.com/projetbi.org",
+      "handle": "@ProjetBI",
+      "pageId": "104829104928172",
+      "showInFooter": true,
+      "icon": "fab fa-facebook-f",
+      "color": "#1877F2"
+    },
+    "twitter": {
+      "name": "X (Twitter)",
+      "enabled": true,
+      "url": "https://x.com/ProjetBI",
+      "handle": "@ProjetBI",
+      "showInFooter": true,
+      "icon": "fab fa-x-twitter",
+      "color": "#FFFFFF"
+    },
+    "whatsapp": {
+      "name": "WhatsApp",
+      "enabled": true,
+      "channelUrl": "https://whatsapp.com/channel/0029Vb7vProjetBI",
+      "groupUrl": "https://chat.whatsapp.com/ProjetBI",
+      "phone": "+221 77 000 00 00",
+      "defaultMsg": "Bonjour ProjetBI, je souhaite m'informer sur le Projet.",
+      "showInFooter": true,
+      "showInHeader": true,
+      "icon": "fab fa-whatsapp",
+      "color": "#25D366"
+    },
+    "youtube": {
+      "name": "YouTube",
+      "enabled": true,
+      "url": "https://youtube.com/@ProjetBI",
+      "handle": "@ProjetBI",
+      "showInFooter": true,
+      "icon": "fab fa-youtube",
+      "color": "#FF0000"
+    },
+    "tiktok": {
+      "name": "TikTok",
+      "enabled": true,
+      "url": "https://tiktok.com/@projetbi",
+      "handle": "@projetbi",
+      "showInFooter": false,
+      "icon": "fab fa-tiktok",
+      "color": "#EE1D52"
+    },
+    "telegram": {
+      "name": "Telegram",
+      "enabled": true,
+      "url": "https://t.me/projetbi_officiel",
+      "handle": "t.me/projetbi_officiel",
+      "showInFooter": true,
+      "icon": "fab fa-telegram",
+      "color": "#229ED9"
+    },
+    "linkedin": {
+      "name": "LinkedIn",
+      "enabled": false,
+      "url": "https://linkedin.com/company/projetbi",
+      "handle": "ProjetBI",
+      "showInFooter": false,
+      "icon": "fab fa-linkedin-in",
+      "color": "#0A66C2"
+    },
+    "instagram": {
+      "name": "Instagram",
+      "enabled": true,
+      "url": "https://instagram.com/projetbi_officiel",
+      "handle": "@projetbi_officiel",
+      "showInFooter": true,
+      "icon": "fab fa-instagram",
+      "color": "#E4405F"
+    }
+  },
+  "metadata": {
+    "title": "PROJETBI — Gardiens du Projet PASTEF | Sénégal 2024–2029",
+    "description": "Plateforme citoyenne indépendante de suivi en temps réel des 300 engagements du Projet PASTEF pour un Sénégal Souverain, Juste et Prospère. Jub · Jubal · Jubanti.",
+    "image": "assets/branding/favicon_blanc_squircle.png",
+    "cardType": "summary_large_image",
+    "siteName": "PROJETBI",
+    "twitterSite": "@ProjetBI",
+    "twitterCreator": "@ProjetBI"
+  },
+  "hashtags": [
+    "#ProjetBI",
+    "#Senegal",
+    "#Pastef",
+    "#JubJubalJubanti",
+    "#Vision2050",
+    "#SenegalSouverain"
+  ],
+  "display": {
+    "showFooterSocial": true,
+    "showHeaderWhatsapp": true,
+    "enableShareButtons": true
+  },
+  "lastUpdated": "2026-10-03T15:00:00Z"
+}
