@@ -193,7 +193,8 @@ async function run() {
     } catch (e) {}
 
     const downloadedPapers = [];
-    const seenSrcs = new Set();
+    const seenImgKeys = new Set();
+    const seenFbids = new Set();
     let downloadedCount = 0;
     let skippedCount = 0;
 
@@ -201,9 +202,14 @@ async function run() {
 
     for (let i = 0; i < 60; i++) {
       let imgInfo = null;
+      let currentFbid = null;
 
       // Attendre que la nouvelle image soit chargée
       for (let attempt = 0; attempt < 12; attempt++) {
+        const curUrl = page.url();
+        const fbidMatch = curUrl.match(/fbid=(\d+)/);
+        currentFbid = fbidMatch ? fbidMatch[1] : null;
+
         imgInfo = await page.evaluate(() => {
           const imgs = Array.from(document.querySelectorAll('img'));
           let best = null;
@@ -228,25 +234,39 @@ async function run() {
           return null;
         });
 
-        if (imgInfo && imgInfo.src && !seenSrcs.has(imgInfo.src)) {
+        const imgKey = imgInfo && imgInfo.src ? imgInfo.src.split('?')[0] : null;
+        const isAlreadySeen = (currentFbid && seenFbids.has(currentFbid)) || (imgKey && seenImgKeys.has(imgKey));
+
+        if (imgInfo && imgInfo.src && !isAlreadySeen) {
           break;
         }
         await page.waitForTimeout(500);
       }
 
-      // Si après plusieurs essais, aucune nouvelle image n'apparaît
-      if (!imgInfo || !imgInfo.src || seenSrcs.has(imgInfo.src)) {
+      const imgKey = imgInfo && imgInfo.src ? imgInfo.src.split('?')[0] : null;
+      const isAlreadySeen = (currentFbid && seenFbids.has(currentFbid)) || (imgKey && seenImgKeys.has(imgKey));
+
+      // Si après plusieurs essais, aucune nouvelle image n'apparaît ou si on a rebouclé au début
+      if (!imgInfo || !imgInfo.src || isAlreadySeen) {
         log(`\n      🏁 Fin de l'album atteinte à la photo ${i + 1}. Total analysé : ${downloadedCount} journaux.`);
         break;
       }
 
-      seenSrcs.add(imgInfo.src);
+      if (currentFbid) seenFbids.add(currentFbid);
+      if (imgKey) seenImgKeys.add(imgKey);
 
       // Filtrage des éléments non-presse
       const altText = (imgInfo.alt || '').toLowerCase();
       const isPureAvatarOrCover = altText.includes('photo de profil') || altText.includes('photo de couverture');
-      const isIsolatedFlower = (altText.includes('lys blanc') || altText.includes('eustoma') || altText.includes('fleur')) &&
-        !altText.includes('journal') && !altText.includes('presse') && !altText.includes('texte');
+      const isIsolatedFlower = (
+        altText.includes('lys blanc') ||
+        altText.includes('eustoma') ||
+        altText.includes('fleur') ||
+        altText.includes('pivoine') ||
+        altText.includes('campanule') ||
+        altText.includes('amarantine') ||
+        altText.includes('rose')
+      ) && !altText.includes('journal') && !altText.includes('presse') && !altText.includes('texte');
 
       if (isPureAvatarOrCover || isIsolatedFlower) {
         log(`  ⏭️ [Image ${i + 1}] Ignorée (élément décoratif) : "${altText.substring(0, 35)}..."`);
@@ -261,8 +281,8 @@ async function run() {
           const buffer = Buffer.from(await response.arrayBuffer());
 
           fs.writeFileSync(path.join(TARGET_DIR, filename), buffer);
-          const bar = renderProgressBar(downloadedCount + 1, 21);
-          log(`  📸 [${String(downloadedCount + 1).padStart(2, '0')}/21] ${bar} -> ${paperName} (${Math.round(buffer.length / 1024)} KB) [${filename}]`);
+          const bar = renderProgressBar(downloadedCount + 1, 28);
+          log(`  📸 [${String(downloadedCount + 1).padStart(2, '0')}/28] ${bar} -> ${paperName} (${Math.round(buffer.length / 1024)} KB) [${filename}]`);
 
           downloadedPapers.push({
             id: String(downloadedCount + 1),
@@ -351,13 +371,22 @@ function isTodayFacebookPost(text) {
   const month = monthNames[now.getMonth()];
   const year = String(now.getFullYear());
 
+  // Vérifier si la date précise du jour est mentionnée (ex: "03 octobre 2026")
+  const explicitTodayDate = new RegExp(`\\b(${day}|${dayPadded})\\s+${month}(\\s+${year})?\\b`).test(normalized);
+  if (explicitTodayDate) return true;
+
+  // Si une AUTRE date précise du même mois est mentionnée (ex: "02 octobre" alors qu'on est le 3), rejeter
+  const otherDateMatch = new RegExp(`\\b(\\d{1,2})\\s+${month}(\\s+${year})?\\b`).exec(normalized);
+  if (otherDateMatch && parseInt(otherDateMatch[1], 10) !== parseInt(day, 10)) {
+    return false;
+  }
+
   return (
     normalized.includes("aujourd'hui") ||
     normalized.includes('il y a') ||
     normalized.includes('maintenant') ||
     normalized.includes('h ·') ||
-    normalized.includes('min ·') ||
-    new RegExp(`\\b(${day}|${dayPadded})\\s+${month}(\\s+${year})?\\b`).test(normalized)
+    normalized.includes('min ·')
   );
 }
 
@@ -369,76 +398,98 @@ async function findTodayPcbAlbum(page, pageUrl, sourceName, allowLatestPcbWithou
   const seenUrls = new Set();
 
   // Défilement progressif avec extraction à chaque étape pour ne rien manquer (évite le recyclage virtuel de Facebook)
-  for (let s = 0; s < 5; s++) {
+  for (let s = 0; s < 6; s++) {
     if (s > 0) {
-      log(`     📜 Défilement du fil (${s + 1}/5) pour charger les parutions...`);
-      await page.evaluate(() => window.scrollBy(0, 900));
-      await page.waitForTimeout(1200);
+      log(`     📜 Défilement du fil (${s + 1}/6) pour charger les parutions...`);
+      await page.evaluate(() => window.scrollBy(0, 1200));
+      await page.waitForTimeout(1500);
     }
 
     const stepItems = await page.evaluate((keywords) => {
       const items = [];
       const seen = new Set();
 
-      // Stratégie 1 : Balises article classiques (Pages Facebook)
+      function isBlockedAlbum(href) {
+        if (!href) return true;
+        // Ignorer explicitement le vieil album statique de couverture/profil de 2019
+        if (href.includes('set=a.3735485025272') || href.includes('10213939193453533')) return true;
+        return false;
+      }
+
+      // Stratégie 1 : Balises article classiques (Pages et profils Facebook)
       const articles = Array.from(document.querySelectorAll('div[role="article"], div[data-ad-preview]'));
       for (const article of articles) {
-        const links = Array.from(article.querySelectorAll('a[href*="set=pcb."], a[href*="/photo"]'));
-        if (!links.length) continue;
-        const text = (article.innerText || '').toLowerCase();
-        const isRevue = keywords.some(keyword => text.includes(keyword)) ||
-          text.includes('journal') || text.includes('quotidien') || text.includes('kiosque') || text.includes('unes');
+        // Ignorer les éléments situés dans la barre latérale / intro du profil
+        if (article.closest('div[data-pagelet*="ProfileIntro"], div[data-pagelet*="ProfileTiles"], div[data-pagelet*="Sidebar"]')) {
+          continue;
+        }
 
-        for (const link of links) {
-          if (link.href && !seen.has(link.href)) {
+        const text = article.innerText || '';
+        const textLower = text.toLowerCase();
+        const isRevue = keywords.some(keyword => textLower.includes(keyword)) ||
+          textLower.includes('journal') || textLower.includes('quotidien') || textLower.includes('kiosque') || textLower.includes('unes') || textLower.includes('#rp221');
+
+        // Prioriser les liens set=pcb (albums multi-photos de publications)
+        const pcbLinks = Array.from(article.querySelectorAll('a[href*="set=pcb."]'));
+        const targetLinks = pcbLinks.length > 0 ? pcbLinks : Array.from(article.querySelectorAll('a[href*="/photo"]'));
+
+        for (const link of targetLinks) {
+          if (link.href && !seen.has(link.href) && !isBlockedAlbum(link.href)) {
+            // Sur les profils, les vraies revues de presse quotidiennes ont set=pcb
+            // Si c'est un lien set=a (album statique), on l'ignore sauf si explicitement autorisé
+            if (link.href.includes('set=a.') && !allowLatestPcbWithoutDate) {
+              continue;
+            }
             seen.add(link.href);
-            items.push({ href: link.href, context: article.innerText || text, isRevue });
+            items.push({
+              href: link.href,
+              context: text,
+              isRevue,
+              hasPcb: link.href.includes('set=pcb.')
+            });
           }
         }
       }
 
-        // Stratégie 2 : Recherche de liens set=pcb avec remontée profonde (Profils personnels Facebook)
-        const pcbLinks = Array.from(document.querySelectorAll('a[href*="set=pcb."]')).slice(0, 30);
-        for (const link of pcbLinks) {
-          if (!link.href || seen.has(link.href)) continue;
-          let parent = link;
-          let fullContext = '';
-          for (let level = 0; level < 18 && parent && parent !== document.body; level++, parent = parent.parentElement) {
-            const txt = parent.innerText || '';
-            if (txt.length > fullContext.length) {
-              fullContext = txt;
-            }
-            const hasKeyword = keywords.some(k => txt.toLowerCase().includes(k));
-            if (hasKeyword && (txt.includes('#Rp221') || txt.includes('#rp221') || txt.toLowerCase().includes('revue'))) {
-              fullContext = txt;
-              break;
-            }
-          }
-          const ctxLower = fullContext.toLowerCase();
-          const isRevue = keywords.some(keyword => ctxLower.includes(keyword)) ||
-            ctxLower.includes('journal') || ctxLower.includes('quotidien') || ctxLower.includes('kiosque') || ctxLower.includes('unes') || ctxLower.includes('rp221');
-          seen.add(link.href);
-          items.push({ href: link.href, context: fullContext, isRevue });
+      // Stratégie 2 : Recherche ciblée sur les textes contenant #rp221 ou "unes du" ou "revue de presse"
+      const specificTextNodes = Array.from(document.querySelectorAll('span, div, p, h3, h4')).filter(n => {
+        const t = (n.innerText || '').toLowerCase();
+        return (t.includes('#rp221') || t.includes('revue de presse') || t.includes('unes du')) && t.length < 250;
+      });
+
+      for (const node of specificTextNodes) {
+        // Ignorer les sections d'intro/sidebar
+        if (node.closest('div[data-pagelet*="ProfileIntro"], div[data-pagelet*="ProfileTiles"], div[data-pagelet*="Sidebar"]')) {
+          continue;
         }
 
-      // Stratégie 3 : Recherche inversée par texte de publication (#Rp221, Revue de Presse, Unes du...)
-      const allTextNodes = Array.from(document.querySelectorAll('a, span, div, p'));
-      for (const node of allTextNodes) {
-        const text = (node.innerText || '').trim();
-        const textLower = text.toLowerCase();
-        if (textLower.includes('#rp221') || textLower.includes('revue de presse') || textLower.includes('unes du')) {
-          let p = node;
-          for (let l = 0; l < 16 && p && p !== document.body; l++, p = p.parentElement) {
-            const pcb = p.querySelector('a[href*="set=pcb."], a[href*="/photo"]');
-            if (pcb && pcb.href && !seen.has(pcb.href)) {
-              seen.add(pcb.href);
-              items.push({
-                href: pcb.href,
-                context: p.innerText || text,
-                isRevue: true
-              });
-              break;
+        // Remonter UNIQUEMENT jusqu'au conteneur de publication le plus proche (max 7 niveaux)
+        let cur = node;
+        let postContainer = null;
+        for (let l = 0; l < 7 && cur && cur !== document.body; l++, cur = cur.parentElement) {
+          if (cur.getAttribute('role') === 'article' || cur.hasAttribute('data-ad-preview')) {
+            postContainer = cur;
+            break;
+          }
+          if (cur.querySelector('a[href*="set=pcb."]')) {
+            postContainer = cur;
+            break;
+          }
+        }
+
+        if (postContainer) {
+          const pcb = postContainer.querySelector('a[href*="set=pcb."]') || postContainer.querySelector('a[href*="/photo"]');
+          if (pcb && pcb.href && !seen.has(pcb.href) && !isBlockedAlbum(pcb.href)) {
+            if (pcb.href.includes('set=a.') && !allowLatestPcbWithoutDate) {
+              continue;
             }
+            seen.add(pcb.href);
+            items.push({
+              href: pcb.href,
+              context: postContainer.innerText || node.innerText || '',
+              isRevue: true,
+              hasPcb: pcb.href.includes('set=pcb.')
+            });
           }
         }
       }
@@ -453,11 +504,13 @@ async function findTodayPcbAlbum(page, pageUrl, sourceName, allowLatestPcbWithou
       }
     }
 
-    // Si on a déjà trouvé un album du jour avec certitude, on peut arrêter de défiler
-    const earlyMatch = allCandidates.find(c => c.isRevue && isTodayFacebookPost(c.context));
-    if (earlyMatch) {
-      log(`     🎯 Album du jour repéré dès l'étape ${s + 1} !`);
-      break;
+    // Arrêt anticipé : SEULEMENT après au moins 1 défilement (s >= 1) et avec un album set=pcb vérifié du jour
+    if (s >= 1) {
+      const strongEarlyMatch = allCandidates.find(c => c.isRevue && c.hasPcb && isTodayFacebookPost(c.context));
+      if (strongEarlyMatch) {
+        log(`     🎯 Album du jour repéré avec certitude dès l'étape ${s + 1} !`);
+        break;
+      }
     }
   }
 
@@ -467,14 +520,22 @@ async function findTodayPcbAlbum(page, pageUrl, sourceName, allowLatestPcbWithou
     allCandidates.slice(0, 10).forEach(candidate => {
       const isToday = isTodayFacebookPost(candidate.context);
       const status = isToday ? 'AUJOURD\'HUI' : 'autre date';
-      log(`     [${status}] (Revue: ${candidate.isRevue ? 'OUI' : 'NON'}) ${candidate.href.substring(0, 75)}...`);
+      log(`     [${status}] (Revue: ${candidate.isRevue ? 'OUI' : 'NON'} | PCB: ${candidate.hasPcb ? 'OUI' : 'NON'}) ${candidate.href.substring(0, 75)}...`);
     });
   }
 
-  // Chercher un album caractérisé du jour
-  const todayAlbum = allCandidates.find(candidate =>
-    candidate.isRevue && isTodayFacebookPost(candidate.context)
+  // Chercher un album caractérisé du jour (priorité aux albums post collection "set=pcb.")
+  let todayAlbum = allCandidates.find(candidate =>
+    candidate.isRevue && candidate.hasPcb && isTodayFacebookPost(candidate.context)
   );
+
+  // Deuxième priorité : tout album du jour
+  if (!todayAlbum) {
+    todayAlbum = allCandidates.find(candidate =>
+      candidate.isRevue && isTodayFacebookPost(candidate.context)
+    );
+  }
+
   if (todayAlbum) {
     log(`  ✅ Album de presse du jour identifié : ${todayAlbum.href}`);
     return todayAlbum.href;
@@ -482,7 +543,7 @@ async function findTodayPcbAlbum(page, pageUrl, sourceName, allowLatestPcbWithou
 
   // Si on autorise le dernier album pcb (ex: page UniversActu de secours)
   if (allowLatestPcbWithoutDate && allCandidates.length > 0) {
-    const revueCandidate = allCandidates.find(c => c.isRevue) || allCandidates[0];
+    const revueCandidate = allCandidates.find(c => c.isRevue && c.hasPcb) || allCandidates.find(c => c.isRevue) || allCandidates[0];
     log(`  ✅ Dernier album sélectionné sur la source de secours : ${revueCandidate.href}`);
     return revueCandidate.href;
   }

@@ -1,347 +1,221 @@
 {
-  "last_updated": "2026-09-29T11:48:34.892Z",
+  "last_updated": "2026-10-03T10:52:39.500Z",
   "press": [
     {
       "id": "1",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_1.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_1.webp",
       "link": "#"
     },
     {
       "id": "2",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_2.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_2.webp",
       "link": "#"
     },
     {
       "id": "3",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_3.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_3.webp",
       "link": "#"
     },
     {
       "id": "4",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_4.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_4.webp",
       "link": "#"
     },
     {
       "id": "5",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_5.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_5.webp",
       "link": "#"
     },
     {
       "id": "6",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_6.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_6.webp",
       "link": "#"
     },
     {
       "id": "7",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_7.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_7.webp",
       "link": "#"
     },
     {
       "id": "8",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_8.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_8.webp",
       "link": "#"
     },
     {
       "id": "9",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_9.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_9.webp",
       "link": "#"
     },
     {
       "id": "10",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_10.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_10.webp",
       "link": "#"
     },
     {
       "id": "11",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_11.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_11.webp",
       "link": "#"
     },
     {
       "id": "12",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_12.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_12.webp",
       "link": "#"
     },
     {
       "id": "13",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_13.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_13.webp",
       "link": "#"
     },
     {
       "id": "14",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_14.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_14.webp",
       "link": "#"
     },
     {
       "id": "15",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_15.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_15.webp",
       "link": "#"
     },
     {
       "id": "16",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_16.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_16.webp",
       "link": "#"
     },
     {
       "id": "17",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_17.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_17.webp",
       "link": "#"
     },
     {
       "id": "18",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_18.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_18.webp",
       "link": "#"
     },
     {
       "id": "19",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_19.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_19.webp",
       "link": "#"
     },
     {
       "id": "20",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_20.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_20.webp",
       "link": "#"
     },
     {
       "id": "21",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_21.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_21.webp",
       "link": "#"
     },
     {
       "id": "22",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_22.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_22.webp",
       "link": "#"
     },
     {
       "id": "23",
-      "title": "L'As",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_23.webp",
+      "title": "Quotidien",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_23.webp",
       "link": "#"
     },
     {
       "id": "24",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_24.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_24.webp",
       "link": "#"
     },
     {
       "id": "25",
-      "title": "Rewmi Sports",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_25.webp",
+      "title": "Quotidien",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_25.webp",
       "link": "#"
     },
     {
       "id": "26",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_26.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_26.webp",
       "link": "#"
     },
     {
       "id": "27",
-      "title": "L'Évidence",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_27.webp",
+      "title": "Quotidien",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_27.webp",
       "link": "#"
     },
     {
       "id": "28",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_28.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_28.webp",
       "link": "#"
     },
     {
       "id": "29",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_29.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_29.webp",
       "link": "#"
     },
     {
       "id": "30",
-      "title": "Rewmi Sports",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_30.webp",
+      "title": "Quotidien",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_30.webp",
       "link": "#"
     },
     {
       "id": "31",
-      "title": "Rewmi Sports",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_31.webp",
-      "link": "#"
-    },
-    {
-      "id": "32",
       "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_32.webp",
-      "link": "#"
-    },
-    {
-      "id": "33",
-      "title": "Les Échos",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_33.webp",
-      "link": "#"
-    },
-    {
-      "id": "34",
-      "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_34.webp",
-      "link": "#"
-    },
-    {
-      "id": "35",
-      "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_35.webp",
-      "link": "#"
-    },
-    {
-      "id": "36",
-      "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_36.webp",
-      "link": "#"
-    },
-    {
-      "id": "37",
-      "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_37.webp",
-      "link": "#"
-    },
-    {
-      "id": "38",
-      "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_38.webp",
-      "link": "#"
-    },
-    {
-      "id": "39",
-      "title": "Rewmi Sports",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_39.webp",
-      "link": "#"
-    },
-    {
-      "id": "40",
-      "title": "Rewmi Sports",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_40.webp",
-      "link": "#"
-    },
-    {
-      "id": "41",
-      "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_41.webp",
-      "link": "#"
-    },
-    {
-      "id": "42",
-      "title": "Libération",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_42.webp",
-      "link": "#"
-    },
-    {
-      "id": "43",
-      "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_43.webp",
-      "link": "#"
-    },
-    {
-      "id": "44",
-      "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_44.webp",
-      "link": "#"
-    },
-    {
-      "id": "45",
-      "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_45.webp",
-      "link": "#"
-    },
-    {
-      "id": "46",
-      "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_46.webp",
-      "link": "#"
-    },
-    {
-      "id": "47",
-      "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_47.webp",
-      "link": "#"
-    },
-    {
-      "id": "48",
-      "title": "Lii Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_48.webp",
-      "link": "#"
-    },
-    {
-      "id": "49",
-      "title": "Quotidien",
-      "date": "29/09/2026",
-      "image": "revuedepresse/revue_2026-09-29_49.webp",
+      "date": "03/10/2026",
+      "image": "revuedepresse/revue_2026-10-03_31.webp",
       "link": "#"
     }
   ]
