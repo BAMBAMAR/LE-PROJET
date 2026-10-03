@@ -339,9 +339,13 @@ body {
     box-shadow: 0 0 0 2px rgba(45, 95, 63, 0.2) !important;
 }
 
-/* ── Effet Éclairage 3D Radial (Spotlight) sur Hero ── */
+/* ── Fond Velouté Chaleureux du Hero (Sans Lignes) ── */
 .hero-section {
-    background: radial-gradient(circle at 75% 30%, #2D5F3F 0%, #1A3D28 70%) !important;
+    background: linear-gradient(135deg, #133A25 0%, #17422B 50%, #0F2D1D 100%) !important;
+    min-height: auto !important;
+}
+.hero-section::before {
+    display: none !important;
 }
 
 /* ── Carte Duale Institutionnelle (Présidence vs Assemblée) — Design Premium ── */
@@ -628,10 +632,9 @@ body {
 
 /* ── Améliorations de Disposition & Alignement du Hero ── */
 .hero-section {
-    display: flex !important;
-    align-items: center !important;
-    min-height: 80vh !important;
-    padding: 3.5rem 0 !important;
+    display: block !important;
+    min-height: auto !important;
+    padding: 2.75rem 1.5rem !important;
 }
 
 .hero-actions {

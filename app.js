@@ -1305,6 +1305,21 @@ function renderAll() {
     updateStatValue('moyenne-notes', avgRating);
     updateStatValue('votes-total', `${totalVotes.toLocaleString('fr-FR')} votes`);
     
+    // Mise à jour Hero V4 (si présents)
+    const elHeroTotal = document.getElementById('heroStatTotal');
+    if (elHeroTotal) elHeroTotal.textContent = total;
+    const elHeroRealise = document.getElementById('heroStatRealise');
+    if (elHeroRealise) elHeroRealise.textContent = realise;
+    const elHeroMaj = document.getElementById('heroStatMaj');
+    if (elHeroMaj) elHeroMaj.textContent = withUpdates;
+    const elMandateDays = document.getElementById('mandateDaysVal');
+    if (elMandateDays) {
+        const mandateEnd = new Date('2029-04-02T00:00:00Z');
+        const now = new Date();
+        const diffDays = Math.max(0, Math.ceil((mandateEnd - now) / (1000 * 60 * 60 * 24)));
+        elMandateDays.textContent = diffDays;
+    }
+    
     // Afficher correctement le Retard moyen
     if (retard > 0) {
         updateStatValue('delai-moyen', `${avgRetard}j `);
@@ -2935,11 +2950,11 @@ function renderKpiItem() {
     const kpiCarousel = document.getElementById('kpiCarousel') || document.getElementById('navKpiDesktop');
     if (kpiCarousel) {
         kpiCarousel.innerHTML = `
-            <div class="kpi-item" style="display:flex;align-items:center;gap:0.4rem;">
-                <span class="kpi-icon" style="font-size:0.95rem;">${currentItem.icon}</span>
-                <div class="kpi-content" style="display:flex;flex-direction:column;line-height:1.1;">
-                    <span class="kpi-value" style="font-weight:800;color:#2D5F3F;font-size:0.95rem;">${currentItem.value}</span>
-                    <span class="kpi-label" style="font-size:0.68rem;color:#5A6D63;font-weight:700;letter-spacing:0.02em;">${currentItem.label}</span>
+            <div class="kpi-item" style="display:flex;align-items:center;gap:0.45rem;">
+                <span class="kpi-icon" style="font-size:1.05rem;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));">${currentItem.icon}</span>
+                <div class="kpi-content" style="display:flex;flex-direction:column;line-height:1.15;text-align:left;">
+                    <span class="kpi-value" style="font-weight:800;color:#FFFFFF;font-size:1.02rem;letter-spacing:-0.01em;">${currentItem.value}</span>
+                    <span class="kpi-label" style="font-size:0.64rem;color:#A7F3D0;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">${currentItem.label}</span>
                 </div>
             </div>
         `;
@@ -2950,8 +2965,8 @@ function renderKpiItem() {
         menuKpiDisplay.innerHTML = `
             <div class="kpi-item">
                 <div class="kpi-content">
-                    <span class="kpi-value" style="font-size:1.8rem;font-weight:800;color:#2D5F3F">${currentItem.value}</span>
-                    <span class="kpi-label" style="font-size:.72rem;color:#8a9e93;text-transform:uppercase;letter-spacing:.06em;font-weight:600">${currentItem.icon} ${currentItem.label}</span>
+                    <span class="kpi-value" style="font-size:1.8rem;font-weight:800;color:#FFFFFF">${currentItem.value}</span>
+                    <span class="kpi-label" style="font-size:.72rem;color:#A7F3D0;text-transform:uppercase;letter-spacing:.06em;font-weight:700">${currentItem.icon} ${currentItem.label}</span>
                 </div>
             </div>
         `;

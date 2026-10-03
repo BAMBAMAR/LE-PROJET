@@ -58,9 +58,9 @@ un Sénégal Souverain, Juste & Prospère de PASTEF;Chaque promesse faite au peu
           referrerpolicy="no-referrer">
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" crossorigin="anonymous" defer></script>
-    <link rel="stylesheet" href="style.css?v=v107">
-    <link rel="stylesheet" href="corrections.css?v=v107">
-    <link rel="stylesheet" href="design-system.css?v=v107">
+    <link rel="stylesheet" href="style.css?v=v108">
+    <link rel="stylesheet" href="corrections.css?v=v108">
+    <link rel="stylesheet" href="design-system.css?v=v108">
 
     <style>
     /* ── Corrections ciblées qui ne remplacent PAS style.css ── */
@@ -365,23 +365,27 @@ un Sénégal Souverain, Juste & Prospère de PASTEF;Chaque promesse faite au peu
                 <!-- KPI carousel desktop — sous le logo -->
              
             </div>
-            <div class="nav-row-center">
+                        <div class="nav-row-center">
               <div class="nav-kpi-under-logo">
                     <button class="nav-kpi-mini-btn" aria-label="KPI précédent" onclick="window.kpiPrevSlide()"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
                     <div id="navKpiDesktop" class="nav-kpi-mini-display">
                         <div id="kpiCarousel" class="hero-kpi-display">
-                            <div class="kpi-item">
-                                <span class="kpi-icon" style="color:#C9A84C">⭐</span>
-                                <div class="kpi-content">
-                                    <span class="kpi-value" style="font-weight:800;color:#2D5F3F">4.1</span>
-                                    <span class="kpi-label" style="font-size:0.7rem;color:#5A6D63;font-weight:700">NOTE MOYENNE</span>
+                            <div class="kpi-item" style="display:flex;align-items:center;gap:0.45rem;">
+                                <span class="kpi-icon" style="font-size:1.05rem;line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3));">⭐</span>
+                                <div class="kpi-content" style="display:flex;flex-direction:column;line-height:1.15;text-align:left;">
+                                    <span class="kpi-value" style="font-weight:800;color:#FFFFFF;font-size:1.02rem;letter-spacing:-0.01em;">4.1</span>
+                                    <span class="kpi-label" style="font-size:0.64rem;color:#A7F3D0;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;">NOTE MOYENNE</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <button class="nav-kpi-mini-btn" aria-label="KPI suivant" onclick="window.kpiNextSlide()"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
                 </div> 
-                <span class="nav-tagline"><i class="fas fa-shield-alt"></i> Gardiens du Projet PASTEF — Jub · Jubal · Jubanti</span>
+                <span class="nav-tagline">
+                    <i class="fas fa-shield-alt nav-tagline-shield"></i>
+                    <strong class="nav-tagline-main">Gardiens du Projet PASTEF</strong>
+                    <span class="nav-tagline-sub">— Jub · Jubal · Jubanti</span>
+                </span>
               </div>
             <button class="hamburger" id="modernHamburger" aria-label="Menu" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -452,102 +456,91 @@ un Sénégal Souverain, Juste & Prospère de PASTEF;Chaque promesse faite au peu
      HERO
      ════════════════════════════════════════════ -->
 <section class="hero-section" id="accueil">
-    <div class="hero-content">
-        <div class="hero-badge">
-            <span class="live-dot"></span>
-            🛡️ Gardiens du Projet PASTEF
-        </div>
-        <h1 class="hero-title">
-            Gardiens du Projet pour<br>
-            <span class="highlight">un Sénégal Souverain, Juste &amp; Prospère</span>
-        </h1>
-        <p class="hero-subtitle">
-            Sympathisants du projet PASTEF, nous suivons les engagements de la Présidence de la République (<strong>Bassirou Diomaye Faye</strong>) et les réformes législatives à l'Assemblée Nationale (<strong>Ousmane Sonko</strong>).
-            Parce qu'un peuple vigilant est un peuple libre — <em>Jub, Jubal, Jubanti.</em>
-        </p>
-        <div class="hero-actions">
-            <a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf" class="btn btn-primary" download target="_blank" rel="noopener noreferrer">
-                <i class="fas fa-file-pdf"></i> Lire le Programme PASTEF
-            </a>
-            <a href="#dashboard" class="btn btn-secondary">
-                <i class="fas fa-chart-bar"></i> Voir l'état du Projet
-            </a>
-        </div>
-        <div class="hero-countdown">
-            <div class="countdown-label">
-                <i class="fas fa-hourglass-half"></i>
-                <span>TEMPS RESTANT DU MANDAT (2024–2029)</span>
-            </div>
-            <div class="countdown-grid">
-                <div class="countdown-item">
-                    <span class="countdown-number" id="days">000</span>
-                    <span class="countdown-unit">Jours</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="hours">00</span>
-                    <span class="countdown-unit">Heures</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="minutes">00</span>
-                    <span class="countdown-unit">Min</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="seconds">00</span>
-                    <span class="countdown-unit">Sec</span>
-                </div>
-            </div>
-            <div class="mandate-progress-wrapper" style="margin-top: 0.85rem;">
-                <div class="mandate-progress-bar-bg" style="width:100%;height:8px;background:rgba(255,255,255,0.15);border-radius:100px;overflow:hidden;">
-                    <div id="mandateProgressBar" style="width:46%;height:100%;background:linear-gradient(90deg, #C9A84C, #3E7F55);border-radius:100px;transition:width 1s ease;"></div>
-                </div>
-                <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:rgba(255,255,255,0.85);margin-top:0.35rem;font-weight:600;">
-                    <span><i class="fas fa-flag-checkered" style="color:#C9A84C"></i> Mandat 2024–2029</span>
-                    <span id="mandatePercentText">Avancement : ~46%</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="hero-image">
-        <div class="hero-institution-card">
-            <div class="institution-tabs">
-                <button type="button" class="inst-tab active" id="tabPresidence" onclick="switchHeroInstitution('presidence')">
-                    <i class="fas fa-landmark"></i> Présidence
-                </button>
-                <button type="button" class="inst-tab" id="tabAssemblee" onclick="switchHeroInstitution('assemblee')">
-                    <i class="fas fa-balance-scale"></i> Assemblée
-                </button>
-            </div>
-            
-            <!-- Vue Présidence -->
-            <div class="inst-view active" id="viewPresidence">
-                <div class="hero-image-frame presidence-frame" style="background: linear-gradient(135deg, #12291B 0%, #2D5F3F 100%); min-height: 300px; height: 300px; display: flex; flex-direction: column; justify-content: space-between; padding: 1.25rem; color: #fff; box-sizing: border-box; position: relative;">
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span class="hero-image-badge presidence-badge" style="position:static;"><i class="fas fa-shield-alt"></i> PASTEF 2024–2029</span>
-                        <span style="font-size:1.4rem;">🇸🇳</span>
-                    </div>
-                    <div style="text-align:left; padding: 0.5rem 0;">
-                        <p style="font-family:'Crimson Pro', serif; font-size:1.15rem; font-style:italic; line-height:1.4; color:#FBF4DD; margin:0 0 0.6rem 0;">
-                            « Notre engagement solennel est de bâtir un Sénégal souverain, juste et prospère dans une Afrique en marche. »
-                        </p>
-                        <p style="font-size:0.85rem; color:#C9A84C; font-weight:800; margin:0;">
-                            Bassirou Diomaye Faye
-                        </p>
-                        <p style="font-size:0.7rem; color:rgba(255,255,255,0.75); margin:0;">
-                            Président de la République
-                        </p>
-                    </div>
-                    <div class="hero-image-ref" style="position:static; align-self:flex-start; margin:0;">
-                        <i class="fas fa-landmark"></i> Jub · Jubal · Jubanti
-                    </div>
-                </div>
+    <div class="hero-v4-container">
+        <!-- Colonne Gauche : Titre, Explication & Mandat -->
+        <div class="hero-left-v4">
+            <div class="badge-pill-v4">
+                <i class="fas fa-shield-alt" style="color:#F2D279"></i>
+                <span class="gold-txt">Gardiens du Projet</span>
+                <span>·</span>
+                <span>Veille Citoyenne Indépendante</span>
             </div>
 
-            <!-- Vue Assemblée Nationale & Primature -->
-            <div class="inst-view" id="viewAssemblee" style="display:none;">
-                <div class="hero-image-frame">
-                    <img src="sonko.jpg" alt="Ousmane SONKO - Primature et Assemblée" onerror="this.parentElement.style.background='linear-gradient(135deg,#2D5F3F,#1A3D28)'">
-                    <div class="hero-image-badge assemblee-badge"><i class="fas fa-gavel"></i> LÉGISLATIF &amp; PRIMATURE</div>
-                    <div class="hero-image-ref"><i class="fas fa-user-check"></i> Ousmane SONKO</div>
+            <h1 class="hero-h1-v4">
+                Suivi des Engagements de Bassirou Diomaye Faye
+                <span class="highlight-v4">La Vision &amp; le Projet PASTEF</span>
+            </h1>
+
+            <p class="hero-p-v4">
+                Nous suivons et documentons avec rigueur les engagements du Président <strong>Bassirou Diomaye Faye</strong> et la concrétisation de la vision souveraine du <strong>Projet PASTEF</strong> pour un Sénégal souverain, juste et prospère. <em>Jub, Jubal, Jubanti.</em>
+            </p>
+
+            <div class="hero-actions-v4">
+                <a href="#dashboard" class="btn-gold-v4">
+                    <i class="fas fa-chart-line"></i> Consulter l'état du Projet
+                </a>
+                <a href="Livre-Programme-Bassirou-Diomaye-Faye.pdf" class="btn-glass-v4" download target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-file-pdf"></i> Le Projet PASTEF (PDF)
+                </a>
+            </div>
+
+            <!-- Bande Mandat Condensée & Dynamique -->
+            <div class="mandate-strip-v4">
+                <div class="mandate-stats-v4">
+                    <div class="stat-unit-v4">
+                        <span class="su-val" id="mandateDaysVal">911</span>
+                        <span class="su-lbl">Jours restants</span>
+                    </div>
+                    <div style="width:1px;height:24px;background:rgba(255,255,255,0.15)"></div>
+                    <div class="stat-unit-v4">
+                        <span class="su-val" id="heroStatTotal">300</span>
+                        <span class="su-lbl">Engagements</span>
+                    </div>
+                    <div style="width:1px;height:24px;background:rgba(255,255,255,0.15)"></div>
+                    <div class="stat-unit-v4">
+                        <span class="su-val" style="color:#4ADE80" id="heroStatRealise">26</span>
+                        <span class="su-lbl">Réalisés</span>
+                    </div>
+                </div>
+
+                <div class="mandate-jauge-v4">
+                    <div class="jauge-bg">
+                        <div class="jauge-fill" id="mandateJaugeFill" style="width: 46%;"></div>
+                    </div>
+                    <div class="jauge-meta">
+                        <span>Mandat 2024–2029</span>
+                        <span id="mandatePercentVal">46%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Colonne Droite : Carte Institutionnelle Lumineuse -->
+        <div class="hero-right-v4">
+            <div class="hero-right-card-v4">
+                <div class="hrc-top">
+                    <span class="hrc-tag">
+                        <i class="fas fa-shield-alt"></i> LE PROJET PASTEF 2024–2029
+                    </span>
+                    <span style="font-size: 1.15rem; font-weight: 800; color: #FFFFFF; letter-spacing: 0.05em;">SN</span>
+                </div>
+
+                <p class="quote-v4">
+                    « Notre engagement solennel est de bâtir un Sénégal souverain, juste et prospère dans une Afrique en marche. »
+                </p>
+
+                <div class="author-box-v4">
+                    <div class="author-v4-title">Bassirou Diomaye Faye</div>
+                    <div class="author-v4-desc">Président de la République · Porteur du Projet PASTEF</div>
+                </div>
+
+                <div class="hrc-bottom">
+                    <span class="motto-v4">
+                        <i class="fas fa-balance-scale" style="color:#F2D279"></i> Jub · Jubal · Jubanti
+                    </span>
+                    <span class="status-v4">
+                        <i class="fas fa-check-circle"></i> <span id="heroStatMaj">168</span> actions vérifiées
+                    </span>
                 </div>
             </div>
         </div>
@@ -1476,11 +1469,11 @@ if (filterBtn && filterSec) {
 </div>
 
 <!-- ══ Couches JavaScript : app -> perf -> harden (en defer pour ne pas bloquer le parser) ══ -->
-<script src="app.js?v=v107" defer></script>
-<script src="app.perf.js?v=v107" defer></script>
-<script src="app.harden.js?v=v107" defer></script>
-<script src="app.kpi-filters.js?v=v107" defer></script>
-<script src="app.vote-guard.js?v=v107" defer></script>
+<script src="app.js?v=v108" defer></script>
+<script src="app.perf.js?v=v108" defer></script>
+<script src="app.harden.js?v=v108" defer></script>
+<script src="app.kpi-filters.js?v=v108" defer></script>
+<script src="app.vote-guard.js?v=v108" defer></script>
 <!-- ══ PWA Service Worker ══ -->
 <script>
 if ('serviceWorker' in navigator) {
@@ -1495,7 +1488,7 @@ if ('serviceWorker' in navigator) {
         }
     });
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js?v=v107', { scope: './' })
+        navigator.serviceWorker.register('sw.js?v=v108', { scope: './' })
             .then(reg => { reg.update(); })
             .catch(() => {});
     });
