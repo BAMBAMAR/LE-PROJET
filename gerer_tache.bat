@@ -1,38 +1,63 @@
 @echo off
-title Gestionnaire de Revue de Presse - ProjetBI
+title Gestionnaire d'Automatisations - ProjetBI
 cd /d "%~dp0"
 
 :menu
 cls
 echo ===================================================
-echo   GESTIONNAIRE DE REVUE DE PRESSE - PROJETBI
+echo   GESTIONNAIRE D'AUTOMATISATIONS - PROJETBI
 echo ===================================================
 echo.
-echo  [1] Lancer MAINTENANT avec AFFICHAGE EN DIRECT dans cette fenetre
-echo  [2] Voir le statut de la tache planifiee Windows
-echo  [3] Declencher la tache en arriere-plan (Task Scheduler)
-echo  [4] Consulter les derniers logs d'execution
-echo  [5] Suivre les logs en continu (temps reel)
-echo  [6] Modifier l'heure d'execution quotidienne
-echo  [7] Supprimer la tache planifiee
-echo  [8] Quitter
+echo  --- EXECUTIONS DIRECTES ---
+echo  [1] Lancer TOUT en direct (Revue de presse + Engagements)
+echo  [2] Lancer la REVUE DE PRESSE en direct
+echo  [3] Lancer la MISE A JOUR DES ENGAGEMENTS en direct
+echo.
+echo  --- PLANIFICATEUR DE TACHES WINDOWS ---
+echo  [4] Voir le STATUT des taches planifiees (Task Scheduler)
+echo  [5] Declencher la tache principale en arriere-plan
+echo  [6] Declencher la tache des engagements en arriere-plan
+echo  [7] Configurer / Modifier l'heure d'execution quotidienne
+echo  [8] Supprimer les taches planifiees
+echo.
+echo  --- LOGS ET SUIVI ---
+echo  [9] Consulter les derniers logs d'execution
+echo  [10] Suivre les logs en direct (temps reel)
+echo  [11] Quitter
 echo.
 echo ===================================================
-set /p choix="Votre choix (1-8) : "
+set /p choix="Votre choix (1-11) : "
 
-if "%choix%"=="1" goto direct
-if "%choix%"=="2" goto status
-if "%choix%"=="3" goto lancer
-if "%choix%"=="4" goto logs
-if "%choix%"=="5" goto follow
-if "%choix%"=="6" goto modifier
-if "%choix%"=="7" goto supprimer
-if "%choix%"=="8" goto fin
+if "%choix%"=="1" goto direct_all
+if "%choix%"=="2" goto direct_revue
+if "%choix%"=="3" goto direct_eng
+if "%choix%"=="4" goto status
+if "%choix%"=="5" goto lancer_all
+if "%choix%"=="6" goto lancer_eng
+if "%choix%"=="7" goto modifier
+if "%choix%"=="8" goto supprimer
+if "%choix%"=="9" goto logs
+if "%choix%"=="10" goto follow
+if "%choix%"=="11" goto fin
 goto menu
 
-:direct
+:direct_all
 cls
 call run_daily.bat
+echo.
+pause
+goto menu
+
+:direct_revue
+cls
+call run_daily_revue.bat
+echo.
+pause
+goto menu
+
+:direct_eng
+cls
+call mettre_a_jour_engagements.bat
 echo.
 pause
 goto menu
@@ -44,9 +69,34 @@ echo.
 pause
 goto menu
 
-:lancer
+:lancer_all
 cls
 powershell -ExecutionPolicy Bypass -File scripts\gerer_tache_planifiee.ps1 -Action lancer
+echo.
+pause
+goto menu
+
+:lancer_eng
+cls
+powershell -ExecutionPolicy Bypass -File scripts\gerer_tache_planifiee.ps1 -Action lancer-engagements
+echo.
+pause
+goto menu
+
+:modifier
+cls
+echo Entrez la nouvelle heure au format HH:mm (exemple: 07:30 ou 08:30)
+set /p newHeure="Nouvelle heure pour les taches quotidiennes : "
+if "%newHeure%"=="" set newHeure=08:00
+powershell -ExecutionPolicy Bypass -File scripts\gerer_tache_planifiee.ps1 -Action creer -Heure %newHeure%
+powershell -ExecutionPolicy Bypass -File scripts\gerer_tache_planifiee.ps1 -Action creer-engagements -Heure %newHeure%
+echo.
+pause
+goto menu
+
+:supprimer
+cls
+powershell -ExecutionPolicy Bypass -File scripts\gerer_tache_planifiee.ps1 -Action supprimer
 echo.
 pause
 goto menu
@@ -61,23 +111,6 @@ goto menu
 :follow
 cls
 powershell -ExecutionPolicy Bypass -File scripts\gerer_tache_planifiee.ps1 -Action follow
-echo.
-pause
-goto menu
-
-:modifier
-cls
-echo Entrez la nouvelle heure au format HH:mm (exemple: 07:30 ou 08:30)
-set /p newHeure="Nouvelle heure : "
-if "%newHeure%"=="" set newHeure=08:00
-powershell -ExecutionPolicy Bypass -File scripts\gerer_tache_planifiee.ps1 -Action creer -Heure %newHeure%
-echo.
-pause
-goto menu
-
-:supprimer
-cls
-powershell -ExecutionPolicy Bypass -File scripts\gerer_tache_planifiee.ps1 -Action supprimer
 echo.
 pause
 goto menu

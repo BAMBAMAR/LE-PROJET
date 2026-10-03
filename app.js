@@ -604,7 +604,7 @@ async function loadData() {
 // Fonction séparée pour charger les promesses
 async function loadPromisesData() {
     try {
-        const response = await fetch('promises.json');
+        const response = await fetch('promises.json?v=' + Date.now());
         
         if (!response.ok) {
             CONFIG.promises = generateTestPromises();

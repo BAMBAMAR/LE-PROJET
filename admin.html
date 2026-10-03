@@ -2923,9 +2923,9 @@ async function init() {
 async function loadData() {
   try {
     const [pd, nd, prd] = await Promise.all([
-      fetch('promises.json').then(r=>r.json()),
-      fetch('news.json').then(r=>r.json()),
-      fetch('press.json').then(r=>r.json()),
+      fetch('promises.json?v=' + Date.now()).then(r=>r.json()),
+      fetch('news.json?v=' + Date.now()).then(r=>r.json()),
+      fetch('press.json?v=' + Date.now()).then(r=>r.json()),
     ]);
     DB.promises = pd.promises || [];
     DB.news = nd.news || [];

@@ -787,7 +787,7 @@ async function loadNews() {
     try {
         const [newsRes, promisesRes] = await Promise.all([
             fetch('news.json'),
-            fetch('promises.json').catch(() => null)
+            fetch('promises.json?v=' + Date.now()).catch(() => null)
         ]);
         const data = await newsRes.json();
         allNews = data.news || [];

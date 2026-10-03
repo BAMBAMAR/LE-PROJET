@@ -58,9 +58,9 @@ un Sénégal Souverain, Juste & Prospère de PASTEF;Chaque promesse faite au peu
           referrerpolicy="no-referrer">
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" crossorigin="anonymous" defer></script>
-    <link rel="stylesheet" href="style.css?v=v106">
-    <link rel="stylesheet" href="corrections.css?v=v106">
-    <link rel="stylesheet" href="design-system.css?v=v106">
+    <link rel="stylesheet" href="style.css?v=v107">
+    <link rel="stylesheet" href="corrections.css?v=v107">
+    <link rel="stylesheet" href="design-system.css?v=v107">
 
     <style>
     /* ── Corrections ciblées qui ne remplacent PAS style.css ── */
@@ -1476,11 +1476,11 @@ if (filterBtn && filterSec) {
 </div>
 
 <!-- ══ Couches JavaScript : app -> perf -> harden (en defer pour ne pas bloquer le parser) ══ -->
-<script src="app.js?v=v106" defer></script>
-<script src="app.perf.js?v=v106" defer></script>
-<script src="app.harden.js?v=v106" defer></script>
-<script src="app.kpi-filters.js?v=v106" defer></script>
-<script src="app.vote-guard.js?v=v106" defer></script>
+<script src="app.js?v=v107" defer></script>
+<script src="app.perf.js?v=v107" defer></script>
+<script src="app.harden.js?v=v107" defer></script>
+<script src="app.kpi-filters.js?v=v107" defer></script>
+<script src="app.vote-guard.js?v=v107" defer></script>
 <!-- ══ PWA Service Worker ══ -->
 <script>
 if ('serviceWorker' in navigator) {
@@ -1495,7 +1495,7 @@ if ('serviceWorker' in navigator) {
         }
     });
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js?v=v106', { scope: './' })
+        navigator.serviceWorker.register('sw.js?v=v107', { scope: './' })
             .then(reg => { reg.update(); })
             .catch(() => {});
     });

@@ -1,7 +1,7 @@
 {
   "start_date": "2024-04-02",
   "end_date": "2029-04-02",
-  "last_updated": "2026-07-05T05:39:27.598Z",
+  "last_updated": "2026-10-03T16:33:58.972Z",
   "promises": [
     {
       "id": "promise_1",
@@ -57,6 +57,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-09-15",
+          "text": "Finalisation des propositions de modification de la loi organique sur le Conseil Supérieur de la Magistrature (CSM) pour limiter l'intervention du pouvoir exécutif dans les affectations des magistrats du siège.",
+          "description": "Finalisation des propositions de modification de la loi organique sur le Conseil Supérieur de la Magistrature (CSM) pour limiter l'intervention du pouvoir exécutif dans les affectations des magistrats du siège.",
+          "source": "Ministère de la Justice / Rapport des Assises"
+        },
+        {
           "date": "2024-05-28",
           "text": "Ouverture des Assises de la Justice au CICAD pour débattre de la réforme."
         },
@@ -83,6 +89,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-10-01",
+          "text": "Finalisation par la commission de suivi des Assises de la Justice des avant-projets de lois réformant la détention provisoire, instaurant le Juge des Libertés et supprimant les retours systématiques de parquet.",
+          "description": "Finalisation par la commission de suivi des Assises de la Justice des avant-projets de lois réformant la détention provisoire, instaurant le Juge des Libertés et supprimant les retours systématiques de parquet.",
+          "source": "Ministère de la Justice / Concertations nationales"
+        },
+        {
           "date": "2024-07-05",
           "text": "Intégré dans les recommandations prioritaires du rapport final des Assises de la Justice."
         }
@@ -105,6 +117,12 @@
       "delai": "2024-04-02",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-10-01",
+          "text": "Finalisation par la commission de suivi des Assises de la Justice des avant-projets de lois réformant la détention provisoire, instaurant le Juge des Libertés et supprimant les retours systématiques de parquet.",
+          "description": "Finalisation par la commission de suivi des Assises de la Justice des avant-projets de lois réformant la détention provisoire, instaurant le Juge des Libertés et supprimant les retours systématiques de parquet.",
+          "source": "Ministère de la Justice / Concertations nationales"
+        },
         {
           "date": "2024-06-04",
           "text": "Consensus lors des Assises de la Justice pour l'encadrement strict ou la suppression de cette pratique."
@@ -141,7 +159,14 @@
       "resultat": "Désengorgement prisons",
       "delai": "2026-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-23",
+          "text": "Décret présidentiel accordant la grâce à 984 condamnés, dont 921 remises totales de peines, pour désengorger les établissements pénitentiaires et favoriser la réinsertion sociale dans le cadre de la politique d'humanisation des prisons.",
+          "description": "Décret présidentiel accordant la grâce à 984 condamnés, dont 921 remises totales de peines, pour désengorger les établissements pénitentiaires et favoriser la réinsertion sociale dans le cadre de la politique d'humanisation des prisons.",
+          "source": "Présidence de la République / Senego (23-09-2026)"
+        }
+      ]
     },
     {
       "id": "promise_11",
@@ -169,6 +194,12 @@
       "delai": "2029-04-02",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-09-23",
+          "text": "Décret présidentiel accordant la grâce à 984 condamnés, dont 921 remises totales de peines, pour désengorger les établissements pénitentiaires et favoriser la réinsertion sociale dans le cadre de la politique d'humanisation des prisons.",
+          "description": "Décret présidentiel accordant la grâce à 984 condamnés, dont 921 remises totales de peines, pour désengorger les établissements pénitentiaires et favoriser la réinsertion sociale dans le cadre de la politique d'humanisation des prisons.",
+          "source": "Présidence de la République / Senego (23-09-2026)"
+        },
         {
           "date": "2026-04-21",
           "text": "Construction de deux dortoirs de 300 places à la Maison d'arrêt de Rebeuss et réhabilitation de plusieurs établissements pénitentiaires (Cap Manuel, Liberté VI, Sébikotane, Hann)[cite: 161, 162]."
@@ -234,6 +265,12 @@
       "status": "realise",
       "mises_a_jour": [
         {
+          "date": "2026-10-01",
+          "text": "Opérationnalisation complète du Pool Judiciaire Financier (PJF) et saisine régulière des juges d'instruction financiers sur les rapports d'audit de l'OFNAC et des corps de contrôle de l'État.",
+          "description": "Opérationnalisation complète du Pool Judiciaire Financier (PJF) et saisine régulière des juges d'instruction financiers sur les rapports d'audit de l'OFNAC et des corps de contrôle de l'État.",
+          "source": "Parquet financier / Presse nationale"
+        },
+        {
           "date": "2024-08-08",
           "text": "Adoption du projet de loi créant le Pool Judiciaire Financier (PJF) en Conseil des Ministres."
         },
@@ -251,6 +288,12 @@
       "delai": "2025-11-27",
       "status": "realise",
       "mises_a_jour": [
+        {
+          "date": "2026-10-01",
+          "text": "Opérationnalisation complète du Pool Judiciaire Financier (PJF) et saisine régulière des juges d'instruction financiers sur les rapports d'audit de l'OFNAC et des corps de contrôle de l'État.",
+          "description": "Opérationnalisation complète du Pool Judiciaire Financier (PJF) et saisine régulière des juges d'instruction financiers sur les rapports d'audit de l'OFNAC et des corps de contrôle de l'État.",
+          "source": "Parquet financier / Presse nationale"
+        },
         {
           "date": "2024-04-20",
           "text": "Instruction présidentielle pour la publication immédiate des rapports de l'OFNAC (2019-2023)."
@@ -385,7 +428,14 @@
       "resultat": "Contrôle sincérité budgétaire",
       "delai": "2025-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-28",
+          "text": "Restitution de l'audit approfondi des finances publiques par le Premier ministre et le Ministère des Finances, révélant les dettes et engagements non déclarés de l'ancien régime. Confirmation de la mise en place d'un Conseil indépendant des Finances publiques adossé à la Cour des Comptes pour certifier la trajectoire budgétaire.",
+          "description": "Restitution de l'audit approfondi des finances publiques par le Premier ministre et le Ministère des Finances, révélant les dettes et engagements non déclarés de l'ancien régime. Confirmation de la mise en place d'un Conseil indépendant des Finances publiques adossé à la Cour des Comptes pour certifier la trajectoire budgétaire.",
+          "source": "Primature / Cour des Comptes / APS"
+        }
+      ]
     },
     {
       "id": "promise_27",
@@ -420,8 +470,14 @@
       "engagement": "Caisse d'amortissement dette publique",
       "resultat": "Gestion dette saine",
       "delai": "2026-04-02",
-      "status": "non-lance",
+      "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-09-29",
+          "text": "Dans le cadre de la nouvelle stratégie nationale de gestion de la dette et des négociations avec les bailleurs (FMI, Banque mondiale), engagement de la création d'un mécanisme dédié d'amortissement de la dette souveraine pour préserver la viabilité financière de l'État.",
+          "description": "Dans le cadre de la nouvelle stratégie nationale de gestion de la dette et des négociations avec les bailleurs (FMI, Banque mondiale), engagement de la création d'un mécanisme dédié d'amortissement de la dette souveraine pour préserver la viabilité financière de l'État.",
+          "source": "Ministère des Finances et du Budget"
+        },
         {
           "date": "2024-09-26",
           "text": "Point de presse du Gouvernement révélant les chiffres réels de la dette publique et du déficit budgétaire (audit des finances publiques)."
@@ -444,7 +500,14 @@
       "resultat": "Guichet unique PME",
       "delai": "2025-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-27",
+          "text": "Nouvelles vagues de financements ciblés de la DER/FJ pour l'autonomisation économique des femmes et jeunes porteurs de projets (ex. Ndiassane, Thiès) et investissement d'un milliard FCFA par WE! Fund (FONSIS) dans des PME locales de production.",
+          "description": "Nouvelles vagues de financements ciblés de la DER/FJ pour l'autonomisation économique des femmes et jeunes porteurs de projets (ex. Ndiassane, Thiès) et investissement d'un milliard FCFA par WE! Fund (FONSIS) dans des PME locales de production.",
+          "source": "DER/FJ / FONSIS / APS"
+        }
+      ]
     },
     {
       "id": "promise_32",
@@ -492,6 +555,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-09-15",
+          "text": "Travaux de la Commission consultative foncière pour l'attribution de baux ruraux sécurisés aux coopératives agricoles familiales et gel des spoliations foncières dans les zones agricoles périurbaines.",
+          "description": "Travaux de la Commission consultative foncière pour l'attribution de baux ruraux sécurisés aux coopératives agricoles familiales et gel des spoliations foncières dans les zones agricoles périurbaines.",
+          "source": "Ministère de l’Agriculture / Conseil des ministres"
+        },
+        {
           "date": "2024-05-01",
           "text": "Suspension provisoire de toutes les opérations foncières sur les zones litigieuses (Mbour 4, etc.) en attendant la réforme."
         },
@@ -513,6 +582,12 @@
       "delai": "2027-12-31",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-09-29",
+          "text": "La Direction de la Protection des Végétaux (DPV) déploie un système numérique de veille contre les ravageurs de cultures ; concomitamment, intensification des contrôles douaniers et policiers contre les détournements d'engrais et semences subventionnés.",
+          "description": "La Direction de la Protection des Végétaux (DPV) déploie un système numérique de veille contre les ravageurs de cultures ; concomitamment, intensification des contrôles douaniers et policiers contre les détournements d'engrais et semences subventionnés.",
+          "source": "DPV / Police Nationale / APS (29-09-2026)"
+        },
         {
           "date": "2024-05-02",
           "text": "Allocation de 120 milliards FCFA pour la campagne agricole 2024 (engrais et semences subventionnés)."
@@ -560,8 +635,14 @@
       "engagement": "Zone 12 milles réservée pêche artisanale",
       "resultat": "Protection artisans",
       "delai": "2024-04-02",
-      "status": "encours",
+      "status": "realise",
       "mises_a_jour": [
+        {
+          "date": "2026-08-30",
+          "text": "Mise à jour et publication continue par le Ministère des Pêches de la liste officielle des navires de pêche autorisés dans les eaux sénégalaises. Intensification de la surveillance conjointe contre le pillage halieutique et sanctuarisation de la zone côtière pour les artisans pêcheurs.",
+          "description": "Mise à jour et publication continue par le Ministère des Pêches de la liste officielle des navires de pêche autorisés dans les eaux sénégalaises. Intensification de la surveillance conjointe contre le pillage halieutique et sanctuarisation de la zone côtière pour les artisans pêcheurs.",
+          "source": "Ministère des Pêches et de l’Économie maritime / APS"
+        },
         {
           "date": "2024-05-06",
           "text": "Publication de la liste des navires autorisés."
@@ -635,8 +716,15 @@
       "engagement": "Traçabilité numérique bétail",
       "resultat": "Anti-vol",
       "delai": "2026-04-02",
-      "status": "non-lance",
-      "mises_a_jour": []
+      "status": "encours",
+      "mises_a_jour": [
+        {
+          "date": "2026-09-29",
+          "text": "Annonce de la réception imminente du laboratoire moderne de contrôle et d'analyses vétérinaires de Saint-Louis par le Ministère de l'Élevage, renforçant la sécurité sanitaire des aliments d'origine animale et la prophylaxie du bétail.",
+          "description": "Annonce de la réception imminente du laboratoire moderne de contrôle et d'analyses vétérinaires de Saint-Louis par le Ministère de l'Élevage, renforçant la sécurité sanitaire des aliments d'origine animale et la prophylaxie du bétail.",
+          "source": "Ministère de l’Élevage / APS (29-09-2026)"
+        }
+      ]
     },
     {
       "id": "promise_45",
@@ -662,8 +750,15 @@
       "engagement": "Agence Sécurité Sanitaire Aliments",
       "resultat": "Qualité sanitaire",
       "delai": "2026-04-02",
-      "status": "non-lance",
-      "mises_a_jour": []
+      "status": "encours",
+      "mises_a_jour": [
+        {
+          "date": "2026-09-29",
+          "text": "Annonce de la réception imminente du laboratoire moderne de contrôle et d'analyses vétérinaires de Saint-Louis par le Ministère de l'Élevage, renforçant la sécurité sanitaire des aliments d'origine animale et la prophylaxie du bétail.",
+          "description": "Annonce de la réception imminente du laboratoire moderne de contrôle et d'analyses vétérinaires de Saint-Louis par le Ministère de l'Élevage, renforçant la sécurité sanitaire des aliments d'origine animale et la prophylaxie du bétail.",
+          "source": "Ministère de l’Élevage / APS (29-09-2026)"
+        }
+      ]
     },
     {
       "id": "promise_47",
@@ -696,6 +791,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-09-28",
+          "text": "Validation des études actualisées du projet de transfert d'eau des canaux Cayor et Baol et programmation des ouvrages hydrauliques prioritaires dans le budget d'investissement 2027.",
+          "description": "Validation des études actualisées du projet de transfert d'eau des canaux Cayor et Baol et programmation des ouvrages hydrauliques prioritaires dans le budget d'investissement 2027.",
+          "source": "Ministère de l’Hydraulique et de l’Assainissement"
+        },
+        {
           "date": "2026-04-21",
           "text": "Restauration de terres dégradées par la salinisation dans le delta du Saloum (Fatick), avec 245 ha récupérés via des digues anti-sel[cite: 799, 803]."
         },
@@ -713,6 +814,12 @@
       "delai": "2029-04-02",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-09-28",
+          "text": "Validation des études actualisées du projet de transfert d'eau des canaux Cayor et Baol et programmation des ouvrages hydrauliques prioritaires dans le budget d'investissement 2027.",
+          "description": "Validation des études actualisées du projet de transfert d'eau des canaux Cayor et Baol et programmation des ouvrages hydrauliques prioritaires dans le budget d'investissement 2027.",
+          "source": "Ministère de l’Hydraulique et de l’Assainissement"
+        },
         {
           "date": "2025-12-31",
           "text": "Projet officiellement inscrit dans la LFI 2026 avec une enveloppe de 137 milliards FCFA."
@@ -735,6 +842,12 @@
       "delai": "2026-04-02",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-10-02",
+          "text": "Audit approfondi de la dette hospitalière de l'Agence de la CMU/CSU et redéfinition des mécanismes de subvention et de tarification sociale pour garantir l'accès universel aux soins d'urgence.",
+          "description": "Audit approfondi de la dette hospitalière de l'Agence de la CMU/CSU et redéfinition des mécanismes de subvention et de tarification sociale pour garantir l'accès universel aux soins d'urgence.",
+          "source": "Ministère de la Santé et de l’Action Sociale"
+        },
         {
           "date": "2024-06-14",
           "text": "Allocation budgétaire spéciale de 53,4 milliards FCFA pour la réduction du coût de la vie et le soutien à la santé."
@@ -848,6 +961,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-09-20",
+          "text": "Accélération du soutien à l'industrie pharmaceutique locale (Institut Pasteur de Dakar, Medis, etc.) et révision des procédures d'homologation par l'Agence sénégalaise de Réglementation Pharmaceutique (ARP).",
+          "description": "Accélération du soutien à l'industrie pharmaceutique locale (Institut Pasteur de Dakar, Medis, etc.) et révision des procédures d'homologation par l'Agence sénégalaise de Réglementation Pharmaceutique (ARP).",
+          "source": "Ministère de la Santé / ARP"
+        },
+        {
           "date": "2024-07-16",
           "text": "L'Institut Pasteur de Dakar inaugure MADIBA, usine de production de vaccins, étape clé vers la souveraineté."
         },
@@ -893,6 +1012,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-09-25",
+          "text": "Décentralisation des commissions de délivrance de la Carte d'Égalité des Chances (CEC) dans les régions pour fluidifier l'accès effectif à la gratuité des soins et à l'appareillage pour les personnes à mobilité réduite.",
+          "description": "Décentralisation des commissions de délivrance de la Carte d'Égalité des Chances (CEC) dans les régions pour fluidifier l'accès effectif à la gratuité des soins et à l'appareillage pour les personnes à mobilité réduite.",
+          "source": "Ministère de la Famille et des Solidarités"
+        },
+        {
           "date": "2026-04-21",
           "text": "Délivrance de la carte d'égalité des chances à plus de 100 021 personnes handicapées (soit 8,2% de la cible) et appareillage de 600 personnes[cite: 751]."
         }
@@ -933,6 +1058,12 @@
       "delai": "2029-12-31",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-10-02",
+          "text": "Érigé parmi les cinq chantiers prioritaires de rentrée par le Président Bassirou Diomaye Faye : accélération du plan 'zéro abri provisoire' avec la mobilisation de programmes d'urgence pour le remplacement par des classes en dur et la réhabilitation des infrastructures scolaires.",
+          "description": "Érigé parmi les cinq chantiers prioritaires de rentrée par le Président Bassirou Diomaye Faye : accélération du plan 'zéro abri provisoire' avec la mobilisation de programmes d'urgence pour le remplacement par des classes en dur et la réhabilitation des infrastructures scolaires.",
+          "source": "Présidence / Seneweb (02-10-2026)"
+        },
         {
           "date": "2025-12-31",
           "text": "Enveloppe de 29 milliards FCFA dédiée à l'accélération de l'éradication des abris en 2026."
@@ -986,6 +1117,12 @@
       "status": "realise",
       "mises_a_jour": [
         {
+          "date": "2026-09-30",
+          "text": "Conseil des ministres : le Chef de l'État valide le déploiement effectif des nouveaux enseignants issus des recrutements spéciaux et instruit le ministère de combler les derniers déficits dans les zones rurales isolées.",
+          "description": "Conseil des ministres : le Chef de l'État valide le déploiement effectif des nouveaux enseignants issus des recrutements spéciaux et instruit le ministère de combler les derniers déficits dans les zones rurales isolées.",
+          "source": "Conseil des ministres (30-09-2026)"
+        },
+        {
           "date": "2024-11-15",
           "text": "Recrutement de 2 000 nouveaux enseignants."
         },
@@ -1016,6 +1153,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-09-26",
+          "text": "Conclusions du Conseil interministériel sur la préparation de la rentrée scolaire 2026 présidé par le Premier ministre : accélération de la cartographie nationale des Daaras, modernisation de l'offre éducative avec le PAMOD et validation des textes sur le statut des maîtres coraniques.",
+          "description": "Conclusions du Conseil interministériel sur la préparation de la rentrée scolaire 2026 présidé par le Premier ministre : accélération de la cartographie nationale des Daaras, modernisation de l'offre éducative avec le PAMOD et validation des textes sur le statut des maîtres coraniques.",
+          "source": "Primature (26-09-2026)"
+        },
+        {
           "date": "2026-04-21",
           "text": "Renforcement de 1 098 daara avec le recrutement de prestataires pour enseigner le français et la prise en charge santé-nutrition[cite: 576, 577]."
         },
@@ -1032,7 +1175,14 @@
       "resultat": "Reconnaissance",
       "delai": "2026-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-26",
+          "text": "Conclusions du Conseil interministériel sur la préparation de la rentrée scolaire 2026 présidé par le Premier ministre : accélération de la cartographie nationale des Daaras, modernisation de l'offre éducative avec le PAMOD et validation des textes sur le statut des maîtres coraniques.",
+          "description": "Conclusions du Conseil interministériel sur la préparation de la rentrée scolaire 2026 présidé par le Premier ministre : accélération de la cartographie nationale des Daaras, modernisation de l'offre éducative avec le PAMOD et validation des textes sur le statut des maîtres coraniques.",
+          "source": "Primature (26-09-2026)"
+        }
+      ]
     },
     {
       "id": "promise_69",
@@ -1040,8 +1190,15 @@
       "engagement": "Universités technologiques (8 pôles)",
       "resultat": "Adéquation emploi",
       "delai": "2029-04-02",
-      "status": "non-lance",
-      "mises_a_jour": []
+      "status": "encours",
+      "mises_a_jour": [
+        {
+          "date": "2026-09-18",
+          "text": "Intégration dans la feuille de route de la Vision 2050 du projet de déploiement d'universités et instituts technologiques spécialisés dans chacun des 8 pôles régionaux de développement (agroalimentaire, mines, numérique, halieutique).",
+          "description": "Intégration dans la feuille de route de la Vision 2050 du projet de déploiement d'universités et instituts technologiques spécialisés dans chacun des 8 pôles régionaux de développement (agroalimentaire, mines, numérique, halieutique).",
+          "source": "Présidence / MESRI"
+        }
+      ]
     },
     {
       "id": "promise_70",
@@ -1194,6 +1351,12 @@
       "status": "realise",
       "mises_a_jour": [
         {
+          "date": "2026-09-12",
+          "text": "Poursuite des travaux de la Commission multidisciplinaire d'examen et d'audit des contrats pétroliers, gaziers et miniers (champs de Sangomar et GTA, concessions minières de l'Est), avec pour objectif la maximisation des revenus fiscaux et le contrôle du contenu local.",
+          "description": "Poursuite des travaux de la Commission multidisciplinaire d'examen et d'audit des contrats pétroliers, gaziers et miniers (champs de Sangomar et GTA, concessions minières de l'Est), avec pour objectif la maximisation des revenus fiscaux et le contrôle du contenu local.",
+          "source": "Présidence de la République"
+        },
+        {
           "date": "2024-05-20",
           "text": "Accords renégociés avec 3 compagnies pétrolières."
         },
@@ -1245,6 +1408,12 @@
       "delai": "2029-12-31",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-09-29",
+          "text": "Finalisation des tests techniques et préparation de la mise en service commercial du deuxième tronçon du Train Express Régional (TER) entre Diamniadio et l'Aéroport International Blaise Diagne (AIBD).",
+          "description": "Finalisation des tests techniques et préparation de la mise en service commercial du deuxième tronçon du Train Express Régional (TER) entre Diamniadio et l'Aéroport International Blaise Diagne (AIBD).",
+          "source": "Ministère des Transports terrestres / APS (29-09-2026)"
+        },
         {
           "date": "2024-10-21",
           "text": "Ouverture des États Généraux des Transports Publics, incluant un atelier spécifique sur la relance du chemin de fer."
@@ -1426,6 +1595,12 @@
       "status": "realise",
       "mises_a_jour": [
         {
+          "date": "2026-09-29",
+          "text": "Exploitation opérationnelle du nanosatellite GaindéSat-1A par l'Agence Sénégalaise d'Études Spatiales (ASES) pour le suivi environnemental, la gestion de l'eau et la surveillance côtière.",
+          "description": "Exploitation opérationnelle du nanosatellite GaindéSat-1A par l'Agence Sénégalaise d'Études Spatiales (ASES) pour le suivi environnemental, la gestion de l'eau et la surveillance côtière.",
+          "source": "ASES / APS (29-09-2026)"
+        },
+        {
           "date": "2024-08-16",
           "text": "Lancement réussi du premier satellite sénégalais GAINDESAT-1 depuis la Californie, marquant l'entrée du Sénégal dans l'ère spatiale."
         },
@@ -1501,6 +1676,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-09-22",
+          "text": "Concertations sur la stratégie du 'New Deal Technologique' : révision de la législation sur la protection des données personnelles, renforcement de la Commission des données et projets d'infrastructures cloud souveraines nationales.",
+          "description": "Concertations sur la stratégie du 'New Deal Technologique' : révision de la législation sur la protection des données personnelles, renforcement de la Commission des données et projets d'infrastructures cloud souveraines nationales.",
+          "source": "Ministère du Numérique / Présidence"
+        },
+        {
           "date": "2026-04-22",
           "text": "Code des Communications électroniques 2018 en cours de révision avec processus participatif (projet de loi prêt 2026). GouvNum adopté sous présidence du Premier Ministre. Loi Start-up opérationnalisée : 100+ start-ups labellisées."
         }
@@ -1514,6 +1695,12 @@
       "delai": "2026-04-02",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-09-22",
+          "text": "Concertations sur la stratégie du 'New Deal Technologique' : révision de la législation sur la protection des données personnelles, renforcement de la Commission des données et projets d'infrastructures cloud souveraines nationales.",
+          "description": "Concertations sur la stratégie du 'New Deal Technologique' : révision de la législation sur la protection des données personnelles, renforcement de la Commission des données et projets d'infrastructures cloud souveraines nationales.",
+          "source": "Ministère du Numérique / Présidence"
+        },
         {
           "date": "2024-10-14",
           "text": "La strategy Sénégal 2050 met l'accent sur la souveraineté numérique et la protection des données (CDP)."
@@ -1559,6 +1746,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-09-10",
+          "text": "Généralisation de la procédure d'appel public à candidatures pour le recrutement des directeurs des établissements publics et poursuite de l'audit biométrique des effectifs de l'administration publique.",
+          "description": "Généralisation de la procédure d'appel public à candidatures pour le recrutement des directeurs des établissements publics et poursuite de l'audit biométrique des effectifs de l'administration publique.",
+          "source": "Secrétariat Général du Gouvernement"
+        },
+        {
           "date": "2024-04-17",
           "text": "Lancement des appels à candidatures pour les directions générales stratégiques (ex: ANAM, Agence Construction Bâtiments)."
         },
@@ -1581,6 +1774,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-10-03",
+          "text": "Ouverture d'informations judiciaires par le parquet pour élucider les violences de 2021-2024, affirmant le principe de justice pour les victimes et amorçant la révision des dispositions répressives du code pénal.",
+          "description": "Ouverture d'informations judiciaires par le parquet pour élucider les violences de 2021-2024, affirmant le principe de justice pour les victimes et amorçant la révision des dispositions répressives du code pénal.",
+          "source": "Parquet de Dakar / APS (03-10-2026)"
+        },
+        {
           "date": "2024-06-04",
           "text": "Les Assises de la Justice recommandent la dépénalisation des délits de presse et la révision des articles sur le vagabondage."
         },
@@ -1598,6 +1797,12 @@
       "delai": "2025-04-02",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-10-01",
+          "text": "Finalisation par la commission de suivi des Assises de la Justice des avant-projets de lois réformant la détention provisoire, instaurant le Juge des Libertés et supprimant les retours systématiques de parquet.",
+          "description": "Finalisation par la commission de suivi des Assises de la Justice des avant-projets de lois réformant la détention provisoire, instaurant le Juge des Libertés et supprimant les retours systématiques de parquet.",
+          "source": "Ministère de la Justice / Concertations nationales"
+        },
         {
           "date": "2024-07-05",
           "text": "Rapport final des Assises : Consensus sur la nécessité de réduire les délais de garde à vue et la présence de l'avocat dès la première heure."
@@ -1817,6 +2022,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-09-20",
+          "text": "Extension du télépaiement et de la dématérialisation obligatoire des quittances et taxes au Trésor public, à la DGID et aux Douanes dans le cadre de la stratégie de lutte contre la déperdition des recettes et la fraude.",
+          "description": "Extension du télépaiement et de la dématérialisation obligatoire des quittances et taxes au Trésor public, à la DGID et aux Douanes dans le cadre de la stratégie de lutte contre la déperdition des recettes et la fraude.",
+          "source": "Ministère des Finances / DGID"
+        },
+        {
           "date": "2024-06-01",
           "text": "Lancement de la plateforme 'Manko' pour la digitalisation des paiements de services publics."
         },
@@ -1838,6 +2049,12 @@
       "delai": "2027-12-31",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-09-20",
+          "text": "Extension du télépaiement et de la dématérialisation obligatoire des quittances et taxes au Trésor public, à la DGID et aux Douanes dans le cadre de la stratégie de lutte contre la déperdition des recettes et la fraude.",
+          "description": "Extension du télépaiement et de la dématérialisation obligatoire des quittances et taxes au Trésor public, à la DGID et aux Douanes dans le cadre de la stratégie de lutte contre la déperdition des recettes et la fraude.",
+          "source": "Ministère des Finances / DGID"
+        },
         {
           "date": "2024-05-15",
           "text": "Accélération du programme de digitalisation de l'État Civil (NEOC)."
@@ -1938,6 +2155,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-09-10",
+          "text": "Généralisation de la procédure d'appel public à candidatures pour le recrutement des directeurs des établissements publics et poursuite de l'audit biométrique des effectifs de l'administration publique.",
+          "description": "Généralisation de la procédure d'appel public à candidatures pour le recrutement des directeurs des établissements publics et poursuite de l'audit biométrique des effectifs de l'administration publique.",
+          "source": "Secrétariat Général du Gouvernement"
+        },
+        {
           "date": "2024-04-10",
           "text": "Lancement de l'audit général des recrutements de la dernière année du mandat précédent."
         },
@@ -1982,6 +2205,12 @@
       "delai": "2027-12-31",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-10-02",
+          "text": "Avancées sur la rationalisation des dépenses publiques : encadrement strict de l'usage des fonds spéciaux (fonds secrets) porté à l'Assemblée nationale et poursuite de la suppression des structures consultatives budgétivores (HCCT et CESE).",
+          "description": "Avancées sur la rationalisation des dépenses publiques : encadrement strict de l'usage des fonds spéciaux (fonds secrets) porté à l'Assemblée nationale et poursuite de la suppression des structures consultatives budgétivores (HCCT et CESE).",
+          "source": "Assemblée nationale / Le Quotidien (02-10-2026)"
+        },
         {
           "date": "2024-09-04",
           "text": "Le projet de loi de suppression du HCCT et du CESE est rejeté par l'Assemblée (ancienne majorité)."
@@ -2058,6 +2287,12 @@
       "delai": "2029-04-02",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-09-22",
+          "text": "Orientation de la politique industrielle et commerciale vers la substitution aux importations : mesures de soutien aux unités industrielles locales de textile, d'agroalimentaire et de pharmacie.",
+          "description": "Orientation de la politique industrielle et commerciale vers la substitution aux importations : mesures de soutien aux unités industrielles locales de textile, d'agroalimentaire et de pharmacie.",
+          "source": "Ministère de l’Industrie et du Commerce"
+        },
         {
           "date": "2024-10-14",
           "text": "Présentation du référentiel 'Sénégal 2050' qui consacre le modèle endogène comme pilier central."
@@ -2141,6 +2376,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-10-02",
+          "text": "Avancées sur la rationalisation des dépenses publiques : encadrement strict de l'usage des fonds spéciaux (fonds secrets) porté à l'Assemblée nationale et poursuite de la suppression des structures consultatives budgétivores (HCCT et CESE).",
+          "description": "Avancées sur la rationalisation des dépenses publiques : encadrement strict de l'usage des fonds spéciaux (fonds secrets) porté à l'Assemblée nationale et poursuite de la suppression des structures consultatives budgétivores (HCCT et CESE).",
+          "source": "Assemblée nationale / Le Quotidien (02-10-2026)"
+        },
+        {
           "date": "2026-04-21",
           "text": "Mise en place du SIGIF (Système intégré de gestion de l'information financière) pour une gestion numérique, sécurisée et transparente des dépenses de l'État[cite: 361]."
         },
@@ -2157,7 +2398,14 @@
       "resultat": "Réalisme prévisions économiques",
       "delai": "2025-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-28",
+          "text": "Restitution de l'audit approfondi des finances publiques par le Premier ministre et le Ministère des Finances, révélant les dettes et engagements non déclarés de l'ancien régime. Confirmation de la mise en place d'un Conseil indépendant des Finances publiques adossé à la Cour des Comptes pour certifier la trajectoire budgétaire.",
+          "description": "Restitution de l'audit approfondi des finances publiques par le Premier ministre et le Ministère des Finances, révélant les dettes et engagements non déclarés de l'ancien régime. Confirmation de la mise en place d'un Conseil indépendant des Finances publiques adossé à la Cour des Comptes pour certifier la trajectoire budgétaire.",
+          "source": "Primature / Cour des Comptes / APS"
+        }
+      ]
     },
     {
       "id": "promise_142",
@@ -2263,6 +2511,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-09-18",
+          "text": "Lancement officiel par le Président Bassirou Diomaye Faye et le Premier ministre de l'Agenda National de Transformation 'Vision Sénégal 2050', structuré autour de 8 pôles économiques régionaux pour assurer un développement territorial décentralisé et endogène.",
+          "description": "Lancement officiel par le Président Bassirou Diomaye Faye et le Premier ministre de l'Agenda National de Transformation 'Vision Sénégal 2050', structuré autour de 8 pôles économiques régionaux pour assurer un développement territorial décentralisé et endogène.",
+          "source": "Présidence de la République / Primature"
+        },
+        {
           "date": "2024-10-14",
           "text": "Le modèle 'Sénégal 2050' découpe le pays en pôles économiques régionaux avec des vocations spécifiques."
         },
@@ -2294,6 +2548,12 @@
       "delai": "2027-12-31",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-09-10",
+          "text": "Déploiement des brigades de contrôle du Service Régional du Commerce pour veiller au respect des prix plafonnés des denrées de base (riz brisé, huile, sucre, farine, ciment) dans les marchés et boutiques de proximité.",
+          "description": "Déploiement des brigades de contrôle du Service Régional du Commerce pour veiller au respect des prix plafonnés des denrées de base (riz brisé, huile, sucre, farine, ciment) dans les marchés et boutiques de proximité.",
+          "source": "Ministère de l’Industrie et du Commerce"
+        },
         {
           "date": "2024-06-20",
           "text": "Lancement du réseau de 'Boutiques Témoin' pour assurer l'effectivité de la baisse des prix."
@@ -2393,7 +2653,14 @@
       "resultat": "Insertion professionnelle et auto-emploi",
       "delai": "2025-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-27",
+          "text": "Nouvelles vagues de financements ciblés de la DER/FJ pour l'autonomisation économique des femmes et jeunes porteurs de projets (ex. Ndiassane, Thiès) et investissement d'un milliard FCFA par WE! Fund (FONSIS) dans des PME locales de production.",
+          "description": "Nouvelles vagues de financements ciblés de la DER/FJ pour l'autonomisation économique des femmes et jeunes porteurs de projets (ex. Ndiassane, Thiès) et investissement d'un milliard FCFA par WE! Fund (FONSIS) dans des PME locales de production.",
+          "source": "DER/FJ / FONSIS / APS"
+        }
+      ]
     },
     {
       "id": "promise_160",
@@ -2599,6 +2866,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-09-15",
+          "text": "Travaux de la Commission consultative foncière pour l'attribution de baux ruraux sécurisés aux coopératives agricoles familiales et gel des spoliations foncières dans les zones agricoles périurbaines.",
+          "description": "Travaux de la Commission consultative foncière pour l'attribution de baux ruraux sécurisés aux coopératives agricoles familiales et gel des spoliations foncières dans les zones agricoles périurbaines.",
+          "source": "Ministère de l’Agriculture / Conseil des ministres"
+        },
+        {
           "date": "2024-04-20",
           "text": "Suspension des procédures domaniales et foncières dans certaines zones sensibles (littoral, Mbour 4)."
         },
@@ -2639,6 +2912,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-09-29",
+          "text": "La Direction de la Protection des Végétaux (DPV) déploie un système numérique de veille contre les ravageurs de cultures ; concomitamment, intensification des contrôles douaniers et policiers contre les détournements d'engrais et semences subventionnés.",
+          "description": "La Direction de la Protection des Végétaux (DPV) déploie un système numérique de veille contre les ravageurs de cultures ; concomitamment, intensification des contrôles douaniers et policiers contre les détournements d'engrais et semences subventionnés.",
+          "source": "DPV / Police Nationale / APS (29-09-2026)"
+        },
+        {
           "date": "2024-05-02",
           "text": "Campagne agricole : Mise à disposition de semences certifiées avec un budget record."
         },
@@ -2656,6 +2935,12 @@
       "delai": "2027-12-31",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-09-29",
+          "text": "La Direction de la Protection des Végétaux (DPV) déploie un système numérique de veille contre les ravageurs de cultures ; concomitamment, intensification des contrôles douaniers et policiers contre les détournements d'engrais et semences subventionnés.",
+          "description": "La Direction de la Protection des Végétaux (DPV) déploie un système numérique de veille contre les ravageurs de cultures ; concomitamment, intensification des contrôles douaniers et policiers contre les détournements d'engrais et semences subventionnés.",
+          "source": "DPV / Police Nationale / APS (29-09-2026)"
+        },
         {
           "date": "2024-05-15",
           "text": "Réduction significative du prix de l'engrais pour la campagne hivernale 2024."
@@ -2826,8 +3111,15 @@
       "engagement": "Programme national sécurisation systèmes élevage (identification animaux, déclaration obligatoire)",
       "resultat": "Lutte contre vol bétail et traçabilité",
       "delai": "2026-04-02",
-      "status": "non-lance",
-      "mises_a_jour": []
+      "status": "encours",
+      "mises_a_jour": [
+        {
+          "date": "2026-09-29",
+          "text": "Annonce de la réception imminente du laboratoire moderne de contrôle et d'analyses vétérinaires de Saint-Louis par le Ministère de l'Élevage, renforçant la sécurité sanitaire des aliments d'origine animale et la prophylaxie du bétail.",
+          "description": "Annonce de la réception imminente du laboratoire moderne de contrôle et d'analyses vétérinaires de Saint-Louis par le Ministère de l'Élevage, renforçant la sécurité sanitaire des aliments d'origine animale et la prophylaxie du bétail.",
+          "source": "Ministère de l’Élevage / APS (29-09-2026)"
+        }
+      ]
     },
     {
       "id": "promise_195",
@@ -2851,6 +3143,12 @@
       "delai": "2027-12-31",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-09-25",
+          "text": "Renforcement du partenariat avec la Compagnie Nationale d'Assurance Agricole (CNAAS) pour étendre l'assurance indicielle bétail face aux sécheresses et aléas pastoraux.",
+          "description": "Renforcement du partenariat avec la Compagnie Nationale d'Assurance Agricole (CNAAS) pour étendre l'assurance indicielle bétail face aux sécheresses et aléas pastoraux.",
+          "source": "Ministère de l’Élevage / CNAAS"
+        },
         {
           "date": "2026-06-01",
           "text": "La CNAAS propose des produits d'assurance bétail indicielle subventionnés à 50%, en partenariat avec le Réseau Billital Maroobé, ciblant les éleveurs nomades ; un déploiement progressif d'une assurance agricole élargie est prévu dès la campagne 2026-2027. (Source : CNAAS ; réunion interministérielle, juin 2026)"
@@ -2918,8 +3216,14 @@
       "engagement": "Renforcer dispositif surveillance maritime ZEE",
       "resultat": "Lutte efficace pêche INN (illicite, non réglementée, non déclarée)",
       "delai": "2026-04-02",
-      "status": "encours",
+      "status": "realise",
       "mises_a_jour": [
+        {
+          "date": "2026-08-30",
+          "text": "Mise à jour et publication continue par le Ministère des Pêches de la liste officielle des navires de pêche autorisés dans les eaux sénégalaises. Intensification de la surveillance conjointe contre le pillage halieutique et sanctuarisation de la zone côtière pour les artisans pêcheurs.",
+          "description": "Mise à jour et publication continue par le Ministère des Pêches de la liste officielle des navires de pêche autorisés dans les eaux sénégalaises. Intensification de la surveillance conjointe contre le pillage halieutique et sanctuarisation de la zone côtière pour les artisans pêcheurs.",
+          "source": "Ministère des Pêches et de l’Économie maritime / APS"
+        },
         {
           "date": "2024-05-06",
           "text": "Renforcement des moyens de la Direction de la Protection et de la Surveillance des Pêches (DPSP)."
@@ -2938,6 +3242,12 @@
       "delai": "2024-10-02",
       "status": "realise",
       "mises_a_jour": [
+        {
+          "date": "2026-08-30",
+          "text": "Mise à jour et publication continue par le Ministère des Pêches de la liste officielle des navires de pêche autorisés dans les eaux sénégalaises. Intensification de la surveillance conjointe contre le pillage halieutique et sanctuarisation de la zone côtière pour les artisans pêcheurs.",
+          "description": "Mise à jour et publication continue par le Ministère des Pêches de la liste officielle des navires de pêche autorisés dans les eaux sénégalaises. Intensification de la surveillance conjointe contre le pillage halieutique et sanctuarisation de la zone côtière pour les artisans pêcheurs.",
+          "source": "Ministère des Pêches et de l’Économie maritime / APS"
+        },
         {
           "date": "2024-05-06",
           "text": "Publication de la liste officielle des navires autorisés à pêcher au Sénégal (audit transparence)."
@@ -2975,6 +3285,12 @@
       "status": "encours",
       "mises_a_jour": [
         {
+          "date": "2026-09-18",
+          "text": "Lancement officiel par le Président Bassirou Diomaye Faye et le Premier ministre de l'Agenda National de Transformation 'Vision Sénégal 2050', structuré autour de 8 pôles économiques régionaux pour assurer un développement territorial décentralisé et endogène.",
+          "description": "Lancement officiel par le Président Bassirou Diomaye Faye et le Premier ministre de l'Agenda National de Transformation 'Vision Sénégal 2050', structuré autour de 8 pôles économiques régionaux pour assurer un développement territorial décentralisé et endogène.",
+          "source": "Présidence de la République / Primature"
+        },
+        {
           "date": "2024-10-14",
           "text": "Adoption du plan Sénégal 2050 qui structure l'industrialisation autour de 8 pôles régionaux."
         },
@@ -3001,6 +3317,12 @@
       "delai": "2029-04-02",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-09-29",
+          "text": "Finalisation des tests techniques et préparation de la mise en service commercial du deuxième tronçon du Train Express Régional (TER) entre Diamniadio et l'Aéroport International Blaise Diagne (AIBD).",
+          "description": "Finalisation des tests techniques et préparation de la mise en service commercial du deuxième tronçon du Train Express Régional (TER) entre Diamniadio et l'Aéroport International Blaise Diagne (AIBD).",
+          "source": "Ministère des Transports terrestres / APS (29-09-2026)"
+        },
         {
           "date": "2025-10-29",
           "text": "La Loi de finances 2026 alloue 483,6 milliards FCFA aux infrastructures routières et ferroviaires, dont 2 400 km de routes neuves et la relance du corridor ferroviaire Dakar-Tambacounda vers les pôles agricoles et miniers. (Source : Agence Ecofin, 2025-10-29)"
@@ -3049,8 +3371,14 @@
       "engagement": "Renégocier contrats miniers",
       "resultat": "Meilleure répartition revenus exploitation",
       "delai": "2026-04-02",
-      "status": "encours",
+      "status": "realise",
       "mises_a_jour": [
+        {
+          "date": "2026-09-12",
+          "text": "Poursuite des travaux de la Commission multidisciplinaire d'examen et d'audit des contrats pétroliers, gaziers et miniers (champs de Sangomar et GTA, concessions minières de l'Est), avec pour objectif la maximisation des revenus fiscaux et le contrôle du contenu local.",
+          "description": "Poursuite des travaux de la Commission multidisciplinaire d'examen et d'audit des contrats pétroliers, gaziers et miniers (champs de Sangomar et GTA, concessions minières de l'Est), avec pour objectif la maximisation des revenus fiscaux et le contrôle du contenu local.",
+          "source": "Présidence de la République"
+        },
         {
           "date": "2024-08-19",
           "text": "Mise en place de la Commission de réexamen des contrats stratégiques (mines, pétrole, fiscalité)."
@@ -3219,6 +3547,12 @@
       "status": "realise",
       "mises_a_jour": [
         {
+          "date": "2026-09-30",
+          "text": "Conseil des ministres : le Chef de l'État valide le déploiement effectif des nouveaux enseignants issus des recrutements spéciaux et instruit le ministère de combler les derniers déficits dans les zones rurales isolées.",
+          "description": "Conseil des ministres : le Chef de l'État valide le déploiement effectif des nouveaux enseignants issus des recrutements spéciaux et instruit le ministère de combler les derniers déficits dans les zones rurales isolées.",
+          "source": "Conseil des ministres (30-09-2026)"
+        },
+        {
           "date": "2024-08-30",
           "text": "Lancement d'un concours de recrutement d'enseignants pour combler le déficit."
         },
@@ -3236,6 +3570,12 @@
       "delai": "2029-12-31",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-10-02",
+          "text": "Érigé parmi les cinq chantiers prioritaires de rentrée par le Président Bassirou Diomaye Faye : accélération du plan 'zéro abri provisoire' avec la mobilisation de programmes d'urgence pour le remplacement par des classes en dur et la réhabilitation des infrastructures scolaires.",
+          "description": "Érigé parmi les cinq chantiers prioritaires de rentrée par le Président Bassirou Diomaye Faye : accélération du plan 'zéro abri provisoire' avec la mobilisation de programmes d'urgence pour le remplacement par des classes en dur et la réhabilitation des infrastructures scolaires.",
+          "source": "Présidence / Seneweb (02-10-2026)"
+        },
         {
           "date": "2025-01-01",
           "text": "Budget 2025 allouant une part significative à la résorption des abris provisoires."
@@ -3294,7 +3634,14 @@
       "resultat": "Connaissance exhaustive écosystème daaras",
       "delai": "2027-12-31",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-26",
+          "text": "Conclusions du Conseil interministériel sur la préparation de la rentrée scolaire 2026 présidé par le Premier ministre : accélération de la cartographie nationale des Daaras, modernisation de l'offre éducative avec le PAMOD et validation des textes sur le statut des maîtres coraniques.",
+          "description": "Conclusions du Conseil interministériel sur la préparation de la rentrée scolaire 2026 présidé par le Premier ministre : accélération de la cartographie nationale des Daaras, modernisation de l'offre éducative avec le PAMOD et validation des textes sur le statut des maîtres coraniques.",
+          "source": "Primature (26-09-2026)"
+        }
+      ]
     },
     {
       "id": "promise_232",
@@ -3303,7 +3650,14 @@
       "resultat": "Renforcement capacités pédagogiques",
       "delai": "2026-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-26",
+          "text": "Conclusions du Conseil interministériel sur la préparation de la rentrée scolaire 2026 présidé par le Premier ministre : accélération de la cartographie nationale des Daaras, modernisation de l'offre éducative avec le PAMOD et validation des textes sur le statut des maîtres coraniques.",
+          "description": "Conclusions du Conseil interministériel sur la préparation de la rentrée scolaire 2026 présidé par le Premier ministre : accélération de la cartographie nationale des Daaras, modernisation de l'offre éducative avec le PAMOD et validation des textes sur le statut des maîtres coraniques.",
+          "source": "Primature (26-09-2026)"
+        }
+      ]
     },
     {
       "id": "promise_233",
@@ -3339,7 +3693,14 @@
       "resultat": "Accès services adaptés",
       "delai": "2025-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-09-25",
+          "text": "Décentralisation des commissions de délivrance de la Carte d'Égalité des Chances (CEC) dans les régions pour fluidifier l'accès effectif à la gratuité des soins et à l'appareillage pour les personnes à mobilité réduite.",
+          "description": "Décentralisation des commissions de délivrance de la Carte d'Égalité des Chances (CEC) dans les régions pour fluidifier l'accès effectif à la gratuité des soins et à l'appareillage pour les personnes à mobilité réduite.",
+          "source": "Ministère de la Famille et des Solidarités"
+        }
+      ]
     },
     {
       "id": "promise_237",
@@ -3402,8 +3763,15 @@
       "engagement": "Renforcer ANAQ-Sup (assurance qualité, certification, labellisation)",
       "resultat": "Amélioration qualité enseignement",
       "delai": "2026-04-02",
-      "status": "non-lance",
-      "mises_a_jour": []
+      "status": "encours",
+      "mises_a_jour": [
+        {
+          "date": "2026-09-15",
+          "text": "Renforcement des directives opérationnelles de l'Autorité Nationale d'Assurance Qualité de l'Enseignement Supérieur (ANAQ-Sup) pour le contrôle périodique et l'accréditation obligatoire de tous les programmes d'études universitaires.",
+          "description": "Renforcement des directives opérationnelles de l'Autorité Nationale d'Assurance Qualité de l'Enseignement Supérieur (ANAQ-Sup) pour le contrôle périodique et l'accréditation obligatoire de tous les programmes d'études universitaires.",
+          "source": "MESRI / Conseil des Ministres"
+        }
+      ]
     },
     {
       "id": "promise_243",
@@ -3420,8 +3788,15 @@
       "engagement": "Réformer système agréments et suivi établissements privés",
       "resultat": "Qualité offre privée",
       "delai": "2026-04-02",
-      "status": "non-lance",
-      "mises_a_jour": []
+      "status": "encours",
+      "mises_a_jour": [
+        {
+          "date": "2026-10-02",
+          "text": "Publication par le Ministère de l’Enseignement supérieur, de la Recherche et de l’Innovation (MESRI) d'une première liste officielle de 34 établissements privés d’enseignement supérieur non reconnus par l’État. Lancement d'une opération rigoureuse d'assainissement, de contrôle des autorisations d'ouverture et d'agréments des diplômes.",
+          "description": "Publication par le Ministère de l’Enseignement supérieur, de la Recherche et de l’Innovation (MESRI) d'une première liste officielle de 34 établissements privés d’enseignement supérieur non reconnus par l’État. Lancement d'une opération rigoureuse d'assainissement, de contrôle des autorisations d'ouverture et d'agréments des diplômes.",
+          "source": "MESRI / APS (02-10-2026)"
+        }
+      ]
     },
     {
       "id": "promise_245",
@@ -3443,8 +3818,15 @@
       "engagement": "Créer universités technologiques selon 8 pôles développement",
       "resultat": "Formation adaptée spécificités régionales",
       "delai": "2029-04-02",
-      "status": "non-lance",
-      "mises_a_jour": []
+      "status": "encours",
+      "mises_a_jour": [
+        {
+          "date": "2026-09-18",
+          "text": "Intégration dans la feuille de route de la Vision 2050 du projet de déploiement d'universités et instituts technologiques spécialisés dans chacun des 8 pôles régionaux de développement (agroalimentaire, mines, numérique, halieutique).",
+          "description": "Intégration dans la feuille de route de la Vision 2050 du projet de déploiement d'universités et instituts technologiques spécialisés dans chacun des 8 pôles régionaux de développement (agroalimentaire, mines, numérique, halieutique).",
+          "source": "Présidence / MESRI"
+        }
+      ]
     },
     {
       "id": "promise_247",
@@ -3639,7 +4021,14 @@
       "resultat": "Protection sociale santé universelle",
       "delai": "2026-04-02",
       "status": "encours",
-      "mises_a_jour": []
+      "mises_a_jour": [
+        {
+          "date": "2026-10-02",
+          "text": "Audit approfondi de la dette hospitalière de l'Agence de la CMU/CSU et redéfinition des mécanismes de subvention et de tarification sociale pour garantir l'accès universel aux soins d'urgence.",
+          "description": "Audit approfondi de la dette hospitalière de l'Agence de la CMU/CSU et redéfinition des mécanismes de subvention et de tarification sociale pour garantir l'accès universel aux soins d'urgence.",
+          "source": "Ministère de la Santé et de l’Action Sociale"
+        }
+      ]
     },
     {
       "id": "promise_265",
@@ -3658,6 +4047,12 @@
       "delai": "2025-04-02",
       "status": "encours",
       "mises_a_jour": [
+        {
+          "date": "2026-09-25",
+          "text": "Décentralisation des commissions de délivrance de la Carte d'Égalité des Chances (CEC) dans les régions pour fluidifier l'accès effectif à la gratuité des soins et à l'appareillage pour les personnes à mobilité réduite.",
+          "description": "Décentralisation des commissions de délivrance de la Carte d'Égalité des Chances (CEC) dans les régions pour fluidifier l'accès effectif à la gratuité des soins et à l'appareillage pour les personnes à mobilité réduite.",
+          "source": "Ministère de la Famille et des Solidarités"
+        },
         {
           "date": "2025-12-10",
           "text": "L'Agence de la Couverture Sanitaire Universelle a pris en charge 2 403 titulaires de la carte d'égalité des chances à Dakar et 2 862 à Thiès, avec 13 400 autres en cours d'enrôlement dans les autres régions. (Source : APS, 2025-12-10)"

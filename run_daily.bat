@@ -9,7 +9,12 @@ echo [%date% %time%] Demarrage du scraping en direct...
 echo (Les logs sont aussi enregistres dans daily_run.log)
 echo.
 
+echo --- [1/2] Revue de presse quotidienne ---
 node scripts/download_revue.js %*
+
+echo.
+echo --- [2/2] Mise a jour des engagements et rapprochement des actualites ---
+node scripts/update_promises_from_actualites.js %*
 
 echo.
 echo ===================================================

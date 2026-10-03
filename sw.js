@@ -3,8 +3,8 @@
 // Network-First pour HTML, Cache-First pour assets statiques
 // ============================================================
 
-const STATIC_CACHE = 'projetbi-static-v106';
-const DATA_CACHE   = 'projetbi-data-v106';
+const STATIC_CACHE = 'projetbi-static-v107';
+const DATA_CACHE   = 'projetbi-data-v107';
 
 // Base du SW — fonctionne en racine ou sous-dossier
 const BASE = self.registration.scope;
@@ -78,7 +78,7 @@ self.addEventListener('activate', event => {
       .then(() => self.clients.claim())
       .then(() => self.clients.matchAll({ type: 'window' }))
       .then(clients => {
-        clients.forEach(client => client.postMessage({ type: 'SW_UPDATED', version: 'v106' }));
+        clients.forEach(client => client.postMessage({ type: 'SW_UPDATED', version: 'v107' }));
       })
   );
 });
