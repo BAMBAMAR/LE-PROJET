@@ -4580,7 +4580,17 @@ async function studioPublishFacebook() {
         if (feedback) {
           feedback.style.background = 'rgba(239,68,68,0.15)';
           feedback.style.color = '#F87171';
-          feedback.innerHTML = `<i class="fas fa-times-circle"></i> Erreur lors de la publication : ${escH(postErr.message)}`;
+          const isExpired = postErr.message && (postErr.message.includes('expired') || postErr.message.includes('Session') || postErr.message.includes('190') || postErr.message.includes('OAuthException'));
+          feedback.innerHTML = `
+            <div><i class="fas fa-times-circle"></i> <strong>Erreur Facebook :</strong> ${escH(postErr.message)}</div>
+            ${isExpired ? `
+              <div style="margin-top:.6rem;padding:.5rem;background:rgba(239,68,68,0.12);border-radius:6px;font-size:.76rem">
+                <i class="fas fa-key"></i> <strong>Le jeton d'accès Facebook a expiré.</strong><br>
+                <button class="btn btn-outline btn-xs" onclick="openFacebookConfigModal()" style="margin-top:.35rem;color:#F87171;border-color:#F87171">
+                  <i class="fas fa-cog"></i> Mettre à jour le jeton d'accès
+                </button>
+              </div>` : ''}
+          `;
         }
         toast(`Erreur Facebook : ${postErr.message}`, 'error');
       } finally {
