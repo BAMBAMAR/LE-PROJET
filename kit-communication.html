@@ -535,229 +535,304 @@ function roundRect(ctx, x, y, w, h, r, fill) {
 }
 
 function drawHeader(ctx, titre, sous, periode) {
+    // Ruban tricolore officiel
+    const barH = 7;
+    ctx.fillStyle = '#00853F'; ctx.fillRect(0, 0, 360, barH);
+    ctx.fillStyle = '#FDEF42'; ctx.fillRect(360, 0, 360, barH);
+    ctx.fillStyle = '#E31B23'; ctx.fillRect(720, 0, 360, barH);
+
     // Logo zone
-    roundRect(ctx, 54, 54, 180, 60, 12, 'rgba(255,255,255,0.15)');
-    ctx.fillStyle = 'white';
-    ctx.font = 'bold 28px Arial';
-    ctx.fillText('PROJETBI', 75, 92);
+    roundRect(ctx, 54, 54, 220, 56, 12, 'rgba(8, 28, 17, 0.85)');
+    ctx.strokeStyle = 'rgba(201, 168, 76, 0.45)';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+
+    ctx.fillStyle = '#00B054'; ctx.font = '900 18px "DM Sans", sans-serif'; ctx.fillText('J', 72, 88);
+    ctx.fillStyle = '#FFD700'; ctx.fillText('J', 86, 88);
+    ctx.fillStyle = '#E31B23'; ctx.fillText('J', 100, 88);
+    ctx.fillStyle = 'white'; ctx.font = '900 18px "DM Sans", sans-serif'; ctx.fillText('PROJETBI', 120, 88);
 
     // Titre principal
     ctx.fillStyle = 'white';
-    ctx.font = 'bold 68px Arial';
+    ctx.font = 'bold 64px "Playfair Display", Georgia, serif';
     ctx.textAlign = 'center';
-    ctx.fillText(titre, 540, 200);
+    ctx.fillText(titre, 540, 195);
 
     if (sous) {
-        ctx.font = '36px Arial';
-        ctx.fillStyle = 'rgba(255,255,255,0.8)';
-        ctx.fillText(sous, 540, 255);
+        ctx.font = '500 32px "DM Sans", sans-serif';
+        ctx.fillStyle = 'rgba(215, 234, 223, 0.85)';
+        ctx.fillText(sous, 540, 250);
     }
 
     // Date badge
-    roundRect(ctx, 380, 290, 300, 44, 22, 'rgba(255,255,255,0.18)');
-    ctx.fillStyle = 'rgba(255,255,255,0.9)';
-    ctx.font = 'bold 22px Arial';
-    ctx.fillText(periode, 540, 319);
+    roundRect(ctx, 360, 285, 360, 44, 22, 'rgba(201, 168, 76, 0.18)');
+    ctx.strokeStyle = '#C9A84C'; ctx.lineWidth = 1.2; ctx.stroke();
+    ctx.fillStyle = '#FFE9A3';
+    ctx.font = 'bold 20px "DM Sans", sans-serif';
+    ctx.fillText(periode.toUpperCase(), 540, 314);
 
     ctx.textAlign = 'left';
+}
+
+function drawSenegalFlag(ctx, x, y, w, h, r = 3) {
+    ctx.save();
+    if (r > 0) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+        ctx.lineTo(x + r, y + h);
+        ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+        ctx.lineTo(x, y + r);
+        ctx.quadraticCurveTo(x, y, x + r, y);
+        ctx.closePath();
+        ctx.clip();
+    }
+    const stripeW = w / 3;
+    ctx.fillStyle = '#00853F'; ctx.fillRect(x, y, stripeW, h);
+    ctx.fillStyle = '#FDEF42'; ctx.fillRect(x + stripeW, y, stripeW, h);
+    ctx.fillStyle = '#E31B23'; ctx.fillRect(x + stripeW * 2, y, stripeW + 1, h);
+    ctx.fillStyle = '#00853F';
+    ctx.font = `900 ${Math.max(7, Math.round(h * 0.48))}px "DM Sans", sans-serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('★', x + stripeW * 1.5, y + h / 2);
+    ctx.restore();
+
+    ctx.save();
+    ctx.strokeStyle = 'rgba(229, 184, 66, 0.50)'; ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+    ctx.stroke();
+    ctx.restore();
 }
 
 function drawFooter(ctx) {
-    roundRect(ctx, 0, 980, 1080, 100, 0, 'rgba(0,0,0,0.3)');
-    ctx.fillStyle = 'rgba(255,255,255,0.7)';
-    ctx.font = '24px Arial';
-    ctx.textAlign = 'center';
-    ctx.fillText('🌐 projetbi.org  |  Gardiens du Projet PASTEF  |  Jub · Jubal · Jubanti', 540, 1035);
+    roundRect(ctx, 0, 985, 1080, 95, 0, 'rgba(3, 14, 8, 0.96)');
+    const lineG = ctx.createLinearGradient(0, 985, 1080, 985);
+    lineG.addColorStop(0, 'rgba(201,168,76,0.1)');
+    lineG.addColorStop(0.5, 'rgba(201,168,76,0.6)');
+    lineG.addColorStop(1, 'rgba(201,168,76,0.1)');
+    ctx.fillStyle = lineG;
+    ctx.fillRect(0, 985, 1080, 1.5);
+
+    const leftText = '🌐 projetbi.org  •  Plateforme Citoyenne Indépendante  •  Jub · Jubal · Jubanti';
+    ctx.font = '500 20px "DM Sans", sans-serif';
+    const textW = ctx.measureText(leftText).width;
+    const flagW = 26, flagH = 17;
+    const totalW = textW + 12 + flagW;
+    const startX = (1080 - totalW) / 2;
+
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
     ctx.textAlign = 'left';
+    ctx.fillText(leftText, startX, 1042);
+    drawSenegalFlag(ctx, startX + textW + 12, 1027, flagW, flagH, 3);
 }
 
 function statBox(ctx, x, y, w, h, val, label, color, icon) {
-    roundRect(ctx, x, y, w, h, 20, color);
-    ctx.fillStyle = 'rgba(255,255,255,0.15)';
-    ctx.font = '44px Arial';
-    ctx.textAlign = 'center';
-    ctx.fillText(icon, x + w/2, y + 58);
+    roundRect(ctx, x, y, w, h, 18, 'rgba(8, 28, 17, 0.85)');
+    roundRect(ctx, x, y, w, 5, 2.5, color);
+    ctx.strokeStyle = 'rgba(255,255,255,0.10)'; ctx.lineWidth = 1; ctx.stroke();
+
     ctx.fillStyle = 'white';
-    ctx.font = 'bold 72px Arial';
-    ctx.fillText(String(val), x + w/2, y + 148);
-    ctx.font = '26px Arial';
-    ctx.fillStyle = 'rgba(255,255,255,0.85)';
-    ctx.fillText(label, x + w/2, y + 190);
+    ctx.font = 'bold 64px "DM Sans", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(String(val), x + w/2, y + 105);
+
+    ctx.fillStyle = color;
+    ctx.font = 'bold 20px "DM Sans", sans-serif';
+    ctx.fillText(icon + ' ' + label, x + w/2, y + 155);
+
     ctx.textAlign = 'left';
 }
 
 function drawBilan(ctx, s, taux) {
-    gradBg(ctx, '#1A3D28', '#2D5F3F');
+    gradBg(ctx, '#031409', '#082D18');
 
     // Déco géométrique
-    ctx.fillStyle = 'rgba(201,168,76,0.08)';
+    ctx.fillStyle = 'rgba(201,168,76,0.06)';
     ctx.beginPath(); ctx.arc(1080, 0, 400, 0, Math.PI*2); ctx.fill();
     ctx.beginPath(); ctx.arc(0, 1080, 300, 0, Math.PI*2); ctx.fill();
 
     drawHeader(ctx, 'BILAN DES ENGAGEMENTS', s.sous, s.periode);
 
     // 4 stat boxes
-    const boxW = 234, boxH = 220, gap = 20, startX = 54, startY = 370;
-    statBox(ctx, startX, startY, boxW, boxH, s.realise, 'Réalisés', '#1E7A45', '✅');
-    statBox(ctx, startX + boxW + gap, startY, boxW, boxH, s.encours, 'En cours', '#2563A8', '🔄');
-    statBox(ctx, startX + (boxW + gap)*2, startY, boxW, boxH, s.nonLance, 'Non lancés', '#5B4E1A', '⏳');
-    statBox(ctx, startX + (boxW + gap)*3, startY, boxW, boxH, s.retard, 'En retard', '#8B1A1A', '⚠️');
+    const boxW = 234, boxH = 200, gap = 20, startX = 54, startY = 360;
+    statBox(ctx, startX, startY, boxW, boxH, s.realise, 'Réalisés', '#10B981', '✓');
+    statBox(ctx, startX + boxW + gap, startY, boxW, boxH, s.encours, 'En cours', '#38BDF8', '⚡');
+    statBox(ctx, startX + (boxW + gap)*2, startY, boxW, boxH, s.nonLance, 'Non lancés', '#FCD34D', '⏳');
+    statBox(ctx, startX + (boxW + gap)*3, startY, boxW, boxH, s.retard, 'En retard', '#F87171', '⚠️');
 
     // Taux de réalisation
-    roundRect(ctx, 54, 620, 972, 120, 20, 'rgba(255,255,255,0.12)');
-    ctx.fillStyle = 'white';
-    ctx.font = 'bold 42px Arial';
+    roundRect(ctx, 54, 590, 972, 190, 18, 'rgba(8, 28, 17, 0.88)');
+    ctx.strokeStyle = 'rgba(201,168,76,0.35)'; ctx.lineWidth = 1.2; ctx.stroke();
+
+    ctx.fillStyle = '#D7EADF';
+    ctx.font = 'bold 24px "DM Sans", sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('TAUX DE RÉALISATION GLOBAL', 540, 672);
-    ctx.font = 'bold 88px Arial';
-    ctx.fillStyle = '#C9A84C';
-    ctx.fillText(taux + '%', 540, 760);
+    ctx.fillText('TAUX DE RÉALISATION DU PROGRAMME', 540, 640);
+
+    ctx.font = '900 84px "DM Sans", sans-serif';
+    ctx.fillStyle = '#E5B842';
+    ctx.fillText(taux + '%', 540, 725);
 
     // Barre de progression
-    roundRect(ctx, 54, 780, 972, 28, 14, 'rgba(255,255,255,0.15)');
+    roundRect(ctx, 84, 800, 912, 24, 12, 'rgba(255,255,255,0.12)');
     if (taux > 0) {
-        const barW = Math.min(972 * taux / 100, 972);
-        const gBar = ctx.createLinearGradient(54, 0, 54 + barW, 0);
-        gBar.addColorStop(0, '#C9A84C');
-        gBar.addColorStop(1, '#F5E6B8');
-        roundRect(ctx, 54, 780, barW, 28, 14, gBar);
+        const barW = Math.min(912 * taux / 100, 912);
+        const gBar = ctx.createLinearGradient(84, 0, 84 + barW, 0);
+        gBar.addColorStop(0, '#B45309');
+        gBar.addColorStop(1, '#10B981');
+        roundRect(ctx, 84, 800, barW, 24, 12, gBar);
     }
 
-    ctx.textAlign = 'left';
-    drawFooter(ctx);
-
     // Total badge
-    roundRect(ctx, 400, 830, 280, 100, 16, 'rgba(255,255,255,0.12)');
+    roundRect(ctx, 360, 850, 360, 80, 16, 'rgba(8, 28, 17, 0.80)');
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)'; ctx.lineWidth = 1; ctx.stroke();
     ctx.fillStyle = 'white';
-    ctx.font = 'bold 56px Arial';
+    ctx.font = 'bold 36px "DM Sans", sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(s.total, 540, 900);
-    ctx.font = '28px Arial';
-    ctx.fillStyle = 'rgba(255,255,255,0.7)';
-    ctx.fillText('ENGAGEMENTS TOTAUX', 540, 932);
+    ctx.fillText(`${s.total} ENGAGEMENTS SUIVIS`, 540, 902);
     ctx.textAlign = 'left';
+
+    drawFooter(ctx);
 }
 
 function drawTaux(ctx, s, taux) {
-    gradBg(ctx, '#1A2B5E', '#2D3F8F');
+    gradBg(ctx, '#031409', '#082D18');
     ctx.fillStyle = 'rgba(201,168,76,0.06)';
     ctx.beginPath(); ctx.arc(540, 540, 500, 0, Math.PI*2); ctx.fill();
 
-    drawHeader(ctx, 'TAUX DE RÉALISATION', s.sous, s.periode);
+    drawHeader(ctx, 'TAUX D’AVANCEMENT', s.sous, s.periode);
 
     // Cercle jauge
-    const cx = 540, cy = 640, r = 260;
-    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
-    ctx.lineWidth = 40;
+    const cx = 540, cy = 630, r = 240;
+    ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+    ctx.lineWidth = 36;
     ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2); ctx.stroke();
 
     const angle = (taux / 100) * Math.PI * 2 - Math.PI / 2;
     const g = ctx.createLinearGradient(cx - r, cy, cx + r, cy);
-    g.addColorStop(0, '#C9A84C');
-    g.addColorStop(1, '#F5E6B8');
+    g.addColorStop(0, '#B45309');
+    g.addColorStop(1, '#10B981');
     ctx.strokeStyle = g;
-    ctx.lineWidth = 40;
+    ctx.lineWidth = 36;
     ctx.lineCap = 'round';
     ctx.beginPath();
     ctx.arc(cx, cy, r, -Math.PI / 2, angle);
     ctx.stroke();
 
-    ctx.fillStyle = 'white';
-    ctx.font = 'bold 120px Arial';
+    ctx.fillStyle = '#FFE9A3';
+    ctx.font = '900 110px "DM Sans", sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(taux + '%', cx, cy + 40);
-    ctx.font = '32px Arial';
-    ctx.fillStyle = 'rgba(255,255,255,0.7)';
-    ctx.fillText('des engagements avancent', cx, cy + 90);
+    ctx.fillText(taux + '%', cx, cy + 30);
 
-    ctx.font = 'bold 36px Arial';
-    ctx.fillStyle = '#C9A84C';
-    ctx.fillText(`${s.realise} réalisés sur ${s.total}`, cx, cy + 145);
+    ctx.font = '500 24px "DM Sans", sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.75)';
+    ctx.fillText('du programme présidentiel concrétisé', cx, cy + 80);
+
+    ctx.font = 'bold 30px "DM Sans", sans-serif';
+    ctx.fillStyle = '#10B981';
+    ctx.fillText(`✓ ${s.realise} réalisés sur un total de ${s.total}`, cx, cy + 130);
     ctx.textAlign = 'left';
 
     drawFooter(ctx);
 }
 
 function drawRetard(ctx, s, taux) {
-    gradBg(ctx, '#4A0F0F', '#8B1A1A');
-    ctx.fillStyle = 'rgba(201,168,76,0.06)';
+    gradBg(ctx, '#0E0404', '#260808');
+    ctx.fillStyle = 'rgba(239,68,68,0.06)';
     ctx.beginPath(); ctx.arc(1080, 1080, 500, 0, Math.PI*2); ctx.fill();
 
-    drawHeader(ctx, '⚠️ ALERTES RETARDS', s.sous, s.periode);
+    drawHeader(ctx, 'ALERTES & RETARDS', s.sous, s.periode);
 
     // Stats retard
-    roundRect(ctx, 54, 380, 460, 260, 20, 'rgba(255,255,255,0.12)');
-    ctx.fillStyle = '#FF8C8C';
-    ctx.font = 'bold 110px Arial';
+    roundRect(ctx, 54, 380, 460, 260, 18, 'rgba(30, 10, 10, 0.85)');
+    ctx.strokeStyle = '#EF4444'; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.fillStyle = '#F87171';
+    ctx.font = '900 100px "DM Sans", sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(s.retard, 284, 510);
+    ctx.fillText(s.retard, 284, 500);
     ctx.fillStyle = 'white';
-    ctx.font = 'bold 32px Arial';
-    ctx.fillText('Engagements en retard', 284, 560);
-    ctx.font = '26px Arial';
+    ctx.font = 'bold 28px "DM Sans", sans-serif';
+    ctx.fillText('Engagements en retard', 284, 550);
+    ctx.font = '500 22px "DM Sans", sans-serif';
     ctx.fillStyle = 'rgba(255,255,255,0.7)';
     const pct = Math.round((s.retard / s.total) * 100);
-    ctx.fillText(`soit ${pct}% du programme`, 284, 605);
+    ctx.fillText(`soit ${pct}% du programme`, 284, 595);
 
-    roundRect(ctx, 566, 380, 460, 260, 20, 'rgba(255,255,255,0.12)');
-    ctx.fillStyle = '#FFA500';
-    ctx.font = 'bold 110px Arial';
-    ctx.fillText(s.nonLance, 796, 510);
+    roundRect(ctx, 566, 380, 460, 260, 18, 'rgba(30, 20, 10, 0.85)');
+    ctx.strokeStyle = '#F59E0B'; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.fillStyle = '#FCD34D';
+    ctx.font = '900 100px "DM Sans", sans-serif';
+    ctx.fillText(s.nonLance, 796, 500);
     ctx.fillStyle = 'white';
-    ctx.font = 'bold 32px Arial';
-    ctx.fillText('Non encore lancés', 796, 560);
-    ctx.font = '26px Arial';
+    ctx.font = 'bold 28px "DM Sans", sans-serif';
+    ctx.fillText('Non encore lancés', 796, 550);
+    ctx.font = '500 22px "DM Sans", sans-serif';
     ctx.fillStyle = 'rgba(255,255,255,0.7)';
-    ctx.fillText(`${Math.round((s.nonLance / s.total) * 100)}% du programme`, 796, 605);
+    ctx.fillText(`${Math.round((s.nonLance / s.total) * 100)}% du programme`, 796, 595);
 
-    roundRect(ctx, 54, 670, 972, 90, 16, 'rgba(255,255,255,0.08)');
-    ctx.fillStyle = 'rgba(255,255,255,0.85)';
-    ctx.font = 'bold 36px Arial';
-    ctx.fillText(`Seuls ${s.realise} engagements réalisés sur ${s.total} — Taux : ${taux}%`, 540, 728);
+    roundRect(ctx, 54, 670, 972, 85, 16, 'rgba(255,255,255,0.06)');
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 28px "DM Sans", sans-serif';
+    ctx.fillText(`Seuls ${s.realise} engagements réalisés sur ${s.total} — Taux global : ${taux}%`, 540, 722);
 
-    roundRect(ctx, 54, 790, 972, 120, 16, 'rgba(201,168,76,0.2)');
-    ctx.fillStyle = '#C9A84C';
-    ctx.font = 'bold 32px Arial';
-    ctx.fillText('👉 Soutenez le Projet et suivez chaque engagement sur projetbi.org', 540, 845);
-    ctx.font = '26px Arial';
-    ctx.fillStyle = 'rgba(255,255,255,0.7)';
-    ctx.fillText('Sympathisants du Projet PASTEF — Gardiens des engagements de notre Président', 540, 888);
+    roundRect(ctx, 54, 780, 972, 130, 16, 'rgba(201,168,76,0.15)');
+    ctx.strokeStyle = '#E5B842'; ctx.lineWidth = 1.2; ctx.stroke();
+    ctx.fillStyle = '#FFE9A3';
+    ctx.font = 'bold 26px "DM Sans", sans-serif';
+    ctx.fillText('👉 Soutenez le Projet et suivez chaque engagement sur projetbi.org', 540, 835);
+    ctx.font = '500 20px "DM Sans", sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.75)';
+    ctx.fillText('Observatoire Citoyen Indépendant — Suivi transparent et rigoureux', 540, 875);
     ctx.textAlign = 'left';
     drawFooter(ctx);
 }
 
 function drawNote(ctx, s, taux) {
-    gradBg(ctx, '#1A3820', '#2D5F3F');
+    gradBg(ctx, '#031409', '#082D18');
     ctx.fillStyle = 'rgba(201,168,76,0.07)';
     ctx.beginPath(); ctx.arc(540, 400, 420, 0, Math.PI*2); ctx.fill();
 
     drawHeader(ctx, '⭐ NOTE CITOYENNE', s.sous, s.periode);
 
     // Note principale
-    ctx.fillStyle = '#C9A84C';
-    ctx.font = 'bold 200px Arial';
+    ctx.fillStyle = '#E5B842';
+    ctx.font = '900 180px "DM Sans", sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(s.note.toFixed(1), 540, 620);
+    ctx.fillText(s.note.toFixed(1), 540, 600);
     ctx.fillStyle = 'white';
-    ctx.font = 'bold 48px Arial';
-    ctx.fillText('/ 5', 540, 675);
+    ctx.font = 'bold 44px "DM Sans", sans-serif';
+    ctx.fillText('/ 5', 540, 655);
 
     // Étoiles
     const stars = 5;
     const starX = 540 - (stars * 55) / 2 + 25;
-    ctx.font = '70px Arial';
+    ctx.font = '60px "DM Sans", sans-serif';
     for (let i = 0; i < 5; i++) {
-        ctx.fillStyle = i < Math.round(s.note) ? '#C9A84C' : 'rgba(255,255,255,0.25)';
-        ctx.fillText('★', starX + i * 55, 760);
+        ctx.fillStyle = i < Math.round(s.note) ? '#E5B842' : 'rgba(255,255,255,0.20)';
+        ctx.fillText('★', starX + i * 55, 735);
     }
 
-    roundRect(ctx, 200, 800, 680, 110, 20, 'rgba(255,255,255,0.12)');
+    roundRect(ctx, 200, 780, 680, 110, 18, 'rgba(8, 28, 17, 0.88)');
+    ctx.strokeStyle = 'rgba(229,184,66,0.40)'; ctx.lineWidth = 1.2; ctx.stroke();
     ctx.fillStyle = 'white';
-    ctx.font = 'bold 32px Arial';
-    ctx.fillText(`Basé sur les votes des citoyens sénégalais`, 540, 850);
-    ctx.font = '26px Arial';
-    ctx.fillStyle = '#C9A84C';
-    ctx.fillText(`Évaluez un service public sur projetbi.org`, 540, 890);
+    ctx.font = 'bold 26px "DM Sans", sans-serif';
+    ctx.fillText(`Basé sur les votes des citoyens sénégalais`, 540, 830);
+    ctx.font = '500 20px "DM Sans", sans-serif';
+    ctx.fillStyle = '#FFE9A3';
+    ctx.fillText(`Évaluez un engagement public sur projetbi.org`, 540, 865);
 
     ctx.textAlign = 'left';
     drawFooter(ctx);

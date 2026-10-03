@@ -8,8 +8,7 @@
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700&family=Inter:wght@400;500;600;700;800&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700&family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" crossorigin="anonymous"></script>
 
@@ -865,10 +864,12 @@ textarea.form-control{resize:vertical;min-height:90px}
               </select>
             </div>
             <div style="display:flex;align-items:center;gap:.4rem">
-              <span><i class="fas fa-crop-simple" style="color:var(--blue)"></i> Format :</span>
+              <span><i class="fas fa-crop-simple" style="color:var(--blue)"></i> Format & Définition :</span>
               <select class="form-control" id="stRatioSelect" onchange="studioRenderAll()" style="padding:.25rem .6rem;font-size:.8rem;height:auto;width:auto">
-                <option value="1:1">Carré HD 1080×1080 (FB, Insta, X)</option>
-                <option value="16:9">Paysage 1200×675 (Twitter Card, Web)</option>
+                <option value="1:1" selected>Carré HD 1080×1080 (FB, Insta, X)</option>
+                <option value="1:1-2k">Carré Ultra-HD 2160×2160 (Retina 4K Studio)</option>
+                <option value="16:9">Paysage HD 1200×675 (Twitter Card, Web)</option>
+                <option value="16:9-2k">Paysage Ultra-HD 2400×1350 (Présentation 4K)</option>
               </select>
             </div>
             <div style="margin-left:auto;font-size:.75rem;color:var(--text3)">
@@ -3191,8 +3192,37 @@ function studioGetStats() {
   };
 }
 
-function studioRoundBox(ctx, x, y, w, h, r, fill, stroke, strokeW = 1) {
+/* ── Helpers Canvas Studio HD & Rendu Ultra-Prestige ── */
+
+function studioCreateGoldGradient(ctx, x, y, w, h, dir = 'diag') {
+  let g;
+  if (dir === 'horiz') g = ctx.createLinearGradient(x, y, x + w, y);
+  else if (dir === 'vert') g = ctx.createLinearGradient(x, y, x, y + h);
+  else g = ctx.createLinearGradient(x, y, x + w, y + h);
+  g.addColorStop(0.00, '#FFF6D1');
+  g.addColorStop(0.22, '#E5B842');
+  g.addColorStop(0.50, '#B88822');
+  g.addColorStop(0.78, '#F5DE88');
+  g.addColorStop(1.00, '#C9982E');
+  return g;
+}
+
+function studioCreateEmeraldGradient(ctx, x, y, w, h) {
+  const g = ctx.createLinearGradient(x, y, x, y + h);
+  g.addColorStop(0.0, '#10B981');
+  g.addColorStop(0.5, '#059669');
+  g.addColorStop(1.0, '#047857');
+  return g;
+}
+
+function studioRoundBox(ctx, x, y, w, h, r, fill, stroke, strokeW = 1, shadow = false) {
   ctx.save();
+  if (shadow) {
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.50)';
+    ctx.shadowBlur = 24;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 8;
+  }
   ctx.beginPath();
   ctx.moveTo(x + r, y);
   ctx.lineTo(x + w - r, y);
@@ -3205,7 +3235,204 @@ function studioRoundBox(ctx, x, y, w, h, r, fill, stroke, strokeW = 1) {
   ctx.quadraticCurveTo(x, y, x + r, y);
   ctx.closePath();
   if (fill) { ctx.fillStyle = fill; ctx.fill(); }
-  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = strokeW; ctx.stroke(); }
+  if (shadow) {
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+  }
+  if (stroke && stroke !== 'transparent') {
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = strokeW;
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+function studioGlassCard(ctx, x, y, w, h, r, c) {
+  ctx.save();
+  // 1. Ombre douce portée pour détacher la carte avec prestige
+  ctx.shadowColor = 'rgba(0, 0, 0, 0.60)';
+  ctx.shadowBlur = 38;
+  ctx.shadowOffsetX = 0;
+  ctx.shadowOffsetY = 14;
+
+  // 2. Fond en verre dégradé souverain
+  let bgGrad;
+  if (c.isDark) {
+    bgGrad = ctx.createLinearGradient(x, y, x, y + h);
+    bgGrad.addColorStop(0, 'rgba(8, 28, 17, 0.88)');
+    bgGrad.addColorStop(0.5, 'rgba(5, 20, 12, 0.93)');
+    bgGrad.addColorStop(1, 'rgba(3, 14, 8, 0.97)');
+  } else {
+    bgGrad = ctx.createLinearGradient(x, y, x, y + h);
+    bgGrad.addColorStop(0, '#FFFFFF');
+    bgGrad.addColorStop(1, '#F7FAF8');
+  }
+  studioRoundBox(ctx, x, y, w, h, r, bgGrad, c.borderCard, 1.5, true);
+
+  // 3. Ligne de brillance supérieure (inner sheen frosted glow)
+  const sheenGrad = ctx.createLinearGradient(x + 20, y + 1, x + w - 20, y + 1);
+  sheenGrad.addColorStop(0, 'rgba(255,255,255,0)');
+  sheenGrad.addColorStop(0.3, c.isDark ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.85)');
+  sheenGrad.addColorStop(0.7, c.isDark ? 'rgba(229,184,66,0.30)' : 'rgba(201,168,76,0.35)');
+  sheenGrad.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.strokeStyle = sheenGrad;
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(x + r, y + 1);
+  ctx.lineTo(x + w - r, y + 1);
+  ctx.stroke();
+
+  // 4. Ruban d'or républicain au sommet avec dégradé métallique
+  const goldTop = studioCreateGoldGradient(ctx, x + 30, y, w - 60, 3, 'horiz');
+  studioRoundBox(ctx, x + 30, y, w - 60, 3, 1.5, goldTop, 'transparent');
+
+  ctx.restore();
+}
+
+function studioDrawCornerBrackets(ctx, x, y, w, h, size, color) {
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.5;
+  // Top-left
+  ctx.beginPath();
+  ctx.moveTo(x, y + size); ctx.lineTo(x, y); ctx.lineTo(x + size, y);
+  ctx.stroke();
+  // Top-right
+  ctx.beginPath();
+  ctx.moveTo(x + w - size, y); ctx.lineTo(x + w, y); ctx.lineTo(x + w, y + size);
+  ctx.stroke();
+  // Bottom-left
+  ctx.beginPath();
+  ctx.moveTo(x, y + h - size); ctx.lineTo(x, y + h); ctx.lineTo(x + size, y + h);
+  ctx.stroke();
+  // Bottom-right
+  ctx.beginPath();
+  ctx.moveTo(x + w - size, y + h); ctx.lineTo(x + w, y + h); ctx.lineTo(x + w, y + h - size);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function studioDrawWatermark(ctx, cx, cy, c) {
+  ctx.save();
+  const stroke = c.isDark ? 'rgba(229, 184, 66, 0.035)' : 'rgba(10, 35, 21, 0.038)';
+  ctx.strokeStyle = stroke;
+  ctx.lineWidth = 1;
+
+  // Cercles gravés concentriques
+  [90, 160, 230, 310, 390].forEach(r => {
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.stroke();
+  });
+
+  // Rayons guillochés subtils
+  ctx.save();
+  ctx.translate(cx, cy);
+  for (let a = 0; a < 360; a += 15) {
+    ctx.rotate((15 * Math.PI) / 180);
+    ctx.beginPath();
+    ctx.moveTo(0, 310);
+    ctx.lineTo(0, 335);
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  // Grand sceau étoile centrale de la République
+  ctx.fillStyle = c.isDark ? 'rgba(229, 184, 66, 0.030)' : 'rgba(10, 35, 21, 0.032)';
+  ctx.font = '900 180px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('★', cx, cy - 8);
+
+  ctx.restore();
+}
+
+function studioDrawTricolorBar(ctx, w, h, isLandscape) {
+  const barH = isLandscape ? 6 : 7;
+  // Vert Sénégal
+  const gV = ctx.createLinearGradient(0, 0, 0, barH);
+  gV.addColorStop(0, '#00B054'); gV.addColorStop(1, '#006E34');
+  ctx.fillStyle = gV; ctx.fillRect(0, 0, w / 3, barH);
+
+  // Jaune d'Or Sénégal
+  const gJ = ctx.createLinearGradient(0, 0, 0, barH);
+  gJ.addColorStop(0, '#FFF259'); gJ.addColorStop(1, '#E5B800');
+  ctx.fillStyle = gJ; ctx.fillRect(w / 3, 0, w / 3, barH);
+
+  // Rouge Sénégal
+  const gR = ctx.createLinearGradient(0, 0, 0, barH);
+  gR.addColorStop(0, '#FF3843'); gR.addColorStop(1, '#C7141C');
+  ctx.fillStyle = gR; ctx.fillRect((w / 3) * 2, 0, w / 3, barH);
+
+  // Micro-étoile verte au centre du jaune
+  ctx.fillStyle = '#00853F';
+  ctx.font = '900 7px Inter, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('★', w / 2, barH / 2);
+
+  // Liseré d'or en-dessous
+  const lineG = ctx.createLinearGradient(0, barH, w, barH);
+  lineG.addColorStop(0, 'rgba(229, 184, 66, 0.1)');
+  lineG.addColorStop(0.5, 'rgba(229, 184, 66, 0.6)');
+  lineG.addColorStop(1, 'rgba(229, 184, 66, 0.1)');
+  ctx.fillStyle = lineG;
+  ctx.fillRect(0, barH, w, 1);
+}
+
+function studioDrawSenegalFlag(ctx, x, y, w, h, r = 3) {
+  ctx.save();
+  if (r > 0) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+    ctx.clip();
+  }
+
+  const stripeW = w / 3;
+  // Vert Sénégal
+  ctx.fillStyle = '#00853F';
+  ctx.fillRect(x, y, stripeW, h);
+  // Jaune Sénégal
+  ctx.fillStyle = '#FDEF42';
+  ctx.fillRect(x + stripeW, y, stripeW, h);
+  // Rouge Sénégal
+  ctx.fillStyle = '#E31B23';
+  ctx.fillRect(x + stripeW * 2, y, stripeW + 1, h);
+
+  // Étoile verte 5 branches au centre
+  ctx.fillStyle = '#00853F';
+  ctx.font = `900 ${Math.max(7, Math.round(h * 0.48))}px "Plus Jakarta Sans", Inter, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText('★', x + stripeW * 1.5, y + h / 2);
+
+  ctx.restore();
+
+  // Fine bordure dorée/lumineuse
+  ctx.save();
+  ctx.strokeStyle = 'rgba(229, 184, 66, 0.50)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+  ctx.stroke();
   ctx.restore();
 }
 
@@ -3220,7 +3447,6 @@ function studioWrapText(ctx, text, x, y, maxW, lineH, maxLines = 10) {
       lines.push(line);
       line = words[i];
       if (lines.length >= maxLines - 1) {
-        // Derniere ligne autorisee : couper avec …
         let rest = words.slice(i).join(' ');
         while (ctx.measureText(rest + '…').width > maxW && rest.length > 0) {
           rest = rest.substring(0, rest.length - 4);
@@ -3249,7 +3475,7 @@ function studioGetThemeColors(theme) {
       bgCard: '#FFFFFF',
       borderCard: '#D1DDD6',
       borderSubtle: '#E5EDE8',
-      textPrimary: '#0D1B14',    // Vert-noir encre officiel tokens.css
+      textPrimary: '#0D1B14',
       textSecondary: '#244030',
       textMuted: '#526D5E',
       accentGold: '#C9A84C',
@@ -3276,8 +3502,8 @@ function studioGetThemeColors(theme) {
     return {
       name: 'dark_minimal',
       isDark: true,
-      bg: '#090B0D',
-      bgCard: '#13171A',
+      bg: '#080B0E',
+      bgCard: '#12171B',
       borderCard: '#272E33',
       borderSubtle: '#1C2226',
       textPrimary: '#FAFAFA',
@@ -3285,7 +3511,7 @@ function studioGetThemeColors(theme) {
       textMuted: '#7E8B95',
       accentGold: '#EAB308',
       accentBrand: '#FAFAFA',
-      boxBg: '#191F24',
+      boxBg: '#181F24',
       boxBorder: '#2E3840',
       badgeBg: '#222B32',
       badgeBorder: '#3C4954',
@@ -3307,31 +3533,31 @@ function studioGetThemeColors(theme) {
     return {
       name: 'projetbi_prestige',
       isDark: true,
-      bg: '#05160D',
-      bgCard: 'rgba(255, 255, 255, 0.045)',
-      borderCard: 'rgba(201, 168, 76, 0.35)',
-      borderSubtle: 'rgba(255, 255, 255, 0.08)',
+      bg: '#021207',
+      bgCard: 'rgba(8, 28, 17, 0.88)',
+      borderCard: 'rgba(229, 184, 66, 0.40)',
+      borderSubtle: 'rgba(255, 255, 255, 0.09)',
       textPrimary: '#FFFFFF',
-      textSecondary: '#D5E8DD',
-      textMuted: 'rgba(255, 255, 255, 0.65)',
-      accentGold: '#C9A84C',
+      textSecondary: '#D7EADF',
+      textMuted: 'rgba(215, 234, 223, 0.72)',
+      accentGold: '#E5B842',
       accentBrand: '#4ADE80',
-      boxBg: 'rgba(6, 22, 13, 0.72)',
-      boxBorder: 'rgba(255, 255, 255, 0.11)',
-      badgeBg: 'rgba(201, 168, 76, 0.14)',
-      badgeBorder: 'rgba(201, 168, 76, 0.50)',
-      badgeText: '#F5E2A8',
-      ctaBg: 'rgba(45, 95, 63, 0.85)',
-      ctaBorder: '#C9A84C',
-      ctaText: '#FBF4DD',
-      footerBg: 'rgba(4, 14, 8, 0.95)',
-      footerBorder: 'rgba(201, 168, 76, 0.25)',
+      boxBg: 'rgba(6, 24, 14, 0.78)',
+      boxBorder: 'rgba(255, 255, 255, 0.12)',
+      badgeBg: 'rgba(229, 184, 66, 0.15)',
+      badgeBorder: 'rgba(229, 184, 66, 0.55)',
+      badgeText: '#FFE9A3',
+      ctaBg: 'rgba(22, 60, 38, 0.90)',
+      ctaBorder: '#E5B842',
+      ctaText: '#FFFBF0',
+      footerBg: 'rgba(3, 14, 8, 0.96)',
+      footerBorder: 'rgba(229, 184, 66, 0.30)',
       footerText: '#FFFFFF',
-      footerMuted: 'rgba(213, 232, 221, 0.7)',
-      starColor: '#C9A84C',
-      mottoColor: '#C9A84C',
-      milestoneActive: '#4ADE80',
-      milestoneLine: 'rgba(255, 255, 255, 0.18)'
+      footerMuted: 'rgba(215, 234, 223, 0.72)',
+      starColor: '#E5B842',
+      mottoColor: '#E5B842',
+      milestoneActive: '#10B981',
+      milestoneLine: 'rgba(255, 255, 255, 0.20)'
     };
   }
 }
@@ -3343,52 +3569,60 @@ function studioDrawBackground(ctx, theme, w, h) {
 
   if (c.isDark) {
     if (c.name === 'projetbi_prestige') {
-      // Dégradé Souverain Vert République (Identité ProjetBI)
+      // Dégradé Souverain Vert République Profond & Magnétique
       let g = ctx.createLinearGradient(0, 0, w, h);
-      g.addColorStop(0, '#04130A');
-      g.addColorStop(0.35, '#0A2516');
-      g.addColorStop(0.7, '#071F12');
-      g.addColorStop(1, '#031007');
+      g.addColorStop(0.00, '#021207');
+      g.addColorStop(0.35, '#062615');
+      g.addColorStop(0.70, '#082D18');
+      g.addColorStop(1.00, '#031409');
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, w, h);
 
-      // Halo or républicain en haut à droite
-      const rad1 = ctx.createRadialGradient(w * 0.85, h * 0.12, 10, w * 0.85, h * 0.12, Math.max(w, h) * 0.55);
-      rad1.addColorStop(0, 'rgba(201, 168, 76, 0.16)');
+      // Halo or républicain en haut à droite (ambiance chaude & prestigieuse)
+      const rad1 = ctx.createRadialGradient(w * 0.85, h * 0.10, 10, w * 0.85, h * 0.10, Math.max(w, h) * 0.60);
+      rad1.addColorStop(0, 'rgba(229, 184, 66, 0.15)');
+      rad1.addColorStop(0.5, 'rgba(229, 184, 66, 0.05)');
       rad1.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = rad1;
-      ctx.beginPath(); ctx.arc(w * 0.85, h * 0.12, Math.max(w, h) * 0.55, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(w * 0.85, h * 0.10, Math.max(w, h) * 0.60, 0, Math.PI * 2); ctx.fill();
 
-      // Halo vert émeraude profond en bas à gauche
-      const rad2 = ctx.createRadialGradient(w * 0.15, h * 0.88, 10, w * 0.15, h * 0.88, Math.max(w, h) * 0.5);
-      rad2.addColorStop(0, 'rgba(45, 95, 63, 0.28)');
+      // Halo vert émeraude intense en bas à gauche
+      const rad2 = ctx.createRadialGradient(w * 0.15, h * 0.90, 10, w * 0.15, h * 0.90, Math.max(w, h) * 0.55);
+      rad2.addColorStop(0, 'rgba(16, 185, 129, 0.18)');
+      rad2.addColorStop(0.6, 'rgba(5, 150, 105, 0.06)');
       rad2.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = rad2;
-      ctx.beginPath(); ctx.arc(w * 0.15, h * 0.88, Math.max(w, h) * 0.5, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(w * 0.15, h * 0.90, Math.max(w, h) * 0.55, 0, Math.PI * 2); ctx.fill();
+
+      // Vignette assombrissante périphérique pour effet cinématique
+      const vig = ctx.createRadialGradient(w / 2, h / 2, Math.min(w, h) * 0.45, w / 2, h / 2, Math.max(w, h) * 0.72);
+      vig.addColorStop(0, 'rgba(0,0,0,0)');
+      vig.addColorStop(1, 'rgba(0,0,0,0.45)');
+      ctx.fillStyle = vig;
+      ctx.fillRect(0, 0, w, h);
     } else {
       ctx.fillStyle = c.bg;
       ctx.fillRect(0, 0, w, h);
     }
   } else {
     // Fond républicain clair structuré
-    ctx.fillStyle = c.bg;
+    let g = ctx.createLinearGradient(0, 0, w, h);
+    g.addColorStop(0, '#FFFFFF');
+    g.addColorStop(0.5, '#F8FAF9');
+    g.addColorStop(1, '#EDF3EF');
+    ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
   }
 
-  // Ruban tricolore officiel du Sénégal (Vert, Or, Rouge)
-  const stripH = isLandscape ? 5 : 6;
-  ctx.fillStyle = '#00853F'; ctx.fillRect(0, 0, w / 3, stripH);
-  ctx.fillStyle = '#FDEF42'; ctx.fillRect(w / 3, 0, w / 3, stripH);
-  ctx.fillStyle = '#E31B23'; ctx.fillRect((w / 3) * 2, 0, w / 3, stripH);
+  // Filigrane officiel républicain Guilloché de haute sécurité
+  studioDrawWatermark(ctx, w / 2, h / 2 + 10, c);
 
-  // Cadre géométrique institutionnel
-  studioRoundBox(ctx, 16, 16, w - 32, h - 32, 14, 'transparent', c.borderCard, 1.5);
+  // Ruban tricolore officiel du Sénégal (Vert, Or avec étoile, Rouge)
+  studioDrawTricolorBar(ctx, w, h, isLandscape);
 
-  // Filigrane officiel républicain
-  ctx.fillStyle = c.isDark ? 'rgba(255,255,255,0.018)' : 'rgba(10,35,21,0.022)';
-  ctx.font = '900 240px Inter, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('🇸🇳', w / 2, h / 2 + 70);
+  // Cadre géométrique institutionnel avec coins décoratifs
+  studioRoundBox(ctx, 16, 16, w - 32, h - 32, 14, 'transparent', c.borderCard, 1.2);
+  studioDrawCornerBrackets(ctx, 22, 22, w - 44, h - 44, 20, c.accentGold);
 
   ctx.restore();
 }
@@ -3397,36 +3631,49 @@ function studioDrawHeader(ctx, tagLabel, subTag, w, h, colors) {
   ctx.save();
   const c = colors || studioGetThemeColors(studioTheme);
   const isLandscape = h < 800;
-  const startX = isLandscape ? 48 : 64;
-  const startY = isLandscape ? 26 : 46;
+  const startX = isLandscape ? 44 : 56;
+  const startY = isLandscape ? 24 : 42;
   const logoH  = isLandscape ? 44 : 52;
-  const logoW  = isLandscape ? 260 : 290;
+  
+  // Mesurer les textes pour calibrer au pixel près la capsule logo
+  const jFont = isLandscape ? '900 17px "Plus Jakarta Sans", Inter, sans-serif' : '900 20px "Plus Jakarta Sans", Inter, sans-serif';
+  const jY = startY + (isLandscape ? 28 : 34);
+  const j1X = startX + (isLandscape ? 14 : 16);
+  const jSpacing = isLandscape ? 12 : 14;
+  const j3X = j1X + jSpacing * 2;
+  const nameX = j3X + (isLandscape ? 16 : 18);
 
-  // Logo Badge PROJETBI
-  const logoBg = c.isDark ? 'rgba(255,255,255,0.07)' : '#1A3D28';
-  const logoBorder = c.isDark ? 'rgba(201,168,76,0.45)' : '#1A3D28';
-  studioRoundBox(ctx, startX, startY, logoW, logoH, 10, logoBg, logoBorder, 1.5);
-  ctx.textAlign = 'left';
+  ctx.font = isLandscape ? '900 17px "Syne", "Plus Jakarta Sans", sans-serif' : '900 20px "Syne", "Plus Jakarta Sans", sans-serif';
+  const nameW = ctx.measureText('PROJETBI').width;
+
+  const obsFont = isLandscape ? '700 9px "Plus Jakarta Sans", Inter, sans-serif' : '700 10.5px "Plus Jakarta Sans", Inter, sans-serif';
+  ctx.font = obsFont;
+  const obsText = '◆ OBSERVATOIRE';
+  const obsW = ctx.measureText(obsText).width;
+
+  const obsX = nameX + nameW + (isLandscape ? 8 : 10);
+  const logoW = Math.round(obsX + obsW + (isLandscape ? 14 : 18) - startX);
+
+  // Logo Capsule PROJETBI
+  const logoBg = c.isDark ? 'rgba(7, 24, 15, 0.85)' : '#FFFFFF';
+  const logoBorder = c.isDark ? 'rgba(229, 184, 66, 0.50)' : '#1A3D28';
+  studioRoundBox(ctx, startX, startY, logoW, logoH, 12, logoBg, logoBorder, 1.5, true);
   
   // Monogramme JJJ aux couleurs nationales (Vert, Jaune avec étoile verte, Rouge)
-  const jFont = isLandscape ? '900 16px Inter, sans-serif' : '900 19px Inter, sans-serif';
-  const jY = startY + (isLandscape ? 29 : 34);
-  const j1X = startX + (isLandscape ? 14 : 16);
-  const jSpacing = isLandscape ? 11 : 13;
-
   ctx.font = jFont;
+  ctx.textAlign = 'left';
   // J1 Vert Sénégal
-  ctx.fillStyle = '#00853F';
+  ctx.fillStyle = '#00B054';
   ctx.fillText('J', j1X, jY);
 
-  // J2 Jaune Sénégal
+  // J2 Jaune d'Or Sénégal
   const j2X = j1X + jSpacing;
-  ctx.fillStyle = '#FDEF42';
+  ctx.fillStyle = '#FFD700';
   ctx.fillText('J', j2X, jY);
 
   // ★ Étoile verte au milieu du J jaune ★
-  const starCX = j2X + (isLandscape ? 5.5 : 6.5);
-  const starCY = jY - (isLandscape ? 5.5 : 6.5);
+  const starCX = j2X + (isLandscape ? 6 : 7);
+  const starCY = jY - (isLandscape ? 6 : 7);
   ctx.fillStyle = '#00853F';
   ctx.font = isLandscape ? '900 7px Inter, sans-serif' : '900 8px Inter, sans-serif';
   ctx.textAlign = 'center';
@@ -3434,34 +3681,40 @@ function studioDrawHeader(ctx, tagLabel, subTag, w, h, colors) {
   ctx.textAlign = 'left';
 
   // J3 Rouge Sénégal
-  const j3X = j2X + jSpacing;
   ctx.fillStyle = '#E31B23';
   ctx.font = jFont;
   ctx.fillText('J', j3X, jY);
 
-  // Texte PROJETBI
-  ctx.fillStyle = '#FFFFFF';
-  ctx.font = isLandscape ? '900 16px Inter, sans-serif' : '900 19px Inter, sans-serif';
-  const nameX = j3X + (isLandscape ? 16 : 18);
+  // Texte PROJETBI en typographie d'État
+  ctx.fillStyle = c.textPrimary;
+  ctx.font = isLandscape ? '900 17px "Syne", "Plus Jakarta Sans", sans-serif' : '900 20px "Syne", "Plus Jakarta Sans", sans-serif';
   ctx.fillText('PROJETBI', nameX, jY);
 
-  // Tag observatoire à côté
-  ctx.fillStyle = c.isDark ? '#F5E2A8' : '#A8CDB5';
-  ctx.font = isLandscape ? '600 11px Inter, sans-serif' : '600 12px Inter, sans-serif';
-  ctx.fillText('• OBSERVATOIRE', nameX + (isLandscape ? 84 : 98), jY - (isLandscape ? 1 : 1));
+  // Tag observatoire avec losange d'or
+  ctx.fillStyle = c.accentGold;
+  ctx.font = obsFont;
+  ctx.fillText(obsText, obsX, jY - 1);
 
-  // Catégorie / Domaine à droite avec calcul de largeur dynamique (aucun texte coupé)
+  // Catégorie / Domaine à droite avec badge capsule en verre
   if (tagLabel) {
-    const fontStr = isLandscape ? 'bold 13px Inter, sans-serif' : 'bold 15px Inter, sans-serif';
+    const fontStr = isLandscape ? 'bold 13px "Plus Jakarta Sans", Inter, sans-serif' : 'bold 15px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.font = fontStr;
     const cleanTag = tagLabel.toUpperCase();
     const textW = ctx.measureText(cleanTag).width;
-    const badgeW = Math.max(150, textW + 36);
+    const badgeW = Math.max(160, textW + 42);
     const badgeX = w - startX - badgeW;
-    studioRoundBox(ctx, badgeX, startY, badgeW, logoH, 10, c.badgeBg, c.badgeBorder, 1.5);
+    
+    studioRoundBox(ctx, badgeX, startY, badgeW, logoH, 12, c.badgeBg, c.badgeBorder, 1.5, true);
+    
+    // Micro-indicateur d'état (pastille lumineuse)
+    ctx.beginPath();
+    ctx.arc(badgeX + 16, startY + logoH / 2, 4, 0, Math.PI * 2);
+    ctx.fillStyle = c.accentGold;
+    ctx.fill();
+
     ctx.fillStyle = c.badgeText;
     ctx.textAlign = 'center';
-    ctx.fillText(cleanTag, badgeX + badgeW / 2, startY + (isLandscape ? 28 : 33));
+    ctx.fillText(cleanTag, badgeX + (badgeW + 12) / 2, startY + (isLandscape ? 28 : 33));
   }
 
   ctx.restore();
@@ -3474,25 +3727,44 @@ function studioDrawFooter(ctx, customCall, w, h, colors) {
   const footerH = isLandscape ? 56 : 76;
   const footerY = h - footerH;
 
-  // Footer bar background
+  // Barre inférieure en verre dépoli
   studioRoundBox(ctx, 0, footerY, w, footerH, 0, c.footerBg, c.footerBorder, 1);
 
-  // Left URL + Description
-  const startX = isLandscape ? 48 : 64;
+  // Ligne de liseré d'or supérieure de pied de page
+  const lineG = ctx.createLinearGradient(0, footerY, w, footerY);
+  lineG.addColorStop(0, 'rgba(229,184,66,0.1)');
+  lineG.addColorStop(0.5, 'rgba(229,184,66,0.5)');
+  lineG.addColorStop(1, 'rgba(229,184,66,0.1)');
+  ctx.fillStyle = lineG;
+  ctx.fillRect(0, footerY, w, 1.5);
+
+  const startX = isLandscape ? 44 : 56;
+  
+  // Left: Plateforme & URL officielle
   ctx.textAlign = 'left';
   ctx.fillStyle = c.footerText;
-  ctx.font = isLandscape ? 'bold 16px Inter, sans-serif' : 'bold 19px Inter, sans-serif';
+  ctx.font = isLandscape ? 'bold 16px "Plus Jakarta Sans", Inter, sans-serif' : 'bold 19px "Plus Jakarta Sans", Inter, sans-serif';
   ctx.fillText('🌐 projetbi.org', startX, footerY + (isLandscape ? 33 : 45));
 
   ctx.fillStyle = c.footerMuted;
-  ctx.font = isLandscape ? '13px Inter, sans-serif' : '15px Inter, sans-serif';
-  ctx.fillText('• Plateforme citoyenne de suivi indépendant', startX + (isLandscape ? 145 : 170), footerY + (isLandscape ? 33 : 45));
+  ctx.font = isLandscape ? '500 13px "Plus Jakarta Sans", Inter, sans-serif' : '500 15px "Plus Jakarta Sans", Inter, sans-serif';
+  ctx.fillText('• Plateforme Citoyenne Indépendante', startX + (isLandscape ? 138 : 165), footerY + (isLandscape ? 33 : 45));
 
-  // Right Motto
+  // Right: Devise nationale du Sénégal en or + Drapeau vectoriel
+  const mottoText = 'JUB • JUBAL • JUBANTI';
+  const mottoFont = isLandscape ? '800 14px "Plus Jakarta Sans", Inter, sans-serif' : '800 17px "Plus Jakarta Sans", Inter, sans-serif';
+  ctx.font = mottoFont;
+  const mottoW = ctx.measureText(mottoText).width;
+  const flagW = isLandscape ? 24 : 28;
+  const flagH = isLandscape ? 16 : 18;
+  const flagX = w - startX - flagW;
+  const flagY = footerY + (isLandscape ? 20 : 29);
+
+  studioDrawSenegalFlag(ctx, flagX, flagY, flagW, flagH, 3);
+
   ctx.textAlign = 'right';
-  ctx.fillStyle = c.mottoColor;
-  ctx.font = isLandscape ? 'bold 15px Inter, sans-serif' : 'bold 18px Inter, sans-serif';
-  ctx.fillText('JUB • JUBAL • JUBANTI 🇸🇳', w - startX, footerY + (isLandscape ? 33 : 45));
+  ctx.fillStyle = studioCreateGoldGradient(ctx, flagX - 10 - mottoW, footerY, mottoW, footerH, 'horiz');
+  ctx.fillText(mottoText, flagX - 10, footerY + (isLandscape ? 33 : 44));
 
   ctx.restore();
 }
@@ -3506,46 +3778,58 @@ function studioDrawMilestones(ctx, x, y, w, h, activeStep, statusKey, c) {
     { num: '4', title: 'Impact Validé' }
   ];
 
-  // Box background
-  studioRoundBox(ctx, x, y, w, h, 10, c.boxBg, c.boxBorder, 1);
+  // Box background en verre dépoli
+  studioRoundBox(ctx, x, y, w, h, 12, c.boxBg, c.boxBorder, 1);
 
-  // Title
+  // Title avec icône
   ctx.textAlign = 'left';
   ctx.fillStyle = c.accentGold;
-  ctx.font = 'bold 12px Inter, sans-serif';
-  ctx.fillText('📊 JALONS D’EXÉCUTION & PROCESSUS DE VALIDATION CITOYENNE :', x + 20, y + 24);
+  ctx.font = 'bold 12px "Plus Jakarta Sans", Inter, sans-serif';
+  ctx.fillText('📊 JALONS D’EXÉCUTION & VALIDATION CITOYENNE :', x + 20, y + 24);
 
-  // Tracker line
+  // Ligne de suivi (pipeline track)
   const lineY = y + 54;
-  const paddingX = 60;
+  const paddingX = 64;
   const startLineX = x + paddingX;
   const endLineX = x + w - paddingX;
   const totalW = endLineX - startLineX;
 
   ctx.strokeStyle = c.milestoneLine || 'rgba(255,255,255,0.15)';
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 3.5;
   ctx.beginPath();
   ctx.moveTo(startLineX, lineY);
   ctx.lineTo(endLineX, lineY);
   ctx.stroke();
 
-  // Highlighted line up to activeStep
+  // Trait actif illuminé
   if (activeStep > 0) {
     const activeEndX = startLineX + (totalW * Math.min(activeStep, 3)) / 3;
-    ctx.strokeStyle = statusKey === 'retard' ? '#EF4444' : (c.milestoneActive || '#4ADE80');
-    ctx.lineWidth = 4;
+    const activeColor = statusKey === 'retard' ? '#EF4444' : '#10B981';
+    ctx.strokeStyle = activeColor;
+    ctx.lineWidth = 4.5;
     ctx.beginPath();
     ctx.moveTo(startLineX, lineY);
     ctx.lineTo(activeEndX, lineY);
     ctx.stroke();
   }
 
-  // Nodes
+  // Nœuds d'étape
   steps.forEach((st, i) => {
     const nodeX = startLineX + (totalW * i) / 3;
     const isDone = i < activeStep;
     const isCurrent = i === activeStep;
-    const nodeR = 14;
+    const nodeR = 15;
+
+    // Halo pour l'étape active
+    if (isCurrent) {
+      const haloR = ctx.createRadialGradient(nodeX, lineY, 8, nodeX, lineY, 26);
+      haloR.addColorStop(0, statusKey === 'retard' ? 'rgba(239,68,68,0.35)' : 'rgba(16,185,129,0.35)');
+      haloR.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = haloR;
+      ctx.beginPath();
+      ctx.arc(nodeX, lineY, 26, 0, Math.PI * 2);
+      ctx.fill();
+    }
 
     ctx.beginPath();
     ctx.arc(nodeX, lineY, nodeR, 0, Math.PI * 2);
@@ -3554,39 +3838,39 @@ function studioDrawMilestones(ctx, x, y, w, h, activeStep, statusKey, c) {
       ctx.fillStyle = '#10B981';
       ctx.fill();
       ctx.strokeStyle = '#FFFFFF';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-      ctx.fillStyle = '#FFFFFF';
-      ctx.font = 'bold 11px Inter, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('✓', nodeX, lineY + 4);
-    } else if (isCurrent) {
-      ctx.fillStyle = statusKey === 'retard' ? '#EF4444' : (c.isDark ? '#C9A84C' : '#1A3D28');
-      ctx.fill();
-      ctx.strokeStyle = '#FFFFFF';
       ctx.lineWidth = 2;
       ctx.stroke();
       ctx.fillStyle = '#FFFFFF';
-      ctx.font = 'bold 11px Inter, sans-serif';
+      ctx.font = 'bold 12px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(statusKey === 'retard' ? '!' : '⚡', nodeX, lineY + 4);
+      ctx.fillText('✓', nodeX, lineY + 4.5);
+    } else if (isCurrent) {
+      ctx.fillStyle = statusKey === 'retard' ? '#EF4444' : '#10B981';
+      ctx.fill();
+      ctx.strokeStyle = '#FFFFFF';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = 'bold 12px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(statusKey === 'retard' ? '!' : '⚡', nodeX, lineY + 4.5);
     } else {
       ctx.fillStyle = c.boxBg;
       ctx.fill();
-      ctx.strokeStyle = c.milestoneLine || 'rgba(255,255,255,0.2)';
-      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = c.milestoneLine || 'rgba(255,255,255,0.25)';
+      ctx.lineWidth = 2;
       ctx.stroke();
       ctx.fillStyle = c.textMuted;
-      ctx.font = 'bold 10px Inter, sans-serif';
+      ctx.font = 'bold 11px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(st.num, nodeX, lineY + 3.5);
+      ctx.fillText(st.num, nodeX, lineY + 4);
     }
 
-    // Step label below
+    // Libellé de l'étape
     ctx.textAlign = 'center';
     ctx.fillStyle = isDone || isCurrent ? c.textPrimary : c.textMuted;
-    ctx.font = isCurrent ? 'bold 12px Inter, sans-serif' : '500 11px Inter, sans-serif';
-    ctx.fillText(st.title, nodeX, lineY + 28);
+    ctx.font = isCurrent ? 'bold 12px "Plus Jakarta Sans", Inter, sans-serif' : '500 11px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText(st.title, nodeX, lineY + 30);
   });
 
   ctx.restore();
@@ -3607,116 +3891,125 @@ function studioDrawFlash(ctx, w, h) {
 
   studioDrawHeader(ctx, cat, '', w, h, c);
 
-  const cardX = isLandscape ? 48 : 60;
-  const cardY = isLandscape ? 82 : 118;
+  const cardX = isLandscape ? 44 : 56;
+  const cardY = isLandscape ? 80 : 116;
   const cardW = w - (cardX * 2);
   const cardH = (h - (isLandscape ? 56 : 76)) - cardY - (isLandscape ? 12 : 20);
 
-  // Main Card Background
-  studioRoundBox(ctx, cardX, cardY, cardW, cardH, 16, c.bgCard, c.borderCard, 1.5);
-  studioRoundBox(ctx, cardX + 30, cardY, cardW - 60, 3, 1, c.accentGold, 'transparent');
+  // Main Frosted Glass Card
+  studioGlassCard(ctx, cardX, cardY, cardW, cardH, 18, c);
 
   if (isLandscape) {
     // 16:9 LANDSCAPE
-    studioRoundBox(ctx, cardX + 28, cardY + 20, 210, 36, 8, c.boxBg, c.boxBorder, 1);
+    // Badge Flash d'or
+    const badgeW = 220;
+    studioRoundBox(ctx, cardX + 28, cardY + 22, badgeW, 36, 10, c.boxBg, c.accentGold, 1.2);
     ctx.fillStyle = c.accentGold;
-    ctx.font = 'bold 14px Inter, sans-serif';
+    ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('⚡ ' + badge.toUpperCase(), cardX + 28 + 105, cardY + 43);
+    ctx.fillText('⚡ ' + badge.toUpperCase(), cardX + 28 + badgeW / 2, cardY + 45);
 
+    // Source à droite
     ctx.textAlign = 'right';
     ctx.fillStyle = c.textMuted;
-    ctx.font = '500 15px Inter, sans-serif';
-    ctx.fillText('📰 ' + source, cardX + cardW - 28, cardY + 43);
+    ctx.font = '600 15px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText('📰 ' + source, cardX + cardW - 28, cardY + 45);
 
-    // Title
+    // Titre majestueux
     ctx.textAlign = 'left';
     ctx.fillStyle = c.textPrimary;
-    ctx.font = 'bold 30px "Crimson Pro", Georgia, serif';
-    const titleLines = studioWrapText(ctx, title, cardX + 28, cardY + 95, cardW - 56, 38, 3);
+    ctx.font = 'bold 32px "Crimson Pro", Georgia, serif';
+    const titleLines = studioWrapText(ctx, title, cardX + 28, cardY + 98, cardW - 56, 40, 3);
 
-    // Separator line
-    const sepY = cardY + 105 + titleLines * 38;
-    ctx.fillStyle = c.borderCard;
+    // Séparateur fin
+    const sepY = cardY + 110 + titleLines * 40;
+    ctx.fillStyle = c.borderSubtle;
     ctx.fillRect(cardX + 28, sepY, cardW - 56, 1);
 
-    // Excerpt Box
-    const btnH = 44;
+    // Boîte extrait en verre avec liseré d'or
+    const btnH = 46;
     const btnY = cardY + cardH - btnH - 18;
-    if (excerpt && (btnY - (sepY + 12)) >= 70) {
-      const boxY = sepY + 12;
+    if (excerpt && (btnY - (sepY + 14)) >= 70) {
+      const boxY = sepY + 14;
       const boxH = Math.min(115, btnY - boxY - 14);
       studioRoundBox(ctx, cardX + 28, boxY, cardW - 56, boxH, 10, c.boxBg, c.boxBorder, 1);
-      studioRoundBox(ctx, cardX + 28, boxY, 4, boxH, 2, c.accentGold, 'transparent');
+      studioRoundBox(ctx, cardX + 28, boxY + 10, 5, boxH - 20, 2.5, studioCreateGoldGradient(ctx, cardX + 28, boxY, 5, boxH, 'vert'), 'transparent');
       ctx.fillStyle = c.textSecondary;
       ctx.font = 'italic 18px "Crimson Pro", Georgia, serif';
-      studioWrapText(ctx, '« ' + excerpt + ' »', cardX + 46, boxY + 34, cardW - 92, 26, 3);
+      studioWrapText(ctx, '« ' + excerpt + ' »', cardX + 48, boxY + 34, cardW - 96, 26, 3);
     }
 
-    // CTA Button
-    studioRoundBox(ctx, cardX + 28, btnY, cardW - 56, btnH, 10, c.ctaBg, c.ctaBorder, 1);
+    // Bouton d'action CTA
+    const ctaGrad = studioCreateEmeraldGradient(ctx, cardX + 28, btnY, cardW - 56, btnH);
+    studioRoundBox(ctx, cardX + 28, btnY, cardW - 56, btnH, 12, ctaGrad, c.ctaBorder, 1.5, true);
     ctx.textAlign = 'center';
     ctx.fillStyle = c.ctaText;
-    ctx.font = 'bold 16px Inter, sans-serif';
-    ctx.fillText('👉 ' + call, cardX + cardW / 2, btnY + 28);
+    ctx.font = 'bold 16px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText('👉 ' + call, cardX + cardW / 2, btnY + 29);
   } else {
-    // 1:1 SQUARE
-    studioRoundBox(ctx, cardX + 36, cardY + 28, 240, 44, 10, c.boxBg, c.boxBorder, 1);
+    // 1:1 SQUARE (1080 × 1080)
+    // Badge Flash d'or
+    const badgeW = 250;
+    studioRoundBox(ctx, cardX + 36, cardY + 30, badgeW, 44, 12, c.boxBg, c.accentGold, 1.5);
     ctx.fillStyle = c.accentGold;
-    ctx.font = 'bold 16px Inter, sans-serif';
+    ctx.font = 'bold 16px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('⚡ ' + badge.toUpperCase(), cardX + 36 + 120, cardY + 56);
+    ctx.fillText('⚡ ' + badge.toUpperCase(), cardX + 36 + badgeW / 2, cardY + 58);
 
+    // Source à droite
     ctx.textAlign = 'right';
     ctx.fillStyle = c.textMuted;
-    ctx.font = '600 16px Inter, sans-serif';
-    ctx.fillText('📰 ' + source, cardX + cardW - 36, cardY + 56);
+    ctx.font = '600 16px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText('📰 ' + source, cardX + cardW - 36, cardY + 58);
 
+    // Titre magistral avec sérif de haute autorité
     ctx.textAlign = 'left';
     ctx.fillStyle = c.textPrimary;
-    ctx.font = 'bold 42px "Crimson Pro", Georgia, serif';
-    const titleLines = studioWrapText(ctx, title, cardX + 36, cardY + 135, cardW - 72, 52, 4);
+    ctx.font = 'bold 44px "Crimson Pro", Georgia, serif';
+    const titleLines = studioWrapText(ctx, title, cardX + 36, cardY + 138, cardW - 72, 54, 4);
 
-    let curY = cardY + 145 + titleLines * 52;
-    studioRoundBox(ctx, cardX + 36, curY, cardW - 72, 2, 1, c.borderCard, 'transparent');
-    curY += 20;
+    let curY = cardY + 150 + titleLines * 54;
+    studioRoundBox(ctx, cardX + 36, curY, cardW - 72, 2, 1, c.borderSubtle, 'transparent');
+    curY += 22;
 
-    // Excerpt Box
-    const exH = 150;
-    studioRoundBox(ctx, cardX + 36, curY, cardW - 72, exH, 12, c.boxBg, c.boxBorder, 1);
-    studioRoundBox(ctx, cardX + 36, curY, 6, exH, 3, c.accentGold, 'transparent');
+    // Boîte extrait avec liseré d'or
+    const exH = 155;
+    studioRoundBox(ctx, cardX + 36, curY, cardW - 72, exH, 14, c.boxBg, c.boxBorder, 1);
+    studioRoundBox(ctx, cardX + 36, curY + 14, 6, exH - 28, 3, studioCreateGoldGradient(ctx, cardX + 36, curY, 6, exH, 'vert'), 'transparent');
     ctx.fillStyle = c.accentGold;
-    ctx.font = 'bold 13px Inter, sans-serif';
+    ctx.font = 'bold 13px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('📌 LES POINTS CLÉS DE L’ACTUALITÉ :', cardX + 56, curY + 28);
     ctx.fillStyle = c.textSecondary;
     ctx.font = 'italic 23px "Crimson Pro", Georgia, serif';
-    studioWrapText(ctx, '« ' + (excerpt || 'Suivez les détails et l’analyse citoyenne de cette actualité sur la plateforme ProjetBI.') + ' »', cardX + 56, curY + 62, cardW - 112, 34, 3);
+    studioWrapText(ctx, '« ' + (excerpt || 'Suivez les détails et l’analyse citoyenne de cette actualité sur la plateforme ProjetBI.') + ' »', cardX + 56, curY + 64, cardW - 112, 34, 3);
     curY += exH + 20;
 
-    // Observatoire Citoyen Verification Banner
-    const sealH = 88;
-    studioRoundBox(ctx, cardX + 36, curY, cardW - 72, sealH, 10, c.boxBg, c.boxBorder, 1);
-    studioRoundBox(ctx, cardX + 36, curY, 5, sealH, 2, c.accentBrand, 'transparent');
+    // Observatoire Citoyen Verification Seal Banner
+    const sealH = 90;
+    studioRoundBox(ctx, cardX + 36, curY, cardW - 72, sealH, 12, c.boxBg, c.boxBorder, 1);
+    studioRoundBox(ctx, cardX + 36, curY + 10, 6, sealH - 20, 3, c.accentBrand, 'transparent');
     ctx.fillStyle = c.accentBrand;
-    ctx.font = 'bold 13px Inter, sans-serif';
-    ctx.fillText('🛡️ OBSERVATOIRE CITOYEN PROJETBI :', cardX + 56, curY + 28);
+    ctx.font = 'bold 13px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText('🛡️ OBSERVATOIRE CITOYEN PROJETBI • VÉRIFICATION SUR PIÈCES :', cardX + 56, curY + 28);
     ctx.fillStyle = c.textMuted;
-    ctx.font = '500 16px Inter, sans-serif';
-    studioWrapText(ctx, 'Évaluation citoyenne et impact direct sur la mise en œuvre du projet de souveraineté nationale.', cardX + 56, curY + 54, cardW - 112, 24, 2);
+    ctx.font = '500 16px "Plus Jakarta Sans", Inter, sans-serif';
+    studioWrapText(ctx, 'Données vérifiées auprès des communiqués officiels de la Présidence et des ministères sectoriels.', cardX + 56, curY + 54, cardW - 112, 24, 2);
 
-    // CTA Button
-    const btnY = cardY + cardH - 72;
-    studioRoundBox(ctx, cardX + 36, btnY, cardW - 72, 52, 10, c.ctaBg, c.ctaBorder, 1.5);
+    // Bouton CTA souverain
+    const btnY = cardY + cardH - 74;
+    const btnH = 54;
+    const ctaGrad = studioCreateEmeraldGradient(ctx, cardX + 36, btnY, cardW - 72, btnH);
+    studioRoundBox(ctx, cardX + 36, btnY, cardW - 72, btnH, 14, ctaGrad, c.ctaBorder, 1.5, true);
     ctx.textAlign = 'center';
     ctx.fillStyle = c.ctaText;
-    ctx.font = 'bold 19px Inter, sans-serif';
-    ctx.fillText('👉 ' + call, cardX + cardW / 2, btnY + 33);
+    ctx.font = 'bold 19px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText('👉 ' + call, cardX + cardW / 2, btnY + 34);
   }
 
   studioDrawFooter(ctx, '', w, h, c);
 }
 
-// 2. ENGAGEMENT / PROMESSE SUIVIE (Complet, structuré et sans aucun vide)
+// 2. ENGAGEMENT / PROMESSE SUIVIE
 function studioDrawEngagement(ctx, w, h) {
   const c = studioGetThemeColors(studioTheme);
   const isLandscape = h < 800;
@@ -3729,41 +4022,40 @@ function studioDrawEngagement(ctx, w, h) {
 
   studioDrawHeader(ctx, domain, '', w, h, c);
 
-  const cardX = isLandscape ? 48 : 60;
-  const cardY = isLandscape ? 82 : 118;
+  const cardX = isLandscape ? 44 : 56;
+  const cardY = isLandscape ? 80 : 116;
   const cardW = w - (cardX * 2);
   const cardH = (h - (isLandscape ? 56 : 76)) - cardY - (isLandscape ? 12 : 20);
 
-  // Main Card Background
-  studioRoundBox(ctx, cardX, cardY, cardW, cardH, 16, c.bgCard, c.borderCard, 1.5);
-  studioRoundBox(ctx, cardX + 30, cardY, cardW - 60, 3, 1, c.accentGold, 'transparent');
+  // Main Frosted Glass Card
+  studioGlassCard(ctx, cardX, cardY, cardW, cardH, 18, c);
 
   const statusConfigs = {
     realise: {
-      label: '✅ ENGAGEMENT RÉALISÉ & VALIDÉ',
-      bg: c.isDark ? 'rgba(16, 185, 129, 0.20)' : '#ECFDF5',
-      border: c.isDark ? '#10B981' : '#059669',
+      label: '✓ ENGAGEMENT RÉALISÉ & VALIDÉ',
+      bg: c.isDark ? 'linear-gradient(90deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.15))' : '#ECFDF5',
+      border: '#10B981',
       text: c.isDark ? '#34D399' : '#065F46',
       step: 4
     },
     encours: {
-      label: '🔄 EN COURS D’EXÉCUTION',
-      bg: c.isDark ? 'rgba(2, 132, 199, 0.20)' : '#EFF6FF',
-      border: c.isDark ? '#38BDF8' : '#2563EB',
+      label: '⚡ EN COURS D’EXÉCUTION',
+      bg: c.isDark ? 'linear-gradient(90deg, rgba(2, 132, 199, 0.25), rgba(14, 165, 233, 0.15))' : '#EFF6FF',
+      border: '#38BDF8',
       text: c.isDark ? '#7DD3FC' : '#1E40AF',
       step: 2
     },
     retard: {
-      label: '⚠️ ATTENTION • EN RETARD',
-      bg: c.isDark ? 'rgba(239, 68, 68, 0.20)' : '#FEF2F2',
-      border: c.isDark ? '#EF4444' : '#DC2626',
+      label: '⚠️ ATTENTION • EN RETARD DE LIVRAISON',
+      bg: c.isDark ? 'linear-gradient(90deg, rgba(239, 68, 68, 0.25), rgba(220, 38, 38, 0.15))' : '#FEF2F2',
+      border: '#EF4444',
       text: c.isDark ? '#FCA5A5' : '#991B1B',
       step: 2
     },
     'non-lance': {
-      label: '⏳ NON ENCORE LANCÉ',
-      bg: c.isDark ? 'rgba(245, 158, 11, 0.20)' : '#FFFBEB',
-      border: c.isDark ? '#F59E0B' : '#D97706',
+      label: '⏳ NON ENCORE INITIÉ',
+      bg: c.isDark ? 'linear-gradient(90deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.15))' : '#FFFBEB',
+      border: '#F59E0B',
       text: c.isDark ? '#FCD34D' : '#92400E',
       step: 1
     }
@@ -3772,70 +4064,78 @@ function studioDrawEngagement(ctx, w, h) {
 
   if (isLandscape) {
     // 16:9 PAYSAGE
-    studioRoundBox(ctx, cardX + 24, cardY + 16, cardW - 48, 42, 10, cfg.bg, cfg.border, 1.5);
+    // Bannière d'état
+    studioRoundBox(ctx, cardX + 24, cardY + 16, cardW - 48, 42, 10, c.boxBg, cfg.border, 1.5);
     ctx.fillStyle = cfg.text;
-    ctx.font = 'bold 17px Inter, sans-serif';
+    ctx.font = 'bold 17px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(cfg.label, cardX + cardW / 2, cardY + 42);
+    ctx.fillText(cfg.label, cardX + cardW / 2, cardY + 43);
 
+    // 2 Pilules métadonnées
     const pillY = cardY + 68;
     const pW = (cardW - 48 - 16) / 2;
     studioRoundBox(ctx, cardX + 24, pillY, pW, 34, 8, c.boxBg, c.boxBorder, 1);
     ctx.textAlign = 'left';
     ctx.fillStyle = c.accentGold;
-    ctx.font = 'bold 13px Inter, sans-serif';
+    ctx.font = 'bold 13px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('🏛️ DOMAINE : ' + domain, cardX + 38, pillY + 22);
 
     studioRoundBox(ctx, cardX + 24 + pW + 16, pillY, pW, 34, 8, c.boxBg, c.boxBorder, 1);
     ctx.fillStyle = c.textSecondary;
-    ctx.font = 'bold 13px Inter, sans-serif';
+    ctx.font = 'bold 13px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('⏳ ÉCHÉANCE : ' + deadline, cardX + 24 + pW + 30, pillY + 22);
 
+    // Titre de l'engagement
     ctx.textAlign = 'left';
     ctx.fillStyle = c.textPrimary;
-    ctx.font = 'bold 26px "Crimson Pro", Georgia, serif';
-    const tLines = studioWrapText(ctx, title, cardX + 24, cardY + 138, cardW - 48, 32, 2);
+    ctx.font = 'bold 28px "Crimson Pro", Georgia, serif';
+    const tLines = studioWrapText(ctx, title, cardX + 24, cardY + 138, cardW - 48, 34, 2);
 
-    const gridY = cardY + 148 + tLines * 32;
+    const gridY = cardY + 148 + tLines * 34;
     const colW = (cardW - 48 - 16) / 2;
     const colH = 105;
 
+    // Panneau Objectif
     studioRoundBox(ctx, cardX + 24, gridY, colW, colH, 10, c.boxBg, c.boxBorder, 1);
-    studioRoundBox(ctx, cardX + 24, gridY, 4, colH, 2, c.accentGold, 'transparent');
+    studioRoundBox(ctx, cardX + 24, gridY + 10, 5, colH - 20, 2.5, studioCreateGoldGradient(ctx, cardX + 24, gridY, 5, colH, 'vert'), 'transparent');
     ctx.fillStyle = c.accentGold;
-    ctx.font = 'bold 12px Inter, sans-serif';
-    ctx.fillText('🎯 OBJECTIF & IMPACT ATTENDU :', cardX + 38, gridY + 26);
+    ctx.font = 'bold 12px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText('🎯 OBJECTIF & IMPACT STRATÉGIQUE :', cardX + 38, gridY + 26);
     ctx.fillStyle = c.textSecondary;
-    ctx.font = '500 14px Inter, sans-serif';
+    ctx.font = '500 14px "Plus Jakarta Sans", Inter, sans-serif';
     studioWrapText(ctx, resultat || 'Transformation structurelle et bénéfice citoyen.', cardX + 38, gridY + 50, colW - 28, 20, 2);
 
+    // Panneau Dernier point d'étape
     studioRoundBox(ctx, cardX + 24 + colW + 16, gridY, colW, colH, 10, c.boxBg, c.boxBorder, 1);
-    studioRoundBox(ctx, cardX + 24 + colW + 16, gridY, 4, colH, 2, cfg.border, 'transparent');
+    studioRoundBox(ctx, cardX + 24 + colW + 16, gridY + 10, 5, colH - 20, 2.5, cfg.border, 'transparent');
     ctx.fillStyle = cfg.text;
-    ctx.font = 'bold 12px Inter, sans-serif';
+    ctx.font = 'bold 12px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('📌 DERNIER POINT D’ÉTAPE OFFICIEL :', cardX + 24 + colW + 30, gridY + 26);
     ctx.fillStyle = c.textPrimary;
-    ctx.font = '500 14px Inter, sans-serif';
+    ctx.font = '500 14px "Plus Jakarta Sans", Inter, sans-serif';
     studioWrapText(ctx, update || 'Suivi continu par la plateforme citoyenne.', cardX + 24 + colW + 30, gridY + 50, colW - 28, 20, 2);
 
+    // Jalons d'exécution
     const pipeY = gridY + colH + 12;
     studioDrawMilestones(ctx, cardX + 24, pipeY, cardW - 48, 88, cfg.step, status, c);
 
+    // CTA bas
     const btnY = cardY + cardH - 38;
     ctx.textAlign = 'center';
     ctx.fillStyle = c.accentBrand;
-    ctx.font = 'bold 14px Inter, sans-serif';
+    ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('👉 Suivre l’avancement en détail sur projetbi.org', cardX + cardW / 2, btnY);
   } else {
     // 1:1 CARRÉ (1080 × 1080)
     const statusY = cardY + 24;
     const statusH = 54;
-    studioRoundBox(ctx, cardX + 32, statusY, cardW - 64, statusH, 12, cfg.bg, cfg.border, 2);
+    studioRoundBox(ctx, cardX + 32, statusY, cardW - 64, statusH, 12, c.boxBg, cfg.border, 2);
     ctx.fillStyle = cfg.text;
-    ctx.font = 'bold 22px Inter, sans-serif';
+    ctx.font = 'bold 22px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(cfg.label, cardX + cardW / 2, statusY + 35);
 
+    // 3 Pilules d'information
     const pillY = statusY + 68;
     const pillH = 40;
     const gapPill = 12;
@@ -3844,66 +4144,73 @@ function studioDrawEngagement(ctx, w, h) {
     studioRoundBox(ctx, cardX + 32, pillY, pillW, pillH, 8, c.boxBg, c.boxBorder, 1);
     ctx.textAlign = 'left';
     ctx.fillStyle = c.accentGold;
-    ctx.font = 'bold 13px Inter, sans-serif';
+    ctx.font = 'bold 13px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('🏛️ ' + domain, cardX + 44, pillY + 25);
 
     studioRoundBox(ctx, cardX + 32 + pillW + gapPill, pillY, pillW, pillH, 8, c.boxBg, c.boxBorder, 1);
     ctx.fillStyle = c.textSecondary;
-    ctx.font = 'bold 13px Inter, sans-serif';
+    ctx.font = 'bold 13px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('⏳ ' + deadline, cardX + 44 + pillW + gapPill, pillY + 25);
 
     studioRoundBox(ctx, cardX + 32 + (pillW + gapPill) * 2, pillY, pillW, pillH, 8, c.boxBg, c.boxBorder, 1);
     ctx.fillStyle = c.accentBrand;
-    ctx.font = 'bold 13px Inter, sans-serif';
+    ctx.font = 'bold 13px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('📜 PASTEF 2024–2029', cardX + 44 + (pillW + gapPill) * 2, pillY + 25);
 
+    // Titre de l'engagement
     const titleY = pillY + 64;
     ctx.textAlign = 'left';
     ctx.fillStyle = c.textPrimary;
-    ctx.font = 'bold 36px "Crimson Pro", Georgia, serif';
-    const tLines = studioWrapText(ctx, title, cardX + 32, titleY, cardW - 64, 46, 3);
+    ctx.font = 'bold 38px "Crimson Pro", Georgia, serif';
+    const tLines = studioWrapText(ctx, title, cardX + 32, titleY, cardW - 64, 48, 3);
 
-    let curY = titleY + (tLines * 46) + 12;
+    let curY = titleY + (tLines * 48) + 12;
 
-    const impactH = 80;
-    studioRoundBox(ctx, cardX + 32, curY, cardW - 64, impactH, 10, c.boxBg, c.boxBorder, 1);
-    studioRoundBox(ctx, cardX + 32, curY, 5, impactH, 2, c.accentGold, 'transparent');
+    // Panneau Objectif
+    const impactH = 82;
+    studioRoundBox(ctx, cardX + 32, curY, cardW - 64, impactH, 12, c.boxBg, c.boxBorder, 1);
+    studioRoundBox(ctx, cardX + 32, curY + 10, 6, impactH - 20, 3, studioCreateGoldGradient(ctx, cardX + 32, curY, 6, impactH, 'vert'), 'transparent');
     ctx.fillStyle = c.accentGold;
-    ctx.font = 'bold 13px Inter, sans-serif';
+    ctx.font = 'bold 13px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('🎯 OBJECTIF & IMPACT STRATÉGIQUE ATTENDU :', cardX + 50, curY + 28);
     ctx.fillStyle = c.textSecondary;
-    ctx.font = '500 17px Inter, sans-serif';
+    ctx.font = '500 17px "Plus Jakarta Sans", Inter, sans-serif';
     studioWrapText(ctx, resultat || 'Transformation structurelle et bénéfice direct pour les citoyens.', cardX + 50, curY + 54, cardW - 100, 24, 2);
 
     curY += impactH + 16;
 
+    // Panneau Dernier point d'étape
     const updateH = 108;
     studioRoundBox(ctx, cardX + 32, curY, cardW - 64, updateH, 12, c.boxBg, c.boxBorder, 1);
-    studioRoundBox(ctx, cardX + 32, curY, 5, updateH, 2, cfg.border, 'transparent');
+    studioRoundBox(ctx, cardX + 32, curY + 12, 6, updateH - 24, 3, cfg.border, 'transparent');
     ctx.fillStyle = cfg.text;
-    ctx.font = 'bold 13px Inter, sans-serif';
+    ctx.font = 'bold 13px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('📌 DERNIER POINT D’ÉTAPE OFFICIEL :', cardX + 50, curY + 28);
     ctx.fillStyle = c.textPrimary;
-    ctx.font = '500 18px Inter, sans-serif';
+    ctx.font = '500 18px "Plus Jakarta Sans", Inter, sans-serif';
     studioWrapText(ctx, update || 'Suivi continu par la plateforme citoyenne et les observateurs.', cardX + 50, curY + 56, cardW - 100, 26, 2);
 
     curY += updateH + 16;
 
+    // Jalons d'exécution
     const pipeH = 108;
     studioDrawMilestones(ctx, cardX + 32, curY, cardW - 64, pipeH, cfg.step, status, c);
 
+    // Sceau de l'observatoire
     const sealY = cardY + cardH - 106;
     ctx.textAlign = 'center';
     ctx.fillStyle = c.textMuted;
-    ctx.font = '600 13px Inter, sans-serif';
+    ctx.font = '600 13px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('🛡️ Données vérifiées par l’Observatoire Citoyen ProjetBI • Sources : Présidence & Journal Officiel', cardX + cardW / 2, sealY);
 
+    // Bouton CTA
     const btnY = cardY + cardH - 68;
     const btnH = 50;
-    studioRoundBox(ctx, cardX + 32, btnY, cardW - 64, btnH, 10, c.ctaBg, c.ctaBorder, 1.5);
+    const ctaGrad = studioCreateEmeraldGradient(ctx, cardX + 32, btnY, cardW - 64, btnH);
+    studioRoundBox(ctx, cardX + 32, btnY, cardW - 64, btnH, 12, ctaGrad, c.ctaBorder, 1.5, true);
     ctx.textAlign = 'center';
     ctx.fillStyle = c.ctaText;
-    ctx.font = 'bold 18px Inter, sans-serif';
+    ctx.font = 'bold 18px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('👉 Suivre l’avancement en direct sur projetbi.org', cardX + cardW / 2, btnY + 32);
   }
 
@@ -3921,65 +4228,76 @@ function studioDrawBilan(ctx, w, h) {
 
   studioDrawHeader(ctx, 'BILAN DU PROJET', '', w, h, c);
 
-  const cardX = isLandscape ? 48 : 60;
-  const cardY = isLandscape ? 82 : 118;
+  const cardX = isLandscape ? 44 : 56;
+  const cardY = isLandscape ? 80 : 116;
   const cardW = w - (cardX * 2);
   const cardH = (h - (isLandscape ? 56 : 76)) - cardY - (isLandscape ? 12 : 20);
 
-  studioRoundBox(ctx, cardX, cardY, cardW, cardH, 16, c.bgCard, c.borderCard, 1.5);
-  studioRoundBox(ctx, cardX + 30, cardY, cardW - 60, 3, 1, c.accentGold, 'transparent');
+  // Main Frosted Glass Card
+  studioGlassCard(ctx, cardX, cardY, cardW, cardH, 18, c);
 
   if (isLandscape) {
     // 16:9 LANDSCAPE
     ctx.textAlign = 'center';
     ctx.fillStyle = c.textPrimary;
-    ctx.font = 'bold 26px Inter, sans-serif';
+    ctx.font = 'bold 26px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText(s.periode.toUpperCase(), cardX + cardW / 2, cardY + 38);
 
     ctx.fillStyle = c.textMuted;
-    ctx.font = '14px Inter, sans-serif';
+    ctx.font = '14px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText(s.sous, cardX + cardW / 2, cardY + 62);
 
     if (mode === 'chiffre_choc') {
       const displayNum = bigCustom || (taux + '%');
-      ctx.fillStyle = c.accentGold;
-      ctx.font = 'bold 100px Inter, sans-serif';
-      ctx.fillText(displayNum, cardX + cardW / 2, cardY + 175);
+      
+      // Halo lumineux derrière le chiffre choc
+      const numHalo = ctx.createRadialGradient(cardX + cardW / 2, cardY + 165, 10, cardX + cardW / 2, cardY + 165, 160);
+      numHalo.addColorStop(0, 'rgba(229, 184, 66, 0.20)');
+      numHalo.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = numHalo;
+      ctx.beginPath(); ctx.arc(cardX + cardW / 2, cardY + 165, 160, 0, Math.PI * 2); ctx.fill();
+
+      // Grand chiffre d'or métallique
+      ctx.fillStyle = studioCreateGoldGradient(ctx, cardX + 100, cardY + 80, cardW - 200, 110, 'vert');
+      ctx.font = '900 110px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(displayNum, cardX + cardW / 2, cardY + 180);
 
       ctx.fillStyle = c.textPrimary;
-      ctx.font = 'bold 22px Inter, sans-serif';
-      ctx.fillText('DES ENGAGEMENTS DU PROGRAMME RÉALISÉS', cardX + cardW / 2, cardY + 225);
+      ctx.font = 'bold 22px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('DES ENGAGEMENTS DU PROGRAMME RÉALISÉS', cardX + cardW / 2, cardY + 230);
 
-      studioRoundBox(ctx, cardX + 60, cardY + 260, cardW - 120, 56, 10, c.boxBg, c.boxBorder, 1);
-      ctx.fillStyle = c.isDark ? '#4ADE80' : '#15803D';
-      ctx.font = 'bold 18px Inter, sans-serif';
-      ctx.fillText(`✅ ${s.realise} réalisés sur un total de ${s.total} engagements`, cardX + cardW / 2, cardY + 295);
+      studioRoundBox(ctx, cardX + 60, cardY + 265, cardW - 120, 56, 12, c.boxBg, c.boxBorder, 1);
+      ctx.fillStyle = '#10B981';
+      ctx.font = 'bold 18px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(`✓ ${s.realise} réalisés sur un total de ${s.total} engagements suivis`, cardX + cardW / 2, cardY + 300);
     } else {
       const bW = Math.floor((cardW - 56 - (3 * 14)) / 4);
       const bH = 125;
       const bY = cardY + 82;
 
       const statsCards = [
-        { val: s.realise, label: 'Réalisés', bg: c.isDark ? 'rgba(16, 185, 129, 0.20)' : '#F0FDF4', border: '#10B981', color: c.isDark ? '#34D399' : '#065F46', icon: '✅' },
-        { val: s.encours, label: 'En cours', bg: c.isDark ? 'rgba(2, 132, 199, 0.20)' : '#F0F9FF', border: '#0284C7', color: c.isDark ? '#38BDF8' : '#0369A1', icon: '🔄' },
-        { val: s.nonLance, label: 'Non lancés', bg: c.isDark ? 'rgba(245, 158, 11, 0.20)' : '#FFFBEB', border: '#F59E0B', color: c.isDark ? '#FCD34D' : '#92400E', icon: '⏳' },
-        { val: s.retard, label: 'En retard', bg: c.isDark ? 'rgba(239, 68, 68, 0.20)' : '#FEF2F2', border: '#EF4444', color: c.isDark ? '#FCA5A5' : '#991B1B', icon: '⚠️' }
+        { val: s.realise, label: 'Réalisés', border: '#10B981', color: '#10B981', icon: '✓' },
+        { val: s.encours, label: 'En cours', border: '#0284C7', color: '#38BDF8', icon: '⚡' },
+        { val: s.nonLance, label: 'Non lancés', border: '#F59E0B', color: '#FCD34D', icon: '⏳' },
+        { val: s.retard, label: 'En retard', border: '#EF4444', color: '#FCA5A5', icon: '⚠️' }
       ];
 
       statsCards.forEach((sc, i) => {
         const bx = cardX + 28 + i * (bW + 14);
-        studioRoundBox(ctx, bx, bY, bW, bH, 12, sc.bg, sc.border, 1.5);
+        studioRoundBox(ctx, bx, bY, bW, bH, 12, c.boxBg, sc.border, 1.5);
+        studioRoundBox(ctx, bx + 12, bY, bW - 24, 4, 2, sc.border, 'transparent');
+        
         ctx.fillStyle = sc.color;
-        ctx.font = 'bold 44px Inter, sans-serif';
+        ctx.font = 'bold 44px "Plus Jakarta Sans", Inter, sans-serif';
         ctx.fillText(String(sc.val), bx + bW / 2, bY + 54);
 
         ctx.fillStyle = c.textPrimary;
-        ctx.font = 'bold 15px Inter, sans-serif';
+        ctx.font = 'bold 15px "Plus Jakarta Sans", Inter, sans-serif';
         ctx.fillText(sc.icon + ' ' + sc.label, bx + bW / 2, bY + 86);
 
         const pct = s.total > 0 ? Math.round((sc.val / s.total) * 100) : 0;
         ctx.fillStyle = c.textMuted;
-        ctx.font = '12px Inter, sans-serif';
+        ctx.font = '12px "Plus Jakarta Sans", Inter, sans-serif';
         ctx.fillText(pct + '% du programme', bx + bW / 2, bY + 108);
       });
 
@@ -3989,83 +4307,94 @@ function studioDrawBilan(ctx, w, h) {
 
       ctx.textAlign = 'left';
       ctx.fillStyle = c.textSecondary;
-      ctx.font = 'bold 15px Inter, sans-serif';
+      ctx.font = 'bold 15px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.fillText('TAUX D\'AVANCEMENT GLOBAL DU PROGRAMME', cardX + 48, rateY + 34);
 
       ctx.textAlign = 'right';
       ctx.fillStyle = c.accentGold;
-      ctx.font = 'bold 36px Inter, sans-serif';
+      ctx.font = 'bold 36px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.fillText(taux + '%', cardX + cardW - 48, rateY + 40);
 
       const barX = cardX + 48, barY = rateY + 50, barW = cardW - 96, barH = 16;
-      studioRoundBox(ctx, barX, barY, barW, barH, 8, c.borderCard, 'transparent');
+      studioRoundBox(ctx, barX, barY, barW, barH, 8, c.borderSubtle, 'transparent');
       const fillW = Math.min(barW, Math.max(12, (barW * taux) / 100));
       const gBar = ctx.createLinearGradient(barX, 0, barX + fillW, 0);
       gBar.addColorStop(0, '#B45309');
-      gBar.addColorStop(1, '#16A34A');
+      gBar.addColorStop(1, '#10B981');
       studioRoundBox(ctx, barX, barY, fillW, barH, 8, gBar, 'transparent');
 
       ctx.textAlign = 'center';
       ctx.fillStyle = c.textMuted;
-      ctx.font = '13px Inter, sans-serif';
+      ctx.font = '13px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.fillText(`Total suivi : ${s.total} engagements présidentiels sur 2024–2029`, cardX + cardW / 2, rateY + 86);
     }
 
     ctx.textAlign = 'center';
     ctx.fillStyle = c.accentBrand;
-    ctx.font = 'bold 15px Inter, sans-serif';
+    ctx.font = 'bold 15px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('👉 Consultez la liste complète sur https://projetbi.org', cardX + cardW / 2, cardY + cardH - 18);
   } else {
-    // 1:1 SQUARE
+    // 1:1 SQUARE (1080 × 1080)
     ctx.textAlign = 'center';
     ctx.fillStyle = c.textPrimary;
-    ctx.font = 'bold 38px Inter, sans-serif';
+    ctx.font = 'bold 38px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText(s.periode.toUpperCase(), cardX + cardW / 2, cardY + 58);
 
     ctx.fillStyle = c.textMuted;
-    ctx.font = '20px Inter, sans-serif';
+    ctx.font = '20px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText(s.sous, cardX + cardW / 2, cardY + 95);
 
     if (mode === 'chiffre_choc') {
       const displayNum = bigCustom || (taux + '%');
-      ctx.fillStyle = c.accentGold;
-      ctx.font = 'bold 150px Inter, sans-serif';
-      ctx.fillText(displayNum, cardX + cardW / 2, cardY + 280);
+
+      // Halo lumineux derrière le chiffre choc
+      const numHalo = ctx.createRadialGradient(cardX + cardW / 2, cardY + 250, 20, cardX + cardW / 2, cardY + 250, 240);
+      numHalo.addColorStop(0, 'rgba(229, 184, 66, 0.22)');
+      numHalo.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = numHalo;
+      ctx.beginPath(); ctx.arc(cardX + cardW / 2, cardY + 250, 240, 0, Math.PI * 2); ctx.fill();
+
+      // Grand chiffre d'or métallique
+      ctx.fillStyle = studioCreateGoldGradient(ctx, cardX + 100, cardY + 120, cardW - 200, 160, 'vert');
+      ctx.font = '900 160px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(displayNum, cardX + cardW / 2, cardY + 290);
 
       ctx.fillStyle = c.textPrimary;
-      ctx.font = 'bold 32px Inter, sans-serif';
-      ctx.fillText('DES ENGAGEMENTS DU PROGRAMME RÉALISÉS', cardX + cardW / 2, cardY + 345);
+      ctx.font = 'bold 32px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('DES ENGAGEMENTS DU PROGRAMME RÉALISÉS', cardX + cardW / 2, cardY + 355);
 
-      studioRoundBox(ctx, cardX + 60, cardY + 400, cardW - 120, 76, 14, c.boxBg, c.boxBorder, 1.5);
-      ctx.fillStyle = c.isDark ? '#4ADE80' : '#15803D';
-      ctx.font = 'bold 24px Inter, sans-serif';
-      ctx.fillText(`✅ ${s.realise} réalisés sur un total de ${s.total} engagements`, cardX + cardW / 2, cardY + 448);
+      studioRoundBox(ctx, cardX + 60, cardY + 410, cardW - 120, 78, 14, c.boxBg, c.boxBorder, 1.5);
+      ctx.fillStyle = '#10B981';
+      ctx.font = 'bold 24px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(`✓ ${s.realise} réalisés sur un total de ${s.total} engagements`, cardX + cardW / 2, cardY + 458);
     } else {
       const bW = 205, bH = 175, gap = 16;
       const startBX = cardX + (cardW - (bW * 4 + gap * 3)) / 2;
       const bY = cardY + 135;
 
       const statsCards = [
-        { val: s.realise, label: 'Réalisés', bg: c.isDark ? 'rgba(16, 185, 129, 0.20)' : '#F0FDF4', border: '#10B981', color: c.isDark ? '#34D399' : '#065F46', icon: '✅' },
-        { val: s.encours, label: 'En cours', bg: c.isDark ? 'rgba(2, 132, 199, 0.20)' : '#F0F9FF', border: '#0284C7', color: c.isDark ? '#38BDF8' : '#0369A1', icon: '🔄' },
-        { val: s.nonLance, label: 'Non lancés', bg: c.isDark ? 'rgba(245, 158, 11, 0.20)' : '#FFFBEB', border: '#F59E0B', color: c.isDark ? '#FCD34D' : '#92400E', icon: '⏳' },
-        { val: s.retard, label: 'En retard', bg: c.isDark ? 'rgba(239, 68, 68, 0.20)' : '#FEF2F2', border: '#EF4444', color: c.isDark ? '#FCA5A5' : '#991B1B', icon: '⚠️' }
+        { val: s.realise, label: 'Réalisés', border: '#10B981', color: '#10B981', icon: '✓' },
+        { val: s.encours, label: 'En cours', border: '#0284C7', color: '#38BDF8', icon: '⚡' },
+        { val: s.nonLance, label: 'Non lancés', border: '#F59E0B', color: '#FCD34D', icon: '⏳' },
+        { val: s.retard, label: 'En retard', border: '#EF4444', color: '#FCA5A5', icon: '⚠️' }
       ];
 
       statsCards.forEach((sc, i) => {
         const bx = startBX + i * (bW + gap);
-        studioRoundBox(ctx, bx, bY, bW, bH, 14, sc.bg, sc.border, 1.5);
+        studioRoundBox(ctx, bx, bY, bW, bH, 14, c.boxBg, sc.border, 1.5);
+        studioRoundBox(ctx, bx + 16, bY, bW - 32, 5, 2.5, sc.border, 'transparent');
+        
         ctx.fillStyle = sc.color;
-        ctx.font = 'bold 56px Inter, sans-serif';
-        ctx.fillText(String(sc.val), bx + bW / 2, bY + 72);
+        ctx.font = 'bold 56px "Plus Jakarta Sans", Inter, sans-serif';
+        ctx.fillText(String(sc.val), bx + bW / 2, bY + 74);
 
         ctx.fillStyle = c.textPrimary;
-        ctx.font = 'bold 19px Inter, sans-serif';
-        ctx.fillText(sc.icon + ' ' + sc.label, bx + bW / 2, bY + 116);
+        ctx.font = 'bold 19px "Plus Jakarta Sans", Inter, sans-serif';
+        ctx.fillText(sc.icon + ' ' + sc.label, bx + bW / 2, bY + 118);
 
         const pct = s.total > 0 ? Math.round((sc.val / s.total) * 100) : 0;
         ctx.fillStyle = c.textMuted;
-        ctx.font = '14px Inter, sans-serif';
+        ctx.font = '14px "Plus Jakarta Sans", Inter, sans-serif';
         ctx.fillText(pct + '% du programme', bx + bW / 2, bY + 144);
       });
 
@@ -4074,25 +4403,25 @@ function studioDrawBilan(ctx, w, h) {
 
       ctx.textAlign = 'left';
       ctx.fillStyle = c.textSecondary;
-      ctx.font = 'bold 20px Inter, sans-serif';
+      ctx.font = 'bold 20px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.fillText('TAUX D\'AVANCEMENT GLOBAL DU PROGRAMME', cardX + 64, rateY + 44);
 
       ctx.textAlign = 'right';
       ctx.fillStyle = c.accentGold;
-      ctx.font = 'bold 54px Inter, sans-serif';
+      ctx.font = 'bold 54px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.fillText(taux + '%', cardX + cardW - 64, rateY + 56);
 
       const barX = cardX + 64, barY = rateY + 80, barW = cardW - 128, barH = 24;
-      studioRoundBox(ctx, barX, barY, barW, barH, 12, c.borderCard, 'transparent');
+      studioRoundBox(ctx, barX, barY, barW, barH, 12, c.borderSubtle, 'transparent');
       const fillW = Math.min(barW, Math.max(16, (barW * taux) / 100));
       const gBar = ctx.createLinearGradient(barX, 0, barX + fillW, 0);
       gBar.addColorStop(0, '#B45309');
-      gBar.addColorStop(1, '#16A34A');
+      gBar.addColorStop(1, '#10B981');
       studioRoundBox(ctx, barX, barY, fillW, barH, 12, gBar, 'transparent');
 
       ctx.textAlign = 'center';
       ctx.fillStyle = c.textMuted;
-      ctx.font = '16px Inter, sans-serif';
+      ctx.font = '16px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.fillText(`Total suivi : ${s.total} engagements présidentiels sur 2024–2029`, cardX + cardW / 2, rateY + 128);
     }
 
@@ -4100,14 +4429,16 @@ function studioDrawBilan(ctx, w, h) {
     const sealY = cardY + cardH - 100;
     ctx.textAlign = 'center';
     ctx.fillStyle = c.textMuted;
-    ctx.font = '600 14px Inter, sans-serif';
+    ctx.font = '600 14px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('🛡️ Données consolidées en temps réel • Sources officielles et contrôles de terrain', cardX + cardW / 2, sealY);
 
     const btnY = cardY + cardH - 64;
-    studioRoundBox(ctx, cardX + 36, btnY, cardW - 72, 50, 10, c.ctaBg, c.ctaBorder, 1.5);
+    const btnH = 50;
+    const ctaGrad = studioCreateEmeraldGradient(ctx, cardX + 36, btnY, cardW - 72, btnH);
+    studioRoundBox(ctx, cardX + 36, btnY, cardW - 72, btnH, 12, ctaGrad, c.ctaBorder, 1.5, true);
     ctx.textAlign = 'center';
     ctx.fillStyle = c.ctaText;
-    ctx.font = 'bold 18px Inter, sans-serif';
+    ctx.font = 'bold 18px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('👉 Consultez la liste complète sur https://projetbi.org', cardX + cardW / 2, btnY + 32);
   }
 
@@ -4123,19 +4454,19 @@ function studioDrawRevue(ctx, w, h) {
 
   studioDrawHeader(ctx, 'REVUE DE PRESSE', '', w, h, c);
 
-  const cardX = isLandscape ? 48 : 60;
-  const cardY = isLandscape ? 82 : 118;
+  const cardX = isLandscape ? 44 : 56;
+  const cardY = isLandscape ? 80 : 116;
   const cardW = w - (cardX * 2);
   const cardH = (h - (isLandscape ? 56 : 76)) - cardY - (isLandscape ? 12 : 20);
 
-  studioRoundBox(ctx, cardX, cardY, cardW, cardH, 16, c.bgCard, c.borderCard, 1.5);
-  studioRoundBox(ctx, cardX + 30, cardY, cardW - 60, 3, 1, c.accentGold, 'transparent');
+  // Main Frosted Glass Card
+  studioGlassCard(ctx, cardX, cardY, cardW, cardH, 18, c);
 
   const papers = [
-    { paper: studioVal('stRevueJ1') || 'Le Soleil', title: studioVal('stRevueT1') || 'Titre 1' },
-    { paper: studioVal('stRevueJ2') || 'L\'Observateur', title: studioVal('stRevueT2') || 'Titre 2' },
-    { paper: studioVal('stRevueJ3') || 'Sud Quotidien', title: studioVal('stRevueT3') || 'Titre 3' },
-    { paper: studioVal('stRevueJ4') || 'Walf Quotidien', title: studioVal('stRevueT4') || 'Titre 4' }
+    { paper: studioVal('stRevueJ1') || 'Le Soleil', title: studioVal('stRevueT1') || 'Titre 1', color: '#10B981' },
+    { paper: studioVal('stRevueJ2') || 'L\'Observateur', title: studioVal('stRevueT2') || 'Titre 2', color: '#0284C7' },
+    { paper: studioVal('stRevueJ3') || 'Sud Quotidien', title: studioVal('stRevueT3') || 'Titre 3', color: '#F59E0B' },
+    { paper: studioVal('stRevueJ4') || 'Walf Quotidien', title: studioVal('stRevueT4') || 'Titre 4', color: '#EF4444' }
   ];
 
   if (isLandscape) {
@@ -4146,7 +4477,7 @@ function studioDrawRevue(ctx, w, h) {
     ctx.fillText('🗞️ REVUE DE PRESSE SÉNÉGALAISE', cardX + cardW / 2, cardY + 36);
 
     ctx.fillStyle = c.textSecondary;
-    ctx.font = 'bold 15px Inter, sans-serif';
+    ctx.font = 'bold 15px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText(dateStr.toUpperCase() + '  •  ' + sous, cardX + cardW / 2, cardY + 62);
 
     const gridY = cardY + 80;
@@ -4162,25 +4493,25 @@ function studioDrawRevue(ctx, w, h) {
       const y = gridY + row * (rowH + rowGap);
 
       studioRoundBox(ctx, x, y, colW, rowH, 10, c.boxBg, c.boxBorder, 1);
-      studioRoundBox(ctx, x, y, 4, rowH, 2, c.accentGold, 'transparent');
+      studioRoundBox(ctx, x, y + 10, 5, rowH - 20, 2.5, p.color, 'transparent');
 
-      studioRoundBox(ctx, x + 16, y + 14, 150, 32, 6, c.badgeBg, c.badgeBorder, 1);
+      studioRoundBox(ctx, x + 16, y + 14, 150, 32, 6, c.badgeBg, p.color, 1);
       ctx.textAlign = 'center';
-      ctx.fillStyle = c.isDark ? c.accentGold : '#0F172A';
-      ctx.font = 'bold 13px Inter, sans-serif';
+      ctx.fillStyle = c.isDark ? '#FFE9A3' : '#0F172A';
+      ctx.font = 'bold 13px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.fillText(p.paper.substring(0, 15), x + 16 + 75, y + 35);
 
       ctx.textAlign = 'left';
       ctx.fillStyle = c.textPrimary;
-      ctx.font = 'bold 15px Inter, sans-serif';
-      studioWrapText(ctx, p.title, x + 16, y + 68, colW - 32, 22, 3);
+      ctx.font = 'bold 15px "Crimson Pro", Georgia, serif';
+      studioWrapText(ctx, '« ' + p.title + ' »', x + 16, y + 68, colW - 32, 22, 3);
     });
 
     const ctaY = cardY + cardH - 42;
     studioRoundBox(ctx, cardX + 28, ctaY, cardW - 56, 34, 8, c.boxBg, c.boxBorder, 1);
     ctx.textAlign = 'center';
     ctx.fillStyle = c.accentBrand;
-    ctx.font = 'bold 14px Inter, sans-serif';
+    ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('👉 Retrouvez toutes les unes numérisées sur projetbi.org/revuedepresse.html', cardX + cardW / 2, ctaY + 22);
   } else {
     // 1:1 CARRÉ
@@ -4190,7 +4521,7 @@ function studioDrawRevue(ctx, w, h) {
     ctx.fillText('🗞️ REVUE DE PRESSE SÉNÉGALAISE', cardX + cardW / 2, cardY + 54);
 
     ctx.fillStyle = c.textSecondary;
-    ctx.font = 'bold 20px Inter, sans-serif';
+    ctx.font = 'bold 20px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText(dateStr.toUpperCase() + '  •  ' + sous, cardX + cardW / 2, cardY + 90);
 
     const rowY = cardY + 120;
@@ -4200,17 +4531,17 @@ function studioDrawRevue(ctx, w, h) {
     papers.forEach((p, idx) => {
       const y = rowY + idx * (rowH + gap);
       studioRoundBox(ctx, cardX + 36, y, cardW - 72, rowH, 12, c.boxBg, c.boxBorder, 1);
-      studioRoundBox(ctx, cardX + 36, y, 5, rowH, 2, c.accentGold, 'transparent');
+      studioRoundBox(ctx, cardX + 36, y + 12, 6, rowH - 24, 3, p.color, 'transparent');
 
-      studioRoundBox(ctx, cardX + 54, y + 26, 175, 66, 8, c.badgeBg, c.badgeBorder, 1);
+      studioRoundBox(ctx, cardX + 54, y + 26, 175, 66, 8, c.badgeBg, p.color, 1);
       ctx.textAlign = 'center';
-      ctx.fillStyle = c.isDark ? c.accentGold : '#0F172A';
-      ctx.font = 'bold 18px Inter, sans-serif';
+      ctx.fillStyle = c.isDark ? '#FFE9A3' : '#0F172A';
+      ctx.font = 'bold 18px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.fillText(p.paper.substring(0, 15), cardX + 54 + 87, y + 65);
 
       ctx.textAlign = 'left';
       ctx.fillStyle = c.textPrimary;
-      ctx.font = 'bold 21px Inter, sans-serif';
+      ctx.font = 'bold 21px "Crimson Pro", Georgia, serif';
       studioWrapText(ctx, '« ' + p.title + ' »', cardX + 252, y + 50, cardW - 325, 30, 2);
     });
 
@@ -4218,7 +4549,7 @@ function studioDrawRevue(ctx, w, h) {
     studioRoundBox(ctx, cardX + 36, ctaY, cardW - 72, 46, 10, c.boxBg, c.boxBorder, 1);
     ctx.textAlign = 'center';
     ctx.fillStyle = c.accentBrand;
-    ctx.font = 'bold 18px Inter, sans-serif';
+    ctx.font = 'bold 18px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('👉 Retrouvez toutes les unes numérisées sur projetbi.org/revuedepresse.html', cardX + cardW / 2, ctaY + 30);
   }
 
@@ -4236,75 +4567,84 @@ function studioDrawCitation(ctx, w, h) {
 
   studioDrawHeader(ctx, 'PAROLES OFFICIELLES', '', w, h, c);
 
-  const cardX = isLandscape ? 48 : 60;
-  const cardY = isLandscape ? 82 : 118;
+  const cardX = isLandscape ? 44 : 56;
+  const cardY = isLandscape ? 80 : 116;
   const cardW = w - (cardX * 2);
   const cardH = (h - (isLandscape ? 56 : 76)) - cardY - (isLandscape ? 12 : 20);
 
-  studioRoundBox(ctx, cardX, cardY, cardW, cardH, 16, c.bgCard, c.borderCard, 1.5);
-  studioRoundBox(ctx, cardX + 30, cardY, cardW - 60, 3, 1, c.accentGold, 'transparent');
+  // Main Frosted Glass Card
+  studioGlassCard(ctx, cardX, cardY, cardW, cardH, 18, c);
 
   const cleanQuote = quote.replace(/^[«“]\s*/, '').replace(/\s*[»”]$/, '');
 
   if (isLandscape) {
     // 16:9 LANDSCAPE
     ctx.textAlign = 'center';
-    ctx.fillStyle = c.accentGold;
-    ctx.font = '900 64px Georgia, serif';
+    ctx.fillStyle = 'rgba(229, 184, 66, 0.28)';
+    ctx.font = '900 68px "Crimson Pro", Georgia, serif';
     ctx.fillText('“', cardX + cardW / 2, cardY + 52);
 
     ctx.fillStyle = c.textPrimary;
     ctx.font = 'italic 25px "Crimson Pro", Georgia, serif';
-    const qLines = studioWrapText(ctx, '« ' + cleanQuote + ' »', cardX + 48, cardY + 95, cardW - 96, 36, 3);
+    const qLines = studioWrapText(ctx, '« ' + cleanQuote + ' »', cardX + cardW / 2, cardY + 95, cardW - 96, 36, 3);
 
     const lineY = cardY + 115 + qLines * 36;
     studioRoundBox(ctx, cardX + cardW / 2 - 80, lineY, 160, 2, 1, c.borderCard, 'transparent');
 
     ctx.fillStyle = c.isDark ? c.accentGold : '#0F172A';
-    ctx.font = 'bold 22px Inter, sans-serif';
+    ctx.font = 'bold 22px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText(author.toUpperCase(), cardX + cardW / 2, lineY + 36);
 
     ctx.fillStyle = c.textSecondary;
-    ctx.font = '500 15px Inter, sans-serif';
+    ctx.font = '500 15px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText(role + (context ? '  •  ' + context : ''), cardX + cardW / 2, lineY + 62);
   } else {
     // 1:1 SQUARE
     ctx.textAlign = 'center';
-    ctx.fillStyle = c.accentGold;
-    ctx.font = '900 120px Georgia, serif';
-    ctx.fillText('“', cardX + cardW / 2, cardY + 95);
+    ctx.fillStyle = 'rgba(229, 184, 66, 0.25)';
+    ctx.font = '900 128px "Crimson Pro", Georgia, serif';
+    ctx.fillText('“', cardX + cardW / 2, cardY + 98);
 
     ctx.fillStyle = c.textPrimary;
     ctx.font = 'italic 34px "Crimson Pro", Georgia, serif';
-    const qLines = studioWrapText(ctx, '« ' + cleanQuote + ' »', cardX + 60, cardY + 160, cardW - 120, 48, 5);
+    const qLines = studioWrapText(ctx, '« ' + cleanQuote + ' »', cardX + cardW / 2, cardY + 160, cardW - 120, 48, 5);
 
     const lineY = cardY + 185 + qLines * 48;
-    studioRoundBox(ctx, cardX + cardW / 2 - 100, lineY, 200, 3, 2, c.accentGold, 'transparent');
+    studioRoundBox(ctx, cardX + cardW / 2 - 100, lineY, 200, 3, 2, studioCreateGoldGradient(ctx, cardX + cardW / 2 - 100, lineY, 200, 3, 'horiz'), 'transparent');
 
     ctx.fillStyle = c.isDark ? c.accentGold : '#0F172A';
-    ctx.font = 'bold 28px Inter, sans-serif';
+    ctx.font = 'bold 28px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText(author.toUpperCase(), cardX + cardW / 2, lineY + 45);
 
     ctx.fillStyle = c.textSecondary;
-    ctx.font = '500 20px Inter, sans-serif';
+    ctx.font = '500 20px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText(role, cardX + cardW / 2, lineY + 78);
 
     ctx.fillStyle = c.textMuted;
-    ctx.font = '16px Inter, sans-serif';
+    ctx.font = '16px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('📍 ' + context, cardX + cardW / 2, lineY + 108);
 
-    // Sceau républicain
+    // Sceau républicain avec drapeau vectoriel
     const sealY = cardY + cardH - 110;
-    ctx.textAlign = 'center';
+    const citMotto = 'JUB • JUBAL • JUBANTI';
+    ctx.font = 'bold 15px "Plus Jakarta Sans", Inter, sans-serif';
+    const citMottoW = ctx.measureText(citMotto).width;
+    const cFlagW = 24, cFlagH = 16;
+    const totalCitW = cFlagW + 8 + citMottoW;
+    const cFlagX = cardX + (cardW - totalCitW) / 2;
+    const cFlagY = sealY - 12;
+    studioDrawSenegalFlag(ctx, cFlagX, cFlagY, cFlagW, cFlagH, 3);
+    ctx.textAlign = 'left';
     ctx.fillStyle = c.accentGold;
-    ctx.font = 'bold 15px Inter, sans-serif';
-    ctx.fillText('🇸🇳 JUB • JUBAL • JUBANTI', cardX + cardW / 2, sealY);
+    ctx.fillText(citMotto, cFlagX + cFlagW + 8, sealY + 1);
 
     const btnY = cardY + cardH - 68;
-    studioRoundBox(ctx, cardX + 48, btnY, cardW - 96, 50, 10, c.ctaBg, c.ctaBorder, 1.5);
+    const btnH = 50;
+    const ctaGrad = studioCreateEmeraldGradient(ctx, cardX + 48, btnY, cardW - 96, btnH);
+    studioRoundBox(ctx, cardX + 48, btnY, cardW - 96, btnH, 12, ctaGrad, c.ctaBorder, 1.5, true);
     ctx.textAlign = 'center';
     ctx.fillStyle = c.ctaText;
-    ctx.font = 'bold 18px Inter, sans-serif';
+    ctx.font = 'bold 18px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText('👉 Retrouvez l’intégralité du discours sur projetbi.org', cardX + cardW / 2, btnY + 32);
   }
 
@@ -4321,31 +4661,62 @@ function studioRenderAll() {
   if (themeSel) studioTheme = themeSel.value || 'projetbi_prestige';
   if (ratioSel) studioRatio = ratioSel.value || '1:1';
 
-  // Dimension setup
-  const isSquare = studioRatio === '1:1';
-  const w = isSquare ? 1080 : 1200;
-  const h = isSquare ? 1080 : 675;
-  canvas.width = w;
-  canvas.height = h;
+  // Dimension & Retina Supersampling setup
+  let baseW = 1080, baseH = 1080;
+  let scale = 1;
+
+  if (studioRatio === '1:1-2k') {
+    baseW = 1080; baseH = 1080;
+    scale = 2;
+  } else if (studioRatio === '16:9') {
+    baseW = 1200; baseH = 675;
+    scale = 1;
+  } else if (studioRatio === '16:9-2k') {
+    baseW = 1200; baseH = 675;
+    scale = 2;
+  } else {
+    // 1:1 default
+    baseW = 1080; baseH = 1080;
+    scale = 1;
+  }
+
+  const finalW = baseW * scale;
+  const finalH = baseH * scale;
+
+  canvas.width = finalW;
+  canvas.height = finalH;
 
   const ratioBadge = document.getElementById('studioRatioBadge');
-  if (ratioBadge) ratioBadge.textContent = `${w} × ${h}`;
+  if (ratioBadge) {
+    ratioBadge.textContent = scale > 1 ? `${finalW} × ${finalH} (Retina 4K)` : `${finalW} × ${finalH} HD`;
+  }
+
+  // Activer l'anti-aliasing ultra-haute qualité
+  ctx.save();
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+
+  if (scale !== 1) {
+    ctx.scale(scale, scale);
+  }
 
   // Fond studio
-  studioDrawBackground(ctx, studioTheme, w, h);
+  studioDrawBackground(ctx, studioTheme, baseW, baseH);
 
   // Routage du template actif
   if (studioActiveTemplate === 'flash') {
-    studioDrawFlash(ctx, w, h);
+    studioDrawFlash(ctx, baseW, baseH);
   } else if (studioActiveTemplate === 'engagement') {
-    studioDrawEngagement(ctx, w, h);
+    studioDrawEngagement(ctx, baseW, baseH);
   } else if (studioActiveTemplate === 'bilan') {
-    studioDrawBilan(ctx, w, h);
+    studioDrawBilan(ctx, baseW, baseH);
   } else if (studioActiveTemplate === 'revue') {
-    studioDrawRevue(ctx, w, h);
+    studioDrawRevue(ctx, baseW, baseH);
   } else if (studioActiveTemplate === 'citation') {
-    studioDrawCitation(ctx, w, h);
+    studioDrawCitation(ctx, baseW, baseH);
   }
+
+  ctx.restore();
 
   // Mettre à jour les légendes réseaux sociaux
   studioUpdateCaptions();
@@ -4689,10 +5060,11 @@ function studioDownloadHD() {
   if (!canvas) return;
   const a = document.createElement('a');
   const dateTag = new Date().toISOString().split('T')[0];
-  a.download = `projetbi-${studioActiveTemplate}-${dateTag}-1080x1080.png`;
+  const isRetina = canvas.width >= 2000;
+  a.download = `projetbi-${studioActiveTemplate}-${dateTag}-${canvas.width}x${canvas.height}.png`;
   a.href = canvas.toDataURL('image/png', 1.0);
   a.click();
-  toast('Image HD téléchargée avec succès (1080×1080) ✅', 'success');
+  toast(`Image ${isRetina ? 'Ultra-HD Retina 4K' : 'HD'} téléchargée (${canvas.width}×${canvas.height}) ✅`, 'success');
 }
 
 async function studioCopyImage() {
@@ -5377,28 +5749,60 @@ function ideoRR(ctx,x,y,w,h,r,fill) {
   ctx.closePath(); if(fill){ctx.fillStyle=fill;ctx.fill();}
 }
 function ideoLogoHeader(ctx) {
-  ideoRR(ctx,54,54,200,52,10,'rgba(255,255,255,.13)');
-  ctx.fillStyle='white'; ctx.font='bold 24px Arial'; ctx.textAlign='left';
-  ctx.fillText('PROJETBI · Idéologie PASTEF',74,87);
+  ideoRR(ctx, 48, 44, 300, 52, 12, 'rgba(8, 28, 17, 0.85)');
+  ctx.strokeStyle = 'rgba(229, 184, 66, 0.45)';
+  ctx.lineWidth = 1.2;
+  ideoRR(ctx, 48, 44, 300, 52, 12);
+  ctx.stroke();
+
+  // Monogramme JJJ
+  ctx.font = '900 18px "Plus Jakarta Sans", Inter, sans-serif';
+  ctx.fillStyle = '#00B054'; ctx.fillText('J', 68, 77);
+  ctx.fillStyle = '#FFD700'; ctx.fillText('J', 82, 77);
+  ctx.fillStyle = '#E31B23'; ctx.fillText('J', 96, 77);
+
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = '900 18px "Syne", "Plus Jakarta Sans", sans-serif';
+  ctx.fillText('PROJETBI', 116, 77);
+
+  ctx.fillStyle = '#E5B842';
+  ctx.font = '700 11px "Plus Jakarta Sans", Inter, sans-serif';
+  ctx.fillText('◆ IDÉOLOGIE', 224, 76);
 }
+
 function ideoFooter(ctx) {
-  ideoRR(ctx,0,988,1080,92,0,'rgba(0,0,0,.30)');
-  ctx.fillStyle='rgba(255,255,255,.6)'; ctx.font='21px Arial'; ctx.textAlign='center';
-  ctx.fillText('projetbi.org/ideologie.html  |  #JubJubalJubanti  |  #Solutions #PASTEF',540,1038);
-  ctx.textAlign='left';
+  ideoRR(ctx, 0, 990, 1080, 90, 0, 'rgba(3, 14, 8, 0.96)');
+  const lineG = ctx.createLinearGradient(0, 990, 1080, 990);
+  lineG.addColorStop(0, 'rgba(229,184,66,0.1)');
+  lineG.addColorStop(0.5, 'rgba(229,184,66,0.5)');
+  lineG.addColorStop(1, 'rgba(229,184,66,0.1)');
+  ctx.fillStyle = lineG;
+  ctx.fillRect(0, 990, 1080, 1.5);
+
+  ctx.fillStyle = 'rgba(255,255,255,0.75)';
+  ctx.font = '500 16px "Plus Jakarta Sans", Inter, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('🌐 projetbi.org/ideologie.html  •  Plateforme Citoyenne Indépendante', 48, 1042);
+
+  ctx.fillStyle = '#E5B842';
+  ctx.font = '800 16px "Plus Jakarta Sans", Inter, sans-serif';
+  ctx.textAlign = 'right';
+  ctx.fillText('JUB • JUBAL • JUBANTI 🇸🇳', 1032, 1042);
+  ctx.textAlign = 'left';
 }
+
 /* Wrap text helper */
 function ideoWrapText(ctx, text, x, y, maxW, lineH) {
   const words = text.split(' ');
   let line = '';
   let lines = [];
   words.forEach(w => {
-    const test = line ? line+' '+w : w;
+    const test = line ? line + ' ' + w : w;
     if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = w; }
     else { line = test; }
   });
   lines.push(line);
-  lines.forEach((l,i) => ctx.fillText(l, x, y + i*lineH));
+  lines.forEach((l, i) => ctx.fillText(l, x, y + i * lineH));
   return lines.length;
 }
 
@@ -5406,134 +5810,230 @@ function ideoDrawCanvas() {
   const canvas = document.getElementById('ideoCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  canvas.width=1080; canvas.height=1080;
+  canvas.width = 1080; canvas.height = 1080;
+
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
 
   if (ideoActiveTemplate === 'citation') {
-    ideoBg(ctx,'#1F4530','#2D5F3F');
-    // Texture subtile
-    ctx.fillStyle='rgba(201,168,76,.05)';
-    ctx.beginPath(); ctx.arc(980,100,320,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(100,1000,200,0,Math.PI*2); ctx.fill();
+    ideoBg(ctx, '#031409', '#082D18');
+    
+    // Halos lumineux d'ambiance
+    const rad1 = ctx.createRadialGradient(900, 150, 10, 900, 150, 400);
+    rad1.addColorStop(0, 'rgba(229,184,66,0.14)'); rad1.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = rad1; ctx.beginPath(); ctx.arc(900, 150, 400, 0, Math.PI * 2); ctx.fill();
+
     ideoLogoHeader(ctx);
-    // Grande guillemet décorative
-    ctx.fillStyle='rgba(201,168,76,.18)'; ctx.font='bold 400px Arial'; ctx.textAlign='left';
-    ctx.fillText('"',30,480);
+
+    // Grande guillemet décorative en or translucide
+    ctx.fillStyle = 'rgba(229,184,66,0.22)';
+    ctx.font = '900 320px "Crimson Pro", Georgia, serif';
+    ctx.textAlign = 'left';
+    ctx.fillText('“', 50, 420);
+
     // Texte citation
     const cite = ideoVal('ictText') || 'Les SOLUTIONS sont bien en nous.';
     const src  = ideoVal('ictSource') || 'Ousmane Sonko — Solutions';
-    ideoRR(ctx,80,260,920,490,20,'rgba(255,255,255,.07)');
-    ctx.fillStyle='#fff'; ctx.font='italic bold 46px Georgia'; ctx.textAlign='center';
-    const lh = 68;
+
+    ideoRR(ctx, 70, 240, 940, 520, 20, 'rgba(8, 28, 17, 0.85)');
+    ctx.strokeStyle = 'rgba(229,184,66,0.40)'; ctx.lineWidth = 1.5;
+    ideoRR(ctx, 70, 240, 940, 520, 20); ctx.stroke();
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'italic bold 42px "Crimson Pro", Georgia, serif';
+    ctx.textAlign = 'center';
+    const lh = 64;
     const lines = [];
-    const words = cite.split(' '); let line='';
-    words.forEach(w => { const t=line?line+' '+w:w; if(ctx.measureText(t).width>820&&line){lines.push(line);line=w;}else{line=t;} }); lines.push(line);
-    const startY = 260 + (490 - lines.length*lh)/2 + 46;
-    lines.forEach((l,i) => ctx.fillText(l,540,startY+i*lh));
+    const words = cite.split(' '); let line = '';
+    words.forEach(w => {
+      const t = line ? line + ' ' + w : w;
+      if (ctx.measureText(t).width > 840 && line) { lines.push(line); line = w; }
+      else { line = t; }
+    });
+    lines.push(line);
+
+    const startY = 240 + (520 - lines.length * lh) / 2 + 36;
+    lines.forEach((l, i) => ctx.fillText(l, 540, startY + i * lh));
+
     // Source
-    ideoRR(ctx,340,790,400,6,3,'#C9A84C');
-    ctx.fillStyle='#C9A84C'; ctx.font='bold 28px Arial'; ctx.fillText(src,540,840);
-    ctx.textAlign='left';
+    const lineY = 790;
+    ideoRR(ctx, 340, lineY, 400, 3, 1.5, '#E5B842');
+    ctx.fillStyle = '#E5B842';
+    ctx.font = 'bold 26px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText(src.toUpperCase(), 540, lineY + 45);
+
+    ctx.textAlign = 'left';
     ideoFooter(ctx);
 
   } else if (ideoActiveTemplate === 'pilier') {
-    ideoBg(ctx,'#0D3020','#1A4A30');
+    ideoBg(ctx, '#031409', '#082D18');
     ideoLogoHeader(ctx);
     const num   = ideoVal('iplNum')   || '01';
     const title = ideoVal('iplTitle') || 'Souveraineté Nationale';
     const sub   = ideoVal('iplSub')   || 'Décolonisation économique';
-    const acts  = [ideoVal('ipl1'),ideoVal('ipl2'),ideoVal('ipl3'),ideoVal('ipl4')].filter(Boolean);
-    // Grand numéro fond
-    ctx.fillStyle='rgba(255,255,255,.04)'; ctx.font='bold 700px Arial'; ctx.textAlign='center';
-    ctx.fillText(num,540,820);
-    // Badge numéro
-    ideoRR(ctx,430,148,220,68,34,'rgba(201,168,76,.25)');
-    ctx.fillStyle='#C9A84C'; ctx.font='bold 32px Arial'; ctx.textAlign='center';
-    ctx.fillText('PILIER '+num,540,192);
+    const acts  = [ideoVal('ipl1'), ideoVal('ipl2'), ideoVal('ipl3'), ideoVal('ipl4')].filter(Boolean);
+
+    // Grand numéro fond watermark
+    ctx.fillStyle = 'rgba(229,184,66,0.035)';
+    ctx.font = '900 680px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(num, 540, 780);
+
+    // Badge numéro en or
+    ideoRR(ctx, 420, 140, 240, 60, 12, 'rgba(229,184,66,0.18)');
+    ctx.strokeStyle = '#E5B842'; ctx.lineWidth = 1.5;
+    ideoRR(ctx, 420, 140, 240, 60, 12); ctx.stroke();
+
+    ctx.fillStyle = '#FFE9A3';
+    ctx.font = 'bold 24px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('PILIER ' + num, 540, 178);
+
     // Titre
-    ctx.fillStyle='#fff'; ctx.font='bold 72px Georgia'; ctx.textAlign='center';
-    ideoWrapText(ctx, title, 540, 310, 900, 82);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 56px "Crimson Pro", Georgia, serif';
+    ctx.textAlign = 'center';
+    ideoWrapText(ctx, title, 540, 275, 900, 68);
+
     // Sous-titre
-    ctx.fillStyle='rgba(255,255,255,.65)'; ctx.font='34px Arial'; ctx.textAlign='center';
-    ctx.fillText(sub,540,440);
-    // Séparateur
-    ideoRR(ctx,390,480,300,4,2,'#C9A84C');
+    ctx.fillStyle = 'rgba(215, 234, 223, 0.75)';
+    ctx.font = '500 24px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(sub, 540, 375);
+
+    // Séparateur d'or
+    ideoRR(ctx, 390, 410, 300, 3, 1.5, '#E5B842');
+
     // Actions
-    const startA = 530;
-    acts.forEach((a,i) => {
-      ideoRR(ctx,80,startA+i*98,920,82,14,'rgba(255,255,255,.07)');
-      ctx.fillStyle='#C9A84C'; ctx.font='bold 30px Arial'; ctx.textAlign='left';
-      ctx.fillText('✓',108,startA+i*98+52);
-      ctx.fillStyle='white'; ctx.font='30px Arial';
-      ctx.fillText(a.slice(0,72),155,startA+i*98+52);
+    const startA = 460;
+    acts.forEach((a, i) => {
+      const y = startA + i * 110;
+      ideoRR(ctx, 70, y, 940, 88, 14, 'rgba(8, 28, 17, 0.80)');
+      ideoRR(ctx, 70, y, 5, 88, 2.5, '#10B981');
+      ctx.strokeStyle = 'rgba(255,255,255,0.10)'; ctx.lineWidth = 1;
+      ideoRR(ctx, 70, y, 940, 88, 14); ctx.stroke();
+
+      ctx.fillStyle = '#10B981';
+      ctx.font = 'bold 26px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('✓', 105, y + 54);
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '600 24px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(a.slice(0, 68), 150, y + 54);
     });
-    ctx.textAlign='left';
+
+    ctx.textAlign = 'left';
     ideoFooter(ctx);
 
   } else if (ideoActiveTemplate === 'comparaison') {
-    ideoBg(ctx,'#111','#1a1a1a');
+    ideoBg(ctx, '#07090D', '#121820');
     ideoLogoHeader(ctx);
     const topic    = ideoVal('icmpTopic')    || 'Agriculture';
     const badTitle = ideoVal('icmpBadTitle') || 'Le Système';
-    const goodTitle= ideoVal('icmpGoodTitle')|| 'Vision PASTEF';
+    const goodTitle = ideoVal('icmpGoodTitle') || 'Vision PASTEF';
     const badDesc  = ideoVal('icmpBadDesc')  || '';
     const goodDesc = ideoVal('icmpGoodDesc') || '';
+
     // Thème central
-    ideoRR(ctx,340,140,400,80,40,'rgba(201,168,76,.2)');
-    ctx.fillStyle='#C9A84C'; ctx.font='bold 36px Arial'; ctx.textAlign='center';
-    ctx.fillText('⚖️  '+topic,540,190);
+    ideoRR(ctx, 340, 135, 400, 64, 12, 'rgba(229,184,66,0.18)');
+    ctx.strokeStyle = '#E5B842'; ctx.lineWidth = 1.5;
+    ideoRR(ctx, 340, 135, 400, 64, 12); ctx.stroke();
+
+    ctx.fillStyle = '#FFE9A3';
+    ctx.font = 'bold 28px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('⚖️  ' + topic.toUpperCase(), 540, 178);
+
     // Panneau gauche — système
-    ideoRR(ctx,44,260,476,660,20,'rgba(178,58,58,.15)');
-    ctx.strokeStyle='#B23A3A'; ctx.lineWidth=3; ideoRR(ctx,44,260,476,660,20); ctx.stroke();
-    ctx.fillStyle='#ff7777'; ctx.font='bold 28px Arial'; ctx.textAlign='center';
-    ctx.fillText('✕  LE SYSTÈME',282,320);
-    ctx.fillStyle='white'; ctx.font='bold 38px Georgia';
-    ideoWrapText(ctx, badTitle,  282, 390, 420, 52);
-    ctx.fillStyle='rgba(255,255,255,.65)'; ctx.font='26px Arial';
-    ideoWrapText(ctx, badDesc,   282, 510, 430, 40);
+    ideoRR(ctx, 44, 235, 476, 710, 18, 'rgba(239,68,68,0.10)');
+    ctx.strokeStyle = '#EF4444'; ctx.lineWidth = 2;
+    ideoRR(ctx, 44, 235, 476, 710, 18); ctx.stroke();
+
+    ctx.fillStyle = '#F87171';
+    ctx.font = 'bold 22px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('✕  LE SYSTÈME', 282, 290);
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 36px "Crimson Pro", Georgia, serif';
+    ideoWrapText(ctx, badTitle, 282, 360, 420, 48);
+
+    ctx.fillStyle = 'rgba(255,255,255,0.72)';
+    ctx.font = '500 20px "Plus Jakarta Sans", Inter, sans-serif';
+    ideoWrapText(ctx, badDesc, 282, 480, 430, 34);
+
     // Panneau droit — PASTEF
-    ideoRR(ctx,560,260,476,660,20,'rgba(45,95,63,.25)');
-    ctx.strokeStyle='#2D5F3F'; ctx.lineWidth=3; ideoRR(ctx,560,260,476,660,20); ctx.stroke();
-    ctx.fillStyle='#6fcf7e'; ctx.font='bold 28px Arial'; ctx.textAlign='center';
-    ctx.fillText('✓  VISION PASTEF',798,320);
-    ctx.fillStyle='white'; ctx.font='bold 38px Georgia';
-    ideoWrapText(ctx, goodTitle, 798, 390, 420, 52);
-    ctx.fillStyle='rgba(255,255,255,.65)'; ctx.font='26px Arial';
-    ideoWrapText(ctx, goodDesc,  798, 510, 430, 40);
-    // VS central
-    ideoRR(ctx,490,540,100,100,50,'#C9A84C');
-    ctx.fillStyle='#0d1b14'; ctx.font='bold 44px Arial'; ctx.textAlign='center';
-    ctx.fillText('VS',540,602);
-    ctx.textAlign='left';
+    ideoRR(ctx, 560, 235, 476, 710, 18, 'rgba(16,185,129,0.12)');
+    ctx.strokeStyle = '#10B981'; ctx.lineWidth = 2;
+    ideoRR(ctx, 560, 235, 476, 710, 18); ctx.stroke();
+
+    ctx.fillStyle = '#34D399';
+    ctx.font = 'bold 22px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('✓  VISION PASTEF', 798, 290);
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 36px "Crimson Pro", Georgia, serif';
+    ideoWrapText(ctx, goodTitle, 798, 360, 420, 48);
+
+    ctx.fillStyle = 'rgba(255,255,255,0.72)';
+    ctx.font = '500 20px "Plus Jakarta Sans", Inter, sans-serif';
+    ideoWrapText(ctx, goodDesc, 798, 480, 430, 34);
+
+    // VS central capsule d'or
+    ideoRR(ctx, 485, 535, 110, 110, 55, '#E5B842');
+    ctx.fillStyle = '#08140B';
+    ctx.font = '900 38px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('VS', 540, 604);
+
+    ctx.textAlign = 'left';
     ideoFooter(ctx);
 
   } else if (ideoActiveTemplate === 'jubanti') {
-    ideoBg(ctx,'#1A3828','#2D5F3F');
+    ideoBg(ctx, '#031409', '#082D18');
     ideoLogoHeader(ctx);
-    ctx.fillStyle='rgba(201,168,76,.06)'; ctx.beginPath(); ctx.arc(540,580,460,0,Math.PI*2); ctx.fill();
-    // Titre
-    ctx.fillStyle='rgba(255,255,255,.55)'; ctx.font='28px Arial'; ctx.textAlign='center';
-    ctx.fillText('VALEURS FONDAMENTALES DE PASTEF',540,170);
-    const words = ['JUB','JUBAL','JUBANTI'];
-    const defs  = [ideoVal('ijub1')||'Être juste', ideoVal('ijub2')||'Rendre juste', ideoVal('ijub3')||'Faire que justice soit'];
-    const colors= ['rgba(255,255,255,.12)','rgba(201,168,76,.3)','rgba(255,255,255,.12)'];
-    const textColors=['#fff','#C9A84C','#fff'];
-    words.forEach((w,i) => {
-      const x = 54+i*336, bW=310, bH=530, bY=220;
-      ideoRR(ctx,x,bY,bW,bH,20,colors[i]);
-      ctx.fillStyle=textColors[i]; ctx.font='bold 84px Arial'; ctx.textAlign='center';
-      ctx.fillText(w,x+bW/2,bY+120);
-      ctx.fillStyle='rgba(255,255,255,.9)'; ctx.font='30px Georgia';
-      ideoWrapText(ctx,defs[i],x+bW/2,bY+200,270,44);
+
+    ctx.fillStyle = 'rgba(255,255,255,0.60)';
+    ctx.font = 'bold 24px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('VALEURS FONDAMENTALES DU PROJET SÉNÉGALAIS', 540, 160);
+
+    const words = ['JUB', 'JUBAL', 'JUBANTI'];
+    const defs  = [ideoVal('ijub1') || 'Être juste', ideoVal('ijub2') || 'Rendre juste', ideoVal('ijub3') || 'Faire que justice soit'];
+    const textColors = ['#FFFFFF', '#FFE9A3', '#FFFFFF'];
+
+    words.forEach((w, i) => {
+      const x = 54 + i * 336, bW = 305, bH = 560, bY = 210;
+      ideoRR(ctx, x, bY, bW, bH, 18, 'rgba(8, 28, 17, 0.85)');
+      ctx.strokeStyle = i === 1 ? '#E5B842' : 'rgba(255,255,255,0.12)';
+      ctx.lineWidth = i === 1 ? 2 : 1;
+      ideoRR(ctx, x, bY, bW, bH, 18); ctx.stroke();
+
+      ctx.fillStyle = textColors[i];
+      ctx.font = '900 68px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(w, x + bW / 2, bY + 120);
+
+      ideoRR(ctx, x + 40, bY + 160, bW - 80, 2, 1, i === 1 ? '#E5B842' : 'rgba(255,255,255,0.15)');
+
+      ctx.fillStyle = 'rgba(255,255,255,0.85)';
+      ctx.font = 'italic 26px "Crimson Pro", Georgia, serif';
+      ideoWrapText(ctx, defs[i], x + bW / 2, bY + 220, 250, 38);
     });
-    ctx.fillStyle='rgba(255,255,255,.5)'; ctx.font='italic 30px Georgia'; ctx.textAlign='center';
-    ctx.fillText('Ces trois mots wolof résument la philosophie d\'action de PASTEF.',540,840);
-    ctx.textAlign='left';
+
+    ctx.fillStyle = 'rgba(215, 234, 223, 0.65)';
+    ctx.font = 'italic 22px "Crimson Pro", Georgia, serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Ces trois principes cardinaux constituent le socle de la souveraineté républicaine.', 540, 840);
+    ctx.textAlign = 'left';
     ideoFooter(ctx);
 
   } else if (ideoActiveTemplate === 'stat') {
-    ideoBg(ctx,'#1F3060','#2D4A9F');
+    ideoBg(ctx, '#031409', '#082D18');
     ideoLogoHeader(ctx);
-    ctx.fillStyle='rgba(201,168,76,.06)'; ctx.beginPath(); ctx.arc(900,200,380,0,Math.PI*2); ctx.fill();
+
     const bigN  = ideoVal('istatNum')   || '232';
     const bigL  = ideoVal('istatLabel') || 'Pages d\'analyse';
     const title = ideoVal('istatTitle') || 'Le livre Solutions en chiffres';
@@ -5541,22 +6041,50 @@ function ideoDrawCanvas() {
     const l2    = ideoVal('istat2l')    || 'Création PASTEF';
     const n3    = ideoVal('istat3n')    || '58+';
     const l3    = ideoVal('istat3l')    || 'Années de système';
-    // Titre
-    ctx.fillStyle='#C9A84C'; ctx.font='bold 44px Arial'; ctx.textAlign='center';
-    ctx.fillText(title,540,190);
-    // Grand chiffre
-    ideoRR(ctx,174,240,732,330,24,'rgba(255,255,255,.1)');
-    ctx.fillStyle='#C9A84C'; ctx.font='bold 240px Arial'; ctx.textAlign='center';
-    ctx.fillText(bigN,540,490);
-    ctx.fillStyle='white'; ctx.font='40px Arial'; ctx.fillText(bigL,540,560);
+
+    ctx.fillStyle = '#E5B842';
+    ctx.font = 'bold 36px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(title, 540, 175);
+
+    // Grand chiffre avec halo
+    ideoRR(ctx, 150, 220, 780, 350, 20, 'rgba(8, 28, 17, 0.88)');
+    ctx.strokeStyle = 'rgba(229,184,66,0.50)'; ctx.lineWidth = 1.5;
+    ideoRR(ctx, 150, 220, 780, 350, 20); ctx.stroke();
+
+    ctx.fillStyle = '#FFE9A3';
+    ctx.font = '900 200px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(bigN, 540, 440);
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 32px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText(bigL, 540, 520);
+
     // 2 stats secondaires
-    ideoRR(ctx,54,620,476,270,20,'rgba(255,255,255,.08)');
-    ctx.fillStyle='#fff'; ctx.font='bold 110px Arial'; ctx.fillText(n2,292,740);
-    ctx.fillStyle='rgba(255,255,255,.7)'; ctx.font='32px Arial'; ctx.fillText(l2,292,800);
-    ideoRR(ctx,550,620,476,270,20,'rgba(255,255,255,.08)');
-    ctx.fillStyle='#fff'; ctx.font='bold 110px Arial'; ctx.fillText(n3,788,740);
-    ctx.fillStyle='rgba(255,255,255,.7)'; ctx.font='32px Arial'; ctx.fillText(l3,788,800);
-    ctx.textAlign='left';
+    ideoRR(ctx, 54, 610, 476, 280, 18, 'rgba(8, 28, 17, 0.80)');
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)'; ctx.lineWidth = 1;
+    ideoRR(ctx, 54, 610, 476, 280, 18); ctx.stroke();
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 96px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText(n2, 292, 730);
+    ctx.fillStyle = 'rgba(255,255,255,0.70)';
+    ctx.font = '600 24px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText(l2, 292, 790);
+
+    ideoRR(ctx, 550, 610, 476, 280, 18, 'rgba(8, 28, 17, 0.80)');
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)'; ctx.lineWidth = 1;
+    ideoRR(ctx, 550, 610, 476, 280, 18); ctx.stroke();
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 96px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText(n3, 788, 730);
+    ctx.fillStyle = 'rgba(255,255,255,0.70)';
+    ctx.font = '600 24px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText(l3, 788, 790);
+
+    ctx.textAlign = 'left';
     ideoFooter(ctx);
   }
 }
