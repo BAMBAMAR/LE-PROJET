@@ -99,6 +99,13 @@ async function run() {
     if (process.platform === 'win32') {
       execSync('taskkill /F /IM chrome-headless-shell.exe 2>nul || exit 0', { shell: 'cmd.exe' });
     }
+    const repoDir = path.join(__dirname, '..');
+    const rebaseMerge = path.join(repoDir, '.git', 'rebase-merge');
+    const rebaseApply = path.join(repoDir, '.git', 'rebase-apply');
+    if (fs.existsSync(rebaseMerge) || fs.existsSync(rebaseApply)) {
+      try { execSync('git rebase --abort', { cwd: repoDir, stdio: 'pipe' }); } catch (_) {}
+    }
+    try { execSync('git pull --rebase origin main', { cwd: repoDir, stdio: 'pipe' }); } catch (_) {}
   } catch (e) {}
 
   if (!isLoginMode && !isSourceCheckMode && !directUrlArg && !isForceMode && new Date().getDay() === 0) {
@@ -654,24 +661,46 @@ function syncGit(todayFr, count) {
     log('🚀 Début de la synchronisation Git automatique...');
     const repoDir = path.join(__dirname, '..');
 
-    execSync('git add -A', { cwd: repoDir, stdio: 'inherit' });
-    const status = execSync('git status --porcelain', { cwd: repoDir, encoding: 'utf8' }).trim();
+    // Nettoyer tout rebase ou merge orphelin préalable
+    const rebaseMerge = path.join(repoDir, '.git', 'rebase-merge');
+    const rebaseApply = path.join(repoDir, '.git', 'rebase-apply');
+    if (fs.existsSync(rebaseMerge) || fs.existsSync(rebaseApply)) {
+      try {
+        log('   ⚠️ Nettoyage d\'un rebase Git orphelin...');
+        execSync('git rebase --abort', { cwd: repoDir, stdio: 'pipe' });
+      } catch (_) {
+        if (fs.existsSync(rebaseMerge)) fs.rmSync(rebaseMerge, { recursive: true, force: true });
+        if (fs.existsSync(rebaseApply)) fs.rmSync(rebaseApply, { recursive: true, force: true });
+      }
+    }
+
+    // Cibler spécifiquement les fichiers de revue de presse
+    execSync('git add revuedepresse/ press.json', { cwd: repoDir, stdio: 'inherit' });
+    const status = execSync('git status --porcelain revuedepresse/ press.json', { cwd: repoDir, encoding: 'utf8' }).trim();
     if (status) {
       const commitMsg = `Mise à jour revue de presse du ${todayFr} (${count} journaux)`;
       execSync(`git commit -m "${commitMsg}"`, { cwd: repoDir, stdio: 'inherit' });
       log(`   ✅ Commit local créé : "${commitMsg}"`);
     } else {
-      log('   ℹ️ Aucun nouveau fichier à committer.');
+      log('   ℹ️ Aucun nouveau fichier de revue de presse à committer.');
     }
 
+    let pullSuccess = true;
     try {
       execSync('git pull --rebase --autostash origin main', { cwd: repoDir, encoding: 'utf8', stdio: 'inherit' });
     } catch (e) {
-      log(`   ⚠️ Avertissement Git pull : ${e.message}`);
+      pullSuccess = false;
+      log(`   ⚠️ Conflit ou avertissement Git pull : ${e.message}`);
+      try {
+        execSync('git rebase --abort', { cwd: repoDir, stdio: 'pipe' });
+        log('   ℹ️ Rebase annulé avec succès pour préserver la cohérence Git.');
+      } catch (_) {}
     }
 
-    execSync('git push origin main', { cwd: repoDir, encoding: 'utf8', stdio: 'inherit' });
-    log('   🚀 Push GitHub effectué avec succès sur origin/main !');
+    if (pullSuccess) {
+      execSync('git push origin main', { cwd: repoDir, encoding: 'utf8', stdio: 'inherit' });
+      log('   🚀 Push GitHub effectué avec succès sur origin/main !');
+    }
   } catch (err) {
     log(`❌ Erreur lors de la synchronisation Git : ${err.message}`);
   }
