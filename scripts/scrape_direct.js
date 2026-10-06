@@ -2,6 +2,7 @@ const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
 const { execSync } = require('child_process');
+const { syncWithRemote } = require('./git_utils');
 
 const USER_DATA_DIR = path.join(__dirname, '..', '.fb_session');
 const TARGET_DIR = path.join(__dirname, '..', 'revuedepresse');
@@ -220,25 +221,12 @@ async function run() {
     console.log(`press.json mis à jour avec ${downloadedPapers.length} entrées.`);
 
     // Git sync
-    try {
-      console.log('\nSynchronisation Git...');
-      execSync('git add revuedepresse/ press.json', { cwd: path.join(__dirname, '..'), stdio: 'inherit' });
-      const status = execSync('git status --porcelain', { cwd: path.join(__dirname, '..'), encoding: 'utf8' }).trim();
-      if (status) {
-        execSync(`git commit -m "Mise à jour revue de presse du ${todayFr}"`, { cwd: path.join(__dirname, '..'), stdio: 'inherit' });
-      }
-      
-      try {
-        execSync('git pull --rebase origin main', { cwd: path.join(__dirname, '..'), stdio: 'inherit' });
-      } catch (e) {
-        console.warn('Avertissement Git pull:', e.message);
-      }
-
-      execSync('git push origin main', { cwd: path.join(__dirname, '..'), stdio: 'inherit' });
-      console.log('Git push réussi !');
-    } catch (e) {
-      console.error('Erreur Git:', e.message);
-    }
+    console.log('\nSynchronisation Git...');
+    syncWithRemote(path.join(__dirname, '..'), {
+      filesToStage: ['revuedepresse/', 'press.json'],
+      commitMessage: `Mise à jour revue de presse du ${todayFr}`,
+      logger: console.log
+    });
   } else {
     console.log(`⚠ Seulement ${downloadedPapers.length} journaux trouvés (minimum 12 requis).`);
     console.log(`Annulation de la mise à jour pour éviter de publier un lot incomplet ou de fausses images.`);

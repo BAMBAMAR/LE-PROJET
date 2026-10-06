@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const { exec, execSync } = require('child_process');
+const { syncWithRemote } = require('./git_utils');
 
 const PORT = 4040;
 const PROJECT_DIR = path.join(__dirname, '..');
@@ -545,17 +546,11 @@ const server = http.createServer((req, res) => {
         fs.writeFileSync(PRESS_JSON_PATH, JSON.stringify(pressData, null, 2), 'utf8');
 
         // Synchroniser Git
-        try {
-          execSync('git add revuedepresse/ press.json', { cwd: PROJECT_DIR, stdio: 'inherit' });
-          const status = execSync('git status --porcelain', { cwd: PROJECT_DIR, encoding: 'utf8' }).trim();
-          if (status) {
-            execSync(`git commit -m "Mise à jour manuelle revue de presse du ${dateFr} (${savedPapers.length} journaux)"`, { cwd: PROJECT_DIR, stdio: 'inherit' });
-            try { execSync('git pull --rebase --autostash origin main', { cwd: PROJECT_DIR, stdio: 'inherit' }); } catch(e) {}
-            execSync('git push origin main', { cwd: PROJECT_DIR, stdio: 'inherit' });
-          }
-        } catch (gitErr) {
-          console.warn('Avertissement Git:', gitErr.message);
-        }
+        syncWithRemote(PROJECT_DIR, {
+          filesToStage: ['revuedepresse/', 'press.json'],
+          commitMessage: `Mise à jour manuelle revue de presse du ${dateFr} (${savedPapers.length} journaux)`,
+          logger: console.log
+        });
 
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify({ success: true, count: savedPapers.length }));

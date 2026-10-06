@@ -12,10 +12,14 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+const { ensureCleanGitState, syncWithRemote } = require('./git_utils');
 
 const PROMISES_FILE = path.join(__dirname, '..', 'promises.json');
 const DRAFTS_FILE   = path.join(__dirname, '..', 'drafts.json');
 const NEWS_FILE     = path.join(__dirname, '..', 'news.json');
+
+const repoDir = path.join(__dirname, '..');
+ensureCleanGitState(repoDir);
 
 console.log('Chargement des fichiers de données...');
 const promisesData = JSON.parse(fs.readFileSync(PROMISES_FILE, 'utf8'));
@@ -456,33 +460,12 @@ if (draftsData.drafts && Array.isArray(draftsData.drafts)) {
 
 const noGit = process.argv.includes('--no-git');
 if (!noGit) {
-  try {
-    const repoDir = path.join(__dirname, '..');
-    const status = execSync('git status --porcelain promises.json drafts.json', { cwd: repoDir, encoding: 'utf8' }).trim();
-    if (status) {
-      console.log('\n🚀 Synchronisation Git des engagements et actualités...');
-      execSync('git add promises.json drafts.json', { cwd: repoDir, stdio: 'inherit' });
-      execSync('git commit -m "chore(engagements): synchronisation automatique des engagements et brouillons"', { cwd: repoDir, stdio: 'inherit' });
-
-      let pullSuccess = true;
-      try {
-        execSync('git pull --rebase --autostash origin main', { cwd: repoDir, encoding: 'utf8', stdio: 'inherit' });
-      } catch (e) {
-        pullSuccess = false;
-        console.warn('⚠️ Avertissement Git pull :', e.message);
-        try { execSync('git rebase --abort', { cwd: repoDir, stdio: 'pipe' }); } catch (_) {}
-      }
-
-      if (pullSuccess) {
-        execSync('git push origin main', { cwd: repoDir, encoding: 'utf8', stdio: 'inherit' });
-        console.log('✅ Synchronisation GitHub réussie sur origin/main !');
-      }
-    } else {
-      console.log('\nℹ️ Aucun changement dans promises.json et drafts.json à synchroniser.');
-    }
-  } catch (err) {
-    console.error('⚠️ Note synchronisation Git :', err.message);
-  }
+  console.log('\n🚀 Synchronisation Git des engagements et actualités...');
+  syncWithRemote(repoDir, {
+    filesToStage: ['promises.json', 'drafts.json'],
+    commitMessage: 'chore(engagements): synchronisation automatique des engagements et brouillons',
+    logger: console.log
+  });
 }
 
 console.log('\nOpération terminée avec succès.');

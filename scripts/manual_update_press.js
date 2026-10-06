@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+const { syncWithRemote } = require('./git_utils');
 
 const PROJECT_DIR = path.join(__dirname, '..');
 const REVUE_DIR = path.join(PROJECT_DIR, 'revuedepresse');
@@ -73,29 +74,12 @@ function detectPaperName(filename) {
 }
 
 function syncGit(todayFr, count) {
-  try {
-    console.log('\n🚀 Synchronisation Git automatique...');
-    execSync('git add revuedepresse/ press.json', { cwd: PROJECT_DIR, stdio: 'inherit' });
-    const status = execSync('git status --porcelain', { cwd: PROJECT_DIR, encoding: 'utf8' }).trim();
-    if (status) {
-      const commitMsg = `Mise à jour manuelle revue de presse du ${todayFr} (${count} journaux)`;
-      execSync(`git commit -m "${commitMsg}"`, { cwd: PROJECT_DIR, stdio: 'inherit' });
-      console.log(`✅ Commit créé : "${commitMsg}"`);
-    } else {
-      console.log('ℹ️ Aucun nouveau fichier à committer.');
-    }
-
-    try {
-      execSync('git pull --rebase --autostash origin main', { cwd: PROJECT_DIR, encoding: 'utf8', stdio: 'inherit' });
-    } catch (e) {
-      console.warn('⚠️ Avertissement Git pull:', e.message);
-    }
-
-    execSync('git push origin main', { cwd: PROJECT_DIR, encoding: 'utf8', stdio: 'inherit' });
-    console.log('✅ Push GitHub réussi ! Le site en ligne sera actualisé dans 1 minute.');
-  } catch (err) {
-    console.error('⚠️ Note sur la synchronisation Git :', err.message);
-  }
+  console.log('\n🚀 Synchronisation Git automatique...');
+  syncWithRemote(PROJECT_DIR, {
+    filesToStage: ['revuedepresse/', 'press.json'],
+    commitMessage: `Mise à jour manuelle revue de presse du ${todayFr} (${count} journaux)`,
+    logger: console.log
+  });
 }
 
 function run() {
