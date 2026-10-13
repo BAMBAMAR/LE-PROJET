@@ -3,108 +3,123 @@
   "press": [
     {
       "id": "1",
-      "title": "Quotidien",
+      "title": "Kiosque Sénégal",
       "date": "13/10/2026",
       "image": "revuedepresse/revue_2026-10-13_1.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Revue générale des Unes du Mardi 13 Octobre 2026"
     },
     {
       "id": "2",
-      "title": "Quotidien",
+      "title": "Walf Quotidien",
       "date": "13/10/2026",
       "image": "revuedepresse/revue_2026-10-13_2.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Commissions d'enquête parlementaires : Face-à-face électrique"
     },
     {
       "id": "3",
-      "title": "Quotidien",
+      "title": "EnQuête",
       "date": "13/10/2026",
       "image": "revuedepresse/revue_2026-10-13_3.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Audition au Parlement : Karim Fofana tient tête aux députés"
     },
     {
       "id": "4",
-      "title": "Quotidien",
+      "title": "Les Échos",
       "date": "13/10/2026",
       "image": "revuedepresse/revue_2026-10-13_4.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Cheikh Oumar Anne déchire la convocation, Abdou Karim Fofana « détruit » la commission"
     },
     {
       "id": "5",
-      "title": "Quotidien",
+      "title": "L'As",
       "date": "13/10/2026",
       "image": "revuedepresse/revue_2026-10-13_5.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Karim Fofana humilie les députés, Cheikh Oumar Hanne renvoie au Pastef ses copies"
     },
     {
       "id": "6",
-      "title": "Quotidien",
+      "title": "Yoor-Yoor Bi",
       "date": "13/10/2026",
       "image": "revuedepresse/revue_2026-10-13_6.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Loyers dérisoires et baux de 99 ans : Le spectre de la délinquance foncière"
     },
     {
       "id": "7",
-      "title": "Quotidien",
+      "title": "Le Quotidien",
       "date": "13/10/2026",
       "image": "revuedepresse/revue_2026-10-13_7.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Gazoduc / RGS 348 milliards : La tuyauterie de Sonko"
     },
     {
       "id": "8",
-      "title": "Quotidien",
+      "title": "Sud Quotidien",
       "date": "13/10/2026",
       "image": "revuedepresse/revue_2026-10-13_8.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Cité Fayçal : Le bras de fer des baux emphytéotiques"
     },
     {
       "id": "9",
-      "title": "Quotidien",
+      "title": "Point Actu",
       "date": "13/10/2026",
       "image": "revuedepresse/revue_2026-10-13_9.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Attaques contre Pastef : Cheikh Oumar Anne s'oppose à son audition"
     },
     {
       "id": "10",
-      "title": "Quotidien",
+      "title": "Le Soleil",
       "date": "13/10/2026",
       "image": "revuedepresse/revue_2026-10-13_10.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Rentrée scolaire : Une reprise presque normale dans les écoles"
     },
     {
       "id": "11",
-      "title": "Quotidien",
+      "title": "Rewmi Quotidien",
       "date": "13/10/2026",
       "image": "revuedepresse/revue_2026-10-13_11.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Abdou Karim Fofana face aux enquêteurs : Une audition fleuve"
     },
     {
       "id": "12",
-      "title": "Quotidien",
+      "title": "L'Info",
       "date": "13/10/2026",
       "image": "revuedepresse/revue_2026-10-13_12.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Abdou Karim Fofana défend les baux de 99 ans / Cheikh O. Anne refuse l'audition"
     },
     {
       "id": "13",
-      "title": "Quotidien",
+      "title": "L'Observateur",
       "date": "13/10/2026",
       "image": "revuedepresse/revue_2026-10-13_13.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Auditions à l'Assemblée : Le bras de fer politique s'envenime"
     },
     {
       "id": "14",
-      "title": "Quotidien",
+      "title": "Source A",
       "date": "13/10/2026",
       "image": "revuedepresse/revue_2026-10-13_14.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Cheikh O. Anne l'envoie balader, Abdou K. Fofana la démystifie"
     },
     {
       "id": "15",
-      "title": "Quotidien",
+      "title": "Tribune",
       "date": "13/10/2026",
       "image": "revuedepresse/revue_2026-10-13_15.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Karim Fofana pulvérise la commission, Cheikh O. Hann déchire sa convocation"
     },
     {
       "id": "16",
