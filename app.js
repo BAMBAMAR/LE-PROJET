@@ -731,7 +731,7 @@ async function loadPressData() {
 // Fonction séparée pour charger les actualités
 async function loadNewsData() {
     try {
-        const newsResponse = await fetch('news.json');
+        const newsResponse = await fetch('news.json?v=' + Date.now());
         
         if (!newsResponse.ok) {
             CONFIG.news = [
@@ -2344,7 +2344,7 @@ async function renderNewsIndex() {
 
     let news = [];
     try {
-        const res  = await fetch('news.json');
+        const res  = await fetch('news.json?v=' + Date.now());
         const data = await res.json();
         news = data.news || [];
         news.sort((a, b) => _parseNewsDate(b.date) - _parseNewsDate(a.date));

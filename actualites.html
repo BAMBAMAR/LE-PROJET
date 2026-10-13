@@ -792,7 +792,7 @@ document.getElementById('menuKpiNext').addEventListener('click', () => {
 async function loadNews() {
     try {
         const [newsRes, promisesRes] = await Promise.all([
-            fetch('news.json'),
+            fetch('news.json?v=' + Date.now()),
             fetch('promises.json?v=' + Date.now()).catch(() => null)
         ]);
         const data = await newsRes.json();
