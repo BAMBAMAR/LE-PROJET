@@ -913,6 +913,24 @@ textarea.form-control{resize:vertical;min-height:90px}
 
     <div class="page" id="page-press">
       <!-- Section Dépôt Visuel Drag & Drop -->
+      <!-- Bannière d'accès direct au Décryptage Kiosque & Coordination -->
+      <div style="background:linear-gradient(135deg,rgba(30,110,62,0.08),rgba(166,124,25,0.12));border:1.5px solid var(--border2);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:.9rem">
+          <div style="width:44px;height:44px;border-radius:10px;background:#FFFFFF;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.25rem;box-shadow:0 2px 8px rgba(0,0,0,0.05)">
+            <i class="fas fa-magnifying-glass-chart"></i>
+          </div>
+          <div>
+            <div style="font-weight:800;font-size:.95rem;color:var(--text);font-family:'Syne',sans-serif">Scanner & Analyse Critique des Quotidiens (Anti-PASTEF)</div>
+            <div style="font-size:.78rem;color:var(--text3)">Détectez les Unes synchronisées, opposez la réalité des faits et publiez l'analyse + l'affiche HD directement sur Facebook.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-primary btn-sm" onclick="openPressDecryptage()" style="background:var(--green);border-color:var(--green)">
+            <i class="fas fa-wand-magic-sparkles"></i> Lancer le Décryptage du Jour dans le Studio
+          </button>
+        </div>
+      </div>
+
       <div class="card" style="margin-bottom:1.5rem;border:1.5px dashed var(--green);background:rgba(74,222,128,0.03)">
         <div class="card-head" style="border-bottom:1px solid rgba(74,222,128,0.2)">
           <span class="card-title" style="color:var(--green)">
@@ -1987,7 +2005,10 @@ textarea.form-control{resize:vertical;min-height:90px}
               <i class="fas fa-chart-pie"></i> 3. Chiffre Clé & Bilan
             </button>
             <button class="btn btn-outline btn-sm" id="sbtn-revue" onclick="studioSelectTemplate('revue')">
-              <i class="fas fa-newspaper"></i> 4. Revue de Presse
+              <i class="fas fa-newspaper"></i> 4. Revue de Presse Standard
+            </button>
+            <button class="btn btn-outline btn-sm" id="sbtn-decryptage" onclick="studioSelectTemplate('decryptage')" style="background:var(--gold-bg);color:var(--gold);border-color:rgba(166,124,25,0.35);font-weight:700">
+              <i class="fas fa-magnifying-glass-chart"></i> 5. 🔍 Décryptage Kiosque & Coordination
             </button>
             <button class="btn btn-outline btn-sm" id="sbtn-citation" onclick="studioSelectTemplate('citation')">
               <i class="fas fa-quote-left"></i> 5. Citation Officielle
@@ -2195,6 +2216,127 @@ textarea.form-control{resize:vertical;min-height:90px}
               <div class="form-row cols-2" style="margin-bottom:.6rem">
                 <div class="form-group"><label>Journal 4</label><input type="text" class="form-control" id="stRevueJ4" value="Walf Quotidien"></div>
                 <div class="form-group"><label>Gros Titre 4</label><input type="text" class="form-control" id="stRevueT4" value="Baisse des denrées : l'impact mesuré dans les marchés du pays"></div>
+              </div>
+            </div>
+
+            <!-- FORM 5: DÉCRYPTAGE KIOSQUE & COORDINATION ANTI-PASTEF -->
+            <div id="studioFormDecryptage" style="display:none">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.85rem;flex-wrap:wrap;gap:.5rem">
+                <div>
+                  <span style="font-weight:700;font-size:.88rem;color:var(--text);display:flex;align-items:center;gap:.4rem">
+                    <i class="fas fa-shield-halved" style="color:var(--gold)"></i> Scanner de Coordination & Riposte Médiatique
+                  </span>
+                  <span style="font-size:.74rem;color:var(--text3)">Démontez les tirs groupés et narratifs anxiogènes avec des faits vérifiables</span>
+                </div>
+                <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+                  <button type="button" class="btn btn-primary btn-xs" onclick="studioFillDecryptageFromPress()"><i class="fas fa-magic"></i> Charger les Unes du jour</button>
+                  <button type="button" class="btn btn-outline btn-xs" onclick="studioFillDecryptagePreset('dette')"><i class="fas fa-coins"></i> Cas Dette</button>
+                  <button type="button" class="btn btn-outline btn-xs" onclick="studioFillDecryptagePreset('crise')"><i class="fas fa-fire"></i> Cas Crise</button>
+                  <button type="button" class="btn btn-outline btn-xs" onclick="studioFillDecryptagePreset('prix')"><i class="fas fa-basket-shopping"></i> Cas Prix</button>
+                </div>
+              </div>
+
+              <!-- Date & Mot d'ordre -->
+              <div class="form-row cols-2" style="margin-bottom:.75rem">
+                <div class="form-group">
+                  <label>Date de la parution *</label>
+                  <input type="text" class="form-control" id="stDecDate" value="Mardi 13 Octobre 2026">
+                </div>
+                <div class="form-group">
+                  <label>Mot d'ordre / Terme commun suspecté *</label>
+                  <input type="text" class="form-control" id="stDecKeyword" value="CRISE INSTITUTIONNELLE" placeholder="Ex: CRISE, DÉRIVE, IMPASSE, DETTE...">
+                </div>
+              </div>
+
+              <!-- Mots d'ordres rapides -->
+              <div style="margin-bottom:.85rem">
+                <label style="font-size:.72rem;text-transform:uppercase;color:var(--text3);font-weight:600;display:block;margin-bottom:.3rem">Raccourcis angles récurrents :</label>
+                <div style="display:flex;flex-wrap:wrap;gap:.35rem">
+                  <button type="button" class="btn btn-outline btn-xs" onclick="studioSetDecKeyword('CRISE')">🔥 Crise</button>
+                  <button type="button" class="btn btn-outline btn-xs" onclick="studioSetDecKeyword('DÉRIVE')">⚠️ Dérive</button>
+                  <button type="button" class="btn btn-outline btn-xs" onclick="studioSetDecKeyword('IMPASSE')">🛑 Impasse</button>
+                  <button type="button" class="btn btn-outline btn-xs" onclick="studioSetDecKeyword('TENSIONS')">⚡ Tensions</button>
+                  <button type="button" class="btn btn-outline btn-xs" onclick="studioSetDecKeyword('DETTE & FMI')">💰 Dette / FMI</button>
+                  <button type="button" class="btn btn-outline btn-xs" onclick="studioSetDecKeyword('FIASCO')">❌ Fiasco</button>
+                  <button type="button" class="btn btn-outline btn-xs" onclick="studioSetDecKeyword('RECULADE')">↩️ Reculade</button>
+                  <button type="button" class="btn btn-outline btn-xs" onclick="studioSetDecKeyword('MENACE')">🚨 Menace</button>
+                </div>
+              </div>
+
+              <!-- Les Quotidiens alignés (4 principaux) -->
+              <div style="font-size:.76rem;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem">
+                <i class="fas fa-newspaper"></i> 1. Les Journaux & Leurs Titres de Une (L'Alignement Constaté)
+              </div>
+
+              <div class="form-row cols-2" style="margin-bottom:.55rem">
+                <div class="form-group"><label>Quotidien 1</label><input type="text" class="form-control" id="stDecJ1" value="L'Observateur"></div>
+                <div class="form-group"><label>Titre de Une exact 1</label><input type="text" class="form-control" id="stDecT1" value="Crise institutionnelle : Le pouvoir sous haute pression"></div>
+              </div>
+
+              <div class="form-row cols-2" style="margin-bottom:.55rem">
+                <div class="form-group"><label>Quotidien 2</label><input type="text" class="form-control" id="stDecJ2" value="Walf Quotidien"></div>
+                <div class="form-group"><label>Titre de Une exact 2</label><input type="text" class="form-control" id="stDecT2" value="Tensions et désaccords au sommet : Les signaux d'une impasse"></div>
+              </div>
+
+              <div class="form-row cols-2" style="margin-bottom:.55rem">
+                <div class="form-group"><label>Quotidien 3</label><input type="text" class="form-control" id="stDecJ3" value="Sud Quotidien"></div>
+                <div class="form-group"><label>Titre de Une exact 3</label><input type="text" class="form-control" id="stDecT3" value="Climat politique lourd : L'avertissement des acteurs"></div>
+              </div>
+
+              <div class="form-row cols-2" style="margin-bottom:.55rem">
+                <div class="form-group"><label>Quotidien 4</label><input type="text" class="form-control" id="stDecJ4" value="Bés Bi / Le Jour"></div>
+                <div class="form-group"><label>Titre de Une exact 4</label><input type="text" class="form-control" id="stDecT4" value="Malaise persistant : Le régime face à ses contradictions"></div>
+              </div>
+
+              <!-- Option Quotidiens additionnels 5 et 6 -->
+              <details style="margin-bottom:.85rem;background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:.5rem .75rem">
+                <summary style="font-size:.76rem;font-weight:600;cursor:pointer;color:var(--text2)">+ Ajouter Quotidien 5 & 6 (Optionnel)</summary>
+                <div class="form-row cols-2" style="margin-top:.6rem;margin-bottom:.55rem">
+                  <div class="form-group"><label>Quotidien 5</label><input type="text" class="form-control" id="stDecJ5" value="" placeholder="Ex: Source A"></div>
+                  <div class="form-group"><label>Titre de Une 5</label><input type="text" class="form-control" id="stDecT5" value="" placeholder="Titre de Une"></div>
+                </div>
+                <div class="form-row cols-2">
+                  <div class="form-group"><label>Quotidien 6</label><input type="text" class="form-control" id="stDecJ6" value="" placeholder="Ex: Les Échos"></div>
+                  <div class="form-group"><label>Titre de Une 6</label><input type="text" class="form-control" id="stDecT6" value="" placeholder="Titre de Une"></div>
+                </div>
+              </details>
+
+              <!-- La Vérité des Faits -->
+              <div style="font-size:.76rem;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem">
+                <i class="fas fa-check-circle"></i> 2. Le Contre-Champ Factuel (La Réalité Vérifiée)
+              </div>
+
+              <div class="form-group" style="margin-bottom:.75rem">
+                <label>Faits vérifiables, chiffres et textes officiels *</label>
+                <textarea class="form-control" id="stDecFacts" rows="3" placeholder="Ex: L'exécution budgétaire est conforme à 94%...">L'exécution budgétaire est conforme à 94% et les salaires ainsi que les bourses universitaires sont intégralement payés à échéance. Aucun blocage institutionnel n'est constaté selon les comptes-rendus officiels du Conseil des Ministres.</textarea>
+              </div>
+
+              <div class="form-group" style="margin-bottom:.85rem">
+                <label>Lier un engagement officiel du Projet PASTEF (Optionnel)</label>
+                <select class="form-control" id="stDecPromiseSelect" onchange="studioOnPickDecPromise(this.value)">
+                  <option value="">— Associer un engagement officiel —</option>
+                </select>
+                <input type="hidden" id="stDecPromiseCustom" value="">
+              </div>
+
+              <!-- L'Angle Mort / Diversion -->
+              <div style="font-size:.76rem;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem">
+                <i class="fas fa-eye-slash"></i> 3. L'Angle Mort / La Diversion (Ce qui est passé sous silence)
+              </div>
+
+              <div class="form-group" style="margin-bottom:.85rem">
+                <label>L'avancée majeure ou l'actualité occultée par cette synchronisation *</label>
+                <textarea class="form-control" id="stDecBlindspot" rows="2" placeholder="Ce que la presse a délibérément ignoré aujourd'hui...">La publication du rapport de reddition des comptes sur la gestion 2021-2023 et la signature des nouveaux accords agricoles pour l'autosuffisance en riz.</textarea>
+              </div>
+
+              <!-- Tonalité éditoriale Facebook -->
+              <div class="form-group" style="margin-bottom:.5rem">
+                <label>Angle éditorial du post Facebook</label>
+                <select class="form-control" id="stDecTone" onchange="studioUpdateCaptions()">
+                  <option value="analytique" selected>🎯 Décryptage Pédagogique (Démontage méthodique du cadrage & analyse de discours)</option>
+                  <option value="riposte">⚖️ Riposte Républicaine & Chiffres Clés (Ferme, basé sur les données et réalisations)</option>
+                  <option value="citoyen">💬 Éveil Citoyen & Débat Ouvert (Interrogatif, viral, pousse aux commentaires)</option>
+                </select>
               </div>
             </div>
 
@@ -4244,6 +4386,293 @@ let studioRatio = '1:1';
 let studioLiveBindDone = false;
 let studioDebounceTimer = null;
 
+
+/* ═══════════════════════════════════════════════════
+   MODULE DÉCRYPTAGE KIOSQUE & COORDINATION ANTI-PASTEF
+═══════════════════════════════════════════════════ */
+
+function openPressDecryptage() {
+  const kitNav = document.querySelector('.nav-item[data-page="kit"]');
+  if (kitNav) kitNav.click();
+  studioSelectTemplate('decryptage');
+  studioFillDecryptageFromPress();
+}
+
+function studioSetDecKeyword(word) {
+  const kw = document.getElementById('stDecKeyword');
+  if (kw) kw.value = word;
+  studioRenderAll();
+  toast("Mot d'ordre appliqué : « " + word + " »", 'info');
+}
+
+function studioOnPickDecPromise(promId) {
+  if (!promId || !DB.promises) return;
+  const p = DB.promises.find(item => String(item.id) === String(promId));
+  if (!p) return;
+  const hidden = document.getElementById('stDecPromiseCustom');
+  if (hidden) {
+    hidden.value = "Engagement n°" + p.id + " [" + (p.domaine || 'Axe') + "] : « " + p.engagement + " » (" + (p.statut || 'En cours') + ")";
+  }
+  studioRenderAll();
+  toast("Engagement #" + p.id + " associé ✅", 'info');
+}
+
+function studioFillDecryptageFromPress() {
+  const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
+  const today = new Date();
+  const days_fr = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const months_fr = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+  const dateStr = days_fr[today.getDay()] + ' ' + String(today.getDate()).padStart(2,'0') + ' ' + months_fr[today.getMonth()] + ' ' + today.getFullYear();
+  setVal('stDecDate', dateStr);
+
+  const fallback = [
+    { paper: "L'Observateur", title: "Crise et tensions au sommet : Le pouvoir sous pression" },
+    { paper: "Walf Quotidien", title: "Risque d'impasse financière et grogne sociale croissante" },
+    { paper: "Sud Quotidien", title: "Climat politique lourd : L'avertissement solennel des acteurs" },
+    { paper: "Bés Bi", title: "Malaise persistant : Le régime face à ses premiers blocages" }
+  ];
+
+  if (DB.press && DB.press.length >= 2) {
+    const p1 = DB.press[0] || fallback[0];
+    const p2 = DB.press[1] || fallback[1];
+    const p3 = DB.press[2] || fallback[2];
+    const p4 = DB.press[3] || fallback[3];
+    setVal('stDecJ1', p1.title || fallback[0].paper);
+    setVal('stDecT1', p1.headline || fallback[0].title);
+    setVal('stDecJ2', p2.title || fallback[1].paper);
+    setVal('stDecT2', p2.headline || fallback[1].title);
+    setVal('stDecJ3', p3.title || fallback[2].paper);
+    setVal('stDecT3', p3.headline || fallback[2].title);
+    setVal('stDecJ4', p4.title || fallback[3].paper);
+    setVal('stDecT4', p4.headline || fallback[3].title);
+  } else {
+    setVal('stDecJ1', fallback[0].paper); setVal('stDecT1', fallback[0].title);
+    setVal('stDecJ2', fallback[1].paper); setVal('stDecT2', fallback[1].title);
+    setVal('stDecJ3', fallback[2].paper); setVal('stDecT3', fallback[2].title);
+    setVal('stDecJ4', fallback[3].paper); setVal('stDecT4', fallback[3].title);
+  }
+
+  studioRenderAll();
+  toast('Unes du jour chargées dans le Décryptage ✅', 'success');
+}
+
+function studioFillDecryptagePreset(presetKey) {
+  const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
+
+  if (presetKey === 'dette') {
+    setVal('stDecKeyword', 'DETTE & FINANCES');
+    setVal('stDecJ1', "L'Observateur"); setVal('stDecT1', "Dette publique et FMI : L'impasse budgétaire se confirme");
+    setVal('stDecJ2', "Walf Quotidien"); setVal('stDecT2', "Finances de l'État : Tension sur la trésorerie et alertes");
+    setVal('stDecJ3', "Sud Quotidien"); setVal('stDecT3', "Économie nationale : Les doutes des partenaires techniques");
+    setVal('stDecJ4', "Bés Bi"); setVal('stDecT4', "Grogne des créanciers : L'État sous pression");
+    setVal('stDecFacts', "L'emprunt obligataire a été sursouscrit à 135%, confirmant la pleine confiance des marchés financiers. Le service de la dette extérieure est scrupuleusement honoré et les réserves de change restent solides.");
+    setVal('stDecBlindspot', "La baisse des dépenses de fonctionnement de l'État de 18% et la récupération de 42 milliards FCFA au titre des avoirs non justifiés.");
+  } else if (presetKey === 'crise') {
+    setVal('stDecKeyword', 'CRISE INSTITUTIONNELLE');
+    setVal('stDecJ1', "L'Observateur"); setVal('stDecT1', "Crise au sommet : Risque de blocage entre les pouvoirs");
+    setVal('stDecJ2', "Walf Quotidien"); setVal('stDecT2', "Tension politique : Le régime face à sa première fracture");
+    setVal('stDecJ3', "Sud Quotidien"); setVal('stDecT3', "Rupture annoncée : Les signaux d'un affrontement inévitable");
+    setVal('stDecJ4', "Bés Bi"); setVal('stDecT4', "Malaise gouvernemental : Qui gouverne réellement ?");
+    setVal('stDecFacts', "Les institutions fonctionnent avec fluidité et respect strict de la Constitution. Tous les décrets présidentiels et ordonnances sont promulgués dans les délais légaux, sans aucun recours en annulation.");
+    setVal('stDecBlindspot', "La promulgation historique de la loi sur la protection des lanceurs d'alerte et la réforme du Conseil Supérieur de la Magistrature.");
+  } else if (presetKey === 'prix') {
+    setVal('stDecKeyword', 'VIE CHÈRE & PRIX');
+    setVal('stDecJ1', "L'Observateur"); setVal('stDecT1', "Baisse des prix : Le constat amer des ménages sur les marchés");
+    setVal('stDecJ2', "Walf Quotidien"); setVal('stDecT2', "Pouvoir d'achat : Le grand désenchantement des consommateurs");
+    setVal('stDecJ3', "Sud Quotidien"); setVal('stDecT3', "Inflation et denrées : L'échec des mesures administratives");
+    setVal('stDecJ4', "Bés Bi"); setVal('stDecT4', "Marchés sous tension : Les commerçants défient le gouvernement");
+    setVal('stDecFacts', "Les arrêtés d'homologation des prix sur le riz brisé, l'huile de palme, le pain et le ciment sont appliqués avec plus de 1 200 contrôles quotidiens de la brigade mobile du commerce, ayant débouché sur un taux de respect effectif de 89%.");
+    setVal('stDecBlindspot', "L'injection de subventions directes à la production agricole locale et les récoltes records attendues dans la vallée du fleuve Sénégal.");
+  }
+
+  studioRenderAll();
+  toast("Cas d'école « " + presetKey.toUpperCase() + " » chargé 🎯", 'success');
+}
+
+// ── DESSINATEUR CANVAS HD DÉCRYPTAGE (1:1 & 16:9) ──
+function studioDrawDecryptage(ctx, w, h) {
+  const c = studioGetThemeColors(studioTheme);
+  const isLandscape = h < 800;
+  const dateStr   = studioVal('stDecDate') || "Aujourd'hui";
+  const keyword   = (studioVal('stDecKeyword') || 'CRISE').trim();
+  const facts     = studioVal('stDecFacts') || "Faits réels vérifiés par l'Observatoire ProjetBI.";
+  const blindspot = studioVal('stDecBlindspot') || "Actualités et avancées occultées ce jour.";
+
+  const papers = [
+    { paper: studioVal('stDecJ1') || "L'Observateur", title: studioVal('stDecT1') || 'Titre 1', color: '#EF4444' },
+    { paper: studioVal('stDecJ2') || 'Walf Quotidien', title: studioVal('stDecT2') || 'Titre 2', color: '#F97316' },
+    { paper: studioVal('stDecJ3') || 'Sud Quotidien', title: studioVal('stDecT3') || 'Titre 3', color: '#EAB308' },
+    { paper: studioVal('stDecJ4') || 'Bés Bi', title: studioVal('stDecT4') || 'Titre 4', color: '#D97706' }
+  ];
+  const j5 = studioVal('stDecJ5'), t5 = studioVal('stDecT5');
+  if (j5 && t5) papers.push({ paper: j5, title: t5, color: '#B45309' });
+
+  studioDrawHeader(ctx, 'DÉCRYPTAGE KIOSQUE', "L'ENVERS DES UNES", w, h, c);
+
+  const cardX = isLandscape ? 44 : 50;
+  const cardY = isLandscape ? 78 : 112;
+  const cardW = w - (cardX * 2);
+  const cardH = (h - (isLandscape ? 54 : 76)) - cardY - (isLandscape ? 10 : 16);
+
+  studioGlassCard(ctx, cardX, cardY, cardW, cardH, 18, c);
+
+  if (isLandscape) {
+    // ── 16:9 LANDSCAPE (1200 x 675) ──
+    const splitGap = 20;
+    const colW = Math.floor((cardW - 40 - splitGap) / 2);
+
+    // Left Column: 4 headlines
+    const leftX = cardX + 20;
+    const leftY = cardY + 20;
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = c.accentGold;
+    ctx.font = 'bold 15px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText("🗞️ L'ALIGNEMENT CONSTATÉ EN KIOSQUE (" + dateStr.toUpperCase() + ")", leftX, leftY + 12);
+
+    const paperRowH = 78;
+    const paperGap = 8;
+    papers.slice(0, 4).forEach((p, idx) => {
+      const py = leftY + 28 + idx * (paperRowH + paperGap);
+      studioRoundBox(ctx, leftX, py, colW, paperRowH, 8, c.boxBg, c.boxBorder, 1);
+      studioRoundBox(ctx, leftX, py + 8, 4, paperRowH - 16, 2, p.color, 'transparent');
+
+      studioRoundBox(ctx, leftX + 12, py + 8, 120, 22, 4, c.badgeBg, p.color, 1);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = c.isDark ? '#FFE9A3' : '#0F172A';
+      ctx.font = 'bold 11px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(p.paper.substring(0, 16), leftX + 12 + 60, py + 23);
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = c.textPrimary;
+      ctx.font = 'bold 13px "Crimson Pro", Georgia, serif';
+      studioWrapText(ctx, '« ' + p.title + ' »', leftX + 12, py + 46, colW - 24, 17, 2);
+    });
+
+    // Right Column: Diagnostic & Facts
+    const rightX = leftX + colW + splitGap;
+    const rightY = cardY + 20;
+
+    studioRoundBox(ctx, rightX, rightY, colW, 58, 8, c.isDark ? 'rgba(217,45,32,0.18)' : 'rgba(217,45,32,0.08)', '#D92D20', 1.5);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#D92D20';
+    ctx.font = 'bold 12px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText('🚨 SYNCHRONISATION ÉDITORIALE ?', rightX + colW / 2, rightY + 22);
+    ctx.fillStyle = c.textPrimary;
+    ctx.font = 'bold 16px "Syne", sans-serif';
+    ctx.fillText("MOT D'ORDRE : « " + keyword.toUpperCase() + " »", rightX + colW / 2, rightY + 44);
+
+    const boxFactY = rightY + 68;
+    const boxFactH = 155;
+    studioRoundBox(ctx, rightX, boxFactY, colW, boxFactH, 8, c.isDark ? 'rgba(16,185,129,0.12)' : 'rgba(16,185,129,0.07)', '#10B981', 1.5);
+    studioRoundBox(ctx, rightX + 12, boxFactY + 10, 160, 22, 4, '#10B981', 'transparent', 0);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 11px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText('✅ LA RÉALITÉ DES FAITS', rightX + 12 + 80, boxFactY + 25);
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = c.textPrimary;
+    ctx.font = '500 13px "Plus Jakarta Sans", Inter, sans-serif';
+    studioWrapText(ctx, facts, rightX + 14, boxFactY + 52, colW - 28, 19, 5);
+
+    const boxBlindY = boxFactY + boxFactH + 10;
+    const boxBlindH = 110;
+    studioRoundBox(ctx, rightX, boxBlindY, colW, boxBlindH, 8, c.isDark ? 'rgba(245,158,11,0.14)' : 'rgba(245,158,11,0.08)', '#F59E0B', 1.5);
+    studioRoundBox(ctx, rightX + 12, boxBlindY + 10, 180, 22, 4, '#F59E0B', 'transparent', 0);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 11px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText("👁️ L'ANGLE MORT (OCCULTÉ)", rightX + 12 + 90, boxBlindY + 25);
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = c.textPrimary;
+    ctx.font = '500 12.5px "Plus Jakarta Sans", Inter, sans-serif';
+    studioWrapText(ctx, blindspot, rightX + 14, boxBlindY + 50, colW - 28, 18, 3);
+
+  } else {
+    // ── 1:1 SQUARE (1080 x 1080) ──
+    const pad = 28;
+    const contentW = cardW - (pad * 2);
+    const startY = cardY + 20;
+
+    studioRoundBox(ctx, cardX + pad, startY, contentW, 68, 10, c.isDark ? 'rgba(217,45,32,0.18)' : 'rgba(217,45,32,0.07)', '#D92D20', 1.5);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#D92D20';
+    ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText('🚨 SYNCHRONISATION ÉDITORIALE OU COÏNCIDENCE ? • ' + dateStr.toUpperCase(), cardX + pad + contentW / 2, startY + 24);
+
+    ctx.fillStyle = c.textPrimary;
+    ctx.font = 'bold 22px "Syne", sans-serif';
+    ctx.fillText("MOT D'ORDRE DU JOUR : « " + keyword.toUpperCase() + " »", cardX + pad + contentW / 2, startY + 52);
+
+    const gridY = startY + 80;
+    const colGap = 16;
+    const colW = Math.floor((contentW - colGap) / 2);
+    const rowH = 118;
+    const rowGap = 12;
+
+    papers.slice(0, 4).forEach((p, idx) => {
+      const col = idx % 2;
+      const row = Math.floor(idx / 2);
+      const px = cardX + pad + col * (colW + colGap);
+      const py = gridY + row * (rowH + rowGap);
+
+      studioRoundBox(ctx, px, py, colW, rowH, 10, c.boxBg, c.boxBorder, 1);
+      studioRoundBox(ctx, px, py + 8, 5, rowH - 16, 2.5, p.color, 'transparent');
+
+      studioRoundBox(ctx, px + 14, py + 10, 140, 26, 5, c.badgeBg, p.color, 1);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = c.isDark ? '#FFE9A3' : '#0F172A';
+      ctx.font = 'bold 12.5px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(p.paper.substring(0, 16), px + 14 + 70, py + 27);
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = c.textPrimary;
+      ctx.font = 'bold 15px "Crimson Pro", Georgia, serif';
+      studioWrapText(ctx, '« ' + p.title + ' »', px + 14, py + 56, colW - 28, 21, 3);
+    });
+
+    const bottomY = gridY + (rowH * 2) + rowGap + 18;
+
+    const factCardH = 180;
+    studioRoundBox(ctx, cardX + pad, bottomY, contentW, factCardH, 12, c.isDark ? 'rgba(16,185,129,0.12)' : 'rgba(16,185,129,0.06)', '#10B981', 1.5);
+    studioRoundBox(ctx, cardX + pad + 18, bottomY + 14, 210, 28, 6, '#10B981', 'transparent', 0);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 12.5px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText('✅ LA RÉALITÉ DES FAITS', cardX + pad + 18 + 105, bottomY + 33);
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = c.textPrimary;
+    ctx.font = '500 16px "Plus Jakarta Sans", Inter, sans-serif';
+    studioWrapText(ctx, facts, cardX + pad + 20, bottomY + 68, contentW - 40, 24, 4);
+
+    const blindCardY = bottomY + factCardH + 14;
+    const blindCardH = 145;
+    studioRoundBox(ctx, cardX + pad, blindCardY, contentW, blindCardH, 12, c.isDark ? 'rgba(245,158,11,0.12)' : 'rgba(245,158,11,0.06)', '#F59E0B', 1.5);
+    studioRoundBox(ctx, cardX + pad + 18, blindCardY + 14, 250, 28, 6, '#F59E0B', 'transparent', 0);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 12.5px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText("👁️ L'ANGLE MORT (CE QUI EST OCCULTÉ)", cardX + pad + 18 + 125, blindCardY + 33);
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = c.textPrimary;
+    ctx.font = '500 15px "Plus Jakarta Sans", Inter, sans-serif';
+    studioWrapText(ctx, blindspot, cardX + pad + 20, blindCardY + 66, contentW - 40, 22, 3);
+
+    const ctaY = cardY + cardH - 52;
+    studioRoundBox(ctx, cardX + pad, ctaY, contentW, 40, 8, c.boxBg, c.boxBorder, 1);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = c.accentBrand;
+    ctx.font = 'bold 15px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText('👉 Retrouvez le fact-checking complet et le baromètre des réformes sur PROJETBI.ORG', cardX + pad + contentW / 2, ctaY + 25);
+  }
+
+  studioDrawFooter(ctx, '', w, h, c);
+}
+
 function studioInit() {
   studioPopulatePickers();
   studioSyncStatsFromDB();
@@ -4409,7 +4838,7 @@ function studioShareTelegram() {
 
 function studioSelectTemplate(name) {
   studioActiveTemplate = name;
-  ['flash','engagement','bilan','revue','citation'].forEach(t => {
+  ['flash','engagement','bilan','revue','citation','decryptage'].forEach(t => {
     const b = document.getElementById('sbtn-' + t);
     const f = document.getElementById('studioForm' + t.charAt(0).toUpperCase() + t.slice(1));
     if (b) b.className = t === name ? 'btn btn-primary btn-sm' : 'btn btn-outline btn-sm';
@@ -4420,7 +4849,8 @@ function studioSelectTemplate(name) {
     engagement: '🎯 2. Suivi de Promesse & Engagement',
     bilan: '📊 3. Chiffre Clé & Bilan d\'Impact',
     revue: '🗞️ 4. Revue de Presse Quotidienne',
-    citation: '💬 5. Citation Officielle & Déclaration'
+    decryptage: '🔍 5. Décryptage Kiosque & Coordination Médiatique',
+    citation: '💬 6. Citation Officielle & Déclaration'
   };
   const titleEl = document.getElementById('studioFormTitle');
   if (titleEl) titleEl.innerHTML = `<i class="fas fa-sliders" style="color:var(--green)"></i> ${titles[name] || 'Paramètres du visuel'}`;
@@ -4441,6 +4871,21 @@ function studioPopulatePickers() {
       newsSel.appendChild(opt);
     });
     if (currentVal) newsSel.value = currentVal;
+  }
+
+  // Picker Engagements (Studio Décryptage)
+  const decPromiseSel = document.getElementById('stDecPromiseSelect');
+  if (decPromiseSel && DB.promises && DB.promises.length) {
+    const curDecVal = decPromiseSel.value;
+    decPromiseSel.innerHTML = '<option value="">— Associer un engagement officiel (' + DB.promises.length + ' suivis) —</option>';
+    DB.promises.slice(0, 50).forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.id;
+      const cleanTitle = (p.engagement || '').substring(0, 68);
+      opt.textContent = "[" + p.id + " • " + (p.domaine || 'Axe') + "] " + cleanTitle + "…";
+      decPromiseSel.appendChild(opt);
+    });
+    if (curDecVal) decPromiseSel.value = curDecVal;
   }
 
   // Picker Engagements
@@ -6306,6 +6751,8 @@ function studioRenderAll() {
     studioDrawBilan(ctx, baseW, baseH);
   } else if (studioActiveTemplate === 'revue') {
     studioDrawRevue(ctx, baseW, baseH);
+  } else if (studioActiveTemplate === 'decryptage') {
+    studioDrawDecryptage(ctx, baseW, baseH);
   } else if (studioActiveTemplate === 'citation') {
     studioDrawCitation(ctx, baseW, baseH);
   }
@@ -6366,6 +6813,65 @@ function studioUpdateCaptions() {
     tw = `🗞️ Revue de Presse • ${dateStr}\n• ${j1} : ${t1.substring(0, 90)}\n• ${j2} : ${t2.substring(0, 90)}\n👉 ${site}/revuedepresse.html\n#Sénégal #ProjetBI`;
     wa = `*🗞️ REVUE DE PRESSE • ${dateStr}*\n\n• *${j1}* : ${t1}\n• *${j2}* : ${t2}\n\n👉 ${site}/revuedepresse.html`;
     ln = `[REVUE DE PRESSE ÉCONOMIQUE & POLITIQUE • SÉNÉGAL]\n\nSynthèse des grandes lignes de l'actualité nationale ce ${dateStr} :\n\n• ${j1} : « ${t1} »\n• ${j2} : « ${t2} »\n• ${j3 || 'Sud Quotidien'} : « ${t3 || 'Actualité nationale'} »\n\n🔗 Retrouvez l'intégralité des unes et des analyses sur ProjetBI : ${site}/revuedepresse.html\n\n#Senegal #RevueDePresse #PresseSenegalaise #Actualite #ProjetBI`;
+  } else if (studioActiveTemplate === 'decryptage') {
+    const dateStr   = studioVal('stDecDate') || "Aujourd'hui";
+    const keyword   = (studioVal('stDecKeyword') || 'CRISE').trim();
+    const tone      = studioVal('stDecTone') || 'analytique';
+    const j1 = studioVal('stDecJ1'), t1 = studioVal('stDecT1');
+    const j2 = studioVal('stDecJ2'), t2 = studioVal('stDecT2');
+    const j3 = studioVal('stDecJ3'), t3 = studioVal('stDecT3');
+    const j4 = studioVal('stDecJ4'), t4 = studioVal('stDecT4');
+    const j5 = studioVal('stDecJ5'), t5 = studioVal('stDecT5');
+    const facts     = studioVal('stDecFacts') || '';
+    const blindspot = studioVal('stDecBlindspot') || '';
+    const promText  = studioVal('stDecPromiseCustom') || '';
+
+    let papersList = "▪️ " + j1 + " : « " + t1 + " »\n▪️ " + j2 + " : « " + t2 + " »\n▪️ " + j3 + " : « " + t3 + " »\n▪️ " + j4 + " : « " + t4 + " »";
+    if (j5 && t5) papersList += "\n▪️ " + j5 + " : « " + t5 + " »";
+
+    if (tone === 'analytique') {
+      fb = "🗞️ [DÉCRYPTAGE KIOSQUE] : Coordination éditoriale ou simple hasard ?\n\n" +
+           "Avez-vous remarqué la symphonie des Unes de ce " + dateStr + " ? Quand plusieurs rédactions choisissent exactement le même angle d'attaque autour du mot d'ordre « " + keyword.toUpperCase() + " », il est indispensable d'observer la mécanique de fabrication de l'opinion.\n\n" +
+           "👀 LE CONSTAT DU JOUR :\n" +
+           "Regardez attentivement les titres de ce matin (voir infographie HD ci-jointe) :\n" +
+           papersList + "\n\n" +
+           "Même cadrage anxiogène, même dramatisation, même synchronisation.\n\n" +
+           "🔍 QUE DIT LA RÉALITÉ DES FAITS ?\n" +
+           "Pendant que ces quotidiens installent un récit de crise :\n" +
+           (facts ? "1️⃣ Les faits réels et vérifiables : " + facts + "\n" : "") +
+           (promText ? "📌 Engagement officiel lié : " + promText + "\n" : "") +
+           (blindspot ? "2️⃣ Ce que ces Unes passent curieusement sous silence : " + blindspot + "\n" : "") + "\n" +
+           "🎯 L'OBJECTIF DU RÉCIT :\n" +
+           "Cette coordination vise à imposer un agenda négatif et à saturer l'espace médiatique pour masquer les transformations de fond. La presse est libre et sa critique est nécessaire, mais la factualité citoyenne doit toujours rétablir la vérité.\n\n" +
+           "💬 Et vous, que pensez-vous de cet alignement des quotidiens ce matin ? Donnez votre avis dans le respect et le discernement.\n\n" +
+           "#Senegal #RevueDePresse #DecriptageMedia #Pastef #ProjetBI #JubJubalJubanti #DiomayeFaye #OusmaneSonko";
+    } else if (tone === 'riposte') {
+      fb = "⚖️ [DROIT DE RÉPONSE CITOYEN] : Face au tir groupé des kiosques sur « " + keyword.toUpperCase() + " »\n\n" +
+           "Ce " + dateStr + ", une nouvelle vague de manchettes s'accorde pour propager une narration unilatérale contre l'action républicaine et le Projet PASTEF.\n\n" +
+           "🗞️ L'alignement des titres de ce matin :\n" +
+           papersList + "\n\n" +
+           "📊 LES DONNÉES ET LES FAITS CONTRE LA NARRATION :\n" +
+           (facts ? "• La réalité sur le terrain : " + facts + "\n" : "") +
+           (promText ? "• Cadre programmatique officiel : " + promText + "\n" : "") +
+           (blindspot ? "• L'omission volontaire : " + blindspot + "\n" : "") + "\n" +
+           "👉 Face aux manœuvres de diversion, la doctrine républicaine demeure inflexible : Jub, Jubal, Jubanti. Toutes les données réelles sont documentées en temps réel sur la plateforme citoyenne ProjetBI :\n" +
+           "👉 " + site + "\n\n" +
+           "#Senegal #VeriteDesFaits #Transparence #ProjetBI #JubJubalJubanti #Pastef";
+    } else {
+      fb = "🤔 [DÉBAT DU MATIN] : Hasard ou concertation sur le mot d'ordre « " + keyword.toUpperCase() + " » ?\n\n" +
+           "Regardez les gros titres des quotidiens parus ce " + dateStr + " :\n" +
+           papersList + "\n\n" +
+           "💡 D'un côté : un vocabulaire dramatique répété presque mot pour mot dans plusieurs rédactions.\n" +
+           "💡 De l'autre : des réalités de terrain bien différentes :\n" +
+           (facts ? "👉 " + facts + "\n" : "") +
+           (blindspot ? "👉 Pourquoi aucune Une ne mentionne que : " + blindspot + "\n" : "") + "\n" +
+           "💬 Pensez-vous qu'il s'agit d'une information objective d'intérêt général ou d'un cadrage éditorial coordonné ? Vos avis en commentaires !\n\n" +
+           "#Senegal #RevueDePresse #Pastef #ProjetBI #CitoyensEngages #ActualiteSN";
+    }
+
+    tw = "🗞️ [DÉCRYPTAGE KIOSQUE] Tir groupé des quotidiens ce " + dateStr + " sur « " + keyword.toUpperCase() + " ».\nFace au narratif médiatique, place aux faits vérifiés :\n👉 " + site + "/revuedepresse.html\n#Sénégal #ProjetBI #DecriptageMedia";
+    wa = "*🗞️ [DÉCRYPTAGE KIOSQUE • PROJETBI]*\n*Coordination médiatique sur « " + keyword.toUpperCase() + " » ce " + dateStr + "*\n\n*Les Unes du jour :*\n" + papersList + "\n\n*🔍 La réalité des faits :*\n" + facts + "\n\n*👁️ Ce qui est occulté :*\n" + blindspot + "\n\n👉 Infographie HD et suivi complet : " + site;
+    ln = "[DÉCRYPTAGE MÉDIA & CADRAGE DE L'AGENDA PUBLIC • SÉNÉGAL]\n\nAnalyse du traitement de l'information nationale ce " + dateStr + " : alignement lexical significatif sur la thématique « " + keyword + " » à travers plusieurs quotidiens nationaux.\n\nTitres répertoriés :\n" + papersList + "\n\nÉléments factuels vérifiables :\n" + facts + "\n\nL'analyse citoyenne et la transparence constituent les fondements d'un débat démocratique éclairé.\n\n🔗 Données et baromètre : " + site + "\n\n#Senegal #Medias #AnalyseDeDiscours #Gouvernance #ProjetBI";
   } else if (studioActiveTemplate === 'citation') {
     const quote   = studioVal('stCitText');
     const author  = studioVal('stCitAuthor');
