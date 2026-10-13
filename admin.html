@@ -910,6 +910,7 @@ textarea.form-control{resize:vertical;min-height:90px}
       <div class="filter-bar">
         <div class="search-box"><i class="fas fa-search"></i><input type="text" id="newsSearch" placeholder="Rechercher une actualité…" oninput="filterNews()"></div>
         <button class="btn btn-primary btn-sm" onclick="openNewsModal()"><i class="fas fa-plus"></i> Nouvelle actualité</button>
+        <button class="btn btn-gold btn-sm" onclick="triggerRssNewsCollection({ direct: true })" title="Interroger les 12 flux RSS (moteur Surga) et importer les nouvelles dépêches directement"><i class="fas fa-bolt"></i> ⚡ Collecte RSS Directe</button>
         <button class="btn btn-outline btn-sm" onclick="generateAndShowNewsJSON()"><i class="fas fa-code"></i> Générer JSON</button>
         <button class="btn btn-gold btn-sm" onclick="downloadJSON('news')"><i class="fas fa-download"></i> Télécharger JSON</button>
         <button class="btn btn-sm" style="background:var(--blue-bg);color:var(--blue);border:1px solid rgba(96,165,250,.3)" onclick="copyNewsJSON()"><i class="fas fa-copy"></i> Copier JSON</button>
@@ -2681,6 +2682,9 @@ textarea.form-control{resize:vertical;min-height:90px}
           <option value="high">Haute (&gt;80%)</option>
           <option value="medium">Moyenne (60–80%)</option>
         </select>
+        <button class="btn btn-gold btn-sm" onclick="triggerRssNewsCollection({ direct: false })" title="Interroger les 12 flux RSS (moteur Surga) pour enrichir les brouillons">
+          <i class="fas fa-bolt"></i> ⚡ Collecter Flux RSS (Moteur Surga)
+        </button>
         <button class="btn btn-outline btn-sm" onclick="loadDrafts()">
           <i class="fas fa-sync"></i> Actualiser
         </button>
@@ -2888,6 +2892,22 @@ textarea.form-control{resize:vertical;min-height:90px}
       <button class="btn btn-danger btn-sm" id="newsDeleteBtn" onclick="deleteNews()" style="margin-right:auto;display:none"><i class="fas fa-trash"></i> Supprimer</button>
       <button class="btn btn-outline" onclick="closeModal('newsModal')">Annuler</button>
       <button class="btn btn-primary" onclick="saveNews()"><i class="fas fa-save"></i> Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modale d'aide & statut du Collecteur RSS -->
+<div class="modal-overlay" id="modalRssHelper">
+  <div class="modal" style="max-width:580px">
+    <div class="modal-head">
+      <span class="modal-title"><i class="fas fa-rss" style="color:var(--gold)"></i> Collecteur de Flux RSS (Moteur Surga)</span>
+      <button class="modal-close" onclick="closeModal('modalRssHelper')"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" style="font-size:.85rem;line-height:1.6;color:var(--text2)">
+      <div id="rssHelperStatus"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="closeModal('modalRssHelper')">Fermer</button>
     </div>
   </div>
 </div>
@@ -8676,6 +8696,81 @@ function validateAllHigh() {
   if (!high.length) { toast('Aucun brouillon à haute confiance', 'info'); return; }
   high.forEach(d => validateDraft(d.id));
   toast(`✅ ${high.length} brouillon(s) validé(s) automatiquement`, 'success');
+}
+
+/**
+ * Déclenche la collecte automatique des flux RSS sénégalais (moteur Surga adapté à ProjetBI)
+ */
+async function triggerRssNewsCollection({ direct = false } = {}) {
+  toast('📡 Interrogation en cours des 12 flux RSS (APS, Le Soleil, Seneweb, PressAfrik, SeneNews, Leral, Dakaractu, Le Quotidien)...', 'info');
+
+  try {
+    const res = await fetch(`http://localhost:4040/api/collect-news?direct=${direct ? '1' : '0'}`, {
+      method: 'POST',
+      signal: AbortSignal.timeout(30000)
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (data.success) {
+      if (data.count > 0) {
+        toast(`🎉 ${data.count} nouvelles dépêches importées avec succès !`, 'success');
+        if (direct) {
+          fetch('news.json?v=' + Date.now()).then(r => r.json()).then(nd => {
+            DB.news = nd.news || [];
+            renderNews();
+            _pendingPublish.news = true;
+            _updateBanner();
+          }).catch(() => {});
+        } else {
+          loadDrafts();
+        }
+      } else {
+        toast('ℹ️ Les flux ont été analysés : aucun nouvel article inédit (déjà à jour).', 'info');
+      }
+    } else {
+      throw new Error(data.error || 'Erreur serveur');
+    }
+  } catch (err) {
+    const helperStatus = document.getElementById('rssHelperStatus');
+    if (helperStatus) {
+      helperStatus.innerHTML = `
+        <div style="background:rgba(229,168,35,0.08);border:1.5px solid rgba(229,168,35,0.3);border-radius:10px;padding:1rem;margin-bottom:1.2rem">
+          <div style="font-weight:800;color:var(--text);margin-bottom:.3rem;display:flex;align-items:center;gap:.5rem">
+            <i class="fas fa-server" style="color:var(--gold)"></i> Serveur d'automatisation local au repos (Port 4040)
+          </div>
+          <div style="font-size:.82rem;color:var(--text2)">
+            Le collecteur ultra-rapide Node.js (moteur Surga) est configuré et prêt dans <code>scripts/collect_news_rss.js</code>.
+          </div>
+        </div>
+
+        <div style="margin-bottom:1.2rem">
+          <strong style="color:var(--text);display:block;margin-bottom:.4rem">🚀 Option 1 : Lancer directement en terminal (Recommandé)</strong>
+          <div style="background:#0c0f0a;padding:.75rem .9rem;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--green);display:flex;align-items:center;justify-content:space-between;border:1px solid #233827">
+            <span>node scripts/collect_news_rss.js ${direct ? '--direct' : ''}</span>
+            <button class="btn btn-outline btn-xs" onclick="navigator.clipboard.writeText('node scripts/collect_news_rss.js ${direct ? '--direct' : ''}');toast('Commande copiée !','success')"><i class="fas fa-copy"></i> Copier</button>
+          </div>
+          <span style="font-size:.76rem;color:var(--text3);display:block;margin-top:.35rem">Scanne 12 flux majeurs sénégalais en ~2 secondes et classe les articles dans les 12 domaines ProjetBI.</span>
+        </div>
+
+        <div style="margin-bottom:1.2rem">
+          <strong style="color:var(--text);display:block;margin-bottom:.4rem">⚡ Option 2 : Activer le serveur local pour piloter en 1 clic direct</strong>
+          <div style="background:#0c0f0a;padding:.75rem .9rem;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--blue);display:flex;align-items:center;justify-content:space-between;border:1px solid #1a2a38">
+            <span>node scripts/press_manager_server.js</span>
+            <button class="btn btn-outline btn-xs" onclick="navigator.clipboard.writeText('node scripts/press_manager_server.js');toast('Commande copiée !','success')"><i class="fas fa-copy"></i> Copier</button>
+          </div>
+          <span style="font-size:.76rem;color:var(--text3);display:block;margin-top:.35rem">Ou double-cliquez sur <code>lancer_gestionnaire_revue.bat</code>. Une fois actif, les boutons de collecte fonctionnent en 1 clic direct depuis cette interface.</span>
+        </div>
+
+        <div style="background:var(--bg3);padding:.85rem 1rem;border-radius:8px;border:1px solid var(--border)">
+          <strong style="color:var(--text);display:block;margin-bottom:.25rem"><i class="fas fa-clock" style="color:var(--gold)"></i> Tâche automatique quotidienne</strong>
+          <p style="font-size:.8rem;color:var(--text2);margin:0;line-height:1.5">
+            Le fichier <code>run_daily.bat</code> intègre désormais la collecte automatique des dépêches (Étape 2/3) lors de la mise à jour quotidienne.
+          </p>
+        </div>
+      `;
+      openModal('modalRssHelper');
+    }
+  }
 }
 
 function openDraftEdit(id) {

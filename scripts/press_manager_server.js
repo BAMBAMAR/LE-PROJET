@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { exec, execSync } = require('child_process');
 const { syncWithRemote } = require('./git_utils');
+const { collecterNews } = require('./collect_news_rss');
 
 const PORT = 4040;
 const PROJECT_DIR = path.join(__dirname, '..');
@@ -468,6 +469,58 @@ const HTML_PAGE = `<!DOCTYPE html>
 
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://localhost:${PORT}`);
+
+  // Support CORS complet pour l'accès depuis admin.html
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204);
+    res.end();
+    return;
+  }
+
+  // Déclenchement de la collecte RSS (Moteur Surga / ProjetBI)
+  if ((req.method === 'POST' || req.method === 'GET') && url.pathname === '/api/collect-news') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', async () => {
+      try {
+        let isDirect = false;
+        try {
+          if (body) {
+            const parsed = JSON.parse(body);
+            if (parsed.direct) isDirect = true;
+          }
+        } catch (_) {}
+        if (url.searchParams.get('direct') === '1' || url.searchParams.get('direct') === 'true') {
+          isDirect = true;
+        }
+
+        const result = await collecterNews({ directToNews: isDirect });
+
+        // Si direct, synchroniser aussi avec git si configuré
+        if (isDirect && result.count > 0) {
+          try {
+            syncWithRemote(PROJECT_DIR, {
+              filesToStage: ['news.json'],
+              commitMessage: `feat(news): collecte automatique de ${result.count} nouvelles dépêches RSS`,
+              logger: console.log
+            });
+          } catch (_) {}
+        }
+
+        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({ success: true, count: result.count, direct: isDirect, items: result.nouveaux }));
+      } catch (err) {
+        console.error('[API COLLECT ERROR]', err);
+        res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+    });
+    return;
+  }
 
   if (req.method === 'GET' && (url.pathname === '/' || url.pathname === '/index.html')) {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });

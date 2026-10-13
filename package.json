@@ -11,9 +11,12 @@
     "revue:check": "node scripts/download_revue.js --check-source",
     "revue:manual": "node scripts/manual_update_press.js",
     "revue:ui": "node scripts/press_manager_server.js",
+    "news:collect": "node scripts/collect_news_rss.js",
+    "news:collect:direct": "node scripts/collect_news_rss.js --direct",
     "build:seo": "node scripts/build_all_seo.js"
   },
   "dependencies": {
+    "cheerio": "^1.2.0",
     "playwright": "^1.50.0"
   },
   "keywords": [],
