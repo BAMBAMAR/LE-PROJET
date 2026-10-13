@@ -4583,345 +4583,949 @@ function studioFillDecryptagePreset(presetKey) {
   toast("Cas d'école « " + presetKey.toUpperCase() + " » chargé 🎯", 'success');
 }
 
-// ── DESSINATEUR CANVAS HD DÉCRYPTAGE (1:1 & 16:9) ──
+// ── ASSETS DU STUDIO DÉCRYPTAGE KIOSQUE (TEXTURES ET VIGNETTES HD) ──
+const studioDecAssets = {
+  heroMonument: new Image(),
+  vignetteTribune: new Image(),
+  vignetteEchos: new Image(),
+  vignetteAs: new Image(),
+  vignetteSourceA: new Image(),
+  watermarkJustice: new Image(),
+  watermarkFolders: new Image()
+};
+studioDecAssets.heroMonument.src = 'assets/branding/studio_decryptage/heroMonument.png';
+studioDecAssets.vignetteTribune.src = 'assets/branding/studio_decryptage/vignetteTribune.png';
+studioDecAssets.vignetteEchos.src = 'assets/branding/studio_decryptage/vignetteEchos.png';
+studioDecAssets.vignetteAs.src = 'assets/branding/studio_decryptage/vignetteAs.png';
+studioDecAssets.vignetteSourceA.src = 'assets/branding/studio_decryptage/vignetteSourceA.png';
+studioDecAssets.watermarkJustice.src = 'assets/branding/studio_decryptage/watermarkJustice.png';
+studioDecAssets.watermarkFolders.src = 'assets/branding/studio_decryptage/watermarkFolders.png';
+
+let studioDecAssetsLoaded = false;
+let studioDecLoadedCount = 0;
+const studioDecTotalCount = Object.keys(studioDecAssets).length;
+Object.values(studioDecAssets).forEach(img => {
+  img.onload = () => {
+    studioDecLoadedCount++;
+    if (studioDecLoadedCount >= studioDecTotalCount) studioDecAssetsLoaded = true;
+    if (typeof studioActiveTemplate !== 'undefined' && studioActiveTemplate === 'decryptage') {
+      if (typeof studioRenderCanvas === 'function') studioRenderCanvas();
+      else if (typeof studioRenderAll === 'function') studioRenderAll();
+    }
+  };
+});
+
+function studioDecRoundRect(ctx, x, y, w, h, r) {
+  if (typeof r === 'number') r = { tl: r, tr: r, br: r, bl: r };
+  ctx.beginPath();
+  ctx.moveTo(x + r.tl, y);
+  ctx.lineTo(x + w - r.tr, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r.tr);
+  ctx.lineTo(x + w, y + h - r.br);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r.br, y + h);
+  ctx.lineTo(x + r.bl, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r.bl);
+  ctx.lineTo(x, y + r.tl);
+  ctx.quadraticCurveTo(x, y, x + r.tl, y);
+  ctx.closePath();
+}
+
+// Traceurs vectoriels nets pour les cercles d'indicateurs
+function studioDecDrawUsers(ctx, cx, cy, r) {
+  ctx.save();
+  ctx.fillStyle = '#FFFFFF';
+  ctx.beginPath(); ctx.arc(cx - r * 0.28, cy - r * 0.22, r * 0.24, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx - r * 0.28, cy + r * 0.62, r * 0.48, Math.PI, 0, false); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx + r * 0.32, cy - r * 0.12, r * 0.20, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx + r * 0.32, cy + r * 0.62, r * 0.40, Math.PI, 0, false); ctx.fill();
+  ctx.restore();
+}
+
+function studioDecDrawSync(ctx, cx, cy, r) {
+  ctx.save();
+  ctx.strokeStyle = '#FFFFFF';
+  ctx.lineWidth = Math.max(1.8, r * 0.15);
+  ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.arc(cx, cy, r * 0.48, Math.PI * 0.15, Math.PI * 0.95); ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx, cy, r * 0.48, Math.PI * 1.15, Math.PI * 1.95); ctx.stroke();
+  ctx.fillStyle = '#FFFFFF';
+  ctx.beginPath();
+  ctx.moveTo(cx + r * 0.48, cy + r * 0.10);
+  ctx.lineTo(cx + r * 0.28, cy + r * 0.42);
+  ctx.lineTo(cx + r * 0.65, cy + r * 0.42);
+  ctx.closePath();
+  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(cx - r * 0.48, cy - r * 0.10);
+  ctx.lineTo(cx - r * 0.28, cy - r * 0.42);
+  ctx.lineTo(cx - r * 0.65, cy - r * 0.42);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
+function studioDecDrawDoc(ctx, cx, cy, r) {
+  ctx.save();
+  ctx.strokeStyle = '#FFFFFF';
+  ctx.lineWidth = Math.max(1.8, r * 0.14);
+  ctx.lineJoin = 'round';
+  const dw = r * 0.62;
+  const dh = r * 0.85;
+  const dx = cx - dw / 2;
+  const dy = cy - dh / 2;
+  ctx.beginPath();
+  ctx.moveTo(dx, dy);
+  ctx.lineTo(dx + dw - r * 0.25, dy);
+  ctx.lineTo(dx + dw, dy + r * 0.25);
+  ctx.lineTo(dx + dw, dy + dh);
+  ctx.lineTo(dx, dy + dh);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(dx + dw - r * 0.25, dy);
+  ctx.lineTo(dx + dw - r * 0.25, dy + r * 0.25);
+  ctx.lineTo(dx + dw, dy + r * 0.25);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(dx + r * 0.15, dy + dh * 0.48);
+  ctx.lineTo(dx + dw - r * 0.15, dy + dh * 0.48);
+  ctx.moveTo(dx + r * 0.15, dy + dh * 0.70);
+  ctx.lineTo(dx + dw - r * 0.15, dy + dh * 0.70);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function studioDecDrawChain(ctx, cx, cy, r) {
+  ctx.save();
+  ctx.strokeStyle = '#FFFFFF';
+  ctx.lineWidth = Math.max(2, r * 0.16);
+  ctx.lineCap = 'round';
+  ctx.translate(cx, cy);
+  ctx.rotate(45 * Math.PI / 180);
+  studioDecRoundRect(ctx, -r * 0.58, -r * 0.26, r * 0.65, r * 0.52, r * 0.24);
+  ctx.stroke();
+  studioDecRoundRect(ctx, -r * 0.07, -r * 0.26, r * 0.65, r * 0.52, r * 0.24);
+  ctx.stroke();
+  ctx.restore();
+}
+
+// ── DESSINATEUR CANVAS HD DÉCRYPTAGE (1:1 & 16:9) — STYLE ÉDITORIAL BLANC PREMIUM ──
 function studioDrawDecryptage(ctx, w, h) {
-  const c = studioGetThemeColors(studioTheme);
   const isLandscape = h < 800;
 
-  // Données
-  const dateStr     = studioVal('stDecDate') || "Mardi 13 Octobre 2026";
+  // Données dynamiques du formulaire
+  const dateStr     = (studioVal('stDecDate') || "Mardi 13 Octobre 2026").trim();
   const topic       = (studioVal('stDecTopic') || "CESSIONS DU PATRIMOINE BÂTI DE L'ÉTAT").trim();
   const keyword     = (studioVal('stDecKeyword') || "« DÉCHIRE • PULVÉRISE • HUMILIE »").trim();
-  const statSample  = studioVal('stDecStatSample') || "8";
-  const statSync    = studioVal('stDecStatSync') || "75%";
-  const statClones  = studioVal('stDecStatClones') || "5";
-  const statLaw     = studioVal('stDecStatLaw') || "0%";
-  const facts       = studioVal('stDecFacts') || "Faits juridiques et matériels vérifiés par l'Observatoire ProjetBI.";
-  const blindspot   = studioVal('stDecBlindspot') || "Actualités et données d'audit occultées en kiosque ce jour.";
+  const statSample  = (studioVal('stDecStatSample') || "8").trim();
+  const statSync    = (studioVal('stDecStatSync') || "75%").trim();
+  const statClones  = (studioVal('stDecStatClones') || "5").trim();
+  const statLaw     = (studioVal('stDecStatLaw') || "0%").trim();
+  const facts       = (studioVal('stDecFacts') || "").trim();
+  const blindspot   = (studioVal('stDecBlindspot') || "").trim();
 
-  // Couleurs de marques des journaux réels
   const papers = [
-    { paper: studioVal('stDecJ1') || "Tribune", title: studioVal('stDecT1') || "Karim Fofana PULVÉRISE la commission", verb: studioVal('stDecVerb1') || "PULVÉRISE", color: '#E11D48' },
-    { paper: studioVal('stDecJ2') || "Les Échos", title: studioVal('stDecT2') || "Cheikh Oumar Anne DÉCHIRE la convocation", verb: studioVal('stDecVerb2') || "DÉCHIRE", color: '#DC2626' },
-    { paper: studioVal('stDecJ3') || "L'As", title: studioVal('stDecT3') || "Karim Fofana HUMILIE les députés", verb: studioVal('stDecVerb3') || "HUMILIE", color: '#B91C1C' },
-    { paper: studioVal('stDecJ4') || "Source A", title: studioVal('stDecT4') || "Abdou K. Fofana la DÉMYSTIFIE", verb: studioVal('stDecVerb4') || "DÉMYSTIFIE", color: '#EA580C' }
+    { paper: studioVal('stDecJ1') || "Tribune", badge: 'T', title: studioVal('stDecT1') || "Karim Fofana PULVÉRISE la commission, Cheikh O. Hann DÉCHIRE sa convocation", verb: studioVal('stDecVerb1') || "PULVÉRISE", color: '#E11D48', img: studioDecAssets.vignetteTribune },
+    { paper: studioVal('stDecJ2') || "Les Échos", badge: 'E', title: studioVal('stDecT2') || "Cheikh Oumar Anne DÉCHIRE la convocation, Abdou Karim Fofana « DÉTRUIT » la commission", verb: studioVal('stDecVerb2') || "DÉCHIRE", color: '#DC2626', img: studioDecAssets.vignetteEchos },
+    { paper: studioVal('stDecJ3') || "L'As", badge: 'LAS', title: studioVal('stDecT3') || "Devant la commission : Karim Fofana HUMILIE les députés, Cheikh O. Anne renvoie ses copies", verb: studioVal('stDecVerb3') || "HUMILIE", color: '#BE123C', img: studioDecAssets.vignetteAs },
+    { paper: studioVal('stDecJ4') || "Source A", badge: 'A', title: studioVal('stDecT4') || "Commission d'enquête : Cheikh O. Anne l'envoie balader, Abdou K. Fofana la DÉMYSTIFIE", verb: studioVal('stDecVerb4') || "DÉMYSTIFIE", color: '#EA580C', img: studioDecAssets.vignetteSourceA }
   ];
 
-  const j5 = studioVal('stDecJ5'), t5 = studioVal('stDecT5'), v5 = studioVal('stDecVerb5');
-  if (j5 && t5) papers.push({ paper: j5, title: t5, verb: v5 || "TIENT TÊTE", color: '#991B1B' });
-  const j6 = studioVal('stDecJ6'), t6 = studioVal('stDecT6'), v6 = studioVal('stDecVerb6');
-  if (j6 && t6) papers.push({ paper: j6, title: t6, verb: v6 || "ÉLECTRIQUE", color: '#C2410C' });
+  // Fond studio extérieur neutre apaisant
+  ctx.fillStyle = '#EDF1EE';
+  ctx.fillRect(0, 0, w, h);
 
-  // Palette dédiée haute visibilité
-  const isDark = c.isDark;
-  const pColors = {
-    cardBg: isDark ? 'rgba(7, 24, 15, 0.94)' : '#FFFFFF',
-    cardBorder: isDark ? 'rgba(229, 184, 66, 0.38)' : 'rgba(16, 110, 62, 0.25)',
-    boxBg: isDark ? 'rgba(10, 32, 20, 0.88)' : '#F8FAF8',
-    boxBorder: isDark ? 'rgba(255, 255, 255, 0.12)' : '#E2ECE2',
-    textMain: isDark ? '#FFFFFF' : '#0F1E14',
-    textMuted: isDark ? 'rgba(215, 234, 223, 0.82)' : '#4A6352',
-    accentGold: '#E5B842',
-    alertRed: '#EF4444',
-    alertBg: isDark ? 'rgba(239, 68, 68, 0.16)' : 'rgba(239, 68, 68, 0.08)',
-    emerald: '#10B981',
-    emeraldBg: isDark ? 'rgba(16, 185, 129, 0.14)' : 'rgba(16, 185, 129, 0.08)',
-    amber: '#F59E0B',
-    amberBg: isDark ? 'rgba(245, 158, 11, 0.14)' : 'rgba(245, 158, 11, 0.08)',
-    cyan: '#06B6D4',
-    cyanBg: isDark ? 'rgba(6, 182, 212, 0.14)' : 'rgba(6, 182, 212, 0.08)',
-    purple: '#A855F7',
-    purpleBg: isDark ? 'rgba(168, 85, 247, 0.14)' : 'rgba(168, 85, 247, 0.08)'
-  };
+  if (!isLandscape) {
+    // ════════════════════════════════════════════════════
+    // 1:1 SQUARE (1080 x 1080 ou 1024 x 1024)
+    // ════════════════════════════════════════════════════
+    const s = w / 1024;
+    const pad = 20 * s;
+    const cardX = pad;
+    const cardY = pad;
+    const cardW = w - (pad * 2);
+    const cardH = h - (pad * 2);
 
-  studioDrawHeader(ctx, 'DÉCRYPTAGE KIOSQUE', "L'ENVERS DES UNES", w, h, c);
+    // Conteneur Central Blanc avec ombre portée multi-couches
+    ctx.save();
+    ctx.shadowColor = 'rgba(15, 30, 20, 0.08)';
+    ctx.shadowBlur = 24 * s;
+    ctx.shadowOffsetY = 8 * s;
+    ctx.fillStyle = '#FFFFFF';
+    studioDecRoundRect(ctx, cardX, cardY, cardW, cardH, 20 * s);
+    ctx.fill();
+    ctx.restore();
 
-  const cardX = isLandscape ? 36 : 40;
-  const cardY = isLandscape ? 74 : 84;
-  const cardW = w - (cardX * 2);
-  const cardH = (h - (isLandscape ? 50 : 68)) - cardY;
+    // Bordure fine du conteneur central
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.06)';
+    ctx.lineWidth = 1.2 * s;
+    studioDecRoundRect(ctx, cardX, cardY, cardW, cardH, 20 * s);
+    ctx.stroke();
 
-  studioGlassCard(ctx, cardX, cardY, cardW, cardH, 18, c);
+    // 1. TOP HEADER
+    // Petit crayon incliné en haut à gauche
+    ctx.save();
+    ctx.translate(cardX + 16 * s, cardY - 6 * s);
+    ctx.rotate(-15 * Math.PI / 180);
+    ctx.fillStyle = '#F59E0B';
+    studioDecRoundRect(ctx, 0, 0, 24 * s, 7 * s, 3 * s);
+    ctx.fill();
+    ctx.fillStyle = '#FB923C';
+    ctx.fillRect(0, 0, 6 * s, 7 * s);
+    ctx.fillStyle = '#334155';
+    ctx.fillRect(20 * s, 1 * s, 4 * s, 5 * s);
+    ctx.restore();
 
-  if (isLandscape) {
-    // ═══════════════════════════════════════════════════
-    // 16:9 LANDSCAPE (1200 x 675)
-    // ═══════════════════════════════════════════════════
-    const splitGap = 20;
-    const colW = Math.floor((cardW - 36 - splitGap) / 2);
-    const leftX = cardX + 18;
-    const rightX = leftX + colW + splitGap;
+    // Drapeau du Sénégal en haut à droite
+    const flagX = cardX + cardW - 38 * s;
+    const flagY = cardY + 12 * s;
+    const fw = 8 * s;
+    const fh = 16 * s;
+    studioDecRoundRect(ctx, flagX, flagY, fw * 3, fh, 3 * s);
+    ctx.save();
+    ctx.clip();
+    ctx.fillStyle = '#00853F'; ctx.fillRect(flagX, flagY, fw, fh);
+    ctx.fillStyle = '#FDEF42'; ctx.fillRect(flagX + fw, flagY, fw, fh);
+    ctx.fillStyle = '#E31B23'; ctx.fillRect(flagX + fw * 2, flagY, fw, fh);
+    ctx.fillStyle = '#00853F';
+    ctx.font = `bold ${Math.round(8 * s)}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText('★', flagX + fw + 4 * s, flagY + 11.5 * s);
+    ctx.restore();
 
-    // ── GAUCHE: Alerte + KPIs + Unes observées ──
-    const bannerY = cardY + 14;
-    const bannerH = 54;
-    studioRoundBox(ctx, leftX, bannerY, colW, bannerH, 8, pColors.alertBg, pColors.alertRed, 1.5);
+    // Capsule Marque: [ j||i PROJETBI | 👁 OBSERVATOIRE ]
+    const brandX = cardX + 28 * s;
+    const brandY = cardY + 14 * s;
+    const brandW = 400 * s;
+    const brandH = 38 * s;
+    studioDecRoundRect(ctx, brandX, brandY, brandW, brandH, 19 * s);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(0,0,0,0.08)';
+    ctx.lineWidth = 1 * s;
+    ctx.stroke();
+
+    // Barres de logo vert/jaune/rouge
+    ctx.fillStyle = '#00853F'; studioDecRoundRect(ctx, brandX + 14 * s, brandY + 10 * s, 4 * s, 18 * s, 2 * s); ctx.fill();
+    ctx.fillStyle = '#FDEF42'; studioDecRoundRect(ctx, brandX + 21 * s, brandY + 7 * s, 4 * s, 24 * s, 2 * s); ctx.fill();
+    ctx.fillStyle = '#E31B23'; studioDecRoundRect(ctx, brandX + 28 * s, brandY + 10 * s, 4 * s, 18 * s, 2 * s); ctx.fill();
+
     ctx.textAlign = 'left';
-    ctx.fillStyle = pColors.alertRed;
-    ctx.font = 'bold 11px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText('🚨 SCANNER DE COORDINATION MÉDIATIQUE • ' + dateStr.toUpperCase(), leftX + 12, bannerY + 18);
-    ctx.fillStyle = pColors.textMain;
-    ctx.font = '900 14px "Syne", sans-serif';
-    ctx.fillText(topic.substring(0, 48), leftX + 12, bannerY + 35);
-    ctx.fillStyle = pColors.accentGold;
-    ctx.font = 'bold 10.5px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText("MOT D'ORDRE : " + keyword, leftX + 12, bannerY + 48);
+    ctx.fillStyle = '#0F172A';
+    ctx.font = `900 ${Math.round(18 * s)}px "Syne", sans-serif`;
+    ctx.fillText('PROJETBI', brandX + 40 * s, brandY + 25 * s);
 
-    // Barre KPI 4 colonnes
-    const kpiY = bannerY + bannerH + 8;
-    const kpiH = 54;
-    const kpiW = Math.floor((colW - 18) / 4);
-    const kpiStats = [
-      { val: statSample, label: 'Échantillon', color: pColors.cyan, bg: pColors.cyanBg },
-      { val: statSync, label: 'Synchronisation', color: pColors.alertRed, bg: pColors.alertBg },
-      { val: statClones, label: 'Verbes Clones', color: pColors.amber, bg: pColors.amberBg },
-      { val: statLaw, label: 'Cadre Légal', color: pColors.purple, bg: pColors.purpleBg }
+    // Séparateur vertical
+    ctx.strokeStyle = '#E2E8F0';
+    ctx.lineWidth = 1.5 * s;
+    ctx.beginPath();
+    ctx.moveTo(brandX + 152 * s, brandY + 8 * s);
+    ctx.lineTo(brandX + 152 * s, brandY + 30 * s);
+    ctx.stroke();
+
+    // Pillule Observatoire
+    studioDecRoundRect(ctx, brandX + 162 * s, brandY + 7 * s, 140 * s, 24 * s, 12 * s);
+    ctx.fillStyle = 'rgba(245, 158, 11, 0.12)';
+    ctx.fill();
+    ctx.fillStyle = '#B45309';
+    ctx.font = `bold ${Math.round(11 * s)}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillText('👁  OBSERVATOIRE', brandX + 174 * s, brandY + 23 * s);
+
+    // Capsule Bouton Droit: [ 🔒 DÉCRYPTAGE KIOSQUE ]
+    const decrX = cardX + cardW - 245 * s;
+    const decrY = cardY + 14 * s;
+    const decrW = 205 * s;
+    const decrH = 38 * s;
+    studioDecRoundRect(ctx, decrX, decrY, decrW, decrH, 19 * s);
+    ctx.fillStyle = '#064E3B';
+    ctx.fill();
+    ctx.fillStyle = '#FFFFFF';
+    ctx.textAlign = 'center';
+    ctx.font = `800 ${Math.round(11.5 * s)}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillText('🔒  DÉCRYPTAGE KIOSQUE', decrX + decrW / 2, decrY + 24 * s);
+
+    // 2. HERO BANNER ARDOISE FONCÉE (AVEC SILHOUETTE MONUMENT DAKAR)
+    const heroX = cardX + 18 * s;
+    const heroY = cardY + 62 * s;
+    const heroW = cardW - 36 * s;
+    const heroH = 120 * s;
+
+    ctx.save();
+    studioDecRoundRect(ctx, heroX, heroY, heroW, heroH, 14 * s);
+    ctx.clip();
+
+    // Dégradé ardoise émeraude profonde
+    const heroGrad = ctx.createLinearGradient(heroX, heroY, heroX + heroW, heroY + heroH);
+    heroGrad.addColorStop(0, '#092319');
+    heroGrad.addColorStop(0.5, '#0B271C');
+    heroGrad.addColorStop(1, '#051810');
+    ctx.fillStyle = heroGrad;
+    ctx.fillRect(heroX, heroY, heroW, heroH);
+
+    // Dessin de la silhouette Monument Renaissance sur la droite sans recouvrir les titres
+    if (studioDecAssets.heroMonument && studioDecAssets.heroMonument.complete && studioDecAssets.heroMonument.naturalWidth > 0) {
+      const mw = 165 * s;
+      ctx.drawImage(studioDecAssets.heroMonument, heroX + heroW - mw, heroY, mw, heroH);
+    }
+    ctx.restore();
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+
+    // Bordure dorée subtile du banner
+    ctx.strokeStyle = 'rgba(229, 184, 66, 0.45)';
+    ctx.lineWidth = 1.2 * s;
+    studioDecRoundRect(ctx, heroX, heroY, heroW, heroH, 14 * s);
+    ctx.stroke();
+
+    // Tag Date Rouge/Bordeaux en haut du Hero
+    const dateTagW = 420 * s;
+    const dateTagH = 20 * s;
+    const dateTagX = heroX + (heroW - dateTagW) / 2;
+    const dateTagY = heroY + 12 * s;
+    studioDecRoundRect(ctx, dateTagX, dateTagY, dateTagW, dateTagH, 10 * s);
+    ctx.fillStyle = 'rgba(185, 28, 28, 0.88)';
+    ctx.fill();
+    ctx.fillStyle = '#FFFFFF';
+    ctx.textAlign = 'center';
+    ctx.font = `bold ${Math.round(9.5 * s)}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillText('📅  SCANNER DE COORDINATION MÉDIATIQUE • ' + dateStr.toUpperCase(), dateTagX + dateTagW / 2, dateTagY + 14 * s);
+
+    // Titre Principal du Hero (Blanc haute visibilité)
+    ctx.fillStyle = '#FFFFFF';
+    ctx.textAlign = 'center';
+    ctx.font = `900 ${Math.round(22 * s)}px "Syne", sans-serif`;
+    ctx.fillText(topic.toUpperCase(), heroX + heroW / 2, heroY + 63 * s);
+
+    // Sous-titre Mot d'ordre Jaune Doré
+    ctx.fillStyle = '#FBBF24';
+    ctx.font = `bold ${Math.round(12.5 * s)}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillText("MOT D'ORDRE IDENTIFIÉ : " + keyword.toUpperCase(), heroX + heroW / 2, heroY + 88 * s);
+
+    // 3. BARRE DES 4 INDICATEURS STATISTIQUES (KPIS)
+    const kpiY = heroY + heroH + 12 * s;
+    const kpiH = 82 * s;
+    const kpiGap = 12 * s;
+    const kpiW = (heroW - (kpiGap * 3)) / 4;
+
+    const kpis = [
+      { type: 'users', val: statSample + ' UNES', label: 'Presse Nationale', sub: 'Échantillon scruté', color: '#0284C7', bg: '#0284C7', border: '#BAE6FD' },
+      { type: 'sync', val: statSync, label: 'Synchronisation', sub: 'Tir groupé unilatéral', color: '#EF4444', bg: '#EF4444', border: '#FECACA' },
+      { type: 'doc', val: statClones + ' CLONES', label: 'Verbes Martiaux', sub: "Lexique d'assaut", color: '#D97706', bg: '#F59E0B', border: '#FDE68A' },
+      { type: 'chain', val: statLaw + ' DROIT', label: 'Art. 48 Loi Organique', sub: 'Black-out juridique', color: '#7C3AED', bg: '#8B5CF6', border: '#DDD6FE' }
     ];
-    kpiStats.forEach((st, idx) => {
-      const kx = leftX + idx * (kpiW + 6);
-      studioRoundBox(ctx, kx, kpiY, kpiW, kpiH, 6, st.bg, st.color, 1.2);
-      ctx.textAlign = 'center';
-      ctx.fillStyle = st.color;
-      ctx.font = '900 17px "Syne", sans-serif';
-      ctx.fillText(st.val, kx + kpiW / 2, kpiY + 24);
-      ctx.fillStyle = pColors.textMain;
-      ctx.font = 'bold 9px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText(st.label, kx + kpiW / 2, kpiY + 42);
-    });
 
-    // Les Quotidiens (4 cartes compactes)
-    const papersStartY = kpiY + kpiH + 10;
-    const paperRowH = 68;
-    const paperGap = 6;
-    papers.slice(0, 4).forEach((p, idx) => {
-      const py = papersStartY + idx * (paperRowH + paperGap);
-      studioRoundBox(ctx, leftX, py, colW, paperRowH, 6, pColors.boxBg, pColors.boxBorder, 1);
-      studioRoundBox(ctx, leftX, py + 4, 4, paperRowH - 8, 2, p.color, 'transparent');
-
-      studioRoundBox(ctx, leftX + 10, py + 6, 100, 18, 3, p.color, 'transparent', 0);
-      ctx.textAlign = 'center';
+    kpis.forEach((st, idx) => {
+      const kx = heroX + idx * (kpiW + kpiGap);
+      // Carte blanche arrondie
+      studioDecRoundRect(ctx, kx, kpiY, kpiW, kpiH, 12 * s);
       ctx.fillStyle = '#FFFFFF';
-      ctx.font = 'bold 10px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText(p.paper.substring(0, 14), leftX + 10 + 50, py + 19);
+      ctx.fill();
+      ctx.strokeStyle = st.border;
+      ctx.lineWidth = 1.2 * s;
+      ctx.stroke();
 
-      studioRoundBox(ctx, leftX + colW - 130, py + 6, 120, 18, 3, pColors.alertBg, pColors.alertRed, 1.2);
-      ctx.fillStyle = pColors.alertRed;
-      ctx.font = 'bold 9px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText('⚡ « ' + p.verb + ' »', leftX + colW - 70, py + 19);
+      // Cercle d'icône coloré sur la gauche
+      const cx = kx + 30 * s;
+      const cy = kpiY + kpiH / 2;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 21 * s, 0, Math.PI * 2);
+      ctx.fillStyle = st.bg;
+      ctx.fill();
 
+      // Dessin vectoriel ultra-net de l'icône
+      if (st.type === 'users') studioDecDrawUsers(ctx, cx, cy, 21 * s);
+      else if (st.type === 'sync') studioDecDrawSync(ctx, cx, cy, 21 * s);
+      else if (st.type === 'doc') studioDecDrawDoc(ctx, cx, cy, 21 * s);
+      else if (st.type === 'chain') studioDecDrawChain(ctx, cx, cy, 21 * s);
+
+      // Textes à droite du cercle
+      const tx = kx + 58 * s;
       ctx.textAlign = 'left';
-      ctx.fillStyle = pColors.textMain;
-      ctx.font = 'bold 12.5px "Crimson Pro", Georgia, serif';
-      studioWrapText(ctx, '« ' + p.title + ' »', leftX + 12, py + 38, colW - 24, 15, 2);
-    });
-
-    // ── DROITE: Contre-Champ Factuel + Angle Mort + CTA ──
-    const rightStartY = cardY + 14;
-
-    const rightFactH = 210;
-    studioRoundBox(ctx, rightX, rightStartY, colW, rightFactH, 8, pColors.emeraldBg, pColors.emerald, 1.5);
-    studioRoundBox(ctx, rightX + 12, rightStartY + 10, 280, 22, 4, pColors.emerald, 'transparent', 0);
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#FFFFFF';
-    ctx.font = 'bold 11px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText('⚖️ LA VÉRITÉ DU DROIT & LES FAITS', rightX + 12 + 140, rightStartY + 25);
-
-    ctx.textAlign = 'left';
-    ctx.fillStyle = pColors.textMain;
-    ctx.font = '500 12.5px "Plus Jakarta Sans", Inter, sans-serif';
-    studioWrapText(ctx, facts, rightX + 14, rightStartY + 48, colW - 28, 19, 7);
-
-    const rightBlindY = rightStartY + rightFactH + 10;
-    const rightBlindH = 150;
-    studioRoundBox(ctx, rightX, rightBlindY, colW, rightBlindH, 8, pColors.amberBg, pColors.amber, 1.5);
-    studioRoundBox(ctx, rightX + 12, rightBlindY + 10, 310, 22, 4, pColors.amber, 'transparent', 0);
-    ctx.textAlign = 'center';
-    ctx.fillStyle = '#FFFFFF';
-    ctx.font = 'bold 11px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText("👁️ L'ANGLE MORT (LE VRAI SCANDALE OCCULTÉ)", rightX + 12 + 155, rightBlindY + 25);
-
-    ctx.textAlign = 'left';
-    ctx.fillStyle = pColors.textMain;
-    ctx.font = '500 12px "Plus Jakarta Sans", Inter, sans-serif';
-    studioWrapText(ctx, blindspot, rightX + 14, rightBlindY + 48, colW - 28, 18, 5);
-
-    const rightCtaY = rightBlindY + rightBlindH + 10;
-    studioRoundBox(ctx, rightX, rightCtaY, colW, 36, 6, pColors.boxBg, pColors.boxBorder, 1);
-    ctx.textAlign = 'center';
-    ctx.fillStyle = pColors.accentGold;
-    ctx.font = 'bold 11.5px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText('👉 Dossier d\'audit & textes de loi complets sur PROJETBI.ORG • JUBAL 🇸🇳', rightX + colW / 2, rightCtaY + 23);
-
-  } else {
-    // ═══════════════════════════════════════════════════
-    // 1:1 SQUARE (1080 x 1080)
-    // ═══════════════════════════════════════════════════
-    const pad = 20;
-    const contentW = cardW - (pad * 2);
-    const startX = cardX + pad;
-
-    // 1. BANNIÈRE D'ALERTE HAUTE INTENSITÉ
-    const bannerY = cardY + 12;
-    const bannerH = 74;
-    studioRoundBox(ctx, startX, bannerY, contentW, bannerH, 10, pColors.alertBg, pColors.alertRed, 1.5);
-
-    ctx.textAlign = 'center';
-    ctx.fillStyle = pColors.alertRed;
-    ctx.font = 'bold 12.5px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText('🚨 SCANNER DE COORDINATION MÉDIATIQUE • ' + dateStr.toUpperCase(), startX + contentW / 2, bannerY + 20);
-
-    ctx.fillStyle = pColors.textMain;
-    ctx.font = '900 19px "Syne", sans-serif';
-    ctx.fillText(topic.toUpperCase(), startX + contentW / 2, bannerY + 43);
-
-    ctx.fillStyle = pColors.accentGold;
-    ctx.font = 'bold 12px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText("MOT D'ORDRE IDENTIFIÉ : " + keyword.toUpperCase(), startX + contentW / 2, bannerY + 63);
-
-    // 2. BARRE DES 4 INDICATEURS STATISTIQUES (KPIs)
-    const kpiY = bannerY + bannerH + 10;
-    const kpiH = 70;
-    const kpiGap = 10;
-    const kpiW = Math.floor((contentW - (kpiGap * 3)) / 4);
-
-    const kpiStats = [
-      { val: statSample + ' UNES', label: 'Presse Nationale', sub: 'Échantillon scruté', color: pColors.cyan, bg: pColors.cyanBg },
-      { val: statSync, label: 'Synchronisation', sub: 'Tir groupé unilatéral', color: pColors.alertRed, bg: pColors.alertBg },
-      { val: statClones + ' CLONES', label: 'Verbes Martiaux', sub: 'Lexique d\'assaut', color: pColors.amber, bg: pColors.amberBg },
-      { val: statLaw + ' DROIT', label: 'Art. 48 Loi Organique', sub: 'Black-out juridique', color: pColors.purple, bg: pColors.purpleBg }
-    ];
-
-    kpiStats.forEach((st, idx) => {
-      const kx = startX + idx * (kpiW + kpiGap);
-      studioRoundBox(ctx, kx, kpiY, kpiW, kpiH, 8, st.bg, st.color, 1.3);
-      ctx.textAlign = 'center';
       ctx.fillStyle = st.color;
-      ctx.font = '900 24px "Syne", sans-serif';
-      ctx.fillText(st.val, kx + kpiW / 2, kpiY + 28);
+      ctx.font = `900 ${Math.round(18 * s)}px "Syne", sans-serif`;
+      ctx.fillText(st.val, tx, kpiY + 28 * s);
 
-      ctx.fillStyle = pColors.textMain;
-      ctx.font = 'bold 10.5px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText(st.label, kx + kpiW / 2, kpiY + 46);
+      ctx.fillStyle = '#1E293B';
+      ctx.font = `bold ${Math.round(11 * s)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillText(st.label, tx, kpiY + 46 * s);
 
-      ctx.fillStyle = pColors.textMuted;
-      ctx.font = '500 9px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText(st.sub, kx + kpiW / 2, kpiY + 60);
+      ctx.fillStyle = '#64748B';
+      ctx.font = `500 ${Math.round(9.5 * s)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillText(st.sub, tx, kpiY + 62 * s);
     });
 
-    // 3. GRILLE DES UNES (2x2 CARTOUCHES ÉDITORIALES)
-    const gridY = kpiY + kpiH + 12;
-    const colGap = 12;
-    const colW = Math.floor((contentW - colGap) / 2);
-    const rowH = 114;
-    const rowGap = 10;
+    // 4. GRILLE 2x2 DES CARTES DE JOURNAUX
+    const gridY = kpiY + kpiH + 12 * s;
+    const colGap = 12 * s;
+    const colW = (heroW - colGap) / 2;
+    const rowH = 126 * s;
+    const rowGap = 10 * s;
 
-    papers.slice(0, 4).forEach((p, idx) => {
+    papers.forEach((p, idx) => {
       const col = idx % 2;
       const row = Math.floor(idx / 2);
-      const px = startX + col * (colW + colGap);
+      const px = heroX + col * (colW + colGap);
       const py = gridY + row * (rowH + rowGap);
 
-      studioRoundBox(ctx, px, py, colW, rowH, 8, pColors.boxBg, pColors.boxBorder, 1);
-      studioRoundBox(ctx, px, py + 6, 5, rowH - 12, 2.5, p.color, 'transparent');
+      // Carte blanche
+      studioDecRoundRect(ctx, px, py, colW, rowH, 12 * s);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fill();
+      ctx.strokeStyle = '#E2E8F0';
+      ctx.lineWidth = 1.2 * s;
+      ctx.stroke();
 
-      // Badge nom du journal avec couleur pleine
-      studioRoundBox(ctx, px + 12, py + 8, 114, 22, 4, p.color, 'transparent', 0);
+      // Vignette photographique sur la droite (bien délimitée pour ne jamais chevaucher le texte)
+      if (p.img && p.img.complete && p.img.naturalWidth > 0) {
+        ctx.save();
+        studioDecRoundRect(ctx, px, py, colW, rowH, 12 * s);
+        ctx.clip();
+        const iw = 135 * s;
+        const ih = 86 * s;
+        ctx.drawImage(p.img, px + colW - iw, py + rowH - ih - 6 * s, iw, ih);
+        ctx.restore();
+      }
+
+      // Badge nom du journal : [T] Tribune
+      const badgeW = 94 * s;
+      const badgeH = 22 * s;
+      studioDecRoundRect(ctx, px + 12 * s, py + 10 * s, badgeW, badgeH, 4 * s);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+
+      // Carré blanc pour l'initiale
+      studioDecRoundRect(ctx, px + 14 * s, py + 12 * s, 18 * s, 18 * s, 3 * s);
+      ctx.fillStyle = 'rgba(255,255,255,0.25)';
+      ctx.fill();
       ctx.textAlign = 'center';
       ctx.fillStyle = '#FFFFFF';
-      ctx.font = 'bold 11px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText(p.paper.substring(0, 16), px + 12 + 57, py + 23);
+      ctx.font = `bold ${Math.round(9.5 * s)}px "Syne", sans-serif`;
+      ctx.fillText(p.badge, px + 23 * s, py + 24.5 * s);
 
-      // Badge verbe d'attaque
-      studioRoundBox(ctx, px + colW - 142, py + 8, 130, 22, 4, pColors.alertBg, pColors.alertRed, 1.2);
-      ctx.fillStyle = pColors.alertRed;
-      ctx.font = 'bold 10px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText('⚡ « ' + p.verb + ' »', px + colW - 77, py + 23);
-
-      // Titre de Une exact
+      // Nom du journal
       ctx.textAlign = 'left';
-      ctx.fillStyle = pColors.textMain;
-      ctx.font = 'bold 14px "Crimson Pro", Georgia, serif';
-      studioWrapText(ctx, '« ' + p.title + ' »', px + 14, py + 48, colW - 28, 19, 3);
+      ctx.font = `bold ${Math.round(11 * s)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillText(p.paper, px + 36 * s, py + 25 * s);
 
-      // Micro tag d'angle
-      ctx.fillStyle = pColors.textMuted;
-      ctx.font = 'italic 9.5px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText('Angle : Spectacle & inversion des rôles', px + 14, py + 105);
+      // Pillule Verbe d'attaque en rose clair : ⚡ « VERBE »
+      const verbW = 118 * s;
+      const verbH = 22 * s;
+      const vx = px + colW - verbW - 12 * s;
+      studioDecRoundRect(ctx, vx, py + 10 * s, verbW, verbH, 11 * s);
+      ctx.fillStyle = '#FEE2E2';
+      ctx.fill();
+      ctx.strokeStyle = '#FECACA';
+      ctx.lineWidth = 1 * s;
+      ctx.stroke();
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#DC2626';
+      ctx.font = `800 ${Math.round(10 * s)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillText('⚡ « ' + p.verb + ' »', vx + verbW / 2, py + 24.5 * s);
+
+      // Titre de Une exact (largeur restreinte pour laisser la place nette à l'illustration)
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#0F172A';
+      ctx.font = `700 ${Math.round(12.5 * s)}px "Plus Jakarta Sans", sans-serif`;
+      studioWrapText(ctx, p.title, px + 14 * s, py + 52 * s, colW - 150 * s, 17 * s, 3);
+
+      // Sous-titre Angle
+      ctx.fillStyle = '#0284C7';
+      ctx.font = `italic ${Math.round(10 * s)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillText('Angle : Spectacle & inversion des rôles', px + 14 * s, py + rowH - 12 * s);
     });
 
-    // Bandeau 6 quotidiens
-    const extraY = gridY + (rowH * 2) + rowGap;
-    const extraH = 26;
-    studioRoundBox(ctx, startX, extraY, contentW, extraH, 5, pColors.boxBg, pColors.boxBorder, 1);
+    // 5. BANDEAU DE SYNCHRONISATION INTERMÉDIAIRE
+    const syncY = gridY + (rowH * 2) + rowGap + 6 * s;
+    const syncH = 26 * s;
+    const syncW = 600 * s;
+    const syncX = heroX + (heroW - syncW) / 2;
+    studioDecRoundRect(ctx, syncX, syncY, syncW, syncH, 13 * s);
+    ctx.fillStyle = '#FFFBEB';
+    ctx.fill();
+    ctx.strokeStyle = '#FDE68A';
+    ctx.lineWidth = 1 * s;
+    ctx.stroke();
+
     ctx.textAlign = 'center';
-    ctx.fillStyle = pColors.accentGold;
-    ctx.font = 'bold 10px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText('⚡ ÉGALEMENT SYNCHRONISÉS : EnQuête (« Karim Fofana TIENT TÊTE ») • Walf Quotidien (« Face-à-face ÉLECTRIQUE »)', startX + contentW / 2, extraY + 17);
+    ctx.fillStyle = '#92400E';
+    ctx.font = `bold ${Math.round(10 * s)}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillText('📄  ÉGALEMENT SYNCHRONISÉS : EnQuête (ex Karim Fofana TIENT TÊTE!) • Walf Quotidien (ex Face-à-face ÉLECTRIQUE...)', syncX + syncW / 2, syncY + 17 * s);
 
-    // 4. DOUBLE CONTRE-CHAMP FACTUEL (DROIT & ANGLE MORT)
-    const bottomY = extraY + extraH + 10;
-
-    // CARTE 1: LA VÉRITÉ DU DROIT & DES FAITS
-    const factCardH = 195;
-    studioRoundBox(ctx, startX, bottomY, contentW, factCardH, 10, pColors.emeraldBg, pColors.emerald, 1.5);
-    studioRoundBox(ctx, startX, bottomY + 8, 6, factCardH - 16, 3, pColors.emerald, 'transparent');
-
-    studioRoundBox(ctx, startX + 16, bottomY + 10, 360, 24, 4, pColors.emerald, 'transparent', 0);
-    ctx.textAlign = 'center';
+    // 6. ENCADRÉ VÉRITÉ DU DROIT (VERT INSTITUTIONNEL)
+    const lawY = syncY + syncH + 10 * s;
+    const lawH = 120 * s;
+    studioDecRoundRect(ctx, heroX, lawY, heroW, lawH, 12 * s);
     ctx.fillStyle = '#FFFFFF';
-    ctx.font = 'bold 11.5px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText('⚖️ LA VÉRITÉ DU DROIT • ART. 48 LOI ORGANIQUE AN', startX + 16 + 180, bottomY + 26);
+    ctx.fill();
+    ctx.strokeStyle = '#10B981';
+    ctx.lineWidth = 1.5 * s;
+    ctx.stroke();
 
-    // Puces structurées dans la carte verte
+    // Filigrane colonnes de justice à droite
+    if (studioDecAssets.watermarkJustice && studioDecAssets.watermarkJustice.complete && studioDecAssets.watermarkJustice.naturalWidth > 0) {
+      ctx.save();
+      studioDecRoundRect(ctx, heroX, lawY, heroW, lawH, 12 * s);
+      ctx.clip();
+      ctx.globalAlpha = 0.85;
+      ctx.drawImage(studioDecAssets.watermarkJustice, heroX + heroW - 95 * s, lawY + 18 * s, 85 * s, 85 * s);
+      ctx.restore();
+    }
+
+    // Pilule d'en-tête gauche : ✔ LA VÉRITÉ DU DROIT • ART. 48 LOI ORGANIQUE AN
+    const lawPillW = 385 * s;
+    const lawPillH = 26 * s;
+    studioDecRoundRect(ctx, heroX + 12 * s, lawY + 10 * s, lawPillW, lawPillH, 13 * s);
+    ctx.fillStyle = '#064E3B';
+    ctx.fill();
+
     ctx.textAlign = 'left';
-    ctx.fillStyle = pColors.textMain;
-    ctx.font = '500 13px "Plus Jakarta Sans", Inter, sans-serif';
-    const factLines = [
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = `bold ${Math.round(11 * s)}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillText('✔  LA VÉRITÉ DU DROIT • ART. 48 LOI ORGANIQUE AN', heroX + 26 * s, lawY + 27 * s);
+
+    // Pilule d'en-tête droite : ⚖️ Le droit face à la manipulation médiatique
+    const rightPillW = 245 * s;
+    const rightPillH = 24 * s;
+    const rx = heroX + heroW - rightPillW - 12 * s;
+    studioDecRoundRect(ctx, rx, lawY + 11 * s, rightPillW, rightPillH, 12 * s);
+    ctx.fillStyle = '#D1FAE5';
+    ctx.fill();
+    ctx.fillStyle = '#065F46';
+    ctx.font = `bold ${Math.round(10 * s)}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillText('⚖️  Le droit face à la manipulation médiatique', rx + 14 * s, lawY + 27 * s);
+
+    // 3 Puces avec coches vertes vérifiées
+    const lawBullets = [
+      { label: "Pouvoirs d'investigation :", text: "Les commissions parlementaires disposent des mêmes pouvoirs judiciaires qu'un juge d'instruction." },
+      { label: "Délit d'entrave caractérisé :", text: "Déchirer ou refuser une convocation officielle constitue une violation passible de poursuites pénales." },
+      { label: "Objet de l'enquête :", text: "L'audit documenté porte sur des baux emphytéotiques de 99 ans cédés à vil prix et des résidences d'État spoliées." }
+    ];
+
+    lawBullets.forEach((b, idx) => {
+      const by = lawY + 48 * s + idx * 22 * s;
+      const cx = heroX + 22 * s;
+      const cy = by + 4 * s;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 7.5 * s, 0, Math.PI * 2);
+      ctx.fillStyle = '#059669';
+      ctx.fill();
+      ctx.fillStyle = '#FFFFFF';
+      ctx.textAlign = 'center';
+      ctx.font = `bold ${Math.round(9 * s)}px sans-serif`;
+      ctx.fillText('✓', cx, cy + 3 * s);
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#0F172A';
+      ctx.font = `bold ${Math.round(11.5 * s)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillText(b.label, heroX + 36 * s, by + 8 * s);
+      const lw = ctx.measureText(b.label).width;
+      ctx.fillStyle = '#334155';
+      ctx.font = `500 ${Math.round(11.5 * s)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillText(' ' + b.text, heroX + 36 * s + lw, by + 8 * s);
+    });
+
+    // 7. ENCADRÉ ANGLE MORT (AMBRE CONFIDENTIEL)
+    const blindY = lawY + lawH + 10 * s;
+    const blindH = 100 * s;
+    studioDecRoundRect(ctx, heroX, blindY, heroW, blindH, 12 * s);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+    ctx.strokeStyle = '#F59E0B';
+    ctx.lineWidth = 1.5 * s;
+    ctx.stroke();
+
+    // Illustration dossiers confidentiels à droite
+    if (studioDecAssets.watermarkFolders && studioDecAssets.watermarkFolders.complete && studioDecAssets.watermarkFolders.naturalWidth > 0) {
+      ctx.save();
+      studioDecRoundRect(ctx, heroX, blindY, heroW, blindH, 12 * s);
+      ctx.clip();
+      ctx.globalAlpha = 0.95;
+      ctx.drawImage(studioDecAssets.watermarkFolders, heroX + heroW - 200 * s, blindY + 12 * s, 190 * s, 80 * s);
+      ctx.restore();
+    }
+
+    // Pilule d'en-tête gauche : ⚠️ L'ANGLE MORT • LE VRAI SCANDALE OCCULTÉ EN KIOSQUE
+    const blindPillW = 395 * s;
+    const blindPillH = 26 * s;
+    studioDecRoundRect(ctx, heroX + 12 * s, blindY + 10 * s, blindPillW, blindPillH, 13 * s);
+    ctx.fillStyle = '#D97706';
+    ctx.fill();
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = `bold ${Math.round(11 * s)}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillText("⚠️  L'ANGLE MORT • LE VRAI SCANDALE OCCULTÉ EN KIOSQUE", heroX + 26 * s, blindY + 27 * s);
+
+    // Pilule d'en-tête droite : ⚖️ Ce que les Unes ne disent pas
+    const brPillW = 185 * s;
+    const brPillH = 24 * s;
+    const brx = heroX + heroW - brPillW - 12 * s;
+    studioDecRoundRect(ctx, brx, blindY + 11 * s, brPillW, brPillH, 12 * s);
+    ctx.fillStyle = '#FEF3C7';
+    ctx.fill();
+    ctx.fillStyle = '#92400E';
+    ctx.font = `bold ${Math.round(10 * s)}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillText('⚖️  Ce que les Unes ne disent pas', brx + 12 * s, blindY + 27 * s);
+
+    // 2 Puces avec points ambre
+    const blindBullets = [
+      { label: "Black-out sur le foncier :", text: "0 ligne en Une des quotidiens alignés sur les dizaines de villas de fonction déclassées sous l'ancien régime." },
+      { label: "Centaines de milliards occultés :", text: "Le préjudice financier colossal pour le Trésor public est totalement masqué au profit de la théâtralisation." }
+    ];
+
+    blindBullets.forEach((b, idx) => {
+      const by = blindY + 50 * s + idx * 24 * s;
+      const cx = heroX + 22 * s;
+      const cy = by + 4 * s;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 4.5 * s, 0, Math.PI * 2);
+      ctx.fillStyle = '#D97706';
+      ctx.fill();
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#0F172A';
+      ctx.font = `bold ${Math.round(11.5 * s)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillText(b.label, heroX + 34 * s, by + 8 * s);
+      const lw = ctx.measureText(b.label).width;
+      ctx.fillStyle = '#334155';
+      ctx.font = `500 ${Math.round(11.5 * s)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillText(' ' + b.text, heroX + 34 * s + lw, by + 8 * s);
+    });
+
+    // 8. PILLULE D'APPEL À L'ACTION (CTA)
+    const ctaY = blindY + blindH + 10 * s;
+    const ctaH = 28 * s;
+    const ctaW = 580 * s;
+    const ctaX = heroX + (heroW - ctaW) / 2;
+    studioDecRoundRect(ctx, ctaX, ctaY, ctaW, ctaH, 14 * s);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+    ctx.strokeStyle = '#FDE68A';
+    ctx.lineWidth = 1 * s;
+    ctx.stroke();
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#D97706';
+    ctx.font = `bold ${Math.round(10.5 * s)}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillText('👉  Retrouvez le dossier complet des audits et les textes de loi sur PROJETBI.ORG • JUBAL.SN  ➔', ctaX + ctaW / 2, ctaY + 18.5 * s);
+
+    // 9. BANDEAU DE PIED DE PAGE CITOYEN (VERT FORÊT PROFOND)
+    const botY = cardY + cardH - 38 * s;
+    const botH = 38 * s;
+    studioDecRoundRect(ctx, cardX, botY, cardW, botH, { tl: 0, tr: 0, br: 20 * s, bl: 20 * s });
+    ctx.fillStyle = '#062B1D';
+    ctx.fill();
+
+    // Gauche: 🌐 projetbi.org | ● Plateforme Citoyenne Indépendante
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = `bold ${Math.round(12.5 * s)}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillText('🌐  projetbi.org', cardX + 24 * s, botY + 23 * s);
+
+    ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+    ctx.lineWidth = 1 * s;
+    ctx.beginPath();
+    ctx.moveTo(cardX + 130 * s, botY + 11 * s);
+    ctx.lineTo(cardX + 130 * s, botY + 27 * s);
+    ctx.stroke();
+
+    ctx.fillStyle = '#A7F3D0';
+    ctx.font = `500 ${Math.round(11.5 * s)}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillText('●  Plateforme Citoyenne Indépendante', cardX + 144 * s, botY + 23 * s);
+
+    // Droite: JUB • JUBAL • JUBANTI 🇸🇳
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#E5B842';
+    ctx.font = `900 ${Math.round(12 * s)}px "Syne", sans-serif`;
+    ctx.fillText('JUB • JUBAL • JUBANTI', cardX + cardW - 54 * s, botY + 23 * s);
+
+    const mfx = cardX + cardW - 44 * s;
+    const mfy = botY + 13 * s;
+    studioDecRoundRect(ctx, mfx, mfy, 18 * s, 12 * s, 2 * s);
+    ctx.save();
+    ctx.clip();
+    ctx.fillStyle = '#00853F'; ctx.fillRect(mfx, mfy, 6 * s, 12 * s);
+    ctx.fillStyle = '#FDEF42'; ctx.fillRect(mfx + 6 * s, mfy, 6 * s, 12 * s);
+    ctx.fillStyle = '#E31B23'; ctx.fillRect(mfx + 12 * s, mfy, 6 * s, 12 * s);
+    ctx.fillStyle = '#00853F';
+    ctx.font = `bold ${Math.round(7 * s)}px sans-serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText('★', mfx + 9 * s, mfy + 9 * s);
+    ctx.restore();
+
+  } else {
+    // ════════════════════════════════════════════════════
+    // 16:9 LANDSCAPE (1200 x 675)
+    // ════════════════════════════════════════════════════
+    const pad = 16;
+    const cardX = pad;
+    const cardY = pad;
+    const cardW = w - (pad * 2);
+    const cardH = h - (pad * 2);
+
+    // Conteneur blanc
+    studioDecRoundRect(ctx, cardX, cardY, cardW, cardH, 16);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(0,0,0,0.06)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Top Header
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#0F172A';
+    ctx.font = '900 16px "Syne", sans-serif';
+    ctx.fillText('PROJETBI  |  OBSERVATOIRE', cardX + 20, cardY + 26);
+
+    const decrX = cardX + cardW - 200;
+    studioDecRoundRect(ctx, decrX, cardY + 10, 180, 26, 13);
+    ctx.fillStyle = '#064E3B';
+    ctx.fill();
+    ctx.fillStyle = '#FFFFFF';
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 10px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('🔒  DÉCRYPTAGE KIOSQUE', decrX + 90, cardY + 27);
+
+    // Hero Banner
+    const heroX = cardX + 16;
+    const heroY = cardY + 42;
+    const heroW = cardW - 32;
+    const heroH = 68;
+
+    ctx.save();
+    studioDecRoundRect(ctx, heroX, heroY, heroW, heroH, 10);
+    ctx.clip();
+    const heroGrad = ctx.createLinearGradient(heroX, heroY, heroX + heroW, heroY + heroH);
+    heroGrad.addColorStop(0, '#092319');
+    heroGrad.addColorStop(1, '#051810');
+    ctx.fillStyle = heroGrad;
+    ctx.fillRect(heroX, heroY, heroW, heroH);
+    if (studioDecAssets.heroMonument && studioDecAssets.heroMonument.complete && studioDecAssets.heroMonument.naturalWidth > 0) {
+      const mw = 120;
+      ctx.drawImage(studioDecAssets.heroMonument, heroX + heroW - mw, heroY, mw, heroH);
+    }
+    ctx.restore();
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#FCA5A5';
+    ctx.font = 'bold 9px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('📅  SCANNER DE COORDINATION MÉDIATIQUE • ' + dateStr.toUpperCase(), heroX + heroW / 2, heroY + 17);
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '900 18px "Syne", sans-serif';
+    ctx.fillText(topic.toUpperCase(), heroX + heroW / 2, heroY + 40);
+
+    ctx.fillStyle = '#FBBF24';
+    ctx.font = 'bold 11px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText("MOT D'ORDRE IDENTIFIÉ : " + keyword.toUpperCase(), heroX + heroW / 2, heroY + 58);
+
+    // Colonnes séparées : Gauche (KPIs + Unes) / Droite (Droit + Angle Mort + CTA)
+    const splitGap = 16;
+    const colW = (heroW - splitGap) / 2;
+    const leftX = heroX;
+    const rightX = leftX + colW + splitGap;
+
+    // GAUCHE : 4 KPIs compacts
+    const kpiY = heroY + heroH + 10;
+    const kpiH = 50;
+    const kpiSubW = (colW - 18) / 4;
+    const kpis = [
+      { val: statSample + ' UNES', label: 'Échantillon', color: '#0284C7', border: '#BAE6FD' },
+      { val: statSync, label: 'Synchronisé', color: '#EF4444', border: '#FECACA' },
+      { val: statClones + ' CLONES', label: 'Verbes', color: '#D97706', border: '#FDE68A' },
+      { val: statLaw + ' DROIT', label: 'Art. 48', color: '#7C3AED', border: '#DDD6FE' }
+    ];
+
+    kpis.forEach((st, idx) => {
+      const kx = leftX + idx * (kpiSubW + 6);
+      studioDecRoundRect(ctx, kx, kpiY, kpiSubW, kpiH, 8);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fill();
+      ctx.strokeStyle = st.border;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = st.color;
+      ctx.font = '900 14px "Syne", sans-serif';
+      ctx.fillText(st.val, kx + kpiSubW / 2, kpiY + 24);
+      ctx.fillStyle = '#64748B';
+      ctx.font = 'bold 8.5px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(st.label, kx + kpiSubW / 2, kpiY + 40);
+    });
+
+    // GAUCHE : 4 Cartes de presse
+    const papersStartY = kpiY + kpiH + 8;
+    const paperRowH = 82;
+    const paperGap = 6;
+
+    papers.forEach((p, idx) => {
+      const py = papersStartY + idx * (paperRowH + paperGap);
+      studioDecRoundRect(ctx, leftX, py, colW, paperRowH, 8);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fill();
+      ctx.strokeStyle = '#E2E8F0';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      if (p.img && p.img.complete && p.img.naturalWidth > 0) {
+        ctx.save();
+        studioDecRoundRect(ctx, leftX, py, colW, paperRowH, 8);
+        ctx.clip();
+        const iw = 100;
+        const ih = 65;
+        ctx.drawImage(p.img, leftX + colW - iw, py + paperRowH - ih - 4, iw, ih);
+        ctx.restore();
+      }
+
+      studioDecRoundRect(ctx, leftX + 8, py + 8, 80, 18, 3);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = 'bold 9.5px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(p.paper, leftX + 48, py + 20.5);
+
+      studioDecRoundRect(ctx, leftX + 94, py + 8, 92, 18, 9);
+      ctx.fillStyle = '#FEE2E2';
+      ctx.fill();
+      ctx.fillStyle = '#DC2626';
+      ctx.font = 'bold 8.5px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('⚡ ' + p.verb, leftX + 140, py + 20.5);
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#0F172A';
+      ctx.font = 'bold 11px "Plus Jakarta Sans", sans-serif';
+      studioWrapText(ctx, p.title, leftX + 10, py + 42, colW - 120, 15, 2);
+
+      ctx.fillStyle = '#0284C7';
+      ctx.font = 'italic 8.5px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('Angle : Spectacle & inversion des rôles', leftX + 10, py + paperRowH - 8);
+    });
+
+    // DROITE : Vérité du Droit + Angle Mort + CTA
+    const rightStartY = heroY + heroH + 10;
+    const lawH = 210;
+    studioDecRoundRect(ctx, rightX, rightStartY, colW, lawH, 10);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+    ctx.strokeStyle = '#10B981';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    if (studioDecAssets.watermarkJustice && studioDecAssets.watermarkJustice.complete && studioDecAssets.watermarkJustice.naturalWidth > 0) {
+      ctx.save();
+      studioDecRoundRect(ctx, rightX, rightStartY, colW, lawH, 10);
+      ctx.clip();
+      ctx.drawImage(studioDecAssets.watermarkJustice, rightX + colW - 90, rightStartY + 10, 80, 80);
+      ctx.restore();
+    }
+
+    studioDecRoundRect(ctx, rightX + 10, rightStartY + 8, 260, 22, 11);
+    ctx.fillStyle = '#064E3B';
+    ctx.fill();
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 9.5px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('✔  LA VÉRITÉ DU DROIT • ART. 48 AN', rightX + 20, rightStartY + 23);
+
+    studioDecRoundRect(ctx, rightX + colW - 195, rightStartY + 8, 185, 22, 11);
+    ctx.fillStyle = '#D1FAE5';
+    ctx.fill();
+    ctx.fillStyle = '#065F46';
+    ctx.font = 'bold 9px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('⚖️  Le droit vs manipulation', rightX + colW - 185, rightStartY + 23);
+
+
+    const lawBullets = [
       "• Pouvoirs d'investigation : Les commissions parlementaires disposent des mêmes pouvoirs judiciaires qu'un juge d'instruction.",
       "• Délit d'entrave caractérisé : Déchirer ou refuser une convocation officielle constitue une violation passible de poursuites pénales.",
       "• Objet de l'enquête : L'audit documenté porte sur des baux emphytéotiques de 99 ans cédés à vil prix et des résidences d'État spoliées."
     ];
-    let curFy = bottomY + 54;
-    factLines.forEach(line => {
-      const drawn = studioWrapText(ctx, line, startX + 18, curFy, contentW - 36, 19, 2);
-      curFy += drawn * 19 + 6;
+    let cy = rightStartY + 46;
+    lawBullets.forEach(b => {
+      ctx.fillStyle = '#0F172A';
+      ctx.font = '500 11px "Plus Jakarta Sans", sans-serif';
+      const lines = studioWrapText(ctx, b, rightX + 14, cy, colW - 28, 16, 3);
+      cy += lines * 16 + 8;
     });
 
-    // CARTE 2: L'ANGLE MORT (OCCULTÉ)
-    const blindCardY = bottomY + factCardH + 10;
-    const blindCardH = 140;
-    studioRoundBox(ctx, startX, blindCardY, contentW, blindCardH, 10, pColors.amberBg, pColors.amber, 1.5);
-    studioRoundBox(ctx, startX, blindCardY + 8, 6, blindCardH - 16, 3, pColors.amber, 'transparent');
-
-    studioRoundBox(ctx, startX + 16, blindCardY + 10, 390, 24, 4, pColors.amber, 'transparent', 0);
-    ctx.textAlign = 'center';
+    // Encadré Angle Mort
+    const blindY = rightStartY + lawH + 8;
+    const blindH = 135;
+    studioDecRoundRect(ctx, rightX, blindY, colW, blindH, 10);
     ctx.fillStyle = '#FFFFFF';
-    ctx.font = 'bold 11.5px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText("👁️ L'ANGLE MORT • LE VRAI SCANDALE OCCULTÉ EN KIOSQUE", startX + 16 + 195, blindCardY + 26);
+    ctx.fill();
+    ctx.strokeStyle = '#F59E0B';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
 
-    ctx.textAlign = 'left';
-    ctx.fillStyle = pColors.textMain;
-    ctx.font = '500 12.5px "Plus Jakarta Sans", Inter, sans-serif';
-    const blindLines = [
-      "• Black-out sur le fond : 0 ligne en Une des quotidiens alignés sur les dizaines de villas de fonction déclassées sous l'ancien régime.",
+    if (studioDecAssets.watermarkFolders && studioDecAssets.watermarkFolders.complete && studioDecAssets.watermarkFolders.naturalWidth > 0) {
+      ctx.save();
+      studioDecRoundRect(ctx, rightX, blindY, colW, blindH, 10);
+      ctx.clip();
+      ctx.drawImage(studioDecAssets.watermarkFolders, rightX + colW - 150, blindY + 10, 140, 60);
+      ctx.restore();
+    }
+
+    studioDecRoundRect(ctx, rightX + 10, blindY + 8, 260, 22, 11);
+    ctx.fillStyle = '#D97706';
+    ctx.fill();
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 9.5px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText("⚠️  L'ANGLE MORT • SCANDALE OCCULTÉ", rightX + 20, blindY + 23);
+
+    studioDecRoundRect(ctx, rightX + colW - 195, blindY + 8, 185, 22, 11);
+    ctx.fillStyle = '#FEF3C7';
+    ctx.fill();
+    ctx.fillStyle = '#92400E';
+    ctx.font = 'bold 9px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('⚖️  Ce que les Unes occultent', rightX + colW - 185, blindY + 23);
+
+    const blindBullets = [
+      "• Black-out sur le foncier : 0 ligne en Une des quotidiens alignés sur les dizaines de villas de fonction déclassées sous l'ancien régime.",
       "• Centaines de milliards occultés : Le préjudice financier colossal pour le Trésor public est totalement masqué au profit de la théâtralisation."
     ];
-    let curBy = blindCardY + 52;
-    blindLines.forEach(line => {
-      const drawn = studioWrapText(ctx, line, startX + 18, curBy, contentW - 36, 19, 2);
-      curBy += drawn * 19 + 6;
+    let bcy = blindY + 44;
+    blindBullets.forEach(b => {
+      ctx.fillStyle = '#0F172A';
+      ctx.font = '500 10.5px "Plus Jakarta Sans", sans-serif';
+      const lines = studioWrapText(ctx, b, rightX + 14, bcy, colW - 28, 15, 3);
+      bcy += lines * 15 + 6;
     });
 
-    // 5. CALL TO ACTION FOOTER BAR
-    const ctaY = cardY + cardH - 44;
-    studioRoundBox(ctx, startX, ctaY, contentW, 36, 7, pColors.boxBg, pColors.boxBorder, 1);
+    // CTA Pill
+    const ctaY = blindY + blindH + 8;
+    studioDecRoundRect(ctx, rightX, ctaY, colW, 28, 6);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+    ctx.strokeStyle = '#FDE68A';
+    ctx.lineWidth = 1;
+    ctx.stroke();
     ctx.textAlign = 'center';
-    ctx.fillStyle = pColors.accentGold;
-    ctx.font = 'bold 12.5px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText('👉 Retrouvez le dossier complet des audits et les textes de loi sur PROJETBI.ORG • JUBAL 🇸🇳', startX + contentW / 2, ctaY + 23);
-  }
+    ctx.fillStyle = '#D97706';
+    ctx.font = 'bold 9.5px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('👉 Dossier d\'audit & textes de loi complets sur PROJETBI.ORG • JUBAL.SN ➔', rightX + colW / 2, ctaY + 18);
 
-  studioDrawFooter(ctx, '', w, h, c);
+    // Pied de page
+    const botY = cardY + cardH - 30;
+    studioDecRoundRect(ctx, cardX, botY, cardW, 30, { tl: 0, tr: 0, br: 16, bl: 16 });
+    ctx.fillStyle = '#062B1D';
+    ctx.fill();
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = 'bold 11px "Plus Jakarta Sans", sans-serif';
+    ctx.fillText('🌐  projetbi.org  |  ●  Plateforme Citoyenne Indépendante', cardX + 16, botY + 19);
+
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#E5B842';
+    ctx.font = '900 11px "Syne", sans-serif';
+    ctx.fillText('JUB • JUBAL • JUBANTI 🇸🇳', cardX + cardW - 16, botY + 19);
+  }
 }
 
 function studioInit() {

@@ -29,21 +29,22 @@ const fs = require('fs');
   await page.screenshot({ path: path.join(__dirname, 'preview_studio_decryptage.png') });
   console.log('Saved preview_studio_decryptage.png');
 
-  // Capture canvas in Dark Prestige Theme (1:1)
-  await page.evaluate(() => {
-    studioSetTheme('projetbi_prestige');
+  // Ensure fonts and assets are loaded and render canvas
+  await page.evaluate(async () => {
+    await document.fonts.ready;
     studioSetRatio('1:1');
     studioRenderAll();
   });
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(1000);
 
   const canvasEl = await page.locator('#studioCanvas');
-  await canvasEl.screenshot({ path: path.join(__dirname, 'decryptage_1_1_dark.png') });
-  console.log('Saved decryptage_1_1_dark.png');
+  await canvasEl.screenshot({ path: path.join(__dirname, 'decryptage_1_1_executive.png') });
+  console.log('Saved decryptage_1_1_executive.png');
 
   // Also save directly to artifact directory for the user
   const artifactDir = 'C:\\Users\\HP\\.gemini\\antigravity-ide\\brain\\8523804f-b992-4a99-9ce7-dba197b0babf';
-  await canvasEl.screenshot({ path: path.join(artifactDir, 'decryptage_1_1_dark.png') });
+  await canvasEl.screenshot({ path: path.join(artifactDir, 'decryptage_1_1_executive.png') });
+
 
   // Capture canvas in 16:9 Dark
   await page.evaluate(() => {
