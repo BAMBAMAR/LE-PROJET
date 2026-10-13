@@ -282,14 +282,18 @@ async function collecterNews({ directToNews = false, limitPerSource = 15 } = {})
     if (n.title) existingTitles.add(n.title.toLowerCase().trim());
   });
 
-  (draftsData.drafts || []).forEach(d => {
-    if (d.source_url) existingUrls.add(d.source_url.trim());
-    if (d.title) existingTitles.add(d.title.toLowerCase().trim());
-  });
+  // Si on est en mode brouillons uniquement, on évite aussi les doublons dans drafts
+  if (!directToNews) {
+    (draftsData.drafts || []).forEach(d => {
+      if (d.source_url) existingUrls.add(d.source_url.trim());
+      if (d.title) existingTitles.add(d.title.toLowerCase().trim());
+    });
+  }
 
   console.log(`Sources scrutées : ${SOURCES_RSS.length}`);
   console.log(`Articles actuels dans news.json : ${newsData.news.length}`);
-  console.log(`Brouillons en attente dans drafts.json : ${draftsData.drafts.length}\n`);
+  console.log(`Brouillons en attente dans drafts.json : ${draftsData.drafts.length}`);
+  console.log(`Mode d'ingestion : ${directToNews ? '🚀 DIRECT DANS NEWS.JSON' : '📥 VERS BROUILLONS (drafts.json)'}\n`);
 
   // 2. Fetch parallèle de tous les flux
   const resultats = await Promise.allSettled(SOURCES_RSS.map(src => fetchSourceRss(src)));
@@ -394,7 +398,8 @@ async function collecterNews({ directToNews = false, limitPerSource = 15 } = {})
 
 // Exécution CLI directe
 if (require.main === module) {
-  const isDirect = process.argv.includes('--direct') || process.argv.includes('--news');
+  const isDraftsOnly = process.argv.includes('--drafts') || process.argv.includes('--drafts-only');
+  const isDirect = !isDraftsOnly; // Direct dans news.json par défaut
   collecterNews({ directToNews: isDirect })
     .then(res => {
       console.log(`Terminé avec succès (${res.count} articles traités).`);
