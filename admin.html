@@ -788,6 +788,7 @@ textarea.form-control{resize:vertical;min-height:90px}
   <div class="nav-group-label">Contenu</div>
   <div class="nav-item" data-page="news"><i class="fas fa-newspaper"></i><span>Actualités</span></div>
   <div class="nav-item" data-page="press"><i class="fas fa-print"></i><span>Revue de Presse</span></div>
+  <div class="nav-item" data-page="decryptage" style="background:rgba(166,124,25,0.06)"><i class="fas fa-magnifying-glass-chart" style="color:var(--gold)"></i><span style="font-weight:600">Décryptage Kiosque</span><span class="nav-badge" style="background:var(--gold);color:#fff;font-size:.62rem;font-weight:700">New</span></div>
 
   <div class="nav-group-label">Communauté</div>
   <div class="nav-item" data-page="ratings"><i class="fas fa-star"></i><span>Notations</span></div>
@@ -817,6 +818,9 @@ textarea.form-control{resize:vertical;min-height:90px}
     <button class="topbar-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
     <span class="page-title" id="pageTitle">Tableau de bord</span>
     <div class="topbar-right">
+      <button class="topbar-btn" onclick="openPressDecryptage()" style="background:var(--gold-bg);color:var(--gold);border-color:rgba(166,124,25,0.4);font-weight:700" title="Lancer le scanner et décryptage des Unes">
+        <i class="fas fa-magnifying-glass-chart"></i> Décryptage Kiosque
+      </button>
       <button class="topbar-btn" onclick="document.querySelector('.nav-item[data-page=\'branding\']').click()" style="background:rgba(45,95,63,0.08);color:var(--green);border-color:rgba(45,95,63,0.25);font-weight:700">
         <i class="fas fa-swatchbook"></i> Brand Kit
       </button>
@@ -831,6 +835,25 @@ textarea.form-control{resize:vertical;min-height:90px}
   <div class="content" id="mainContent">
 
     <div class="page active" id="page-dashboard">
+      <!-- Raccourci Décryptage Kiosque en haut du Dashboard -->
+      <div style="background:linear-gradient(135deg,rgba(30,110,62,0.08),rgba(166,124,25,0.12));border:1.5px solid var(--border2);border-radius:var(--radius);padding:.9rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:.9rem">
+          <div style="width:42px;height:42px;border-radius:10px;background:#FFFFFF;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.2rem;box-shadow:0 2px 8px rgba(0,0,0,0.05)">
+            <i class="fas fa-magnifying-glass-chart"></i>
+          </div>
+          <div>
+            <div style="font-weight:800;font-size:.92rem;color:var(--text);font-family:'Syne',sans-serif">
+              Scanner & Décryptage des Quotidiens (Anti-PASTEF)
+            </div>
+            <div style="font-size:.76rem;color:var(--text3)">
+              Analysez les Unes coordonnées du jour, générez la riposte factuelle et publiez l'affiche HD directement sur Facebook.
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="openPressDecryptage()" style="background:var(--green);border-color:var(--green);font-weight:700">
+          <i class="fas fa-bolt"></i> Lancer le Décryptage du Jour
+        </button>
+      </div>
       <div class="kpi-row" id="kpiRow"></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
         <div class="card">
@@ -3106,6 +3129,10 @@ const pageTitles = {
 document.querySelectorAll('.nav-item[data-page]').forEach(item => {
   item.addEventListener('click', () => {
     const page = item.dataset.page;
+    if (page === 'decryptage') {
+      openPressDecryptage();
+      return;
+    }
     document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     item.classList.add('active');
@@ -4392,8 +4419,19 @@ let studioDebounceTimer = null;
 ═══════════════════════════════════════════════════ */
 
 function openPressDecryptage() {
-  const kitNav = document.querySelector('.nav-item[data-page="kit"]');
-  if (kitNav) kitNav.click();
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  
+  const decNav = document.querySelector('.nav-item[data-page="decryptage"]');
+  if (decNav) decNav.classList.add('active');
+  
+  const kitPage = document.getElementById('page-kit');
+  if (kitPage) kitPage.classList.add('active');
+  
+  const titleEl = document.getElementById('pageTitle');
+  if (titleEl) titleEl.textContent = '🔍 Décryptage Kiosque & Coordination Médiatique';
+  
+  studioInit();
   studioSelectTemplate('decryptage');
   studioFillDecryptageFromPress();
 }
