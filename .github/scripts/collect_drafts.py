@@ -553,6 +553,29 @@ def main():
     print(f"  Total en attente : {sum(1 for d in existing['drafts'] if d.get('status') == 'pending')}")
     print(f"  Fichier : {DRAFTS_PATH}\n")
 
+    # ── [4/4] Ingestion directe et publication automatique dans news.json ──
+    print("\n[4/4] Ingestion directe dans news.json via scripts/collect_news_rss.js…")
+    try:
+        os.system("npm install cheerio --no-audit --no-fund -q")
+        ret = os.system("node scripts/collect_news_rss.js")
+        if ret == 0:
+            print("  ✅ scripts/collect_news_rss.js exécuté avec succès")
+            os.system('git config user.name "ProjetBI Bot"')
+            os.system('git config user.email "bot@projetbi.org"')
+            os.system('git add news.json')
+            diff_code = os.system('git diff --staged --quiet')
+            if diff_code != 0:
+                print("  🚀 Nouvelles dépêches dans news.json -> commit & push direct !")
+                os.system(f'git commit -m "bot(news): actualisation automatique news.json [{now_utc().strftime("%Y-%m-%d %H:%M UTC")}]"')
+                os.system('git pull --rebase origin main')
+                os.system('git push origin main')
+            else:
+                print("  ℹ️ news.json est déjà à jour.")
+        else:
+            print(f"  ⚠️ scripts/collect_news_rss.js a retourné le code {ret}")
+    except Exception as err:
+        print(f"  ⚠️ Erreur lors de l'ingestion automatique de news.json : {err}")
+
 
 if __name__ == "__main__":
     main()
