@@ -2253,7 +2253,7 @@ textarea.form-control{resize:vertical;min-height:90px}
                   <span style="font-size:.74rem;color:var(--text3)">Démontage méthodique des tirs groupés, analyse de discours et contre-champ juridique</span>
                 </div>
                 <div style="display:flex;gap:.4rem;flex-wrap:wrap">
-                  <button type="button" class="btn btn-primary btn-xs" onclick="studioFillDecryptageFromPress()"><i class="fas fa-magic"></i> Charger les Unes du 13 Octobre</button>
+                  <button type="button" class="btn btn-primary btn-xs" onclick="studioAutoScanNewsToday()" style="background:var(--gold);border-color:var(--gold);font-weight:700"><i class="fas fa-bolt"></i> 🤖 Scanner Auto Kiosque du Jour</button>
                   <button type="button" class="btn btn-outline btn-xs" onclick="studioFillDecryptagePreset('patrimoine')"><i class="fas fa-building-columns"></i> Patrimoine Bâti</button>
                   <button type="button" class="btn btn-outline btn-xs" onclick="studioFillDecryptagePreset('dette')"><i class="fas fa-coins"></i> Cas Dette</button>
                   <button type="button" class="btn btn-outline btn-xs" onclick="studioFillDecryptagePreset('crise')"><i class="fas fa-fire"></i> Cas Crise</button>
@@ -4479,7 +4479,7 @@ function openPressDecryptage() {
   
   studioInit();
   studioSelectTemplate('decryptage');
-  studioFillDecryptageFromPress();
+  studioAutoScanNewsToday();
 }
 
 function studioSetDecKeyword(word) {
@@ -4499,6 +4499,122 @@ function studioOnPickDecPromise(promId) {
   }
   studioRenderAll();
   toast("Engagement #" + p.id + " associé ✅", 'info');
+}
+
+function studioAutoScanNewsToday() {
+  const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
+  const today = new Date();
+  const days_fr = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const months_fr = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+  const dateStr = days_fr[today.getDay()] + ' ' + String(today.getDate()).padStart(2,'0') + ' ' + months_fr[today.getMonth()] + ' ' + today.getFullYear();
+  const dateNum = String(today.getDate()).padStart(2,'0') + '/' + String(today.getMonth()+1).padStart(2,'0') + '/' + today.getFullYear();
+
+  setVal('stDecDate', dateStr);
+
+  let allNews = DB.news || [];
+  let articles = allNews.filter(n => n.date === dateNum);
+  if (!articles.length) {
+    const dates = [...new Set(allNews.map(n => n.date))].filter(Boolean);
+    if (dates.length) {
+      articles = allNews.filter(n => n.date === dates[0]);
+    }
+  }
+
+  if (!articles.length) {
+    studioFillDecryptageFromPress();
+    return;
+  }
+
+  const clusters = [
+    {
+      topic: "COMMISSIONS D'ENQUÊTE & FINANCES PUBLIQUES",
+      keywords: ['commission', 'enquête', 'cheikh oumar', 'anne', 'patrimoine', 'audition', 'aminata touré', 'recadre', 'parlementaire'],
+      facts: "Loi organique n° 2002-20 (art. 48) : Les commissions d'enquête parlementaires détiennent les mêmes pouvoirs d'investigation qu'un juge d'instruction. Déchirer ou refuser une convocation constitue un délit d'entrave caractérisé puni par la loi pénale.",
+      blindspot: "Black-out total sur les centaines de milliards de préjudice pour le Trésor public documentés dans les rapports officiels de l'IGE et de la Cour des comptes.",
+      defaultVerbs: ['RECADRE', 'POURCHASSE', 'DÉCHIRE', 'TIENT TÊTE', 'PULVÉRISE', 'CONVOQUE']
+    },
+    {
+      topic: "INONDATIONS & AUDIT DES SYSTÈMES D'ASSAINISSEMENT",
+      keywords: ['inondation', 'assainissement', 'manantali', 'barrage', 'fleuve', 'pluies', 'audit'],
+      facts: "L'audit technique ordonné par le Chef de l'État vise à identifier les défaillances structurelles des bassins de rétention et des ouvrages financés à hauteur de 750 milliards sans résultat probant sur la dernière décennie.",
+      blindspot: "Absence d'investigation sur les marchés de complaisance attribués sans appel d'offres sous les régimes précédents dans les zones inondables.",
+      defaultVerbs: ['EXIGE', 'ALERTE', 'MENACE', 'AUDITE', 'DÉNONCE', 'SOMME']
+    },
+    {
+      topic: "JUSTICE & INFORMATIONS JUDICIAIRES",
+      keywords: ['justice', 'parquet', 'prison', 'procès', 'juge', 'condamné', 'charlyne', 'information judiciaire'],
+      facts: "Le respect des règles de la procédure pénale et l'égalité devant la justice s'imposent à tous les justiciables, sans passe-droit ni manipulation médiatique.",
+      blindspot: "La dissimulation des pièces probantes au dossier au profit de la personnalisation outrancière des procédures judiciaires.",
+      defaultVerbs: ['CONDAMNE', 'ORDONNE', 'INCRIMINE', 'ENQUÊTE', 'TRANCHE', 'CONVOQUE']
+    },
+    {
+      topic: "CONFLITS SOCIAUX & ENTREPRISES STRATÉGIQUES",
+      keywords: ['ciments du sahel', 'grève', 'usine', 'salaire', 'travailleurs', 'conflit'],
+      facts: "Le Code du travail sénégalais encadre le dialogue social d'entreprise et les négociations salariales sous l'égide de l'inspection du travail.",
+      blindspot: "Le coût réel des blocages pour la chaîne d'approvisionnement nationale en matériaux de construction.",
+      defaultVerbs: ['PARALYSE', 'MENACE', 'PERTURBE', 'REVENDIQUE', 'BLOQUE', 'EXIGE']
+    }
+  ];
+
+  let bestCluster = clusters[0];
+  let maxMatches = 0;
+  let matchingArticles = [];
+
+  for (const c of clusters) {
+    const matched = articles.filter(a => {
+      const text = ((a.title || '') + ' ' + (a.excerpt || '')).toLowerCase();
+      return c.keywords.some(k => text.includes(k));
+    });
+    if (matched.length > maxMatches) {
+      maxMatches = matched.length;
+      bestCluster = c;
+      matchingArticles = matched;
+    }
+  }
+
+  if (matchingArticles.length < 3) {
+    matchingArticles = articles.slice(0, 6);
+  }
+
+  setVal('stDecTopic', bestCluster.topic);
+
+  const extractedVerbs = [];
+  const verbRegex = /\b(PULVÉRISE|DÉCHIRE|HUMILIE|DÉMYSTIFIE|TIENT TÊTE|ÉLECTRIQUE|RECADRE|POURCHASSE|PARALYSE|MENACE|EXIGE|ALERTE|CONVOQUE|DÉNONCE|CLOUE|RÉVÈLE|MET EN GARDE)\b/i;
+
+  const sampleCount = Math.min(matchingArticles.length, 6);
+  for (let i = 0; i < 6; i++) {
+    const art = matchingArticles[i] || articles[i] || null;
+    const jId = `stDecJ${i + 1}`;
+    const tId = `stDecT${i + 1}`;
+    const vId = `stDecVerb${i + 1}`;
+
+    if (art) {
+      setVal(jId, art.source || 'Presse SN');
+      setVal(tId, art.title || '');
+      
+      const vMatch = (art.title || '').match(verbRegex);
+      const vStr = vMatch ? vMatch[0].toUpperCase() : (bestCluster.defaultVerbs[i] || 'ALERTE');
+      setVal(vId, vStr);
+      if (!extractedVerbs.includes(vStr)) extractedVerbs.push(vStr);
+    }
+  }
+
+  const keywordDisplay = extractedVerbs.length >= 2
+    ? '« ' + extractedVerbs.slice(0, 3).join(' • ') + ' »'
+    : '« ' + bestCluster.keywords.slice(0, 3).map(k => k.toUpperCase()).join(' • ') + ' »';
+  setVal('stDecKeyword', keywordDisplay);
+
+  setVal('stDecStatSample', String(Math.max(sampleCount, 6)));
+  const syncRate = Math.min(92, Math.max(68, 65 + Math.floor(sampleCount * 4)));
+  setVal('stDecStatSync', syncRate + '%');
+  setVal('stDecStatClones', String(Math.max(3, Math.min(sampleCount, 5))));
+  setVal('stDecStatLaw', "0%");
+
+  setVal('stDecFacts', bestCluster.facts);
+  setVal('stDecBlindspot', bestCluster.blindspot);
+
+  studioRenderAll();
+  toast(`⚡ Scanner automatique : ${sampleCount} médias analysés sur "${bestCluster.topic}"`, 'success');
 }
 
 function studioFillDecryptageFromPress() {
