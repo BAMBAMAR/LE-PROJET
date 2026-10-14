@@ -1,334 +1,305 @@
 {
-  "last_updated": "2026-10-13T07:41:37.984Z",
+  "last_updated": "2026-10-14T08:01:58.978Z",
   "press": [
     {
       "id": "1",
-      "title": "Kiosque Sénégal",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_1.webp",
-      "link": "#",
-      "headline": "Revue générale des Unes du Mardi 13 Octobre 2026"
+      "title": "Quotidien",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_1.webp",
+      "link": "#"
     },
     {
       "id": "2",
-      "title": "Walf Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_2.webp",
-      "link": "#",
-      "headline": "Commissions d'enquête parlementaires : Face-à-face électrique"
+      "title": "Quotidien",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_2.webp",
+      "link": "#"
     },
     {
       "id": "3",
-      "title": "EnQuête",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_3.webp",
-      "link": "#",
-      "headline": "Audition au Parlement : Karim Fofana tient tête aux députés"
+      "title": "Quotidien",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_3.webp",
+      "link": "#"
     },
     {
       "id": "4",
-      "title": "Les Échos",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_4.webp",
-      "link": "#",
-      "headline": "Cheikh Oumar Anne déchire la convocation, Abdou Karim Fofana « détruit » la commission"
+      "title": "Quotidien",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_4.webp",
+      "link": "#"
     },
     {
       "id": "5",
-      "title": "L'As",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_5.webp",
-      "link": "#",
-      "headline": "Karim Fofana humilie les députés, Cheikh Oumar Hanne renvoie au Pastef ses copies"
+      "title": "Quotidien",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_5.webp",
+      "link": "#"
     },
     {
       "id": "6",
-      "title": "Yoor-Yoor Bi",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_6.webp",
-      "link": "#",
-      "headline": "Loyers dérisoires et baux de 99 ans : Le spectre de la délinquance foncière"
+      "title": "Quotidien",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_6.webp",
+      "link": "#"
     },
     {
       "id": "7",
-      "title": "Le Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_7.webp",
-      "link": "#",
-      "headline": "Gazoduc / RGS 348 milliards : La tuyauterie de Sonko"
+      "title": "Quotidien",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_7.webp",
+      "link": "#"
     },
     {
       "id": "8",
-      "title": "Sud Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_8.webp",
-      "link": "#",
-      "headline": "Cité Fayçal : Le bras de fer des baux emphytéotiques"
+      "title": "Quotidien",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_8.webp",
+      "link": "#"
     },
     {
       "id": "9",
-      "title": "Point Actu",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_9.webp",
-      "link": "#",
-      "headline": "Attaques contre Pastef : Cheikh Oumar Anne s'oppose à son audition"
+      "title": "Quotidien",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_9.webp",
+      "link": "#"
     },
     {
       "id": "10",
-      "title": "Le Soleil",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_10.webp",
-      "link": "#",
-      "headline": "Rentrée scolaire : Une reprise presque normale dans les écoles"
+      "title": "Quotidien",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_10.webp",
+      "link": "#"
     },
     {
       "id": "11",
-      "title": "Rewmi Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_11.webp",
-      "link": "#",
-      "headline": "Abdou Karim Fofana face aux enquêteurs : Une audition fleuve"
+      "title": "Quotidien",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_11.webp",
+      "link": "#"
     },
     {
       "id": "12",
-      "title": "L'Info",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_12.webp",
-      "link": "#",
-      "headline": "Abdou Karim Fofana défend les baux de 99 ans / Cheikh O. Anne refuse l'audition"
+      "title": "Quotidien",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_12.webp",
+      "link": "#"
     },
     {
       "id": "13",
-      "title": "L'Observateur",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_13.webp",
-      "link": "#",
-      "headline": "Auditions à l'Assemblée : Le bras de fer politique s'envenime"
+      "title": "Quotidien",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_13.webp",
+      "link": "#"
     },
     {
       "id": "14",
-      "title": "Source A",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_14.webp",
-      "link": "#",
-      "headline": "Cheikh O. Anne l'envoie balader, Abdou K. Fofana la démystifie"
+      "title": "Quotidien",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_14.webp",
+      "link": "#"
     },
     {
       "id": "15",
-      "title": "Tribune",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_15.webp",
-      "link": "#",
-      "headline": "Karim Fofana pulvérise la commission, Cheikh O. Hann déchire sa convocation"
+      "title": "Quotidien",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_15.webp",
+      "link": "#"
     },
     {
       "id": "16",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_16.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_16.webp",
       "link": "#"
     },
     {
       "id": "17",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_17.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_17.webp",
       "link": "#"
     },
     {
       "id": "18",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_18.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_18.webp",
       "link": "#"
     },
     {
       "id": "19",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_19.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_19.webp",
       "link": "#"
     },
     {
       "id": "20",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_20.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_20.webp",
       "link": "#"
     },
     {
       "id": "21",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_21.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_21.webp",
       "link": "#"
     },
     {
       "id": "22",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_22.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_22.webp",
       "link": "#"
     },
     {
       "id": "23",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_23.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_23.webp",
       "link": "#"
     },
     {
       "id": "24",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_24.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_24.webp",
       "link": "#"
     },
     {
       "id": "25",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_25.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_25.webp",
       "link": "#"
     },
     {
       "id": "26",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_26.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_26.webp",
       "link": "#"
     },
     {
       "id": "27",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_27.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_27.webp",
       "link": "#"
     },
     {
       "id": "28",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_28.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_28.webp",
       "link": "#"
     },
     {
       "id": "29",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_29.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_29.webp",
       "link": "#"
     },
     {
       "id": "30",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_30.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_30.webp",
       "link": "#"
     },
     {
       "id": "31",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_31.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_31.webp",
       "link": "#"
     },
     {
       "id": "32",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_32.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_32.webp",
       "link": "#"
     },
     {
       "id": "33",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_33.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_33.webp",
       "link": "#"
     },
     {
       "id": "34",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_34.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_34.webp",
       "link": "#"
     },
     {
       "id": "35",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_35.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_35.webp",
       "link": "#"
     },
     {
       "id": "36",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_36.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_36.webp",
       "link": "#"
     },
     {
       "id": "37",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_37.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_37.webp",
       "link": "#"
     },
     {
       "id": "38",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_38.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_38.webp",
       "link": "#"
     },
     {
       "id": "39",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_39.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_39.webp",
       "link": "#"
     },
     {
       "id": "40",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_40.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_40.webp",
       "link": "#"
     },
     {
       "id": "41",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_41.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_41.webp",
       "link": "#"
     },
     {
       "id": "42",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_42.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_42.webp",
       "link": "#"
     },
     {
       "id": "43",
       "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_43.webp",
-      "link": "#"
-    },
-    {
-      "id": "44",
-      "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_44.webp",
-      "link": "#"
-    },
-    {
-      "id": "45",
-      "title": "Quotidien",
-      "date": "13/10/2026",
-      "image": "revuedepresse/revue_2026-10-13_45.webp",
+      "date": "14/10/2026",
+      "image": "revuedepresse/revue_2026-10-14_43.webp",
       "link": "#"
     }
   ]
