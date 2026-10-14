@@ -222,8 +222,14 @@ async function fetchSourceRss(src) {
         let dateObj = pubDate ? new Date(pubDate) : new Date();
         if (isNaN(dateObj.getTime())) dateObj = new Date();
 
+        // Garde-fou dates futures : si le flux source (ex: Leral.net) a une horloge déréglée dans le futur
+        const maintenant = Date.now();
+        if (dateObj.getTime() > maintenant + 15 * 60 * 1000) {
+          dateObj = new Date(maintenant);
+        }
+
         // Ignorer les articles vieux de plus de 4 jours
-        const ageJours = (Date.now() - dateObj.getTime()) / (1000 * 60 * 60 * 24);
+        const ageJours = (maintenant - dateObj.getTime()) / (1000 * 60 * 60 * 24);
         if (ageJours > 4) return;
 
         const cleanTitle = nettoyerTitrePresse(title);
