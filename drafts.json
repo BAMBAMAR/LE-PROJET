@@ -49,15 +49,15 @@
       "created_at": "2026-10-14T10:42:01.486164+00:00"
     },
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Conseil des ministres du 13 octobre 2026",
       "description": "Conseil des ministres du 13 octobre 2026",
       "source": "Primature — Actualités",
       "source_url": "https://primature.sn/publications/actualites/conseil-des-ministres-du-13-octobre-2026",
       "date": "2026-10-14",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261014104201_17",
       "_dedup_key": "0a157fcab5b12b3d",
@@ -193,15 +193,15 @@
       "created_at": "2026-10-14T10:42:01.486127+00:00"
     },
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Conseil des ministres du 13 octobre 2026 - Gouvernement du Sénégal",
       "description": "Conseil des ministres du 13 octobre 2026&nbsp;&nbsp;Gouvernement du Sénégal",
       "source": "Gouvernement du Sénégal",
       "source_url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNSk5nXzRoTE9ScnBoUHo0T2R4S0dJQjd5dmgtZFFZY1F5Z1BCVlZ2NUZZUU82dEVXakV5Vk0wRmRTbExiaWdyTXRaRm1VMTBLa3JWSDR0a3JCMFVDbTRJY3VSaE1mU3gxdWRqNzF6UlZ4THRQVmNwazNTNjRLWC10Qk1ZNDRPX1lGMkIwNmpFemFReUE?oc=5",
       "date": "2026-10-14",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261014104201_8",
       "_dedup_key": "a0344d85eea67189",
@@ -3086,5 +3086,5 @@
       "created_at": "2026-10-10T11:26:56.609408+00:00"
     }
   ],
-  "last_updated": "2026-10-14T10:42:01.486238+00:00"
+  "last_updated": "2026-10-15T07:50:17.812Z"
 }
