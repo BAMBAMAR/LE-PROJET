@@ -1210,7 +1210,7 @@ function renderAll() {
     
     // Les retards sont séparés
     const retard = CONFIG.promises.filter(p => p.isLate).length;
-    const withUpdates = CONFIG.promises.filter(p => p.updates && p.updates.length > 0).length;
+    const withUpdates = CONFIG.promises.filter(p => (p.updates && p.updates.length > 0) || (p.mises_a_jour && p.mises_a_jour.length > 0)).length;
     const tauxRealisation = total > 0 ? Math.round((realise / total) * 100) : 0;
     
     // ============= CALCUL DU Retard moyen CORRIGÉ =============
@@ -1308,6 +1308,10 @@ function renderAll() {
     // Mise à jour Hero V4 (si présents)
     const elHeroTotal = document.getElementById('heroStatTotal');
     if (elHeroTotal) elHeroTotal.textContent = total;
+    const elDashTotal = document.getElementById('dashboardTotalPromises');
+    if (elDashTotal) elDashTotal.textContent = total;
+    const elSecTotal = document.getElementById('engagementsSectionTotal');
+    if (elSecTotal) elSecTotal.textContent = total;
     const elHeroRealise = document.getElementById('heroStatRealise');
     if (elHeroRealise) elHeroRealise.textContent = realise;
     const elHeroMaj = document.getElementById('heroStatMaj');

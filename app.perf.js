@@ -282,7 +282,7 @@
                 }
             }
 
-            if (p.updates && p.updates.length > 0) withUpdates++;
+            if ((p.updates && p.updates.length > 0) || (p.mises_a_jour && p.mises_a_jour.length > 0)) withUpdates++;
 
             if (p.publicCount > 0) {
                 ratingsCount++;
@@ -378,6 +378,10 @@
         // Mise à jour dynamique Hero V4 & Jauge Mandat
         const elHeroTotal = document.getElementById('heroStatTotal');
         if (elHeroTotal) elHeroTotal.textContent = total;
+        const elDashTotal = document.getElementById('dashboardTotalPromises');
+        if (elDashTotal) elDashTotal.textContent = total;
+        const elSecTotal = document.getElementById('engagementsSectionTotal');
+        if (elSecTotal) elSecTotal.textContent = total;
         const elHeroRealise = document.getElementById('heroStatRealise');
         if (elHeroRealise) elHeroRealise.textContent = realise;
         const elHeroMaj = document.getElementById('heroStatMaj');

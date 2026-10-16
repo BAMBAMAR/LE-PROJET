@@ -539,7 +539,7 @@
                         <i class="fas fa-balance-scale" style="color:#F2D279"></i> Jub · Jubal · Jubanti
                     </span>
                     <span class="status-v4">
-                        <i class="fas fa-check-circle"></i> <span id="heroStatMaj">168</span> actions vérifiées
+                        <i class="fas fa-check-circle"></i> <span id="heroStatMaj">187</span> actions vérifiées
                     </span>
                 </div>
             </div>
@@ -562,7 +562,7 @@
                     <i class="fas fa-chart-bar"></i>
                     Tableau de Bord du Projet
                 </h2>
-                <p class="section-subtitle">État d'avancement des 300 engagements — <span id="current-date"></span></p>
+                <p class="section-subtitle">État d'avancement des <span id="dashboardTotalPromises">300</span> engagements — <span id="current-date"></span></p>
             </div>
         </div>
 
@@ -1126,7 +1126,7 @@
 
         <!-- LIGNE 3 : Copyright -->
         <div class="footer-bottom-compact">
-            <span class="footer-copy">© 2026 PROJETBI · Gardiens du Projet PASTEF · Depuis le <strong>02 AVRIL 2024</strong></span>
+            <span class="footer-copy">© <span id="currentYear">2026</span> PROJETBI · Gardiens du Projet PASTEF · Depuis le <strong>02 AVRIL 2024</strong></span>
             <span class="footer-disclaimer">Site de sympathisants du Projet PASTEF. Données publiques et vérifiables.</span>
         </div>
 
@@ -1420,6 +1420,8 @@
 
 // ── Date affichée ──
 const dateEl = document.getElementById('current-date');
+const yearEl = document.getElementById('currentYear');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 if (dateEl) {
     dateEl.textContent = new Date().toLocaleDateString('fr-FR',
         { weekday:'long', year:'numeric', month:'long', day:'numeric' });
