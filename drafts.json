@@ -129,15 +129,15 @@
       "created_at": "2026-10-15T10:26:16.570500+00:00"
     },
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Conseil des ministres du 13 octobre 2026 - Gouvernement du Sénégal",
       "description": "Conseil des ministres du 13 octobre 2026&nbsp;&nbsp;Gouvernement du Sénégal",
       "source": "Gouvernement du Sénégal",
       "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPb3YtdEthVUQ0TmxCd0l0Uk9wd295MjNQck9iRXhzaWg0ZFNMcFBOLTdIZFJoRThPdldiM2VneEtHZHJQdlh6bjFtY0drNnJibWsweFpJRXNsalJnOHpsb01XcVJWLWdZdEFmTzVpYTdHeTBkTjZKekxySHJ1YTFXZWwxaWhfbERaMGJ0aVJ3?oc=5",
       "date": "2026-10-15",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261015102616_8",
       "_dedup_key": "0114dbd3939537cc",
@@ -3086,5 +3086,5 @@
       "created_at": "2026-10-11T11:40:27.865583+00:00"
     }
   ],
-  "last_updated": "2026-10-16T07:24:44.014Z"
+  "last_updated": "2026-10-16T07:27:00.534Z"
 }
