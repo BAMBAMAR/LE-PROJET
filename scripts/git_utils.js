@@ -1,7 +1,7 @@
 /**
  * git_utils.js - Module utilitaire centralisé pour la synchronisation Git sécurisée
  * 
- * Évite les deadlocks de rebase, les conflits récurrents sur drafts.json (last_updated),
+ * Évite les deadlocks de rebase, les conflits récurrents sur drafts.json et news.json,
  * et garantit un état git toujours propre et cohérent.
  */
 
@@ -111,15 +111,93 @@ function resolveDraftsConflict(repoDir) {
 }
 
 /**
+ * Résout automatiquement un conflit sur news.json en fusionnant intelligemment les articles.
+ */
+function resolveNewsConflict(repoDir) {
+  const newsPath = path.join(repoDir, 'news.json');
+  try {
+    let ours = null;
+    let theirs = null;
+
+    try {
+      const oursRaw = execSync('git show :2:news.json', { cwd: repoDir, encoding: 'utf8', stdio: 'pipe' });
+      ours = JSON.parse(oursRaw);
+    } catch (_) {}
+
+    try {
+      const theirsRaw = execSync('git show :3:news.json', { cwd: repoDir, encoding: 'utf8', stdio: 'pipe' });
+      theirs = JSON.parse(theirsRaw);
+    } catch (_) {}
+
+    if (!ours || !theirs) {
+      return false;
+    }
+
+    function getArticleKey(a) {
+      if (a.link && a.link.trim()) return a.link.trim().toLowerCase();
+      return (a.title || '').trim().toLowerCase();
+    }
+
+    const keyMap = new Map();
+    let maxId = 0;
+
+    // Ours en premier (préserve les IDs locaux et métadonnées locales)
+    (ours.news || []).forEach(a => {
+      const numId = parseInt(a.id) || 0;
+      if (numId > maxId) maxId = numId;
+      const k = getArticleKey(a);
+      if (k) keyMap.set(k, { ...a });
+    });
+
+    // Fusion de theirs (articles distants manquants)
+    (theirs.news || []).forEach(a => {
+      const k = getArticleKey(a);
+      if (!k) return;
+      if (!keyMap.has(k)) {
+        maxId++;
+        keyMap.set(k, { ...a, id: String(maxId) });
+      } else {
+        const existing = keyMap.get(k);
+        if (!existing.promise_id && a.promise_id) existing.promise_id = a.promise_id;
+        if (!existing.category && a.category) existing.category = a.category;
+      }
+    });
+
+    const mergedList = Array.from(keyMap.values());
+    const mergedData = {
+      last_updated: new Date().toISOString(),
+      news: mergedList
+    };
+
+    fs.writeFileSync(newsPath, JSON.stringify(mergedData, null, 2), 'utf8');
+    execSync('git add news.json', { cwd: repoDir, stdio: 'pipe' });
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+/**
  * Synchronisation complète et sécurisée avec GitHub (Commit + Pull merge + Push).
  */
 function syncWithRemote(repoDir, { filesToStage = [], commitMessage = '', logger = console.log } = {}) {
   try {
     ensureCleanGitState(repoDir);
 
-    // 1. Ajouter les fichiers demandés
-    if (filesToStage.length > 0) {
-      const filesArg = filesToStage.join(' ');
+    // 1. Ajouter les fichiers demandés + auto-stager les fichiers de données clés modifiés
+    const files = new Set(filesToStage);
+    const keyDataFiles = ['news.json', 'drafts.json', 'promises.json', 'press.json'];
+    for (const f of keyDataFiles) {
+      if (fs.existsSync(path.join(repoDir, f))) {
+        try {
+          const status = execSync(`git status --porcelain ${f}`, { cwd: repoDir, encoding: 'utf8' }).trim();
+          if (status) files.add(f);
+        } catch (_) {}
+      }
+    }
+
+    if (files.size > 0) {
+      const filesArg = Array.from(files).join(' ');
       execSync(`git add ${filesArg}`, { cwd: repoDir, stdio: 'inherit' });
     }
 
@@ -142,12 +220,34 @@ function syncWithRemote(repoDir, { filesToStage = [], commitMessage = '', logger
       pullOk = false;
       try {
         const statusPorcelain = execSync('git status --porcelain', { cwd: repoDir, encoding: 'utf8' });
-        const conflicts = statusPorcelain.split('\n').filter(l => l.startsWith('UU ') || l.startsWith('AA ') || l.startsWith('UD ') || l.startsWith('DU '));
-        const onlyDraftsConflict = conflicts.length === 1 && conflicts[0].includes('drafts.json');
+        const conflictLines = statusPorcelain.split('\n').filter(l => 
+          l.startsWith('UU ') || l.startsWith('AA ') || l.startsWith('UD ') || l.startsWith('DU ')
+        );
 
-        if (onlyDraftsConflict && resolveDraftsConflict(repoDir)) {
-          execSync('git commit -m "chore(sync): résolution automatique conflit drafts.json"', { cwd: repoDir, stdio: 'pipe' });
-          logger('   ✅ Conflit sur drafts.json résolu et fusionné automatiquement.');
+        let allResolved = conflictLines.length > 0;
+        let resolvedFiles = [];
+
+        for (const line of conflictLines) {
+          if (line.includes('drafts.json')) {
+            if (resolveDraftsConflict(repoDir)) {
+              resolvedFiles.push('drafts.json');
+            } else {
+              allResolved = false;
+            }
+          } else if (line.includes('news.json')) {
+            if (resolveNewsConflict(repoDir)) {
+              resolvedFiles.push('news.json');
+            } else {
+              allResolved = false;
+            }
+          } else {
+            allResolved = false;
+          }
+        }
+
+        if (allResolved && resolvedFiles.length > 0) {
+          execSync(`git commit -m "chore(sync): résolution automatique conflits ${resolvedFiles.join('/')}"`, { cwd: repoDir, stdio: 'pipe' });
+          logger(`   ✅ Conflit sur ${resolvedFiles.join(', ')} résolu et fusionné automatiquement.`);
           pullOk = true;
         }
       } catch (_) {}
@@ -179,5 +279,6 @@ function syncWithRemote(repoDir, { filesToStage = [], commitMessage = '', logger
 module.exports = {
   ensureCleanGitState,
   resolveDraftsConflict,
+  resolveNewsConflict,
   syncWithRemote
 };

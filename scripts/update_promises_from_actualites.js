@@ -462,8 +462,8 @@ const noGit = process.argv.includes('--no-git');
 if (!noGit) {
   console.log('\n🚀 Synchronisation Git des engagements et actualités...');
   syncWithRemote(repoDir, {
-    filesToStage: ['promises.json', 'drafts.json'],
-    commitMessage: 'chore(engagements): synchronisation automatique des engagements et brouillons',
+    filesToStage: ['promises.json', 'drafts.json', 'news.json'],
+    commitMessage: 'chore(engagements): synchronisation automatique des engagements, actualités et brouillons',
     logger: console.log
   });
 }
