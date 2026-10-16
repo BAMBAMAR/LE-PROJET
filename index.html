@@ -488,7 +488,7 @@
             <div class="mandate-strip-v4">
                 <div class="mandate-stats-v4">
                     <div class="stat-unit-v4">
-                        <span class="su-val" id="mandateDaysVal">911</span>
+                        <span class="su-val" id="mandateDaysVal">899</span>
                         <span class="su-lbl">Jours restants</span>
                     </div>
                     <div style="width:1px;height:24px;background:rgba(255,255,255,0.15)"></div>
@@ -505,11 +505,11 @@
 
                 <div class="mandate-jauge-v4">
                     <div class="jauge-bg">
-                        <div class="jauge-fill" id="mandateJaugeFill" style="width: 46%;"></div>
+                        <div class="jauge-fill" id="mandateJaugeFill" style="width: 51%;"></div>
                     </div>
                     <div class="jauge-meta">
                         <span>Mandat 2024–2029</span>
-                        <span id="mandatePercentVal">46%</span>
+                        <span id="mandatePercentVal">51%</span>
                     </div>
                 </div>
             </div>
@@ -1380,24 +1380,42 @@
     }
 })();
 
-// ── Countdown mandat ──
+// ── Countdown & Jauge Mandat (02 avril 2024 – 02 avril 2029) ──
 (function() {
-    const target = new Date('2029-04-02T00:00:00');
-    function update() {
-        const diff = target - Date.now();
-        if (diff <= 0) return;
-        const d = Math.floor(diff / 86400000);
-        const h = Math.floor((diff % 86400000) / 3600000);
-        const m = Math.floor((diff % 3600000) / 60000);
-        const s = Math.floor((diff % 60000) / 1000);
+    const startDate = new Date('2024-04-02T00:00:00');
+    const endDate = new Date('2029-04-02T00:00:00');
+    const totalDuration = endDate.getTime() - startDate.getTime();
+
+    function updateMandateCountdown() {
+        const now = new Date();
+        const diff = endDate.getTime() - now.getTime();
+        const d = Math.max(0, Math.ceil(diff / 86400000));
+        const elapsed = Math.max(0, now.getTime() - startDate.getTime());
+        const pct = Math.min(100, Math.max(0, Math.round((elapsed / totalDuration) * 100)));
+
+        const elDays = document.getElementById('mandateDaysVal');
+        if (elDays) elDays.textContent = d;
+
+        const elFill = document.getElementById('mandateJaugeFill');
+        if (elFill) elFill.style.width = pct + '%';
+
+        const elPct = document.getElementById('mandatePercentVal');
+        if (elPct) elPct.textContent = pct + '%';
+
         const el = (id) => document.getElementById(id);
-        if(el('days'))    el('days').textContent    = String(d).padStart(3,'0');
-        if(el('hours'))   el('hours').textContent   = String(h).padStart(2,'0');
-        if(el('minutes')) el('minutes').textContent = String(m).padStart(2,'0');
-        if(el('seconds')) el('seconds').textContent = String(s).padStart(2,'0');
+        if (el('days')) {
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            el('days').textContent = String(d).padStart(3, '0');
+            if (el('hours')) el('hours').textContent = String(h).padStart(2, '0');
+            if (el('minutes')) el('minutes').textContent = String(m).padStart(2, '0');
+            if (el('seconds')) el('seconds').textContent = String(s).padStart(2, '0');
+        }
     }
-    update();
-    setInterval(update, 1000);
+
+    updateMandateCountdown();
+    setInterval(updateMandateCountdown, 60000);
 })();
 
 // ── Date affichée ──

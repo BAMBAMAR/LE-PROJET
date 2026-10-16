@@ -374,6 +374,28 @@
             updateStatPercentage('presidence-percentage', presidenceCount, total);
             updateStatPercentage('assemblee-percentage', assembleeCount, total);
         }
+
+        // Mise à jour dynamique Hero V4 & Jauge Mandat
+        const elHeroTotal = document.getElementById('heroStatTotal');
+        if (elHeroTotal) elHeroTotal.textContent = total;
+        const elHeroRealise = document.getElementById('heroStatRealise');
+        if (elHeroRealise) elHeroRealise.textContent = realise;
+        const elHeroMaj = document.getElementById('heroStatMaj');
+        if (elHeroMaj) elHeroMaj.textContent = withUpdates;
+
+        const elMandateDays = document.getElementById('mandateDaysVal');
+        const elMandateFill = document.getElementById('mandateJaugeFill');
+        const elMandatePct = document.getElementById('mandatePercentVal');
+        if (elMandateDays || elMandateFill || elMandatePct) {
+            const mandateStart = new Date('2024-04-02T00:00:00Z');
+            const mandateEnd = new Date('2029-04-02T00:00:00Z');
+            const now = new Date();
+            const diffDays = Math.max(0, Math.ceil((mandateEnd - now) / 86400000));
+            const pct = Math.min(100, Math.max(0, Math.round(((now - mandateStart) / (mandateEnd - mandateStart)) * 100)));
+            if (elMandateDays) elMandateDays.textContent = diffDays;
+            if (elMandateFill) elMandateFill.style.width = pct + '%';
+            if (elMandatePct) elMandatePct.textContent = pct + '%';
+        }
     };
 
     // ─────────────────────────────────────────────────────────────
