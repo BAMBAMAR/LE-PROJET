@@ -177,15 +177,15 @@
       "created_at": "2026-10-19T11:21:20.617605+00:00"
     },
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Conseil des ministres : réunion exceptionnelle le mardi 13 octobre 2026 au Palais de la République - Leral.net - Sénégal",
       "description": "Conseil des ministres : réunion exceptionnelle le mardi 13 octobre 2026 au Palais de la République&nbsp;&nbsp;Leral.net - Sénégal",
       "source": "Leral.net - Sénégal",
       "source_url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOWm83U3FBbDhBd0s2djE2ZDc5NDgxWTFnRXhMekRBMXpXV2VpU1dUbWhrT2xLVlNhV005VzNGQkpJUkdHd3hjcExFY1Qtelk4SWRsN2VRdUFOSFp6NC1sSTE2RXJEblFfS1EtaE1Xc0oxRmRKSDVFc1RXTzRqX2dkZ29UcUdfTk9pcHlFQUhBbXM4QUEyUEc1VGpyaDc0R1NNQU80N0FXRVBOMXh5bmpfbkFPTEJwUUdSN2I2aHlodmJmVlhaR19FNzR4QQ?oc=5",
       "date": "2026-10-19",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261019112120_4",
       "_dedup_key": "4d49704d1fbc33b7",
@@ -3123,5 +3123,5 @@
       "created_at": "2026-10-13T10:14:57.409Z"
     }
   ],
-  "last_updated": "2026-10-19T11:21:20.617702+00:00"
+  "last_updated": "2026-10-20T07:28:16.512Z"
 }
