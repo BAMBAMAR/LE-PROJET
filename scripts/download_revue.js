@@ -12,9 +12,9 @@ const PRESS_JSON_PATH = path.join(__dirname, '..', 'press.json');
 
 const SECONDARY_PROJECT_DIR = 'C:\\Users\\bamba\\OneDrive\\PROJETBI-V2';
 
-// Mots-clés caractérisant la revue de presse
+// Mots-clés caractérisant la vraie revue de presse (élimination des mots génériques comme 'une ' ou 'presse' qui polluent)
 const REVUE_KEYWORDS = [
-  'revue de presse', 'kiosque', 'quotidien', 'unes', 'une ', 'parution', 'rp221', 'presse', 'journaux', 'journal'
+  '#rp221', 'rp221', 'revue de presse', 'kiosque', 'unes du', 'unes des'
 ];
 
 if (!fs.existsSync(TARGET_DIR)) {
@@ -333,14 +333,14 @@ async function run() {
     log(`  BILAN SCRAPING : ${downloadedCount} journaux enregistrés (${skippedCount} éléments ignorés).`);
     log(`====================================================\n`);
 
-    if (downloadedPapers.length >= 8) {
+    if (downloadedPapers.length >= 15) {
       log(`[5/5] 💾 Mise à jour de press.json et synchronisation Git...`);
       updatePressJson(downloadedPapers);
       syncGit(todayFr, downloadedPapers.length);
       log(`\n🎉 SUCCÈS : La revue de presse du ${todayFr} (${downloadedPapers.length} journaux) est en ligne !`);
     } else {
-      log(`⚠️ Seulement ${downloadedPapers.length} journaux trouvés (minimum 8 requis).`);
-      log(`   Mise à jour annulée pour éviter de publier un lot partiel.`);
+      log(`⚠️ Seulement ${downloadedPapers.length} journaux trouvés (minimum 15 requis pour une revue de presse valide).`);
+      log(`   Mise à jour annulée pour éviter de publier un lot partiel ou un album non pertinent.`);
     }
 
   } catch (error) {
@@ -399,6 +399,60 @@ function isTodayFacebookPost(text) {
   );
 }
 
+/**
+ * Évalue la pertinence d'une publication pour déterminer s'il s'agit bien de la vraie Revue de Presse quotidienne
+ */
+function scoreRevueCandidate(candidate, isToday) {
+  const text = (candidate.context || '').toLowerCase();
+  const alt = (candidate.alt || '').toLowerCase();
+  let score = 0;
+
+  // 1. Détection ultra-forte : Alt text d'image indiquant un kiosque à journaux / presse
+  if (alt.includes('kiosque') || alt.includes('journaux') || alt.includes('journal')) {
+    score += 150;
+  }
+
+  // 2. #rp221 : Tag signature systématique de la revue de presse de Mamadou Ly (#Rp221... Unes du...)
+  if (text.includes('#rp221') || text.includes('rp221')) score += 100;
+
+  // 3. Mention explicite des Unes des journaux ou kiosque
+  if (/\bunes\s+(du|des|de)\b/i.test(text) || text.includes('unes de journaux') || text.includes('kiosque')) score += 70;
+
+  // 4. Partagé depuis Ma Revue de Presse
+  if (text.includes('ma revue de presse') || text.includes('revue de presse')) score += 40;
+
+  // 5. Date du jour
+  if (isToday) score += 40;
+
+  // 6. Grand volume de photos (ex: "+39", "+25" sur la vignette d'album multi-photos)
+  const plusMatch = text.match(/\+(\d+)/);
+  if (plusMatch) {
+    const extraCount = parseInt(plusMatch[1], 10);
+    if (extraCount >= 10) score += 60; // Album riche en journaux (20 à 45 parutions)
+    else score -= 30; // Petit album de photos annexes (3-8 photos)
+  }
+
+  // 7. Bonus album collection (set=pcb)
+  if (candidate.hasPcb) score += 20;
+
+  // 8. Pénalités drastiques pour les publications de faits divers / opérations policières / nécrologie
+  if (
+    text.includes('gendarmerie') ||
+    text.includes('police') ||
+    text.includes('arrestation') ||
+    text.includes('interpellation') ||
+    text.includes('drogue') ||
+    text.includes('saisie') ||
+    text.includes('accident') ||
+    text.includes('deuil') ||
+    text.includes('condoléances')
+  ) {
+    score -= 150;
+  }
+
+  return score;
+}
+
 async function findTodayPcbAlbum(page, pageUrl, sourceName, allowLatestPcbWithoutDate = false) {
   log(`  🔎 Recherche des albums de presse sur : ${sourceName}...`);
   await safeGoto(page, pageUrl, 35000);
@@ -406,12 +460,12 @@ async function findTodayPcbAlbum(page, pageUrl, sourceName, allowLatestPcbWithou
   const allCandidates = [];
   const seenUrls = new Set();
 
-  // Défilement progressif avec extraction à chaque étape pour ne rien manquer (évite le recyclage virtuel de Facebook)
-  for (let s = 0; s < 6; s++) {
+  // Défilement progressif avec extraction à chaque étape pour ne rien manquer
+  for (let s = 0; s < 8; s++) {
     if (s > 0) {
-      log(`     📜 Défilement du fil (${s + 1}/6) pour charger les parutions...`);
-      await page.evaluate(() => window.scrollBy(0, 1200));
-      await page.waitForTimeout(1500);
+      log(`     📜 Défilement du fil (${s + 1}/8) pour charger les parutions...`);
+      await page.evaluate(() => window.scrollBy(0, 1800));
+      await page.waitForTimeout(1600);
     }
 
     const stepItems = await page.evaluate((keywords) => {
@@ -420,15 +474,50 @@ async function findTodayPcbAlbum(page, pageUrl, sourceName, allowLatestPcbWithou
 
       function isBlockedAlbum(href) {
         if (!href) return true;
-        // Ignorer explicitement le vieil album statique de couverture/profil de 2019
         if (href.includes('set=a.3735485025272') || href.includes('10213939193453533')) return true;
         return false;
       }
 
-      // Stratégie 1 : Balises article classiques (Pages et profils Facebook)
+      // Stratégie 1 : Tous les albums photos multi-photos (set=pcb), qu'ils soient dans un article ou un partage
+      const pcbLinks = Array.from(document.querySelectorAll('a[href*="set=pcb."]'));
+      for (const link of pcbLinks) {
+        if (!link.href || seen.has(link.href) || isBlockedAlbum(link.href)) continue;
+
+        let container = link.closest('div[role="article"], div[data-ad-preview]');
+        if (!container) {
+          let cur = link;
+          let bestParent = link.parentElement;
+          for (let i = 0; i < 15 && cur && cur !== document.body; i++) {
+            cur = cur.parentElement;
+            if (cur && cur.innerText) {
+              const len = cur.innerText.length;
+              if (len >= 80 && len <= 2500) {
+                bestParent = cur;
+                if (cur.innerText.includes('·') || cur.innerText.includes('Rp221') || cur.innerText.includes('Unes') || cur.innerText.includes('octobre')) {
+                  break;
+                }
+              }
+            }
+          }
+          container = bestParent;
+        }
+
+        const text = container ? container.innerText : '';
+        const img = link.querySelector('img');
+        const alt = img ? (img.alt || '') : '';
+
+        seen.add(link.href);
+        items.push({
+          href: link.href,
+          context: `${text} ${alt}`,
+          alt,
+          hasPcb: true
+        });
+      }
+
+      // Stratégie 2 : Balises article classiques avec autres liens photos (si pas de set=pcb)
       const articles = Array.from(document.querySelectorAll('div[role="article"], div[data-ad-preview]'));
       for (const article of articles) {
-        // Ignorer les éléments situés dans la barre latérale / intro du profil
         if (article.closest('div[data-pagelet*="ProfileIntro"], div[data-pagelet*="ProfileTiles"], div[data-pagelet*="Sidebar"]')) {
           continue;
         }
@@ -436,68 +525,22 @@ async function findTodayPcbAlbum(page, pageUrl, sourceName, allowLatestPcbWithou
         const text = article.innerText || '';
         const textLower = text.toLowerCase();
         const isRevue = keywords.some(keyword => textLower.includes(keyword)) ||
-          textLower.includes('journal') || textLower.includes('quotidien') || textLower.includes('kiosque') || textLower.includes('unes') || textLower.includes('#rp221');
+          /\bunes\s+(du|des|de)\b/i.test(textLower) || textLower.includes('kiosque') || textLower.includes('#rp221');
 
-        // Prioriser les liens set=pcb (albums multi-photos de publications)
-        const pcbLinks = Array.from(article.querySelectorAll('a[href*="set=pcb."]'));
-        const targetLinks = pcbLinks.length > 0 ? pcbLinks : Array.from(article.querySelectorAll('a[href*="/photo"]'));
+        if (!isRevue) continue;
 
-        for (const link of targetLinks) {
+        const photoLinks = Array.from(article.querySelectorAll('a[href*="/photo"]'));
+        for (const link of photoLinks) {
           if (link.href && !seen.has(link.href) && !isBlockedAlbum(link.href)) {
-            // Sur les profils, les vraies revues de presse quotidiennes ont set=pcb
-            // Si c'est un lien set=a (album statique), on l'ignore sauf si explicitement autorisé
-            if (link.href.includes('set=a.') && !allowLatestPcbWithoutDate) {
-              continue;
-            }
+            if (link.href.includes('set=a.') && !allowLatestPcbWithoutDate) continue;
+            const img = link.querySelector('img');
+            const alt = img ? (img.alt || '') : '';
             seen.add(link.href);
             items.push({
               href: link.href,
-              context: text,
-              isRevue,
+              context: `${text} ${alt}`,
+              alt,
               hasPcb: link.href.includes('set=pcb.')
-            });
-          }
-        }
-      }
-
-      // Stratégie 2 : Recherche ciblée sur les textes contenant #rp221 ou "unes du" ou "revue de presse"
-      const specificTextNodes = Array.from(document.querySelectorAll('span, div, p, h3, h4')).filter(n => {
-        const t = (n.innerText || '').toLowerCase();
-        return (t.includes('#rp221') || t.includes('revue de presse') || t.includes('unes du')) && t.length < 250;
-      });
-
-      for (const node of specificTextNodes) {
-        // Ignorer les sections d'intro/sidebar
-        if (node.closest('div[data-pagelet*="ProfileIntro"], div[data-pagelet*="ProfileTiles"], div[data-pagelet*="Sidebar"]')) {
-          continue;
-        }
-
-        // Remonter UNIQUEMENT jusqu'au conteneur de publication le plus proche (max 7 niveaux)
-        let cur = node;
-        let postContainer = null;
-        for (let l = 0; l < 7 && cur && cur !== document.body; l++, cur = cur.parentElement) {
-          if (cur.getAttribute('role') === 'article' || cur.hasAttribute('data-ad-preview')) {
-            postContainer = cur;
-            break;
-          }
-          if (cur.querySelector('a[href*="set=pcb."]')) {
-            postContainer = cur;
-            break;
-          }
-        }
-
-        if (postContainer) {
-          const pcb = postContainer.querySelector('a[href*="set=pcb."]') || postContainer.querySelector('a[href*="/photo"]');
-          if (pcb && pcb.href && !seen.has(pcb.href) && !isBlockedAlbum(pcb.href)) {
-            if (pcb.href.includes('set=a.') && !allowLatestPcbWithoutDate) {
-              continue;
-            }
-            seen.add(pcb.href);
-            items.push({
-              href: pcb.href,
-              context: postContainer.innerText || node.innerText || '',
-              isRevue: true,
-              hasPcb: pcb.href.includes('set=pcb.')
             });
           }
         }
@@ -513,11 +556,14 @@ async function findTodayPcbAlbum(page, pageUrl, sourceName, allowLatestPcbWithou
       }
     }
 
-    // Arrêt anticipé : SEULEMENT après au moins 1 défilement (s >= 1) et avec un album set=pcb vérifié du jour
+    // Arrêt anticipé : SEULEMENT si un album atteint un score exceptionnel (>= 150 : kiosque à journaux / #rp221)
     if (s >= 1) {
-      const strongEarlyMatch = allCandidates.find(c => c.isRevue && c.hasPcb && isTodayFacebookPost(c.context));
-      if (strongEarlyMatch) {
-        log(`     🎯 Album du jour repéré avec certitude dès l'étape ${s + 1} !`);
+      const decisiveMatch = allCandidates.find(c => {
+        const isToday = isTodayFacebookPost(c.context);
+        return scoreRevueCandidate(c, isToday) >= 150;
+      });
+      if (decisiveMatch) {
+        log(`     🎯 Album authentique du jour (#rp221/Unes du jour) repéré dès l'étape ${s + 1} !`);
         break;
       }
     }
@@ -525,36 +571,39 @@ async function findTodayPcbAlbum(page, pageUrl, sourceName, allowLatestPcbWithou
 
   log(`     📊 ${allCandidates.length} publication(s) avec photos analysée(s).`);
 
+  // Calcul du score pour chaque candidat
+  const scoredCandidates = allCandidates.map(c => {
+    const isToday = isTodayFacebookPost(c.context);
+    const score = scoreRevueCandidate(c, isToday);
+    return { ...c, isToday, score };
+  });
+
+  // Trier par score décroissant
+  scoredCandidates.sort((a, b) => b.score - a.score);
+
   if (isSourceCheckMode) {
-    allCandidates.slice(0, 10).forEach(candidate => {
-      const isToday = isTodayFacebookPost(candidate.context);
-      const status = isToday ? 'AUJOURD\'HUI' : 'autre date';
-      log(`     [${status}] (Revue: ${candidate.isRevue ? 'OUI' : 'NON'} | PCB: ${candidate.hasPcb ? 'OUI' : 'NON'}) ${candidate.href.substring(0, 75)}...`);
+    scoredCandidates.slice(0, 10).forEach(candidate => {
+      const status = candidate.isToday ? 'AUJOURD\'HUI' : 'autre date';
+      log(`     [Score: ${candidate.score}] [${status}] (PCB: ${candidate.hasPcb ? 'OUI' : 'NON'}) ${candidate.href.substring(0, 65)}...`);
     });
   }
 
-  // Chercher un album caractérisé du jour (priorité aux albums post collection "set=pcb.")
-  let todayAlbum = allCandidates.find(candidate =>
-    candidate.isRevue && candidate.hasPcb && isTodayFacebookPost(candidate.context)
+  // Sélectionner le meilleur candidat avec un score suffisant :
+  // Un score >= 120 atteste avec certitude d'une revue de presse (#rp221 / kiosque à journaux)
+  const bestCandidate = scoredCandidates.find(c =>
+    c.score > 0 && (c.score >= 120 || (c.score >= 70 && c.isToday) || allowLatestPcbWithoutDate)
   );
 
-  // Deuxième priorité : tout album du jour
-  if (!todayAlbum) {
-    todayAlbum = allCandidates.find(candidate =>
-      candidate.isRevue && isTodayFacebookPost(candidate.context)
-    );
-  }
-
-  if (todayAlbum) {
-    log(`  ✅ Album de presse du jour identifié : ${todayAlbum.href}`);
-    return todayAlbum.href;
+  if (bestCandidate) {
+    log(`  ✅ Album de presse du jour identifié (Score: ${bestCandidate.score}) : ${bestCandidate.href}`);
+    return bestCandidate.href;
   }
 
   // Si on autorise le dernier album pcb (ex: page UniversActu de secours)
-  if (allowLatestPcbWithoutDate && allCandidates.length > 0) {
-    const revueCandidate = allCandidates.find(c => c.isRevue && c.hasPcb) || allCandidates.find(c => c.isRevue) || allCandidates[0];
-    log(`  ✅ Dernier album sélectionné sur la source de secours : ${revueCandidate.href}`);
-    return revueCandidate.href;
+  if (allowLatestPcbWithoutDate && scoredCandidates.length > 0) {
+    const fallbackCandidate = scoredCandidates.find(c => c.score >= 40) || scoredCandidates[0];
+    log(`  ✅ Dernier album sélectionné sur la source de secours (Score: ${fallbackCandidate.score}) : ${fallbackCandidate.href}`);
+    return fallbackCandidate.href;
   }
 
   log(`  -> Aucun album de presse valide pour aujourd'hui sur ${sourceName}.`);
