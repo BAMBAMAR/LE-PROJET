@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-29T06:54:47.938Z",
+  "last_updated": "2026-10-29T08:02:26.206Z",
   "press": [
     {
       "id": "1",
@@ -300,13 +300,6 @@
       "title": "Quotidien",
       "date": "29/10/2026",
       "image": "revuedepresse/revue_2026-10-29_43.webp",
-      "link": "#"
-    },
-    {
-      "id": "44",
-      "title": "Quotidien",
-      "date": "29/10/2026",
-      "image": "revuedepresse/revue_2026-10-29_44.webp",
       "link": "#"
     }
   ]
