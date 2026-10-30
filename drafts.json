@@ -1,15 +1,15 @@
 {
   "drafts": [
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Conseil des ministres du 13 octobre 2026",
       "description": "Conseil des ministres du 13 octobre 2026",
       "source": "Primature — Actualités",
       "source_url": "https://primature.sn/publications/actualites/conseil-des-ministres-du-13-octobre-2026",
       "date": "2026-10-29",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261029115143_26",
       "_dedup_key": "0a157fcab5b12b3d",
@@ -17,15 +17,15 @@
       "created_at": "2026-10-29T11:51:43.099235+00:00"
     },
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Conseil des ministres du 28 octobre 2026",
       "description": "Conseil des ministres du 28 octobre 2026",
       "source": "Primature — Actualités",
       "source_url": "https://primature.sn/publications/actualites/conseil-des-ministres-du-28-octobre-2026",
       "date": "2026-10-29",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261029115143_17",
       "_dedup_key": "777afb44de3506ea",
@@ -49,15 +49,15 @@
       "created_at": "2026-10-29T11:51:43.099208+00:00"
     },
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Bassirou Diomaye Faye pour des “consensus durables et soutenables” avec les centrales syndicales",
       "description": "Dakar, 29 oct (APS) &#8211; Le chef de l&#8217;Etat, Bassirou Diomaye Faye, a demandé au gouvernement &#8220;de poursuivre le dialogue social responsable avec les centrales syndicales afin d&#8221;asseoir les consensus durables et soutenables&#8221;, rapporte le communiqué du Conseil des ministres, tenu mercredi. Il a demandé au gouvernement &#8220;de poursuivre le dialogue social responsable avec",
       "source": "APS — Agence de Presse Sénégalaise",
       "source_url": "https://aps.sn/bassirou-diomaye-faye-pour-des-consensus-durables-et-soutenables-avec-les-centrales-syndicales/",
       "date": "2026-10-29",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261029115143_15",
       "_dedup_key": "2d10d93de8152be4",
@@ -65,15 +65,15 @@
       "created_at": "2026-10-29T11:51:43.099203+00:00"
     },
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Vers un Fonds spécial pour le financement de l’artisanat (officiel)",
       "description": "Dakar, 29 oct (APS) &#8211; Le chef de l&#8217;Etat, présidant mercredi la réunion du Conseil des ministres, a insisté sur la nécessité de réfléchir à la mise en place, à court terme, d&#8217;un Fonds spécial pour le financement de l&#8217;artisanat, en vue de faciliter l&#8217;accès des acteurs de ce secteur au système financier. Selon le [&#8230;]\nThe post Vers un Fonds spécial pour le financeme",
       "source": "APS — Agence de Presse Sénégalaise",
       "source_url": "https://aps.sn/vers-un-fonds-special-pour-le-financement-de-lartisanat-officiel/",
       "date": "2026-10-29",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261029115143_14",
       "_dedup_key": "32b6ccab0c460563",
@@ -113,15 +113,15 @@
       "created_at": "2026-10-29T11:51:43.099185+00:00"
     },
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Grand Théâtre national, direction des Arts : les dernières nominations dans le secteur de la Culture",
       "description": "Dakar, 29 oct (APS) – Plusieurs directions relevant de la Culture, du Tourisme et de l&#8217;Artisanat ont changé de titulaire, dont le Grand Théâtre national Doudou Ndiaye Coumba Rose, à la faveur des mesures individuelles prises mercredi en conseil des ministres. Le chef de l&#8217;Etat, Bassirou Diomaye Faye, a nommé Ibrahima Badiane, titulaire d&#8217;un master [&#8230;]\nThe post Grand Théâtre",
       "source": "APS — Agence de Presse Sénégalaise",
       "source_url": "https://aps.sn/grand-theatre-national-direction-des-arts-les-dernieres-nominations-dans-le-secteur-de-la-culture/",
       "date": "2026-10-29",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261029115143_11",
       "_dedup_key": "aa7dfaf3f377b296",
@@ -177,15 +177,15 @@
       "created_at": "2026-10-29T11:51:43.099161+00:00"
     },
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Grand Théâtre national : Qui est Ibrahima Badiane nommé directeur général par Diomaye Faye lors du conseil des ministres ? - SeneNews",
       "description": "Grand Théâtre national : Qui est Ibrahima Badiane nommé directeur général par Diomaye Faye lors du conseil des ministres ?&nbsp;&nbsp;SeneNews",
       "source": "SeneNews",
       "source_url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxQOHlDTHE0VXNJMWV6ZUxxVHFqdlRMUDFaZHdnbHRKNTM0WUlDRFVXMjdDYkFOTmhfRi1MYkFvNDN2RWwzclFYeDdFdWxRSFZCVDJOLTVLa0s4Z2R3SmN4bWZRcjJFeDBhNWk1TzBPWEFoU3lwdDI1MTFPTlVVS2t6WGUzQmZDVnJQV2lCaHQzMV8zQkJKdHctX2w2UTh6NWozaUdURHNkZ0dESkNsMWpoeWdodHVoaG55eVpFc0ttbGQ2VHZucWtjUlFVQl9rYXBVWHFtbFpWUi1lWm1lemFfTW4zaGhxVC1rcjNRODdrSXpnNk1Gb1d0U3NR?oc=5",
       "date": "2026-10-29",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261029115143_6",
       "_dedup_key": "300a362739a3bdc2",
@@ -3201,5 +3201,5 @@
       "created_at": "2026-10-16T10:13:12.935944+00:00"
     }
   ],
-  "last_updated": "2026-10-29T11:51:43.099288+00:00"
+  "last_updated": "2026-10-30T06:48:02.600Z"
 }
