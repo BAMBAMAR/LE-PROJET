@@ -97,15 +97,15 @@
       "created_at": "2026-10-31T11:18:10.656346+00:00"
     },
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Conseil des ministres du 28 octobre 2026 - Gouvernement du Sénégal",
       "description": "Conseil des ministres du 28 octobre 2026&nbsp;&nbsp;Gouvernement du Sénégal",
       "source": "Gouvernement du Sénégal",
       "source_url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPc1lucHQ2a3pVVGZ6djlUUWxpSjNrQ1hXeTl2UmYwM1JybWJaSVdGc1VBTV80MHNIRkZUaGdMT2lXaGhhcWFuNUFVdUdHM3IxcVMtM1NEWHRkOWEtdlppdnVqQWVwSEpLT3ZGU2daYVNEcTVrRU1jTnZoVkowb3VQUDV5ckhlMF92Q3NPRnh3?oc=5",
       "date": "2026-10-30",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261030114419_8",
       "_dedup_key": "78a3f27e8b4fc926",
@@ -113,15 +113,15 @@
       "created_at": "2026-10-30T11:44:19.988413+00:00"
     },
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Limogeage lors du conseil des ministres : Diomaye Faye se débarrasse de Sadikh Top de Pastef - SeneNews",
       "description": "Limogeage lors du conseil des ministres : Diomaye Faye se débarrasse de Sadikh Top de Pastef&nbsp;&nbsp;SeneNews",
       "source": "SeneNews",
       "source_url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxPeUhDSW1WbWpUOUlMcUN1X0hMV21qT21ZbExwcEhWbHlJM1NYU2pDdTJoSlZhc1o2cVJJQ0cwdkV3TEo5ZWNNTzhKNDVjTTBmLU0wajN5Z0lEMlBoNktxcl96dnZlMkJoNGhkQ1RkeFhJTGNTbC05N2ZwTVAtN0xGbUF3UmxDOWJ4Y3o3NEN1ZDRKT0c4Q0J2bzJ6WlNUdm5EQVdrU3ZZaVZSb0lpWXRHR3AtenpLRlNFVDJuUHk5elRGWFRoQUVfUFdHanBaLTkzaGtsYg?oc=5",
       "date": "2026-10-30",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261030114419_7",
       "_dedup_key": "7220a404d1a05f2a",
@@ -3201,5 +3201,5 @@
       "created_at": "2026-10-17T09:47:00.300584+00:00"
     }
   ],
-  "last_updated": "2026-10-31T13:42:21.591Z"
+  "last_updated": "2026-10-31T13:43:50.885Z"
 }
