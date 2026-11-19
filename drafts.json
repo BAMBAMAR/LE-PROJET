@@ -1,15 +1,15 @@
 {
   "drafts": [
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Conseil des ministres du 18 novembre 2026",
       "description": "Conseil des ministres du 18 novembre 2026",
       "source": "Primature — Actualités",
       "source_url": "https://primature.sn/publications/actualites/conseil-des-ministres-du-18-novembre-2026",
       "date": "2026-11-19",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261119144606_9",
       "_dedup_key": "c3d98110b806aa45",
@@ -17,15 +17,15 @@
       "created_at": "2026-11-19T14:46:06.125936+00:00"
     },
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Conseil des ministres du 18 novembre 2026 - Gouvernement du Sénégal",
       "description": "Conseil des ministres du 18 novembre 2026&nbsp;&nbsp;Gouvernement du Sénégal",
       "source": "Gouvernement du Sénégal",
       "source_url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPR3gycmlTbUdlN2I2azhrdlh0SmI2VUVCRFpiNDV6OVUwWHBJMjdOZGk4ZkJSeWttWk8xSVpVaTdDdTBUaExLdlBqeTZyNVdsd0wxQVFzSjJZbVRSTnd3YUpwZXNqdnJqWDNIRTRHMVBkZ0s1bGdBX3ZIWG55RDA3c3F4MmtZMk5FNUUzejNPWQ?oc=5",
       "date": "2026-11-19",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261119144606_8",
       "_dedup_key": "55d38fcd6c4909a0",
@@ -3201,5 +3201,5 @@
       "created_at": "2026-10-27T11:08:18.710302+00:00"
     }
   ],
-  "last_updated": "2026-11-19T15:05:11.477Z"
+  "last_updated": "2026-11-19T15:07:15.472Z"
 }
