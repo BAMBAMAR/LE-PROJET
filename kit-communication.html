@@ -58,7 +58,7 @@
     <title>Kit de Communication — Gardiens du Projet PASTEF | ProjetBI</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" href="/favicon.png">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous">
     <style>
         :root {
@@ -540,6 +540,11 @@ function drawHeader(ctx, titre, sous, periode) {
     ctx.fillStyle = '#00853F'; ctx.fillRect(0, 0, 360, barH);
     ctx.fillStyle = '#FDEF42'; ctx.fillRect(360, 0, 360, barH);
     ctx.fillStyle = '#E31B23'; ctx.fillRect(720, 0, 360, barH);
+    ctx.fillStyle = '#00853F';
+    ctx.font = '900 7px sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('★', 540, barH / 2);
+    ctx.textBaseline = 'alphabetic';
 
     // Logo zone
     roundRect(ctx, 54, 54, 220, 56, 12, 'rgba(8, 28, 17, 0.85)');
@@ -860,17 +865,287 @@ function updateSocialTexts() {
 }
 
 // ══════════════════════════════
+// EXPORT PAYSAGE 1200x628
+// ══════════════════════════════
+function drawCanvasLandscape(ctx, s, taux) {
+    const w = 1200, h = 628;
+
+    function drawHeaderLand(titre, sous, periode) {
+        // Ruban tricolore
+        const barH = 6;
+        ctx.fillStyle = '#00853F'; ctx.fillRect(0, 0, 400, barH);
+        ctx.fillStyle = '#FDEF42'; ctx.fillRect(400, 0, 400, barH);
+        ctx.fillStyle = '#E31B23'; ctx.fillRect(800, 0, 400, barH);
+        ctx.fillStyle = '#00853F';
+        ctx.font = '900 8px sans-serif';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText('★', 600, barH / 2);
+        ctx.textBaseline = 'alphabetic';
+
+        // Logo capsule
+        roundRect(ctx, 44, 22, 200, 46, 10, 'rgba(8, 28, 17, 0.85)');
+        ctx.strokeStyle = 'rgba(201, 168, 76, 0.45)';
+        ctx.lineWidth = 1.2; ctx.stroke();
+        ctx.fillStyle = '#00B054'; ctx.font = '900 16px "DM Sans", sans-serif'; ctx.fillText('J', 58, 51);
+        ctx.fillStyle = '#FFD700'; ctx.fillText('J', 72, 51);
+        ctx.fillStyle = '#E31B23'; ctx.fillText('J', 86, 51);
+        ctx.fillStyle = 'white'; ctx.font = '900 16px "DM Sans", sans-serif'; ctx.fillText('PROJETBI', 104, 51);
+
+        // Titre
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 36px "Playfair Display", Georgia, serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(titre, 600, 58);
+
+        if (sous) {
+            ctx.font = '500 18px "DM Sans", sans-serif';
+            ctx.fillStyle = 'rgba(215, 234, 223, 0.85)';
+            ctx.fillText(sous, 600, 90);
+        }
+
+        // Badge période à droite
+        roundRect(ctx, 920, 22, 236, 42, 21, 'rgba(201, 168, 76, 0.18)');
+        ctx.strokeStyle = '#C9A84C'; ctx.lineWidth = 1.2; ctx.stroke();
+        ctx.fillStyle = '#FFE9A3';
+        ctx.font = 'bold 15px "DM Sans", sans-serif';
+        ctx.fillText(periode.toUpperCase(), 1038, 49);
+        ctx.textAlign = 'left';
+    }
+
+    function drawFooterLand() {
+        roundRect(ctx, 0, 568, 1200, 60, 0, 'rgba(3, 14, 8, 0.96)');
+        const lineG = ctx.createLinearGradient(0, 568, 1200, 568);
+        lineG.addColorStop(0, 'rgba(201,168,76,0.1)');
+        lineG.addColorStop(0.5, 'rgba(201,168,76,0.6)');
+        lineG.addColorStop(1, 'rgba(201,168,76,0.1)');
+        ctx.fillStyle = lineG; ctx.fillRect(0, 568, 1200, 1.5);
+
+        const leftText = '🌐 projetbi.org  •  Plateforme Citoyenne Indépendante  •  Jub · Jubal · Jubanti';
+        ctx.font = '500 16px "DM Sans", sans-serif';
+        const textW = ctx.measureText(leftText).width;
+        const flagW = 22, flagH = 15;
+        const totalW = textW + 10 + flagW;
+        const startX = (1200 - totalW) / 2;
+
+        ctx.fillStyle = 'rgba(255,255,255,0.85)';
+        ctx.textAlign = 'left';
+        ctx.fillText(leftText, startX, 605);
+        drawSenegalFlag(ctx, startX + textW + 10, 593, flagW, flagH, 2);
+    }
+
+    if (activeTemplate === 'bilan') {
+        const g = ctx.createLinearGradient(0, 0, 0, h);
+        g.addColorStop(0, '#031409'); g.addColorStop(1, '#082D18');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+        drawHeaderLand('BILAN DES ENGAGEMENTS', s.sous, s.periode);
+
+        const boxW = 254, boxH = 145, gap = 20, startX = 54, startY = 120;
+        const items = [
+            { val: s.realise, label: 'Réalisés', c: '#10B981', ic: '✓' },
+            { val: s.encours, label: 'En cours', c: '#38BDF8', ic: '⚡' },
+            { val: s.nonLance, label: 'Non lancés', c: '#FCD34D', ic: '⏳' },
+            { val: s.retard, label: 'En retard', c: '#F87171', ic: '⚠️' }
+        ];
+        items.forEach((it, i) => {
+            const bx = startX + i * (boxW + gap);
+            roundRect(ctx, bx, startY, boxW, boxH, 14, 'rgba(8, 28, 17, 0.85)');
+            roundRect(ctx, bx, startY, boxW, 4, 2, it.c);
+            ctx.strokeStyle = 'rgba(255,255,255,0.10)'; ctx.lineWidth = 1; ctx.stroke();
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 50px "DM Sans", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(String(it.val), bx + boxW / 2, startY + 75);
+            ctx.fillStyle = it.c;
+            ctx.font = 'bold 16px "DM Sans", sans-serif';
+            ctx.fillText(it.ic + ' ' + it.label, bx + boxW / 2, startY + 115);
+        });
+
+        const pY = 285, pH = 135;
+        roundRect(ctx, 54, pY, 1092, pH, 16, 'rgba(8, 28, 17, 0.88)');
+        ctx.strokeStyle = 'rgba(201,168,76,0.35)'; ctx.lineWidth = 1.2; ctx.stroke();
+
+        ctx.fillStyle = '#D7EADF';
+        ctx.font = 'bold 18px "DM Sans", sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('TAUX DE RÉALISATION DU PROGRAMME', 90, pY + 38);
+
+        ctx.font = '900 52px "DM Sans", sans-serif';
+        ctx.fillStyle = '#E5B842';
+        ctx.textAlign = 'right';
+        ctx.fillText(taux + '%', 1110, pY + 54);
+
+        roundRect(ctx, 90, pY + 68, 1020, 18, 9, 'rgba(255,255,255,0.12)');
+        if (taux > 0) {
+            const barW = Math.min(1020 * taux / 100, 1020);
+            const gBar = ctx.createLinearGradient(90, 0, 90 + barW, 0);
+            gBar.addColorStop(0, '#B45309'); gBar.addColorStop(1, '#10B981');
+            roundRect(ctx, 90, pY + 68, barW, 18, 9, gBar);
+        }
+
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'rgba(255,255,255,0.8)';
+        ctx.font = 'bold 15px "DM Sans", sans-serif';
+        ctx.fillText(`${s.total} ENGAGEMENTS SUIVIS AU MANDAT 2024-2029`, 600, pY + 115);
+
+        roundRect(ctx, 280, 440, 640, 48, 12, 'rgba(201,168,76,0.15)');
+        ctx.strokeStyle = '#E5B842'; ctx.lineWidth = 1; ctx.stroke();
+        ctx.fillStyle = '#FFE9A3';
+        ctx.font = 'bold 16px "DM Sans", sans-serif';
+        ctx.fillText('👉 Suivez l’avancement en direct sur projetbi.org', 600, 470);
+
+        drawFooterLand();
+    } else if (activeTemplate === 'taux') {
+        const g = ctx.createLinearGradient(0, 0, 0, h);
+        g.addColorStop(0, '#031409'); g.addColorStop(1, '#082D18');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+        drawHeaderLand('TAUX D’AVANCEMENT', s.sous, s.periode);
+
+        const cx = 300, cy = 330, r = 140;
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.lineWidth = 26;
+        ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+        const angle = (taux / 100) * Math.PI * 2 - Math.PI / 2;
+        const gC = ctx.createLinearGradient(cx - r, cy, cx + r, cy);
+        gC.addColorStop(0, '#B45309'); gC.addColorStop(1, '#10B981');
+        ctx.strokeStyle = gC; ctx.lineWidth = 26; ctx.lineCap = 'round';
+        ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI / 2, angle); ctx.stroke();
+
+        ctx.fillStyle = '#FFE9A3';
+        ctx.font = '900 80px "DM Sans", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(taux + '%', cx, cy + 22);
+
+        const rx = 520, ry = 150, rw = 620;
+        roundRect(ctx, rx, ry, rw, 150, 16, 'rgba(8, 28, 17, 0.88)');
+        ctx.strokeStyle = 'rgba(201,168,76,0.35)'; ctx.lineWidth = 1.2; ctx.stroke();
+        ctx.fillStyle = '#10B981';
+        ctx.font = 'bold 24px "DM Sans", sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText(`✓ ${s.realise} engagements concrétisés`, rx + 30, ry + 50);
+        ctx.fillStyle = 'rgba(255,255,255,0.85)';
+        ctx.font = '500 18px "DM Sans", sans-serif';
+        ctx.fillText(`Sur un total de ${s.total} engagements présidentiels audités.`, rx + 30, ry + 90);
+
+        roundRect(ctx, rx, ry + 170, rw, 140, 16, 'rgba(8, 28, 17, 0.88)');
+        ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)'; ctx.lineWidth = 1.2; ctx.stroke();
+        ctx.fillStyle = '#38BDF8';
+        ctx.font = 'bold 22px "DM Sans", sans-serif';
+        ctx.fillText(`⚡ ${s.encours} chantiers actuellement en cours d'exécution`, rx + 30, ry + 225);
+        ctx.fillStyle = '#FFE9A3';
+        ctx.font = 'bold 16px "DM Sans", sans-serif';
+        ctx.fillText('👉 Retrouvez le détail par ministère sur projetbi.org', rx + 30, ry + 270);
+
+        drawFooterLand();
+    } else if (activeTemplate === 'retard') {
+        const g = ctx.createLinearGradient(0, 0, 0, h);
+        g.addColorStop(0, '#0E0404'); g.addColorStop(1, '#260808');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+        drawHeaderLand('ALERTES & RETARDS', s.sous, s.periode);
+
+        const cardW = 530, cardH = 210, cY = 150;
+        roundRect(ctx, 54, cY, cardW, cardH, 16, 'rgba(30, 10, 10, 0.85)');
+        ctx.strokeStyle = '#EF4444'; ctx.lineWidth = 1.5; ctx.stroke();
+        ctx.fillStyle = '#F87171';
+        ctx.font = '900 80px "DM Sans", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(String(s.retard), 54 + cardW / 2, cY + 95);
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 22px "DM Sans", sans-serif';
+        ctx.fillText('Engagements en retard', 54 + cardW / 2, cY + 140);
+        ctx.font = '500 17px "DM Sans", sans-serif';
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.fillText(`soit ${Math.round((s.retard / s.total) * 100)}% du programme`, 54 + cardW / 2, cY + 175);
+
+        roundRect(ctx, 616, cY, cardW, cardH, 16, 'rgba(30, 20, 10, 0.85)');
+        ctx.strokeStyle = '#F59E0B'; ctx.lineWidth = 1.5; ctx.stroke();
+        ctx.fillStyle = '#FCD34D';
+        ctx.font = '900 80px "DM Sans", sans-serif';
+        ctx.fillText(String(s.nonLance), 616 + cardW / 2, cY + 95);
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 22px "DM Sans", sans-serif';
+        ctx.fillText('Non encore lancés', 616 + cardW / 2, cY + 140);
+        ctx.font = '500 17px "DM Sans", sans-serif';
+        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        ctx.fillText(`soit ${Math.round((s.nonLance / s.total) * 100)}% du programme`, 616 + cardW / 2, cY + 175);
+
+        roundRect(ctx, 54, 385, 1092, 95, 14, 'rgba(201,168,76,0.15)');
+        ctx.strokeStyle = '#E5B842'; ctx.lineWidth = 1.2; ctx.stroke();
+        ctx.fillStyle = '#FFE9A3';
+        ctx.font = 'bold 20px "DM Sans", sans-serif';
+        ctx.fillText('👉 Soutenez le Projet et auditez chaque engagement sur projetbi.org', 600, 427);
+        ctx.fillStyle = 'rgba(255,255,255,0.75)';
+        ctx.font = '500 16px "DM Sans", sans-serif';
+        ctx.fillText('Observatoire Citoyen Indépendant — Suivi transparent et rigoureux', 600, 459);
+
+        drawFooterLand();
+    } else if (activeTemplate === 'note') {
+        const g = ctx.createLinearGradient(0, 0, 0, h);
+        g.addColorStop(0, '#031409'); g.addColorStop(1, '#082D18');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+        drawHeaderLand('NOTE CITOYENNE', s.sous, s.periode);
+
+        const cx = 300, cy = 300;
+        ctx.fillStyle = '#E5B842';
+        ctx.font = '900 130px "DM Sans", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(s.note.toFixed(1), cx, cy + 20);
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 36px "DM Sans", sans-serif';
+        ctx.fillText('/ 5', cx, cy + 70);
+
+        const stars = 5;
+        const starX = cx - (stars * 44) / 2 + 20;
+        ctx.font = '44px "DM Sans", sans-serif';
+        for (let i = 0; i < 5; i++) {
+            ctx.fillStyle = i < Math.round(s.note) ? '#E5B842' : 'rgba(255,255,255,0.20)';
+            ctx.fillText('★', starX + i * 44, cy + 130);
+        }
+
+        const rx = 520, ry = 160, rw = 620, rh = 310;
+        roundRect(ctx, rx, ry, rw, rh, 18, 'rgba(8, 28, 17, 0.88)');
+        ctx.strokeStyle = 'rgba(229,184,66,0.40)'; ctx.lineWidth = 1.2; ctx.stroke();
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 24px "DM Sans", sans-serif';
+        ctx.fillText('Baromètre Populaire Citoyen', rx + rw / 2, ry + 60);
+        ctx.font = '500 18px "DM Sans", sans-serif';
+        ctx.fillStyle = 'rgba(255,255,255,0.85)';
+        ctx.fillText('Évaluation continue et transparente basée sur les votes certifiés.', rx + rw / 2, ry + 110);
+        ctx.fillStyle = '#10B981';
+        ctx.font = 'bold 20px "DM Sans", sans-serif';
+        ctx.fillText(`✓ ${s.realise} engagements concrétisés • ${taux}% du programme`, rx + rw / 2, ry + 170);
+
+        roundRect(ctx, rx + 40, ry + 215, rw - 80, 50, 10, 'rgba(201,168,76,0.20)');
+        ctx.strokeStyle = '#E5B842'; ctx.lineWidth = 1; ctx.stroke();
+        ctx.fillStyle = '#FFE9A3';
+        ctx.font = 'bold 16px "DM Sans", sans-serif';
+        ctx.fillText('👉 Évaluez un engagement public sur projetbi.org', rx + rw / 2, ry + 246);
+
+        drawFooterLand();
+    }
+}
+
+// ══════════════════════════════
 // UTILITAIRES
 // ══════════════════════════════
 function downloadCanvas(size) {
-    const canvas = document.getElementById('mainCanvas');
-    const link = document.createElement('a');
+    let sourceCanvas = document.getElementById('mainCanvas');
     const s = getStats();
+    const tauxReel = Math.round((s.realise / s.total) * 100);
+
+    if (size === '1200x628') {
+        const offscreen = document.createElement('canvas');
+        offscreen.width = 1200;
+        offscreen.height = 628;
+        const oCtx = offscreen.getContext('2d');
+        drawCanvasLandscape(oCtx, s, tauxReel);
+        sourceCanvas = offscreen;
+    }
+
+    const link = document.createElement('a');
     const name = `projetbi-${activeTemplate}-${s.periode.replace(/\s+/g, '-').toLowerCase()}-${size}.png`;
     link.download = name;
-    link.href = canvas.toDataURL('image/png', 1.0);
+    link.href = sourceCanvas.toDataURL('image/png', 1.0);
     link.click();
-    showToast('✅ Image téléchargée !');
+    showToast(`✅ Image ${size} téléchargée !`);
 }
 
 async function copyCanvasToClipboard() {

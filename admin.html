@@ -2480,7 +2480,7 @@ textarea.form-control{resize:vertical;min-height:90px}
                 <i class="fab fa-facebook" style="color:#1877F2;font-size:1.15rem"></i>
                 <div>
                   <span class="card-title" style="font-size:.86rem;font-weight:700">Publication Page Facebook</span>
-                  <div id="fbPageNameDisplay" style="font-size:.72rem;color:var(--text3)">Page : Laverite (135 abonnés)</div>
+                  <div id="fbPageNameDisplay" style="font-size:.72rem;color:var(--text3)">Page : Projetbi (149 abonnés)</div>
                 </div>
               </div>
               <div style="display:flex;align-items:center;gap:.5rem">
@@ -7935,12 +7935,19 @@ function studioUpdateTwitterCount() {
 }
 
 /* ── Publication Directe Facebook (Meta Graph API) ── */
-const DEFAULT_FB_PAGE_TOKEN = 'EAAZAfj2K9O1MBSitDwzz2qrWEmZBgTOwcaKpHjtIl7XrJ5prjRRuiTlT92NI5NQJyesTgcXfUlzP1SGU8E85OWNWcFWRx5Nt0iwAvZAEqdTNnll8x4ZBdNC6zWRskY27oAmeRIafI40fyPtBHUoKPVwkv7EbFed63nZBWrZAt1lHAZBOvcSv5dHISXmTfomYL9PciVtD8q1PGt9FUUBZBqA5Wg9t0cBKpPcPpX2IlQZDZD';
+const DEFAULT_FB_PAGE_TOKEN = 'EAAZAfj2K9O1MBTJ9waFMnKUEyodjGhvgAr2xFFqufuZBqo7sxUdji7YTHzGdkuJ06tLqZAcNAOxL1kRp7pFMblSDZBp4VZBOgVotQ51VZCAEcZBoZAtqSziHIlOXlmZAfiexnyNuH1R5Ge8B0cHXTPusgNe9OEf5x0oElcZBcQaIdKMMpi0ZAZChxcvLBe9jRZCZAfcwZCbTDUZD';
 
 function getFacebookConfig() {
+  const oldExpiredPrefix = 'EAAZAfj2K9O1MBSitDwzz2qr';
+  let token = localStorage.getItem('projetbi_fb_page_token');
+  if (token && token.startsWith(oldExpiredPrefix)) {
+    token = DEFAULT_FB_PAGE_TOKEN;
+    localStorage.setItem('projetbi_fb_page_token', token);
+    localStorage.setItem('projetbi_fb_page_name', 'Projetbi (149 abonnés)');
+  }
   return {
     pageId: localStorage.getItem('projetbi_fb_page_id') || '165343486664407',
-    token:  localStorage.getItem('projetbi_fb_page_token') || DEFAULT_FB_PAGE_TOKEN
+    token:  token || DEFAULT_FB_PAGE_TOKEN
   };
 }
 
@@ -8066,7 +8073,7 @@ function updateFacebookStatusBadges() {
       topLabel.innerHTML = '<span style="color:var(--green)">● Facebook Prêt</span>';
     }
     if (nameDisplay) {
-      const saved = localStorage.getItem('projetbi_fb_page_name') || 'Laverite (135 abonnés)';
+      const saved = localStorage.getItem('projetbi_fb_page_name') || 'Projetbi (149 abonnés)';
       nameDisplay.textContent = `Page : ${saved}`;
     }
   } else {
@@ -8979,10 +8986,25 @@ function ideoRR(ctx,x,y,w,h,r,fill) {
   ctx.closePath(); if(fill){ctx.fillStyle=fill;ctx.fill();}
 }
 function ideoLogoHeader(ctx) {
-  ideoRR(ctx, 48, 44, 300, 52, 12, '#FFFFFF');
+  ctx.save();
+  ctx.textAlign = 'left';
+
+  // Mesure préalable
+  ctx.font = '900 18px "Syne", "Plus Jakarta Sans", sans-serif';
+  const nameW = ctx.measureText('PROJETBI').width;
+  ctx.font = '700 11px "Plus Jakarta Sans", Inter, sans-serif';
+  const tagText = '◆ IDÉOLOGIE';
+  const tagW = ctx.measureText(tagText).width;
+
+  const sepX = Math.round(116 + nameW + 10);
+  const tagX = sepX + 10;
+  const capsuleW = Math.max(330, Math.round(tagX + tagW + 16 - 48));
+
+  // Capsule blanche
+  ideoRR(ctx, 48, 44, capsuleW, 52, 12, '#FFFFFF');
   ctx.strokeStyle = 'rgba(201, 168, 76, 0.55)';
   ctx.lineWidth = 1.5;
-  ideoRR(ctx, 48, 44, 300, 52, 12);
+  ideoRR(ctx, 48, 44, capsuleW, 52, 12);
   ctx.stroke();
 
   // Monogramme JJJ (Vert, Or, Rouge républicains)
@@ -8991,13 +9013,25 @@ function ideoLogoHeader(ctx) {
   ctx.fillStyle = '#A67C19'; ctx.fillText('J', 82, 77);
   ctx.fillStyle = '#D92D20'; ctx.fillText('J', 96, 77);
 
+  // PROJETBI
   ctx.fillStyle = '#0D2818';
   ctx.font = '900 18px "Syne", "Plus Jakarta Sans", sans-serif';
   ctx.fillText('PROJETBI', 116, 77);
 
+  // Séparateur vertical
+  ctx.strokeStyle = 'rgba(201, 168, 76, 0.40)';
+  ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(sepX, 58);
+  ctx.lineTo(sepX, 82);
+  ctx.stroke();
+
+  // Tag Idéologie
   ctx.fillStyle = '#A67C19';
   ctx.font = '700 11px "Plus Jakarta Sans", Inter, sans-serif';
-  ctx.fillText('◆ IDÉOLOGIE', 224, 76);
+  ctx.fillText(tagText, tagX, 76);
+
+  ctx.restore();
 }
 
 function ideoFooter(ctx) {
@@ -9176,16 +9210,16 @@ function ideoDrawCanvas() {
     ctx.strokeStyle = '#EF4444'; ctx.lineWidth = 2;
     ideoRR(ctx, 44, 235, 476, 710, 18); ctx.stroke();
 
-    ctx.fillStyle = '#F87171';
+    ctx.fillStyle = '#DC2626';
     ctx.font = 'bold 22px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('✕  LE SYSTÈME', 282, 290);
 
-    ctx.fillStyle = '#FFFFFF';
+    ctx.fillStyle = '#7F1D1D';
     ctx.font = 'bold 36px "Crimson Pro", Georgia, serif';
     ideoWrapText(ctx, badTitle, 282, 360, 420, 48);
 
-    ctx.fillStyle = 'rgba(255,255,255,0.72)';
+    ctx.fillStyle = '#334155';
     ctx.font = '500 20px "Plus Jakarta Sans", Inter, sans-serif';
     ideoWrapText(ctx, badDesc, 282, 480, 430, 34);
 
@@ -9194,16 +9228,16 @@ function ideoDrawCanvas() {
     ctx.strokeStyle = '#10B981'; ctx.lineWidth = 2;
     ideoRR(ctx, 560, 235, 476, 710, 18); ctx.stroke();
 
-    ctx.fillStyle = '#34D399';
+    ctx.fillStyle = '#059669';
     ctx.font = 'bold 22px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('✓  VISION PASTEF', 798, 290);
 
-    ctx.fillStyle = '#FFFFFF';
+    ctx.fillStyle = '#064E3B';
     ctx.font = 'bold 36px "Crimson Pro", Georgia, serif';
     ideoWrapText(ctx, goodTitle, 798, 360, 420, 48);
 
-    ctx.fillStyle = 'rgba(255,255,255,0.72)';
+    ctx.fillStyle = '#334155';
     ctx.font = '500 20px "Plus Jakarta Sans", Inter, sans-serif';
     ideoWrapText(ctx, goodDesc, 798, 480, 430, 34);
 
@@ -9249,7 +9283,7 @@ function ideoDrawCanvas() {
       ideoWrapText(ctx, defs[i], x + bW / 2, bY + 220, 250, 38);
     });
 
-    ctx.fillStyle = 'rgba(215, 234, 223, 0.65)';
+    ctx.fillStyle = '#244030';
     ctx.font = 'italic 22px "Crimson Pro", Georgia, serif';
     ctx.textAlign = 'center';
     ctx.fillText('Ces trois principes cardinaux constituent le socle de la souveraineté républicaine.', 540, 840);
@@ -9257,7 +9291,7 @@ function ideoDrawCanvas() {
     ideoFooter(ctx);
 
   } else if (ideoActiveTemplate === 'stat') {
-    ideoBg(ctx, '#031409', '#082D18');
+    ideoBg(ctx, '#FFFFFF', '#F4F7F4');
     ideoLogoHeader(ctx);
 
     const bigN  = ideoVal('istatNum')   || '232';
@@ -9268,7 +9302,7 @@ function ideoDrawCanvas() {
     const n3    = ideoVal('istat3n')    || '58+';
     const l3    = ideoVal('istat3l')    || 'Années de système';
 
-    ctx.fillStyle = '#E5B842';
+    ctx.fillStyle = '#A67C19';
     ctx.font = 'bold 36px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText(title, 540, 175);
@@ -9288,25 +9322,25 @@ function ideoDrawCanvas() {
     ctx.fillText(bigL, 540, 520);
 
     // 2 stats secondaires
-    ideoRR(ctx, 54, 610, 476, 280, 18, 'rgba(8, 28, 17, 0.80)');
-    ctx.strokeStyle = 'rgba(255,255,255,0.12)'; ctx.lineWidth = 1;
+    ideoRR(ctx, 54, 610, 476, 280, 18, '#FFFFFF');
+    ctx.strokeStyle = 'rgba(201,168,76,0.35)'; ctx.lineWidth = 1.5;
     ideoRR(ctx, 54, 610, 476, 280, 18); ctx.stroke();
 
-    ctx.fillStyle = '#FFFFFF';
+    ctx.fillStyle = '#1E6E3E';
     ctx.font = 'bold 96px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText(n2, 292, 730);
-    ctx.fillStyle = 'rgba(255,255,255,0.70)';
+    ctx.fillStyle = '#354B3C';
     ctx.font = '600 24px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText(l2, 292, 790);
 
-    ideoRR(ctx, 550, 610, 476, 280, 18, 'rgba(8, 28, 17, 0.80)');
-    ctx.strokeStyle = 'rgba(255,255,255,0.12)'; ctx.lineWidth = 1;
+    ideoRR(ctx, 550, 610, 476, 280, 18, '#FFFFFF');
+    ctx.strokeStyle = 'rgba(201,168,76,0.35)'; ctx.lineWidth = 1.5;
     ideoRR(ctx, 550, 610, 476, 280, 18); ctx.stroke();
 
-    ctx.fillStyle = '#FFFFFF';
+    ctx.fillStyle = '#D92D20';
     ctx.font = 'bold 96px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText(n3, 788, 730);
-    ctx.fillStyle = 'rgba(255,255,255,0.70)';
+    ctx.fillStyle = '#354B3C';
     ctx.font = '600 24px "Plus Jakarta Sans", Inter, sans-serif';
     ctx.fillText(l3, 788, 790);
 
