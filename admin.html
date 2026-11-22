@@ -6355,7 +6355,7 @@ function studioGetThemeColors(theme) {
       textPrimary: '#0D1B14',
       textSecondary: '#244030',
       textMuted: '#526D5E',
-      accentGold: '#C9A84C',
+      accentGold: '#A67C19',
       accentBrand: '#1A3D28',
       boxBg: '#F4F8F5',
       boxBorder: '#D2E0D8',
@@ -6528,7 +6528,8 @@ function studioDrawHeader(ctx, tagLabel, subTag, w, h, colors) {
   const obsText = '◆ OBSERVATOIRE';
   const obsW = ctx.measureText(obsText).width;
 
-  const obsX = nameX + nameW + (isLandscape ? 8 : 10);
+  const sepX = Math.round(nameX + nameW + (isLandscape ? 8 : 10));
+  const obsX = sepX + (isLandscape ? 8 : 10);
   const logoW = Math.round(obsX + obsW + (isLandscape ? 14 : 18) - startX);
 
   // Logo Capsule PROJETBI
@@ -6567,8 +6568,16 @@ function studioDrawHeader(ctx, tagLabel, subTag, w, h, colors) {
   ctx.font = isLandscape ? '900 17px "Syne", "Plus Jakarta Sans", sans-serif' : '900 20px "Syne", "Plus Jakarta Sans", sans-serif';
   ctx.fillText('PROJETBI', nameX, jY);
 
-  // Tag observatoire avec losange d'or
-  ctx.fillStyle = c.accentGold;
+  // Séparateur vertical fin
+  ctx.strokeStyle = c.isDark ? 'rgba(229, 184, 66, 0.35)' : 'rgba(26, 61, 40, 0.25)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(sepX, startY + (isLandscape ? 11 : 13));
+  ctx.lineTo(sepX, startY + logoH - (isLandscape ? 11 : 13));
+  ctx.stroke();
+
+  // Tag observatoire
+  ctx.fillStyle = c.isDark ? c.accentGold : '#1A3D28';
   ctx.font = obsFont;
   ctx.fillText(obsText, obsX, jY - 1);
 
@@ -7245,199 +7254,374 @@ function studioDrawBilan(ctx, w, h) {
       ctx.fillText('Actif ✓', rightX + colW - 34, row3Y + 33);
     } else {
       const bW = Math.floor((cardW - 56 - (3 * 14)) / 4);
-      const bH = 125;
-      const bY = cardY + 82;
+      const bH = 110;
+      const bY = cardY + 76;
 
+      const isD = c.isDark;
       const statsCards = [
-        { val: s.realise, label: 'Réalisés', border: '#10B981', color: '#10B981', icon: '✓' },
-        { val: s.encours, label: 'En cours', border: '#0284C7', color: '#38BDF8', icon: '⚡' },
-        { val: s.nonLance, label: 'Non lancés', border: '#F59E0B', color: '#FCD34D', icon: '⏳' },
-        { val: s.retard, label: 'En retard', border: '#EF4444', color: '#FCA5A5', icon: '⚠️' }
+        { val: s.realise, label: 'Réalisés', border: isD ? '#10B981' : '#059669', color: isD ? '#10B981' : '#047857', bg: isD ? c.boxBg : '#F0FDF4', icon: '✓' },
+        { val: s.encours, label: 'En cours', border: isD ? '#0284C7' : '#0284C7', color: isD ? '#38BDF8' : '#0369A1', bg: isD ? c.boxBg : '#F0F9FF', icon: '⚡' },
+        { val: s.nonLance, label: 'Non lancés', border: isD ? '#F59E0B' : '#D97706', color: isD ? '#FCD34D' : '#B45309', bg: isD ? c.boxBg : '#FFFBEB', icon: '⏳' },
+        { val: s.retard, label: 'En retard', border: isD ? '#EF4444' : '#DC2626', color: isD ? '#FCA5A5' : '#B91C1C', bg: isD ? c.boxBg : '#FEF2F2', icon: '⚠️' }
       ];
 
       statsCards.forEach((sc, i) => {
         const bx = cardX + 28 + i * (bW + 14);
-        studioRoundBox(ctx, bx, bY, bW, bH, 12, c.boxBg, sc.border, 1.5);
+        studioRoundBox(ctx, bx, bY, bW, bH, 12, sc.bg, sc.border, 1.5);
         studioRoundBox(ctx, bx + 12, bY, bW - 24, 4, 2, sc.border, 'transparent');
         
         ctx.fillStyle = sc.color;
-        ctx.font = 'bold 44px "Plus Jakarta Sans", Inter, sans-serif';
-        ctx.fillText(String(sc.val), bx + bW / 2, bY + 54);
+        ctx.font = 'bold 40px "Plus Jakarta Sans", Inter, sans-serif';
+        ctx.fillText(String(sc.val), bx + bW / 2, bY + 48);
 
-        ctx.fillStyle = c.textPrimary;
-        ctx.font = 'bold 15px "Plus Jakarta Sans", Inter, sans-serif';
-        ctx.fillText(sc.icon + ' ' + sc.label, bx + bW / 2, bY + 86);
+        ctx.fillStyle = isD ? c.textPrimary : '#0F172A';
+        ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
+        ctx.fillText(sc.icon + ' ' + sc.label, bx + bW / 2, bY + 76);
 
         const pct = s.total > 0 ? Math.round((sc.val / s.total) * 100) : 0;
-        ctx.fillStyle = c.textMuted;
-        ctx.font = '12px "Plus Jakarta Sans", Inter, sans-serif';
-        ctx.fillText(pct + '% du programme', bx + bW / 2, bY + 108);
+        ctx.fillStyle = isD ? c.textMuted : '#475569';
+        ctx.font = 'bold 11px "Plus Jakarta Sans", Inter, sans-serif';
+        ctx.fillText(pct + '% du programme', bx + bW / 2, bY + 96);
       });
 
-      const rateY = cardY + 225;
-      const rateH = 100;
+      const rateY = cardY + 198;
+      const rateH = 72;
       studioRoundBox(ctx, cardX + 28, rateY, cardW - 56, rateH, 12, c.boxBg, c.boxBorder, 1);
 
       ctx.textAlign = 'left';
-      ctx.fillStyle = c.textSecondary;
-      ctx.font = 'bold 15px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText('TAUX D\'AVANCEMENT GLOBAL DU PROGRAMME', cardX + 48, rateY + 34);
+      ctx.fillStyle = isD ? c.textSecondary : '#1E293B';
+      ctx.font = 'bold 13px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('TAUX D\'AVANCEMENT GLOBAL DU PROGRAMME', cardX + 44, rateY + 26);
 
       ctx.textAlign = 'right';
-      ctx.fillStyle = c.accentGold;
-      ctx.font = 'bold 36px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText(taux + '%', cardX + cardW - 48, rateY + 40);
+      ctx.fillStyle = isD ? c.accentGold : '#926C15';
+      ctx.font = 'bold 28px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(taux + '%', cardX + cardW - 44, rateY + 30);
 
-      const barX = cardX + 48, barY = rateY + 50, barW = cardW - 96, barH = 16;
-      studioRoundBox(ctx, barX, barY, barW, barH, 8, c.borderSubtle, 'transparent');
+      const barX = cardX + 44, barY = rateY + 40, barW = cardW - 88, barH = 14;
+      studioRoundBox(ctx, barX, barY, barW, barH, 7, c.borderSubtle, 'transparent');
       const fillW = Math.min(barW, Math.max(12, (barW * taux) / 100));
       const gBar = ctx.createLinearGradient(barX, 0, barX + fillW, 0);
       gBar.addColorStop(0, '#B45309');
-      gBar.addColorStop(1, '#10B981');
-      studioRoundBox(ctx, barX, barY, fillW, barH, 8, gBar, 'transparent');
+      gBar.addColorStop(1, isD ? '#10B981' : '#059669');
+      studioRoundBox(ctx, barX, barY, fillW, barH, 7, gBar, 'transparent');
 
+      // ── Section analytique d'impact 2 colonnes (16:9 paysage) ──
+      const insY = rateY + rateH + 12;
+      const insH = 120;
+      const colW = (cardW - 56 - 16) / 2;
+      const col1X = cardX + 28;
+      const col2X = col1X + colW + 16;
+
+      // Colonne 1 : Dynamique globale & Chantiers engagés
+      studioRoundBox(ctx, col1X, insY, colW, insH, 12, c.boxBg, c.boxBorder, 1);
+      studioRoundBox(ctx, col1X, insY + 10, 5, insH - 20, 2.5, '#10B981', 'transparent');
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = isD ? '#34D399' : '#047857';
+      ctx.font = 'bold 12px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('⚡ DYNAMIQUE GLOBALE DU PROJET', col1X + 20, insY + 24);
+
+      const engaged = s.realise + s.encours;
+      const pctEngaged = s.total > 0 ? Math.round((engaged / s.total) * 100) : 0;
+      ctx.fillStyle = isD ? c.textPrimary : '#0F172A';
+      ctx.font = '900 24px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(pctEngaged + '%', col1X + 20, insY + 54);
+
+      ctx.fillStyle = isD ? c.textSecondary : '#334155';
+      ctx.font = '600 13px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(`du programme engagé (${engaged} chantiers actifs)`, col1X + 80, insY + 52);
+
+      // Barre segmentée proportionnelle
+      const pBarX = col1X + 20, pBarY = insY + 68, pBarW = colW - 40, pBarH = 10;
+      studioRoundBox(ctx, pBarX, pBarY, pBarW, pBarH, 5, c.borderSubtle, 'transparent');
+      if (s.total > 0) {
+        const wReal = (s.realise / s.total) * pBarW;
+        const wEnc = (s.encours / s.total) * pBarW;
+        const wNon = (s.nonLance / s.total) * pBarW;
+        const wRet = (s.retard / s.total) * pBarW;
+        let segX = pBarX;
+        if (wReal > 0) { studioRoundBox(ctx, segX, pBarY, Math.max(3, wReal), pBarH, 3, '#10B981', 'transparent'); segX += wReal; }
+        if (wEnc > 0) { studioRoundBox(ctx, segX, pBarY, Math.max(3, wEnc), pBarH, 3, '#0284C7', 'transparent'); segX += wEnc; }
+        if (wNon > 0) { studioRoundBox(ctx, segX, pBarY, Math.max(3, wNon), pBarH, 3, '#F59E0B', 'transparent'); segX += wNon; }
+        if (wRet > 0) { studioRoundBox(ctx, segX, pBarY, Math.max(3, wRet), pBarH, 3, '#EF4444', 'transparent'); }
+      }
+
+      ctx.fillStyle = isD ? c.textMuted : '#64748B';
+      ctx.font = '500 11px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('Vert : Réalisés • Bleu : En cours • Jaune : Attente • Rouge : Retard', col1X + 20, insY + 98);
+
+      // Colonne 2 : Observatoire Citoyen & Vigilance
+      studioRoundBox(ctx, col2X, insY, colW, insH, 12, c.boxBg, c.boxBorder, 1);
+      studioRoundBox(ctx, col2X, insY + 10, 5, insH - 20, 2.5, '#EF4444', 'transparent');
+
+      ctx.fillStyle = isD ? '#F87171' : '#B91C1C';
+      ctx.font = 'bold 12px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('🛡️ OBSERVATOIRE & VIGILANCE CITOYENNE', col2X + 20, insY + 24);
+
+      ctx.fillStyle = isD ? '#EF4444' : '#DC2626';
+      ctx.font = '900 24px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(String(s.retard), col2X + 20, insY + 54);
+
+      ctx.fillStyle = isD ? c.textSecondary : '#334155';
+      ctx.font = '600 13px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('engagements sous alerte citoyenne continue', col2X + 75, insY + 52);
+
+      ctx.fillStyle = isD ? c.textMuted : '#475569';
+      ctx.font = '500 11.5px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('• Données officielles Journal Officiel, ministères et arrêtés', col2X + 20, insY + 80);
+      ctx.fillText('• Contrôle terrain indépendant et retours citoyens certifiés', col2X + 20, insY + 100);
+
+      // Bouton CTA souverain
+      const btnY = cardY + cardH - 52;
+      const btnH = 38;
+      const ctaGrad = studioCreateEmeraldGradient(ctx, cardX + 28, btnY, cardW - 56, btnH);
+      studioRoundBox(ctx, cardX + 28, btnY, cardW - 56, btnH, 10, ctaGrad, c.ctaBorder, 1.2, true);
       ctx.textAlign = 'center';
-      ctx.fillStyle = c.textMuted;
-      ctx.font = '13px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText(`Total suivi : ${s.total} engagements présidentiels sur 2024–2029`, cardX + cardW / 2, rateY + 86);
+      ctx.fillStyle = c.ctaText;
+      ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('👉 Consultez la liste complète sur https://projetbi.org', cardX + cardW / 2, btnY + 24);
     }
-
-    ctx.textAlign = 'center';
-    ctx.fillStyle = c.accentBrand;
-    ctx.font = 'bold 15px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText('👉 Consultez la liste complète sur https://projetbi.org', cardX + cardW / 2, cardY + cardH - 18);
   } else {
+    // ════════════════════════════════════════════════════
     // 1:1 SQUARE (1080 × 1080)
+    // ════════════════════════════════════════════════════
+    const isD = c.isDark;
+
     ctx.textAlign = 'center';
     ctx.fillStyle = c.textPrimary;
-    ctx.font = 'bold 38px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText(s.periode.toUpperCase(), cardX + cardW / 2, cardY + 58);
+    ctx.font = 'bold 36px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText(s.periode.toUpperCase(), cardX + cardW / 2, cardY + 54);
 
-    ctx.fillStyle = c.textMuted;
-    ctx.font = '20px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText(s.sous, cardX + cardW / 2, cardY + 95);
+    ctx.fillStyle = isD ? c.textMuted : '#475569';
+    ctx.font = '500 18px "Plus Jakarta Sans", Inter, sans-serif';
+    ctx.fillText(s.sous, cardX + cardW / 2, cardY + 82);
 
     if (mode === 'chiffre_choc') {
       const displayNum = bigCustom || (taux + '%');
 
       // Halo lumineux derrière le chiffre choc
-      const numHalo = ctx.createRadialGradient(cardX + cardW / 2, cardY + 250, 20, cardX + cardW / 2, cardY + 250, 240);
-      numHalo.addColorStop(0, 'rgba(229, 184, 66, 0.22)');
+      const numHalo = ctx.createRadialGradient(cardX + cardW / 2, cardY + 220, 20, cardX + cardW / 2, cardY + 220, 230);
+      numHalo.addColorStop(0, isD ? 'rgba(229, 184, 66, 0.22)' : 'rgba(166, 124, 25, 0.12)');
       numHalo.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = numHalo;
-      ctx.beginPath(); ctx.arc(cardX + cardW / 2, cardY + 250, 240, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(cardX + cardW / 2, cardY + 220, 230, 0, Math.PI * 2); ctx.fill();
 
       // Grand chiffre d'or métallique
-      ctx.fillStyle = studioCreateGoldGradient(ctx, cardX + 100, cardY + 120, cardW - 200, 160, 'vert');
-      ctx.font = '900 160px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText(displayNum, cardX + cardW / 2, cardY + 290);
+      ctx.fillStyle = isD ? studioCreateGoldGradient(ctx, cardX + 100, cardY + 100, cardW - 200, 150, 'vert') : '#926C15';
+      ctx.font = '900 150px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(displayNum, cardX + cardW / 2, cardY + 265);
 
       ctx.fillStyle = c.textPrimary;
-      ctx.font = 'bold 32px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText('DES ENGAGEMENTS DU PROGRAMME RÉALISÉS', cardX + cardW / 2, cardY + 355);
+      ctx.font = 'bold 28px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('DES ENGAGEMENTS DU PROGRAMME RÉALISÉS', cardX + cardW / 2, cardY + 325);
 
-      studioRoundBox(ctx, cardX + 60, cardY + 410, cardW - 120, 78, 14, c.boxBg, c.boxBorder, 1.5);
-      ctx.fillStyle = '#10B981';
-      ctx.font = 'bold 24px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText(`✓ ${s.realise} réalisés sur un total de ${s.total} engagements`, cardX + cardW / 2, cardY + 458);
+      studioRoundBox(ctx, cardX + 60, cardY + 360, cardW - 120, 68, 14, c.boxBg, c.boxBorder, 1.5);
+      ctx.fillStyle = isD ? '#10B981' : '#047857';
+      ctx.font = 'bold 22px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(`✓ ${s.realise} réalisés sur un total de ${s.total} engagements audités`, cardX + cardW / 2, cardY + 402);
+
+      // Section analytique complémentaire
+      const midY = cardY + 448;
+      const colW = (cardW - 72 - 16) / 2;
+      const colH = 210;
+
+      // Panneau Gauche
+      studioRoundBox(ctx, cardX + 36, midY, colW, colH, 14, c.boxBg, c.boxBorder, 1.2);
+      studioRoundBox(ctx, cardX + 36, midY + 12, 5, colH - 24, 2.5, isD ? '#38BDF8' : '#0284C7', 'transparent');
+      ctx.textAlign = 'left';
+      ctx.fillStyle = isD ? '#38BDF8' : '#0284C7';
+      ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('⚡ CHANTIERS EN COURS D’EXÉCUTION', cardX + 54, midY + 34);
+      ctx.fillStyle = isD ? '#FFFFFF' : '#0F172A';
+      ctx.font = '900 48px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(String(s.encours), cardX + 54, midY + 95);
+      ctx.fillStyle = isD ? c.textMuted : '#475569';
+      ctx.font = '500 14px "Plus Jakarta Sans", Inter, sans-serif';
+      studioWrapText(ctx, `Projets actuellement déployés sur le terrain par les ministères sectoriels.`, cardX + 54, midY + 130, colW - 40, 22, 2);
+
+      // Panneau Droit
+      studioRoundBox(ctx, cardX + 36 + colW + 16, midY, colW, colH, 14, c.boxBg, c.boxBorder, 1.2);
+      studioRoundBox(ctx, cardX + 36 + colW + 16, midY + 12, 5, colH - 24, 2.5, isD ? '#FCD34D' : '#D97706', 'transparent');
+      ctx.fillStyle = isD ? '#FCD34D' : '#D97706';
+      ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('⏳ EN ATTENTE & EN RETARD', cardX + 36 + colW + 34, midY + 34);
+      ctx.fillStyle = isD ? '#FFFFFF' : '#0F172A';
+      ctx.font = '900 48px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(`${s.nonLance + s.retard}`, cardX + 36 + colW + 34, midY + 95);
+      ctx.fillStyle = isD ? c.textMuted : '#475569';
+      ctx.font = '500 14px "Plus Jakarta Sans", Inter, sans-serif';
+      studioWrapText(ctx, `${s.retard} alertes de retard sous suivi rigoureux par l’Observatoire Citoyen.`, cardX + 36 + colW + 34, midY + 130, colW - 40, 22, 2);
+
+      // Sceau & CTA
+      const sealY = cardY + cardH - 85;
+      ctx.textAlign = 'center';
+      ctx.fillStyle = isD ? c.textMuted : '#475569';
+      ctx.font = '600 13.5px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('🛡️ Données consolidées en temps réel • Sources officielles et contrôles de terrain • Jub · Jubal · Jubanti 🇸🇳', cardX + cardW / 2, sealY);
+
+      const btnY = cardY + cardH - 56;
+      const btnH = 48;
+      const ctaGrad = studioCreateEmeraldGradient(ctx, cardX + 36, btnY, cardW - 72, btnH);
+      studioRoundBox(ctx, cardX + 36, btnY, cardW - 72, btnH, 12, ctaGrad, c.ctaBorder, 1.5, true);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = c.ctaText;
+      ctx.font = 'bold 17px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('👉 Consultez la liste complète sur https://projetbi.org', cardX + cardW / 2, btnY + 30);
+
     } else if (mode === 'note') {
-      const numHalo = ctx.createRadialGradient(cardX + cardW / 2, cardY + 235, 20, cardX + cardW / 2, cardY + 235, 250);
-      numHalo.addColorStop(0, 'rgba(229, 184, 66, 0.25)');
+      const numHalo = ctx.createRadialGradient(cardX + cardW / 2, cardY + 215, 20, cardX + cardW / 2, cardY + 215, 230);
+      numHalo.addColorStop(0, isD ? 'rgba(229, 184, 66, 0.25)' : 'rgba(166, 124, 25, 0.12)');
       numHalo.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = numHalo;
-      ctx.beginPath(); ctx.arc(cardX + cardW / 2, cardY + 235, 250, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(cardX + cardW / 2, cardY + 215, 230, 0, Math.PI * 2); ctx.fill();
 
       ctx.textAlign = 'center';
-      ctx.fillStyle = studioCreateGoldGradient(ctx, cardX + 100, cardY + 110, cardW - 200, 150, 'vert');
-      ctx.font = '900 150px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText(s.note.toFixed(1), cardX + cardW / 2 - 45, cardY + 265);
+      ctx.fillStyle = isD ? studioCreateGoldGradient(ctx, cardX + 100, cardY + 95, cardW - 200, 140, 'vert') : '#926C15';
+      ctx.font = '900 140px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(s.note.toFixed(1), cardX + cardW / 2 - 40, cardY + 235);
 
-      ctx.fillStyle = c.accentGold;
-      ctx.font = 'bold 65px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText('/ 5', cardX + cardW / 2 + 95, cardY + 235);
+      ctx.fillStyle = isD ? c.accentGold : '#A67C19';
+      ctx.font = 'bold 56px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('/ 5', cardX + cardW / 2 + 85, cardY + 205);
 
-      const starsY = cardY + 325;
+      const starsY = cardY + 285;
       const starCount = 5;
       const fullStars = Math.floor(s.note);
-      const starSpacing = 48;
-      const startSX = cardX + (cardW - (starCount * starSpacing)) / 2 + 24;
+      const starSpacing = 44;
+      const startSX = cardX + (cardW - (starCount * starSpacing)) / 2 + 22;
       for (let st = 0; st < starCount; st++) {
         const sx = startSX + st * starSpacing;
-        ctx.fillStyle = st < fullStars ? '#E5B842' : 'rgba(229, 184, 66, 0.35)';
-        ctx.font = '900 38px Inter, sans-serif';
+        ctx.fillStyle = st < fullStars ? (isD ? '#E5B842' : '#D97706') : (isD ? 'rgba(229, 184, 66, 0.35)' : 'rgba(217, 119, 6, 0.25)');
+        ctx.font = '900 34px Inter, sans-serif';
         ctx.fillText('★', sx, starsY);
       }
 
       ctx.fillStyle = c.textPrimary;
-      ctx.font = 'bold 26px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText('INDICE DE SATISFACTION & ÉVALUATION CITOYENNE', cardX + cardW / 2, cardY + 380);
+      ctx.font = 'bold 24px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('INDICE DE SATISFACTION & ÉVALUATION CITOYENNE', cardX + cardW / 2, cardY + 332);
 
       const bW = (cardW - 72 - 32) / 3;
-      const bH = 100;
-      const bY = cardY + 415;
+      const bH = 95;
+      const bY = cardY + 360;
 
       const subCards = [
-        { label: 'Réalisés', val: `${taux}%`, sub: `${s.realise}/${s.total}`, color: '#10B981' },
-        { label: 'En cours', val: String(s.encours), sub: 'Chantiers actifs', color: '#0284C7' },
-        { label: 'Total suivi', val: String(s.total), sub: 'Engagements audités', color: c.accentGold }
+        { label: 'Réalisés', val: `${taux}%`, sub: `${s.realise}/${s.total}`, color: isD ? '#10B981' : '#059669' },
+        { label: 'En cours', val: String(s.encours), sub: 'Chantiers actifs', color: isD ? '#38BDF8' : '#0284C7' },
+        { label: 'Total suivi', val: String(s.total), sub: 'Engagements audités', color: isD ? c.accentGold : '#A67C19' }
       ];
 
       subCards.forEach((sc, i) => {
         const bx = cardX + 36 + i * (bW + 16);
         studioRoundBox(ctx, bx, bY, bW, bH, 12, c.boxBg, c.boxBorder, 1.2);
         ctx.fillStyle = sc.color;
-        ctx.font = 'bold 36px "Plus Jakarta Sans", Inter, sans-serif';
-        ctx.fillText(sc.val, bx + bW / 2, bY + 44);
+        ctx.font = 'bold 34px "Plus Jakarta Sans", Inter, sans-serif';
+        ctx.fillText(sc.val, bx + bW / 2, bY + 42);
 
         ctx.fillStyle = c.textPrimary;
-        ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
-        ctx.fillText(sc.label, bx + bW / 2, bY + 68);
+        ctx.font = 'bold 13.5px "Plus Jakarta Sans", Inter, sans-serif';
+        ctx.fillText(sc.label, bx + bW / 2, bY + 65);
 
-        ctx.fillStyle = c.textMuted;
-        ctx.font = '12px "Plus Jakarta Sans", Inter, sans-serif';
-        ctx.fillText(sc.sub, bx + bW / 2, bY + 87);
+        ctx.fillStyle = isD ? c.textMuted : '#475569';
+        ctx.font = '11.5px "Plus Jakarta Sans", Inter, sans-serif';
+        ctx.fillText(sc.sub, bx + bW / 2, bY + 83);
       });
+
+      // Section critères détaillés
+      const critY = cardY + 472;
+      const critH = 195;
+      studioRoundBox(ctx, cardX + 36, critY, cardW - 72, critH, 14, c.boxBg, c.boxBorder, 1.2);
+      ctx.textAlign = 'left';
+      ctx.fillStyle = isD ? c.accentGold : '#A67C19';
+      ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('📊 BAROMÈTRE POPULAIRE PAR AXE D’ÉVALUATION :', cardX + 54, critY + 32);
+
+      const criteria = [
+        { name: 'Transparence & Accès à l\'information publique', score: 3.8, max: 5, color: isD ? '#10B981' : '#059669' },
+        { name: 'Respect des Délais & Calendrier d\'Exécution', score: 2.9, max: 5, color: isD ? '#FCD34D' : '#D97706' },
+        { name: 'Impact Économique & Bénéfice Citoyen Direct', score: 3.5, max: 5, color: isD ? '#38BDF8' : '#0284C7' }
+      ];
+
+      criteria.forEach((cr, ci) => {
+        const cy = critY + 54 + ci * 42;
+        ctx.fillStyle = c.textPrimary;
+        ctx.font = '600 13.5px "Plus Jakarta Sans", Inter, sans-serif';
+        ctx.fillText(cr.name, cardX + 54, cy + 12);
+
+        ctx.textAlign = 'right';
+        ctx.fillStyle = cr.color;
+        ctx.font = 'bold 14.5px "Plus Jakarta Sans", Inter, sans-serif';
+        ctx.fillText(`${cr.score.toFixed(1)} / 5`, cardX + cardW - 54, cy + 12);
+        ctx.textAlign = 'left';
+
+        const barX = cardX + 54, barW = cardW - 108, barH = 7;
+        studioRoundBox(ctx, barX, cy + 20, barW, barH, 3.5, c.borderSubtle, 'transparent');
+        const fillW = Math.round((barW * cr.score) / cr.max);
+        studioRoundBox(ctx, barX, cy + 20, fillW, barH, 3.5, cr.color, 'transparent');
+      });
+
+      // Sceau & CTA
+      const sealY = cardY + cardH - 85;
+      ctx.textAlign = 'center';
+      ctx.fillStyle = isD ? c.textMuted : '#475569';
+      ctx.font = '600 13.5px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('🛡️ Baromètre citoyen indépendant • Évaluez un engagement sur projetbi.org • Jub · Jubal · Jubanti 🇸🇳', cardX + cardW / 2, sealY);
+
+      const btnY = cardY + cardH - 56;
+      const btnH = 48;
+      const ctaGrad = studioCreateEmeraldGradient(ctx, cardX + 36, btnY, cardW - 72, btnH);
+      studioRoundBox(ctx, cardX + 36, btnY, cardW - 72, btnH, 12, ctaGrad, c.ctaBorder, 1.5, true);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = c.ctaText;
+      ctx.font = 'bold 17px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('👉 Participez au vote citoyen sur https://projetbi.org', cardX + cardW / 2, btnY + 30);
+
     } else {
+      // ════════════════════════════════════════════════════
+      // MODE GLOBAL : 4 STATUTS + TAUX + INSIGHTS RÉPARTITION
+      // ════════════════════════════════════════════════════
       const bW = 205, bH = 175, gap = 16;
       const startBX = cardX + (cardW - (bW * 4 + gap * 3)) / 2;
-      const bY = cardY + 135;
+      const bY = cardY + 115;
 
       const statsCards = [
-        { val: s.realise, label: 'Réalisés', border: '#10B981', color: '#10B981', icon: '✓' },
-        { val: s.encours, label: 'En cours', border: '#0284C7', color: '#38BDF8', icon: '⚡' },
-        { val: s.nonLance, label: 'Non lancés', border: '#F59E0B', color: '#FCD34D', icon: '⏳' },
-        { val: s.retard, label: 'En retard', border: '#EF4444', color: '#FCA5A5', icon: '⚠️' }
+        { val: s.realise, label: 'Réalisés', border: isD ? '#10B981' : '#059669', color: isD ? '#10B981' : '#047857', bg: isD ? c.boxBg : '#F0FDF4', icon: '✓' },
+        { val: s.encours, label: 'En cours', border: isD ? '#0284C7' : '#0284C7', color: isD ? '#38BDF8' : '#0369A1', bg: isD ? c.boxBg : '#F0F9FF', icon: '⚡' },
+        { val: s.nonLance, label: 'Non lancés', border: isD ? '#F59E0B' : '#D97706', color: isD ? '#FCD34D' : '#B45309', bg: isD ? c.boxBg : '#FFFBEB', icon: '⏳' },
+        { val: s.retard, label: 'En retard', border: isD ? '#EF4444' : '#DC2626', color: isD ? '#FCA5A5' : '#B91C1C', bg: isD ? c.boxBg : '#FEF2F2', icon: '⚠️' }
       ];
 
       statsCards.forEach((sc, i) => {
         const bx = startBX + i * (bW + gap);
-        studioRoundBox(ctx, bx, bY, bW, bH, 14, c.boxBg, sc.border, 1.5);
+        studioRoundBox(ctx, bx, bY, bW, bH, 14, sc.bg, sc.border, 1.5);
         studioRoundBox(ctx, bx + 16, bY, bW - 32, 5, 2.5, sc.border, 'transparent');
         
         ctx.fillStyle = sc.color;
         ctx.font = 'bold 56px "Plus Jakarta Sans", Inter, sans-serif';
         ctx.fillText(String(sc.val), bx + bW / 2, bY + 74);
 
-        ctx.fillStyle = c.textPrimary;
+        ctx.fillStyle = isD ? c.textPrimary : '#0F172A';
         ctx.font = 'bold 19px "Plus Jakarta Sans", Inter, sans-serif';
         ctx.fillText(sc.icon + ' ' + sc.label, bx + bW / 2, bY + 118);
 
         const pct = s.total > 0 ? Math.round((sc.val / s.total) * 100) : 0;
-        ctx.fillStyle = c.textMuted;
-        ctx.font = '14px "Plus Jakarta Sans", Inter, sans-serif';
+        ctx.fillStyle = isD ? c.textMuted : '#475569';
+        ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
         ctx.fillText(pct + '% du programme', bx + bW / 2, bY + 144);
       });
 
-      const rateY = cardY + 340;
-      studioRoundBox(ctx, cardX + 36, rateY, cardW - 72, 150, 16, c.boxBg, c.boxBorder, 1.5);
+      // Panneau Taux d'avancement
+      const rateY = cardY + 305;
+      const rateH = 150;
+      studioRoundBox(ctx, cardX + 36, rateY, cardW - 72, rateH, 16, c.boxBg, c.boxBorder, 1.5);
 
       ctx.textAlign = 'left';
-      ctx.fillStyle = c.textSecondary;
+      ctx.fillStyle = isD ? c.textSecondary : '#1E293B';
       ctx.font = 'bold 20px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.fillText('TAUX D\'AVANCEMENT GLOBAL DU PROGRAMME', cardX + 64, rateY + 44);
 
       ctx.textAlign = 'right';
-      ctx.fillStyle = c.accentGold;
+      ctx.fillStyle = isD ? c.accentGold : '#926C15';
       ctx.font = 'bold 54px "Plus Jakarta Sans", Inter, sans-serif';
       ctx.fillText(taux + '%', cardX + cardW - 64, rateY + 56);
 
@@ -7446,30 +7630,110 @@ function studioDrawBilan(ctx, w, h) {
       const fillW = Math.min(barW, Math.max(16, (barW * taux) / 100));
       const gBar = ctx.createLinearGradient(barX, 0, barX + fillW, 0);
       gBar.addColorStop(0, '#B45309');
-      gBar.addColorStop(1, '#10B981');
+      gBar.addColorStop(1, isD ? '#10B981' : '#059669');
       studioRoundBox(ctx, barX, barY, fillW, barH, 12, gBar, 'transparent');
 
       ctx.textAlign = 'center';
-      ctx.fillStyle = c.textMuted;
-      ctx.font = '16px "Plus Jakarta Sans", Inter, sans-serif';
-      ctx.fillText(`Total suivi : ${s.total} engagements présidentiels sur 2024–2029`, cardX + cardW / 2, rateY + 128);
+      ctx.fillStyle = isD ? c.textMuted : '#475569';
+      ctx.font = 'bold 15px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(`✓ ${s.realise} engagements concrétisés • ${s.encours} chantiers en cours sur ${s.total} engagements présidentiels`, cardX + cardW / 2, rateY + 128);
+
+      // NOUVELLE SECTION D'IMPACT STRATÉGIQUE (RÉPARTITION ET ANALYSE)
+      const insY = cardY + 472;
+      const insH = 205;
+      const colW = (cardW - 72 - 16) / 2;
+
+      // Carte Gauche : Dynamique du Projet
+      const leftColX = cardX + 36;
+      studioRoundBox(ctx, leftColX, insY, colW, insH, 14, c.boxBg, c.boxBorder, 1.2);
+      studioRoundBox(ctx, leftColX, insY + 12, 5, insH - 24, 2.5, isD ? '#10B981' : '#059669', 'transparent');
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = isD ? '#10B981' : '#047857';
+      ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('⚡ DYNAMIQUE GLOBALE DU PROJET', leftColX + 22, insY + 32);
+
+      const engaged = s.realise + s.encours;
+      const engagedPct = s.total > 0 ? Math.round((engaged / s.total) * 100) : 0;
+
+      ctx.fillStyle = isD ? '#FFFFFF' : '#0F172A';
+      ctx.font = '900 42px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(`${engagedPct}%`, leftColX + 22, insY + 80);
+
+      ctx.fillStyle = c.textPrimary;
+      ctx.font = 'bold 15px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('du programme déjà amorcé ou concrétisé', leftColX + 115, insY + 65);
+      ctx.fillStyle = isD ? c.textMuted : '#475569';
+      ctx.font = '500 13px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(`Soit ${engaged} chantiers sur les 300 engagements du mandat`, leftColX + 115, insY + 85);
+
+      // Barre segmentée proportionnelle
+      const segX = leftColX + 22, segY = insY + 105, segW = colW - 44, segH = 14;
+      studioRoundBox(ctx, segX, segY, segW, segH, 7, c.borderSubtle, 'transparent');
+      if (s.total > 0) {
+        const wReal = Math.round((segW * s.realise) / s.total);
+        const wEnc = Math.round((segW * s.encours) / s.total);
+        const wNon = Math.round((segW * s.nonLance) / s.total);
+        const wRet = segW - (wReal + wEnc + wNon);
+
+        let cxSeg = segX;
+        if (wReal > 0) { ctx.fillStyle = isD ? '#10B981' : '#059669'; studioRoundBox(ctx, cxSeg, segY, wReal, segH, 4, ctx.fillStyle, 'transparent'); cxSeg += wReal; }
+        if (wEnc > 0) { ctx.fillStyle = isD ? '#38BDF8' : '#0284C7'; studioRoundBox(ctx, cxSeg, segY, wEnc, segH, 4, ctx.fillStyle, 'transparent'); cxSeg += wEnc; }
+        if (wNon > 0) { ctx.fillStyle = isD ? '#FCD34D' : '#D97706'; studioRoundBox(ctx, cxSeg, segY, wNon, segH, 4, ctx.fillStyle, 'transparent'); cxSeg += wNon; }
+        if (wRet > 0) { ctx.fillStyle = isD ? '#F87171' : '#DC2626'; studioRoundBox(ctx, cxSeg, segY, wRet, segH, 4, ctx.fillStyle, 'transparent'); }
+      }
+
+      ctx.fillStyle = isD ? c.textMuted : '#475569';
+      ctx.font = '500 12.5px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('Vert : Réalisés • Bleu : En cours • Jaune : Attente • Rouge : Retard', leftColX + 22, insY + 140);
+      ctx.fillStyle = isD ? '#D7EADF' : '#144627';
+      ctx.font = 'bold 12.5px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('🎯 Objectif quinquennat : 100% de souveraineté et réformes', leftColX + 22, insY + 168);
+
+      // Carte Droite : Observatoire & Vigilance
+      const rightColX = cardX + 36 + colW + 16;
+      studioRoundBox(ctx, rightColX, insY, colW, insH, 14, c.boxBg, c.boxBorder, 1.2);
+      studioRoundBox(ctx, rightColX, insY + 12, 5, insH - 24, 2.5, isD ? c.accentGold : '#A67C19', 'transparent');
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = isD ? c.accentGold : '#A67C19';
+      ctx.font = 'bold 14px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('🛡️ OBSERVATOIRE & CONTRÔLE CITOYEN', rightColX + 22, insY + 32);
+
+      ctx.fillStyle = isD ? '#F87171' : '#DC2626';
+      ctx.font = '900 42px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(String(s.retard), rightColX + 22, insY + 80);
+
+      ctx.fillStyle = c.textPrimary;
+      ctx.font = 'bold 15px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('engagements sous alerte citoyenne', rightColX + 105, insY + 65);
+      ctx.fillStyle = isD ? c.textMuted : '#475569';
+      ctx.font = '500 13px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText(`Surveillance continue et interpellations publiques`, rightColX + 105, insY + 85);
+
+      const bulletY = insY + 115;
+      ctx.fillStyle = isD ? c.textSecondary : '#334155';
+      ctx.font = '500 13px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('• Données sourcées : Journal Officiel, ministères et arrêtés', rightColX + 22, bulletY);
+      ctx.fillText('• Contrôle terrain : audits participatifs et retours citoyens certifiés', rightColX + 22, bulletY + 24);
+      ctx.fillText('• Plateforme indépendante animée par les Gardiens du Projet', rightColX + 22, bulletY + 48);
+
+      // Sceau Citoyen
+      const sealY = cardY + cardH - 85;
+      ctx.textAlign = 'center';
+      ctx.fillStyle = isD ? c.textMuted : '#475569';
+      ctx.font = '600 13.5px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('🛡️ Données consolidées en temps réel • Sources officielles et contrôles de terrain • Jub · Jubal · Jubanti 🇸🇳', cardX + cardW / 2, sealY);
+
+      const btnY = cardY + cardH - 56;
+      const btnH = 48;
+      const ctaGrad = studioCreateEmeraldGradient(ctx, cardX + 36, btnY, cardW - 72, btnH);
+      studioRoundBox(ctx, cardX + 36, btnY, cardW - 72, btnH, 12, ctaGrad, c.ctaBorder, 1.5, true);
+      ctx.textAlign = 'center';
+      ctx.fillStyle = c.ctaText;
+      ctx.font = 'bold 17px "Plus Jakarta Sans", Inter, sans-serif';
+      ctx.fillText('👉 Consultez la liste complète sur https://projetbi.org', cardX + cardW / 2, btnY + 30);
     }
-
-    // Sceau Citoyen
-    const sealY = cardY + cardH - 100;
-    ctx.textAlign = 'center';
-    ctx.fillStyle = c.textMuted;
-    ctx.font = '600 14px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText('🛡️ Données consolidées en temps réel • Sources officielles et contrôles de terrain', cardX + cardW / 2, sealY);
-
-    const btnY = cardY + cardH - 64;
-    const btnH = 50;
-    const ctaGrad = studioCreateEmeraldGradient(ctx, cardX + 36, btnY, cardW - 72, btnH);
-    studioRoundBox(ctx, cardX + 36, btnY, cardW - 72, btnH, 12, ctaGrad, c.ctaBorder, 1.5, true);
-    ctx.textAlign = 'center';
-    ctx.fillStyle = c.ctaText;
-    ctx.font = 'bold 18px "Plus Jakarta Sans", Inter, sans-serif';
-    ctx.fillText('👉 Consultez la liste complète sur https://projetbi.org', cardX + cardW / 2, btnY + 32);
   }
 
   studioDrawFooter(ctx, '', w, h, c);
