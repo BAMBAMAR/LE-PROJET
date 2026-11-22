@@ -3,143 +3,183 @@
   "press": [
     {
       "id": "1",
-      "title": "Quotidien",
+      "title": "L'As",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_1.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "(M2égh, L'engagement tranche wi LE JEU",
+      "verb": "TRANCHE"
     },
     {
       "id": "2",
-      "title": "Quotidien",
+      "title": "EnQuête",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_2.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "16° BIENNALE DE DAKAR",
+      "verb": "ALERTE"
     },
     {
       "id": "3",
       "title": "Quotidien",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_3.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Pastef dénonce une violation grave de la Constitution",
+      "verb": "DÉNONCE"
     },
     {
       "id": "4",
-      "title": "Quotidien",
+      "title": "Walf Quotidien",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_4.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "MISE EN ŒUVRE DE LA LFR PAR DECRET",
+      "verb": "ALERTE"
     },
     {
       "id": "5",
-      "title": "Quotidien",
+      "title": "L'As",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_5.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "COUPE DU MONDE FIFA NDIOGOU SARR, MAITRE DE",
+      "verb": "ALERTE"
     },
     {
       "id": "6",
       "title": "Quotidien",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_6.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "LA LOI DE FINANCES RECTIFICATIVES MASSAMBA DIOP COORDONNATEUR KIIRAAY THIES NORD CADRE WIRAAY",
+      "verb": "ALERTE"
     },
     {
       "id": "7",
       "title": "Quotidien",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_7.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "25E ÉDITION DE LA JOURNÉE DES FORCES ARMÉES LU EL: ANS PUBLIQUES DÉCRET",
+      "verb": "ALERTE"
     },
     {
       "id": "8",
       "title": "Quotidien",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_8.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "DIOMAYE COURT-CIRCUITE",
+      "verb": "COURT-CIRCUITE"
     },
     {
       "id": "9",
-      "title": "Quotidien",
+      "title": "EnQuête",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_9.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "EMIGRATION IRRÉGULIÈRE PAR VOIE MARITIME DRAME FAMILIAL AU QUARTIER MÉDINA MBABA DE KAOLACK",
+      "verb": "ALERTE"
     },
     {
       "id": "10",
-      "title": "Quotidien",
+      "title": "EnQuête",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_10.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "tactiques du sélectionneur des Lions Pige1t = j : juge d'instruction, seul habilité à",
+      "verb": "ALERTE"
     },
     {
       "id": "11",
       "title": "Quotidien",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_11.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "E ECS BUDGÉ TAIRES ET DÉGRADATIONS DE LA NOTE DU",
+      "verb": "ALERTE"
     },
     {
       "id": "12",
-      "title": "Quotidien",
+      "title": "L'As",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_12.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "femmes pour dénonce",
+      "verb": "DÉNONCE"
     },
     {
       "id": "13",
-      "title": "Quotidien",
+      "title": "L'As",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_13.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "de Kiiraay fustige , ç : ODA DES FORCES NES",
+      "verb": "FUSTIGE"
     },
     {
       "id": "14",
       "title": "Quotidien",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_14.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "MALGRE LE VÉTO DES DÉPUTÉS DE PASTEF >> INSULTES EN LIGNE",
+      "verb": "ALERTE"
     },
     {
       "id": "15",
-      "title": "Quotidien",
+      "title": "L'As",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_15.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "son entiere ÆABDOURAKHMANE DABO DE KIIRAAY CHARGE SONKO ET COMPAGNIE",
+      "verb": "CHARGE"
     },
     {
       "id": "16",
       "title": "Quotidien",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_16.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "MIMI : SONKO ET SES DÉPUTÉS F3 MASSAMBA DIOP, COORDONNATEUR KIIRAAY THIES NORD, CRACHE SES VERITES",
+      "verb": "ALERTE"
     },
     {
       "id": "17",
       "title": "Quotidien",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_17.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "MEURTRE D'AZIZ DABALA ET DE WALLY ( CONTROLE JUDICIAIRE LEPARQUET DEMANDE MP N, REUG-REUG",
+      "verb": "ALERTE"
     },
     {
       "id": "18",
       "title": "Quotidien",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_18.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "AFFAIRE AZIZ DABALA ET DE WALY",
+      "verb": "ALERTE"
     },
     {
       "id": "19",
       "title": "Quotidien",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_19.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "LE PRÉSIDENT APPELLE À UNE COOPÉRATION MILITAIRE RENFORCÉE EN AFRIQUE DE L'OUEST",
+      "verb": "ALERTE"
     },
     {
       "id": "20",
-      "title": "Quotidien",
+      "title": "L'As",
       "date": "20/11/2026",
       "image": "revuedepresse/revue_2026-11-20_20.webp",
-      "link": "#"
+      "link": "#",
+      "headline": "Aminata Touré s'attaque à",
+      "verb": "ATTAQUE"
     },
     {
       "id": "21",
@@ -274,5 +314,6 @@
       "image": "revuedepresse/revue_2026-11-20_39.webp",
       "link": "#"
     }
-  ]
+  ],
+  "last_ocr_update": "2026-11-22T20:38:40.274Z"
 }
