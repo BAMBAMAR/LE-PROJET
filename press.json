@@ -1,371 +1,378 @@
 {
-  "last_updated": "2026-11-24T08:16:40.843Z",
+  "last_updated": "2026-11-25T04:55:27.979Z",
   "press": [
     {
       "id": "1",
-      "title": "Les Échos",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_1.webp",
+      "title": "Yoor-Yoor",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_1.webp",
       "link": "#",
-      "headline": "=3 ,;6: 5: -- —— -— >",
+      "headline": "une 2e étoile du M / 747. *. Ta 1°0 282 4 2 renrend le trône d'Afrique",
       "verb": "ALERTE"
     },
     {
       "id": "2",
-      "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_2.webp",
+      "title": "EnQuête",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_2.webp",
       "link": "#",
-      "headline": "4° 17:47 IÉCODAGE",
-      "verb": "ALERTE"
+      "headline": "Seydou Diouf dénonce",
+      "verb": "DÉNONCE"
     },
     {
       "id": "3",
-      "title": "EnQuête",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_3.webp",
+      "title": "Quotidien",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_3.webp",
       "link": "#",
-      "headline": ") D \\ U MARDI 24 = \\ NOVEMBRE 2026",
+      "headline": "SECTE N US Pages ! Le Tas déclare le Sénégal vainqueur",
       "verb": "ALERTE"
     },
     {
       "id": "4",
-      "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_4.webp",
+      "title": "L'As",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_4.webp",
       "link": "#",
-      "headline": "FINALE CAN 2025- FEUILLETON JUDICIAIRE ENTRE LE SENEGAL",
-      "verb": "ALERTE"
+      "headline": "Le code de la presse sur Thierno Alassane Sall déchire le",
+      "verb": "DÉCHIRE"
     },
     {
       "id": "5",
-      "title": "L'As",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_5.webp",
-      "link": "#",
-      "headline": "LE TAS TRANCHE",
-      "verb": "TRANCHE"
-    },
-    {
-      "id": "6",
       "title": "Les Échos",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_6.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_5.webp",
       "link": "#",
-      "headline": "Il réclame à Atépa 10 milliards, un mandat de dépôt à l'audience ou un mandat d'arrêt",
+      "headline": "Elle réclame 200 millions à titre de réparation du préjudice subi",
       "verb": "RÉCLAME"
     },
     {
-      "id": "7",
+      "id": "6",
       "title": "Walf Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_7.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_6.webp",
       "link": "#",
-      "headline": "RIVALITE APR - NOUVELLE RESPONSABILITE LANCEMENT DE LA PLATEFORME FAMA",
-      "verb": "ALERTE"
+      "headline": "Pastef menace les",
+      "verb": "MENACE"
+    },
+    {
+      "id": "7",
+      "title": "L'As",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_7.webp",
+      "link": "#",
+      "headline": "TAS DÉCHIRE LE :",
+      "verb": "DÉCHIRE"
     },
     {
       "id": "8",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_8.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_8.webp",
       "link": "#",
-      "headline": "ALERTE SANTÉ",
+      "headline": "7 À L'ORIGINE DE PLUSIEURS CAMBRIOLAGES DE BOUTIQUES À KOLDA",
       "verb": "ALERTE"
     },
     {
       "id": "9",
-      "title": "L'As",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_9.webp",
+      "title": "Quotidien",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_9.webp",
       "link": "#",
-      "headline": "L'ASSEMBLÉE EXIGE FIXE LE CAP-",
-      "verb": "EXIGE"
+      "headline": "* La jeunesse et l'orpaillage : deux volets communs aux deux régions",
+      "verb": "ALERTE"
     },
     {
       "id": "10",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_10.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_10.webp",
       "link": "#",
-      "headline": ". MACKY SALL EXCLUT = & TOUTE COALITION",
+      "headline": "K. Koulibaly : Encore et toujours champions d'Afrique",
       "verb": "ALERTE"
     },
     {
       "id": "11",
-      "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_11.webp",
+      "title": "L'As",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_11.webp",
       "link": "#",
-      "headline": "MBOUR / < UN WEEK-END, UN QUARTIER É CHEIKH ISSA SALL FAIT MESSE:",
+      "headline": "CLASSEMENT FIFA È COUP DE TONNERRE SUR LE FOOTBALL AFRICAIN 15120 E",
       "verb": "ALERTE"
     },
     {
       "id": "12",
-      "title": "L'As",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_12.webp",
+      "title": "Tribune",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_12.webp",
       "link": "#",
-      "headline": "Le criminologue Djiby Diallo fustige + 19-25 à (es ä",
-      "verb": "FUSTIGE"
+      "headline": "Protection des lanceurs d'alerte :",
+      "verb": "ALERTE"
     },
     {
       "id": "13",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_13.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_13.webp",
       "link": "#",
-      "headline": "AR BALISE LE CHEMIN ME- NANT À LA MAIRIE DE GOLF SUD",
+      "headline": "FINALE CAN 2025- DÉCISION DU TAS RELANCE DE LA STRATÉGIE YEKSI-NAA POUR EVITER LES RUPTURES DESTOCX TRIOMPHE",
       "verb": "ALERTE"
     },
     {
       "id": "14",
-      "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_14.webp",
+      "title": "L'Indépendant",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_14.webp",
       "link": "#",
-      "headline": "boulangers défie l'Etat += *… le dénouement",
-      "verb": "DÉFIE"
+      "headline": "une forte dimension religieuse, sociale et politique qui exige > j/ À Li",
+      "verb": "EXIGE"
     },
     {
       "id": "15",
-      "title": "L'As",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_15.webp",
+      "title": "Quotidien",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_15.webp",
       "link": "#",
-      "headline": "SOUVERAINETE ALIMENTAIRE REPONSE AU DECRET PRESIDENTIEL DE MISE EN OEUVRE DE LA LFR2026",
+      "headline": "AGENDA NATIONAL DE TRANSFORMATION === FINALE CAN 2025 : APRÈS 10 MOIS DE PROLONGATIONS",
       "verb": "ALERTE"
     },
     {
       "id": "16",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_16.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_16.webp",
       "link": "#",
-      "headline": "Fou Kiné Diop mois 000 Dlidiack Faye prend les",
+      "headline": "CAN 2025 : LE TAS RÉTABLIT LE SÉNÉGAL-© 4 MA VERS 2 (GER *",
       "verb": "ALERTE"
     },
     {
       "id": "17",
-      "title": "L'Info",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_17.webp",
+      "title": "L'As",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_17.webp",
       "link": "#",
-      "headline": "© Babacar Gaye, ancien député du PDS attaque la régularité et les délais de",
-      "verb": "ATTAQUE"
+      "headline": "I fustige l'acte de Diomaye : La validation de la LFR par décret procède d'une violation flagrante et incontestable <<",
+      "verb": "FUSTIGE"
     },
     {
       "id": "18",
-      "title": "L'As",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_18.webp",
+      "title": "Quotidien",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_18.webp",
       "link": "#",
-      "headline": "VERDICT FINALE CAN 2025 AU TAS RECOMPOSITION POLITIQUE ARF PRODUCTI € TRDIS JOU 4 ‘",
+      "headline": "Listes communes, rassemblement * WMA 25 #-] ! Page 7",
       "verb": "ALERTE"
     },
     {
       "id": "19",
-      "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_19.webp",
+      "title": "L'As",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_19.webp",
       "link": "#",
-      "headline": "explose le Cuba",
-      "verb": "EXPLOSE"
+      "headline": "GRÈVE DE 72 HEURES DE SYNDICATS DE BOULANGERS : APRÈS 03 HEURES DE NÉGOCIATIONS LE PRÉSIDENT FALY SECK OBTIENT DE L'IN-",
+      "verb": "ALERTE"
     },
     {
       "id": "20",
-      "title": "Sud Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_20.webp",
+      "title": "Quotidien",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_20.webp",
       "link": "#",
-      "headline": "LE VERDICT DE LA CAN 2025 QUOTIDIEN D'INFORMATIONS GÉNÉRALES",
-      "verb": "ALERTE"
+      "headline": "la 17e Conférence des ministres en charge de l'emploi et de travaux doivent aller au-delà des",
+      "verb": "CHARGE"
     },
     {
       "id": "21",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_21.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_21.webp",
       "link": "#",
-      "headline": "POUR BOOSTER LA PRODUCTION LOCALE >",
+      "headline": "CAP MANUEL ; LE LITTORAL SOUS LE",
       "verb": "ALERTE"
     },
     {
       "id": "22",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_22.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_22.webp",
       "link": "#",
-      "headline": "/ dénonce deux mois",
-      "verb": "DÉNONCE"
+      "headline": "OF ASE D 108 > : CAN 2025 : LE SÉNÉGAL SACRÉ CHAMPION D'AFRIQUE",
+      "verb": "ALERTE"
     },
     {
       "id": "23",
-      "title": "Grand Panel",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_23.webp",
+      "title": "Quotidien",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_23.webp",
       "link": "#",
-      "headline": "CÉLÉBRATION DU 10° ANNIVERSAIRE DE L’USSD 2 , FORUM INTERNATIONAL SUR LES DONNÉES",
+      "headline": "/ ° = 13 JUILLET 2017 74-40 4, —=< LECODE DELA",
       "verb": "ALERTE"
     },
     {
       "id": "24",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_24.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_24.webp",
       "link": "#",
-      "headline": "lieu de commerce et menace de",
-      "verb": "MENACE"
+      "headline": "PLAINTE DU MINISTRE AMY MARA (GAN SERIGNE MBOUP + Î",
+      "verb": "ALERTE"
     },
     {
       "id": "25",
-      "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_25.webp",
+      "title": "Grand Panel",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_25.webp",
       "link": "#",
-      "headline": "IF6 QU CAMION IFOGIFITIQUE : GHIGNG MNOUN ROFSISUG, SIGNG",
+      "headline": "FINALE COUPE D’AFRIQUE 2025 À ;; VIE ANNGP 1160 =",
       "verb": "ALERTE"
     },
     {
       "id": "26",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_26.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_26.webp",
       "link": "#"
     },
     {
       "id": "27",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_27.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_27.webp",
       "link": "#"
     },
     {
       "id": "28",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_28.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_28.webp",
       "link": "#"
     },
     {
       "id": "29",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_29.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_29.webp",
       "link": "#"
     },
     {
       "id": "30",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_30.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_30.webp",
       "link": "#"
     },
     {
       "id": "31",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_31.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_31.webp",
       "link": "#"
     },
     {
       "id": "32",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_32.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_32.webp",
       "link": "#"
     },
     {
       "id": "33",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_33.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_33.webp",
       "link": "#"
     },
     {
       "id": "34",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_34.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_34.webp",
       "link": "#"
     },
     {
       "id": "35",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_35.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_35.webp",
       "link": "#"
     },
     {
       "id": "36",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_36.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_36.webp",
       "link": "#"
     },
     {
       "id": "37",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_37.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_37.webp",
       "link": "#"
     },
     {
       "id": "38",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_38.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_38.webp",
       "link": "#"
     },
     {
       "id": "39",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_39.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_39.webp",
       "link": "#"
     },
     {
       "id": "40",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_40.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_40.webp",
       "link": "#"
     },
     {
       "id": "41",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_41.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_41.webp",
       "link": "#"
     },
     {
       "id": "42",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_42.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_42.webp",
       "link": "#"
     },
     {
       "id": "43",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_43.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_43.webp",
       "link": "#"
     },
     {
       "id": "44",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_44.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_44.webp",
       "link": "#"
     },
     {
       "id": "45",
       "title": "Quotidien",
-      "date": "24/11/2026",
-      "image": "revuedepresse/revue_2026-11-24_45.webp",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_45.webp",
+      "link": "#"
+    },
+    {
+      "id": "46",
+      "title": "Quotidien",
+      "date": "25/11/2026",
+      "image": "revuedepresse/revue_2026-11-25_46.webp",
       "link": "#"
     }
   ],
-  "last_ocr_update": "2026-11-24T08:17:06.165Z"
+  "last_ocr_update": "2026-11-25T04:56:50.667Z"
 }
