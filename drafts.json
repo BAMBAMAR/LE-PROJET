@@ -1,15 +1,15 @@
 {
   "drafts": [
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Conseil des ministres du 28 octobre 2026",
       "description": "Conseil des ministres du 28 octobre 2026",
       "source": "Primature — Actualités",
       "source_url": "https://primature.sn/publications/actualites/conseil-des-ministres-du-28-octobre-2026",
       "date": "2026-11-27",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261127154152_13",
       "_dedup_key": "777afb44de3506ea",
@@ -129,15 +129,15 @@
       "created_at": "2026-11-27T15:41:52.899730+00:00"
     },
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Conseil des ministres du 25 novembre 2025",
       "description": "Conseil des ministres du 25 novembre 2025",
       "source": "Primature — Actualités",
       "source_url": "https://primature.sn/publications/actualites/conseil-des-ministres-du-25-novembre-2025",
       "date": "2026-11-26",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261126155354_8",
       "_dedup_key": "da605b881804847f",
@@ -257,15 +257,15 @@
       "created_at": "2026-11-26T15:53:54.870706+00:00"
     },
     {
-      "type": "news",
-      "promise_id": null,
+      "type": "promise_update",
+      "promise_id": "promise_139",
       "title": "Conseil des ministres : Le Président Bassirou Diomaye Faye demande l'exécution « sans délai » de la LFR 2026 mise en vigueur par décret - DAKARACTU.COM",
       "description": "Conseil des ministres : Le Président Bassirou Diomaye Faye demande l'exécution « sans délai » de la LFR 2026 mise en vigueur par décret&nbsp;&nbsp;DAKARACTU.COM",
       "source": "DAKARACTU.COM",
       "source_url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxQWmxpRmg1TGhpWEQyc09GY20tQjFJZ1p0dzNyMERueFlKSzVXRFNMN2ZiVVJyUlE1UUllSXEyZ1pnN2VnNXFKRnFEeFJMSUxKcS1DeGY1RExpdm9hcjljcVNpU0xfc25KR3l6OU9CY1hsaDZzWElBU09WS1RNQTBMNGhIZlpDNFhRYmY1ZXFjUzVKeF9EVWtwRGxZdXpLUVJGMkw1UTMyYXJpQTk1a1RJOUNBMjVuLVduTjFhRF9jWFdEaUNGU0xJSjM1Y1JWc0JNUXNRT1MxS2pMenRGS2NUTUFjejVLU2ZFVkNRS0t3?oc=5",
       "date": "2026-11-26",
-      "domain": "Politique",
-      "confidence": 0.6,
+      "domain": "Finances",
+      "confidence": 0.9,
       "keywords": [],
       "id": "draft_20261126155354_0",
       "_dedup_key": "f85de4627254208e",
@@ -3201,5 +3201,5 @@
       "created_at": "2026-11-01T12:07:45.274579+00:00"
     }
   ],
-  "last_updated": "2026-11-27T17:13:27.622Z"
+  "last_updated": "2026-11-27T17:19:26.820Z"
 }
