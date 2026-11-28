@@ -1,371 +1,280 @@
 {
-  "last_updated": "2026-11-27T17:17:41.103Z",
+  "last_updated": "2026-11-28T12:38:20.937Z",
   "press": [
     {
       "id": "1",
-      "title": "Direct News",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_1.webp",
+      "title": "Les Échos",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_1.webp",
       "link": "#",
-      "headline": "C3. Sonko tance Métier es di sonmo nécre niomnvE jes UIMES",
-      "verb": "TANCE"
+      "headline": "ALTERNATIVE AVEG MACKY, IDY… A DIRECTION GÉNÉRALE AT ® Æ =",
+      "verb": "ALERTE"
     },
     {
       "id": "2",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_2.webp",
+      "title": "L'As",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_2.webp",
       "link": "#",
-      "headline": "Menace de paralysie de l’administration fiscale",
-      "verb": "MENACE"
+      "headline": "PAR EL HADJ NDARY GUEYE SOUVERAINETÉ COMMUNAUTAIRE FACE AUX ENJEUX",
+      "verb": "ALERTE"
     },
     {
       "id": "3",
-      "title": "L'As",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_3.webp",
+      "title": "Quotidien",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_3.webp",
       "link": "#",
-      "headline": "PLANIFICATION FAMILIALE EN ATTENTE, UN DÉFI",
-      "verb": "ALERTE"
+      "headline": "Barthélemy Dias révèle des discussions avec Macky Sall et Idrissa Seck en vue Tin",
+      "verb": "RÉVÈLE"
     },
     {
       "id": "4",
       "title": "Walf Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_4.webp",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_4.webp",
       "link": "#",
-      "headline": "APRES LE BRAS DE FER BUDGETAIRE",
+      "headline": "CREATION D’UN PUISSANT BLOC DE L’OPPOSITION",
       "verb": "ALERTE"
     },
     {
       "id": "5",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_5.webp",
+      "title": "Les Échos",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_5.webp",
       "link": "#",
-      "headline": "TS 65 : 330 ; AUPREÈS DES TRANSITAIRES POUR DPW EE CU ET NE TRIBUNAL DE COMMERCE",
+      "headline": "RENOUVELLEMENT DES CARTES D'IDENTITÉ MATCH AMICAL SÉNÉGAL — CÔTE D'IVOIRE FÉMININ DETTE, INONDATIONS, BANCO SANTANDER, FON…",
       "verb": "ALERTE"
     },
     {
       "id": "6",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_6.webp",
+      "title": "L'As",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_6.webp",
       "link": "#",
-      "headline": "CEDEAO - AES NOUVELLE LOI CADASTRE",
+      "headline": "CARTES NATIONALES D'IDENTITÉ BIOMÉJRIQUES ARRIVANT À EXPIRATION — 2 = - /) SARRSORT",
       "verb": "ALERTE"
     },
     {
       "id": "7",
-      "title": "Les Échos",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_7.webp",
+      "title": "EnQuête",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_7.webp",
       "link": "#",
-      "headline": "OFFENSIVE POLITIQUE AFFAIRE PAWLISH MBAYE ASSIGNATION EN ANNULATION DE MUTATION FRAUDULEUSE",
+      "headline": "‘Création de quatre commissions Balla Gaye 2-AdaFass Décès de Adama Salif Lamine",
       "verb": "ALERTE"
     },
     {
       "id": "8",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_8.webp",
+      "title": "EnQuête",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_8.webp",
       "link": "#",
-      "headline": "SONKO PERDRA-T-IL SISE À LA CITE KEUR GORGUI ?",
+      "headline": "une éventuelle dissolution de l'Assemblée pages € Bougane Guèye Dany et autres Page",
       "verb": "ALERTE"
     },
     {
       "id": "9",
       "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_9.webp",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_9.webp",
       "link": "#",
-      "headline": "= LIBÉRÉ POUR LE 09 DÉCEMBRE. - + 2X 7 LÂCHENT PAS",
+      "headline": "semblement à l’étranger de Küiray. Plusieurs hôtels affichent déjà complet, tandis",
       "verb": "ALERTE"
     },
     {
       "id": "10",
       "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_10.webp",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_10.webp",
       "link": "#",
-      "headline": "LE PRÉSIDENT DIOMAYE FAŸE ENTRE INAUGU- RATION ET VISITE DE TERRAINS",
+      "headline": "CAN BEACH SOCCER 2026",
       "verb": "ALERTE"
     },
     {
       "id": "11",
-      "title": "L'As",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_11.webp",
+      "title": "EnQuête",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_11.webp",
       "link": "#",
-      "headline": "ss ES TE £ senegal traque",
-      "verb": "TRAQUE"
+      "headline": "ANNONCE DE LA DIRECTION DE L'AUTOMATISATION DES FICHIERS (DAF) LUTTE CONTRE LA CRIMINALITE PHARMACEUTIQUE RECOMPOSITION PO…",
+      "verb": "ALERTE"
     },
     {
       "id": "12",
-      "title": "L'Info",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_12.webp",
+      "title": "Grand Panel",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_12.webp",
       "link": "#",
-      "headline": "© Le chef de l'Etat ordonne i/",
-      "verb": "ORDONNE"
+      "headline": "LARGE DE DJIFERE 2 #55",
+      "verb": "ALERTE"
     },
     {
       "id": "13",
-      "title": "Sud Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_13.webp",
+      "title": "L'As",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_13.webp",
       "link": "#",
-      "headline": "RETRAITE À 65 ANS TOURNÉE ÉCONOMIQUE À TAMBA ET KÉDOUGOU 7",
+      "headline": "USURPATION DE FONCTION Ÿ FONCTIONNEMENT DE L'ASSEMBLÉE NATIONALE ILSEFAITPASSER 97 NN SONKO PREND",
       "verb": "ALERTE"
     },
     {
       "id": "14",
-      "title": "L'As",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_14.webp",
+      "title": "Quotidien",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_14.webp",
       "link": "#",
-      "headline": "CENTENAIRE DE L'ASSASSINAT DE BATLING SIX",
+      "headline": "LE CAP DES 16ES DE FINALE DIPLOMATIE RÉGIONALE ET",
       "verb": "ALERTE"
     },
     {
       "id": "15",
-      "title": "L'As",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_15.webp",
+      "title": "Quotidien",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_15.webp",
       "link": "#",
-      "headline": ": PE = { DIOMAYE FACE",
+      "headline": "MANŒUVRE NATIONALE BOUNDOU 2026 FTP BARTH VEUT FEDERER L'OPPOSITION AL)",
       "verb": "ALERTE"
     },
     {
       "id": "16",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_16.webp",
+      "title": "Le Mandat",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_16.webp",
       "link": "#",
-      "headline": "VO! ENCE CONJUGAI E ET DES AFFAIRES FONCIÈRES A N",
-      "verb": "ALERTE"
+      "headline": "La plateforme citoyenne réclame l'audit de ces fonds x - € =)",
+      "verb": "RÉCLAME"
     },
     {
       "id": "17",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_17.webp",
+      "title": "EnQuête",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_17.webp",
       "link": "#",
-      "headline": "DRAME FAMILIAL P.4 TOURNÉE PRESIDENTIELLE DANS L'EST",
-      "verb": "ALERTE"
+      "headline": "== == 5) } L'Intersyndicale dénonce les marchés publics",
+      "verb": "DÉNONCE"
     },
     {
       "id": "18",
-      "title": "L'As",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_18.webp",
+      "title": "Quotidien",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_18.webp",
       "link": "#",
-      "headline": "AGENDA NATIONAL DE TRANSFORMATION =",
+      "headline": "FEUE ADJIA FAMBAYE FALL DIOP : LA RÉPUBLIQUE DOIT UN HOMMAGE",
       "verb": "ALERTE"
     },
     {
       "id": "19",
-      "title": "L'As",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_19.webp",
+      "title": "Quotidien",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_19.webp",
       "link": "#",
-      "headline": "L'ALERTE DE L'EXPERT FINANCIER MADANA KANE",
+      "headline": "AGENDA NATIONAL DE TRANSFORMATION =-AEESES GRANDE MOSQUÉE DE KÉDOUGOU",
       "verb": "ALERTE"
     },
     {
       "id": "20",
-      "title": "Grand Panel",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_20.webp",
+      "title": "EnQuête",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_20.webp",
       "link": "#",
-      "headline": "SÉCURITÉ PORTUAIRE GARD ER LE CAP P4 ;",
+      "headline": "COMMISSIONS D'ENQUÊTE BARTHELEMY TEND LA MAIN",
       "verb": "ALERTE"
     },
     {
       "id": "21",
-      "title": "Sud Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_21.webp",
+      "title": "Rewmi Quotidien",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_21.webp",
       "link": "#",
-      "headline": "Puisque son parti a grandi, je le défie d'organiser ces élections 3 mois P4M4",
-      "verb": "DÉFIE"
+      "headline": "LARECONQUÊTE 44 -",
+      "verb": "ALERTE"
     },
     {
       "id": "22",
-      "title": "L'As",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_22.webp",
+      "title": "Quotidien",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_22.webp",
       "link": "#",
-      "headline": "PROCÈS SANS CITATION ET PRESSIONS DU PALAIS MAR SG HÔPITAL DE BAKEL",
+      "headline": "LANCEMENT DE SES PLATEFORMES NUMÉRIQUES P.4 EN DEMONSTRATION",
       "verb": "ALERTE"
     },
     {
       "id": "23",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_23.webp",
+      "title": "EnQuête",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_23.webp",
       "link": "#",
-      "headline": ": FOOTBALL / LFR 2026 / DÉBAT SUR LE S FINALISTES DU BALLON D'OR 2026 Ÿ DÉCRET PRÉSIDENTIEL",
-      "verb": "ALERTE"
+      "headline": "ss C4 la bbilité d'un député n'est pas de sabote de ri",
+      "verb": "SABOTE"
     },
     {
       "id": "24",
-      "title": "Vox Populi",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_24.webp",
+      "title": "EnQuête",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_24.webp",
       "link": "#",
-      "headline": "UNE ASC, UN PROJET1 DABA CODÉ À BARA NDIAYE",
+      "headline": "GOUVERNANCE FONCIÈRE- RÉORGANISATION ADMI- @2SSENETEN ETETT NISTRATIVE....MALGRE LA FRONDE DES AGENTS \\",
       "verb": "ALERTE"
     },
     {
       "id": "25",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_25.webp",
+      "title": "Le Soleil",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_25.webp",
       "link": "#",
-      "headline": ". w SONKO DÉFIE",
-      "verb": "DÉFIE"
+      "headline": "annoncé un pôle mère-enfant F-20457 > \\ lea) NM ç f Ex",
+      "verb": "ALERTE"
     },
     {
       "id": "26",
       "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_26.webp",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_26.webp",
       "link": "#"
     },
     {
       "id": "27",
       "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_27.webp",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_27.webp",
       "link": "#"
     },
     {
       "id": "28",
       "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_28.webp",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_28.webp",
       "link": "#"
     },
     {
       "id": "29",
       "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_29.webp",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_29.webp",
       "link": "#"
     },
     {
       "id": "30",
       "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_30.webp",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_30.webp",
       "link": "#"
     },
     {
       "id": "31",
       "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_31.webp",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_31.webp",
       "link": "#"
     },
     {
       "id": "32",
       "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_32.webp",
-      "link": "#"
-    },
-    {
-      "id": "33",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_33.webp",
-      "link": "#"
-    },
-    {
-      "id": "34",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_34.webp",
-      "link": "#"
-    },
-    {
-      "id": "35",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_35.webp",
-      "link": "#"
-    },
-    {
-      "id": "36",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_36.webp",
-      "link": "#"
-    },
-    {
-      "id": "37",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_37.webp",
-      "link": "#"
-    },
-    {
-      "id": "38",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_38.webp",
-      "link": "#"
-    },
-    {
-      "id": "39",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_39.webp",
-      "link": "#"
-    },
-    {
-      "id": "40",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_40.webp",
-      "link": "#"
-    },
-    {
-      "id": "41",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_41.webp",
-      "link": "#"
-    },
-    {
-      "id": "42",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_42.webp",
-      "link": "#"
-    },
-    {
-      "id": "43",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_43.webp",
-      "link": "#"
-    },
-    {
-      "id": "44",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_44.webp",
-      "link": "#"
-    },
-    {
-      "id": "45",
-      "title": "Quotidien",
-      "date": "27/11/2026",
-      "image": "revuedepresse/revue_2026-11-27_45.webp",
+      "date": "28/11/2026",
+      "image": "revuedepresse/revue_2026-11-28_32.webp",
       "link": "#"
     }
   ],
-  "last_ocr_update": "2026-11-27T17:19:10.228Z"
+  "last_ocr_update": "2026-11-28T12:39:40.421Z"
 }
